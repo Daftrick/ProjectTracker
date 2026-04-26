@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v6.0 — 25-Apr-2026
+## Versión actual: v8.0 — 26-Apr-2026
 
 ---
 
@@ -131,7 +131,7 @@ id, project_id, quote_number, quote_type (General|Preliminar|Extraordinaria),
 version, client, project_name, date, currency, tax_rate, items[],
 subtotal, tax, total, notes, created_at
 ```
-Item: `{catalog_item_id, description, unit, qty, price, total, catalog_description}`
+Item: `{catalog_item_id, description, unit, qty, price, total, catalog_description, section}`
 
 ### LDM — Lista de Materiales (`materiales.json`)
 ```
@@ -208,6 +208,7 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | Cotizaciones | CRUD P/G/E, numeración automática | `routes/quotes.py` + `catalog.py` |
 | Cotizaciones | Generación de PDF con portada y condiciones | `pdfs.py:build_quote_pdf` |
 | Cotizaciones | Hidratación desde catálogo (por ID o por nombre) | `catalog.py:hydrate_quote` |
+| Cotizaciones | Secciones opcionales con encabezado y subtotal por sección en formulario, vista y PDF | `validators.py` + `catalog.py` + `pdfs.py` |
 | LDMs | CRUD, PDF, set costo manual | `routes/materials.py` |
 | LDMs | API JSON para actualizar costo (`/api/ldm/<id>/costo`) | `routes/materials.py:api_ldm_set_costo` |
 | Catálogo | CRUD + búsqueda + API JSON (`/api/catalogo`) | `routes/admin.py` |
@@ -391,6 +392,10 @@ Los aliases aceptados en formularios: `general`, `preliminar`, `extraordinaria`,
 | 2026-04-25 | Estado de exportaciones CSV en Drive: parseo `{CLAVE}-v{VER}-i{CONSEC}-{FECHA}.csv`, badges de estado en Documentos y pruebas de escaneo |
 | 2026-04-25 | Versión bumped v5.1 → v6.0 (feature: estado de CSV de plano) |
 | 2026-04-25 | Repositorio Git local sincronizable con GitHub remoto `https://github.com/Daftrick/ProjectTracker.git` (`origin`) |
+| 2026-04-26 | Cotizaciones: secciones opcionales para agrupar partidas, con subtotales por sección en vista y PDF sin salto de página forzado |
+| 2026-04-26 | Versión bumped v6.0 → v7.0 (feature: secciones en cotizaciones) |
+| 2026-04-26 | Lanzadores: `INICIAR.vbs`/`INICIAR.bat` ya no abren otra pestaña ni levantan otra instancia si el puerto 8080 está activo; `REINICIAR.bat` reinicia sólo el proceso dueño del puerto y relanza sin abrir navegador |
+| 2026-04-26 | Versión bumped v7.0 → v8.0 (feature: lanzadores idempotentes) |
 
 ---
 

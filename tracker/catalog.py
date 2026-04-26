@@ -83,6 +83,21 @@ def quote_item_catalog_description(item):
     ).strip()
 
 
+def quote_item_section(item):
+    return str(item.get("section") or item.get("category") or item.get("group") or "").strip()
+
+
+def quote_section_groups(items):
+    groups = []
+    for item in items:
+        section = quote_item_section(item)
+        if not groups or groups[-1]["name"] != section:
+            groups.append({"name": section, "items": [], "subtotal": 0.0})
+        groups[-1]["items"].append(item)
+        groups[-1]["subtotal"] = round(groups[-1]["subtotal"] + safe_float(item.get("total", 0)), 2)
+    return groups
+
+
 def hydrate_quote_item(item, catalog_by_id, catalog_by_name, infer_by_name=True):
     hydrated = dict(item)
     stored_price = safe_float(hydrated.get("price", item.get("price", 0) if isinstance(item, dict) else 0))
@@ -104,6 +119,7 @@ def hydrate_quote_item(item, catalog_by_id, catalog_by_name, infer_by_name=True)
         hydrated["catalog_linked"] = False
         hydrated["catalog_missing"] = bool(catalog_item_id)
         hydrated["price"] = stored_price
+    hydrated["section"] = quote_item_section(hydrated)
     hydrated["qty"] = safe_float(hydrated.get("qty", 0))
     hydrated["total"] = round(hydrated["qty"] * hydrated["price"], 2)
     return hydrated
@@ -120,6 +136,7 @@ def hydrate_quote(quote, catalog_by_id=None, catalog_by_name=None):
     hydrated["subtotal"] = subtotal
     hydrated["tax"] = round(subtotal * tax_rate / 100, 2)
     hydrated["total"] = round(subtotal + hydrated["tax"], 2)
+    hydrated["sections"] = quote_section_groups(hydrated["items"])
     return hydrated
 
 

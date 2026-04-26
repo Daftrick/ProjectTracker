@@ -78,6 +78,35 @@ class ValidatorsTest(unittest.TestCase):
         self.assertEqual(result["subtotal"], 21.0)
         self.assertEqual(result["items"][0]["total"], 21.0)
 
+    def test_quote_assigns_items_to_section_rows(self):
+        result = validate_quote_form(
+            MultiDict([
+                ("date", "2026-04-24"),
+                ("tax_rate", "16"),
+                ("currency", "MXN"),
+                ("item_kind[]", "section"),
+                ("item_section[]", "Bodega de alcohol"),
+                ("item_desc[]", ""),
+                ("item_unit[]", ""),
+                ("item_qty[]", ""),
+                ("item_price[]", ""),
+                ("item_catalog_id[]", ""),
+                ("item_desc2[]", ""),
+                ("item_kind[]", "item"),
+                ("item_section[]", ""),
+                ("item_desc[]", "Salida eléctrica"),
+                ("item_unit[]", "pza"),
+                ("item_qty[]", "2"),
+                ("item_price[]", "750"),
+                ("item_catalog_id[]", ""),
+                ("item_desc2[]", ""),
+            ])
+        )
+
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["items"][0]["section"], "Bodega de alcohol")
+        self.assertEqual(result["subtotal"], 1500.0)
+
     def test_ldm_requires_supplier_and_real_items(self):
         result = validate_ldm_form(
             MultiDict([

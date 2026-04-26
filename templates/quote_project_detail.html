@@ -24,6 +24,18 @@
   .quote-summary .quote-summary-total .quote-summary-total-value{
     color:#92d0a6 !important;
   }
+  .quote-section-heading td{
+    background:#202936 !important;
+    color:#f2f6fb !important;
+    border-color:rgba(255,255,255,.12) !important;
+    font-weight:700;
+    text-transform:uppercase;
+  }
+  .quote-section-total td{
+    background:#111827 !important;
+    color:#d4dbe6 !important;
+    border-color:rgba(255,255,255,.1) !important;
+  }
 </style>
 {% endblock %}
 {% block content %}
@@ -48,15 +60,30 @@
           <tr><th>#</th><th>Descripción</th><th class="text-center">Unidad</th><th class="text-end">Cantidad</th><th class="text-end">Precio unit.</th><th class="text-end">Total</th></tr>
         </thead>
         <tbody>
-          {% for item in quote['items'] %}
-          <tr>
-            <td class="text-muted">{{ loop.index }}</td>
-            <td>{{ item.description }}</td>
-            <td class="text-center">{{ item.unit }}</td>
-            <td class="text-end">{{ item.qty }}</td>
-            <td class="text-end">{{ item.price | currency }}</td>
-            <td class="text-end fw-semibold">{{ item.total | currency }}</td>
-          </tr>
+          {% set row_ns = namespace(index=0) %}
+          {% for section in quote.sections %}
+            {% if section['name'] %}
+            <tr class="quote-section-heading">
+              <td colspan="6">{{ section['name'] }}</td>
+            </tr>
+            {% endif %}
+            {% for item in section['items'] %}
+            {% set row_ns.index = row_ns.index + 1 %}
+            <tr>
+              <td class="text-muted">{{ row_ns.index }}</td>
+              <td>{{ item.description }}</td>
+              <td class="text-center">{{ item.unit }}</td>
+              <td class="text-end">{{ item.qty }}</td>
+              <td class="text-end">{{ item.price | currency }}</td>
+              <td class="text-end fw-semibold">{{ item.total | currency }}</td>
+            </tr>
+            {% endfor %}
+            {% if section['name'] %}
+            <tr class="quote-section-total">
+              <td colspan="5" class="text-end fw-semibold">{{ section['name'] }} total</td>
+              <td class="text-end fw-bold">{{ section['subtotal'] | currency }}</td>
+            </tr>
+            {% endif %}
           {% endfor %}
         </tbody>
         <tfoot class="quote-summary">

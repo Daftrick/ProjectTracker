@@ -1,20 +1,23 @@
 @echo off
 REM ============================================================
-REM  REINICIAR.bat - Mata Python y relanza Project Tracker
+REM  REINICIAR.bat - Reinicia Project Tracker sin abrir otra pestana
 REM  Usa INICIAR.vbs (silencioso) si existe, sino INICIAR.bat
 REM ============================================================
 cd /d "%~dp0"
 
-REM -- Terminar cualquier instancia de Python corriendo --
-taskkill /f /im python.exe  /t >nul 2>&1
-taskkill /f /im pythonw.exe /t >nul 2>&1
+set APP_PORT=8080
+
+REM -- Terminar solo el proceso que escucha en el puerto de Project Tracker --
+for /f %%P in ('powershell -NoProfile -ExecutionPolicy Bypass -Command "$c = Get-NetTCPConnection -LocalPort %APP_PORT% -State Listen -ErrorAction SilentlyContinue | Select-Object -First 1; if ($c) { $c.OwningProcess }"') do (
+    taskkill /f /pid %%P /t >nul 2>&1
+)
 
 REM -- Esperar 2 segundos --
-timeout /t 2 /nobreak >nul
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Sleep -Seconds 2" >nul 2>&1
 
-REM -- Relanzar: VBS preferido (sin ventana), bat como fallback --
+REM -- Relanzar sin abrir navegador: VBS preferido (sin ventana), bat como fallback --
 if exist "%~dp0INICIAR.vbs" (
-    wscript.exe "%~dp0INICIAR.vbs"
+    wscript.exe "%~dp0INICIAR.vbs" noopen
 ) else (
-    start "" "%~dp0INICIAR.bat"
+    start "" "%~dp0INICIAR.bat" noopen
 )

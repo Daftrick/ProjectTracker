@@ -122,6 +122,8 @@ def validate_ldm_form(form):
 
 
 def _parse_quote_items(form, errors):
+    kinds = form.getlist("item_kind[]")
+    sections = form.getlist("item_section[]")
     descs = form.getlist("item_desc[]")
     desc2s = form.getlist("item_desc2[]")
     units = form.getlist("item_unit[]")
@@ -131,9 +133,16 @@ def _parse_quote_items(form, errors):
     catalog_by_id, catalog_by_name = catalog_maps()
     items = []
     subtotal = 0.0
+    current_section = ""
 
     for index, description in enumerate(descs):
+        kind = _clean(kinds[index]) if index < len(kinds) else "item"
+        raw_section = _clean(sections[index]) if index < len(sections) else ""
+        if kind == "section":
+            current_section = raw_section
+            continue
         row = index + 1
+        section = raw_section or current_section
         raw_qty = qtys[index] if index < len(qtys) else ""
         raw_price = prices[index] if index < len(prices) else ""
         has_values = (
@@ -163,6 +172,7 @@ def _parse_quote_items(form, errors):
             "qty": qty,
             "price": price,
             "catalog_description": _clean(desc2s[index]) if index < len(desc2s) else "",
+            "section": section,
         }
         hydrated = hydrate_quote_item(raw_item, catalog_by_id, catalog_by_name, infer_by_name=False)
         items.append({
@@ -173,6 +183,7 @@ def _parse_quote_items(form, errors):
             "price": hydrated["price"],
             "total": hydrated["total"],
             "catalog_description": hydrated.get("catalog_description", ""),
+            "section": hydrated.get("section", ""),
         })
         subtotal += hydrated["total"]
 

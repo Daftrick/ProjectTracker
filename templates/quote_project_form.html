@@ -66,7 +66,26 @@
   .ac-divider { border-top: 1px solid rgba(255,255,255,.1); margin: 2px 0; }
   .row-tools { display:flex; justify-content:flex-end; gap:4px; flex-wrap:nowrap; }
   .quote-row { cursor: default; }
-  .quote-row.dragging { opacity: .45; }
+  .quote-draggable.dragging { opacity: .45; }
+  .quote-section-row td {
+    background: #202936 !important;
+    border-color: rgba(255,255,255,.12) !important;
+    vertical-align: middle;
+  }
+  .section-title-input {
+    background: transparent;
+    border: 0;
+    color: #f2f6fb;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    padding-left: 0;
+  }
+  .section-title-input:focus {
+    background: rgba(255,255,255,.05);
+    color: #fff;
+    box-shadow: none;
+  }
   .drag-cell { width: 38px; text-align: center; vertical-align: middle; }
   .drag-handle {
     display: inline-flex;
@@ -89,7 +108,7 @@
   }
   .drag-handle:active { cursor: grabbing; }
   .drag-handle i { pointer-events: none; }
-  .quote-row.drop-target td {
+  .quote-draggable.drop-target td {
     border-top: 2px solid rgba(122,177,141,.8) !important;
   }
   body.quote-dragging {
@@ -210,6 +229,9 @@
           <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#catalogModal" onclick="openCatalogNew()">
             <i class="bi bi-box-seam me-1"></i>Buscar catálogo
           </button>
+          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addSection()">
+            <i class="bi bi-layout-text-sidebar-reverse me-1"></i>Agregar sección
+          </button>
           <button type="button" class="btn btn-sm btn-outline-primary" onclick="addRow()">
             <i class="bi bi-plus-lg"></i> Agregar fila
           </button>
@@ -230,9 +252,40 @@
           </thead>
           <tbody id="itemsBody">
             {% if quote and quote['items'] %}
+              {% set section_ns = namespace(current='') %}
               {% for item in quote['items'] %}
-              <tr class="quote-row">
+              {% set item_section = item.section or item.category or item.group or '' %}
+              {% if item_section and item_section != section_ns.current %}
+              <tr class="quote-section-row quote-draggable">
                 <td class="drag-cell">
+                  <input type="hidden" name="item_kind[]" value="section">
+                  <input type="hidden" name="item_desc[]" value="">
+                  <input type="hidden" name="item_catalog_id[]" value="">
+                  <input type="hidden" name="item_desc2[]" value="">
+                  <input type="hidden" name="item_unit[]" value="">
+                  <input type="hidden" name="item_qty[]" value="">
+                  <input type="hidden" name="item_price[]" value="">
+                  <span class="drag-handle" title="Arrastrar sección">
+                    <i class="bi bi-grip-vertical"></i>
+                  </span>
+                </td>
+                <td colspan="5">
+                  <input name="item_section[]" class="form-control form-control-sm section-title-input"
+                         value="{{ item_section }}" placeholder="Nombre de sección">
+                </td>
+                <td class="text-end">
+                  <button type="button" class="btn btn-sm btn-outline-danger" title="Eliminar sección"
+                          onclick="removeAnyRow(this)">
+                    <i class="bi bi-x"></i>
+                  </button>
+                </td>
+              </tr>
+              {% set section_ns.current = item_section %}
+              {% endif %}
+              <tr class="quote-row quote-draggable">
+                <td class="drag-cell">
+                  <input type="hidden" name="item_kind[]" value="item">
+                  <input type="hidden" name="item_section[]" value="{{ item_section }}">
                   <span class="drag-handle" title="Arrastrar para reordenar">
                     <i class="bi bi-grip-vertical"></i>
                   </span>
@@ -267,7 +320,7 @@
                       <i class="bi bi-search"></i>
                     </button>
                     <button type="button" class="btn btn-sm btn-outline-danger" title="Eliminar fila"
-                            onclick="this.closest('tr').remove();updateTotals()">
+                            onclick="removeAnyRow(this)">
                       <i class="bi bi-x"></i>
                     </button>
                   </div>
@@ -344,6 +397,8 @@
   function makeRowHTML(desc, desc2, unit, qty, price, total, catalogId) {
     return `
       <td class="drag-cell">
+        <input type="hidden" name="item_kind[]" value="item">
+        <input type="hidden" name="item_section[]" value="">
         <span class="drag-handle" title="Arrastrar para reordenar">
           <i class="bi bi-grip-vertical"></i>
         </span>
@@ -378,19 +433,73 @@
             <i class="bi bi-search"></i>
           </button>
           <button type="button" class="btn btn-sm btn-outline-danger" title="Eliminar fila"
-                  onclick="this.closest('tr').remove();updateTotals()">
+                  onclick="removeAnyRow(this)">
             <i class="bi bi-x"></i>
           </button>
         </div>
       </td>`;
   }
+  function makeSectionRowHTML(title) {
+    return `
+      <td class="drag-cell">
+        <input type="hidden" name="item_kind[]" value="section">
+        <input type="hidden" name="item_desc[]" value="">
+        <input type="hidden" name="item_catalog_id[]" value="">
+        <input type="hidden" name="item_desc2[]" value="">
+        <input type="hidden" name="item_unit[]" value="">
+        <input type="hidden" name="item_qty[]" value="">
+        <input type="hidden" name="item_price[]" value="">
+        <span class="drag-handle" title="Arrastrar sección">
+          <i class="bi bi-grip-vertical"></i>
+        </span>
+      </td>
+      <td colspan="5">
+        <input name="item_section[]" class="form-control form-control-sm section-title-input"
+               value="${escHtml(title||'')}" placeholder="Nombre de sección">
+      </td>
+      <td class="text-end">
+        <button type="button" class="btn btn-sm btn-outline-danger" title="Eliminar sección"
+                onclick="removeAnyRow(this)">
+          <i class="bi bi-x"></i>
+        </button>
+      </td>`;
+  }
   function addRow(desc, desc2, unit, qty, price, catalogId) {
     const tr = document.createElement("tr");
-    tr.className = "quote-row";
+    tr.className = "quote-row quote-draggable";
     const tot = ((qty||1) * (price||0)).toFixed(2);
     tr.innerHTML = makeRowHTML(desc, desc2, unit, qty, price, tot, catalogId);
     document.getElementById("itemsBody").appendChild(tr);
+    syncItemSections();
     updateTotals();
+  }
+  function addSection(title) {
+    const tr = document.createElement("tr");
+    tr.className = "quote-section-row quote-draggable";
+    tr.innerHTML = makeSectionRowHTML(title || "Nueva sección");
+    document.getElementById("itemsBody").appendChild(tr);
+    const input = tr.querySelector(".section-title-input");
+    input.focus();
+    input.select();
+    syncItemSections();
+  }
+  function removeAnyRow(btn) {
+    btn.closest("tr").remove();
+    syncItemSections();
+    updateTotals();
+  }
+  function syncItemSections() {
+    let currentSection = "";
+    document.querySelectorAll("#itemsBody tr").forEach(row => {
+      if (row.classList.contains("quote-section-row")) {
+        currentSection = row.querySelector('[name="item_section[]"]')?.value.trim() || "";
+        return;
+      }
+      if (row.classList.contains("quote-row")) {
+        const input = row.querySelector('[name="item_section[]"]');
+        if (input) input.value = currentSection;
+      }
+    });
   }
   function calcRow(el){
     const r=el.closest("tr");
@@ -443,9 +552,11 @@
     userEditedNum = true;
   });
 
+  document.getElementById("quoteForm").addEventListener("submit", syncItemSections);
   document.getElementById("taxRate").addEventListener("input", updateTotals);
   window.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById("itemsBody").children.length === 0) addRow();
+    syncItemSections();
     updateTotals();
     // Solo auto-generar el número en cotizaciones nuevas
     {% if not quote %}
@@ -752,7 +863,7 @@
     });
 
     function clearDragState() {
-      tbody.querySelectorAll(".quote-row").forEach(r => {
+      tbody.querySelectorAll(".quote-draggable").forEach(r => {
         r.classList.remove("dragging", "drop-target");
       });
       document.body.classList.remove("quote-dragging");
@@ -762,7 +873,7 @@
     }
 
     function findTargetRow(clientY) {
-      const rows = [...tbody.querySelectorAll(".quote-row")].filter(r => r !== draggingRow);
+      const rows = [...tbody.querySelectorAll(".quote-draggable")].filter(r => r !== draggingRow);
       for (const row of rows) {
         const rect = row.getBoundingClientRect();
         if (clientY < rect.top + rect.height / 2) {
@@ -776,7 +887,7 @@
     tbody.addEventListener("mousedown", e => {
       const handle = e.target.closest(".drag-handle");
       if (!handle) return;
-      const row = handle.closest(".quote-row");
+      const row = handle.closest(".quote-draggable");
       if (!row) return;
       e.preventDefault();
       draggingRow = row;
@@ -789,7 +900,7 @@
       e.preventDefault();
       dragStarted = true;
       draggingRow.classList.add("dragging");
-      tbody.querySelectorAll(".quote-row.drop-target").forEach(r => r.classList.remove("drop-target"));
+      tbody.querySelectorAll(".quote-draggable.drop-target").forEach(r => r.classList.remove("drop-target"));
       const target = findTargetRow(e.clientY);
       if (!target) return;
       target.row.classList.add("drop-target");
@@ -802,6 +913,7 @@
 
     document.addEventListener("mouseup", () => {
       if (!draggingRow) return;
+      syncItemSections();
       clearDragState();
     });
   });

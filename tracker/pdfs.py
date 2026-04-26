@@ -2,7 +2,7 @@ import os
 import re
 from datetime import date, datetime
 
-from .catalog import catalog_description_lookup, catalog_name_key, quote_type_key, sanitize_pdf_text
+from .catalog import catalog_description_lookup, catalog_name_key, quote_section_groups, quote_type_key, sanitize_pdf_text
 from .storage import BASE_DIR
 
 
@@ -315,9 +315,6 @@ def build_quote_pdf(project, quote, output_path):
         if with_table_header:
             table_header()
 
-    def item_category(item):
-        return sanitize_pdf_text(item.get("category") or item.get("section") or item.get("group") or "")
-
     pdf.add_page()
     pdf.set_fill_color(255, 255, 255)
     pdf.rect(0, 0, 210, 297, style="F")
@@ -480,88 +477,101 @@ def build_quote_pdf(project, quote, output_path):
     cols = table_header()
     pdf.set_text_color(*INK)
     pdf.set_font("Helvetica", "", 8.6)
-    current_category = None
+    item_index = 0
 
-    for index, item in enumerate(items, start=1):
-        category = item_category(item)
-        if category and category != current_category:
+    for section in quote_section_groups(items):
+        section_name = sanitize_pdf_text(section.get("name", ""))
+        if section_name:
             ensure_space(10, with_table_header=True)
-            pdf.set_fill_color(229, 236, 248)
-            pdf.set_text_color(*NAVY)
-            pdf.set_font("Helvetica", "B", 9)
-            pdf.cell(sum(cols), 7, category.upper(), fill=True)
+            pdf.set_fill_color(*INK)
+            pdf.set_text_color(255, 255, 255)
+            pdf.set_font("Helvetica", "B", 8.8)
+            pdf.cell(sum(cols), 7, section_name.upper(), fill=True)
             pdf.ln()
             pdf.set_text_color(*INK)
             pdf.set_font("Helvetica", "", 8.6)
-            current_category = category
 
-        desc_lines = wrap_text(item.get("description", ""), cols[1] - 4)
-        catalog_desc = quote_catalog_description(item, catalog_lookup)
-        brand_lines, detail_lines = split_secondary_lines(catalog_desc, cols[1] - 4)
-        title_h = 4.1 * len(desc_lines)
-        brand_h = 3.4 * len(brand_lines)
-        detail_h = 3.2 * len(detail_lines)
-        text_h = 1.6 + title_h
-        if brand_lines:
-            text_h += 0.7 + brand_h
-        if detail_lines:
-            text_h += 0.3 + detail_h
-        row_h = max(12, text_h + 1.8)
-        ensure_space(row_h, with_table_header=True)
-        row_y = pdf.get_y()
-        fill = (245, 247, 250) if index % 2 else (255, 255, 255)
-        pdf.set_fill_color(*fill)
-        pdf.set_draw_color(*LINE)
-        pdf.rect(12, row_y, sum(cols), row_h, style="FD")
+        for item in section.get("items", []):
+            item_index += 1
+            desc_lines = wrap_text(item.get("description", ""), cols[1] - 4)
+            catalog_desc = quote_catalog_description(item, catalog_lookup)
+            brand_lines, detail_lines = split_secondary_lines(catalog_desc, cols[1] - 4)
+            title_h = 4.1 * len(desc_lines)
+            brand_h = 3.4 * len(brand_lines)
+            detail_h = 3.2 * len(detail_lines)
+            text_h = 1.6 + title_h
+            if brand_lines:
+                text_h += 0.7 + brand_h
+            if detail_lines:
+                text_h += 0.3 + detail_h
+            row_h = max(12, text_h + 1.8)
+            ensure_space(row_h, with_table_header=True)
+            row_y = pdf.get_y()
+            fill = (245, 247, 250) if item_index % 2 else (255, 255, 255)
+            pdf.set_fill_color(*fill)
+            pdf.set_draw_color(*LINE)
+            pdf.rect(12, row_y, sum(cols), row_h, style="FD")
 
-        number_x = 12
-        x = number_x + cols[0]
+            number_x = 12
+            x = number_x + cols[0]
 
-        desc_x = x + 2
-        desc_y = row_y + 1.3
-        pdf.set_xy(desc_x, desc_y)
-        pdf.set_font("Helvetica", "B", 7.6)
-        pdf.set_text_color(*INK)
-        pdf.multi_cell(cols[1] - 4, 4.1, "\n".join(desc_lines))
-        current_y = desc_y + title_h
-        if brand_lines:
-            current_y += 0.7
-            pdf.set_xy(desc_x, current_y)
-            pdf.set_font("Helvetica", "", 7.3)
-            pdf.set_text_color(*NAVY_2)
-            pdf.multi_cell(cols[1] - 4, 3.4, "\n".join(brand_lines))
-            current_y += brand_h
-        if detail_lines:
-            current_y += 0.3
-            pdf.set_xy(desc_x, current_y)
-            pdf.set_font("Helvetica", "", 7.0)
-            pdf.set_text_color(*MUTED)
-            pdf.multi_cell(cols[1] - 4, 3.2, "\n".join(detail_lines))
-        x += cols[1]
+            desc_x = x + 2
+            desc_y = row_y + 1.3
+            pdf.set_xy(desc_x, desc_y)
+            pdf.set_font("Helvetica", "B", 7.6)
+            pdf.set_text_color(*INK)
+            pdf.multi_cell(cols[1] - 4, 4.1, "\n".join(desc_lines))
+            current_y = desc_y + title_h
+            if brand_lines:
+                current_y += 0.7
+                pdf.set_xy(desc_x, current_y)
+                pdf.set_font("Helvetica", "", 7.3)
+                pdf.set_text_color(*NAVY_2)
+                pdf.multi_cell(cols[1] - 4, 3.4, "\n".join(brand_lines))
+                current_y += brand_h
+            if detail_lines:
+                current_y += 0.3
+                pdf.set_xy(desc_x, current_y)
+                pdf.set_font("Helvetica", "", 7.0)
+                pdf.set_text_color(*MUTED)
+                pdf.multi_cell(cols[1] - 4, 3.2, "\n".join(detail_lines))
+            x += cols[1]
 
-        pdf.set_xy(x, row_y)
-        pdf.set_font("Helvetica", "", 8.0)
-        pdf.set_text_color(*INK)
-        pdf.cell(cols[2], row_h, sanitize_pdf_text(item.get("unit", "")), align="C")
-        x += cols[2]
+            pdf.set_xy(x, row_y)
+            pdf.set_font("Helvetica", "", 8.0)
+            pdf.set_text_color(*INK)
+            pdf.cell(cols[2], row_h, sanitize_pdf_text(item.get("unit", "")), align="C")
+            x += cols[2]
 
-        pdf.set_xy(x, row_y)
-        pdf.cell(cols[3], row_h, f"{float(item.get('qty', 0)):,.2f}", align="R")
-        x += cols[3]
+            pdf.set_xy(x, row_y)
+            pdf.cell(cols[3], row_h, f"{float(item.get('qty', 0)):,.2f}", align="R")
+            x += cols[3]
 
-        pdf.set_xy(x, row_y)
-        pdf.cell(cols[4], row_h, money_pdf(item.get("price", 0)), align="R")
-        x += cols[4]
+            pdf.set_xy(x, row_y)
+            pdf.cell(cols[4], row_h, money_pdf(item.get("price", 0)), align="R")
+            x += cols[4]
 
-        pdf.set_xy(x, row_y)
-        pdf.set_font("Helvetica", "B", 8.0)
-        pdf.cell(cols[5], row_h, money_pdf(item.get("total", 0)), align="R")
-        pdf.set_xy(number_x, row_y + max((row_h - 4.5) / 2, 1))
-        pdf.set_font("Helvetica", "B", 8.0)
-        pdf.set_text_color(*INK)
-        pdf.cell(cols[0], 4.5, str(index), align="C")
-        pdf.set_font("Helvetica", "", 8.6)
-        pdf.set_y(row_y + row_h)
+            pdf.set_xy(x, row_y)
+            pdf.set_font("Helvetica", "B", 8.0)
+            pdf.cell(cols[5], row_h, money_pdf(item.get("total", 0)), align="R")
+            pdf.set_xy(number_x, row_y + max((row_h - 4.5) / 2, 1))
+            pdf.set_font("Helvetica", "B", 8.0)
+            pdf.set_text_color(*INK)
+            pdf.cell(cols[0], 4.5, str(item_index), align="C")
+            pdf.set_font("Helvetica", "", 8.6)
+            pdf.set_y(row_y + row_h)
+
+        if section_name:
+            ensure_space(7, with_table_header=True)
+            label_width = sum(cols[:-1])
+            value_width = cols[-1]
+            pdf.set_fill_color(255, 255, 255)
+            pdf.set_draw_color(*LINE)
+            pdf.set_text_color(*INK)
+            pdf.set_font("Helvetica", "B", 8)
+            pdf.cell(label_width, 6.6, f"{section_name.upper()} TOTAL", border="T", align="R")
+            pdf.cell(value_width, 6.6, money_pdf(section.get("subtotal", 0)), border="T", align="R", ln=True)
+            pdf.set_font("Helvetica", "", 8.6)
 
     pdf.add_page()
     pdf.set_y(22)
