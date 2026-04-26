@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}Entregable – {{ project.clave }}{% endblock %}
+{% block page_title %}<i class="bi bi-file-zip me-2 text-success"></i>Generar Entregable{% endblock %}
+{% block topbar_actions %}
+  <a href="{{ url_for('project_drive', project_id=project.id) }}" class="btn btn-sm btn-outline-secondary me-2">
+    <i class="bi bi-folder2 me-1"></i>Ver Drive
+  </a>
+  <a href="{{ url_for('project_detail', project_id=project.id) }}" class="btn btn-sm btn-outline-secondary">
+    <i class="bi bi-arrow-left me-1"></i>Volver
+  </a>
+{% endblock %}
+
+{% block content %}
+{% set ver = project.version or 'V1' %}
+{% set zip_name = folder_name + '-' + ver + '-Entregable.zip' %}
+
+<div style="max-width:720px">
+
+  <!-- Encabezado: carpeta + ZIP -->
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="d-flex align-items-center gap-3">
+        <i class="bi bi-file-zip fs-2 text-success"></i>
+        <div>
+          <div class="fw-bold font-monospace text-success fs-6">{{ zip_name }}</div>
+          <small class="text-muted">
+            Carpeta Drive: <code>{{ folder_name }}/</code>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Archivos a incluir -->
+  {% set has_files = files.ie_dwg or files.ie_pdf or files.mem_pdf or files.cot_pdf or files.fichas %}
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="bi bi-check2-circle me-2 text-success"></i>Archivos a incluir
+    </div>
+    <div class="card-body p-0">
+      {% if has_files %}
+      <table class="table mb-0">
+        <thead class="table-light">
+          <tr><th>Archivo</th><th>Tipo</th><th>Estado</th></tr>
+        </thead>
+        <tbody>
+          {% set rows = [
+            (files.ie_dwg,  'Plano DWG'),
+            (files.ie_pdf,  'Plano PDF'),
+            (files.mem_pdf, 'Memoria de cálculo PDF'),
+            (files.cot_pdf, 'Cotización PDF'),
+          ] %}
+          {% for fname, label in rows %}
+          {% if fname %}
+          <tr>
+            <td><code style="font-size:.82rem">{{ fname }}</code></td>
+            <td><span class="badge bg-light text-dark border">{{ label }}</span></td>
+            <td><span class="badge bs-Aprobado"><i class="bi bi-check-circle me-1"></i>Encontrado</span></td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+          {% if files.fichas %}
+          <tr><td colspan="3" class="table-light py-1"><small class="text-muted fw-semibold ps-2">Fichas técnicas → Fichas/</small></td></tr>
+          {% for f in files.fichas %}
+          <tr>
+            <td><code style="font-size:.82rem">{{ f.name }}</code></td>
+            <td><span class="badge bg-light text-dark border">Ficha técnica</span></td>
+            <td><span class="badge bs-Aprobado"><i class="bi bi-check-circle me-1"></i>Encontrada</span></td>
+          </tr>
+          {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="text-center py-4 text-muted">
+        <i class="bi bi-folder-x fs-2 d-block mb-2"></i>No se encontraron archivos entregables en Drive.
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Archivos faltantes -->
+  {% if files.missing %}
+  <div class="card mb-3 border-warning">
+    <div class="card-header" style="background:#fffbeb;color:#92400e">
+      <i class="bi bi-exclamation-triangle me-2"></i>Archivos no encontrados
+      <span class="badge bg-warning text-dark ms-2">{{ files.missing|length }}</span>
+    </div>
+    <div class="card-body pb-2">
+      <ul class="mb-2">
+        {% for m in files.missing %}
+          <li style="font-size:.875rem"><code>{{ m }}</code></li>
+        {% endfor %}
+      </ul>
+      <small class="text-muted">
+        El ZIP se generará sin estos archivos. Verifica nombres y ruta en
+        <a href="{{ url_for('settings') }}">Ajustes / Drive</a>.
+        Para la cotización, usa el botón <strong>Imprimir</strong> en la vista de cotización
+        y guarda como PDF con nombre <code>COT-{{ project.clave }}-{{ ver }}.pdf</code>.
+      </small>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Acción -->
+  {% if has_files %}
+  <form method="post" action="{{ url_for('generate_delivery', project_id=project.id) }}">
+    <button type="submit" class="btn btn-success btn-lg">
+      <i class="bi bi-file-zip me-2"></i>Confirmar y generar ZIP
+    </button>
+    <a href="{{ url_for('project_detail', project_id=project.id) }}" class="btn btn-outline-secondary ms-2">Cancelar</a>
+  </form>
+  {% else %}
+  <a href="{{ url_for('settings') }}" class="btn btn-warning">
+    <i class="bi bi-gear me-1"></i>Verificar configuración de Drive
+  </a>
+  {% endif %}
+
+</div>
+{% endblock %}

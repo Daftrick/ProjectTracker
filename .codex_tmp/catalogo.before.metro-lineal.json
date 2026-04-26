@@ -1,0 +1,3322 @@
+[
+  {
+    "id": "42075597",
+    "nombre": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "3EF4F34C",
+    "nombre": "Tubo Conduit Galvanizado Pared Delgada | 27 [mm] (1\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "CF8E020E",
+    "nombre": "Abrazadera para Unicanal | 27 [mm] (1\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "6080C3DF",
+    "nombre": "Codo Conduit Galvanizado Pared Delgada | 27 [mm] (1\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "94B273C0",
+    "nombre": "Monitor Metálico Galvanizado Pared Delgada | 27 [mm] (1\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "BD9EA6E4",
+    "nombre": "Cople Metálico Galvanizado Pared Delgada con Tornillo | 27 [mm] (1\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "5A31DD1C",
+    "nombre": "Conector Metálico Galvanizado Pared Delgada | 27 [mm] (1\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "9CF3C72B",
+    "nombre": "Tubo Conduit Galvanizado Pared Delgada | 35 [mm] (1 1/4\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "6B4F82DD",
+    "nombre": "Abrazadera para Unicanal | 35 [mm] (1 1/4\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "17074C17",
+    "nombre": "Codo Conduit Galvanizado Pared Delgada | 35 [mm] (1 1/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "191D7987",
+    "nombre": "Monitor Metálico Galvanizado Pared Delgada | 35 [mm] (1 1/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "63EF677F",
+    "nombre": "Cople Metálico Galvanizado Pared Delgada con Tornillo | 35 [mm] (1 1/4\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "458AEC86",
+    "nombre": "Conector Metálico Galvanizado Pared Delgada | 35 [mm] (1 1/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "9AC13BC2",
+    "nombre": "Perfil Unicanal Perforado | 4x2 [cm] | Tramo de 3 [m]",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "EFA814EB",
+    "nombre": "Cople para Barra Roscada | 3/8\"",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "60CA5FEE",
+    "nombre": "Taquete Expansivo Zamac | 3/8\"",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "5880609C",
+    "nombre": "Tuerca Hexagonal | 3/8\"",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "79921E56",
+    "nombre": "Rondana | 3/8\"",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "7B7F4147",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 10 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "DE9EF199",
+    "nombre": "Zapata Terminal Ponchable | Calibre 10 AWG",
+    "descripcion": "Burndy | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "D5D4E2AA",
+    "nombre": "Tubo Conduit Galvanizado Pared Delgada | 21 [mm] (3/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "7FB42249",
+    "nombre": "Registro Eléctrico Galvanizado | 30x30x13 [cm]",
+    "descripcion": "Himel | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "573F7605",
+    "nombre": "Registro Eléctrico Galvanizado | 56x56x13 [cm]",
+    "descripcion": "Himel | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "AC40DA48",
+    "nombre": "Varilla Roscada | 3/8\" | Tramo de 3 [m]",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "60882F0F",
+    "nombre": "Cable Uso Rudo | 3 x Calibre 10 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "35F797E1",
+    "nombre": "Caja Rectangular Condulet FS | 1/2\"",
+    "descripcion": "Condulet | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "08190240",
+    "nombre": "Contacto Duplex Polarizado | Con Tapa | 15 [A] | 125 [V] | Blanco",
+    "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "322EF0AC",
+    "nombre": "Clavija Industrial Redonda | 15 [A] | 125 [V]",
+    "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "C1E67F16",
+    "nombre": "Cople Metálico Galvanizado Pared Delgada con Tornillo | 21 [mm] (3/4\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "DE626994",
+    "nombre": "Conector Metálico Galvanizado Pared Delgada | 21 [mm] (3/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "50A2EBC0",
+    "nombre": "Codo Conduit Galvanizado Pared Delgada | 21 [mm] (3/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "DBA5C185",
+    "nombre": "Monitor Metálico Galvanizado Pared Delgada | 21 [mm] (3/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "2540119E",
+    "nombre": "Codo Conduit Galvanizado Pared Delgada | 16 [mm] (1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "C116C004",
+    "nombre": "Abrazadera para Unicanal | 21 [mm] (3/4\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "E32BE145",
+    "nombre": "Abrazadera para Unicanal | 16 [mm] (1/2\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "1D5577C3",
+    "nombre": "Conector Metálico Galvanizado Pared Delgada | 16 [mm] (1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "E2D36AC3",
+    "nombre": "Cople Metálico Galvanizado Pared Delgada con Tornillo | 16 [mm] (1/2\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "C82014A6",
+    "nombre": "Monitor Metálico Galvanizado Pared Delgada | 16 [mm] (1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "92218A02",
+    "nombre": "Tubo Conduit Galvanizado Pared Delgada | 16 [mm] (1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "D4CA8413",
+    "nombre": "Taquete Plástico Rojo | 3/8\"",
+    "descripcion": "Thorsman | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "D0ECADEF",
+    "nombre": "Caja Cuadrada Galvanizada | 3/4\"",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "0AE22940",
+    "nombre": "Tapa Cuadrada Galvanizada | 3/4\"",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "7914927E",
+    "nombre": "Abrazadera Tipo Omega | 21 [mm] (3/4\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "C7B13638",
+    "nombre": "Abrazadera Tipo Omega | 35 [mm] (1 1/4\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "17B415D8",
+    "nombre": "Abrazadera Tipo Omega | 27 [mm] (1\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "7132C911",
+    "nombre": "Abrazadera Tipo Omega | 16 [mm] (1/2\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "98961499",
+    "nombre": "Pija Punta de Broca | 1/4\"",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "D2879612",
+    "nombre": "Pintura en Aerosol para Metal | Color Verde",
+    "descripcion": "Comex | Incluye Suministro",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "9824265A",
+    "nombre": "Pintura en Aerosol para Metal | Color Morado",
+    "descripcion": "Comex | Incluye Suministro",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "8A97357A",
+    "nombre": "Pintura en Aerosol para Metal | Color Rojo",
+    "descripcion": "Comex | Incluye Suministro",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "86E959D6",
+    "nombre": "Pintura en Aerosol para Metal | Color Naranja",
+    "descripcion": "Comex | Incluye Suministro",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "55946E84",
+    "nombre": "Pintura en Aerosol para Metal | Color Azul",
+    "descripcion": "Comex | Incluye Suministro",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "802B4677",
+    "nombre": "Pintura en Aerosol para Metal | Color Amarillo",
+    "descripcion": "Comex | Incluye Suministro",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "1F183CFD",
+    "nombre": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "4C172E56",
+    "nombre": "Salida Eléctrica para Apagador en Muro",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "C8D6402B",
+    "nombre": "Salida Eléctrica para Termostato en Muro",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "E06E3F5D",
+    "nombre": "Instalación de Luminaria en Muro, Piso o Plafón",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "E7D23B77",
+    "nombre": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "08E0125B",
+    "nombre": "Instalación de Contacto en Muro, Piso o Plafón",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "31F3EE77",
+    "nombre": "Abrazadera para Unicanal | 41 [mm] (1 1/2\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "945E2D9E",
+    "nombre": "Abrazadera para Unicanal | 53 [mm] (2\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "0AEAAC55",
+    "nombre": "Abrazadera para Unicanal | 63 [mm] (2 1/2\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "041CA82C",
+    "nombre": "Abrazadera para Unicanal | 78 [mm] (3\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "3626E718",
+    "nombre": "Abrazadera para Unicanal | 103 [mm] (4\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A0307F9A",
+    "nombre": "Abrazadera Tipo Omega | 41 [mm] (1 1/2\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "047C8246",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 10 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "E76B29A8",
+    "nombre": "Tubo Conduit Galvanizado Pared Delgada | 41 [mm] (1 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "33B3D724",
+    "nombre": "Tubo Conduit Galvanizado Pared Delgada | 53 [mm] (2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "97E634EE",
+    "nombre": "Tubo Conduit Galvanizado Pared Delgada | 63 [mm] (2 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "5BC616CB",
+    "nombre": "Tubo Conduit Galvanizado Pared Delgada | 78 [mm] (3\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "3119B6E7",
+    "nombre": "Tubo Conduit Galvanizado Pared Delgada | 103 [mm] (4\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "DC2E7A1A",
+    "nombre": "Codo Conduit Galvanizado Pared Delgada | 41 [mm] (1 1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "C8B79448",
+    "nombre": "Codo Conduit Galvanizado Pared Delgada | 53 [mm] (2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "D53207F7",
+    "nombre": "Codo Conduit Galvanizado Pared Delgada | 63 [mm] (2 1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "1A96C797",
+    "nombre": "Codo Conduit Galvanizado Pared Delgada | 78 [mm] (3\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "8D4AFF78",
+    "nombre": "Codo Conduit Galvanizado Pared Delgada | 103 [mm] (4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "D2A82D03",
+    "nombre": "Monitor Metálico Galvanizado Pared Delgada | 41 [mm] (1 1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "8F0B1614",
+    "nombre": "Monitor Metálico Galvanizado Pared Delgada | 53 [mm] (2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "988855E3",
+    "nombre": "Monitor Metálico Galvanizado Pared Delgada | 63 [mm] (2 1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "C307672C",
+    "nombre": "Monitor Metálico Galvanizado Pared Delgada | 78 [mm] (3\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "C6CE7855",
+    "nombre": "Monitor Metálico Galvanizado Pared Delgada | 103 [mm] (4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "E023E6F1",
+    "nombre": "Cople Metálico Galvanizado Pared Delgada con Tornillo | 41 [mm] (1 1/2\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "35BC9322",
+    "nombre": "Cople Metálico Galvanizado Pared Delgada con Tornillo | 53 [mm] (2\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "EF8567CE",
+    "nombre": "Cople Metálico Galvanizado Pared Delgada con Tornillo | 63 [mm] (2 1/2\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "A833CF9D",
+    "nombre": "Cople Metálico Galvanizado Pared Delgada con Tornillo | 78 [mm] (3\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "61939906",
+    "nombre": "Cople Metálico Galvanizado Pared Delgada con Tornillo | 103 [mm] (4\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "5FAC1AC5",
+    "nombre": "Conector Metálico Galvanizado Pared Delgada | 41 [mm] (1 1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "46202E0F",
+    "nombre": "Conector Metálico Galvanizado Pared Delgada | 53 [mm] (2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "108B1E71",
+    "nombre": "Conector Metálico Galvanizado Pared Delgada | 63 [mm] (2 1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "9A26631F",
+    "nombre": "Conector Metálico Galvanizado Pared Delgada | 78 [mm] (3\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "65C9486F",
+    "nombre": "Conector Metálico Galvanizado Pared Delgada | 103 [mm] (4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "8A82E35B",
+    "nombre": "Abrazadera Tipo Omega | 53 [mm] (2\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "053A106F",
+    "nombre": "Abrazadera Tipo Omega | 63 [mm] (2 1/2\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "EFBBD73C",
+    "nombre": "Abrazadera Tipo Omega | 78 [mm] (3\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "6E3A33B4",
+    "nombre": "Abrazadera Tipo Omega | 103 [mm] (4\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "38721C75",
+    "nombre": "Abrazadera Tipo Uña | 16 [mm] (1/2\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "1410BDC2",
+    "nombre": "Abrazadera Tipo Uña | 21 [mm] (3/4\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "83E104EF",
+    "nombre": "Abrazadera Tipo Uña | 27 [mm] (1\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "8814838A",
+    "nombre": "Abrazadera Tipo Uña | 35 [mm] (1 1/4\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "659638F2",
+    "nombre": "Abrazadera Tipo Uña | 41 [mm] (1 1/2\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "1AD70201",
+    "nombre": "Abrazadera Tipo Uña | 53 [mm] (2\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "AE62FA3E",
+    "nombre": "Abrazadera Tipo Uña | 63 [mm] (2 1/2\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "A5784CF0",
+    "nombre": "Abrazadera Tipo Uña | 78 [mm] (3\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "5DC4D2D2",
+    "nombre": "Abrazadera Tipo Uña | 103 [mm] (4\")",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "EBB67A73",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 18 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "94F9F3D2",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 14 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "41C2A601",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 12 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "C53A7E82",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 8 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "CB63E0F6",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 6 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "4FAB2ED6",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 4 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "9E6C63DE",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 2 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "ABCAFAD1",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 1/0 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "854962B0",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 2/0 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "B42852C3",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 3/0 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "CFAD6E63",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 4/0 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "06776B34",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 18 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "E335956F",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 14 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "18C5C03E",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 12 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "EFF4FECF",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 8 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "8DC8C842",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 6 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "34AA2A37",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 4 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "91D25844",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 2 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "6893EDC3",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 1/0 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "95B9504F",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 2/0 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "67217B57",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 3/0 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "816111D1",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 4/0 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "01F79130",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 250 kcmil",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "B6CAD20E",
+    "nombre": "Cable de Aluminio | THHW-LS | Calibre 6 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "7C4D60A4",
+    "nombre": "Cable de Aluminio | THHW-LS | Calibre 4 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "3229324E",
+    "nombre": "Cable de Aluminio | THHW-LS | Calibre 2 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "56C8E50B",
+    "nombre": "Cable de Aluminio | THHW-LS | Calibre 1/0 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "FDF220ED",
+    "nombre": "Cable de Aluminio | THHW-LS | Calibre 2/0 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "6A489BC7",
+    "nombre": "Cable de Aluminio | THHW-LS | Calibre 3/0 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "04A50B58",
+    "nombre": "Cable de Aluminio | THHW-LS | Calibre 4/0 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "D3B47C7D",
+    "nombre": "Cable de Aluminio | THHW-LS | Calibre 250 kcmil",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "378F0253",
+    "nombre": "Cable de Aluminio | THHW-LS | Calibre 300 kcmil",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "5500EE99",
+    "nombre": "Cable de Aluminio | THHW-LS | Calibre 350 kcmil",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "1C762EE1",
+    "nombre": "Tubo Conduit PVC SP | 16 [mm] (1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "66F75365",
+    "nombre": "Tubo Conduit Metálico Flexible | 16 [mm] (1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A16F4B2C",
+    "nombre": "Conector Recto Metálico para Tubo Conduit Flexible | 16 [mm] (1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "8368CF40",
+    "nombre": "Tubo Conduit PAD Flexible Corrugado | 16 [mm] (1/2\")",
+    "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "B27C5D3E",
+    "nombre": "Conector Universal PAD | 16 [mm] (1/2\")",
+    "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "21CA0A90",
+    "nombre": "Tubo Conduit Galvanizado Pared Gruesa | 16 [mm] (1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "7DDAF764",
+    "nombre": "Tubo Conduit Flexible Licuatite | 16 [mm] (1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "CC3D4905",
+    "nombre": "Codo Conduit PVC SP | 16 [mm] (1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "B1EB0757",
+    "nombre": "Monitor PVC SP | 16 [mm] (1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "8AAF22AE",
+    "nombre": "Cople PVC SP | 16 [mm] (1/2\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "37B1DF13",
+    "nombre": "Conector Conduit PVC SP | 16 [mm] (1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "7B08FE7E",
+    "nombre": "Codo Conduit Galvanizado Pared Gruesa | 16 [mm] (1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "8DB60C90",
+    "nombre": "Monitor Metálico Galvanizado Pared Gruesa | 16 [mm] (1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "112D3391",
+    "nombre": "Cople Metálico Galvanizado Pared Gruesa con Tornillo | 16 [mm] (1/2\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "120AD643",
+    "nombre": "Conector Metálico Galvanizado Pared Gruesa | 16 [mm] (1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "0C4DD4A8",
+    "nombre": "Tubo Conduit PVC SP | 21 [mm] (3/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "97EEB372",
+    "nombre": "Tubo Conduit Metálico Flexible | 21 [mm] (3/4\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "C38D6E4F",
+    "nombre": "Conector Recto Metálico para Tubo Conduit Flexible | 21 [mm] (3/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "87DCBE2D",
+    "nombre": "Tubo Conduit PAD Flexible Corrugado | 21 [mm] (3/4\")",
+    "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "D49E7F50",
+    "nombre": "Conector Universal PAD | 21 [mm] (3/4\")",
+    "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "C4453C1F",
+    "nombre": "Tubo Conduit Galvanizado Pared Gruesa | 21 [mm] (3/4\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "DFAE2224",
+    "nombre": "Tubo Conduit Flexible Licuatite | 21 [mm] (3/4\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "51A12AC6",
+    "nombre": "Codo Conduit PVC SP | 21 [mm] (3/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "75BE2B59",
+    "nombre": "Monitor PVC SP | 21 [mm] (3/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "1E4D9A9D",
+    "nombre": "Cople PVC SP | 21 [mm] (3/4\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "9E4997EB",
+    "nombre": "Conector Conduit PVC SP | 21 [mm] (3/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "33934677",
+    "nombre": "Codo Conduit Galvanizado Pared Gruesa | 21 [mm] (3/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "C76389A4",
+    "nombre": "Monitor Metálico Galvanizado Pared Gruesa | 21 [mm] (3/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "42E7ADEB",
+    "nombre": "Cople Metálico Galvanizado Pared Gruesa con Tornillo | 21 [mm] (3/4\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A3F7AD28",
+    "nombre": "Conector Metálico Galvanizado Pared Gruesa | 21 [mm] (3/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "2C48B4D7",
+    "nombre": "Tubo Conduit PVC SP | 27 [mm] (1\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "B497844E",
+    "nombre": "Tubo Conduit Metálico Flexible | 27 [mm] (1\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "E5AF8061",
+    "nombre": "Conector Recto Metálico para Tubo Conduit Flexible | 27 [mm] (1\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "28206AAE",
+    "nombre": "Tubo Conduit PAD Flexible Corrugado | 27 [mm] (1\")",
+    "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F6B09172",
+    "nombre": "Conector Universal PAD | 27 [mm] (1\")",
+    "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "CDA4F5FD",
+    "nombre": "Tubo Conduit Galvanizado Pared Gruesa | 27 [mm] (1\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "43CD1EC4",
+    "nombre": "Tubo Conduit Flexible Licuatite | 27 [mm] (1\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "6F045DAE",
+    "nombre": "Codo Conduit PVC SP | 27 [mm] (1\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "6DFAE841",
+    "nombre": "Monitor PVC SP | 27 [mm] (1\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "75D8D7AC",
+    "nombre": "Cople PVC SP | 27 [mm] (1\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "8A93A2B7",
+    "nombre": "Conector Conduit PVC SP | 27 [mm] (1\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "571B95F5",
+    "nombre": "Codo Conduit Galvanizado Pared Gruesa | 27 [mm] (1\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "382445DA",
+    "nombre": "Monitor Metálico Galvanizado Pared Gruesa | 27 [mm] (1\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F4FE7000",
+    "nombre": "Cople Metálico Galvanizado Pared Gruesa con Tornillo | 27 [mm] (1\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "45A9845E",
+    "nombre": "Conector Metálico Galvanizado Pared Gruesa | 27 [mm] (1\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "D7DE6384",
+    "nombre": "Tubo Conduit PVC SP | 35 [mm] (1 1/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "ECCFA62E",
+    "nombre": "Tubo Conduit Galvanizado Pared Gruesa | 35 [mm] (1 1/4\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "57FF3AF7",
+    "nombre": "Codo Conduit PVC SP | 35 [mm] (1 1/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "05BEB8F8",
+    "nombre": "Monitor PVC SP | 35 [mm] (1 1/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "05D05AE0",
+    "nombre": "Cople PVC SP | 35 [mm] (1 1/4\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "7EF3D33C",
+    "nombre": "Conector Conduit PVC SP | 35 [mm] (1 1/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "2E8738AD",
+    "nombre": "Codo Conduit Galvanizado Pared Gruesa | 35 [mm] (1 1/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "12E1C4B4",
+    "nombre": "Monitor Metálico Galvanizado Pared Gruesa | 35 [mm] (1 1/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "CDB02F11",
+    "nombre": "Cople Metálico Galvanizado Pared Gruesa con Tornillo | 35 [mm] (1 1/4\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "8556757D",
+    "nombre": "Conector Metálico Galvanizado Pared Gruesa | 35 [mm] (1 1/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "CD3B9CBA",
+    "nombre": "Tubo Conduit PVC SP | 41 [mm] (1 1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "8ECBBA73",
+    "nombre": "Tubo Conduit Galvanizado Pared Gruesa | 41 [mm] (1 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "C4D56BC2",
+    "nombre": "Codo Conduit PVC SP | 41 [mm] (1 1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "9246B11F",
+    "nombre": "Monitor PVC SP | 41 [mm] (1 1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F8E29D25",
+    "nombre": "Cople PVC SP | 41 [mm] (1 1/2\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "9AE816E9",
+    "nombre": "Conector Conduit PVC SP | 41 [mm] (1 1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "1E62162D",
+    "nombre": "Codo Conduit Galvanizado Pared Gruesa | 41 [mm] (1 1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "5DBDB618",
+    "nombre": "Monitor Metálico Galvanizado Pared Gruesa | 41 [mm] (1 1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "92570F01",
+    "nombre": "Cople Metálico Galvanizado Pared Gruesa con Tornillo | 41 [mm] (1 1/2\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "DDEE5B91",
+    "nombre": "Conector Metálico Galvanizado Pared Gruesa | 41 [mm] (1 1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F1239EB0",
+    "nombre": "Tubo Conduit PVC SP | 53 [mm] (2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "07055CBB",
+    "nombre": "Tubo Conduit Metálico Flexible | 53 [mm] (2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A7C1D283",
+    "nombre": "Conector Recto Metálico para Tubo Conduit Flexible | 53 [mm] (2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "9B73B1D9",
+    "nombre": "Tubo Conduit PAD Flexible Corrugado | 53 [mm] (2\")",
+    "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "B8D2E394",
+    "nombre": "Conector Universal PAD | 53 [mm] (2\")",
+    "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "C46480E2",
+    "nombre": "Tubo Conduit Galvanizado Pared Gruesa | 53 [mm] (2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "ED1EF9F9",
+    "nombre": "Tubo Conduit Flexible Licuatite | 53 [mm] (2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "2998492B",
+    "nombre": "Codo Conduit PVC SP | 53 [mm] (2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "7B152773",
+    "nombre": "Monitor PVC SP | 53 [mm] (2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A4109C30",
+    "nombre": "Cople PVC SP | 53 [mm] (2\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "0DD1750C",
+    "nombre": "Conector Conduit PVC SP | 53 [mm] (2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "374C6CC3",
+    "nombre": "Codo Conduit Galvanizado Pared Gruesa | 53 [mm] (2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "C6DAB3C9",
+    "nombre": "Monitor Metálico Galvanizado Pared Gruesa | 53 [mm] (2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "90F651DE",
+    "nombre": "Cople Metálico Galvanizado Pared Gruesa con Tornillo | 53 [mm] (2\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "2D62FDEB",
+    "nombre": "Conector Metálico Galvanizado Pared Gruesa | 53 [mm] (2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "732E099C",
+    "nombre": "Tubo Conduit PVC SP | 78 [mm] (3\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "7C99B319",
+    "nombre": "Tubo Conduit Metálico Flexible | 78 [mm] (3\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "C9E3F4A5",
+    "nombre": "Conector Recto Metálico para Tubo Conduit Flexible | 78 [mm] (3\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "1CAAFE55",
+    "nombre": "Tubo Conduit PAD Flexible Corrugado | 78 [mm] (3\")",
+    "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "DAF405B6",
+    "nombre": "Conector Universal PAD | 78 [mm] (3\")",
+    "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "D3F0E6CC",
+    "nombre": "Tubo Conduit Galvanizado Pared Gruesa | 78 [mm] (3\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "46A12E0C",
+    "nombre": "Tubo Conduit Flexible Licuatite | 78 [mm] (3\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "EE453F70",
+    "nombre": "Codo Conduit PVC SP | 78 [mm] (3\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "4C2C63F8",
+    "nombre": "Monitor PVC SP | 78 [mm] (3\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F7D24F17",
+    "nombre": "Cople PVC SP | 78 [mm] (3\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "B9381C85",
+    "nombre": "Conector Conduit PVC SP | 78 [mm] (3\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "93EF2E83",
+    "nombre": "Codo Conduit Galvanizado Pared Gruesa | 78 [mm] (3\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "9CAB30C3",
+    "nombre": "Monitor Metálico Galvanizado Pared Gruesa | 78 [mm] (3\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "E11B23AB",
+    "nombre": "Cople Metálico Galvanizado Pared Gruesa con Tornillo | 78 [mm] (3\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "EF7D2E96",
+    "nombre": "Conector Metálico Galvanizado Pared Gruesa | 78 [mm] (3\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "2A33BE0D",
+    "nombre": "Tubo Conduit PVC SP | 103 [mm] (4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "C058643C",
+    "nombre": "Tubo Conduit Metálico Flexible | 103 [mm] (4\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "EB0516C7",
+    "nombre": "Conector Recto Metálico para Tubo Conduit Flexible | 103 [mm] (4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "E535F629",
+    "nombre": "Tubo Conduit PAD Flexible Corrugado | 103 [mm] (4\")",
+    "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "FC1627D8",
+    "nombre": "Conector Universal PAD | 103 [mm] (4\")",
+    "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "25C9A5F5",
+    "nombre": "Tubo Conduit Galvanizado Pared Gruesa | 103 [mm] (4\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "4B2343BB",
+    "nombre": "Tubo Conduit Flexible Licuatite | 103 [mm] (4\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "C16EBD16",
+    "nombre": "Codo Conduit PVC SP | 103 [mm] (4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F3641115",
+    "nombre": "Monitor PVC SP | 103 [mm] (4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "ED1BD558",
+    "nombre": "Cople PVC SP | 103 [mm] (4\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "C08DA40D",
+    "nombre": "Conector Conduit PVC SP | 103 [mm] (4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "DB4E8D9C",
+    "nombre": "Codo Conduit Galvanizado Pared Gruesa | 103 [mm] (4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "DF4B729D",
+    "nombre": "Monitor Metálico Galvanizado Pared Gruesa | 103 [mm] (4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "2D6B3BE0",
+    "nombre": "Cople Metálico Galvanizado Pared Gruesa con Tornillo | 103 [mm] (4\")",
+    "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "4B2E24BF",
+    "nombre": "Conector Metálico Galvanizado Pared Gruesa | 103 [mm] (4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "73618927",
+    "nombre": "Interruptor Termomagnético QO115 | 1 Polo | 15 [A] | 120 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "15514DE1",
+    "nombre": "Interruptor Termomagnético QO120 | 1 Polo | 20 [A] | 120 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "6B776A1B",
+    "nombre": "Interruptor Termomagnético QO130 | 1 Polo | 30 [A] | 120 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "DCB8D811",
+    "nombre": "Interruptor Termomagnético QO140 | 1 Polo | 40 [A] | 120 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "028E91EA",
+    "nombre": "Interruptor Termomagnético QO150 | 1 Polo | 50 [A] | 120 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A5255B64",
+    "nombre": "Interruptor Termomagnético QO160 | 1 Polo | 60 [A] | 120 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "B22F1D90",
+    "nombre": "Interruptor Termomagnético QO170 | 1 Polo | 70 [A] | 120 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "1D851D14",
+    "nombre": "Interruptor Termomagnético QO180 | 1 Polo | 80 [A] | 120 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "8AA69AB5",
+    "nombre": "Interruptor Termomagnético QO215 | 2 Polos | 15 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "56C24ED0",
+    "nombre": "Interruptor Termomagnético QO220 | 2 Polos | 20 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "9690E597",
+    "nombre": "Interruptor Termomagnético QO230 | 2 Polos | 30 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "7D6A1B33",
+    "nombre": "Interruptor Termomagnético QO240 | 2 Polos | 40 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "BD11A7C8",
+    "nombre": "Interruptor Termomagnético QO250 | 2 Polos | 50 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "9814B089",
+    "nombre": "Interruptor Termomagnético QO260 | 2 Polos | 60 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A1C5788F",
+    "nombre": "Interruptor Termomagnético QO270 | 2 Polos | 70 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A95A1CA8",
+    "nombre": "Interruptor Termomagnético QO280 | 2 Polos | 80 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "1251C6D9",
+    "nombre": "Interruptor Termomagnético QO2100 | 2 Polos | 100 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "0B610EAA",
+    "nombre": "Interruptor Termomagnético QO2125 | 2 Polos | 125 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "4EDE8418",
+    "nombre": "Interruptor Termomagnético QO315 | 3 Polos | 15 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "24EE097B",
+    "nombre": "Interruptor Termomagnético QO320 | 3 Polos | 20 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "BFCD35EE",
+    "nombre": "Interruptor Termomagnético QO330 | 3 Polos | 30 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "4ED5C93D",
+    "nombre": "Interruptor Termomagnético QO340 | 3 Polos | 40 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F84249D5",
+    "nombre": "Interruptor Termomagnético QO350 | 3 Polos | 50 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "43181664",
+    "nombre": "Interruptor Termomagnético QO360 | 3 Polos | 60 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "D90135E7",
+    "nombre": "Interruptor Termomagnético QO370 | 3 Polos | 70 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "35B41312",
+    "nombre": "Interruptor Termomagnético QO380 | 3 Polos | 80 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "429C2A88",
+    "nombre": "Interruptor Termomagnético QO3100 | 3 Polos | 100 [A] | 120/240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "4176F6DB",
+    "nombre": "Tablero Eléctrico | QO | QOD2 | 2 Espacios | Monofásico | 1F - 3H | 50 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "D777434F",
+    "nombre": "Tablero Eléctrico | QO | QOD3 | 3 Espacios | Trifásico | 3F - 4H | 100 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A4181820",
+    "nombre": "Tablero Eléctrico | QO | QOD4 | 4 Espacios | Monofásico | 1F - 3H | 60 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "0961AF82",
+    "nombre": "Tablero Eléctrico | QO | QOD6 | 6 Espacios | Monofásico | 1F - 3H | 100 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "FFE4AFAF",
+    "nombre": "Tablero Eléctrico | QO | QOD8 | 8 Espacios | Monofásico | 1F - 3H | 100 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "B335B39E",
+    "nombre": "Tablero Eléctrico | QO | QO112L125PG | 12 Espacios | Monofásico | 1F - 3H | 125 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "D1084BAA",
+    "nombre": "Tablero Eléctrico | QO | QO312L125G | 12 Espacios | Trifásico | 3F - 4H | 125 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "6E4D2C7F",
+    "nombre": "Tablero Eléctrico | NQ | NQ183L100 | 18 Espacios | Monofásico | 1F - 3H | 100 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "D1377897",
+    "nombre": "Tablero Eléctrico | NQ | NQ184L100 | 18 Espacios | Trifásico | 3F - 4H | 100 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "78E6E91D",
+    "nombre": "Tablero Eléctrico | QO | QO120L125PG | 20 Espacios | Monofásico | 1F - 3H | 125 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "25940BBE",
+    "nombre": "Tablero Eléctrico | QO | QO320L125G | 20 Espacios | Trifásico | 3F - 4H | 125 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "96AFFD5D",
+    "nombre": "Tablero Eléctrico | QO | QO324L125G | 24 Espacios | Trifásico | 3F - 4H | 125 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A9201C09",
+    "nombre": "Tablero Eléctrico | NQ | NQ303L100 | 30 Espacios | Monofásico | 1F - 3H | 100 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "5ABE876B",
+    "nombre": "Tablero Eléctrico | NQ | NQ304L100 | 30 Espacios | Trifásico | 3F - 4H | 100 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "ECBB6931",
+    "nombre": "Tablero Eléctrico | NQ | NQ303L225 | 30 Espacios | Monofásico | 1F - 3H | 225 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "160C9285",
+    "nombre": "Tablero Eléctrico | NQ | NQ304L225 | 30 Espacios | Trifásico | 3F - 4H | 225 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "98C681F0",
+    "nombre": "Tablero Eléctrico | NQ | NQ303L400 | 30 Espacios | Monofásico | 1F - 3H | 400 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "9EB8267A",
+    "nombre": "Tablero Eléctrico | NQ | NQ304L400 | 30 Espacios | Trifásico | 3F - 4H | 400 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "BFA412D0",
+    "nombre": "Tablero Eléctrico | NQ | NQ303L600 | 30 Espacios | Monofásico | 1F - 3H | 600 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F50CC862",
+    "nombre": "Tablero Eléctrico | NQ | NQ304L600 | 30 Espacios | Trifásico | 3F - 4H | 600 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "0F21F6F2",
+    "nombre": "Tablero Eléctrico | QO | QO130L200PG | 30 Espacios | Monofásico | 1F - 3H | 200 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "D04E1C40",
+    "nombre": "Tablero Eléctrico | QO | QO330L200G | 30 Espacios | Trifásico | 3F - 4H | 200 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "9E8D2868",
+    "nombre": "Tablero Eléctrico | NQ | NQ423L225 | 42 Espacios | Monofásico | 1F - 3H | 225 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "BE0CE93E",
+    "nombre": "Tablero Eléctrico | NQ | NQ424L225 | 42 Espacios | Trifásico | 3F - 4H | 225 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F34E1319",
+    "nombre": "Tablero Eléctrico | NQ | NQ423L400 | 42 Espacios | Monofásico | 1F - 3H | 400 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "0BE19387",
+    "nombre": "Tablero Eléctrico | NQ | NQ424L400 | 42 Espacios | Trifásico | 3F - 4H | 400 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "E9A3945B",
+    "nombre": "Tablero Eléctrico | NQ | NQ423L600 | 42 Espacios | Monofásico | 1F - 3H | 600 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "44966A0E",
+    "nombre": "Tablero Eléctrico | NQ | NQ424L600 | 42 Espacios | Trifásico | 3F - 4H | 600 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "5D8598DA",
+    "nombre": "Tablero Eléctrico | QO | QO142L225PG | 42 Espacios | Monofásico | 1F - 3H | 225 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "4A2C7045",
+    "nombre": "Tablero Eléctrico | QO | QO342L225G | 42 Espacios | Trifásico | 3F - 4H | 225 [A] | 120/240 [V] | Zapatas Principales",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "59B5A4EC",
+    "nombre": "Tablero Eléctrico | NQ | NQ183AB100 | 18 Espacios | Monofásico | 1F - 3H | 100 [A] | 120/240 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "03462886",
+    "nombre": "Tablero Eléctrico | NQ | NQ184AB100 | 18 Espacios | Trifásico | 3F - 4H | 100 [A] | 120/240 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "8F942358",
+    "nombre": "Tablero Eléctrico | NQ | NQ303AB100 | 30 Espacios | Monofásico | 1F - 3H | 100 [A] | 120/240 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "84178E1D",
+    "nombre": "Tablero Eléctrico | NQ | NQ304AB100 | 30 Espacios | Trifásico | 3F - 4H | 100 [A] | 120/240 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "C66843E7",
+    "nombre": "Tablero Eléctrico | NQ | NQ303AB225 | 30 Espacios | Monofásico | 1F - 3H | 225 [A] | 120/240 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "969468AA",
+    "nombre": "Tablero Eléctrico | NQ | NQ304AB225 | 30 Espacios | Trifásico | 3F - 4H | 225 [A] | 120/240 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "509FBCCF",
+    "nombre": "Tablero Eléctrico | NQ | NQ303AB400 | 30 Espacios | Monofásico | 1F - 3H | 400 [A] | 120/240 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A709D777",
+    "nombre": "Tablero Eléctrico | NQ | NQ304AB400 | 30 Espacios | Trifásico | 3F - 4H | 400 [A] | 120/240 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "9D83245A",
+    "nombre": "Tablero Eléctrico | QO | QO327M100 | 30 Espacios | Trifásico | 3F - 4H | 100 [A] | 120/240 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A86449AB",
+    "nombre": "Tablero Eléctrico | QO | QO330MQ125 | 30 Espacios | Trifásico | 3F - 4H | 125 [A] | 120/240 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "ED4F18F4",
+    "nombre": "Tablero Eléctrico | NQ | NQ423AB225 | 42 Espacios | Monofásico | 1F - 3H | 225 [A] | 120/240 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "1454409F",
+    "nombre": "Tablero Eléctrico | NQ | NQ424AB225 | 42 Espacios | Trifásico | 3F - 4H | 225 [A] | 120/240 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "B8F2A791",
+    "nombre": "Tablero Eléctrico | NQ | NQ423AB400 | 42 Espacios | Monofásico | 1F - 3H | 400 [A] | 120/240 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "131BF8DE",
+    "nombre": "Tablero Eléctrico | NQ | NQ424AB400 | 42 Espacios | Trifásico | 3F - 4H | 400 [A] | 120/240 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "BCF9637F",
+    "nombre": "Tablero Eléctrico | QO | QO342MQ225 | 42 Espacios | Trifásico | 3F - 4H | 225 [A] | 120/240 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "3A0F578D",
+    "nombre": "Interruptor Termomagnético HDL26015 | 2 Polos | 15 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "CD8646C0",
+    "nombre": "Interruptor Termomagnético HDL26020 | 2 Polos | 20 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "1E5AA889",
+    "nombre": "Interruptor Termomagnético HDL26025 | 2 Polos | 25 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "849F5637",
+    "nombre": "Interruptor Termomagnético HDL26030 | 2 Polos | 30 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "3A64FA3A",
+    "nombre": "Interruptor Termomagnético HDL26035 | 2 Polos | 35 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "CC5916DB",
+    "nombre": "Interruptor Termomagnético HDL26040 | 2 Polos | 40 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F87E4D7B",
+    "nombre": "Interruptor Termomagnético HDL26050 | 2 Polos | 50 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F737D67B",
+    "nombre": "Interruptor Termomagnético HDL26060 | 2 Polos | 60 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "1C0BB18F",
+    "nombre": "Interruptor Termomagnético HDL26070 | 2 Polos | 70 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A6783EC7",
+    "nombre": "Interruptor Termomagnético HDL26080 | 2 Polos | 80 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "79551A81",
+    "nombre": "Interruptor Termomagnético HDL26090 | 2 Polos | 90 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "B418B08F",
+    "nombre": "Interruptor Termomagnético HDL26100 | 2 Polos | 100 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "FDFF1266",
+    "nombre": "Interruptor Termomagnético HDL26110 | 2 Polos | 110 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "1AB360B5",
+    "nombre": "Interruptor Termomagnético HDL26125 | 2 Polos | 125 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "FFE6242B",
+    "nombre": "Interruptor Termomagnético HDL26150 | 2 Polos | 150 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "7D4449A1",
+    "nombre": "Interruptor Termomagnético HDL36015 | 3 Polos | 15 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "875635EF",
+    "nombre": "Interruptor Termomagnético HDL36020 | 3 Polos | 20 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "7BF7A519",
+    "nombre": "Interruptor Termomagnético HDL36025 | 3 Polos | 25 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "5534E1A3",
+    "nombre": "Interruptor Termomagnético HDL36030 | 3 Polos | 30 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "018C18B3",
+    "nombre": "Interruptor Termomagnético HDL36035 | 3 Polos | 35 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "B074AABC",
+    "nombre": "Interruptor Termomagnético HDL36040 | 3 Polos | 40 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "C29BE27C",
+    "nombre": "Interruptor Termomagnético HDL36050 | 3 Polos | 50 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F4680A80",
+    "nombre": "Interruptor Termomagnético HDL36060 | 3 Polos | 60 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "BA1D47E8",
+    "nombre": "Interruptor Termomagnético HDL36070 | 3 Polos | 70 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "7C5954F8",
+    "nombre": "Interruptor Termomagnético HDL36080 | 3 Polos | 80 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "62CF0704",
+    "nombre": "Interruptor Termomagnético HDL36090 | 3 Polos | 90 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "0D70BB0B",
+    "nombre": "Interruptor Termomagnético HDL36100 | 3 Polos | 100 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "D478E993",
+    "nombre": "Interruptor Termomagnético HDL36110 | 3 Polos | 110 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "959BD150",
+    "nombre": "Interruptor Termomagnético HDL36125 | 3 Polos | 125 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "9706813C",
+    "nombre": "Interruptor Termomagnético HDL36150 | 3 Polos | 150 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "C23CD302",
+    "nombre": "Interruptor Termomagnético JDL36150 | 3 Polos | 150 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "5F70AC46",
+    "nombre": "Interruptor Termomagnético JDL36175 | 3 Polos | 175 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "B6701B97",
+    "nombre": "Interruptor Termomagnético JDL36200 | 3 Polos | 200 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "4762B398",
+    "nombre": "Interruptor Termomagnético JDL36225 | 3 Polos | 225 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "474908C9",
+    "nombre": "Interruptor Termomagnético JDL36250 | 3 Polos | 250 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F30FA6F3",
+    "nombre": "Interruptor Termomagnético LDL36250 | 3 Polos | 250 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "67AF07AE",
+    "nombre": "Interruptor Termomagnético LDL36300 | 3 Polos | 300 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "3CE3CB32",
+    "nombre": "Interruptor Termomagnético LDL36350 | 3 Polos | 350 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "908C7B3B",
+    "nombre": "Interruptor Termomagnético LDL36400 | 3 Polos | 400 [A] | 240 - 600 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "DB240F97",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 16 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "405C472A",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 16 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "FA9A0D02",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 300 kcmil",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "027B0499",
+    "nombre": "Cable de Cobre | THHW-LS | Calibre 350 kcmil",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "189FA787",
+    "nombre": "Interruptor Diferencial iC60N Vigi | 2 Polos | 25 [A] | 30 [mA] | 240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "5FEA8B0D",
+    "nombre": "Interruptor Diferencial iC60N Vigi | 2 Polos | 25 [A] | 300 [mA] | 240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "66F15670",
+    "nombre": "Interruptor Diferencial iC60N Vigi | 2 Polos | 40 [A] | 30 [mA] | 240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F436C7F5",
+    "nombre": "Interruptor Diferencial iC60N Vigi | 2 Polos | 40 [A] | 300 [mA] | 240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "324D0B80",
+    "nombre": "Interruptor Diferencial iC60N Vigi | 2 Polos | 63 [A] | 30 [mA] | 240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "E19C7FA2",
+    "nombre": "Interruptor Diferencial iC60N Vigi | 2 Polos | 63 [A] | 300 [mA] | 240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "2606BBB7",
+    "nombre": "Interruptor Diferencial iC60N Vigi | 4 Polos | 25 [A] | 30 [mA] | 240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "125739EB",
+    "nombre": "Interruptor Diferencial iC60N Vigi | 4 Polos | 25 [A] | 300 [mA] | 240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "B889298E",
+    "nombre": "Interruptor Diferencial iC60N Vigi | 4 Polos | 40 [A] | 30 [mA] | 240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A9C0C81E",
+    "nombre": "Interruptor Diferencial iC60N Vigi | 4 Polos | 40 [A] | 300 [mA] | 240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "BF4D48F0",
+    "nombre": "Interruptor Diferencial iC60N Vigi | 4 Polos | 63 [A] | 30 [mA] | 240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "5B777C5B",
+    "nombre": "Interruptor Diferencial iC60N Vigi | 4 Polos | 63 [A] | 300 [mA] | 240 [V]",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "544481E8",
+    "nombre": "Caja Octagonal Metálica | 4\" × 1-1/2\"",
+    "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "84FB50AB",
+    "nombre": "Caja Octagonal Metálica | 4\" × 2-1/8\"",
+    "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "57C882D6",
+    "nombre": "Caja Rectangular Metálica | 2\" × 4\" × 1-1/2\"",
+    "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "0911935B",
+    "nombre": "Caja Rectangular Metálica | 2\" × 4\" × 2-1/8\"",
+    "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "40A5B306",
+    "nombre": "Caja Cuadrada Metálica | 4\" × 4\" × 1-1/2\"",
+    "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "FD63E58B",
+    "nombre": "Caja Cuadrada Metálica | 4\" × 4\" × 2-1/8\"",
+    "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "12333D28",
+    "nombre": "Caja Octagonal PVC | 4\" × 1-1/2\"",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "EBF5B3B0",
+    "nombre": "Caja Octagonal PVC | 4\" × 2-1/8\"",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "CEB51FAD",
+    "nombre": "Caja Rectangular PVC | 2\" × 4\" × 1-1/2\"",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "26D480AA",
+    "nombre": "Caja Rectangular PVC | 2\" × 4\" × 2-1/8\"",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "6E5A643B",
+    "nombre": "Caja Cuadrada PVC | 4\" × 4\" × 1-1/2\"",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F0E1C590",
+    "nombre": "Caja Cuadrada PVC | 4\" × 4\" × 2-1/8\"",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "4147714B",
+    "nombre": "Tapa Ciega Octagonal Metálica | 4\"",
+    "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "444655BA",
+    "nombre": "Tapa para Contacto/Apagador Metálica | 2\" × 4\"",
+    "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A1473B2C",
+    "nombre": "Tapa Ciega Metálica | 4\" × 4\"",
+    "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "0C147816",
+    "nombre": "Tapa Ciega Octagonal PVC | 4\"",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "CAE7672D",
+    "nombre": "Tapa para Contacto/Apagador PVC | 2\" × 4\"",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "33F4913C",
+    "nombre": "Tapa Ciega PVC | 4\" × 4\"",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "73784D64",
+    "nombre": "Varilla de Tierra Coperweld | 5/8\" × 1.50 [m]",
+    "descripcion": "Coperweld | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "1BF5211A",
+    "nombre": "Varilla de Tierra Coperweld | 5/8\" × 1.80 [m]",
+    "descripcion": "Coperweld | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "AD9D362B",
+    "nombre": "Varilla de Tierra Coperweld | 5/8\" × 2.40 [m]",
+    "descripcion": "Coperweld | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "D61A75A9",
+    "nombre": "Varilla de Tierra Coperweld | 3/4\" × 1.50 [m]",
+    "descripcion": "Coperweld | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A45A9CBB",
+    "nombre": "Varilla de Tierra Coperweld | 3/4\" × 1.80 [m]",
+    "descripcion": "Coperweld | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "BD05E23F",
+    "nombre": "Varilla de Tierra Coperweld | 3/4\" × 2.40 [m]",
+    "descripcion": "Coperweld | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "0F75F09C",
+    "nombre": "Conector de Compresión para Varilla de Tierra | 5/8\"",
+    "descripcion": "Burndy | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "0DBD4733",
+    "nombre": "Conector de Compresión para Varilla de Tierra | 3/4\"",
+    "descripcion": "Burndy | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "F75CDAC2",
+    "nombre": "Abrazadera para Varilla de Tierra",
+    "descripcion": "Burndy | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "4AB19072",
+    "nombre": "Contacto Dúplex Decora | 15 [A] | 125 [V]",
+    "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "C0E04615",
+    "nombre": "Contacto Dúplex Decora | 20 [A] | 125 [V]",
+    "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "53E91A6E",
+    "nombre": "Contacto GFCI Decora | 15 [A] | 125 [V]",
+    "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "289CCABA",
+    "nombre": "Contacto GFCI Decora | 20 [A] | 125 [V]",
+    "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "1E918815",
+    "nombre": "Apagador Sencillo Decora | 15 [A] | 125 [V]",
+    "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "AD58C45B",
+    "nombre": "Apagador Doble Decora | 15 [A] | 125 [V]",
+    "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "D2C93011",
+    "nombre": "Apagador de 3 Vías Decora | 15 [A] | 125 [V]",
+    "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "7B3D5C4F",
+    "nombre": "Apagador de 4 Vías Decora | 15 [A] | 125 [V]",
+    "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "7D07F258",
+    "nombre": "Contacto USB Decora | Tipo A+A | 15 [A] | 125 [V]",
+    "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "CF5B0963",
+    "nombre": "Contacto USB Decora | Tipo A+C | 15 [A] | 125 [V]",
+    "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "BF862566",
+    "nombre": "Placa Decora | 1 Módulo | Negro",
+    "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "72B984EF",
+    "nombre": "Placa Decora | 2 Módulos | Negro",
+    "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A3896EB6",
+    "nombre": "Placa Decora | 3 Módulos | Negro",
+    "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "DF89D08C",
+    "nombre": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-24"
+  }
+]

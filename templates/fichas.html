@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block title %}Fichas Técnicas{% endblock %}
+{% block page_title %}<i class="bi bi-journal-bookmark me-2 text-primary"></i>Base de Fichas Técnicas{% endblock %}
+{% block topbar_actions %}
+  <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalFicha">
+    <i class="bi bi-plus-lg me-1"></i>Nueva ficha
+  </button>
+{% endblock %}
+{% block content %}
+<!-- Filtro -->
+<div class="card mb-3">
+  <div class="card-body py-2">
+    <form method="get" class="row g-2 align-items-end">
+      <div class="col-auto">
+        <label class="form-label mb-1">Tipo de equipo</label>
+        <select name="tipo" class="form-select form-select-sm">
+          <option value="">Todos</option>
+          {% for t in tipos_ficha %}<option {% if filter_tipo==t %}selected{% endif %}>{{ t }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="bi bi-funnel"></i> Filtrar</button>
+        <a href="{{ url_for('fichas') }}" class="btn btn-sm btn-link text-muted">Limpiar</a>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body p-0">
+    {% if fichas %}
+    <table class="table mb-0">
+      <thead>
+        <tr><th>Código</th><th>Tipo</th><th>Marca</th><th>Modelo</th><th>Descripción</th><th>Archivo PDF</th><th>Proyectos</th><th class="text-end">Acción</th></tr>
+      </thead>
+      <tbody>
+      {% for f in fichas %}
+      <tr>
+        <td><code class="text-primary fw-semibold">{{ f.code }}</code></td>
+        <td><span class="badge bg-light text-dark border">{{ f.tipo }}</span></td>
+        <td>{{ f.marca }}</td>
+        <td>{{ f.modelo }}</td>
+        <td><small class="text-muted">{{ f.descripcion | truncate(50,True) }}</small></td>
+        <td>
+          {% if f.filename %}
+            <code style="font-size:.78rem" class="text-success">{{ f.filename }}</code>
+          {% else %}
+            <small class="text-muted">—</small>
+          {% endif %}
+        </td>
+        <td>
+          {% for pid in f.projects %}
+            {% if pid in projects_by_id %}
+              <a href="{{ url_for('project_detail', project_id=pid) }}#tab-fichas"
+                 class="badge bg-light text-dark border text-decoration-none" style="font-size:.72rem">
+                {{ projects_by_id[pid].clave }}
+              </a>
+            {% endif %}
+          {% endfor %}
+          {% if not f.projects %}<small class="text-muted">Sin proyectos</small>{% endif %}
+        </td>
+        <td class="text-end">
+          <form method="post" action="{{ url_for('delete_ficha', ficha_id=f.id) }}"
+                class="d-inline" onsubmit="return confirm('¿Eliminar esta ficha?')">
+            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <div class="text-center py-5 text-muted">
+        <i class="bi bi-journal-bookmark fs-1 d-block mb-2"></i>
+        No hay fichas registradas aún.<br>
+        <button class="btn btn-primary btn-sm mt-3" data-bs-toggle="modal" data-bs-target="#modalFicha">
+          <i class="bi bi-plus-lg me-1"></i>Registrar primera ficha
+        </button>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Modal nueva ficha -->
+<div class="modal fade" id="modalFicha" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-journal-plus me-2 text-primary"></i>Nueva ficha técnica</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Tipo *</label>
+              <select name="tipo" class="form-select" id="tipoSel" oninput="updateCode()">
+                {% for t in tipos_ficha %}<option>{{ t }}</option>{% endfor %}
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Marca *</label>
+              <input name="marca" class="form-control" required placeholder="Ej: PHILIPS" id="marcaIn" oninput="updateCode()">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Modelo *</label>
+              <input name="modelo" class="form-control" required placeholder="Ej: BN126C" id="modeloIn" oninput="updateCode()">
+            </div>
+            <div class="col-12">
+              <div class="p-2 rounded" style="background:#f0f4ff;border:1px solid #c7d7f9;">
+                <small class="text-muted">Código generado: </small>
+                <code class="text-primary" id="codePreview">LUM-{MARCA}-{MODELO}</code>
+              </div>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Descripción</label>
+              <input name="descripcion" class="form-control" placeholder="Ej: Luminaria LED empotrada 18W">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Archivo PDF en Drive <small class="text-muted">(nombre exacto del archivo)</small></label>
+              <input name="filename" class="form-control font-monospace" placeholder="Ej: FT-LUM-PHILIPS-BN126C.pdf"
+                     id="filenameIn">
+              <div class="form-text">Este nombre se usa para incluir la ficha en el entregable ZIP.</div>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Notas</label>
+              <textarea name="notes" class="form-control" rows="2" placeholder="Especificaciones, proveedor, precio referencia..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+  function updateCode(){
+    const t=document.getElementById("tipoSel").value||"?";
+    const m=document.getElementById("marcaIn").value.trim().toUpperCase().replace(/ /g,"-")||"{MARCA}";
+    const mo=document.getElementById("modeloIn").value.trim().toUpperCase().replace(/ /g,"-")||"{MODELO}";
+    const code=`${t}-${m}-${mo}`;
+    document.getElementById("codePreview").textContent=code;
+    const fnIn=document.getElementById("filenameIn");
+    if(!fnIn.dataset.manual) fnIn.value=`FT-${code}.pdf`;
+  }
+  document.getElementById("filenameIn").addEventListener("input",function(){
+    this.dataset.manual=this.value?"1":"";
+  });
+</script>
+{% endblock %}

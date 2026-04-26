@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% block title %}Documentos – Project Tracker{% endblock %}
+{% block page_title %}<i class="bi bi-file-earmark-text me-2 text-warning"></i>Control de documentos{% endblock %}
+
+{% block topbar_actions %}
+  <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDoc">
+    <i class="bi bi-plus-lg me-1"></i>Nuevo documento
+  </button>
+{% endblock %}
+
+{% block content %}
+
+<!-- Filtros -->
+<div class="card mb-3">
+  <div class="card-body py-2">
+    <form method="get" class="row g-2 align-items-end">
+      <div class="col-auto">
+        <label class="form-label mb-1">Estado</label>
+        <select name="status" class="form-select form-select-sm">
+          <option value="">Todos</option>
+          {% for s in ["Pendiente","En Revisión","Entregado","Con Observaciones"] %}
+            <option {% if filter_status==s %}selected{% endif %}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto">
+        <label class="form-label mb-1">Proyecto</label>
+        <input name="project" value="{{ filter_project }}" class="form-control form-control-sm" placeholder="Filtrar...">
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-funnel"></i> Filtrar
+        </button>
+        <a href="{{ url_for('documents') }}" class="btn btn-sm btn-link text-muted">Limpiar</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Tabla -->
+<div class="card">
+  <div class="card-body p-0">
+    {% if documents %}
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Documento</th>
+          <th>Tipo</th>
+          <th>Proyecto</th>
+          <th>Responsable</th>
+          <th>Fecha compromiso</th>
+          <th>Entregado</th>
+          <th>Rev.</th>
+          <th>Estado</th>
+          <th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in documents %}
+        <tr>
+          <td><code class="text-muted" style="font-size:.75rem">{{ d.id }}</code></td>
+          <td>
+            <span class="fw-semibold">{{ d.name }}</span>
+            {% if d.notes %}<br><small class="text-muted">{{ d.notes | truncate(40, True) }}</small>{% endif %}
+          </td>
+          <td><small class="text-muted">{{ d.doc_type or '—' }}</small></td>
+          <td><small class="text-muted">{{ d.project or '—' }}</small></td>
+          <td>
+            {% if d.responsible %}
+              <span class="badge bg-light text-dark border">{{ d.responsible }}</span>
+            {% else %}—{% endif %}
+          </td>
+          <td>
+            {% if d.due_date %}
+              <span class="{% if d.due_date < today and d.status != 'Entregado' %}overdue{% endif %}">
+                {{ d.due_date | fdate }}
+              </span>
+            {% else %}—{% endif %}
+          </td>
+          <td>
+            <small class="text-muted">{{ d.delivery_date | fdate if d.delivery_date else '—' }}</small>
+          </td>
+          <td class="text-center">
+            <span class="badge bg-secondary">{{ d.revision }}</span>
+          </td>
+          <td><span class="badge badge-{{ d.status }}">{{ d.status }}</span></td>
+          <td class="text-end">
+            <a href="{{ url_for('edit_document', doc_id=d.id) }}"
+               class="btn btn-sm btn-outline-secondary me-1" title="Editar">
+              <i class="bi bi-pencil"></i>
+            </a>
+            <form method="post" action="{{ url_for('delete_document', doc_id=d.id) }}"
+                  class="d-inline"
+                  onsubmit="return confirm('¿Eliminar este documento?')">
+              <button class="btn btn-sm btn-outline-danger" title="Eliminar">
+                <i class="bi bi-trash"></i>
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <div class="text-center py-5 text-muted">
+        <i class="bi bi-file-earmark-text fs-1 d-block mb-2"></i>
+        No hay documentos registrados.
+        <br>
+        <button class="btn btn-primary btn-sm mt-3" data-bs-toggle="modal" data-bs-target="#modalDoc">
+          <i class="bi bi-plus-lg me-1"></i>Registrar primer documento
+        </button>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Modal: Nuevo documento -->
+<div class="modal fade" id="modalDoc" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="post" action="{{ url_for('documents') }}">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-file-earmark-plus me-2 text-warning"></i>Registrar documento</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-8">
+              <label class="form-label">Nombre del documento *</label>
+              <input name="name" class="form-control" required placeholder="Ej: Memoria de cálculo eléctrico">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Tipo</label>
+              <input name="doc_type" class="form-control" placeholder="Plano, Memoria, Informe...">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Proyecto</label>
+              <input name="project" class="form-control" placeholder="Nombre del proyecto">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Responsable</label>
+              <select name="responsible" class="form-select">
+                <option value="">Sin asignar</option>
+                {% for m in team %}
+                  <option>{{ m.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Fecha compromiso</label>
+              <input type="date" name="due_date" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Fecha entrega real</label>
+              <input type="date" name="delivery_date" class="form-control">
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Revisión</label>
+              <input name="revision" class="form-control" value="0" placeholder="0">
+            </div>
+            <div class="col-md-2">
+              <label class="form-label">Estado</label>
+              <select name="status" class="form-select">
+                <option selected>Pendiente</option>
+                <option>En Revisión</option>
+                <option>Entregado</option>
+                <option>Con Observaciones</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Notas</label>
+              <textarea name="notes" class="form-control" rows="2" placeholder="Observaciones, normas aplicables, ubicación..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

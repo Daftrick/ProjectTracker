@@ -1,0 +1,323 @@
+{% extends "base.html" %}
+{% block title %}Catálogo – Project Tracker{% endblock %}
+{% block page_title %}<i class="bi bi-box-seam me-2 text-primary"></i>Catálogo de artículos{% endblock %}
+{% block topbar_actions %}
+  <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalNew">
+    <i class="bi bi-plus-lg me-1"></i>Nuevo artículo
+  </button>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+  .price-cell { font-variant-numeric: tabular-nums; }
+  #bulkBar { transition: opacity .15s; }
+  .row-check { cursor: pointer; }
+  tr.selected-row { background-color: rgba(60,90,150,.12); }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Barra de búsqueda -->
+<div class="card mb-4">
+  <div class="card-body py-2">
+    <form method="get" class="d-flex gap-2 align-items-center">
+      <i class="bi bi-search text-muted"></i>
+      <input name="q" class="form-control border-0 shadow-none" placeholder="Buscar por nombre o descripción…"
+             value="{{ q }}" autofocus style="font-size:.9rem">
+      {% if q %}
+      <a href="{{ url_for('catalogo') }}" class="btn btn-sm btn-outline-secondary text-nowrap">
+        <i class="bi bi-x me-1"></i>Limpiar
+      </a>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
+{% if items %}
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <span>Artículos{% if q %} — resultados para «{{ q }}»{% endif %}</span>
+    <div class="d-flex align-items-center gap-3">
+      <!-- Barra de acciones múltiples -->
+      <div id="bulkBar" class="d-none d-flex align-items-center gap-2">
+        <span id="selCount" class="text-muted small fw-semibold"></span>
+        <button class="btn btn-sm btn-danger" onclick="bulkDelete()">
+          <i class="bi bi-trash me-1"></i>Eliminar seleccionados
+        </button>
+        <button class="btn btn-sm btn-outline-secondary" onclick="clearSelection()">
+          <i class="bi bi-x"></i>
+        </button>
+      </div>
+      <small class="text-muted" id="totalCount">{{ items|length }} artículo(s)</small>
+    </div>
+  </div>
+  <div class="card-body p-0">
+    <table class="table mb-0">
+      <thead class="table-light">
+        <tr>
+          <th style="width:3%" class="text-center ps-3">
+            <input type="checkbox" id="checkAll" class="form-check-input">
+          </th>
+          <th style="width:27%">Nombre</th>
+          <th style="width:34%">Descripción</th>
+          <th style="width:10%" class="text-center">Unidad</th>
+          <th style="width:14%" class="text-end">Precio unitario</th>
+          <th style="width:12%" class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="catalogoTbody">
+        {% for item in items %}
+        <tr id="row-{{ item.id }}">
+          <td class="text-center ps-3">
+            <input type="checkbox" class="form-check-input row-check" value="{{ item.id }}">
+          </td>
+          <td class="fw-semibold cell-nombre">{{ item.nombre }}</td>
+          <td class="text-muted cell-desc" style="font-size:.85rem">{{ item.descripcion or '—' }}</td>
+          <td class="text-center cell-unidad">
+            <span class="badge bg-light text-dark border">{{ item.unidad }}</span>
+          </td>
+          <td class="text-end price-cell fw-semibold cell-precio">{{ item.precio | currency }}</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-secondary me-1"
+                    onclick='openEdit({{ item | tojson }})'
+                    title="Editar"><i class="bi bi-pencil"></i></button>
+            <button class="btn btn-sm btn-outline-danger"
+                    onclick='deleteItem("{{ item.id }}", {{ item.nombre | tojson }})'
+                    title="Eliminar"><i class="bi bi-trash"></i></button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+<div class="text-center py-5">
+  <i class="bi bi-box-seam fs-1 text-muted d-block mb-3"></i>
+  {% if q %}
+    <h5 class="text-muted">Sin resultados para «{{ q }}»</h5>
+    <a href="{{ url_for('catalogo') }}" class="btn btn-outline-secondary mt-2">Ver todos</a>
+  {% else %}
+    <h5 class="text-muted">El catálogo está vacío</h5>
+    <p class="text-muted">Agrega artículos reutilizables para tus cotizaciones.</p>
+    <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#modalNew">
+      <i class="bi bi-plus-lg me-1"></i>Agregar primer artículo
+    </button>
+  {% endif %}
+</div>
+{% endif %}
+
+<!-- Modal: Nuevo artículo -->
+<div class="modal fade" id="modalNew" tabindex="-1">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <form method="post" action="{{ url_for('catalogo') }}">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-plus-circle me-2 text-primary"></i>Nuevo artículo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Nombre <span class="text-danger">*</span></label>
+            <input name="nombre" class="form-control" placeholder="Ej. Luminaria LED 2x18W" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea name="descripcion" class="form-control" rows="2"
+                      placeholder="Marca, modelo, especificaciones…"></textarea>
+          </div>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Unidad</label>
+              <input name="unidad" class="form-control" value="pza" placeholder="pza, m, m², hrs…">
+            </div>
+            <div class="col-md-8">
+              <label class="form-label">Precio unitario (MXN)</label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" name="precio" class="form-control" value="0" min="0" step="0.01">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Editar artículo -->
+<div class="modal fade" id="modalEdit" tabindex="-1">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <form id="editForm">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-pencil me-2 text-primary"></i>Editar artículo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Nombre <span class="text-danger">*</span></label>
+            <input name="nombre" id="editNombre" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea name="descripcion" id="editDesc" class="form-control" rows="2"></textarea>
+          </div>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Unidad</label>
+              <input name="unidad" id="editUnidad" class="form-control">
+            </div>
+            <div class="col-md-8">
+              <label class="form-label">Precio unitario (MXN)</label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" name="precio" id="editPrecio" class="form-control" min="0" step="0.01">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="editSaveBtn">
+            <i class="bi bi-check-lg me-1"></i>Guardar cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// ── Formato de precio (igual que el filtro currency del backend) ──────────
+function formatCurrency(v) {
+  return '$' + parseFloat(v).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+
+// ── Abrir modal de edición ────────────────────────────────────────────────
+function openEdit(item) {
+  document.getElementById('editNombre').value = item.nombre;
+  document.getElementById('editDesc').value   = item.descripcion || '';
+  document.getElementById('editUnidad').value = item.unidad;
+  document.getElementById('editPrecio').value = item.precio;
+  document.getElementById('editForm').dataset.itemId = item.id;
+  new bootstrap.Modal(document.getElementById('modalEdit')).show();
+}
+
+// ── Guardar edición vía AJAX (sin recargar página) ───────────────────────
+document.getElementById('editForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const id  = this.dataset.itemId;
+  const btn = document.getElementById('editSaveBtn');
+  btn.disabled = true;
+
+  const res = await fetch(`/catalogo/${id}/edit`, {
+    method:  'POST',
+    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+    body:    new FormData(this)
+  });
+  const json = await res.json();
+  btn.disabled = false;
+
+  if (json.ok) {
+    const row = document.getElementById('row-' + id);
+    if (row) {
+      row.querySelector('.cell-nombre').textContent = json.item.nombre;
+      row.querySelector('.cell-desc').textContent   = json.item.descripcion || '—';
+      row.querySelector('.cell-unidad .badge').textContent = json.item.unidad;
+      row.querySelector('.cell-precio').textContent = formatCurrency(json.item.precio);
+      // Actualizar el onclick del botón editar con los nuevos datos
+      row.querySelector('button[title="Editar"]')
+         .setAttribute('onclick', `openEdit(${JSON.stringify(json.item)})`);
+    }
+    bootstrap.Modal.getInstance(document.getElementById('modalEdit')).hide();
+  }
+});
+
+// ── Eliminar un artículo vía AJAX ─────────────────────────────────────────
+async function deleteItem(id, nombre) {
+  if (!confirm(`¿Eliminar «${nombre}»?`)) return;
+  const res = await fetch(`/catalogo/${id}/delete`, {
+    method:  'POST',
+    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+  });
+  const json = await res.json();
+  if (json.ok) {
+    document.getElementById('row-' + id)?.remove();
+    updateSelectionUI();
+    updateTotalCount();
+  }
+}
+
+// ── Checkboxes y selección múltiple ──────────────────────────────────────
+document.getElementById('checkAll').addEventListener('change', function() {
+  document.querySelectorAll('.row-check').forEach(cb => {
+    cb.checked = this.checked;
+    cb.closest('tr').classList.toggle('selected-row', this.checked);
+  });
+  updateSelectionUI();
+});
+
+document.getElementById('catalogoTbody').addEventListener('change', function(e) {
+  if (!e.target.classList.contains('row-check')) return;
+  e.target.closest('tr').classList.toggle('selected-row', e.target.checked);
+  updateSelectionUI();
+});
+
+function updateSelectionUI() {
+  const checked = document.querySelectorAll('.row-check:checked');
+  const all     = document.querySelectorAll('.row-check');
+  const bar     = document.getElementById('bulkBar');
+  const chkAll  = document.getElementById('checkAll');
+
+  bar.classList.toggle('d-none', checked.length === 0);
+  document.getElementById('selCount').textContent = `${checked.length} seleccionado(s)`;
+
+  chkAll.indeterminate = checked.length > 0 && checked.length < all.length;
+  chkAll.checked = all.length > 0 && checked.length === all.length;
+}
+
+function clearSelection() {
+  document.querySelectorAll('.row-check').forEach(cb => {
+    cb.checked = false;
+    cb.closest('tr').classList.remove('selected-row');
+  });
+  document.getElementById('checkAll').checked = false;
+  updateSelectionUI();
+}
+
+// ── Eliminar seleccionados ────────────────────────────────────────────────
+async function bulkDelete() {
+  const ids = [...document.querySelectorAll('.row-check:checked')].map(cb => cb.value);
+  if (!ids.length) return;
+  if (!confirm(`¿Eliminar ${ids.length} artículo(s) seleccionados? Esta acción no se puede deshacer.`)) return;
+
+  const res = await fetch('/api/catalogo/bulk-delete', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ ids })
+  });
+  const json = await res.json();
+  if (json.ok) {
+    ids.forEach(id => document.getElementById('row-' + id)?.remove());
+    document.getElementById('checkAll').checked = false;
+    updateSelectionUI();
+    updateTotalCount();
+  }
+}
+
+// ── Actualizar contador total ─────────────────────────────────────────────
+function updateTotalCount() {
+  const n = document.querySelectorAll('#catalogoTbody tr').length;
+  document.getElementById('totalCount').textContent = `${n} artículo(s)`;
+}
+</script>
+{% endblock %}

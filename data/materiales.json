@@ -1,0 +1,593 @@
+[
+  {
+    "id": "E2BAF2B5",
+    "project_id": "8CC7C53F",
+    "ldm_number": "LDM-Cero5Cien-0402-01",
+    "seq": 1,
+    "proveedor": "Procables de México",
+    "fecha": "2026-04-06",
+    "items": [
+      {
+        "catalog_item_id": "",
+        "description": "Tubo Conduit Pared Delgada | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 70.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "CF8E020E",
+        "description": "Abrazadera para Unicanal | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 125.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Codo Conduit Pared Delgada | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 15.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Monitor Metálico Pared Delgada | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 100.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Cople Metálico Pared Delgada con Tornillo | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 100.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Conector Metálico Pared Delgada | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 150.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Tubo Conduit Pared Delgada | 35 [mm] (1 1/4\")",
+        "unit": "pza",
+        "qty": 15.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "6B4F82DD",
+        "description": "Abrazadera para Unicanal | 35 [mm] (1 1/4\")",
+        "unit": "pza",
+        "qty": 30.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Monitor Metálico Pared Delgada | 35 [mm] (1 1/4\")",
+        "unit": "pza",
+        "qty": 30.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Cople Metálico Pared Delgada con Tornillo | 35 [mm] (1 1/4\")",
+        "unit": "pza",
+        "qty": 30.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Conector Metálico Pared Delgada | 35 [mm] (1 1/4\")",
+        "unit": "pza",
+        "qty": 30.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "9AC13BC2",
+        "description": "Perfil Unicanal Perforado | 4x2 [cm] | Tramo de 3 [m]",
+        "unit": "pza",
+        "qty": 15.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "AC40DA48",
+        "description": "Varilla Roscada | 3/8\" | Tramo de 3 [m]",
+        "unit": "pza",
+        "qty": 11.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "60CA5FEE",
+        "description": "Taquete Expansivo Zamac | 3/8\"",
+        "unit": "pza",
+        "qty": 150.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "5880609C",
+        "description": "Tuerca Hexagonal | 3/8\"",
+        "unit": "pza",
+        "qty": 400.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "79921E56",
+        "description": "Rondana | 3/8\"",
+        "unit": "pza",
+        "qty": 400.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "7B7F4147",
+        "description": "Cable de Cobre | Desnudo | Calibre 10 AWG",
+        "unit": "m",
+        "qty": 400.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "DE9EF199",
+        "description": "Zapata Terminal Ponchable | Calibre 10 AWG",
+        "unit": "pza",
+        "qty": 100.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      }
+    ],
+    "cot_proveedor": "1573474",
+    "notes": "Primera Cotización de Materiales. Depto. O402.",
+    "created_at": "2026-04-20",
+    "subtotal_cot": 34788.38
+  },
+  {
+    "id": "57201547",
+    "project_id": "4A25C802",
+    "ldm_number": "LDM-OficinasPalmasHills-01",
+    "seq": 1,
+    "proveedor": "Procables de México",
+    "fecha": "2026-04-06",
+    "items": [],
+    "cot_proveedor": null,
+    "notes": "Primera Cotización de Materiales",
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "DA7A4BEC",
+    "project_id": "8CC7C53F",
+    "ldm_number": "LDM-Cero5Cien-0402-02",
+    "seq": 2,
+    "proveedor": "Procables de México",
+    "fecha": "2026-04-07",
+    "items": [
+      {
+        "description": "Registro Eléctrico Galvanizado | 30x30x13 [cm]",
+        "unit": "pza",
+        "qty": 16.0,
+        "catalog_item_id": "7FB42249"
+      },
+      {
+        "description": "Registro Eléctrico Galvanizado | 56x56x13 [cm]",
+        "unit": "pza",
+        "qty": 7.0,
+        "catalog_item_id": "573F7605"
+      },
+      {
+        "description": "Varilla Roscada | 3/8\" | Tramo de 3 [m]",
+        "unit": "pza",
+        "qty": 34.0,
+        "catalog_item_id": "AC40DA48"
+      }
+    ],
+    "cot_proveedor": "1574065",
+    "notes": "Segunda Cotización de Materiales. Depto. O402",
+    "created_at": "2026-04-20",
+    "subtotal_cot": 11685.38
+  },
+  {
+    "id": "1286F99B",
+    "project_id": "8CC7C53F",
+    "ldm_number": "LDM-Cero5Cien-0402-03",
+    "seq": 3,
+    "proveedor": "Tamex",
+    "fecha": "2026-04-22",
+    "items": [
+      {
+        "description": "Cable Uso Rudo | 3 x Calibre 10 AWG",
+        "unit": "pza",
+        "qty": 100.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "60882F0F"
+      },
+      {
+        "description": "Caja Rectangular Condulet FS | 1/2\"",
+        "unit": "pza",
+        "qty": 4.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "35F797E1"
+      },
+      {
+        "description": "Contacto Duplex Polarizado | Con Tapa | 15 [A] | 125 [V] | Blanco",
+        "unit": "pza",
+        "qty": 4.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "08190240"
+      },
+      {
+        "description": "Clavija Industrial Redonda | 15 [A] | 125 [V]",
+        "unit": "pza",
+        "qty": 4.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "322EF0AC"
+      },
+      {
+        "description": "Tubo Conduit Pared Delgada | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 60.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Tubo Conduit Pared Delgada | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 60.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Cople Metálico Pared Delgada con Tornillo | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 120.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Cople Metálico Pared Delgada con Tornillo | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 120.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Conector Metálico Pared Delgada | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 120.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Conector Metálico Pared Delgada | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 120.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Monitor Metálico Pared Delgada | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 120.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Monitor Metálico Pared Delgada | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 120.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Caja Cuadrada Galvanizada | 3/4\"",
+        "unit": "pza",
+        "qty": 200.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "D0ECADEF"
+      },
+      {
+        "description": "Tapa Cuadrada Galvanizada | 3/4\"",
+        "unit": "pza",
+        "qty": 200.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "0AE22940"
+      },
+      {
+        "description": "Taquete Expansivo Zamac | 3/8\"",
+        "unit": "pza",
+        "qty": 50.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "60CA5FEE"
+      },
+      {
+        "description": "Taquete Plástico Rojo | 3/8\"",
+        "unit": "pza",
+        "qty": 50.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "D4CA8413"
+      },
+      {
+        "description": "Tuerca Hexagonal | 3/8\"",
+        "unit": "pza",
+        "qty": 100.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "5880609C"
+      },
+      {
+        "description": "Rondana | 3/8\"",
+        "unit": "pza",
+        "qty": 100.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "79921E56"
+      },
+      {
+        "description": "Abrazadera Tipo Omega | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 200.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "7132C911"
+      },
+      {
+        "description": "Tubo Conduit Pared Delgada | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 15.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Varilla Roscada | 3/8\" | Tramo de 3 [m]",
+        "unit": "pza",
+        "qty": 10.03,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "AC40DA48"
+      },
+      {
+        "description": "Perfil Unicanal Perforado | 4x2 [cm] | Tramo de 3 [m]",
+        "unit": "pza",
+        "qty": 5.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "9AC13BC2"
+      }
+    ],
+    "cot_proveedor": "5287077",
+    "notes": "Tercera Cotización de Materiales. Depto. O402.",
+    "created_at": "2026-04-20",
+    "subtotal_cot": 32939.95
+  },
+  {
+    "id": "41A645F8",
+    "project_id": "8CC7C53F",
+    "ldm_number": "LDM-Cero5Cien-0402-04",
+    "seq": 4,
+    "proveedor": "Torsa - Ferreteria IA Kilar",
+    "fecha": "2026-04-21",
+    "items": [
+      {
+        "description": "Pija Punta de Broca | 1/4\"",
+        "unit": "pza",
+        "qty": 400.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "98961499"
+      }
+    ],
+    "subtotal_cot": 278.4,
+    "cot_proveedor": "51737",
+    "notes": "Tercera Cotización de Materiales. Depto. O402.",
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A804512F",
+    "project_id": "8CC7C53F",
+    "ldm_number": "LDM-Cero5Cien-0402-05",
+    "seq": 5,
+    "proveedor": "Torsa - Ferreteria IA Kilar",
+    "fecha": "2026-04-21",
+    "items": [
+      {
+        "description": "Pintura en Aerosol para Metal | Color Amarillo",
+        "unit": "pza",
+        "qty": 1.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "802B4677"
+      },
+      {
+        "description": "Pintura en Aerosol para Metal | Color Azul",
+        "unit": "pza",
+        "qty": 1.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "55946E84"
+      },
+      {
+        "description": "Pintura en Aerosol para Metal | Color Morado",
+        "unit": "pza",
+        "qty": 1.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "9824265A"
+      },
+      {
+        "description": "Pintura en Aerosol para Metal | Color Naranja",
+        "unit": "pza",
+        "qty": 1.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "86E959D6"
+      },
+      {
+        "description": "Pintura en Aerosol para Metal | Color Rojo",
+        "unit": "pza",
+        "qty": 1.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "8A97357A"
+      },
+      {
+        "description": "Pintura en Aerosol para Metal | Color Verde",
+        "unit": "pza",
+        "qty": 1.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "D2879612"
+      }
+    ],
+    "subtotal_cot": 366.68,
+    "cot_proveedor": "51727",
+    "notes": "Tercera Cotización. Depto. O402",
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "821BF09D",
+    "project_id": "8CC7C53F",
+    "ldm_number": "LDM-Cero5Cien-0402-06",
+    "seq": 6,
+    "proveedor": "Procables de México",
+    "fecha": "2026-04-22",
+    "items": [
+      {
+        "description": "Cople Metálico Galvanizado Pared Delgada con Tornillo | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 50.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "BD9EA6E4"
+      },
+      {
+        "description": "Codo Conduit Galvanizado Pared Delgada | 35 [mm] (1 1/4\")",
+        "unit": "pza",
+        "qty": 12.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "17074C17"
+      },
+      {
+        "description": "Conector Conduit PVC SP | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 4.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0,
+        "catalog_item_id": "9E4997EB"
+      }
+    ],
+    "subtotal_cot": 1391.54,
+    "cot_proveedor": "1586165",
+    "notes": "",
+    "created_at": "2026-04-22"
+  },
+  {
+    "id": "99116B44",
+    "project_id": "8CC7C53F",
+    "ldm_number": "LDM-Cero5Cien-0402-07",
+    "seq": 7,
+    "proveedor": "Tamex",
+    "fecha": "2026-04-24",
+    "items": [
+      {
+        "catalog_item_id": "969468AA",
+        "description": "Tablero Eléctrico | NQ | NQ304AB225 | 30 Espacios | Trifásico | 3F - 4H | 225 [A] | 120/240 [V] | Interruptor Principal",
+        "unit": "pza",
+        "qty": 1.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "25940BBE",
+        "description": "Tablero Eléctrico | QO | QO320L125G | 20 Espacios | Trifásico | 3F - 4H | 125 [A] | 120/240 [V] | Zapatas Principales",
+        "unit": "pza",
+        "qty": 2.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "9706813C",
+        "description": "Interruptor Termomagnético HDL36150 | 3 Polos | 150 [A] | 240 - 600 [V]",
+        "unit": "pza",
+        "qty": 1.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "73618927",
+        "description": "Interruptor Termomagnético QO115 | 1 Polo | 15 [A] | 120 [V]",
+        "unit": "pza",
+        "qty": 15.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "15514DE1",
+        "description": "Interruptor Termomagnético QO120 | 1 Polo | 20 [A] | 120 [V]",
+        "unit": "pza",
+        "qty": 25.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "6B776A1B",
+        "description": "Interruptor Termomagnético QO130 | 1 Polo | 30 [A] | 120 [V]",
+        "unit": "pza",
+        "qty": 5.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "56C24ED0",
+        "description": "Interruptor Termomagnético QO220 | 2 Polos | 20 [A] | 120/240 [V]",
+        "unit": "pza",
+        "qty": 5.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "9690E597",
+        "description": "Interruptor Termomagnético QO230 | 2 Polos | 30 [A] | 120/240 [V]",
+        "unit": "pza",
+        "qty": 5.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "7D6A1B33",
+        "description": "Interruptor Termomagnético QO240 | 2 Polos | 40 [A] | 120/240 [V]",
+        "unit": "pza",
+        "qty": 5.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      }
+    ],
+    "subtotal_cot": 86446.73,
+    "cot_proveedor": "5293198",
+    "notes": "Cuarta Lista de Materiales. Depto. O402.",
+    "created_at": "2026-04-24"
+  }
+]

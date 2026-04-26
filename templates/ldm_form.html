@@ -1,0 +1,719 @@
+{% extends "base.html" %}
+{% block title %}{% if ldm %}Editar{% else %}Nueva{% endif %} Lista de Materiales – {{ project.name }}{% endblock %}
+{% block page_title %}
+  <i class="bi bi-card-list me-2 text-warning"></i>
+  {% if ldm %}Editar {{ ldm.ldm_number }}{% else %}Nueva lista de materiales — {{ project.clave }}{% endif %}
+{% endblock %}
+{% block topbar_actions %}
+  <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-materiales"
+     class="btn btn-sm btn-outline-secondary">
+    <i class="bi bi-arrow-left me-1"></i>Volver
+  </a>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+  /* ── Barra de acciones fija en la parte inferior ─────────────── */
+  .ldm-bar {
+    position: fixed;
+    bottom: 0;
+    left: var(--sbw, 240px);
+    right: 0;
+    background: #0f1525;
+    border-top: 1px solid rgba(255,255,255,.18);
+    padding: 10px 28px;
+    box-shadow: 0 -2px 14px rgba(0,0,0,.5);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .ldm-bar .meta { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+  .ldm-bar .meta-item { font-size: .82rem; }
+  .ldm-bar .meta-label { color: #8a9298; }
+  .ldm-bar .meta-val { font-weight: 600; font-family: monospace; color: #b0bac8; }
+  /* Padding inferior para que la barra no tape el contenido */
+  #main .content { padding-bottom: 80px; }
+
+  /* ── Autocomplete inline ──────────────────────────────────────── */
+  .ac-wrapper { position: relative; }
+  .ac-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    width: max(100%, 300px);
+    background: #111827;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.5);
+    z-index: 1060;
+    max-height: 240px;
+    overflow-y: auto;
+  }
+  .ac-dropdown.ac-open { display: block; }
+  .ac-item {
+    padding: 7px 12px;
+    cursor: pointer;
+    font-size: .85rem;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    color: #a8b2c0;
+    transition: background .1s;
+  }
+  .ac-item:last-child { border-bottom: none; }
+  .ac-item:hover, .ac-item.ac-hover { background: rgba(90,130,200,.15); color: #c0cad6; }
+  .ac-add { color: #6ab888; font-size: .85rem; }
+  .ac-add:hover, .ac-add.ac-hover { background: rgba(50,130,80,.15); color: #80c89a; }
+  .ac-divider { border-top: 1px solid rgba(255,255,255,.1); margin: 2px 0; }
+  .row-tools { display:flex; justify-content:flex-end; gap:4px; flex-wrap:nowrap; }
+  .ldm-row { cursor: default; }
+  .ldm-row.dragging { opacity: .45; }
+  .drag-cell { width: 38px; text-align: center; vertical-align: middle; }
+  .drag-handle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.03);
+    color: #7f8898;
+    cursor: grab;
+    transition: background .15s, color .15s, border-color .15s;
+    user-select: none;
+  }
+  .drag-handle:hover {
+    background: rgba(90,130,200,.12);
+    color: #b7c4d8;
+    border-color: rgba(90,130,200,.28);
+  }
+  .drag-handle:active { cursor: grabbing; }
+  .drag-handle i { pointer-events: none; }
+  .ldm-row.drop-target td {
+    border-top: 2px solid rgba(122,177,141,.8) !important;
+  }
+  body.ldm-dragging {
+    user-select: none;
+    cursor: grabbing !important;
+  }
+  body.ldm-dragging .drag-handle { cursor: grabbing; }
+  .sticky-items-card .card-header {
+    position: sticky;
+    top: var(--sticky-items-toolbar-top, 64px);
+    z-index: 45;
+    background: #10182b;
+    box-shadow: 0 6px 14px rgba(0,0,0,.24);
+    border-bottom: 1px solid rgba(255,255,255,.16);
+  }
+  .sticky-items-table thead th {
+    position: sticky;
+    top: var(--sticky-items-head-top, 120px);
+    z-index: 35;
+    background: #182238 !important;
+    box-shadow: inset 0 -1px 0 rgba(255,255,255,.08), 0 4px 10px rgba(0,0,0,.18);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<form method="post" id="ldmForm">
+
+<!-- ── Barra de acciones fija ── -->
+<div class="ldm-bar">
+  <div class="meta">
+    <div class="meta-item">
+      <span class="meta-label">Proyecto </span>
+      <span class="meta-val">{{ project.clave }}</span>
+    </div>
+    {% if ldm %}
+    <div class="meta-item">
+      <span class="meta-label">Lista </span>
+      <span class="meta-val text-warning">{{ ldm.ldm_number }}</span>
+    </div>
+    {% endif %}
+    <div class="meta-item text-muted" style="font-size:.78rem">
+      <i class="bi bi-info-circle me-1"></i>Sin precios — para solicitar cotización al proveedor
+    </div>
+  </div>
+  <div class="d-flex gap-2 align-items-center">
+    <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-materiales"
+       class="btn btn-outline-secondary btn-sm">Cancelar</a>
+    <button type="submit" class="btn btn-warning btn-sm px-4 text-dark">
+      <i class="bi bi-check-lg me-1"></i>{% if ldm %}Guardar cambios{% else %}Crear lista{% endif %}
+    </button>
+  </div>
+</div>
+
+<div class="row g-3">
+
+  <!-- Columna principal -->
+  <div class="col-12">
+
+    <!-- Datos generales -->
+    <div class="card mb-3">
+      <div class="card-header">Datos generales</div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">
+              Proveedor <span class="text-danger">*</span>
+              <a href="{{ url_for('proveedores') }}" class="ms-2 text-muted"
+                 style="font-size:.75rem" target="_blank" title="Gestionar proveedores">
+                <i class="bi bi-box-arrow-up-right"></i> Gestionar
+              </a>
+            </label>
+            <input name="proveedor" class="form-control" required
+                   list="proveedoresList"
+                   placeholder="Selecciona o escribe el nombre del proveedor"
+                   value="{{ ldm.proveedor if ldm else '' }}">
+            <datalist id="proveedoresList">
+              {% for p in proveedores %}
+              <option value="{{ p.nombre }}"
+                      {% if p.categoria %}data-cat="{{ p.categoria }}"{% endif %}>
+                {{ p.nombre }}{% if p.contacto %} — {{ p.contacto }}{% endif %}
+              </option>
+              {% endfor %}
+            </datalist>
+            {% if not proveedores %}
+            <small class="text-muted">
+              <i class="bi bi-info-circle me-1"></i>
+              <a href="{{ url_for('proveedores') }}" target="_blank">Agrega proveedores</a>
+              para autocompletado.
+            </small>
+            {% endif %}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Fecha</label>
+            <input type="date" name="fecha" class="form-control"
+                   value="{{ ldm.fecha if ldm else today }}">
+          </div>
+          <div class="col-12">
+            <label class="form-label">Notas / instrucciones</label>
+            <textarea name="notes" class="form-control" rows="2"
+                      placeholder="Condiciones, tiempo de entrega esperado, especificaciones adicionales…">{{ ldm.notes if ldm else '' }}</textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla de artículos -->
+    <div class="card sticky-items-card">
+      <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <span>Artículos a cotizar</span>
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary"
+                  data-bs-toggle="modal" data-bs-target="#catalogModal"
+                  onclick="openCatalogNew()">
+            <i class="bi bi-box-seam me-1"></i>Buscar catálogo
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-primary" onclick="addRow()">
+            <i class="bi bi-plus-lg"></i> Agregar fila
+          </button>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <table class="table mb-0 sticky-items-table" id="itemsTable">
+          <thead class="table-light">
+            <tr>
+              <th style="width:4%"></th>
+              <th style="width:46%">Descripción</th>
+              <th style="width:15%">Unidad</th>
+              <th style="width:20%">Cantidad</th>
+              <th style="width:15%"></th>
+            </tr>
+          </thead>
+          <tbody id="itemsBody">
+            {% if ldm and ldm['items'] %}
+              {% for item in ldm['items'] %}
+              <tr class="ldm-row">
+                <td class="drag-cell">
+                  <span class="drag-handle" title="Arrastrar para reordenar">
+                    <i class="bi bi-grip-vertical"></i>
+                  </span>
+                </td>
+                <td>
+                  <div class="ac-wrapper">
+                    <input name="item_desc[]" class="form-control form-control-sm ac-input"
+                           value="{{ item.description }}" autocomplete="off" required>
+                    <input type="hidden" name="item_catalog_id[]" value="{{ item.catalog_item_id or '' }}">
+                    <div class="ac-dropdown" role="listbox"></div>
+                  </div>
+                </td>
+                <td>
+                  <input name="item_unit[]" class="form-control form-control-sm"
+                         value="{{ item.unit }}">
+                </td>
+                <td>
+                  <input type="number" name="item_qty[]"
+                         class="form-control form-control-sm"
+                         value="{{ item.qty }}" step="0.01" min="0">
+                </td>
+                <td class="text-end">
+                  <div class="row-tools">
+                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                            title="Buscar en catálogo"
+                            onclick="openCatalogRow(this)"
+                            data-bs-toggle="modal" data-bs-target="#catalogModal">
+                      <i class="bi bi-search"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-danger"
+                            title="Eliminar fila"
+                            onclick="this.closest('tr').remove()">
+                      <i class="bi bi-x"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /col-12 -->
+
+</div>
+</form>
+
+<!-- Modal: Buscar en catálogo -->
+<div class="modal fade" id="catalogModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="bi bi-box-seam me-2 text-primary"></i>Catálogo de artículos
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="catalogSearch" class="form-control mb-3"
+               placeholder="Buscar por nombre o descripción…" autocomplete="off">
+        <div id="catalogResults" class="list-group"
+             style="max-height:320px;overflow-y:auto"></div>
+
+        <!-- Agregar nuevo al catálogo -->
+        <div class="mt-3 border-top pt-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary w-100"
+                  onclick="toggleAddForm()">
+            <i class="bi bi-plus-circle me-1"></i>Agregar nuevo artículo al catálogo
+          </button>
+          <div id="addCatalogForm" class="d-none mt-3">
+            <div class="row g-2">
+              <div class="col-md-6">
+                <input type="text" id="newNombre" class="form-control form-control-sm"
+                       placeholder="Nombre *">
+              </div>
+              <div class="col-md-6">
+                <input type="text" id="newDesc" class="form-control form-control-sm"
+                       placeholder="Descripción">
+              </div>
+              <div class="col-md-3">
+                <input type="text" id="newUnidad" class="form-control form-control-sm"
+                       value="pza" placeholder="Unidad">
+              </div>
+              <div class="col-md-4">
+                <div class="input-group input-group-sm">
+                  <span class="input-group-text">$</span>
+                  <input type="number" id="newPrecio" class="form-control"
+                         value="0" min="0" step="0.01" placeholder="Precio ref.">
+                </div>
+              </div>
+              <div class="col-md-5 d-flex gap-2">
+                <button type="button" class="btn btn-sm btn-primary flex-fill"
+                        onclick="addToCatalog()">
+                  <i class="bi bi-check-lg me-1"></i>Guardar y agregar
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary"
+                        onclick="toggleAddForm()">Cancelar</button>
+              </div>
+            </div>
+            <div id="addCatalogMsg" class="mt-2"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary"
+                data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // ── Manejo de filas ────────────────────────────────────────────────────────
+  function addRow(desc, unit, qty, catalogId) {
+    const tr = document.createElement("tr");
+    tr.className = "ldm-row";
+    tr.innerHTML = `
+      <td class="drag-cell">
+        <span class="drag-handle" title="Arrastrar para reordenar">
+          <i class="bi bi-grip-vertical"></i>
+        </span>
+      </td>
+      <td>
+        <div class="ac-wrapper">
+          <input name="item_desc[]" class="form-control form-control-sm ac-input"
+                 placeholder="Descripción…" value="${esc(desc||'')}" autocomplete="off" required>
+          <input type="hidden" name="item_catalog_id[]" value="${esc(catalogId||'')}">
+          <div class="ac-dropdown" role="listbox"></div>
+        </div>
+      </td>
+      <td><input name="item_unit[]" class="form-control form-control-sm"
+                 value="${esc(unit||'pza')}"></td>
+      <td><input type="number" name="item_qty[]" class="form-control form-control-sm"
+                 value="${qty||1}" step="0.01" min="0"></td>
+      <td class="text-end">
+        <div class="row-tools">
+          <button type="button" class="btn btn-sm btn-outline-secondary"
+                  title="Buscar en catálogo"
+                  onclick="openCatalogRow(this)"
+                  data-bs-toggle="modal" data-bs-target="#catalogModal">
+            <i class="bi bi-search"></i>
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-danger"
+                  title="Eliminar fila"
+                  onclick="this.closest('tr').remove()">
+            <i class="bi bi-x"></i>
+          </button>
+        </div>
+      </td>`;
+    document.getElementById("itemsBody").appendChild(tr);
+  }
+
+  function esc(s) { return String(s).replace(/"/g,"&quot;"); }
+  function escHtml(s) {
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")
+                    .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    if (document.getElementById("itemsBody").children.length === 0) addRow();
+    syncStickyItemsOffsets();
+  });
+  window.addEventListener("resize", syncStickyItemsOffsets);
+
+  function syncStickyItemsOffsets() {
+    const topbar = document.querySelector(".topbar");
+    const toolbar = document.querySelector(".sticky-items-card .card-header");
+    const topbarHeight = topbar ? Math.ceil(topbar.getBoundingClientRect().height) : 0;
+    const toolbarHeight = toolbar ? Math.ceil(toolbar.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty("--sticky-items-toolbar-top", `${topbarHeight}px`);
+    document.documentElement.style.setProperty("--sticky-items-head-top", `${topbarHeight + toolbarHeight}px`);
+  }
+
+  // ── Catálogo search ────────────────────────────────────────────────────────
+  let catalogTargetRow = null;
+  let catalogItems     = [];
+
+  function openCatalogNew()  { catalogTargetRow = null;               resetCatalogModal(); }
+  function openCatalogRow(b) { catalogTargetRow = b.closest("tr");    resetCatalogModal(); }
+
+  function resetCatalogModal() {
+    document.getElementById("catalogSearch").value = "";
+    document.getElementById("addCatalogForm").classList.add("d-none");
+    document.getElementById("addCatalogMsg").innerHTML = "";
+    fetchCatalog("");
+    setTimeout(() => document.getElementById("catalogSearch").focus(), 400);
+  }
+
+  function fetchCatalog(q) {
+    fetch(`/api/catalogo?q=${encodeURIComponent(q)}`)
+      .then(r => r.json())
+      .then(items => {
+        catalogItems = items;
+        const div = document.getElementById("catalogResults");
+        if (!items.length) {
+          div.innerHTML = '<p class="text-muted p-2 mb-0" style="font-size:.85rem">Sin resultados.</p>';
+          return;
+        }
+        div.innerHTML = items.map((i, idx) => `
+          <button type="button" class="list-group-item list-group-item-action px-3 py-2"
+                  onclick="selectItem(${idx})">
+            <div class="d-flex justify-content-between align-items-center">
+              <strong style="font-size:.9rem">${escHtml(i.nombre)}</strong>
+              <small class="text-muted">${escHtml(i.unidad)}</small>
+            </div>
+            ${i.descripcion
+              ? `<small class="text-muted">${escHtml(i.descripcion)}</small>`
+              : ""}
+          </button>`).join("");
+      });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("catalogSearch").addEventListener("input", function() {
+      fetchCatalog(this.value);
+    });
+  });
+
+  function selectItem(idx) {
+    const item = catalogItems[idx];
+    if (catalogTargetRow) {
+      fillRowFromCatalogItem(catalogTargetRow, item);
+    } else {
+      addRow(item.nombre, item.unidad, 1, item.id || "");
+    }
+    bootstrap.Modal.getInstance(document.getElementById("catalogModal")).hide();
+  }
+
+  // ── Agregar nuevo al catálogo ──────────────────────────────────────────────
+  function toggleAddForm() {
+    document.getElementById("addCatalogForm").classList.toggle("d-none");
+    document.getElementById("addCatalogMsg").innerHTML = "";
+  }
+
+  /** Rellena los campos de una fila con datos de un artículo del catálogo.
+   *  La LDM no tiene precio, solo descripción y unidad. */
+  function fillRowFromCatalogItem(row, item) {
+    row.querySelector('[name="item_catalog_id[]"]').value = item.id || "";
+    row.querySelector('[name="item_desc[]"]').value = item.nombre;
+    row.querySelector('[name="item_unit[]"]').value = item.unidad;
+  }
+
+  function clearCatalogLink(row) {
+    const idInput = row.querySelector('[name="item_catalog_id[]"]');
+    if (idInput) idInput.value = "";
+  }
+
+  function addToCatalog() {
+    const nombre = document.getElementById("newNombre").value.trim();
+    const desc   = document.getElementById("newDesc").value.trim();
+    const unidad = document.getElementById("newUnidad").value.trim() || "pza";
+    const precio = parseFloat(document.getElementById("newPrecio").value) || 0;
+    const msg    = document.getElementById("addCatalogMsg");
+    if (!nombre) { msg.innerHTML = '<small class="text-danger">El nombre es requerido.</small>'; return; }
+
+    fetch("/api/catalogo/add", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({nombre, descripcion: desc, unidad, precio})
+    })
+    .then(r => r.json())
+    .then(item => {
+      if (item.error) { msg.innerHTML = `<small class="text-danger">${item.error}</small>`; return; }
+      msg.innerHTML = `<small class="text-success"><i class="bi bi-check-circle me-1"></i>«${escHtml(item.nombre)}» guardado.</small>`;
+      document.getElementById("newNombre").value = "";
+      document.getElementById("newDesc").value   = "";
+      document.getElementById("newUnidad").value = "pza";
+      document.getElementById("newPrecio").value = "0";
+      if (catalogTargetRow) {
+        fillRowFromCatalogItem(catalogTargetRow, item);
+      } else {
+        addRow(item.nombre, item.unidad, 1, item.id || "");
+      }
+      setTimeout(() =>
+        bootstrap.Modal.getInstance(document.getElementById("catalogModal")).hide(), 800);
+    })
+    .catch(() => { msg.innerHTML = '<small class="text-danger">Error al guardar.</small>'; });
+  }
+
+  // ── Autocomplete inline al escribir ────────────────────────────────────────
+  //
+  // Al escribir ≥1 caracter en .ac-input se consulta /api/catalogo?q=...
+  // (debounce 220 ms) y se despliega un dropdown con:
+  //   · Resultados del catálogo → clic rellena desc + unidad del renglón
+  //   · "+ Agregar como nuevo artículo" → abre el modal con texto pre-relleno
+  //
+  // Event delegation sobre #itemsBody: cubre filas existentes y las añadidas
+  // con addRow() sin necesidad de re-registrar listeners.
+
+  let _acTimer = null;
+
+  function _acSearch(input) {
+    clearTimeout(_acTimer);
+    const val = input.value.trim();
+    const dropdown = input.closest(".ac-wrapper").querySelector(".ac-dropdown");
+    if (!val) { _acClose(dropdown); return; }
+    _acTimer = setTimeout(() => {
+      fetch(`/api/catalogo?q=${encodeURIComponent(val)}`)
+        .then(r => r.json())
+        .then(items => _acRender(dropdown, input, items, val))
+        .catch(() => {});
+    }, 220);
+  }
+
+  function _acRender(dropdown, input, items, query) {
+    const row = input.closest("tr");
+    dropdown.innerHTML = "";
+
+    // ── Resultados del catálogo ──
+    items.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "ac-item";
+      div.setAttribute("role", "option");
+      div.innerHTML =
+        `<div class="fw-semibold text-truncate">${escHtml(item.nombre)}</div>` +
+        `<div class="text-muted" style="font-size:.75rem">` +
+          `${escHtml(item.unidad)}` +
+          (item.descripcion ? ` · ${escHtml(item.descripcion.substring(0, 50))}` : "") +
+        `</div>`;
+      div.addEventListener("mousedown", e => {
+        e.preventDefault();   // evita que el blur cierre el dropdown antes del clic
+        fillRowFromCatalogItem(row, item);
+        _acClose(dropdown);
+      });
+      dropdown.appendChild(div);
+    });
+
+    // ── Separador ──
+    if (items.length) {
+      const hr = document.createElement("div");
+      hr.className = "ac-divider";
+      dropdown.appendChild(hr);
+    }
+
+    // ── Opción "Agregar nuevo" ──
+    const addBtn = document.createElement("div");
+    addBtn.className = "ac-item ac-add d-flex align-items-center gap-2";
+    addBtn.setAttribute("role", "option");
+    addBtn.innerHTML =
+      `<i class="bi bi-plus-circle-fill flex-shrink-0"></i>` +
+      `<span>Agregar <strong>"${escHtml(query)}"</strong> como nuevo artículo</span>`;
+    addBtn.addEventListener("mousedown", e => {
+      e.preventDefault();
+      _acClose(dropdown);
+      _acOpenModalNew(row, query);
+    });
+    dropdown.appendChild(addBtn);
+
+    dropdown.classList.add("ac-open");
+  }
+
+  function _acClose(dropdown) {
+    dropdown.classList.remove("ac-open");
+    dropdown.innerHTML = "";
+  }
+
+  /** Abre el modal de catálogo con el formulario de nuevo artículo pre-relleno
+   *  y apunta el target al renglón que disparó la acción. */
+  function _acOpenModalNew(row, text) {
+    catalogTargetRow = row;
+    document.getElementById("catalogSearch").value     = text;
+    document.getElementById("newNombre").value          = text;
+    document.getElementById("newDesc").value            = "";
+    document.getElementById("newUnidad").value          = "pza";
+    document.getElementById("newPrecio").value          = "0";
+    document.getElementById("addCatalogMsg").innerHTML  = "";
+    document.getElementById("addCatalogForm").classList.remove("d-none");
+    bootstrap.Modal.getOrCreateInstance(document.getElementById("catalogModal")).show();
+    setTimeout(() => fetchCatalog(text), 380);
+  }
+
+  // ── Event delegation para .ac-input ────────────────────────────────────────
+  document.addEventListener("DOMContentLoaded", () => {
+    const tbody = document.getElementById("itemsBody");
+    let draggingRow = null;
+
+    // Input → lanzar búsqueda
+    tbody.addEventListener("input", e => {
+      if (e.target.classList.contains("ac-input")) {
+        clearCatalogLink(e.target.closest("tr"));
+        _acSearch(e.target);
+      } else if (e.target.name === "item_unit[]") {
+        clearCatalogLink(e.target.closest("tr"));
+      }
+    });
+
+    // Blur → cerrar dropdown (delay para que mousedown se registre primero)
+    tbody.addEventListener("focusout", e => {
+      if (e.target.classList.contains("ac-input")) {
+        const dd = e.target.closest(".ac-wrapper")?.querySelector(".ac-dropdown");
+        if (dd) setTimeout(() => _acClose(dd), 180);
+      }
+    });
+
+    // Teclado: ↑ ↓ Enter Escape dentro del dropdown
+    tbody.addEventListener("keydown", e => {
+      if (!e.target.classList.contains("ac-input")) return;
+      const dd = e.target.closest(".ac-wrapper")?.querySelector(".ac-dropdown");
+      if (!dd || !dd.classList.contains("ac-open")) return;
+      const its    = [...dd.querySelectorAll(".ac-item")];
+      const active = dd.querySelector(".ac-item.ac-hover");
+
+      if (e.key === "Escape") {
+        e.preventDefault();
+        _acClose(dd);
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const next = active ? (its[its.indexOf(active) + 1] || its[0]) : its[0];
+        active?.classList.remove("ac-hover");
+        next?.classList.add("ac-hover");
+        next?.scrollIntoView({ block: "nearest" });
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const prev = active
+          ? (its[its.indexOf(active) - 1] || its[its.length - 1])
+          : its[its.length - 1];
+        active?.classList.remove("ac-hover");
+        prev?.classList.add("ac-hover");
+        prev?.scrollIntoView({ block: "nearest" });
+      } else if (e.key === "Enter") {
+        const hov = dd.querySelector(".ac-item.ac-hover");
+        if (hov) { e.preventDefault(); hov.dispatchEvent(new MouseEvent("mousedown")); }
+      }
+    });
+
+    // Clic fuera → cerrar todos los dropdowns abiertos
+    document.addEventListener("click", e => {
+      if (!e.target.closest(".ac-wrapper")) {
+        document.querySelectorAll(".ac-dropdown.ac-open").forEach(_acClose);
+      }
+    });
+
+    function clearDragState() {
+      tbody.querySelectorAll(".ldm-row").forEach(r => {
+        r.classList.remove("dragging", "drop-target");
+      });
+      document.body.classList.remove("ldm-dragging");
+      draggingRow = null;
+    }
+
+    function findTargetRow(clientY) {
+      const rows = [...tbody.querySelectorAll(".ldm-row")].filter(r => r !== draggingRow);
+      for (const row of rows) {
+        const rect = row.getBoundingClientRect();
+        if (clientY < rect.top + rect.height / 2) {
+          return { row, insertAfter: false };
+        }
+      }
+      const lastRow = rows[rows.length - 1] || null;
+      return lastRow ? { row: lastRow, insertAfter: true } : null;
+    }
+
+    tbody.addEventListener("mousedown", e => {
+      const handle = e.target.closest(".drag-handle");
+      if (!handle) return;
+      const row = handle.closest(".ldm-row");
+      if (!row) return;
+      e.preventDefault();
+      draggingRow = row;
+      document.body.classList.add("ldm-dragging");
+    });
+
+    document.addEventListener("mousemove", e => {
+      if (!draggingRow) return;
+      e.preventDefault();
+      draggingRow.classList.add("dragging");
+      tbody.querySelectorAll(".ldm-row.drop-target").forEach(r => r.classList.remove("drop-target"));
+      const target = findTargetRow(e.clientY);
+      if (!target) return;
+      target.row.classList.add("drop-target");
+      if (target.insertAfter) {
+        tbody.insertBefore(draggingRow, target.row.nextElementSibling);
+      } else {
+        tbody.insertBefore(draggingRow, target.row);
+      }
+    });
+
+    document.addEventListener("mouseup", () => {
+      if (!draggingRow) return;
+      clearDragState();
+    });
+  });
+</script>
+{% endblock %}

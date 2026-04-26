@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Iniciar Project Tracker",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "app.py",
+      "console": "integratedTerminal"
+    }
+  ]
+}

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>{% block title %}Project Tracker{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700&display=swap"/>
+  <style>
+    /* ── Paleta base ────────────────────────────────────────────── */
+    :root {
+      --sb:   #1a1f2e;
+      --sbw:  240px;
+      --sbwc: 52px;       /* ancho colapsado */
+      --acc:  #5a82c8;
+      --sb-transition: width .22s ease, margin-left .22s ease;
+    }
+    [data-bs-theme="dark"] {
+      --bs-body-bg:           #060a14;
+      --bs-body-color:        #a8b2c0;   /* gris legible */
+      --bs-secondary-bg:      #0f1525;
+      --bs-tertiary-bg:       #0b1020;
+      --bs-card-bg:           #0f1525;
+      --bs-card-cap-bg:       #141c30;
+      --bs-card-border-color: rgba(255,255,255,.18);
+      --bs-border-color:      rgba(255,255,255,.18);
+      --bs-modal-bg:          #0f1525;
+      --bs-table-bg:          transparent;
+      --bs-table-hover-bg:    rgba(255,255,255,.05);
+      --bs-table-border-color:rgba(255,255,255,.15);
+      --bs-emphasis-color:    #c8d0dc;   /* títulos/énfasis */
+      --bs-link-color:        var(--acc);
+    }
+
+    /* ── Tipografía ─────────────────────────────────────────────── */
+    body { font-family:'Inconsolata',monospace; }
+
+    /* ── Sidebar ────────────────────────────────────────────────── */
+    #sidebar {
+      position:fixed;top:0;left:0;height:100vh;width:var(--sbw);
+      background:var(--sb);display:flex;flex-direction:column;
+      z-index:1000;box-shadow:2px 0 12px rgba(0,0,0,.4);
+      transition:var(--sb-transition);overflow:hidden;
+    }
+    #sidebar .brand {
+      padding:14px 16px 12px;border-bottom:1px solid rgba(255,255,255,.08);
+      display:flex;align-items:center;gap:10px;min-height:56px;flex-shrink:0;
+    }
+    #sidebar .brand .brand-icon { font-size:1.1rem;color:var(--acc);flex-shrink:0;width:20px;text-align:center; }
+    #sidebar .brand .brand-text { overflow:hidden;white-space:nowrap;transition:opacity .15s; }
+    #sidebar .brand .brand-text h5 { color:#b8c4d2;margin:0;font-weight:700;font-size:.95rem; }
+    #sidebar .brand .brand-text small { color:#7a8490;font-size:.68rem; }
+
+    #sidebar nav { flex:1;padding:8px 0;overflow-y:auto;overflow-x:hidden; }
+    .nav-section {
+      padding:8px 16px 4px;font-size:.62rem;font-weight:700;
+      letter-spacing:1px;color:#636b7a;text-transform:uppercase;
+      white-space:nowrap;overflow:hidden;transition:opacity .15s;
+    }
+    #sidebar .nav-link {
+      display:flex;align-items:center;gap:10px;padding:9px 16px;
+      color:#9aa4b4;font-size:.875rem;transition:background .15s,color .15s;
+      white-space:nowrap;
+    }
+    #sidebar .nav-link:hover  { background:rgba(255,255,255,.06);color:#c0cad6; }
+    #sidebar .nav-link.active { background:rgba(79,142,247,.15);color:var(--acc);border-left:3px solid var(--acc); }
+    #sidebar .nav-link i { font-size:1rem;width:20px;text-align:center;flex-shrink:0; }
+    #sidebar .nav-link .nav-label { overflow:hidden;transition:opacity .15s; }
+    .bnav { margin-left:auto;font-size:.68rem;padding:2px 7px;border-radius:10px; }
+    #sidebar .sfooter {
+      padding:10px 14px;font-size:.72rem;color:#636b7a;border-top:1px solid rgba(255,255,255,.06);
+      display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+      overflow:hidden;white-space:nowrap;
+    }
+    #sidebar .sfooter .footer-text { overflow:hidden;transition:opacity .15s; }
+
+    /* ── Sidebar colapsado ──────────────────────────────────────── */
+    body.sb-collapsed #sidebar { width:var(--sbwc); }
+
+    /* Colapsar elementos de texto sin desplazar los iconos */
+    body.sb-collapsed #sidebar .brand-text {
+      max-width:0;overflow:hidden;opacity:0;pointer-events:none;
+    }
+    body.sb-collapsed #sidebar .nav-label {
+      max-width:0;overflow:hidden;opacity:0;pointer-events:none;
+      display:inline-block;
+    }
+    body.sb-collapsed .nav-section {
+      max-height:0;overflow:hidden;opacity:0;pointer-events:none;
+      padding:0;margin:0;
+    }
+    body.sb-collapsed #sidebar .sfooter .footer-text {
+      max-width:0;overflow:hidden;opacity:0;pointer-events:none;
+    }
+
+    /* Centrar iconos en el espacio restante */
+    body.sb-collapsed #sidebar .nav-link {
+      padding:10px 0;justify-content:center;gap:0;
+    }
+    body.sb-collapsed #sidebar .nav-link i {
+      width:var(--sbwc);text-align:center;
+    }
+    body.sb-collapsed #sidebar .nav-link.active { border-left:3px solid var(--acc); }
+    body.sb-collapsed #sidebar .sfooter { justify-content:center; }
+    body.sb-collapsed #sidebar .sfooter form { display:none!important; }
+
+    /* Tooltip en modo colapsado */
+    body.sb-collapsed #sidebar .nav-link { position:relative; }
+    body.sb-collapsed #sidebar .nav-link[data-label]:hover::after {
+      content: attr(data-label);
+      position:absolute;left:calc(var(--sbwc) + 6px);top:50%;transform:translateY(-50%);
+      background:#1e2840;color:#b8c4d2;font-size:.8rem;padding:4px 10px;
+      border-radius:6px;white-space:nowrap;z-index:2000;
+      border:1px solid rgba(255,255,255,.15);box-shadow:0 2px 8px rgba(0,0,0,.4);
+      pointer-events:none;
+    }
+
+    /* ── Layout principal ───────────────────────────────────────── */
+    #main { margin-left:var(--sbw);min-height:100vh;transition:var(--sb-transition); }
+    body.sb-collapsed #main { margin-left:var(--sbwc); }
+
+    .topbar {
+      background:#0f1525;padding:12px 24px;
+      border-bottom:1px solid rgba(255,255,255,.18);
+      display:flex;align-items:center;justify-content:space-between;
+      position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.4);
+    }
+    .topbar-left { display:flex;align-items:center;gap:12px; }
+    #sb-toggle {
+      background:none;border:none;color:#6a7488;padding:4px 6px;cursor:pointer;
+      font-size:1.1rem;line-height:1;border-radius:6px;transition:color .15s,background .15s;
+    }
+    #sb-toggle:hover { color:#a8b2c0;background:rgba(255,255,255,.06); }
+    .topbar h4 { margin:0;font-size:1.05rem;font-weight:600;color:#b8c2d0; }
+    .content   { padding:24px 28px; }
+
+    /* ── Cards ──────────────────────────────────────────────────── */
+    .card        { border:1px solid rgba(255,255,255,.18);border-radius:12px;
+                   box-shadow:0 2px 12px rgba(0,0,0,.4); }
+    .card-header { font-weight:600;border-radius:12px 12px 0 0!important;
+                   border-bottom:1px solid rgba(255,255,255,.15); }
+
+    /* ── Tablas ─────────────────────────────────────────────────── */
+    .table thead th { font-size:.8rem;font-weight:700;color:#9aa4b4;
+                      border-bottom:2px solid rgba(255,255,255,.22);
+                      background:#141c30; }
+    .table td       { vertical-align:middle;font-size:.875rem;
+                      border-bottom:1px solid rgba(255,255,255,.09); }
+    .table tbody tr:last-child td { border-bottom:none; }
+    .table-light    { --bs-table-bg:#141c30!important;color:#9aa4b4!important; }
+    /* Checkboxes */
+    .form-check-input {
+      background-color:#0f1525;
+      border:1.5px solid rgba(255,255,255,.35);
+    }
+    .form-check-input:checked {
+      background-color:#5a82c8;
+      border-color:#5a82c8;
+    }
+    .form-check-input:indeterminate {
+      background-color:#5a82c8;
+      border-color:#5a82c8;
+    }
+
+    /* ── Formularios ────────────────────────────────────────────── */
+    .form-label   { font-size:.85rem;font-weight:500;color:#9aa4b4; }
+    .form-control,.form-select {
+      font-size:.875rem;border-radius:8px;
+      background-color:#060a14;border-color:rgba(255,255,255,.2);color:#a8b2c0;
+    }
+    .form-control:focus,.form-select:focus {
+      border-color:var(--acc);box-shadow:0 0 0 3px rgba(90,130,200,.18);
+      background-color:#060a14;color:#b8c2d0;
+    }
+    .form-control::placeholder { color:#505868; }
+    .input-group-text { background:#0b1020;border-color:rgba(255,255,255,.2);color:#8a9298; }
+
+    /* ── Botones ────────────────────────────────────────────────── */
+    .btn-primary       { background:var(--acc);border-color:var(--acc); }
+    .btn-primary:hover { background:#4a72b8;border-color:#4a72b8; }
+    .btn-success       { background:#3d7058;border-color:#3d7058;color:#a0b8b0; }
+    .btn-success:hover { background:#356050;border-color:#356050;color:#a0b8b0; }
+    .btn-outline-warning { color:#c0a050;border-color:rgba(180,150,60,.45); }
+    .btn-outline-warning:hover { background:rgba(160,130,50,.12);color:#d4b460;border-color:rgba(180,150,60,.7); }
+    .btn-outline-danger  { color:#b07070;border-color:rgba(160,80,80,.45); }
+    .btn-outline-danger:hover  { background:rgba(150,70,70,.12);color:#c48080;border-color:rgba(160,80,80,.7); }
+    .btn-outline-success { color:#62a87a;border-color:rgba(70,150,100,.45); }
+    .btn-outline-success:hover { background:rgba(60,140,90,.12);color:#78c090;border-color:rgba(70,150,100,.7); }
+    .btn-danger { background:rgba(130,55,55,.8);border-color:rgba(130,55,55,.9);color:#b89090; }
+    .btn-danger:hover { background:rgba(110,45,45,.9);border-color:rgba(110,45,45,1);color:#b89090; }
+    .btn-outline-secondary { color:#8a9298;border-color:rgba(255,255,255,.18); }
+    .btn-outline-secondary:hover { background:rgba(255,255,255,.06);color:#b0bac8;border-color:rgba(255,255,255,.26); }
+
+    /* ── Modales ────────────────────────────────────────────────── */
+    .modal-content  { border-radius:14px;border:1px solid rgba(255,255,255,.18); }
+    .modal-header   { border-bottom:1px solid rgba(255,255,255,.12); }
+    .modal-footer   { border-top:1px solid rgba(255,255,255,.12); }
+
+    /* ── Misc ───────────────────────────────────────────────────── */
+    .alert { border-radius:10px; }
+    .bg-light { background:#1a2238!important;color:#a8b2c0!important; }
+    .badge.bg-light { background:#1a2238!important;color:#a8b2c0!important;border-color:rgba(255,255,255,.18)!important; }
+    .bg-warning,.badge.bg-warning { background:rgba(130,105,40,.5)!important;color:#c0aa68!important; }
+    .bg-success,.badge.bg-success { background:rgba(40,90,60,.5)!important;color:#7aaa90!important; }
+    .bg-danger,.badge.bg-danger   { background:rgba(120,45,45,.5)!important;color:#b08888!important; }
+    .text-muted     { color:#8a9298!important; }
+    .text-secondary { color:#8a9298!important; }
+    /* Nav tabs */
+    .nav-tabs { border-color:rgba(255,255,255,.15); }
+    .nav-tabs .nav-link { color:#8a9298;border-color:transparent; }
+    .nav-tabs .nav-link:hover { color:#b0bac8;border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.04); }
+    .nav-tabs .nav-link.active { color:#c0cad6;font-weight:600;background:#0f1525;
+                                  border-color:rgba(255,255,255,.18) rgba(255,255,255,.18) #0f1525; }
+    /* Alerts */
+    .alert-info    { background:rgba(60,90,140,.12); border-color:rgba(80,110,160,.25); color:#8aaac0; }
+    .alert-warning { background:rgba(140,110,45,.12);border-color:rgba(150,120,55,.25); color:#b0a070; }
+    .alert-danger  { background:rgba(140,60,60,.12); border-color:rgba(150,70,70,.25);  color:#b09090; }
+    .alert-success { background:rgba(50,110,70,.12); border-color:rgba(60,120,80,.25);  color:#7aaa90; }
+    /* Bootstrap text utilities */
+    .text-success { color:#6aa880!important; }
+    .text-warning { color:#a89868!important; }
+    .text-danger  { color:#a88080!important; }
+    .text-primary { color:#6890c0!important; }
+    /* Progress */
+    .progress { background:rgba(255,255,255,.08); }
+    .progress-bar.bg-success { background:#3a6850!important; }
+    /* Code elements */
+    code { color:#8aaac0; }
+    /* Border utility override */
+    .border { border-color:rgba(255,255,255,.18)!important; }
+
+    /* ── Status badges ──────────────────────────────────────────── */
+    .bs-Pendiente     { background:rgba(150,80,80,.18);  color:#b09090; }
+    .bs-En-progreso   { background:rgba(65,95,150,.18);  color:#8a9aba; }
+    .bs-Revisión      { background:rgba(95,70,145,.18);  color:#9888b8; }
+    .bs-Observaciones { background:rgba(145,120,60,.18); color:#aaa078; }
+    .bs-Aprobado      { background:rgba(55,120,80,.18);  color:#7aaa88; }
+    .bs-Bloqueado     { background:rgba(150,80,80,.18);  color:#b09090; }
+    .bs-Completado    { background:rgba(55,120,80,.18);  color:#7aaa88; }
+    .ps-Pendiente     { background:rgba(150,80,80,.18);  color:#b09090; }
+    .ps-En-progreso   { background:rgba(65,95,150,.18);  color:#8a9aba; }
+    .ps-Completado    { background:rgba(55,120,80,.18);  color:#7aaa88; }
+    .ps-Sin-alcances  { background:rgba(80,85,100,.18);  color:#8a909e; }
+    .src-externa      { background:rgba(145,120,60,.18); color:#aaa078; }
+    .src-propia       { background:rgba(55,120,80,.18);  color:#7aaa88; }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+<div id="sidebar">
+  <div class="brand">
+    <i class="bi bi-lightning-charge-fill brand-icon"></i>
+    <div class="brand-text">
+      <h5>Project Tracker</h5>
+      <small>Ingeniería Eléctrica · {{ app_version }}</small>
+    </div>
+  </div>
+  <nav>
+    <div class="nav-section">Principal</div>
+    <a href="{{ url_for('dashboard') }}" class="nav-link {% if request.endpoint=='dashboard' %}active{% endif %}"
+       data-label="Proyectos">
+      <i class="bi bi-grid-1x2"></i><span class="nav-label"> Proyectos</span>
+    </a>
+    <div class="nav-section mt-2">Recursos</div>
+    <a href="{{ url_for('fichas') }}" class="nav-link {% if request.endpoint=='fichas' %}active{% endif %}"
+       data-label="Fichas Técnicas">
+      <i class="bi bi-journal-bookmark"></i><span class="nav-label"> Fichas Técnicas</span>
+    </a>
+    <a href="{{ url_for('catalogo') }}" class="nav-link {% if request.endpoint=='catalogo' %}active{% endif %}"
+       data-label="Catálogo">
+      <i class="bi bi-box-seam"></i><span class="nav-label"> Catálogo</span>
+    </a>
+    <a href="{{ url_for('proveedores') }}" class="nav-link {% if request.endpoint in ('proveedores','edit_proveedor') %}active{% endif %}"
+       data-label="Proveedores">
+      <i class="bi bi-truck"></i><span class="nav-label"> Proveedores</span>
+    </a>
+    <a href="{{ url_for('team') }}" class="nav-link {% if request.endpoint=='team' %}active{% endif %}"
+       data-label="Equipo">
+      <i class="bi bi-people"></i><span class="nav-label"> Equipo</span>
+    </a>
+    <div class="nav-section mt-2">Sistema</div>
+    <a href="{{ url_for('settings') }}" class="nav-link {% if request.endpoint=='settings' %}active{% endif %}"
+       data-label="Ajustes / Drive">
+      <i class="bi bi-gear"></i><span class="nav-label"> Ajustes / Drive</span>
+    </a>
+  </nav>
+  <div class="sfooter">
+    <span class="footer-text"><i class="bi bi-circle-fill me-1" style="color:#3a7a50;font-size:.55rem"></i>Activo</span>
+    <form method="post" action="/shutdown" onsubmit="return confirm('¿Cerrar la aplicación?')">
+      <button class="btn btn-sm" style="color:#636b7a;font-size:.72rem;padding:2px 8px;border:1px solid #2e3850">
+        <i class="bi bi-power me-1"></i>Cerrar
+      </button>
+    </form>
+  </div>
+</div>
+<div id="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button id="sb-toggle" title="Contraer / expandir menú">
+        <i class="bi bi-layout-sidebar"></i>
+      </button>
+      <h4>{% block page_title %}{% endblock %}</h4>
+    </div>
+    <div>{% block topbar_actions %}{% endblock %}</div>
+  </div>
+  <div class="content">
+    {% with messages=get_flashed_messages(with_categories=true) %}
+      {% if messages %}{% for cat,msg in messages %}
+        <div class="alert alert-{{ cat }} alert-dismissible fade show">
+          {{ msg }}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      {% endfor %}{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ── Auto-close alerts ────────────────────────────────────────────
+  document.querySelectorAll('.alert.alert-dismissible').forEach(function(el) {
+    setTimeout(function() { bootstrap.Alert.getOrCreateInstance(el).close(); }, 2600);
+  });
+
+  // ── Sidebar toggle ───────────────────────────────────────────────
+  (function() {
+    var STORAGE_KEY = 'pt_sb_collapsed';
+    var body = document.body;
+
+    // Restaurar estado guardado sin animación al cargar
+    if (localStorage.getItem(STORAGE_KEY) === '1') {
+      body.classList.add('sb-collapsed');
+    }
+
+    document.getElementById('sb-toggle').addEventListener('click', function() {
+      body.classList.toggle('sb-collapsed');
+      localStorage.setItem(STORAGE_KEY, body.classList.contains('sb-collapsed') ? '1' : '0');
+    });
+  })();
+</script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

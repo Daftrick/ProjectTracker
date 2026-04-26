@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Ajustes – Project Tracker{% endblock %}
+{% block page_title %}<i class="bi bi-gear me-2"></i>Ajustes{% endblock %}
+{% block content %}
+<div style="max-width:600px">
+  <div class="card mb-3">
+    <div class="card-header"><i class="bi bi-google me-2 text-primary"></i>Integración con Google Drive</div>
+    <div class="card-body">
+      <form method="post">
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Ruta de la carpeta de Proyectos</label>
+          <input name="drive_projects_path" class="form-control font-monospace"
+                 value="{{ cfg.drive_projects_path }}"
+                 placeholder="G:\Mi unidad\Proyectos">
+          <div class="form-text">
+            Ejemplo: <code>G:\Mi unidad\Proyectos</code> o <code>C:\Users\Rick\Google Drive\Proyectos</code><br>
+            Cada proyecto debe tener una subcarpeta con el mismo nombre que su <strong>Clave</strong>.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Ruta de la carpeta de Fichas Técnicas</label>
+          <input name="drive_fichas_path" class="form-control font-monospace"
+                 value="{{ cfg.drive_fichas_path }}"
+                 placeholder="G:\Mi unidad\Fichas Técnicas">
+          <div class="form-text">
+            Los PDFs de fichas deben estar aquí con el nombre <code>FT-{Tipo}-{Marca}-{Modelo}.pdf</code>
+          </div>
+        </div>
+
+        <!-- Verificación de rutas -->
+        <div class="mb-3">
+          {% if cfg.drive_projects_path %}
+            {% set exists_msg = "✓ Ruta configurada" %}
+            <span class="badge bg-success">{{ exists_msg }}</span>
+            <code class="ms-2 text-muted" style="font-size:.8rem">{{ cfg.drive_projects_path }}</code>
+          {% else %}
+            <span class="badge bg-warning text-dark">Sin configurar</span>
+          {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-check-lg me-1"></i>Guardar configuración
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><i class="bi bi-info-circle me-2 text-muted"></i>Estructura esperada en Drive</div>
+    <div class="card-body">
+      <pre style="font-size:.82rem;background:#f8fafc;border-radius:8px;padding:12px;border:1px solid #e2e8f0;">📁 Proyectos/
+  ├── 📁 <strong>OficinasPalmas1</strong>/          ← nombre = clave del proyecto
+  │     IE-OficinasPalmas1-V3-260407.dwg
+  │     IE-OficinasPalmas1-V3-260407.pdf
+  │     MEM-OficinasPalmas1-V3-260407.pdf
+  │     MEM-OficinasPalmas1-V3-260407.docx
+  │     CC-PPAL-OficinasPalmas1-260417.xlsx
+  │     XREF-OficinasPalmas1-V1-260101.dwg
+  │
+  └── 📁 <strong>Cero5Cien-402</strong>/
+        ...
+
+📁 Fichas Técnicas/
+      FT-LUM-PHILIPS-BN126C.pdf
+      FT-INT-SIEMENS-3RV1.pdf</pre>
+    </div>
+  </div>
+</div>
+{% endblock %}

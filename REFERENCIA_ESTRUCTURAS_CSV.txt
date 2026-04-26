@@ -1,0 +1,365 @@
+================================================================================
+  PROJECT TRACKER — REFERENCIA DE ESTRUCTURAS DE DATOS Y FORMATO CSV
+  Para integración con exportación LISP desde AutoCAD
+  Última actualización: 2026-04-22
+================================================================================
+
+PROPÓSITO DE ESTE DOCUMENTO
+-----------------------------
+Este archivo es una referencia técnica para que Claude (u otro proceso externo)
+sepa exactamente qué estructura esperan los archivos JSON de la app, y cómo
+deben verse los CSVs que exportará el LISP desde AutoCAD para que la app los
+pueda importar correctamente.
+
+La app se encuentra en:
+  H:\My Drive\Omniious\Claude Code\ProjectTracker\app.py
+
+Los datos se guardan en:
+  H:\My Drive\Omniious\Claude Code\ProjectTracker\data\
+
+
+================================================================================
+MÓDULO 1 — CATÁLOGO  (data/catalogo.json)
+================================================================================
+
+DESCRIPCIÓN
+-----------
+Base de datos global de artículos reutilizables. Se usa como fuente para
+poblar cotizaciones (quotes) y listas de materiales (LDMs). Independiente
+de proyectos.
+
+ESTRUCTURA JSON DE CADA ARTÍCULO
+----------------------------------
+{
+  "id":          "42075597",          // 8 chars hexadecimal, generado automáticamente por la app
+  "nombre":      "Tubo Conduit Galvanizado Pared Delgada | 27 [mm] (1\")",
+  "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+  "unidad":      "pza",               // pza, m, m2, m3, kg, hrs, tramo, rollo, etc.
+  "precio":      0.0,                 // Precio base de referencia (puede ser 0)
+  "created_at":  "2026-04-20"         // YYYY-MM-DD
+}
+
+CONVENCIONES DE NOMENCLATURA OBSERVADAS EN DATOS REALES
+---------------------------------------------------------
+  Nombre:      "[Tipo de artículo] | [Dimensión/Especificación]"
+               Ejemplo: "Tubo Conduit Galvanizado Pared Delgada | 27 [mm] (1\")"
+               Ejemplo: "Abrazadera para Unicanal | 27 [mm] (1\")"
+
+  Descripción: "[Marca/Fabricante] | [Alcance del suministro]"
+               Ejemplo: "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+               Ejemplo: "Omniious | Incluye Herramienta y Mano de Obra"
+
+  Unidades más usadas: pza, m, m2, ml, kg, tramo, rollo, hrs
+
+FORMATO CSV PARA IMPORTACIÓN DESDE LISP
+-----------------------------------------
+Nombre de archivo sugerido: catalogo_import_AAMMDD.csv
+
+Columnas (con encabezado en primera fila):
+  nombre, descripcion, unidad, precio
+
+Ejemplo:
+  nombre,descripcion,unidad,precio
+  "Tubo Conduit Galvanizado Pared Delgada | 27 [mm] (1\")","Argos | Incluye Suministro e Instalación","pza",0.0
+  "Codo Conduit Galvanizado Pared Delgada | 27 [mm] (1\")","Argos | Incluye Suministro e Instalación","pza",0.0
+
+NOTAS IMPORTANTES:
+  - El campo "id" lo genera la app automáticamente; NO incluir en CSV
+  - El campo "created_at" lo pone la app automáticamente; NO incluir en CSV
+  - "precio" puede ser 0.0 si es mano de obra o se desconoce el precio
+  - Codificación del archivo: UTF-8
+  - Separador: coma (,)
+  - Strings con comas deben ir entre comillas dobles
+
+
+================================================================================
+MÓDULO 2 — LISTA DE MATERIALES / LDM  (data/materiales.json)
+================================================================================
+
+DESCRIPCIÓN
+-----------
+Listas de materiales por proyecto para enviar a proveedores y solicitar
+cotización. NO incluyen precios de venta. Cada LDM pertenece a un proyecto
+y tiene un proveedor asignado. El usuario puede ingresar después el número
+de cotización que le regresa el proveedor (cot_proveedor).
+
+ESTRUCTURA JSON DE CADA LDM
+-----------------------------
+{
+  "id":            "E2BAF2B5",                    // generado por app
+  "project_id":    "8CC7C53F",                    // ID del proyecto padre
+  "ldm_number":    "LDM-Cero5Cien-01",            // Formato actual: LDM-{clave}-{seq:02d}
+  "seq":           1,                             // número secuencial dentro del proyecto
+  "proveedor":     "Procables de México",         // nombre del proveedor
+  "fecha":         "2026-04-06",                  // fecha de la lista (YYYY-MM-DD)
+  "items": [
+    {
+      "description": "Tubo Conduit Pared Delgada | 27 [mm] (1\")",
+      "unit":        "pza",
+      "qty":         70.0,
+      "precio_cot":  0.0,       // precio que cotizó el proveedor (lo rellena usuario después)
+      "total_cot":   0.0        // qty * precio_cot (calculado por la app)
+    },
+    ...
+  ],
+  "subtotal_cot":  0.0,         // suma de todos los total_cot (costo total del proveedor)
+  "cot_proveedor": null,        // número/referencia de cotización del proveedor (asignado después)
+  "notes":         "",          // notas e instrucciones para el proveedor
+  "created_at":    "2026-04-20"
+}
+
+NOTA DE COMPATIBILIDAD
+------------------------
+La app actualmente genera LDMs nuevas con formato:
+  LDM-{clave}-{seq:02d}
+
+Sin embargo, en materiales.json pueden existir registros legacy con formato anterior:
+  LDM-{clave}-{MMDD}-{seq:02d}
+
+Ejemplos válidos observables:
+  LDM-Cero5Cien-0402-01   // legacy
+  LDM-OficinasPalmasHills-01  // actual
+
+ESTRUCTURA DEL ITEM DENTRO DE LDM
+-----------------------------------
+{
+  "description": "Tubo Conduit Pared Delgada | 27 [mm] (1\")",  // nombre del artículo
+  "unit":        "pza",     // unidad de medida
+  "qty":         70.0,      // cantidad requerida (número decimal)
+  "precio_cot":  0.0,       // SOLO lo rellena el usuario en la app, NO el LISP
+  "total_cot":   0.0        // SOLO lo calcula la app, NO el LISP
+}
+
+FORMATO CSV PARA IMPORTACIÓN DESDE LISP
+-----------------------------------------
+El LISP exporta los ARTÍCULOS de una LDM (no la LDM completa).
+La app necesita saber a qué proyecto y proveedor asignarla.
+
+OPCIÓN A — CSV de artículos solamente (la app pregunta proyecto/proveedor al importar):
+  Nombre sugerido: ldm_AAMMDD_[descripcion_corta].csv
+
+  Columnas:
+    description, unit, qty
+
+  Ejemplo:
+    description,unit,qty
+    "Tubo Conduit Pared Delgada | 27 [mm] (1\")","pza",70
+    "Abrazadera para Unicanal | 27 [mm] (1\")","pza",125
+    "Codo Conduit Pared Delgada | 27 [mm] (1\")","pza",15
+    "Monitor Metálico Pared Delgada | 27 [mm] (1\")","pza",100
+
+OPCIÓN B — CSV con metadatos (la app puede auto-asignar proyecto si el clave coincide):
+  Columnas adicionales opcionales en primera fila de datos (no encabezado):
+    #proyecto_clave, #proveedor, #fecha
+
+  Estas filas empiezan con # y la app las lee como metadatos, no como artículos.
+
+  Ejemplo:
+    description,unit,qty
+    #proyecto_clave,Cero5Cien,,
+    #proveedor,Procables de México,,
+    #fecha,2026-04-06,,
+    "Tubo Conduit Pared Delgada | 27 [mm] (1\")","pza",70
+
+NOTAS:
+  - El LISP NO debe incluir precio_cot ni total_cot; esos los rellena el usuario
+  - Los nombres de artículos deben coincidir con el Catálogo si ya existen
+  - Codificación: UTF-8, separador: coma
+
+
+================================================================================
+MÓDULO 3 — COTIZACIONES AL CLIENTE  (data/quotes.json)
+================================================================================
+
+DESCRIPCIÓN
+-----------
+Cotizaciones de venta al cliente final. Tienen precios, IVA y totales.
+Pertenecen a un proyecto. El número de cotización se genera automáticamente
+con formato: COT-{clave}-{G/E}{NN}-{YYYYMMDD}
+  G = General, E = Extraordinaria
+  NN = número secuencial de ese tipo dentro del proyecto (01, 02, ...)
+  YYYYMMDD = fecha de la cotización
+
+Ejemplos de quote_number:
+  COT-Cero5Cien-G01-20260406  (primera cotización general)
+  COT-Cero5Cien-E01-20260415  (primera cotización extraordinaria)
+
+NOTA DE COMPATIBILIDAD
+------------------------
+La app actualmente genera cotizaciones nuevas con ese formato y guarda además:
+  "quote_type": "General" o "Extraordinario"
+
+Sin embargo, en quotes.json pueden existir registros legacy creados antes de este esquema,
+por ejemplo:
+  COT-Prueba-V1
+
+Esos registros viejos pueden no incluir "quote_type", pero la estructura objetivo actual
+para nuevas cotizaciones es la mostrada abajo.
+
+ESTRUCTURA JSON DE CADA COTIZACIÓN
+------------------------------------
+{
+  "id":           "F726B1CF",            // generado por app
+  "project_id":   "A044D4FE",            // ID del proyecto padre
+  "quote_number": "COT-Prueba-G01-20260419",
+  "quote_type":   "General",             // "General" o "Extraordinario"
+  "version":      "",                    // campo libre opcional (ej. "Rev.1")
+  "client":       "Cliente Privado",     // se toma del proyecto automáticamente
+  "project_name": "Prueba",              // se toma del proyecto automáticamente
+  "date":         "2026-04-19",          // YYYY-MM-DD
+  "items": [
+    {
+      "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+      "unit":        "pza",
+      "qty":         100.0,
+      "price":       900.0,    // precio unitario de VENTA al cliente
+      "total":       90000.0   // qty * price (calculado por app)
+    }
+  ],
+  "subtotal":  90000.0,
+  "tax_rate":  16.0,           // IVA en porcentaje (default 16)
+  "tax":       14400.0,
+  "total":     104400.0,
+  "currency":  "MXN",
+  "notes":     "",
+  "created_at": "2026-04-19"
+}
+
+ESTRUCTURA DEL ITEM DENTRO DE COTIZACIÓN
+------------------------------------------
+{
+  "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+  "unit":        "pza",
+  "qty":         100.0,    // cantidad
+  "price":       900.0,    // precio unitario al cliente
+  "total":       90000.0   // qty * price (la app lo calcula)
+}
+
+FORMATO CSV PARA IMPORTACIÓN DESDE LISP
+-----------------------------------------
+El LISP exportaría la LISTA DE CONCEPTOS con cantidades y precios unitarios.
+
+Nombre sugerido: cot_[clave]_AAMMDD.csv
+
+Columnas:
+  description, unit, qty, price
+
+Ejemplo:
+  description,unit,qty,price
+  "Salida Eléctrica para Luminaria en Muro, Piso o Plafón","pza",100,900.00
+  "Tubo Conduit Galvanizado Pared Delgada | 27 [mm] (1\")","pza",70,45.00
+  "Abrazadera para Unicanal | 27 [mm] (1\")","pza",125,12.50
+
+NOTAS:
+  - El LISP no necesita calcular total, subtotal, tax ni total — la app lo hace
+  - El quote_number, client, project_name los asigna la app al importar
+  - Si el CSV no incluye price, la app crea los ítems con price=0 para captura manual
+
+
+================================================================================
+RUTAS DE API EXISTENTES PARA IMPORTACIÓN
+================================================================================
+
+Actualmente la app tiene estas rutas de API usables desde scripts externos:
+
+  POST /api/catalogo/add
+    Body JSON: {"nombre": "...", "descripcion": "...", "unidad": "pza", "precio": 0.0}
+    Respuesta: el item creado con su id asignado
+    Uso: agregar artículos al catálogo uno por uno desde LISP o script Python
+
+  GET  /api/catalogo?q={texto}
+    Respuesta: lista de hasta 30 artículos que coinciden con la búsqueda
+    Uso: verificar si un artículo ya existe antes de crearlo
+
+  POST /api/catalogo/bulk-delete
+    Body JSON: {"ids": ["id1", "id2", ...]}
+    Uso: limpieza masiva de artículos
+
+  POST /api/ldm/{ldm_id}/costo
+    Body JSON: {"subtotal_cot": 1234.56}
+    Uso: actualizar costo de proveedor en una LDM sin abrir el formulario
+
+RUTAS PENDIENTES DE IMPLEMENTAR (para soporte CSV completo):
+  POST /api/import/catalogo    — importar CSV al catálogo
+  POST /api/import/ldm         — importar CSV como nueva LDM en un proyecto
+  POST /api/import/cotizacion  — importar CSV como nueva cotización en un proyecto
+
+
+================================================================================
+ESQUEMA RESUMEN — DIFERENCIAS CLAVE ENTRE MÓDULOS
+================================================================================
+
+                  CATÁLOGO      LDM (al proveedor)    COTIZACIÓN (al cliente)
+                  ----------    ------------------    -----------------------
+Precio base       precio        precio_cot (0 al      price (precio de venta)
+                  (referencia)  inicio, lo rellena     definido en la cotización
+                                el usuario)
+
+¿Tiene IVA?       No            No                    Sí (tax_rate, default 16%)
+
+¿Pertenece a      No (global)   Sí (project_id)       Sí (project_id)
+un proyecto?
+
+¿Tiene proveedor? No            Sí (proveedor)        No (es para el cliente)
+
+Numeración        id (8-hex)    LDM-{clave}-{seq:02d} COT-{clave}-{G/E}{NN}-
+                                                       {YYYYMMDD}
+
+Campos del ítem   nombre        description            description
+                  descripcion   unit                   unit
+                  unidad        qty                    qty
+                  precio        precio_cot             price
+                                total_cot              total
+
+
+================================================================================
+WORKFLOW TÍPICO LISP → APP
+================================================================================
+
+1. LISP lee el dibujo de AutoCAD (conteos de luminarias, circuitos, etc.)
+
+2. LISP exporta TRES posibles CSVs:
+   a) catalogo_AAMMDD.csv     → nuevos artículos para el catálogo global
+   b) ldm_PROVEEDOR_AAMMDD.csv → lista de materiales a cotizar con ese proveedor
+   c) cot_PROYECTO_AAMMDD.csv  → conceptos con cantidades y precios para la cot. al cliente
+
+3. Usuario (o script Python) sube los CSVs a la app:
+   - /api/import/catalogo   (a implementar)
+   - /api/import/ldm        (a implementar)
+   - /api/import/cotizacion (a implementar)
+
+4. App crea los registros en los JSON correspondientes y asigna IDs
+
+5. Usuario:
+   - Revisa y ajusta precios en cotizaciones
+   - Envía LDMs a proveedores (genera PDF)
+   - Recibe cotizaciones, registra precio proveedor en la LDM
+   - Genera PDF de cotización para el cliente
+
+
+================================================================================
+CONFIGURACIÓN DEL ENTORNO
+================================================================================
+
+Python:   C:\Users\daftr\AppData\Local\Python\pythoncore-3.14-64\python.exe
+Flask:    puerto 5000 (http://localhost:5000)
+Iniciar:  INICIAR.vbs  (silencioso, sin ventana)
+Debug:    DEBUG.bat    (con ventana de consola)
+Deps:     flask, fpdf2
+
+Drive:    Configurado en Ajustes > Drive dentro de la app
+          Carpeta proyectos: [configurada por usuario]
+          Nombre carpeta proyecto: IE-{folder_num:03d}-{clave}
+          Ejemplo: IE-001-Cero5Cien
+
+Archivos entregables en Drive:
+          IE-{clave}-{version}-{fecha}.pdf/.dwg  → planos
+          MEM-{clave}-{version}-{fecha}.pdf       → memoria de cálculo
+          COT-{clave}-{version}-{fecha}.pdf       → cotización exportada
+          LDM-{clave}-{seq:02d}-{fecha}.pdf       → lista de materiales
+          Entrega-{clave}-{version}-{AAMMDD}.zip  → paquete de entrega al cliente
+
+
+================================================================================
+FIN DEL DOCUMENTO
+================================================================================

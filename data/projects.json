@@ -1,0 +1,88 @@
+[
+  {
+    "id": "A044D4FE",
+    "name": "Prueba",
+    "clave": "Prueba",
+    "client": "Cliente Privado",
+    "version": "V1",
+    "fecha": "260101",
+    "alcances": [
+      "iluminacion",
+      "contactos",
+      "hvac",
+      "emergencia",
+      "fotovoltaico",
+      "subestacion",
+      "cuadro_cargas",
+      "diagrama_unifilar",
+      "cotizacion"
+    ],
+    "notes": "Proyecto de Eléctrico de Prueba.",
+    "folder_num": "001",
+    "closed_at": null,
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "E663C153",
+    "name": "Reserva Santa Fé - Casa Leonides",
+    "clave": "CasaLeonides-RSF",
+    "client": "Arteck",
+    "version": "V2",
+    "fecha": "260323",
+    "alcances": [
+      "iluminacion",
+      "contactos",
+      "hvac",
+      "emergencia",
+      "subestacion",
+      "cuadro_cargas",
+      "diagrama_unifilar",
+      "cotizacion"
+    ],
+    "notes": "Desarrollo Inmobiliario Reserva Santa Fe, Calle Jilguero, Lote 1011 & 1013, Santa María Atarasquillo Sección Cieneguillas, C.P. 52044, Estado de México.",
+    "folder_num": "002",
+    "closed_at": null,
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "8CC7C53F",
+    "name": "Cero5Cien - Depto. O402",
+    "clave": "Cero5Cien-0402",
+    "client": "Niz+Chauvet",
+    "version": "V2",
+    "fecha": "260416",
+    "alcances": [
+      "iluminacion",
+      "contactos",
+      "hvac",
+      "cuadro_cargas",
+      "diagrama_unifilar",
+      "cotizacion"
+    ],
+    "notes": "Av. Loma de la Palma 18, Lomas de Vista Hermosa, Cuajimalpa de Morelos, C.P. 05100, Ciudad de México, CDMX",
+    "folder_num": "003",
+    "closed_at": null,
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "4A25C802",
+    "name": "Oficinas Palmas Hills",
+    "clave": "OficinasPalmasHills",
+    "client": "León Sevilla",
+    "version": "V3",
+    "fecha": "260407",
+    "alcances": [
+      "iluminacion",
+      "contactos",
+      "hvac",
+      "emergencia",
+      "cuadro_cargas",
+      "diagrama_unifilar",
+      "cotizacion"
+    ],
+    "notes": "Corporativo Palmas Uno, Blvd. Palmas Hills 1-MZ 002, Valle de las Palmas, C.P. 52787, Naucalpan de Juárez, Estado de México.",
+    "folder_num": "004",
+    "closed_at": null,
+    "created_at": "2026-04-19"
+  }
+]

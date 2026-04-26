@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+{% block title %}Proveedores – Project Tracker{% endblock %}
+{% block page_title %}<i class="bi bi-truck me-2 text-primary"></i>Proveedores{% endblock %}
+{% block topbar_actions %}
+  <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalNew">
+    <i class="bi bi-plus-lg me-1"></i>Nuevo proveedor
+  </button>
+{% endblock %}
+
+{% block content %}
+
+<!-- Barra de búsqueda -->
+<div class="card mb-4">
+  <div class="card-body py-2">
+    <form method="get" class="d-flex gap-2 align-items-center">
+      <i class="bi bi-search text-muted"></i>
+      <input name="q" class="form-control border-0 shadow-none"
+             placeholder="Buscar por nombre, categoría o contacto…"
+             value="{{ q }}" autofocus style="font-size:.9rem">
+      {% if q %}
+      <a href="{{ url_for('proveedores') }}" class="btn btn-sm btn-outline-secondary text-nowrap">
+        <i class="bi bi-x me-1"></i>Limpiar
+      </a>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
+{% if proveedores %}
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span>{% if q %}Resultados para «{{ q }}»{% else %}Todos los proveedores{% endif %}</span>
+    <small class="text-muted">{{ proveedores|length }} proveedor(es)</small>
+  </div>
+  <div class="card-body p-0">
+    <table class="table mb-0">
+      <thead class="table-light">
+        <tr>
+          <th style="width:26%">Nombre</th>
+          <th style="width:14%">Categoría</th>
+          <th style="width:16%">Contacto</th>
+          <th style="width:17%">Email</th>
+          <th style="width:13%">Teléfono</th>
+          <th style="width:14%" class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in proveedores %}
+        <tr>
+          <td>
+            <span class="fw-semibold">{{ p.nombre }}</span>
+            {% if p.notas %}
+            <br><small class="text-muted">{{ p.notas | truncate(50, True) }}</small>
+            {% endif %}
+          </td>
+          <td>
+            {% if p.categoria %}
+            <span class="badge bg-light text-dark border">{{ p.categoria }}</span>
+            {% else %}
+            <span class="text-muted">—</span>
+            {% endif %}
+          </td>
+          <td><small>{{ p.contacto or '—' }}</small></td>
+          <td>
+            {% if p.email %}
+            <a href="mailto:{{ p.email }}" class="text-decoration-none" style="font-size:.85rem">
+              <i class="bi bi-envelope me-1 text-muted"></i>{{ p.email }}
+            </a>
+            {% else %}
+            <span class="text-muted">—</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if p.telefono %}
+            <small><i class="bi bi-telephone me-1 text-muted"></i>{{ p.telefono }}</small>
+            {% else %}
+            <span class="text-muted">—</span>
+            {% endif %}
+          </td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-secondary me-1"
+                    onclick='openEdit({{ p | tojson }})'
+                    title="Editar">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <form method="post"
+                  action="{{ url_for('delete_proveedor', prov_id=p.id) }}"
+                  class="d-inline"
+                  onsubmit="return confirm('¿Eliminar «{{ p.nombre }}»?')">
+              <button class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i>
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+<div class="text-center py-5">
+  <i class="bi bi-truck fs-1 text-muted d-block mb-3"></i>
+  {% if q %}
+    <h5 class="text-muted">Sin resultados para «{{ q }}»</h5>
+    <a href="{{ url_for('proveedores') }}" class="btn btn-outline-secondary mt-2">Ver todos</a>
+  {% else %}
+    <h5 class="text-muted">No hay proveedores registrados</h5>
+    <p class="text-muted">Agrega proveedores para usarlos en listas de materiales.</p>
+    <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#modalNew">
+      <i class="bi bi-plus-lg me-1"></i>Agregar primer proveedor
+    </button>
+  {% endif %}
+</div>
+{% endif %}
+
+
+<!-- ── Modal: Nuevo proveedor ── -->
+<div class="modal fade" id="modalNew" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="post" action="{{ url_for('proveedores') }}">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <i class="bi bi-plus-circle me-2 text-primary"></i>Nuevo proveedor
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-8">
+              <label class="form-label">Nombre <span class="text-danger">*</span></label>
+              <input name="nombre" class="form-control" required
+                     placeholder="Ej. Distribuidora Eléctrica del Norte">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Categoría</label>
+              <input name="categoria" class="form-control"
+                     placeholder="Ej. Iluminación, Conductores…"
+                     list="categoriasNew">
+              <datalist id="categoriasNew">
+                <option value="Iluminación">
+                <option value="Conductores y cable">
+                <option value="Tableros y protecciones">
+                <option value="Materiales eléctricos generales">
+                <option value="Equipos de medición">
+                <option value="Sistemas de emergencia">
+                <option value="Energía solar / fotovoltaico">
+                <option value="Subestaciones">
+                <option value="HVAC">
+                <option value="Herramientas">
+              </datalist>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Persona de contacto</label>
+              <input name="contacto" class="form-control" placeholder="Nombre del contacto">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-control"
+                     placeholder="contacto@proveedor.com">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Teléfono</label>
+              <input name="telefono" class="form-control" placeholder="55 1234 5678">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Notas</label>
+              <textarea name="notas" class="form-control" rows="2"
+                        placeholder="Condiciones de pago, tiempo de entrega típico, observaciones…"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary"
+                  data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-lg me-1"></i>Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── Modal: Editar proveedor ── -->
+<div class="modal fade" id="modalEdit" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="post" id="editForm">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <i class="bi bi-pencil me-2 text-primary"></i>Editar proveedor
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-8">
+              <label class="form-label">Nombre <span class="text-danger">*</span></label>
+              <input name="nombre" id="eNombre" class="form-control" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Categoría</label>
+              <input name="categoria" id="eCategoria" class="form-control"
+                     list="categoriasEdit">
+              <datalist id="categoriasEdit">
+                <option value="Iluminación">
+                <option value="Conductores y cable">
+                <option value="Tableros y protecciones">
+                <option value="Materiales eléctricos generales">
+                <option value="Equipos de medición">
+                <option value="Sistemas de emergencia">
+                <option value="Energía solar / fotovoltaico">
+                <option value="Subestaciones">
+                <option value="HVAC">
+                <option value="Herramientas">
+              </datalist>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Persona de contacto</label>
+              <input name="contacto" id="eContacto" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" id="eEmail" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Teléfono</label>
+              <input name="telefono" id="eTelefono" class="form-control">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Notas</label>
+              <textarea name="notas" id="eNotas" class="form-control" rows="2"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary"
+                  data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-lg me-1"></i>Guardar cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function openEdit(p) {
+  document.getElementById("eNombre").value    = p.nombre    || "";
+  document.getElementById("eCategoria").value = p.categoria || "";
+  document.getElementById("eContacto").value  = p.contacto  || "";
+  document.getElementById("eEmail").value     = p.email     || "";
+  document.getElementById("eTelefono").value  = p.telefono  || "";
+  document.getElementById("eNotas").value     = p.notas     || "";
+  document.getElementById("editForm").action  = "/proveedores/" + p.id + "/edit";
+  new bootstrap.Modal(document.getElementById("modalEdit")).show();
+}
+</script>
+{% endblock %}

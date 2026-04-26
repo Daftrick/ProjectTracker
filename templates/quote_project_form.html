@@ -1,0 +1,809 @@
+{% extends "base.html" %}
+{% block title %}{% if quote %}Editar{% else %}Nueva{% endif %} Cotización – {{ project.name }}{% endblock %}
+{% block page_title %}
+  <i class="bi bi-receipt me-2 text-success"></i>
+  {% if quote %}Editar {{ quote.quote_number }}{% else %}Nueva cotización — {{ project.clave }}{% endif %}
+{% endblock %}
+{% block topbar_actions %}
+  <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-quote" class="btn btn-sm btn-outline-secondary">
+    <i class="bi bi-arrow-left me-1"></i>Volver
+  </a>
+{% endblock %}
+{% block extra_head %}
+<style>
+  /* ── Barra de resumen fija en la parte inferior ─────────────── */
+  .quote-bar {
+    position: fixed;
+    bottom: 0;
+    left: var(--sbw, 240px);
+    right: 0;
+    background: #0f1525;
+    border-top: 1px solid rgba(255,255,255,.18);
+    padding: 10px 28px;
+    box-shadow: 0 -2px 14px rgba(0,0,0,.5);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .quote-bar .totals { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+  .quote-bar .totals .lbl { font-size: .78rem; color: #8a9298; }
+  .quote-bar .totals .val { font-size: .95rem; font-weight: 600; color: #b0bac8; }
+  .quote-bar .totals .val-total { font-size: 1.15rem; color: #70b085; font-weight: 700; }
+  /* Padding inferior para que la barra no tape el contenido */
+  #main .content { padding-bottom: 80px; }
+
+  /* ── Autocomplete inline ──────────────────────────────────────── */
+  .ac-wrapper { position: relative; }
+  .ac-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    width: max(100%, 300px);
+    background: #111827;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.5);
+    z-index: 1060;
+    max-height: 240px;
+    overflow-y: auto;
+  }
+  .ac-dropdown.ac-open { display: block; }
+  .ac-item {
+    padding: 7px 12px;
+    cursor: pointer;
+    font-size: .85rem;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    color: #a8b2c0;
+    transition: background .1s;
+  }
+  .ac-item:last-child { border-bottom: none; }
+  .ac-item:hover, .ac-item.ac-hover { background: rgba(90,130,200,.15); color: #c0cad6; }
+  .ac-add { color: #6ab888; font-size: .85rem; }
+  .ac-add:hover, .ac-add.ac-hover { background: rgba(50,130,80,.15); color: #80c89a; }
+  .ac-divider { border-top: 1px solid rgba(255,255,255,.1); margin: 2px 0; }
+  .row-tools { display:flex; justify-content:flex-end; gap:4px; flex-wrap:nowrap; }
+  .quote-row { cursor: default; }
+  .quote-row.dragging { opacity: .45; }
+  .drag-cell { width: 38px; text-align: center; vertical-align: middle; }
+  .drag-handle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.03);
+    color: #7f8898;
+    cursor: grab;
+    transition: background .15s, color .15s, border-color .15s;
+    user-select: none;
+  }
+  .drag-handle:hover {
+    background: rgba(90,130,200,.12);
+    color: #b7c4d8;
+    border-color: rgba(90,130,200,.28);
+  }
+  .drag-handle:active { cursor: grabbing; }
+  .drag-handle i { pointer-events: none; }
+  .quote-row.drop-target td {
+    border-top: 2px solid rgba(122,177,141,.8) !important;
+  }
+  body.quote-dragging {
+    user-select: none;
+    cursor: grabbing !important;
+  }
+  body.quote-dragging .drag-handle { cursor: grabbing; }
+  .sticky-items-card .card-header {
+    position: sticky;
+    top: var(--sticky-items-toolbar-top, 64px);
+    z-index: 45;
+    background: #10182b;
+    box-shadow: 0 6px 14px rgba(0,0,0,.24);
+    border-bottom: 1px solid rgba(255,255,255,.16);
+  }
+  .sticky-items-table thead th {
+    position: sticky;
+    top: var(--sticky-items-head-top, 120px);
+    z-index: 35;
+    background: #182238 !important;
+    box-shadow: inset 0 -1px 0 rgba(255,255,255,.08), 0 4px 10px rgba(0,0,0,.18);
+  }
+</style>
+{% endblock %}
+{% block content %}
+<form method="post" id="quoteForm">
+
+<!-- ── Barra de resumen fija ── -->
+<div class="quote-bar">
+  <div class="totals">
+    <div>
+      <div class="lbl">Subtotal</div>
+      <div class="val" id="dSub">$0.00</div>
+    </div>
+    <div>
+      <div class="lbl">IVA (<span id="dTaxPct">16</span>%)</div>
+      <div class="val" id="dTax">$0.00</div>
+    </div>
+    <div>
+      <div class="lbl">Total</div>
+      <div class="val-total" id="dTotal">$0.00</div>
+    </div>
+  </div>
+  <div class="d-flex gap-2 align-items-center">
+    <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-quote"
+       class="btn btn-outline-secondary btn-sm">Cancelar</a>
+    <button type="submit" class="btn btn-primary btn-sm px-4">
+      <i class="bi bi-check-lg me-1"></i>{% if quote %}Guardar{% else %}Crear cotización{% endif %}
+    </button>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-12">
+    <div class="card mb-3">
+      <div class="card-header">Datos generales</div>
+      <div class="card-body">
+        <div class="row g-3">
+          <!-- Tipo de cotización -->
+          <div class="col-md-3">
+            <label class="form-label">Tipo de cotización</label>
+            <select name="quote_type" class="form-select" id="quoteType" onchange="updateNum()">
+              <option value="General" {% if not quote or quote.get('quote_type','General')=='General' %}selected{% endif %}>General</option>
+              <option value="Preliminar" {% if quote and quote.get('quote_type')=='Preliminar' %}selected{% endif %}>Preliminar</option>
+              <option value="Extraordinaria" {% if quote and quote.get('quote_type') in ['Extraordinaria','Extraordinario'] %}selected{% endif %}>Extraordinaria</option>
+            </select>
+          </div>
+          <!-- Número de cotización (auto-generado, editable) -->
+          <div class="col-md-5">
+            <label class="form-label d-flex justify-content-between">
+              <span>Número de cotización</span>
+              <button type="button" class="btn btn-link p-0" style="font-size:.75rem"
+                      onclick="resetNum()" title="Restaurar número auto-generado">
+                <i class="bi bi-arrow-counterclockwise me-1"></i>Auto
+              </button>
+            </label>
+            <input name="quote_number" class="form-control font-monospace" id="quoteNumInput"
+                   value="{{ quote.quote_number if quote else default_num_g }}"
+                   placeholder="COT-…">
+          </div>
+          <!-- Fecha -->
+          <div class="col-md-4">
+            <label class="form-label">Fecha</label>
+            <input type="date" name="date" class="form-control" id="quoteDate"
+                   value="{{ quote.date if quote else today }}" oninput="updateNum()">
+          </div>
+          <!-- Versión (opcional, referencia interna) -->
+          <div class="col-md-2">
+            <label class="form-label">Versión <small class="text-muted">(ref. interna)</small></label>
+            <input name="version" class="form-control" id="verInput"
+                   value="{{ quote.version if quote else '' }}" placeholder="V1">
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Moneda</label>
+            <select name="currency" class="form-select">
+              {% for c in ["MXN","USD","EUR"] %}
+                <option {% if quote and quote.currency==c %}selected{% elif not quote and c=="MXN" %}selected{% endif %}>{{ c }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">IVA (%)</label>
+            <input type="number" name="tax_rate" class="form-control" id="taxRate"
+                   value="{{ quote.tax_rate if quote else 16 }}" min="0" max="100" step="0.01">
+          </div>
+          <div class="col-12">
+            <label class="form-label">Notas / Condiciones de pago</label>
+            <textarea name="notes" class="form-control" rows="2"
+                      placeholder="Forma de pago, tiempo de entrega, exclusiones...">{{ quote.notes if quote else '' }}</textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card sticky-items-card">
+      <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <span>Partidas</span>
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#catalogModal" onclick="openCatalogNew()">
+            <i class="bi bi-box-seam me-1"></i>Buscar catálogo
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-primary" onclick="addRow()">
+            <i class="bi bi-plus-lg"></i> Agregar fila
+          </button>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <table class="table mb-0 sticky-items-table" id="itemsTable">
+          <thead class="table-light">
+            <tr>
+              <th style="width:4%"></th>
+              <th style="width:36%">Descripción</th>
+              <th style="width:10%">Unidad</th>
+              <th style="width:11%">Cantidad</th>
+              <th style="width:15%">Precio unit.</th>
+              <th style="width:15%">Total</th>
+              <th style="width:9%"></th>
+            </tr>
+          </thead>
+          <tbody id="itemsBody">
+            {% if quote and quote['items'] %}
+              {% for item in quote['items'] %}
+              <tr class="quote-row">
+                <td class="drag-cell">
+                  <span class="drag-handle" title="Arrastrar para reordenar">
+                    <i class="bi bi-grip-vertical"></i>
+                  </span>
+                </td>
+                <td>
+                  <div class="ac-wrapper">
+                    <input name="item_desc[]" class="form-control form-control-sm ac-input"
+                           value="{{ item.description }}" autocomplete="off" required>
+                    <input type="hidden" name="item_catalog_id[]" value="{{ item.catalog_item_id or '' }}">
+                    <input type="hidden" name="item_desc2[]" value="{{ item.catalog_description or item.description_secondary or '' }}">
+                    <div class="ac-dropdown" role="listbox"></div>
+                  </div>
+                </td>
+                <td><input name="item_unit[]" class="form-control form-control-sm" value="{{ item.unit }}"></td>
+                <td><input type="number" name="item_qty[]" class="form-control form-control-sm qty" value="{{ item.qty }}" step="0.01" min="0" oninput="calcRow(this)"></td>
+                <td>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text">$</span>
+                    <input type="number" name="item_price[]" class="form-control form-control-sm price" value="{{ item.price }}" step="0.01" min="0" oninput="calcRow(this)">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text">$</span>
+                    <input type="number" name="item_total[]" class="form-control form-control-sm tot" value="{{ item.total }}" readonly tabindex="-1" style="background:#0a0f1c;color:#8a9298">
+                  </div>
+                </td>
+                <td class="text-end">
+                  <div class="row-tools">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" title="Buscar en catálogo"
+                            onclick="openCatalogRow(this)" data-bs-toggle="modal" data-bs-target="#catalogModal">
+                      <i class="bi bi-search"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-danger" title="Eliminar fila"
+                            onclick="this.closest('tr').remove();updateTotals()">
+                      <i class="bi bi-x"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+<!-- Modal: Buscar en catálogo -->
+<div class="modal fade" id="catalogModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-box-seam me-2 text-primary"></i>Catálogo de artículos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="catalogSearch" class="form-control mb-3"
+               placeholder="Buscar por nombre o descripción…" autocomplete="off">
+        <div id="catalogResults" class="list-group" style="max-height:320px;overflow-y:auto"></div>
+        <!-- Agregar nuevo al catálogo -->
+        <div class="mt-3 border-top pt-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary w-100"
+                  id="toggleAddForm" onclick="toggleAddForm()">
+            <i class="bi bi-plus-circle me-1"></i>Agregar nuevo artículo al catálogo
+          </button>
+          <div id="addCatalogForm" class="d-none mt-3">
+            <div class="row g-2">
+              <div class="col-md-6">
+                <input type="text" id="newNombre" class="form-control form-control-sm" placeholder="Nombre *">
+              </div>
+              <div class="col-md-6">
+                <input type="text" id="newDesc" class="form-control form-control-sm" placeholder="Descripción">
+              </div>
+              <div class="col-md-3">
+                <input type="text" id="newUnidad" class="form-control form-control-sm" value="pza" placeholder="Unidad">
+              </div>
+              <div class="col-md-4">
+                <div class="input-group input-group-sm">
+                  <span class="input-group-text">$</span>
+                  <input type="number" id="newPrecio" class="form-control" value="0" min="0" step="0.01">
+                </div>
+              </div>
+              <div class="col-md-5 d-flex gap-2">
+                <button type="button" class="btn btn-sm btn-primary flex-fill" onclick="addToCatalog()">
+                  <i class="bi bi-check-lg me-1"></i>Guardar y agregar
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="toggleAddForm()">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+            <div id="addCatalogMsg" class="mt-2"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+  // ── Row management ─────────────────────────────────────────────────────────
+  function makeRowHTML(desc, desc2, unit, qty, price, total, catalogId) {
+    return `
+      <td class="drag-cell">
+        <span class="drag-handle" title="Arrastrar para reordenar">
+          <i class="bi bi-grip-vertical"></i>
+        </span>
+      </td>
+      <td>
+        <div class="ac-wrapper">
+          <input name="item_desc[]" class="form-control form-control-sm ac-input"
+                 placeholder="Descripción…" value="${escHtml(desc||'')}" autocomplete="off" required>
+          <input type="hidden" name="item_catalog_id[]" value="${escHtml(catalogId||'')}">
+          <input type="hidden" name="item_desc2[]" value="${escHtml(desc2||'')}">
+          <div class="ac-dropdown" role="listbox"></div>
+        </div>
+      </td>
+      <td><input name="item_unit[]" class="form-control form-control-sm" value="${escHtml(unit||'pza')}"></td>
+      <td><input type="number" name="item_qty[]" class="form-control form-control-sm qty" value="${qty||1}" step="0.01" min="0" oninput="calcRow(this)"></td>
+      <td>
+        <div class="input-group input-group-sm">
+          <span class="input-group-text">$</span>
+          <input type="number" name="item_price[]" class="form-control form-control-sm price" value="${price||0}" step="0.01" min="0" oninput="calcRow(this)">
+        </div>
+      </td>
+      <td>
+        <div class="input-group input-group-sm">
+          <span class="input-group-text">$</span>
+          <input type="number" name="item_total[]" class="form-control form-control-sm tot" value="${total||0}" readonly tabindex="-1" style="background:#0a0f1c;color:#8a9298">
+        </div>
+      </td>
+      <td class="text-end">
+        <div class="row-tools">
+          <button type="button" class="btn btn-sm btn-outline-secondary" title="Buscar en catálogo"
+                  onclick="openCatalogRow(this)" data-bs-toggle="modal" data-bs-target="#catalogModal">
+            <i class="bi bi-search"></i>
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-danger" title="Eliminar fila"
+                  onclick="this.closest('tr').remove();updateTotals()">
+            <i class="bi bi-x"></i>
+          </button>
+        </div>
+      </td>`;
+  }
+  function addRow(desc, desc2, unit, qty, price, catalogId) {
+    const tr = document.createElement("tr");
+    tr.className = "quote-row";
+    const tot = ((qty||1) * (price||0)).toFixed(2);
+    tr.innerHTML = makeRowHTML(desc, desc2, unit, qty, price, tot, catalogId);
+    document.getElementById("itemsBody").appendChild(tr);
+    updateTotals();
+  }
+  function calcRow(el){
+    const r=el.closest("tr");
+    const q=parseFloat(r.querySelector(".qty").value)||0;
+    const p=parseFloat(r.querySelector(".price").value)||0;
+    r.querySelector(".tot").value=(q*p).toFixed(2);
+    updateTotals();
+  }
+  function updateTotals(){
+    let s=0;
+    document.querySelectorAll(".tot").forEach(i=>s+=parseFloat(i.value)||0);
+    const tr=parseFloat(document.getElementById("taxRate").value)||0;
+    const tax=s*tr/100;
+    document.getElementById("dSub").textContent=fmt(s);
+    document.getElementById("dTax").textContent=fmt(tax);
+    document.getElementById("dTotal").textContent=fmt(s+tax);
+    document.getElementById("dTaxPct").textContent=tr;
+  }
+  function fmt(n){return"$"+n.toLocaleString("es-MX",{minimumFractionDigits:2,maximumFractionDigits:2});}
+  // ── Numeración auto-generada ───────────────────────────────────────────────
+  // Números base calculados en servidor
+  const NUM_G = "{{ default_num_g }}";
+  const NUM_P = "{{ default_num_p }}";
+  const NUM_E = "{{ default_num_e }}";
+  let userEditedNum = false;   // si el usuario tocó el campo, no se auto-actualiza
+
+  function updateNum() {
+    if (userEditedNum) return;
+    const tipo      = document.getElementById("quoteType").value;
+    const dateInput = document.getElementById("quoteDate").value;
+    const dateFmt   = dateInput ? dateInput.replace(/-/g,"") : "{{ today.replace('-','') }}";
+    const clave     = "{{ project.clave }}";
+    // Reconstruir número con la fecha seleccionada (mantenemos el NN del servidor)
+    let base = NUM_G;
+    if (tipo === "Preliminar") base = NUM_P;
+    if (tipo === "Extraordinaria") base = NUM_E;
+    // Reemplazar la porción de fecha en el número (últimos 8 dígitos)
+    if (dateFmt.length === 8) {
+      base = base.replace(/\d{8}$/, dateFmt);
+    }
+    document.getElementById("quoteNumInput").value = base;
+  }
+
+  function resetNum() {
+    userEditedNum = false;
+    updateNum();
+  }
+
+  document.getElementById("quoteNumInput").addEventListener("input", () => {
+    userEditedNum = true;
+  });
+
+  document.getElementById("taxRate").addEventListener("input", updateTotals);
+  window.addEventListener("DOMContentLoaded", () => {
+    if (document.getElementById("itemsBody").children.length === 0) addRow();
+    updateTotals();
+    // Solo auto-generar el número en cotizaciones nuevas
+    {% if not quote %}
+    updateNum();
+    {% endif %}
+    syncStickyItemsOffsets();
+  });
+  window.addEventListener("resize", syncStickyItemsOffsets);
+
+  function syncStickyItemsOffsets() {
+    const topbar = document.querySelector(".topbar");
+    const toolbar = document.querySelector(".sticky-items-card .card-header");
+    const topbarHeight = topbar ? Math.ceil(topbar.getBoundingClientRect().height) : 0;
+    const toolbarHeight = toolbar ? Math.ceil(toolbar.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty("--sticky-items-toolbar-top", `${topbarHeight}px`);
+    document.documentElement.style.setProperty("--sticky-items-head-top", `${topbarHeight + toolbarHeight}px`);
+  }
+
+  // ── Catálogo search ─────────────────────────────────────────────────────────
+  let catalogTargetRow = null;   // null = new row, else <tr> element
+  let catalogItems     = [];
+
+  function openCatalogNew() {
+    catalogTargetRow = null;
+    resetCatalogModal();
+  }
+  function openCatalogRow(btn) {
+    catalogTargetRow = btn.closest("tr");
+    resetCatalogModal();
+  }
+  function resetCatalogModal() {
+    document.getElementById("catalogSearch").value = "";
+    document.getElementById("catalogResults").innerHTML =
+      '<p class="text-muted p-2 mb-0" style="font-size:.85rem">Escribe para buscar…</p>';
+    document.getElementById("addCatalogForm").classList.add("d-none");
+    document.getElementById("addCatalogMsg").innerHTML = "";
+    setTimeout(() => document.getElementById("catalogSearch").focus(), 400);
+    // load all items on open
+    fetchCatalog("");
+  }
+
+  function fetchCatalog(q) {
+    fetch(`/api/catalogo?q=${encodeURIComponent(q)}`)
+      .then(r => r.json())
+      .then(items => {
+        catalogItems = items;
+        const div = document.getElementById("catalogResults");
+        if (!items.length) {
+          div.innerHTML = '<p class="text-muted p-2 mb-0" style="font-size:.85rem">Sin resultados.</p>';
+          return;
+        }
+        div.innerHTML = items.map((i, idx) => `
+          <button type="button" class="list-group-item list-group-item-action px-3 py-2"
+                  onclick="selectItem(${idx})">
+            <div class="d-flex justify-content-between align-items-center">
+              <strong style="font-size:.9rem">${escHtml(i.nombre)}</strong>
+              <span class="text-success fw-semibold" style="font-size:.9rem">
+                $${parseFloat(i.precio).toLocaleString("es-MX",{minimumFractionDigits:2})}
+                <small class="text-muted">/ ${escHtml(i.unidad)}</small>
+              </span>
+            </div>
+            ${i.descripcion ? `<small class="text-muted">${escHtml(i.descripcion)}</small>` : ""}
+          </button>`).join("");
+      });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("catalogSearch").addEventListener("input", function() {
+      fetchCatalog(this.value);
+    });
+  });
+
+  function selectItem(idx) {
+    const item = catalogItems[idx];
+    if (catalogTargetRow) {
+      fillRowFromCatalogItem(catalogTargetRow, item);
+    } else {
+      addRow(item.nombre, item.descripcion || "", item.unidad, 1, item.precio, item.id || "");
+    }
+    bootstrap.Modal.getInstance(document.getElementById("catalogModal")).hide();
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  // ── Agregar al catálogo desde la cotización ─────────────────────────────────
+  function toggleAddForm() {
+    document.getElementById("addCatalogForm").classList.toggle("d-none");
+    document.getElementById("addCatalogMsg").innerHTML = "";
+  }
+
+  function addToCatalog() {
+    const nombre  = document.getElementById("newNombre").value.trim();
+    const desc    = document.getElementById("newDesc").value.trim();
+    const unidad  = document.getElementById("newUnidad").value.trim() || "pza";
+    const precio  = parseFloat(document.getElementById("newPrecio").value) || 0;
+    const msgDiv  = document.getElementById("addCatalogMsg");
+    if (!nombre) { msgDiv.innerHTML='<small class="text-danger">El nombre es requerido.</small>'; return; }
+
+    fetch("/api/catalogo/add", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({nombre, descripcion: desc, unidad, precio})
+    })
+    .then(r => r.json())
+    .then(item => {
+      if (item.error) { msgDiv.innerHTML=`<small class="text-danger">${item.error}</small>`; return; }
+      msgDiv.innerHTML = `<small class="text-success"><i class="bi bi-check-circle me-1"></i>«${escHtml(item.nombre)}» agregado al catálogo.</small>`;
+      // clear form
+      document.getElementById("newNombre").value = "";
+      document.getElementById("newDesc").value   = "";
+      document.getElementById("newUnidad").value = "pza";
+      document.getElementById("newPrecio").value = "0";
+      // fill row and close
+      if (catalogTargetRow) {
+        fillRowFromCatalogItem(catalogTargetRow, item);
+      } else {
+        addRow(item.nombre, item.descripcion || "", item.unidad, 1, item.precio, item.id || "");
+      }
+      setTimeout(() => bootstrap.Modal.getInstance(document.getElementById("catalogModal")).hide(), 800);
+    })
+    .catch(() => { msgDiv.innerHTML='<small class="text-danger">Error al guardar.</small>'; });
+  }
+
+  // ── Autocomplete inline al escribir ────────────────────────────────────────
+  //
+  // Lógica: al escribir ≥1 caracter en cualquier campo .ac-input se hace fetch
+  // a /api/catalogo?q=... (debounce 220 ms) y se muestra un dropdown con:
+  //   · Resultados del catálogo → clic rellena la fila
+  //   · Opción "+ Agregar como nuevo artículo" → abre el modal de catálogo
+  //     con el texto pre-relleno y el formulario de nuevo artículo abierto.
+  //
+  // Se usa event delegation en #itemsBody para cubrir tanto filas existentes
+  // como las que se agreguen dinámicamente con addRow().
+
+  let _acTimer = null;
+
+  function _acSearch(input) {
+    clearTimeout(_acTimer);
+    const val = input.value.trim();
+    const dropdown = input.closest(".ac-wrapper").querySelector(".ac-dropdown");
+    if (!val) { _acClose(dropdown); return; }
+    _acTimer = setTimeout(() => {
+      fetch(`/api/catalogo?q=${encodeURIComponent(val)}`)
+        .then(r => r.json())
+        .then(items => _acRender(dropdown, input, items, val))
+        .catch(() => {});
+    }, 220);
+  }
+
+  function _acRender(dropdown, input, items, query) {
+    const row = input.closest("tr");
+    dropdown.innerHTML = "";
+
+    // ── Resultados del catálogo ──
+    items.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "ac-item";
+      div.setAttribute("role", "option");
+      div.innerHTML =
+        `<div class="fw-semibold text-truncate">${escHtml(item.nombre)}</div>` +
+        `<div class="text-muted" style="font-size:.75rem">` +
+          `${escHtml(item.unidad)} · $${parseFloat(item.precio).toLocaleString("es-MX",{minimumFractionDigits:2})}` +
+          (item.descripcion ? ` · ${escHtml(item.descripcion.substring(0,45))}` : "") +
+        `</div>`;
+      div.addEventListener("mousedown", e => {
+        e.preventDefault();          // evita que el blur cierre el dropdown antes del clic
+        fillRowFromCatalogItem(row, item);
+        _acClose(dropdown);
+      });
+      dropdown.appendChild(div);
+    });
+
+    // ── Separador ──
+    if (items.length) {
+      const hr = document.createElement("div");
+      hr.className = "ac-divider";
+      dropdown.appendChild(hr);
+    }
+
+    // ── Opción "Agregar nuevo" ──
+    const addBtn = document.createElement("div");
+    addBtn.className = "ac-item ac-add d-flex align-items-center gap-2";
+    addBtn.setAttribute("role", "option");
+    addBtn.innerHTML =
+      `<i class="bi bi-plus-circle-fill flex-shrink-0"></i>` +
+      `<span>Agregar <strong>"${escHtml(query)}"</strong> como nuevo artículo</span>`;
+    addBtn.addEventListener("mousedown", e => {
+      e.preventDefault();
+      _acClose(dropdown);
+      _acOpenModalNew(row, query);
+    });
+    dropdown.appendChild(addBtn);
+
+    dropdown.classList.add("ac-open");
+  }
+
+  function _acClose(dropdown) {
+    dropdown.classList.remove("ac-open");
+    dropdown.innerHTML = "";
+  }
+
+  /** Rellena los campos de una fila con datos de un artículo del catálogo */
+  function fillRowFromCatalogItem(row, item) {
+    row.querySelector('[name="item_desc[]"]').value  = item.nombre;
+    row.querySelector('[name="item_catalog_id[]"]').value = item.id || "";
+    row.querySelector('[name="item_desc2[]"]').value = item.descripcion || "";
+    row.querySelector('[name="item_unit[]"]').value  = item.unidad;
+    row.querySelector('[name="item_price[]"]').value = item.precio;
+    calcRow(row.querySelector(".qty"));
+  }
+
+  function clearCatalogLink(row, clearDesc2 = false) {
+    const idInput = row.querySelector('[name="item_catalog_id[]"]');
+    if (idInput) idInput.value = "";
+    if (clearDesc2) {
+      const desc2Input = row.querySelector('[name="item_desc2[]"]');
+      if (desc2Input) desc2Input.value = "";
+    }
+  }
+
+  /** Abre el modal de catálogo apuntando a la fila row, con el formulario
+   *  de "agregar nuevo" pre-relleno con el texto escrito */
+  function _acOpenModalNew(row, text) {
+    catalogTargetRow = row;
+    // Pre-cargar búsqueda y formulario de nuevo artículo
+    document.getElementById("catalogSearch").value  = text;
+    document.getElementById("newNombre").value       = text;
+    document.getElementById("newDesc").value         = "";
+    document.getElementById("newUnidad").value       = "pza";
+    document.getElementById("newPrecio").value       = "0";
+    document.getElementById("addCatalogMsg").innerHTML = "";
+    document.getElementById("addCatalogForm").classList.remove("d-none");
+    // Abrir modal
+    bootstrap.Modal.getOrCreateInstance(document.getElementById("catalogModal")).show();
+    // Lanzar búsqueda para ver si ya existe algo similar
+    setTimeout(() => fetchCatalog(text), 380);
+  }
+
+  // ── Event delegation para .ac-input ────────────────────────────────────────
+  document.addEventListener("DOMContentLoaded", () => {
+    const tbody = document.getElementById("itemsBody");
+    let draggingRow = null;
+    let dragStarted = false;
+    let dragPointerOffset = 0;
+
+    // Input → lanzar búsqueda
+    tbody.addEventListener("input", e => {
+      if (e.target.classList.contains("ac-input")) {
+        clearCatalogLink(e.target.closest("tr"), true);
+        _acSearch(e.target);
+      } else if (e.target.name === "item_unit[]" || e.target.name === "item_price[]") {
+        clearCatalogLink(e.target.closest("tr"));
+      }
+    });
+
+    // Blur → cerrar dropdown con pequeño delay (permite que mousedown se registre antes)
+    tbody.addEventListener("focusout", e => {
+      if (e.target.classList.contains("ac-input")) {
+        const dd = e.target.closest(".ac-wrapper")?.querySelector(".ac-dropdown");
+        if (dd) setTimeout(() => _acClose(dd), 180);
+      }
+    });
+
+    // Teclado: ↑ ↓ Enter Escape dentro del dropdown
+    tbody.addEventListener("keydown", e => {
+      if (!e.target.classList.contains("ac-input")) return;
+      const dd = e.target.closest(".ac-wrapper")?.querySelector(".ac-dropdown");
+      if (!dd || !dd.classList.contains("ac-open")) return;
+      const items = [...dd.querySelectorAll(".ac-item")];
+      const active = dd.querySelector(".ac-item.ac-hover");
+
+      if (e.key === "Escape") {
+        e.preventDefault();
+        _acClose(dd);
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const next = active
+          ? (items[items.indexOf(active) + 1] || items[0])
+          : items[0];
+        active?.classList.remove("ac-hover");
+        next?.classList.add("ac-hover");
+        next?.scrollIntoView({ block: "nearest" });
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const prev = active
+          ? (items[items.indexOf(active) - 1] || items[items.length - 1])
+          : items[items.length - 1];
+        active?.classList.remove("ac-hover");
+        prev?.classList.add("ac-hover");
+        prev?.scrollIntoView({ block: "nearest" });
+      } else if (e.key === "Enter") {
+        const hov = dd.querySelector(".ac-item.ac-hover");
+        if (hov) { e.preventDefault(); hov.dispatchEvent(new MouseEvent("mousedown")); }
+      }
+    });
+
+    // Cerrar cualquier dropdown abierto si se hace clic fuera de la tabla
+    document.addEventListener("click", e => {
+      if (!e.target.closest(".ac-wrapper")) {
+        document.querySelectorAll(".ac-dropdown.ac-open").forEach(_acClose);
+      }
+    });
+
+    function clearDragState() {
+      tbody.querySelectorAll(".quote-row").forEach(r => {
+        r.classList.remove("dragging", "drop-target");
+      });
+      document.body.classList.remove("quote-dragging");
+      draggingRow = null;
+      dragStarted = false;
+      dragPointerOffset = 0;
+    }
+
+    function findTargetRow(clientY) {
+      const rows = [...tbody.querySelectorAll(".quote-row")].filter(r => r !== draggingRow);
+      for (const row of rows) {
+        const rect = row.getBoundingClientRect();
+        if (clientY < rect.top + rect.height / 2) {
+          return { row, insertAfter: false };
+        }
+      }
+      const lastRow = rows[rows.length - 1] || null;
+      return lastRow ? { row: lastRow, insertAfter: true } : null;
+    }
+
+    tbody.addEventListener("mousedown", e => {
+      const handle = e.target.closest(".drag-handle");
+      if (!handle) return;
+      const row = handle.closest(".quote-row");
+      if (!row) return;
+      e.preventDefault();
+      draggingRow = row;
+      dragPointerOffset = e.clientY - row.getBoundingClientRect().top;
+      document.body.classList.add("quote-dragging");
+    });
+
+    document.addEventListener("mousemove", e => {
+      if (!draggingRow) return;
+      e.preventDefault();
+      dragStarted = true;
+      draggingRow.classList.add("dragging");
+      tbody.querySelectorAll(".quote-row.drop-target").forEach(r => r.classList.remove("drop-target"));
+      const target = findTargetRow(e.clientY);
+      if (!target) return;
+      target.row.classList.add("drop-target");
+      if (target.insertAfter) {
+        tbody.insertBefore(draggingRow, target.row.nextElementSibling);
+      } else {
+        tbody.insertBefore(draggingRow, target.row);
+      }
+    });
+
+    document.addEventListener("mouseup", () => {
+      if (!draggingRow) return;
+      clearDragState();
+    });
+  });
+</script>
+{% endblock %}

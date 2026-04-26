@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Equipo{% endblock %}
+{% block page_title %}<i class="bi bi-people me-2" style="color:#8b5cf6"></i>Equipo{% endblock %}
+{% block topbar_actions %}
+  <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalMember">
+    <i class="bi bi-person-plus me-1"></i>Agregar miembro
+  </button>
+{% endblock %}
+{% block content %}
+{% if team %}
+<div class="row g-3 mb-3">
+  {% for m in team %}
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center gap-3 mb-2">
+          <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white"
+               style="width:44px;height:44px;background:#8b5cf6;flex-shrink:0;">{{ m.name[0].upper() }}</div>
+          <div>
+            <div class="fw-semibold">{{ m.name }}</div>
+            <small class="text-muted">{{ m.role or 'Sin rol' }}</small>
+          </div>
+        </div>
+        {% if m.email %}<div><small><i class="bi bi-envelope text-muted me-1"></i>{{ m.email }}</small></div>{% endif %}
+        {% if m.phone %}<div><small><i class="bi bi-telephone text-muted me-1"></i>{{ m.phone }}</small></div>{% endif %}
+        <hr class="my-2">
+        <div class="d-flex justify-content-end">
+          <form method="post" action="{{ url_for('delete_member', member_id=m.id) }}"
+                onsubmit="return confirm('¿Eliminar?')">
+            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="text-center py-5 text-muted">
+  <i class="bi bi-people fs-1 d-block mb-2"></i>
+  Sin miembros registrados.
+  <br><button class="btn btn-primary btn-sm mt-3" data-bs-toggle="modal" data-bs-target="#modalMember">Agregar primero</button>
+</div>
+{% endif %}
+<div class="modal fade" id="modalMember" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-person-plus me-2" style="color:#8b5cf6"></i>Agregar miembro</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-7"><label class="form-label">Nombre *</label><input name="name" class="form-control" required></div>
+            <div class="col-md-5"><label class="form-label">Rol</label><input name="role" class="form-control" placeholder="Ing. Eléctrico..."></div>
+            <div class="col-md-6"><label class="form-label">Correo</label><input type="email" name="email" class="form-control"></div>
+            <div class="col-md-6"><label class="form-label">Teléfono</label><input name="phone" class="form-control"></div>
+            <div class="col-12"><label class="form-label">Notas</label><textarea name="notes" class="form-control" rows="2"></textarea></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Agregar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

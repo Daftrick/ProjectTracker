@@ -1,0 +1,1250 @@
+{% extends "base.html" %}
+{% block title %}{{ project.name }} – Project Tracker{% endblock %}
+{% block page_title %}
+  <span class="font-monospace text-primary me-2">{{ project.clave }}</span>{{ project.name }}
+  {% if project.closed_at %}<span class="badge bg-secondary ms-2">Cerrado</span>{% endif %}
+{% endblock %}
+{% block topbar_actions %}
+  <a href="{{ url_for('dashboard') }}" class="btn btn-sm btn-outline-secondary me-2">
+    <i class="bi bi-arrow-left"></i>
+  </a>
+  {% if not project.closed_at %}
+    <button class="btn btn-sm btn-outline-secondary me-1" data-bs-toggle="modal" data-bs-target="#modalEditProject">
+      <i class="bi bi-pencil me-1"></i>Editar
+    </button>
+    {% if can_close %}
+    <form method="post" action="{{ url_for('close_project', project_id=project.id) }}" class="d-inline">
+      <button class="btn btn-sm btn-success me-1" onclick="return confirm('¿Cerrar este proyecto?')">
+        <i class="bi bi-check-circle me-1"></i>Cerrar proyecto
+      </button>
+    </form>
+    {% endif %}
+  {% else %}
+    <form method="post" action="{{ url_for('reopen_project', project_id=project.id) }}" class="d-inline me-1">
+      <button class="btn btn-sm btn-outline-warning">Reabrir</button>
+    </form>
+  {% endif %}
+  <form method="post" action="{{ url_for('delete_project', project_id=project.id) }}" class="d-inline"
+        onsubmit="return confirm('¿Eliminar este proyecto y todos sus datos?')">
+    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+  </form>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+  .alcance-row{transition:background .15s;}
+  .alcance-row:hover{background:rgba(255,255,255,.04);}
+  .alcance-row.blocked{opacity:.55;}
+  .status-pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.78rem;font-weight:600;}
+  .history-dot{width:8px;height:8px;border-radius:50%;background:#5a82c8;flex-shrink:0;margin-top:5px;}
+  .items-table th{font-size:.8rem;}
+
+  /* ── Badges de archivo con colores distintos ── */
+  .file-name-badge{ border-radius:8px;padding:5px 11px;font-family:monospace;font-size:.85rem;border:1px solid; }
+  .fnb-folder{ background:rgba(40,65,125,.30); border-color:rgba(80,120,210,.28); color:#8aacd0; }
+  .fnb-ie    { background:rgba(115,88,20,.28);  border-color:rgba(175,135,38,.28); color:#c2a855; }
+  .fnb-xref  { background:rgba(28,95,75,.28);   border-color:rgba(48,145,105,.28); color:#6cb890; }
+
+  /* ── Totales tfoot ── */
+  tfoot td                { color:#b0bac8!important; }
+  tfoot td.text-warning   { color:#c8a850!important; }
+  tfoot td.text-success   { color:#70b085!important; }
+  tfoot td.text-danger    { color:#b08080!important; }
+
+  /* ── Caja financiera (header del proyecto) ── */
+  .margen-box{background:#0d1630;border:1px solid rgba(255,255,255,.18);border-radius:10px;
+              padding:.5rem .75rem;font-size:.82rem;}
+  .parcial-label{background:#0d1630;border:1px solid rgba(255,255,255,.18);border-radius:6px;
+                 cursor:pointer;transition:border-color .15s;}
+  .parcial-label:hover{border-color:rgba(60,100,170,.45);}
+  .drive-grid-col{display:flex;flex-direction:column;min-height:100%;}
+  .drive-col-title{font-size:.7rem;letter-spacing:.8px;}
+  .drive-file-link{display:flex;align-items:center;gap:4px;text-decoration:none;min-width:0;}
+  .drive-file-name{display:flex;align-items:center;min-width:0;gap:0;flex:1;overflow:hidden;}
+  .drive-file-base{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .drive-file-ext{flex-shrink:0;white-space:nowrap;}
+  .drive-code{font-size:.78rem;color:#8a9298;}
+  .drive-code-muted{color:#7b8494;}
+  .drive-code-ie{color:#7ea8e6;}
+  .drive-code-ie-pdf{color:#7fc0c8;}
+  .drive-code-ie-dwg{color:#d2ad63;}
+  .drive-code-mem{color:#7fc0c8;}
+  .drive-code-ldm{color:#c9ab62;}
+  .drive-code-prov{color:#d89455;}
+  .drive-code-cot{color:#7ab18d;}
+  .drive-code-work{color:#77b895;}
+  .drive-subgroup{font-size:.68rem;letter-spacing:.7px;color:#7f8898;text-transform:uppercase;}
+  .csv-status-badge{font-size:.62rem;line-height:1;padding:.23rem .38rem;white-space:nowrap;}
+  .csv-meta{font-size:.65rem;white-space:nowrap;}
+  .action-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    min-width:68px;
+  }
+  .action-btn .action-label{
+    font-size:.74rem;
+    line-height:1;
+  }
+</style>
+{% endblock %}
+
+{% macro render_drive_filename(name, color_class='drive-code-muted') -%}
+  {% set parts = name.rsplit('.', 1) %}
+  {% set base = parts[0] %}
+  {% set ext = '.' ~ parts[1] if parts|length > 1 else '' %}
+  <code class="drive-code drive-file-name {{ color_class }}">
+    <span class="drive-file-base">{{ base }}</span><span class="drive-file-ext">{{ ext }}</span>
+  </code>
+{%- endmacro %}
+
+{% block content %}
+
+<!-- Header del proyecto -->
+<div class="card mb-4">
+  <div class="card-body">
+    <div class="row align-items-center g-3">
+      <div class="col-md-5">
+        <div class="mb-2 d-flex flex-wrap gap-2">
+          <span class="file-name-badge fnb-folder">
+            <i class="bi bi-folder2 me-1"></i>IE-{{ project.folder_num or "???" }}-{{ project.clave }}
+          </span>
+          <span class="file-name-badge fnb-ie"><i class="bi bi-file-earmark-code me-1"></i>{{ file_ie }}</span>
+          <span class="file-name-badge fnb-xref"><i class="bi bi-file-earmark-image me-1"></i>{{ file_xref }}</span>
+        </div>
+        {% if project.client %}<small class="text-muted"><i class="bi bi-building me-1"></i>{{ project.client }}</small>{% endif %}
+        {% if project.notes %}<p class="text-muted mb-0 mt-1" style="font-size:.85rem">{{ project.notes }}</p>{% endif %}
+      </div>
+      <!-- Margen financiero -->
+      <div class="col-md-3">
+        <div class="margen-box" style="font-size:.82rem">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="text-muted">Cotizado cliente</span>
+            <span class="fw-semibold text-success">{{ total_cotizado | currency }}</span>
+          </div>
+          <div class="d-flex justify-content-between mb-1">
+            <span class="text-muted">Costo proveedor</span>
+            <span class="fw-semibold text-warning">{{ costo_proveedor | currency }}</span>
+          </div>
+          {% if total_cotizado > 0 or costo_proveedor > 0 %}
+          <div class="d-flex justify-content-between border-top pt-1 mt-1">
+            <span class="fw-semibold">Margen</span>
+            <span class="fw-bold {% if margen >= 0 %}text-success{% else %}text-danger{% endif %}">
+              {{ margen | currency }}
+              {% if total_cotizado > 0 %}
+                <small class="text-muted">({{ (margen / total_cotizado * 100) | int }}%)</small>
+              {% endif %}
+            </span>
+          </div>
+          {% else %}
+          <div class="text-center text-muted py-1" style="font-size:.78rem">Sin datos financieros aún</div>
+          {% endif %}
+        </div>
+      </div>
+      <!-- Progreso -->
+      <div class="col-md-4">
+        <div class="d-flex justify-content-between mb-1">
+          <small class="text-muted">Avance de alcances</small>
+          <small class="fw-bold">{{ prog.approved }}/{{ prog.total }} aprobados</small>
+        </div>
+        <div class="progress mb-2" style="height:10px;border-radius:6px;">
+          <div class="progress-bar bg-success" style="width:{{ prog.pct }}%"></div>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          {% if prog.pct == 100 %}
+            <span class="badge bs-Aprobado"><i class="bi bi-check-circle me-1"></i>Todos los alcances aprobados</span>
+          {% endif %}
+          {% if not can_close and prog.pct == 100 %}
+            <span class="badge bg-warning text-dark" style="font-size:.72rem">
+              <i class="bi bi-info-circle me-1"></i>Marca documentos como entrega para cerrar
+            </span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tabs -->
+<ul class="nav nav-tabs mb-3" id="projTabs">
+  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-alcances"><i class="bi bi-list-check me-1"></i>Alcances</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-docs" id="tab-docs-link"><i class="bi bi-folder2 me-1"></i>Documentos</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-quote" id="tab-quote-link"><i class="bi bi-receipt me-1"></i>Cotización</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-materiales" id="tab-materiales-link"><i class="bi bi-card-list me-1"></i>Materiales</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-fichas" id="tab-fichas-link"><i class="bi bi-journal-bookmark me-1"></i>Fichas Técnicas</a></li>
+</ul>
+
+<div class="tab-content">
+
+<!-- ── TAB ALCANCES ── -->
+<div class="tab-pane fade show active" id="tab-alcances">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span class="fw-semibold" style="font-size:.875rem">Alcances del proyecto</span>
+      {% if not project.closed_at %}
+      <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalAlcances">
+        <i class="bi bi-pencil me-1"></i>Modificar alcances
+      </button>
+      {% endif %}
+    </div>
+    <div class="card-body p-0">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th style="width:32%">Alcance</th>
+            <th>Info. externa</th>
+            <th>Estado</th>
+            <th>Historial</th>
+            <th class="text-end">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in main_tasks %}
+          {% set blocked = t._blocked and t.status == "Pendiente" %}
+          <tr class="alcance-row {% if blocked %}blocked{% endif %}">
+            <td>
+              <div class="fw-semibold" style="font-size:.875rem">{{ t.title }}</div>
+              {% if t.notes %}<small class="text-muted">{{ t.notes }}</small>{% endif %}
+              {% if subtasks[t.id] is defined %}
+                <div class="mt-1">
+                  {% for st in subtasks[t.id] %}
+                    <span class="badge status-pill bs-{{ st.status | replace(' ', '-') }}" style="font-size:.7rem">
+                      <i class="bi bi-arrow-return-right me-1"></i>{{ st.title|truncate(30,True) }} · {{ st.status }}
+                    </span>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </td>
+            <td>
+              {% if t.alcance not in info_ext_excluded %}
+                {% set src = t.source or 'propia' %}
+                {% set ist = t.info_status or 'Pendiente' %}
+                <div class="d-flex flex-wrap align-items-center gap-1">
+                  {% if src == 'externa' %}
+                    <span class="badge src-externa">Externa</span>
+                    <span class="badge {% if ist=='Entregado' %}bs-Aprobado{% else %}bs-Pendiente{% endif %}">
+                      {{ ist }}
+                    </span>
+                    {% if t.external_dep %}
+                      <br><small class="text-muted w-100" style="font-size:.75rem">{{ t.external_dep }}</small>
+                    {% endif %}
+                  {% else %}
+                    <span class="badge src-propia">Propia</span>
+                  {% endif %}
+                </div>
+                {% if not project.closed_at %}
+                <button class="btn btn-link p-0 mt-1" style="font-size:.75rem;color:#7dd3fc"
+                        data-bs-toggle="modal" data-bs-target="#modalInfo"
+                        data-task-id="{{ t.id }}"
+                        data-task-title="{{ t.title }}"
+                        data-source="{{ src }}"
+                        data-ext-dep="{{ t.external_dep or '' }}"
+                        data-info-status="{{ ist }}">
+                  <i class="bi bi-pencil me-1"></i>Editar
+                </button>
+                {% endif %}
+              {% else %}
+                <span class="text-muted">—</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if blocked %}
+                <span class="badge bs-Bloqueado"><i class="bi bi-lock me-1"></i>Bloqueado</span>
+              {% else %}
+                <span class="badge bs-{{ t.status | replace(' ', '-') }} status-pill">{{ t.status }}</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if t.history %}
+                <small class="text-muted">
+                  {% set last = t.history[-1] %}
+                  {{ last.date | fdate }} — {{ last.note | truncate(35,True) }}
+                </small>
+              {% else %}—{% endif %}
+            </td>
+            <td class="text-end">
+              {% if not project.closed_at %}
+              <button class="btn btn-sm btn-outline-secondary"
+                      data-bs-toggle="modal" data-bs-target="#modalStatus"
+                      data-task-id="{{ t.id }}"
+                      data-task-title="{{ t.title }}"
+                      data-task-status="{{ t.status }}"
+                      data-blocked="{{ 'true' if blocked else 'false' }}">
+                <i class="bi bi-arrow-repeat"></i>
+              </button>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── TAB DOCUMENTOS ── -->
+<div class="tab-pane fade" id="tab-docs">
+  <div class="row g-3">
+
+    <!-- Archivos en Drive (escaneo automático) -->
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="bi bi-folder2-open me-2 text-warning"></i>Archivos en Drive
+          <code class="ms-2 text-muted" style="font-size:.75rem">{{ folder_name }}</code>
+        </div>
+        <div class="card-body">
+          {% if scan.error %}
+            <div class="alert alert-warning mb-0">
+              <i class="bi bi-exclamation-triangle me-2"></i>{{ scan.error }}
+              <a href="{{ url_for('settings') }}" class="alert-link ms-2">Configurar ruta →</a>
+            </div>
+          {% else %}
+            <div class="row g-3">
+              <div class="col-md-6 col-xl-2 drive-grid-col">
+                <div class="mb-2 text-muted fw-semibold drive-col-title">IE</div>
+                {% for f in scan.ie_files %}
+                  <div class="mb-1">
+                    <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name) }}"
+                       target="_blank" class="drive-file-link">
+                      {% set ie_parts = f.name.rsplit('.', 1) %}
+                      {% set ie_ext = '.' ~ ie_parts[1] if ie_parts|length > 1 else '' %}
+                      {{ render_drive_filename(f.name, 'drive-code-ie-pdf' if f.highlight and ie_ext == '.pdf' else 'drive-code-ie-dwg' if f.highlight and ie_ext == '.dwg' else 'drive-code-ie' if f.highlight else 'drive-code-muted') }}
+                      <i class="bi bi-box-arrow-up-right ms-1" style="font-size:.7rem"></i>
+                    </a>
+                  </div>
+                {% else %}
+                  <small class="text-muted">Sin archivos IE</small>
+                {% endfor %}
+              </div>
+              <div class="col-md-6 col-xl-2 drive-grid-col">
+                <div class="mb-2 text-muted fw-semibold drive-col-title">MEMORIA</div>
+                {% for f in scan.mem_files %}
+                  <div class="mb-1">
+                    <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name) }}"
+                       target="_blank" class="drive-file-link">
+                      {{ render_drive_filename(f.name, 'drive-code-mem' if f.highlight else 'drive-code-muted') }}
+                      <i class="bi bi-box-arrow-up-right ms-1" style="font-size:.7rem"></i>
+                    </a>
+                  </div>
+                {% else %}
+                  <small class="text-muted">Sin archivos MEM</small>
+                {% endfor %}
+              </div>
+              <div class="col-md-6 col-xl-2 drive-grid-col">
+                <div class="mb-2 text-muted fw-semibold drive-col-title">
+                  <i class="bi bi-card-list me-1 text-warning"></i>LISTAS DE MATERIALES
+                </div>
+                {% if scan.ldm_files %}
+                  <div class="drive-subgroup mb-1">LDM PDFs</div>
+                  {% for f in scan.ldm_files %}
+                  <div class="d-flex align-items-center gap-1 mb-1">
+                    <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name) }}"
+                       target="_blank" class="drive-file-link flex-fill">
+                      {{ render_drive_filename(f.name, 'drive-code-ldm') }}
+                    </a>
+                    <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name, dl=1) }}"
+                       class="btn btn-sm p-0 px-1 btn-outline-secondary" title="Descargar" style="font-size:.7rem">
+                      <i class="bi bi-download"></i>
+                    </a>
+                  </div>
+                  {% endfor %}
+                {% endif %}
+                {% if scan.provider_quote_files %}
+                  <div class="drive-subgroup mt-2 mb-1">Cot. proveedor</div>
+                  {% for f in scan.provider_quote_files %}
+                  <div class="d-flex align-items-center gap-1 mb-1">
+                    <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name) }}"
+                       target="_blank" class="drive-file-link flex-fill">
+                      {{ render_drive_filename(f.name, 'drive-code-prov' if f.linked else 'drive-code-muted') }}
+                    </a>
+                    <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name, dl=1) }}"
+                       class="btn btn-sm p-0 px-1 btn-outline-secondary" title="Descargar" style="font-size:.7rem">
+                      <i class="bi bi-download"></i>
+                    </a>
+                  </div>
+                  {% endfor %}
+                {% endif %}
+                {% if not scan.ldm_files and not scan.provider_quote_files %}
+                  <small class="text-muted">Sin archivos de LDM</small>
+                {% endif %}
+                <div class="drive-subgroup mt-3 mb-1">CSVs de plano</div>
+                {% if scan.csv_plano %}
+                  {% for f in scan.csv_plano %}
+                  <div class="d-flex align-items-center gap-1 mb-1">
+                    <span class="drive-file-link flex-fill">
+                      {{ render_drive_filename(f.name, 'drive-code-cot' if f.status == 'importado' else 'drive-code-prov' if f.status == 'desactualizado' else 'drive-code-muted') }}
+                    </span>
+                    <span class="badge {{ f.badge_class }} csv-status-badge" title="{{ f.hint }}">
+                      {{ f.status_label }}
+                    </span>
+                  </div>
+                  <div class="d-flex align-items-center gap-1 mb-1">
+                    <small class="text-muted csv-meta flex-fill"
+                           title="{{ f.size_str }} · {{ f.mtime_str }}">
+                      {% if f.parsed %}
+                        v{{ f.parsed.version }} · i{{ f.parsed.consecutive }} · {{ f.parsed.date_label }}
+                      {% else %}
+                        {{ f.mtime_str }}
+                      {% endif %}
+                    </small>
+                    {% if f.linked_ldm %}
+                      <small class="text-muted csv-meta">{{ f.linked_ldm }}</small>
+                    {% endif %}
+                    <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name, dl=1) }}"
+                       class="btn btn-sm p-0 px-1 btn-outline-secondary" title="Descargar {{ f.name }} ({{ f.size_str }})" style="font-size:.7rem">
+                      <i class="bi bi-download"></i>
+                    </a>
+                  </div>
+                  {% endfor %}
+                {% else %}
+                  <small class="text-muted" style="font-size:.73rem">Sin CSVs de plano — exporta desde AutoCAD con el script LISP y guarda el archivo en la carpeta del proyecto.</small>
+                {% endif %}
+              </div>
+              <div class="col-md-6 col-xl-2 drive-grid-col">
+                <div class="mb-2 text-muted fw-semibold drive-col-title">
+                  <i class="bi bi-receipt me-1 text-success"></i>COTIZACIONES
+                </div>
+                {% for f in scan.cot_files %}
+                  <div class="d-flex align-items-center gap-1 mb-1">
+                    <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name) }}"
+                       target="_blank" class="drive-file-link flex-fill">
+                      {{ render_drive_filename(f.name, 'drive-code-cot') }}
+                    </a>
+                    <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name, dl=1) }}"
+                       class="btn btn-sm p-0 px-1 btn-outline-secondary" title="Descargar" style="font-size:.7rem">
+                      <i class="bi bi-download"></i>
+                    </a>
+                  </div>
+                {% else %}
+                  <small class="text-muted">Sin PDFs de cotización generados</small>
+                {% endfor %}
+              </div>
+              <div class="col-md-6 col-xl-2 drive-grid-col">
+                <div class="mb-2 text-muted fw-semibold drive-col-title">TRABAJO</div>
+                {% for f in scan.work_files %}
+                  <div class="mb-1">
+                    <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name) }}"
+                       target="_blank" class="drive-file-link">
+                      {{ render_drive_filename(f.name, 'drive-code-work' if f.highlight else 'drive-code-muted') }}
+                      <i class="bi bi-box-arrow-up-right ms-1" style="font-size:.7rem"></i>
+                    </a>
+                  </div>
+                {% endfor %}
+                {% if not scan.work_files %}
+                  <small class="text-muted">Sin archivos XREF</small>
+                {% endif %}
+              </div>
+              <div class="col-md-6 col-xl-2 drive-grid-col">
+                <div class="mb-2 text-muted fw-semibold drive-col-title">OTROS</div>
+                {% for f in scan.other_files %}
+                  <div>{{ render_drive_filename(f.name, 'drive-code-muted') }}</div>
+                {% else %}
+                  <small class="text-muted">—</small>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Generar Entrega -->
+    {% if not project.closed_at %}
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header"><i class="bi bi-file-zip me-2 text-success"></i>Generar Entrega</div>
+        <div class="card-body">
+          <form method="post" action="{{ url_for('create_delivery', project_id=project.id) }}">
+            <div class="row g-3 align-items-start">
+
+              <div class="col-auto">
+                <label class="form-label">Tipo</label>
+                <div class="d-flex gap-3 mt-1">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="dtype" value="completa"
+                           id="dtCompleta" checked onchange="toggleParcial(this.value)">
+                    <label class="form-check-label" for="dtCompleta">Completa</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="dtype" value="parcial"
+                           id="dtParcial" onchange="toggleParcial(this.value)">
+                    <label class="form-check-label" for="dtParcial">Parcial</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-5">
+                <label class="form-label">Notas <small class="text-muted">(opcional)</small></label>
+                <input name="notes" class="form-control" placeholder="Ej: Revisión cliente, pendiente cuadro de cargas">
+              </div>
+
+              <div class="col-auto">
+                <label class="form-label">ZIP resultante</label>
+                <div><code class="text-success" style="font-size:.82rem">Entrega-{{ project.clave }}-{{ project.version }}-{{ today_short }}.zip</code></div>
+              </div>
+
+              <div class="col-auto d-flex align-items-end">
+                <button type="submit" class="btn btn-success">
+                  <i class="bi bi-file-zip me-1"></i>Generar
+                </button>
+              </div>
+
+              <!-- Selección de archivos para entrega parcial -->
+              <div class="col-12" id="parcialFiles" style="display:none">
+                <label class="form-label">Archivos a incluir</label>
+                <div class="d-flex flex-wrap gap-2">
+                  {% if available.ie_dwg %}
+                  <label class="parcial-label px-3 py-2 d-flex align-items-center gap-2">
+                    <input type="checkbox" name="inc_ie_dwg" checked class="form-check-input m-0">
+                    <code style="font-size:.8rem">{{ available.ie_dwg }}</code>
+                  </label>
+                  {% endif %}
+                  {% if available.ie_pdf %}
+                  <label class="parcial-label px-3 py-2 d-flex align-items-center gap-2">
+                    <input type="checkbox" name="inc_ie_pdf" checked class="form-check-input m-0">
+                    <code style="font-size:.8rem">{{ available.ie_pdf }}</code>
+                  </label>
+                  {% endif %}
+                  {% if available.mem_pdf %}
+                  <label class="parcial-label px-3 py-2 d-flex align-items-center gap-2">
+                    <input type="checkbox" name="inc_mem_pdf" checked class="form-check-input m-0">
+                    <code style="font-size:.8rem">{{ available.mem_pdf }}</code>
+                  </label>
+                  {% endif %}
+                  {% if available.cot_pdf %}
+                  <label class="parcial-label px-3 py-2 d-flex align-items-center gap-2">
+                    <input type="checkbox" name="inc_cot_pdf" checked class="form-check-input m-0">
+                    <code style="font-size:.8rem">{{ available.cot_pdf }}</code>
+                  </label>
+                  {% endif %}
+                  {% if available.fichas %}
+                  <label class="parcial-label px-3 py-2 d-flex align-items-center gap-2">
+                    <input type="checkbox" name="inc_fichas" checked class="form-check-input m-0">
+                    <span style="font-size:.82rem"><i class="bi bi-journal-bookmark me-1"></i>Fichas ({{ available.fichas|length }})</span>
+                  </label>
+                  {% endif %}
+                  {% if not available.ie_dwg and not available.ie_pdf and not available.mem_pdf and not available.cot_pdf and not available.fichas %}
+                  <small class="text-muted">No se encontraron archivos entregables en Drive.</small>
+                  {% endif %}
+                </div>
+              </div>
+
+              {% if available.missing %}
+              <div class="col-12">
+                <div class="alert alert-warning py-2 mb-0" style="font-size:.82rem">
+                  <i class="bi bi-exclamation-triangle me-1"></i>
+                  <strong>No encontrados:</strong> {{ available.missing | join(" · ") }}
+                </div>
+              </div>
+              {% endif %}
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Historial de Entregas -->
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="bi bi-clock-history me-2"></i>Historial de Entregas
+          <span class="badge bg-light text-dark ms-2">{{ deliveries|length }}</span>
+        </div>
+        {% if deliveries %}
+        <div class="card-body p-0">
+          <table class="table mb-0">
+            <thead><tr>
+              <th>Fecha</th><th>ZIP</th><th>Tipo</th><th>Versión</th><th>Archivos</th><th>Notas</th><th class="text-end">Acción</th>
+            </tr></thead>
+            <tbody>
+            {% for d in deliveries %}
+            <tr>
+              <td><strong>{{ d.date | fdate }}</strong></td>
+              <td><code style="font-size:.78rem" class="text-success">{{ d.zip_name }}</code></td>
+              <td>
+                <span class="badge {% if d.dtype=='completa' %}bs-Aprobado{% else %}bs-En-Progreso{% endif %}">
+                  {{ d.dtype | capitalize }}
+                </span>
+              </td>
+              <td><span class="badge bg-light text-dark border">{{ d.version }}</span></td>
+              <td><small class="text-muted">{{ d.files_included | length }} archivo(s)</small></td>
+              <td><small class="text-muted">{{ d.notes or '—' }}</small></td>
+              <td class="text-end">
+                <form method="post"
+                      action="{{ url_for('delete_delivery', project_id=project.id, delivery_id=d.id) }}"
+                      class="d-inline" onsubmit="return confirm('¿Eliminar este registro de entrega?')">
+                  <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="card-body text-center py-4 text-muted">
+          <i class="bi bi-file-zip fs-2 d-block mb-2"></i>Sin entregas registradas aún.
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── TAB COTIZACIÓN ── -->
+<div class="tab-pane fade" id="tab-quote">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <span class="text-muted" style="font-size:.875rem">
+      Cotizaciones del proyecto <strong>{{ project.clave }}</strong>
+    </span>
+    {% if not project.closed_at %}
+    <a href="{{ url_for('new_quote', project_id=project.id) }}" class="btn btn-primary btn-sm">
+      <i class="bi bi-plus-lg me-1"></i>Nueva cotización
+    </a>
+    {% endif %}
+  </div>
+  {% if quotes %}
+  <div class="card">
+    <div class="card-body p-0">
+      <table class="table mb-0">
+        <thead><tr>
+          <th>Número</th><th>Tipo</th><th>Fecha</th><th class="text-end">Subtotal</th>
+          <th class="text-end">IVA</th><th class="text-end">Total</th><th class="text-end">Acciones</th>
+        </tr></thead>
+        <tbody>
+        {% for q in quotes %}
+        <tr>
+          <td><span class="fw-semibold font-monospace">{{ q.quote_number }}</span></td>
+          <td>
+            {% if q.get('quote_type') in ['Extraordinaria','Extraordinario'] %}
+              <span class="badge bg-warning text-dark" style="font-size:.72rem">Extraordinaria</span>
+            {% elif q.get('quote_type') == 'Preliminar' %}
+              <span class="badge bg-info text-dark" style="font-size:.72rem">Preliminar</span>
+            {% else %}
+              <span class="badge bg-light text-dark border" style="font-size:.72rem">General</span>
+            {% endif %}
+          </td>
+          <td><small class="text-muted">{{ q.date | fdate }}</small></td>
+          <td class="text-end">{{ q.subtotal | currency }}</td>
+          <td class="text-end text-muted">{{ q.tax | currency }}</td>
+          <td class="text-end fw-bold text-success">{{ q.total | currency }} <small class="text-muted">{{ q.currency }}</small></td>
+          <td class="text-end">
+            <a href="{{ url_for('view_quote', project_id=project.id, quote_id=q.id) }}"
+               class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Ver detalle"><i class="bi bi-eye"></i><span class="action-label">Ver</span></a>
+            <a href="{{ url_for('quote_pdf', project_id=project.id, quote_id=q.id) }}"
+               class="btn btn-sm btn-outline-success me-1 action-btn" title="Generar PDF en Drive"><i class="bi bi-file-earmark-pdf"></i><span class="action-label">PDF</span></a>
+            {% if not project.closed_at %}
+            <a href="{{ url_for('edit_quote', project_id=project.id, quote_id=q.id) }}"
+               class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Editar"><i class="bi bi-pencil"></i><span class="action-label">Editar</span></a>
+            <form method="post" action="{{ url_for('delete_quote', project_id=project.id, quote_id=q.id) }}"
+                  class="d-inline" onsubmit="return confirm('¿Eliminar?')">
+              <button class="btn btn-sm btn-outline-danger action-btn"><i class="bi bi-trash"></i><span class="action-label">Eliminar</span></button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% else %}
+    <div class="text-center py-4 text-muted">
+      <i class="bi bi-receipt fs-2 d-block mb-2"></i>Sin cotizaciones. Crea la primera.
+    </div>
+  {% endif %}
+</div>
+
+<!-- ── TAB LISTAS DE MATERIALES ── -->
+<div class="tab-pane fade" id="tab-materiales">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <span class="text-muted" style="font-size:.875rem">
+      Listas de materiales para proveedores — <strong>{{ project.clave }}</strong>
+    </span>
+    {% if not project.closed_at %}
+    <a href="{{ url_for('new_ldm', project_id=project.id) }}"
+       class="btn btn-warning btn-sm text-dark">
+      <i class="bi bi-plus-lg me-1"></i>Nueva lista
+    </a>
+    {% endif %}
+  </div>
+
+  {% if ldms %}
+  <div class="card">
+    <div class="card-body p-0">
+      <table class="table mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Lista</th>
+            <th>Proveedor</th>
+            <th>Fecha</th>
+            <th class="text-center">Artículos</th>
+            <th class="text-end">Costo cotizado</th>
+            <th>Cot. proveedor</th>
+            <th class="text-end">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for ldm in ldms %}
+        <tr>
+          <td>
+            <span class="fw-semibold font-monospace text-warning">{{ ldm.ldm_number }}</span>
+          </td>
+          <td>{{ ldm.proveedor or '—' }}</td>
+          <td><small class="text-muted">{{ ldm.fecha | fdate }}</small></td>
+          <td class="text-center">
+            <span class="badge bg-light text-dark border">{{ ldm['items'] | length }}</span>
+          </td>
+          <td class="text-end ldm-costo-cell" data-ldm-id="{{ ldm.id }}"
+              title="Clic para editar">
+            <span class="ldm-costo-display fw-semibold {% if ldm.subtotal_cot %}text-warning{% else %}text-muted{% endif %}"
+                  style="cursor:pointer;{% if not ldm.subtotal_cot %}font-size:.8rem{% endif %}">
+              {% if ldm.subtotal_cot %}{{ ldm.subtotal_cot | currency }}{% else %}—{% endif %}
+            </span>
+            <input type="number" class="ldm-costo-input form-control form-control-sm text-end d-none"
+                   value="{{ ldm.subtotal_cot or 0 }}"
+                   step="0.01" min="0"
+                   style="width:110px;display:none!important;margin-left:auto">
+            <small class="ldm-costo-status d-none" style="font-size:.7rem"></small>
+          </td>
+          <td>
+            {% if ldm.cot_proveedor %}
+              <span class="badge bg-light text-dark border font-monospace">
+                {{ ldm.cot_proveedor }}
+              </span>
+            {% else %}
+              <button class="btn btn-sm btn-outline-secondary"
+                      style="font-size:.75rem;padding:2px 8px"
+                      onclick="openSetCot('{{ ldm.id }}','{{ ldm.ldm_number }}','{{ ldm.cot_proveedor or '' }}')"
+                      data-bs-toggle="modal" data-bs-target="#modalSetCot">
+                <i class="bi bi-hash me-1"></i>Asignar Nº
+              </button>
+            {% endif %}
+            {% if ldm.cot_proveedor %}
+            <button class="btn btn-sm btn-link p-0 ms-1 text-muted"
+                    style="font-size:.75rem"
+                    onclick="openSetCot('{{ ldm.id }}','{{ ldm.ldm_number }}','{{ ldm.cot_proveedor or '' }}')"
+                    data-bs-toggle="modal" data-bs-target="#modalSetCot"
+                    title="Editar número">
+              <i class="bi bi-pencil"></i>
+            </button>
+            {% endif %}
+          </td>
+          <td class="text-end">
+            <a href="{{ url_for('ldm_pdf', project_id=project.id, ldm_id=ldm.id) }}"
+               class="btn btn-sm btn-outline-warning me-1 action-btn"
+               title="Generar PDF en Drive">
+              <i class="bi bi-file-earmark-pdf"></i><span class="action-label">PDF</span>
+            </a>
+            {% if not project.closed_at %}
+            <a href="{{ url_for('edit_ldm', project_id=project.id, ldm_id=ldm.id) }}"
+               class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Editar">
+              <i class="bi bi-pencil"></i><span class="action-label">Editar</span>
+            </a>
+            <form method="post"
+                  action="{{ url_for('delete_ldm', project_id=project.id, ldm_id=ldm.id) }}"
+                  class="d-inline"
+                  onsubmit="return confirm('¿Eliminar {{ ldm.ldm_number }}?')">
+              <button class="btn btn-sm btn-outline-danger action-btn">
+                <i class="bi bi-trash"></i><span class="action-label">Eliminar</span>
+              </button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        {% if ldms %}
+        <tfoot class="table-light">
+          <tr>
+            <td colspan="4" class="text-end fw-semibold" style="font-size:.85rem">Total costo proveedor</td>
+            <td class="text-end fw-bold text-warning" style="font-size:.95rem" id="ldm-costo-total">{{ costo_proveedor | currency }}</td>
+            <td colspan="2"></td>
+          </tr>
+        </tfoot>
+        {% endif %}
+      </table>
+    </div>
+  </div>
+  {% else %}
+  <div class="text-center py-4 text-muted">
+    <i class="bi bi-card-list fs-2 d-block mb-2"></i>
+    Sin listas de materiales. Crea la primera para enviar a un proveedor.
+  </div>
+  {% endif %}
+</div>
+
+<!-- Modal: Asignar Nº cotización proveedor -->
+<div class="modal fade" id="modalSetCot" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <form id="setCotForm" method="post">
+        <div class="modal-header">
+          <h5 class="modal-title" style="font-size:1rem">
+            <i class="bi bi-hash me-2 text-warning"></i>Nº cotización proveedor
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p class="text-muted mb-2" style="font-size:.85rem" id="setCotLabel"></p>
+          <label class="form-label">Número / referencia del proveedor</label>
+          <input name="cot_proveedor" id="setCotInput" class="form-control"
+                 placeholder="Ej. COT-2026-0042">
+          <small class="text-muted mt-1 d-block">
+            El PDF del proveedor queda en la carpeta del proyecto en Drive.
+          </small>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary"
+                  data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-warning text-dark">
+            <i class="bi bi-check-lg me-1"></i>Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ── TAB FICHAS TÉCNICAS ── -->
+<div class="tab-pane fade" id="tab-fichas">
+  <div class="row g-3">
+    {% if linked_fichas %}
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header"><i class="bi bi-journal-check me-2 text-success"></i>Fichas vinculadas a este proyecto</div>
+        <div class="card-body p-0">
+          <table class="table mb-0">
+            <thead><tr><th>Código</th><th>Tipo</th><th>Marca</th><th>Modelo</th><th>Descripción</th><th class="text-end">Acción</th></tr></thead>
+            <tbody>
+            {% for f in linked_fichas %}
+            <tr>
+              <td><code class="text-primary">{{ f.code }}</code></td>
+              <td><span class="badge bg-light text-dark border">{{ f.tipo }}</span></td>
+              <td>{{ f.marca }}</td>
+              <td>{{ f.modelo }}</td>
+              <td><small class="text-muted">{{ f.descripcion | truncate(40,True) }}</small></td>
+              <td class="text-end">
+                <form method="post" action="{{ url_for('unlink_ficha', ficha_id=f.id, project_id=project.id) }}" class="d-inline">
+                  <button class="btn btn-sm btn-outline-secondary" title="Desvincular">
+                    <i class="bi bi-x-circle"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if unlinked_fichas %}
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header"><i class="bi bi-journal-plus me-2 text-muted"></i>Fichas disponibles para vincular</div>
+        <div class="card-body p-0">
+          <table class="table mb-0">
+            <thead><tr><th>Código</th><th>Tipo</th><th>Marca</th><th>Modelo</th><th>Descripción</th><th class="text-end">Vincular</th></tr></thead>
+            <tbody>
+            {% for f in unlinked_fichas %}
+            <tr>
+              <td><code>{{ f.code }}</code></td>
+              <td><span class="badge bg-light text-dark border">{{ f.tipo }}</span></td>
+              <td>{{ f.marca }}</td>
+              <td>{{ f.modelo }}</td>
+              <td><small class="text-muted">{{ f.descripcion | truncate(40,True) }}</small></td>
+              <td class="text-end">
+                <form method="post" action="{{ url_for('link_ficha', ficha_id=f.id, project_id=project.id) }}" class="d-inline">
+                  <button class="btn btn-sm btn-outline-primary" title="Vincular">
+                    <i class="bi bi-plus-circle"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if not linked_fichas and not unlinked_fichas %}
+    <div class="col-12 text-center py-4 text-muted">
+      <i class="bi bi-journal-bookmark fs-2 d-block mb-2"></i>
+      No hay fichas técnicas en la base de datos aún.
+      <br><a href="{{ url_for('fichas') }}" class="btn btn-sm btn-outline-primary mt-2">Ir a Fichas Técnicas</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+</div><!-- /tab-content -->
+
+<!-- ── Modal: Info Externa ── -->
+<div class="modal fade" id="modalInfo" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="infoForm" method="post">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-info-circle me-2 text-primary"></i>Información externa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p class="fw-semibold mb-3" id="infoTaskTitle"></p>
+          <div class="mb-3">
+            <label class="form-label">Fuente</label>
+            <div class="d-flex gap-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="source" value="propia"
+                       id="srcPropia" onchange="toggleExtFields(this.value)">
+                <label class="form-check-label" for="srcPropia">Propia</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="source" value="externa"
+                       id="srcExterna" onchange="toggleExtFields(this.value)">
+                <label class="form-check-label" for="srcExterna">Externa</label>
+              </div>
+            </div>
+          </div>
+          <div id="externaFields">
+            <div class="mb-3">
+              <label class="form-label">Descripción <small class="text-muted">(de quién o qué se espera)</small></label>
+              <input name="external_dep" class="form-control" id="infoExtDep"
+                     placeholder="Ej: Diseño de iluminación (arquitecto)">
+            </div>
+            <div class="mb-0">
+              <label class="form-label">Estado</label>
+              <div class="d-flex gap-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="info_status" value="Pendiente" id="isPendiente">
+                  <label class="form-check-label" for="isPendiente">Pendiente</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="info_status" value="Entregado" id="isEntregado">
+                  <label class="form-check-label" for="isEntregado">Entregado</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal: Cambiar estado de alcance ── -->
+<div class="modal fade" id="modalStatus" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="statusForm" method="post">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-arrow-repeat me-2 text-primary"></i>Actualizar estado</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p class="fw-semibold" id="modalTaskTitle"></p>
+          <div id="blockedAlert" class="alert alert-warning d-none">
+            <i class="bi bi-lock me-2"></i>Este alcance está bloqueado por dependencias sin aprobar.
+            Solo puedes marcarlo como "Pendiente" o "En progreso" cuando sus dependencias estén aprobadas.
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Nuevo estado</label>
+            <select name="status" class="form-select" id="modalStatusSelect">
+              {% for s in task_statuses %}
+                <option>{{ s }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Nota (opcional)</label>
+            <textarea name="note" class="form-control" rows="2"
+                      placeholder="Descripción del cambio, razón de observación, etc."></textarea>
+          </div>
+          <div class="alert alert-info border-0" style="font-size:.82rem">
+            <i class="bi bi-info-circle me-1"></i>
+            Si seleccionas <strong>Observaciones</strong>, se creará automáticamente una subtarea de seguimiento.
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal: Modificar alcances ── -->
+<div class="modal fade" id="modalAlcances" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="post" action="{{ url_for('update_project_alcances', project_id=project.id) }}">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-list-check me-2 text-primary"></i>Modificar alcances</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-warning py-2 mb-3" style="font-size:.83rem">
+            <i class="bi bi-exclamation-triangle me-1"></i>
+            Eliminar un alcance borrará su tarea y todo su historial de cambios de estado.
+          </div>
+          <div class="row g-2">
+            {% for alc in alcances_catalog %}
+            <div class="col-md-6">
+              <div class="form-check p-3 border rounded-3 h-100" style="cursor:pointer"
+                   onclick="this.querySelector('input').click()">
+                <input class="form-check-input" type="checkbox" name="alcances"
+                       value="{{ alc.id }}" id="malc_{{ alc.id }}"
+                       {% if alc.id in project.alcances %}checked{% endif %}>
+                <label class="form-check-label w-100" for="malc_{{ alc.id }}" style="cursor:pointer">
+                  <span class="fw-semibold">{{ alc.nombre }}</span>
+                  <div class="mt-1 d-flex flex-wrap gap-1">
+                    <span class="badge src-{{ alc.source }}">{{ alc.source }}</span>
+                    {% if alc.dep_label %}
+                      <span class="badge bg-light text-dark border" style="font-size:.7rem">
+                        <i class="bi bi-arrow-down-circle me-1"></i>{{ alc.dep_label }}
+                      </span>
+                    {% endif %}
+                  </div>
+                </label>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal: Editar proyecto ── -->
+<div class="modal fade" id="modalEditProject" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="{{ url_for('update_project', project_id=project.id) }}">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-pencil me-2"></i>Editar proyecto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-8">
+              <label class="form-label">Nombre</label>
+              <input name="name" class="form-control" value="{{ project.name }}">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Cliente</label>
+              <input name="client" class="form-control" value="{{ project.client }}">
+            </div>
+            <div class="col-md-5">
+              <label class="form-label">Clave</label>
+              <input name="clave" class="form-control" value="{{ project.clave }}" id="editClave" oninput="updateEditPreview()">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Versión</label>
+              <input name="version" class="form-control" value="{{ project.version }}" id="editVer" oninput="updateEditPreview()">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Fecha (AAMMDD)</label>
+              <input name="fecha" class="form-control" value="{{ project.fecha }}" id="editFecha" oninput="updateEditPreview()">
+            </div>
+            <div class="col-12">
+              <div class="file-name-badge" id="editPreview">{{ file_ie }}</div>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Notas</label>
+              <textarea name="notes" class="form-control" rows="2">{{ project.notes }}</textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Modal Info Externa
+  document.getElementById("modalInfo").addEventListener("show.bs.modal", function(e) {
+    const btn = e.relatedTarget;
+    document.getElementById("infoTaskTitle").textContent = btn.dataset.taskTitle;
+    document.getElementById("infoForm").action =
+      "/projects/{{ project.id }}/tasks/" + btn.dataset.taskId + "/info";
+    const src = btn.dataset.source || "propia";
+    document.querySelector(`input[name="source"][value="${src}"]`).checked = true;
+    document.getElementById("infoExtDep").value = btn.dataset.extDep || "";
+    const ist = btn.dataset.infoStatus || "Pendiente";
+    document.querySelector(`input[name="info_status"][value="${ist}"]`).checked = true;
+    toggleExtFields(src);
+  });
+  function toggleExtFields(v) {
+    document.getElementById("externaFields").style.display = v === "externa" ? "block" : "none";
+  }
+
+  // Entrega parcial: mostrar/ocultar selección de archivos
+  function toggleParcial(v) {
+    document.getElementById("parcialFiles").style.display = v === "parcial" ? "block" : "none";
+  }
+
+  // Modal de cambio de estado
+  document.getElementById("modalStatus").addEventListener("show.bs.modal", function(e) {
+    const btn = e.relatedTarget;
+    document.getElementById("modalTaskTitle").textContent = btn.dataset.taskTitle;
+    document.getElementById("modalStatusSelect").value    = btn.dataset.taskStatus;
+    document.getElementById("statusForm").action =
+      "/projects/{{ project.id }}/tasks/" + btn.dataset.taskId + "/status";
+    const blocked = btn.dataset.blocked === "true";
+    document.getElementById("blockedAlert").classList.toggle("d-none", !blocked);
+  });
+
+  // Activar tab correcto si hay hash en URL
+  window.addEventListener("DOMContentLoaded", function() {
+    const hash = window.location.hash;
+    if (hash) {
+      const tab = document.querySelector(`a[href="${hash}"]`);
+      if (tab) new bootstrap.Tab(tab).show();
+    }
+  });
+
+  // Preview en modal editar
+  function updateEditPreview() {
+    const c=document.getElementById("editClave").value||"?";
+    const v=document.getElementById("editVer").value||"?";
+    const f=document.getElementById("editFecha").value||"?";
+    document.getElementById("editPreview").textContent=`IE-${c}-${v}-${f}`;
+  }
+
+  // Modal: asignar Nº cotización proveedor
+  function openSetCot(ldmId, ldmNumber, current) {
+    document.getElementById("setCotLabel").textContent = ldmNumber;
+    document.getElementById("setCotInput").value       = current || "";
+    document.getElementById("setCotForm").action       =
+      "/projects/{{ project.id }}/ldm/" + ldmId + "/set_cot";
+  }
+
+  // ── Edición inline: columna "Costo cotizado" ──────────────────────────────
+  (function () {
+    const fmtCurrency = n =>
+      "$" + parseFloat(n).toLocaleString("es-MX", {minimumFractionDigits:2, maximumFractionDigits:2});
+
+    function startEdit(cell) {
+      const display = cell.querySelector(".ldm-costo-display");
+      const input   = cell.querySelector(".ldm-costo-input");
+      const status  = cell.querySelector(".ldm-costo-status");
+      display.classList.add("d-none");
+      input.style.removeProperty("display");   // quita el !important
+      input.classList.remove("d-none");
+      status.classList.add("d-none");
+      status.textContent = "";
+      input.focus();
+      input.select();
+    }
+
+    function endEdit(cell, save) {
+      const ldmId   = cell.dataset.ldmId;
+      const display = cell.querySelector(".ldm-costo-display");
+      const input   = cell.querySelector(".ldm-costo-input");
+      const status  = cell.querySelector(".ldm-costo-status");
+      const newVal  = parseFloat(input.value) || 0;
+
+      input.classList.add("d-none");
+
+      if (!save) {
+        // Cancelar: restaurar texto anterior
+        display.classList.remove("d-none");
+        return;
+      }
+
+      // Guardar vía AJAX
+      status.textContent = "Guardando…";
+      status.classList.remove("d-none");
+      status.style.color = "#6b7280";
+
+      fetch(`/api/ldm/${ldmId}/costo`, {
+        method:  "POST",
+        headers: {"Content-Type": "application/json"},
+        body:    JSON.stringify({subtotal_cot: newVal}),
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.ok) {
+          input.value = data.subtotal_cot;
+          display.textContent = data.subtotal_cot > 0 ? fmtCurrency(data.subtotal_cot) : "—";
+          display.className   = "ldm-costo-display fw-semibold " +
+                                (data.subtotal_cot > 0 ? "text-warning" : "text-muted");
+          display.style.fontSize = data.subtotal_cot > 0 ? "" : ".8rem";
+          status.textContent  = "✓";
+          status.style.color  = "#16a34a";
+          // Actualizar el total del pie de tabla sumando todas las celdas
+          updateCostoTotal();
+          setTimeout(() => status.classList.add("d-none"), 1200);
+        } else {
+          status.textContent = "Error";
+          status.style.color = "#dc2626";
+        }
+        display.classList.remove("d-none");
+      })
+      .catch(() => {
+        status.textContent = "Error";
+        status.style.color = "#dc2626";
+        display.classList.remove("d-none");
+      });
+    }
+
+    function updateCostoTotal() {
+      let total = 0;
+      document.querySelectorAll(".ldm-costo-input").forEach(inp => {
+        total += parseFloat(inp.value) || 0;
+      });
+      const footer = document.querySelector("#ldm-costo-total");
+      if (footer) footer.textContent = fmtCurrency(total);
+    }
+
+    // Event delegation: clic en el display arranca la edición
+    document.addEventListener("click", e => {
+      const display = e.target.closest(".ldm-costo-display");
+      if (display) {
+        const cell = display.closest(".ldm-costo-cell");
+        if (cell) startEdit(cell);
+      }
+    });
+
+    // blur → guardar; Escape → cancelar; Enter → guardar
+    document.addEventListener("focusout", e => {
+      if (e.target.classList.contains("ldm-costo-input")) {
+        const cell = e.target.closest(".ldm-costo-cell");
+        if (cell) endEdit(cell, true);
+      }
+    });
+    document.addEventListener("keydown", e => {
+      if (!e.target.classList.contains("ldm-costo-input")) return;
+      const cell = e.target.closest(".ldm-costo-cell");
+      if (!cell) return;
+      if (e.key === "Enter")  { e.preventDefault(); e.target.blur(); }
+      if (e.key === "Escape") { e.preventDefault(); endEdit(cell, false); }
+    });
+  })();
+</script>
+{% endblock %}

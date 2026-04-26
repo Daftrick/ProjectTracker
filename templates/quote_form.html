@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% block title %}{% if quote %}Editar cotización{% else %}Nueva cotización{% endif %} – Project Tracker{% endblock %}
+{% block page_title %}
+  <i class="bi bi-receipt me-2 text-success"></i>
+  {% if quote %}Editar {{ quote.quote_number }}{% else %}Nueva cotización{% endif %}
+{% endblock %}
+{% block topbar_actions %}
+  <a href="{{ url_for('quotes') }}" class="btn btn-sm btn-outline-secondary">
+    <i class="bi bi-arrow-left me-1"></i>Volver
+  </a>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+  .items-table th { font-size:.8rem; }
+  .items-table td { padding: 6px 8px; }
+  .items-table input { font-size:.875rem; }
+  .total-box { background:#0d1425; border:1px solid rgba(255,255,255,.1); border-radius:10px; padding:16px; }
+  .total-box hr { border-color:rgba(255,255,255,.12); opacity:1; }
+</style>
+{% endblock %}
+
+{% block content %}
+<form method="post">
+<div class="row g-3">
+
+  <!-- Datos generales -->
+  <div class="col-lg-8">
+    <div class="card mb-3">
+      <div class="card-header">Datos generales</div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Cliente *</label>
+            <input name="client" class="form-control" required
+                   value="{{ quote.client if quote else '' }}" placeholder="Nombre del cliente">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Proyecto</label>
+            <input name="project" class="form-control"
+                   value="{{ quote.project if quote else '' }}" placeholder="Nombre del proyecto">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Fecha</label>
+            <input type="date" name="date" class="form-control"
+                   value="{{ quote.date if quote else today }}">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Válida hasta</label>
+            <input type="date" name="valid_until" class="form-control"
+                   value="{{ quote.valid_until if quote else '' }}">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Estado</label>
+            <select name="status" class="form-select">
+              {% for s in ["Borrador","Enviada","Aprobada","Rechazada"] %}
+                <option {% if quote and quote.status==s %}selected{% elif not quote and s=="Borrador" %}selected{% endif %}>{{ s }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Moneda</label>
+            <select name="currency" class="form-select">
+              {% for c in ["MXN","USD","EUR"] %}
+                <option {% if quote and quote.currency==c %}selected{% elif not quote and c=="MXN" %}selected{% endif %}>{{ c }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">IVA (%)</label>
+            <input type="number" name="tax_rate" class="form-control" id="taxRate"
+                   value="{{ quote.tax_rate if quote else 16 }}" min="0" max="100" step="0.01">
+          </div>
+          <div class="col-12">
+            <label class="form-label">Notas / Condiciones</label>
+            <textarea name="notes" class="form-control" rows="2"
+                      placeholder="Condiciones de pago, alcance, exclusiones...">{{ quote.notes if quote else '' }}</textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Partidas -->
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Partidas</span>
+        <button type="button" class="btn btn-sm btn-outline-primary" onclick="addRow()">
+          <i class="bi bi-plus-lg"></i> Agregar partida
+        </button>
+      </div>
+      <div class="card-body p-0">
+        <table class="table items-table mb-0" id="itemsTable">
+          <thead class="table-light">
+            <tr>
+              <th style="width:40%">Descripción</th>
+              <th style="width:12%">Unidad</th>
+              <th style="width:12%">Cantidad</th>
+              <th style="width:16%">Precio unit.</th>
+              <th style="width:16%">Total</th>
+              <th style="width:4%"></th>
+            </tr>
+          </thead>
+          <tbody id="itemsBody">
+            {% if quote and quote['items'] %}
+              {% for item in quote['items'] %}
+              <tr>
+                <td><input name="item_desc[]" class="form-control" value="{{ item.description }}" required></td>
+                <td><input name="item_unit[]" class="form-control" value="{{ item.unit }}"></td>
+                <td><input type="number" name="item_qty[]" class="form-control qty" value="{{ item.qty }}" step="0.01" min="0" onchange="calcRow(this)"></td>
+                <td><input type="number" name="item_price[]" class="form-control price" value="{{ item.price }}" step="0.01" min="0" onchange="calcRow(this)"></td>
+                <td><input type="number" name="item_total[]" class="form-control total-cell" value="{{ item.total }}" readonly tabindex="-1"></td>
+                <td><button type="button" class="btn btn-sm btn-outline-danger" onclick="this.closest('tr').remove(); updateTotals()"><i class="bi bi-x"></i></button></td>
+              </tr>
+              {% endfor %}
+            {% else %}
+              <!-- Fila inicial vacía -->
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Totales y acciones -->
+  <div class="col-lg-4">
+    <div class="card sticky-top" style="top:80px">
+      <div class="card-header">Resumen</div>
+      <div class="card-body">
+        <div class="total-box mb-3">
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Subtotal</span>
+            <strong id="subtotalDisplay">$0.00</strong>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">IVA (<span id="taxPct">16</span>%)</span>
+            <strong id="taxDisplay">$0.00</strong>
+          </div>
+          <hr class="my-2">
+          <div class="d-flex justify-content-between">
+            <span class="fw-bold">Total</span>
+            <span class="fw-bold fs-5 text-success" id="totalDisplay">$0.00</span>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mb-2">
+          <i class="bi bi-check-lg me-1"></i>
+          {% if quote %}Guardar cambios{% else %}Crear cotización{% endif %}
+        </button>
+        <a href="{{ url_for('quotes') }}" class="btn btn-outline-secondary w-100">Cancelar</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function addRow() {
+    const tbody = document.getElementById("itemsBody");
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><input name="item_desc[]" class="form-control" placeholder="Descripción" required></td>
+      <td><input name="item_unit[]" class="form-control" placeholder="pza" value="pza"></td>
+      <td><input type="number" name="item_qty[]" class="form-control qty" value="1" step="0.01" min="0" onchange="calcRow(this)"></td>
+      <td><input type="number" name="item_price[]" class="form-control price" value="0" step="0.01" min="0" onchange="calcRow(this)"></td>
+      <td><input type="number" name="item_total[]" class="form-control total-cell" value="0" readonly tabindex="-1"></td>
+      <td><button type="button" class="btn btn-sm btn-outline-danger" onclick="this.closest('tr').remove(); updateTotals()"><i class="bi bi-x"></i></button></td>
+    `;
+    tbody.appendChild(tr);
+  }
+
+  function calcRow(el) {
+    const row   = el.closest("tr");
+    const qty   = parseFloat(row.querySelector(".qty").value)   || 0;
+    const price = parseFloat(row.querySelector(".price").value) || 0;
+    row.querySelector(".total-cell").value = (qty * price).toFixed(2);
+    updateTotals();
+  }
+
+  function updateTotals() {
+    let subtotal = 0;
+    document.querySelectorAll(".total-cell").forEach(i => subtotal += parseFloat(i.value) || 0);
+    const taxRate = parseFloat(document.getElementById("taxRate").value) || 0;
+    const tax     = subtotal * taxRate / 100;
+    const total   = subtotal + tax;
+    document.getElementById("subtotalDisplay").textContent = fmt(subtotal);
+    document.getElementById("taxDisplay").textContent      = fmt(tax);
+    document.getElementById("totalDisplay").textContent    = fmt(total);
+    document.getElementById("taxPct").textContent          = taxRate;
+  }
+
+  function fmt(n) {
+    return "$" + n.toLocaleString("es-MX", {minimumFractionDigits:2, maximumFractionDigits:2});
+  }
+
+  document.getElementById("taxRate").addEventListener("input", updateTotals);
+
+  // Agregar fila inicial si la tabla está vacía
+  window.addEventListener("DOMContentLoaded", () => {
+    const tbody = document.getElementById("itemsBody");
+    if (tbody.children.length === 0) addRow();
+    updateTotals();
+  });
+</script>
+{% endblock %}

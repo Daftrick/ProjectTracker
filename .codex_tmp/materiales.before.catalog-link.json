@@ -1,0 +1,463 @@
+[
+  {
+    "id": "E2BAF2B5",
+    "project_id": "8CC7C53F",
+    "ldm_number": "LDM-Cero5Cien-0402-01",
+    "seq": 1,
+    "proveedor": "Procables de México",
+    "fecha": "2026-04-06",
+    "items": [
+      {
+        "description": "Tubo Conduit Pared Delgada | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 70.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Abrazadera para Unicanal | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 125.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Codo Conduit Pared Delgada | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 15.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Monitor Metálico Pared Delgada | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 100.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Cople Metálico Pared Delgada con Tornillo | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 100.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Conector Metálico Pared Delgada | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 150.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Tubo Conduit Pared Delgada | 35 [mm] (1 1/4\")",
+        "unit": "pza",
+        "qty": 15.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Abrazadera para Unicanal | 35 [mm] (1 1/4\")",
+        "unit": "pza",
+        "qty": 30.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Monitor Metálico Pared Delgada | 35 [mm] (1 1/4\")",
+        "unit": "pza",
+        "qty": 30.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Cople Metálico Pared Delgada con Tornillo | 35 [mm] (1 1/4\")",
+        "unit": "pza",
+        "qty": 30.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Conector Metálico Pared Delgada | 35 [mm] (1 1/4\")",
+        "unit": "pza",
+        "qty": 30.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Perfil Unicanal Perforado | 4x2 [cm] | Tramo de 3 [m]",
+        "unit": "pza",
+        "qty": 15.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Varilla Roscada | 3/8\" | Tramo de 3 [m]",
+        "unit": "pza",
+        "qty": 11.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Taquete Expansivo Zamac | 3/8\"",
+        "unit": "pza",
+        "qty": 150.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Tuerca Hexagonal | 3/8\"",
+        "unit": "pza",
+        "qty": 400.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Rondana | 3/8\"",
+        "unit": "pza",
+        "qty": 400.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Cable de Cobre | Desnudo |  Calibre 10 AWG",
+        "unit": "pza",
+        "qty": 400.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Zapata Terminal Ponchable | Calibre 10 AWG",
+        "unit": "pza",
+        "qty": 100.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      }
+    ],
+    "cot_proveedor": "1573474",
+    "notes": "Primera Cotización de Materiales. Depto. O402.",
+    "created_at": "2026-04-20",
+    "subtotal_cot": 0.0
+  },
+  {
+    "id": "57201547",
+    "project_id": "4A25C802",
+    "ldm_number": "LDM-OficinasPalmasHills-01",
+    "seq": 1,
+    "proveedor": "Procables de México",
+    "fecha": "2026-04-06",
+    "items": [],
+    "cot_proveedor": null,
+    "notes": "Primera Cotización de Materiales",
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "DA7A4BEC",
+    "project_id": "8CC7C53F",
+    "ldm_number": "LDM-Cero5Cien-0402-02",
+    "seq": 2,
+    "proveedor": "Procables de México",
+    "fecha": "2026-04-07",
+    "items": [
+      {
+        "description": "Registro Eléctrico Galvanizado | 30x30x13 [cm]",
+        "unit": "pza",
+        "qty": 16.0
+      },
+      {
+        "description": "Registro Eléctrico Galvanizado | 56x56x13 [cm]",
+        "unit": "pza",
+        "qty": 7.0
+      },
+      {
+        "description": "Varilla Roscada | 3/8\" | Tramo de 3 [m]",
+        "unit": "pza",
+        "qty": 34.0
+      }
+    ],
+    "cot_proveedor": "1574065",
+    "notes": "Segunda Cotización de Materiales. Depto. O402",
+    "created_at": "2026-04-20",
+    "subtotal_cot": 11685.38
+  },
+  {
+    "id": "1286F99B",
+    "project_id": "8CC7C53F",
+    "ldm_number": "LDM-Cero5Cien-0402-03",
+    "seq": 3,
+    "proveedor": "Tamex",
+    "fecha": "2026-04-22",
+    "items": [
+      {
+        "description": "Cable Uso Rudo | 3 x Calibre 10 AWG",
+        "unit": "pza",
+        "qty": 100.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Caja Rectangular Condulet FS | 1/2\"",
+        "unit": "pza",
+        "qty": 4.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Contacto Duplex Polarizado | Con Tapa | 15 [A] | 125 [V] | Blanco",
+        "unit": "pza",
+        "qty": 4.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Clavija Industrial Redonda | 15 [A] | 125 [V]",
+        "unit": "pza",
+        "qty": 4.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Tubo Conduit Pared Delgada | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 60.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Tubo Conduit Pared Delgada | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 60.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Cople Metálico Pared Delgada con Tornillo | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 120.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Cople Metálico Pared Delgada con Tornillo | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 120.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Conector Metálico Pared Delgada | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 120.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Conector Metálico Pared Delgada | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 120.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Monitor Metálico Pared Delgada | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 120.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Monitor Metálico Pared Delgada | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 120.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Caja Cuadrada Galvanizada | 3/4\"",
+        "unit": "pza",
+        "qty": 200.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Tapa Cuadrada Galvanizada | 3/4\"",
+        "unit": "pza",
+        "qty": 200.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Taquete Expansivo Zamac | 3/8\"",
+        "unit": "pza",
+        "qty": 50.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Taquete Plástico Rojo | 3/8\"",
+        "unit": "pza",
+        "qty": 50.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Tuerca Hexagonal | 3/8\"",
+        "unit": "pza",
+        "qty": 100.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Rondana | 3/8\"",
+        "unit": "pza",
+        "qty": 100.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Abrazadera Tipo Omega | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 200.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Tubo Conduit Pared Delgada | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 15.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Varilla Roscada | 3/8\" | Tramo de 3 [m]",
+        "unit": "pza",
+        "qty": 10.03,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Perfil Unicanal Perforado | 4x2 [cm] | Tramo de 3 [m]",
+        "unit": "pza",
+        "qty": 5.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      }
+    ],
+    "cot_proveedor": "5287077",
+    "notes": "Tercera Cotización de Materiales. Depto. O402.",
+    "created_at": "2026-04-20",
+    "subtotal_cot": 32939.95
+  },
+  {
+    "id": "41A645F8",
+    "project_id": "8CC7C53F",
+    "ldm_number": "LDM-Cero5Cien-0402-04",
+    "seq": 4,
+    "proveedor": "Torsa - Ferreteria IA Kilar",
+    "fecha": "2026-04-21",
+    "items": [
+      {
+        "description": "Pija Punta de Broca | 1/4\"",
+        "unit": "pza",
+        "qty": 400.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      }
+    ],
+    "subtotal_cot": 278.4,
+    "cot_proveedor": "51737",
+    "notes": "Tercera Cotización de Materiales. Depto. O402.",
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "A804512F",
+    "project_id": "8CC7C53F",
+    "ldm_number": "LDM-Cero5Cien-0402-05",
+    "seq": 5,
+    "proveedor": "Torsa - Ferreteria IA Kilar",
+    "fecha": "2026-04-21",
+    "items": [
+      {
+        "description": "Pintura en Aerosol para Metal | Color Amarillo",
+        "unit": "pza",
+        "qty": 1.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Pintura en Aerosol para Metal | Color Azul",
+        "unit": "pza",
+        "qty": 1.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Pintura en Aerosol para Metal | Color Morado",
+        "unit": "pza",
+        "qty": 1.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Pintura en Aerosol para Metal | Color Naranja",
+        "unit": "pza",
+        "qty": 1.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Pintura en Aerosol para Metal | Color Rojo",
+        "unit": "pza",
+        "qty": 1.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Pintura en Aerosol para Metal | Color Verde",
+        "unit": "pza",
+        "qty": 1.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      }
+    ],
+    "subtotal_cot": 366.68,
+    "cot_proveedor": "51727",
+    "notes": "Tercera Cotización. Depto. O402",
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "821BF09D",
+    "project_id": "8CC7C53F",
+    "ldm_number": "LDM-Cero5Cien-0402-06",
+    "seq": 6,
+    "proveedor": "Procables de México",
+    "fecha": "2026-04-22",
+    "items": [
+      {
+        "description": "Cople Metálico Galvanizado Pared Delgada con Tornillo | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 50.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Codo Conduit Galvanizado Pared Delgada | 35 [mm] (1 1/4\")",
+        "unit": "pza",
+        "qty": 12.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "description": "Conector Conduit PVC SP | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 4.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      }
+    ],
+    "subtotal_cot": 1391.54,
+    "cot_proveedor": "1586165",
+    "notes": "",
+    "created_at": "2026-04-22"
+  }
+]

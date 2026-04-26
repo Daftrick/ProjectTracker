@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Editar documento – Project Tracker{% endblock %}
+{% block page_title %}<i class="bi bi-pencil me-2 text-warning"></i>Editar documento{% endblock %}
+{% block topbar_actions %}
+  <a href="{{ url_for('documents') }}" class="btn btn-sm btn-outline-secondary">
+    <i class="bi bi-arrow-left me-1"></i>Volver
+  </a>
+{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width:700px">
+  <div class="card-body">
+    <form method="post">
+      <div class="row g-3">
+        <div class="col-md-8">
+          <label class="form-label">Nombre *</label>
+          <input name="name" class="form-control" required value="{{ doc.name }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Tipo</label>
+          <input name="doc_type" class="form-control" value="{{ doc.doc_type }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Proyecto</label>
+          <input name="project" class="form-control" value="{{ doc.project }}">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Responsable</label>
+          <select name="responsible" class="form-select">
+            <option value="">Sin asignar</option>
+            {% for m in team %}
+              <option {% if doc.responsible==m.name %}selected{% endif %}>{{ m.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Fecha compromiso</label>
+          <input type="date" name="due_date" class="form-control" value="{{ doc.due_date }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Fecha entrega real</label>
+          <input type="date" name="delivery_date" class="form-control" value="{{ doc.delivery_date }}">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Revisión</label>
+          <input name="revision" class="form-control" value="{{ doc.revision }}">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Estado</label>
+          <select name="status" class="form-select">
+            {% for s in ["Pendiente","En Revisión","Entregado","Con Observaciones"] %}
+              <option {% if doc.status==s %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-12">
+          <label class="form-label">Notas</label>
+          <textarea name="notes" class="form-control" rows="3">{{ doc.notes }}</textarea>
+        </div>
+        <div class="col-12 d-flex gap-2">
+          <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Guardar cambios</button>
+          <a href="{{ url_for('documents') }}" class="btn btn-outline-secondary">Cancelar</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

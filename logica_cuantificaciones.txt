@@ -1,0 +1,366 @@
+================================================================================
+  SISTEMA DE CUANTIFICACIONES — LÓGICA DE DISEÑO
+  Documento de referencia para implementación en cualquier disciplina
+  Versión 1.0 — Abril 2026
+================================================================================
+
+
+────────────────────────────────────────────────────────────────────────────────
+1. OBJETIVO DEL SISTEMA
+────────────────────────────────────────────────────────────────────────────────
+
+Gestionar el ciclo completo de cuantificación de materiales para proyectos de
+ingeniería, desde la extracción automática de cantidades desde herramientas CAD
+hasta la generación de listas de materiales (LDM), cotizaciones a proveedores
+y cotizaciones al cliente, manteniendo trazabilidad completa en cada paso.
+
+El sistema es agnóstico a la disciplina (eléctrico, civil, mecánico, etc.)
+siempre que exista una herramienta de origen capaz de exportar CSV con las
+columnas definidas en el catálogo.
+
+Principios de diseño:
+  - Trazabilidad completa: cualquier ítem de una cotización se puede rastrear
+    hasta el plano de origen
+  - Sin duplicaciones ni omisiones: cada CSV alimenta exactamente una LDM
+  - Cambios controlados: toda actualización pasa por una revisión de diferencias
+  - Escalable por disciplina y por proyecto
+
+
+────────────────────────────────────────────────────────────────────────────────
+2. ENTIDADES PRINCIPALES
+────────────────────────────────────────────────────────────────────────────────
+
+2.1 PROYECTO
+  - codigo          : clave corta única (ej. OM001, IE2026-003)
+  - nombre
+  - cliente
+  - fecha_inicio
+  - estado          : activo / pausado / cerrado
+
+2.2 CATÁLOGO DE MATERIALES
+  - codigo_item     : único, heredado del sistema CAD
+  - descripcion
+  - unidad          : m, pza, kg, m2, etc.
+  - categoria       : Cable / Conduit / Tablero / Conector / etc.
+  - precio_referencia (opcional, actualizable)
+
+  Nota: los nombres de columna en el CSV exportado desde CAD deben coincidir
+  exactamente con los campos del catálogo para evitar mapeos manuales.
+
+2.3 ARCHIVO CSV (origen CAD)
+  - nombre_archivo  : [PROYECTO]-v[VERSION_PLANO]-i[CONSECUTIVO]-[FECHA].csv
+  - proyecto_codigo
+  - version_plano   : versión del DWG de origen (ej. 2, 3)
+  - consecutivo_csv : número de exportaciones del mismo plano/versión (1, 2, 3)
+  - fecha_exportacion
+  - estado          : pendiente / importado / desactualizado
+
+  Ejemplo de nombre: OM001-v2-i1-20260420.csv
+                     OM001-v2-i2-20260424.csv  (re-exportación del mismo plano v2)
+
+2.4 LISTA DE MATERIALES (LDM)
+  - ldm_id          : [PROYECTO]-LDM[NN]  → ej. OM001-LDM01
+  - proyecto_codigo
+  - csv_origen      : nombre del CSV que la generó (null si es manual)
+  - fecha_importacion
+  - version_activa  : versión del plano en el momento de la importación
+  - estado          : borrador / emitida / cancelada
+  - notas
+
+  Renglones de LDM:
+  - codigo_item
+  - descripcion     (del catálogo)
+  - unidad          (del catálogo)
+  - qty_csv         : cantidad original del CSV (nunca modificable)
+  - qty_ldm         : cantidad real a cotizar (puede diferir de qty_csv)
+  - qty_editada     : booleano — indica si el usuario modificó qty_ldm
+  - qty_nota        : razón del ajuste manual (ej. "redondeo a múltiplo de 10")
+  - origen          : "csv" | "manual"
+
+  Regla clave:
+    qty_csv es de solo lectura — solo el CSV la puede cambiar.
+    qty_ldm es del ingeniero — el CSV puede sugerirla, el ingeniero la aprueba.
+
+2.5 COTIZACIÓN DE PROVEEDOR (CPROV)
+  - cprov_id        : CPROV-[PROYECTO]-[LDM_REF]-[PROVEEDOR]-[NUM_COT_PROV]
+  - ldm_origen      : ID de la LDM asociada
+  - proveedor
+  - num_cot_proveedor : folio del proveedor en su propio documento
+  - fecha
+  - archivo_pdf     : nombre del archivo en la carpeta del proyecto
+  - estado          : recibida / aceptada / rechazada
+
+  Renglones de CPROV:
+  - codigo_item
+  - qty_cotizada
+  - precio_unitario
+  - precio_total    : calculado (qty × precio_unit)
+  - subtotal_cprov  : suma de todos los renglones
+
+2.6 COTIZACIÓN AL CLIENTE (COT)
+  - cot_id          : COT-[PROYECTO]-[TIPO][NN]-[FECHA]  → ej. COT-OM001-G01-20260420
+  - proyecto_codigo
+  - tipo            : Preliminar (P) | General (G) | Extraordinario (E)
+  - numero_secuencial : por tipo y por proyecto (01, 02, 03...)
+  - fecha
+  - estado          : borrador / enviada / aceptada / rechazada
+  - archivo_pdf     : COT-OM001-G01-20260420.pdf
+
+  Renglones de COT:
+  - descripcion     (puede ser agrupada, no necesariamente ítem a ítem)
+  - cantidad
+  - precio_unitario
+  - precio_total
+  - subtotal, iva, total
+
+
+────────────────────────────────────────────────────────────────────────────────
+3. NOMENCLATURA DE ARCHIVOS
+────────────────────────────────────────────────────────────────────────────────
+
+Todos los archivos viven en la misma carpeta del proyecto (sin subcarpetas).
+Se identifican por prefijo:
+
+  CSV de plano:           [PROYECTO]-v[VER_PLANO]-i[CONSEC]-[FECHA].csv
+  LDM (PDF emitido):      LDM-[PROYECTO]-[NN]-[FECHA].pdf
+  Cotización proveedor:   CPROV-[PROYECTO]-[LDM_REF]-[PROVEEDOR]-[NUM_COT].pdf
+  Cotización cliente:     COT-[PROYECTO]-[TIPO][NN]-[FECHA].pdf
+
+  Ejemplos:
+    OM001-v2-i1-20260420.csv
+    LDM-OM001-01-20260420.pdf
+    CPROV-OM001-LDM01-ABB-45231.pdf
+    COT-OM001-P01-20260410.pdf
+    COT-OM001-G01-20260420.pdf
+    COT-OM001-E01-20260502.pdf
+
+
+────────────────────────────────────────────────────────────────────────────────
+4. FLUJO DE TRABAJO COMPLETO
+────────────────────────────────────────────────────────────────────────────────
+
+4.1 GENERACIÓN DE CSV DESDE CAD
+
+  [CAD + Script/LISP]
+    ↓ Aplica reglas de redondeo (configuradas en el script, no en la app)
+    ↓ Exporta CSV con columnas que coinciden con el catálogo
+    ↓ Nombra el archivo: [PROYECTO]-v[VER_PLANO]-i[CONSEC]-[FECHA].csv
+    ↓ Guarda en carpeta del proyecto (sincronizada con Drive u otro)
+
+  El redondeo se maneja íntegramente en el CAD/LISP:
+    - El ingeniero configura reglas por categoría en el script
+    - La app recibe cantidades ya procesadas
+    - La app NO implementa lógica de redondeo propia
+
+  El campo qty_csv en la app siempre refleja lo que llegó del CSV.
+  Si el ingeniero ajusta manualmente en la app → qty_ldm ≠ qty_csv y
+  qty_editada = true.
+
+4.2 IMPORTACIÓN DE CSV A LDM
+
+  Paso 1: La app escanea la carpeta del proyecto
+    → Lista los CSV disponibles que no han sido importados aún
+    → Identifica si algún CSV es versión actualizada de uno ya importado
+
+  Paso 2: El usuario selecciona el CSV a importar
+    → La app valida que cada código_item del CSV exista en el catálogo
+    → Si hay items desconocidos: alerta con opción de agregarlos al catálogo
+
+  Paso 3: Creación de LDM
+    → Se genera LDM con ID automático: [PROYECTO]-LDM[NN]
+    → Cada renglón se crea con qty_csv = qty_ldm (valores del CSV)
+    → qty_editada = false para todos los renglones
+    → origen = "csv" para todos los renglones
+
+  Paso 4: El usuario puede agregar renglones manuales
+    → origen = "manual"
+    → qty_csv = null (no viene de ningún CSV)
+    → qty_ldm = cantidad ingresada manualmente
+
+  Regla anti-duplicación:
+    Un CSV puede asociarse a una sola LDM.
+    Si el usuario intenta importar un CSV ya vinculado a otra LDM del mismo
+    proyecto, la app alerta y pregunta si quiere actualizar la LDM existente
+    o crear una LDM adicional (caso excepcional justificado).
+
+4.3 ACTUALIZACIÓN DE LDM POR NUEVA VERSIÓN DE CSV
+
+  Cuando llega un CSV actualizado (mismo plano, versión incrementada):
+    → La app detecta el archivo nuevo en la carpeta del proyecto
+    → Muestra notificación en la vista del proyecto:
+       "LDM-OM001-01 tiene una versión de plano disponible (v2-i2)"
+    → El usuario inicia la actualización
+
+  Pantalla de diff antes de aplicar cambios:
+
+    Ítem            CSV anterior   CSV nuevo    LDM actual   Acción sugerida
+    ─────────────────────────────────────────────────────────────────────────
+    Cable THHN 12   120 m          150 m        120 m        ✎ Actualizar
+    Conduit 3/4"    45 m           45 m         50 m (*)     ⚠ Mantener (*)
+    Conector 3/4"   30 pza         30 pza       30 pza       ✓ Sin cambio
+    Caja 4x4        —              12 pza       —            + Agregar nuevo
+    Tape negro      10 rll         —            10 rll       - Retirado de plano
+
+    (*) qty_editada = true → el usuario había ajustado manualmente
+
+  Reglas del diff:
+    ✓ Sin cambio       → qty_csv igual, sin acción
+    ✎ Actualizar       → qty_csv cambió, qty_editada = false → actualizar automático
+    ⚠ Revisar         → qty_csv cambió, qty_editada = true → requiere decisión manual
+    + Agregar nuevo    → ítem no existía en LDM → se agrega (usuario confirma)
+    - Retirado de plano → ítem ya no está en CSV → se marca, no se borra automáticamente
+
+  Después del diff, el usuario aprueba y la app aplica los cambios.
+  Los renglones de origen "manual" nunca se tocan en el diff.
+
+4.4 COTIZACIÓN A PROVEEDOR (CPROV)
+
+  Desde una LDM emitida, el usuario puede:
+    → Registrar una cotización de proveedor
+    → Ingresar: proveedor, número de cotización del proveedor, fecha
+    → Por renglón: precio unitario cotizado
+    → La app calcula totales automáticamente
+    → El archivo PDF del proveedor se sube o se registra con nombre CPROV-...
+    → El costo total de la CPROV queda vinculado a la LDM
+
+  Una LDM puede tener múltiples CPROVs (comparativo de precios).
+  El usuario marca cuál CPROV es la "aceptada" para el cálculo de margen.
+
+4.5 COTIZACIÓN AL CLIENTE (COT)
+
+  Se genera de forma independiente a la cadena CSV→LDM.
+  Puede referenciar varias LDMs o ser totalmente manual.
+  El número se auto-genera: COT-[PROYECTO]-[P/G/E][NN]-[FECHA]
+  Tipos:
+    P = Preliminar: estimación inicial antes de tener ingeniería de detalle completa
+    G = General: cotización formal del proyecto o de una etapa
+    E = Extraordinario: trabajo fuera del alcance original
+
+  El PDF se nombra igual al número de cotización.
+
+4.6 VISTA FINANCIERA DEL PROYECTO
+
+  Cotizado al cliente : suma de COTs aceptadas
+  Costo proveedores   : suma de CPROVs aceptadas
+  Margen bruto        : cotizado - costo
+  Margen %            : (margen / cotizado) × 100
+
+
+────────────────────────────────────────────────────────────────────────────────
+5. REGLAS DE INTEGRIDAD
+────────────────────────────────────────────────────────────────────────────────
+
+R1. Un CSV → una sola LDM (en el mismo proyecto).
+    Excepción documentada para proyectos por etapas con autorización explícita.
+
+R2. qty_csv es inmutable después de la importación.
+    Solo una re-importación del CSV puede actualizarla, y siempre con diff previo.
+
+R3. Los renglones de origen "manual" son invisibles al proceso de diff.
+    No se actualizan, no se eliminan por cambios en CSV.
+
+R4. No se borran renglones automáticamente.
+    Los ítems retirados del plano se marcan como "retirados", el ingeniero
+    decide si eliminarlos o conservarlos (pueden ser materiales ya comprados).
+
+R5. Una LDM puede emitirse (PDF) solo si tiene al menos un renglón.
+
+R6. Una CPROV debe estar vinculada a una LDM existente.
+
+R7. El número de COT se asigna secuencialmente por tipo dentro del proyecto.
+    Los tipos son P (Preliminar), G (General) y E (Extraordinario).
+    No puede haber dos COT-OM001-G01, ni dos COT-OM001-P01, etc.
+    La secuencia es independiente por tipo: P01, P02... / G01, G02... / E01, E02...
+
+
+────────────────────────────────────────────────────────────────────────────────
+6. GESTIÓN DE DOCUMENTOS EN CARPETA DE PROYECTO
+────────────────────────────────────────────────────────────────────────────────
+
+La app escanea la carpeta del proyecto y clasifica los archivos por prefijo:
+
+  Prefijo       Tipo                    Columna en vista Documentos
+  ────────────────────────────────────────────────────────────────
+  LDM-          Lista de materiales     Lista de Materiales
+  COT-          Cotización cliente      Cotizaciones
+  CPROV-        Cotización proveedor    Cotizaciones
+  [PROY]-v      CSV de plano            (vista técnica / importación)
+  Otros         Archivos de trabajo     Trabajo / Otros
+
+  Cada archivo listado muestra: nombre, fecha, tamaño, botón abrir/descargar.
+  Los archivos reconocidos por la BD muestran su estado (borrador, emitido, etc.)
+
+
+────────────────────────────────────────────────────────────────────────────────
+7. EXTENSIBILIDAD A OTRAS DISCIPLINAS
+────────────────────────────────────────────────────────────────────────────────
+
+Para adaptar el sistema a otra disciplina (civil, mecánico, etc.):
+
+  1. Catálogo: cargar los materiales de la disciplina con sus unidades propias
+  2. Script de exportación: adaptar el script CAD/BIM para exportar con las
+     mismas columnas que el catálogo (código, descripción, unidad, cantidad)
+  3. Categorías: definir las categorías de la disciplina para agrupar en LDM
+  4. Reglas de redondeo: configurar en el script de exportación según la
+     disciplina (m2, m3, ton, etc.)
+  5. El resto del flujo (CSV→LDM→CPROV→COT) es idéntico
+
+  El sistema es agnóstico al tipo de material. Lo único disciplina-específico
+  es el catálogo y el script de exportación CAD.
+
+
+────────────────────────────────────────────────────────────────────────────────
+8. INTERFAZ — PANTALLAS CLAVE
+────────────────────────────────────────────────────────────────────────────────
+
+8.1 VISTA PROYECTO
+  - Resumen financiero (cotizado / costo / margen)
+  - Tabs: LDMs | Cotizaciones | Documentos | Equipo
+  - Notificaciones de CSV nuevos o actualizados disponibles
+
+8.2 IMPORTAR CSV
+  - Lista de CSVs disponibles en carpeta del proyecto
+  - Indicador: "Nuevo" / "Actualización de LDM-XX" / "Ya importado"
+  - Pantalla de validación de columnas (primera vez por proyecto)
+  - Pantalla de diff (en actualizaciones)
+
+8.3 VISTA LDM
+  - Tabla de renglones: código, descripción, unidad, qty_csv, qty_ldm, origen
+  - Indicador visual en celdas con qty_editada = true
+  - Botón "Actualizar desde CSV" si hay versión nueva disponible
+  - Panel de CPROVs vinculadas con precios y totales
+  - Botón "Emitir PDF"
+
+8.4 CONFIGURACIÓN DE PROYECTO
+  - Ruta de carpeta de proyecto (para escaneo de archivos)
+  - Mapeo de columnas CSV → catálogo (guardado por proyecto)
+
+8.5 CATÁLOGO GLOBAL
+  - CRUD de materiales
+  - Columnas: código, descripción, unidad, categoría, precio_referencia
+  - Import/export masivo vía CSV
+
+
+────────────────────────────────────────────────────────────────────────────────
+9. DECISIONES DE DISEÑO PENDIENTES
+────────────────────────────────────────────────────────────────────────────────
+
+□ ¿El sistema permite múltiples CSVs consolidados en una sola LDM?
+  (caso: proyecto grande con varios planos que se cotizan juntos)
+  → Requiere tabla de "csv_a_ldm" muchos-a-muchos con restricciones
+
+□ ¿Las CPROVs se comparan en una vista tipo "comparativo de precios"?
+  → Útil para seleccionar el mejor proveedor ítem por ítem
+
+□ ¿Se requiere control de acceso por roles?
+  (solo el ingeniero puede editar qty_ldm, el ayudante solo puede ver)
+
+□ ¿El sistema debe generar la notificación de "CSV actualizado" en tiempo real
+  (watcher de carpeta) o solo al reabrir el proyecto?
+
+□ ¿Los precios de referencia del catálogo se actualizan desde las CPROVs?
+  (aprendizaje de precios históricos)
+
+================================================================================
+  FIN DEL DOCUMENTO
+================================================================================

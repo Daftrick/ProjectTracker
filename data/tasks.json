@@ -1,0 +1,836 @@
+[
+  {
+    "id": "3F5F55DE",
+    "project_id": "A044D4FE",
+    "alcance": "iluminacion",
+    "title": "IE - Iluminación",
+    "source": "externa",
+    "external_dep": "Diseño de iluminación (otra área)",
+    "status": "Aprobado",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Aprobado",
+        "date": "2026-04-19",
+        "note": "Cambio: Pendiente → Aprobado"
+      },
+      {
+        "from": "Aprobado",
+        "to": "En progreso",
+        "date": "2026-04-19",
+        "note": "Cambio: Aprobado → En progreso"
+      },
+      {
+        "from": "En progreso",
+        "to": "Aprobado",
+        "date": "2026-04-19",
+        "note": "Cambio: En progreso → Aprobado"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "F1BDC530",
+    "project_id": "A044D4FE",
+    "alcance": "contactos",
+    "title": "IE - Contactos",
+    "source": "propia",
+    "external_dep": "Guía mecánica de cocina (si aplica)",
+    "status": "Aprobado",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Aprobado",
+        "date": "2026-04-19",
+        "note": "Cambio: Pendiente → Aprobado"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "DF83449B",
+    "project_id": "A044D4FE",
+    "alcance": "hvac",
+    "title": "IE - HVAC",
+    "source": "externa",
+    "external_dep": "Proyecto HVAC (otra área)",
+    "status": "Aprobado",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Aprobado",
+        "date": "2026-04-19",
+        "note": "Cambio: Pendiente → Aprobado"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "18E5BB79",
+    "project_id": "A044D4FE",
+    "alcance": "emergencia",
+    "title": "Sistema de Emergencia",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Aprobado",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Aprobado",
+        "date": "2026-04-19",
+        "note": "Cambio: Pendiente → Aprobado"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "CCBDAF4B",
+    "project_id": "A044D4FE",
+    "alcance": "fotovoltaico",
+    "title": "Sistema Fotovoltaico",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Aprobado",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Aprobado",
+        "date": "2026-04-19",
+        "note": "Cambio: Pendiente → Aprobado"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "4070E0CC",
+    "project_id": "A044D4FE",
+    "alcance": "subestacion",
+    "title": "Subestación Eléctrica",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Aprobado",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Aprobado",
+        "date": "2026-04-19",
+        "note": "Cambio: Pendiente → Aprobado"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "A30383D1",
+    "project_id": "A044D4FE",
+    "alcance": "cuadro_cargas",
+    "title": "Cuadro de Cargas",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Aprobado",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Aprobado",
+        "date": "2026-04-19",
+        "note": "Cambio: Pendiente → Aprobado"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "0E36059F",
+    "project_id": "A044D4FE",
+    "alcance": "diagrama_unifilar",
+    "title": "Diagrama Unifilar",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Aprobado",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Aprobado",
+        "date": "2026-04-19",
+        "note": "Cambio: Pendiente → Aprobado"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "51118218",
+    "project_id": "A044D4FE",
+    "alcance": "cotizacion",
+    "title": "Cotización",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Aprobado",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Aprobado",
+        "date": "2026-04-19",
+        "note": "Cambio: Pendiente → Aprobado"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "E213225C",
+    "project_id": "E663C153",
+    "alcance": "iluminacion",
+    "title": "IE - Iluminación",
+    "source": "externa",
+    "external_dep": "Diseño de Iluminación - Nimbe - 17 de Abril",
+    "status": "En progreso",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "En progreso",
+        "date": "2026-04-19",
+        "note": "Realizar Diseño de Canalizaciones y Cableado"
+      },
+      {
+        "from": "En progreso",
+        "to": "En progreso",
+        "date": "2026-04-19",
+        "note": "Cambio: En Progreso → En Progreso"
+      },
+      {
+        "from": "En progreso",
+        "to": "En progreso",
+        "date": "2026-04-19",
+        "note": "Canalizaciones y Cableado"
+      }
+    ],
+    "created_at": "2026-04-19",
+    "info_status": "Entregado"
+  },
+  {
+    "id": "16B7F624",
+    "project_id": "E663C153",
+    "alcance": "contactos",
+    "title": "IE - Contactos",
+    "source": "propia",
+    "external_dep": null,
+    "status": "En progreso",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "En progreso",
+        "date": "2026-04-19",
+        "note": "Distribución, Canalizaciones y Cableado"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "AFB008CA",
+    "project_id": "E663C153",
+    "alcance": "hvac",
+    "title": "IE - HVAC",
+    "source": "externa",
+    "external_dep": "Proyecto HVAC - Arteck",
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Canalizaciones y Cableado"
+      }
+    ],
+    "created_at": "2026-04-19",
+    "info_status": "Entregado"
+  },
+  {
+    "id": "0E773E4D",
+    "project_id": "E663C153",
+    "alcance": "emergencia",
+    "title": "Sistema de Emergencia",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "8A1A15D9",
+    "project_id": "E663C153",
+    "alcance": "subestacion",
+    "title": "Subestación Eléctrica",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "A91F0A82",
+    "project_id": "E663C153",
+    "alcance": "cuadro_cargas",
+    "title": "Cuadro de Cargas",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "31FE7166",
+    "project_id": "E663C153",
+    "alcance": "diagrama_unifilar",
+    "title": "Diagrama Unifilar",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "89FADD16",
+    "project_id": "E663C153",
+    "alcance": "cotizacion",
+    "title": "Cotización",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "AE9571D2",
+    "project_id": "8CC7C53F",
+    "alcance": "iluminacion",
+    "title": "IE - Iluminación",
+    "source": "externa",
+    "external_dep": "Diseño de iluminación (otra área)",
+    "status": "En progreso",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Revisión",
+        "date": "2026-04-21",
+        "note": "Cambio: Pendiente → Revisión"
+      },
+      {
+        "from": "Revisión",
+        "to": "En progreso",
+        "date": "2026-04-25",
+        "note": "Realizar Plano de Trayectorias y Canalizaciones\r\nVerificar el Sistema de Control. Dali vs Homeworks"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "B0A749E3",
+    "project_id": "8CC7C53F",
+    "alcance": "contactos",
+    "title": "IE - Contactos",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Observaciones",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Revisión",
+        "date": "2026-04-21",
+        "note": "Cambio: Pendiente → Revisión"
+      },
+      {
+        "from": "Revisión",
+        "to": "Observaciones",
+        "date": "2026-04-25",
+        "note": "Generar Nuevo Plano de Trayectorias y Canalizaciones.\r\nVerificar Alturas, Ubicaciones y Circuitos de Contactos."
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "02024CB3",
+    "project_id": "8CC7C53F",
+    "alcance": "hvac",
+    "title": "IE - HVAC",
+    "source": "externa",
+    "external_dep": "Solicitar Plano de Sistema de HVAC con Niz + Chauvet",
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Pendiente",
+        "date": "2026-04-21",
+        "note": "Cambio: Pendiente → Pendiente"
+      }
+    ],
+    "created_at": "2026-04-19",
+    "info_status": "Pendiente"
+  },
+  {
+    "id": "A5A2CAE9",
+    "project_id": "8CC7C53F",
+    "alcance": "cuadro_cargas",
+    "title": "Cuadro de Cargas",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "58F2846E",
+    "project_id": "8CC7C53F",
+    "alcance": "diagrama_unifilar",
+    "title": "Diagrama Unifilar",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "868797B0",
+    "project_id": "8CC7C53F",
+    "alcance": "cotizacion",
+    "title": "Cotización",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Revisión",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Revisión",
+        "date": "2026-04-24",
+        "note": "Cambio: Pendiente → Revisión"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "9E8AC73D",
+    "project_id": "4A25C802",
+    "alcance": "iluminacion",
+    "title": "IE - Iluminación",
+    "source": "externa",
+    "external_dep": "Diseño de Iluminación - Nimbe - 16 de Abril",
+    "status": "Observaciones",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Revisión",
+        "date": "2026-04-21",
+        "note": "Cambio: Pendiente → Revisión"
+      },
+      {
+        "from": "Revisión",
+        "to": "Observaciones",
+        "date": "2026-04-25",
+        "note": "Completar Cédulas de Cableado y Generar Planos"
+      }
+    ],
+    "created_at": "2026-04-19",
+    "info_status": "Entregado"
+  },
+  {
+    "id": "64BC1F6B",
+    "project_id": "4A25C802",
+    "alcance": "contactos",
+    "title": "IE - Contactos",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Observaciones",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Revisión",
+        "date": "2026-04-21",
+        "note": "Cambio: Pendiente → Revisión"
+      },
+      {
+        "from": "Revisión",
+        "to": "Observaciones",
+        "date": "2026-04-25",
+        "note": "Agregar Contactos Solicitados\r\nVerificar Circuitos\r\nCompletar Cédulas de Cableado"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "F7417062",
+    "project_id": "4A25C802",
+    "alcance": "hvac",
+    "title": "IE - HVAC",
+    "source": "externa",
+    "external_dep": "Diseño de HVAC - 16 de abril",
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "En progreso",
+        "date": "2026-04-21",
+        "note": "Cambio: Pendiente → En progreso"
+      },
+      {
+        "from": "En progreso",
+        "to": "Pendiente",
+        "date": "2026-04-25",
+        "note": "Cambio: En progreso → Pendiente"
+      }
+    ],
+    "created_at": "2026-04-19",
+    "info_status": "Pendiente"
+  },
+  {
+    "id": "E99A906B",
+    "project_id": "4A25C802",
+    "alcance": "emergencia",
+    "title": "Sistema de Emergencia",
+    "source": "externa",
+    "external_dep": "Solicitar Alcances con León Sevilla",
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-04-19",
+    "info_status": "Pendiente"
+  },
+  {
+    "id": "EA1F37ED",
+    "project_id": "4A25C802",
+    "alcance": "cuadro_cargas",
+    "title": "Cuadro de Cargas",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "E2C30F26",
+    "project_id": "4A25C802",
+    "alcance": "diagrama_unifilar",
+    "title": "Diagrama Unifilar",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "B4FE57B7",
+    "project_id": "4A25C802",
+    "alcance": "cotizacion",
+    "title": "Cotización",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-19",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "652E28CD",
+    "project_id": "8CC7C53F",
+    "alcance": "contactos",
+    "title": "Obs. #1 — IE - Contactos",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": "B0A749E3",
+    "notes": "Generar Nuevo Plano de Trayectorias y Canalizaciones.\r\nVerificar Alturas, Ubicaciones y Circuitos de Contactos.",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-25",
+        "note": "Subtarea observación #1"
+      }
+    ],
+    "created_at": "2026-04-25"
+  },
+  {
+    "id": "268EF72F",
+    "project_id": "4A25C802",
+    "alcance": "iluminacion",
+    "title": "Obs. #1 — IE - Iluminación",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": "9E8AC73D",
+    "notes": "Completar Cédulas de Cableado y Generar Planos",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-25",
+        "note": "Subtarea observación #1"
+      }
+    ],
+    "created_at": "2026-04-25"
+  },
+  {
+    "id": "F9E398D1",
+    "project_id": "4A25C802",
+    "alcance": "contactos",
+    "title": "Obs. #1 — IE - Contactos",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": "64BC1F6B",
+    "notes": "Agregar Contactos Solicitados\r\nVerificar Circuitos\r\nCompletar Cédulas de Cableado",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-25",
+        "note": "Subtarea observación #1"
+      }
+    ],
+    "created_at": "2026-04-25"
+  }
+]

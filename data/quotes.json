@@ -1,0 +1,337 @@
+[
+  {
+    "id": "F726B1CF",
+    "project_id": "A044D4FE",
+    "quote_number": "COT-Prueba-V1",
+    "version": "V1",
+    "client": "Cliente Privado",
+    "project_name": "Prueba",
+    "date": "2026-04-19",
+    "items": [
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 100.0,
+        "price": 900.0,
+        "total": 90000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra"
+      }
+    ],
+    "subtotal": 90000.0,
+    "tax_rate": 16.0,
+    "tax": 14400.0,
+    "total": 104400.0,
+    "currency": "MXN",
+    "notes": "",
+    "created_at": "2026-04-19",
+    "quote_type": "General"
+  },
+  {
+    "id": "D1E6CA99",
+    "project_id": "8CC7C53F",
+    "quote_number": "COT-Cero5Cien-0402-P01-20260424",
+    "quote_type": "Preliminar",
+    "version": "V1",
+    "client": "Niz+Chauvet",
+    "project_name": "Cero5Cien - Depto. O402",
+    "date": "2026-04-24",
+    "items": [
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 434.0,
+        "price": 950.0,
+        "total": 412300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 7.0,
+        "price": 750.0,
+        "total": 5250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 157.0,
+        "price": 1250.0,
+        "total": 196250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "DF89D08C",
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 13.0,
+        "price": 2649.98,
+        "total": 34449.74,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "C8D6402B",
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 13.0,
+        "price": 750.0,
+        "total": 9750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 434.0,
+        "price": 234.0,
+        "total": 101556.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 570.0,
+        "price": 195.0,
+        "total": 111150.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "81F2CB4E",
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 16 [mm] (1/2\")",
+        "unit": "ml",
+        "qty": 400.0,
+        "price": 235.25,
+        "total": 94100.0,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "8F45B371",
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 21 [mm] (3/4\")",
+        "unit": "ml",
+        "qty": 550.0,
+        "price": 290.25,
+        "total": 159637.5,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "56A13CED",
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 27 [mm] (1\")",
+        "unit": "ml",
+        "qty": 350.0,
+        "price": 455.75,
+        "total": 159512.5,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "3754E826",
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 35 [mm] (1 1/4\")",
+        "unit": "ml",
+        "qty": 100.0,
+        "price": 675.25,
+        "total": 67525.0,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "E01FADCB",
+        "description": "Metro Lineal de Tubería Conduit Metálico Flexible | 16 [mm] (1/2\")",
+        "unit": "ml",
+        "qty": 1250.0,
+        "price": 225.05,
+        "total": 281312.5,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "389D75CF",
+        "description": "Metro Lineal de Tubería Conduit Metálico Flexible | 21 [mm] (3/4\")",
+        "unit": "ml",
+        "qty": 50.0,
+        "price": 275.6,
+        "total": 13780.0,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "23A6189B",
+        "description": "Metro Lineal de Tubería Conduit Metálico Flexible | 27 [mm] (1\")",
+        "unit": "ml",
+        "qty": 50.0,
+        "price": 420.25,
+        "total": 21012.5,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "94F9F3D2",
+        "description": "Cable de Cobre | Desnudo | Calibre 14 AWG",
+        "unit": "m",
+        "qty": 650.0,
+        "price": 25.95,
+        "total": 16867.5,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "41C2A601",
+        "description": "Cable de Cobre | Desnudo | Calibre 12 AWG",
+        "unit": "m",
+        "qty": 650.0,
+        "price": 20.95,
+        "total": 13617.5,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "7B7F4147",
+        "description": "Cable de Cobre | Desnudo | Calibre 10 AWG",
+        "unit": "m",
+        "qty": 650.0,
+        "price": 35.95,
+        "total": 23367.5,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "18C5C03E",
+        "description": "Cable de Cobre | THHW-LS | Calibre 12 AWG",
+        "unit": "m",
+        "qty": 2500.0,
+        "price": 35.85,
+        "total": 89625.0,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "047C8246",
+        "description": "Cable de Cobre | THHW-LS | Calibre 10 AWG",
+        "unit": "m",
+        "qty": 2000.0,
+        "price": 50.85,
+        "total": 101700.0,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "EFF4FECF",
+        "description": "Cable de Cobre | THHW-LS | Calibre 8 AWG",
+        "unit": "m",
+        "qty": 500.0,
+        "price": 85.35,
+        "total": 42675.0,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "8DC8C842",
+        "description": "Cable de Cobre | THHW-LS | Calibre 6 AWG",
+        "unit": "m",
+        "qty": 150.0,
+        "price": 135.05,
+        "total": 20257.5,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "91D25844",
+        "description": "Cable de Cobre | THHW-LS | Calibre 2 AWG",
+        "unit": "m",
+        "qty": 100.0,
+        "price": 325.4,
+        "total": 32540.0,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "969468AA",
+        "description": "Tablero Eléctrico | NQ | NQ304AB225 | 30 Espacios | Trifásico | 3F - 4H | 225 [A] | 120/240 [V] | Interruptor Principal",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 25845.4,
+        "total": 25845.4,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "25940BBE",
+        "description": "Tablero Eléctrico | QO | QO320L125G | 20 Espacios | Trifásico | 3F - 4H | 125 [A] | 120/240 [V] | Zapatas Principales",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 9410.8,
+        "total": 18821.6,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "9706813C",
+        "description": "Interruptor Termomagnético HDL36150 | 3 Polos | 150 [A] | 240 - 600 [V]",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 19335.85,
+        "total": 19335.85,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "73618927",
+        "description": "Interruptor Termomagnético QO115 | 1 Polo | 15 [A] | 120 [V]",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 265.65,
+        "total": 3984.75,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "15514DE1",
+        "description": "Interruptor Termomagnético QO120 | 1 Polo | 20 [A] | 120 [V]",
+        "unit": "pza",
+        "qty": 25.0,
+        "price": 265.65,
+        "total": 6641.25,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "6B776A1B",
+        "description": "Interruptor Termomagnético QO130 | 1 Polo | 30 [A] | 120 [V]",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 265.65,
+        "total": 1328.25,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "56C24ED0",
+        "description": "Interruptor Termomagnético QO220 | 2 Polos | 20 [A] | 120/240 [V]",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 870.55,
+        "total": 2611.65,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "9690E597",
+        "description": "Interruptor Termomagnético QO230 | 2 Polos | 30 [A] | 120/240 [V]",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 870.55,
+        "total": 2611.65,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "7D6A1B33",
+        "description": "Interruptor Termomagnético QO240 | 2 Polos | 40 [A] | 120/240 [V]",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 870.55,
+        "total": 2611.65,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "catalog_item_id": "429C2A88",
+        "description": "Interruptor Termomagnético QO3100 | 3 Polos | 100 [A] | 120/240 [V]",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 11295.4,
+        "total": 22590.8,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      }
+    ],
+    "subtotal": 2114618.59,
+    "tax_rate": 16.0,
+    "tax": 338338.97,
+    "total": 2452957.56,
+    "currency": "MXN",
+    "notes": "",
+    "created_at": "2026-04-23"
+  }
+]

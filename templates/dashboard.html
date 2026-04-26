@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}Proyectos – Project Tracker{% endblock %}
+{% block page_title %}<i class="bi bi-grid-1x2 me-2 text-primary"></i>Mis Proyectos{% endblock %}
+{% block topbar_actions %}
+  <a href="{{ url_for('new_project') }}" class="btn btn-primary btn-sm">
+    <i class="bi bi-plus-lg me-1"></i>Nuevo proyecto
+  </a>
+{% endblock %}
+{% block content %}
+
+{% if active %}
+<h6 class="text-muted mb-3 fw-semibold">ACTIVOS — {{ active|length }}</h6>
+<div class="row g-3 mb-4">
+  {% for p in active %}
+  <div class="col-md-6 col-xl-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <div>
+            <h6 class="mb-0 fw-bold">{{ p.name }}</h6>
+            <small class="text-muted font-monospace">{{ p.clave }}</small>
+            {% if p.folder_num %}
+            <span class="badge bg-secondary ms-1" style="font-size:.65rem">IE-{{ p.folder_num }}</span>
+            {% endif %}
+          </div>
+          <span class="badge ps-{{ p.status | replace(' ', '-') }}">{{ p.status }}</span>
+        </div>
+        {% if p.client %}<div class="mb-2"><small class="text-muted"><i class="bi bi-building me-1"></i>{{ p.client }}</small></div>{% endif %}
+
+        <!-- Barra de progreso alcances -->
+        <div class="mb-1 d-flex justify-content-between">
+          <small class="text-muted">Alcances aprobados</small>
+          <small class="fw-semibold">{{ p.approved }}/{{ p.total }}</small>
+        </div>
+        <div class="progress mb-2" style="height:6px;border-radius:4px;">
+          <div class="progress-bar bg-success" style="width:{{ p.pct }}%"></div>
+        </div>
+
+        <!-- Alertas -->
+        <div class="d-flex flex-wrap gap-1 mb-3">
+          {% if p.obs > 0 %}
+            <span class="badge bs-Observaciones"><i class="bi bi-exclamation-circle me-1"></i>{{ p.obs }} obs.</span>
+          {% endif %}
+          {% if p.review > 0 %}
+            <span class="badge bs-Revisión"><i class="bi bi-clock-history me-1"></i>{{ p.review }} en revisión</span>
+          {% endif %}
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <small class="text-muted">{{ p.version }} · {{ p.fecha }}</small>
+          <a href="{{ url_for('project_detail', project_id=p.id) }}" class="btn btn-sm btn-primary">
+            Abrir <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="text-center py-5">
+  <i class="bi bi-lightning-charge fs-1 text-muted d-block mb-3"></i>
+  <h5 class="text-muted">No hay proyectos activos</h5>
+  <a href="{{ url_for('new_project') }}" class="btn btn-primary mt-2">
+    <i class="bi bi-plus-lg me-1"></i>Crear primer proyecto
+  </a>
+</div>
+{% endif %}
+
+{% if completed %}
+<h6 class="text-muted mb-3 fw-semibold mt-2">COMPLETADOS — {{ completed|length }}</h6>
+<div class="row g-2 mb-4">
+  {% for p in completed %}
+  <div class="col-md-4">
+    <div class="card" style="border-left:3px solid #22c55e">
+      <div class="card-body py-2 px-3 d-flex justify-content-between align-items-center">
+        <div>
+          <span class="fw-semibold">{{ p.name }}</span>
+          <small class="text-muted ms-2 font-monospace">{{ p.clave }}</small>
+          {% if p.folder_num %}
+          <span class="badge bg-secondary ms-1" style="font-size:.62rem">IE-{{ p.folder_num }}</span>
+          {% endif %}
+          <span class="badge bs-Aprobado ms-1" style="font-size:.62rem">Completado</span>
+        </div>
+        <a href="{{ url_for('project_detail', project_id=p.id) }}" class="btn btn-sm btn-outline-secondary">Ver</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if closed %}
+<h6 class="text-muted mb-3 fw-semibold mt-2">CERRADOS — {{ closed|length }}</h6>
+<div class="row g-2">
+  {% for p in closed %}
+  <div class="col-md-4">
+    <div class="card" style="opacity:.65">
+      <div class="card-body py-2 px-3 d-flex justify-content-between align-items-center">
+        <div>
+          <span class="fw-semibold">{{ p.name }}</span>
+          <small class="text-muted ms-2 font-monospace">{{ p.clave }}</small>
+          {% if p.folder_num %}
+          <span class="badge bg-secondary ms-1" style="font-size:.62rem">IE-{{ p.folder_num }}</span>
+          {% endif %}
+        </div>
+        <a href="{{ url_for('project_detail', project_id=p.id) }}" class="btn btn-sm btn-outline-secondary">Ver</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}

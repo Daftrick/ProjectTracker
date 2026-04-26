@@ -1,0 +1,126 @@
+[
+  {
+    "id": "F726B1CF",
+    "project_id": "A044D4FE",
+    "quote_number": "COT-Prueba-V1",
+    "version": "V1",
+    "client": "Cliente Privado",
+    "project_name": "Prueba",
+    "date": "2026-04-19",
+    "items": [
+      {
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 100.0,
+        "price": 900.0,
+        "total": 90000.0
+      }
+    ],
+    "subtotal": 90000.0,
+    "tax_rate": 16.0,
+    "tax": 14400.0,
+    "total": 104400.0,
+    "currency": "MXN",
+    "notes": "",
+    "created_at": "2026-04-19"
+  },
+  {
+    "id": "D1E6CA99",
+    "project_id": "8CC7C53F",
+    "quote_number": "COT-Cero5Cien-0402-G01-20260424",
+    "quote_type": "General",
+    "version": "V1",
+    "client": "Niz+Chauvet",
+    "project_name": "Cero5Cien - Depto. O402",
+    "date": "2026-04-24",
+    "items": [
+      {
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 434.0,
+        "price": 950.0,
+        "total": 412300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra"
+      },
+      {
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 157.0,
+        "price": 1250.0,
+        "total": 196250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra"
+      },
+      {
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 13.0,
+        "price": 2649.98,
+        "total": 34449.74,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra"
+      },
+      {
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 13.0,
+        "price": 750.0,
+        "total": 9750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra"
+      },
+      {
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 434.0,
+        "price": 0.0,
+        "total": 0.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra"
+      },
+      {
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 570.0,
+        "price": 195.0,
+        "total": 111150.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra"
+      },
+      {
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 16 [mm] (1/2\")",
+        "unit": "ml",
+        "qty": 1.0,
+        "price": 0.0,
+        "total": 0.0,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 21 [mm] (3/4\")",
+        "unit": "ml",
+        "qty": 1.0,
+        "price": 0.0,
+        "total": 0.0,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 27 [mm] (1\")",
+        "unit": "ml",
+        "qty": 1.0,
+        "price": 0.0,
+        "total": 0.0,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      },
+      {
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 35 [mm] (1 1/4\")",
+        "unit": "ml",
+        "qty": 1.0,
+        "price": 0.0,
+        "total": 0.0,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra"
+      }
+    ],
+    "subtotal": 763899.74,
+    "tax_rate": 16.0,
+    "tax": 122223.96,
+    "total": 886123.7,
+    "currency": "MXN",
+    "notes": "",
+    "created_at": "2026-04-23"
+  }
+]

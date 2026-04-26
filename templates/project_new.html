@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Nuevo Proyecto{% endblock %}
+{% block page_title %}<i class="bi bi-plus-circle me-2 text-primary"></i>Nuevo Proyecto{% endblock %}
+{% block topbar_actions %}
+  <a href="{{ url_for('dashboard') }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Volver</a>
+{% endblock %}
+{% block content %}
+<div style="max-width:720px">
+<form method="post">
+  <div class="card mb-3">
+    <div class="card-header">Datos del proyecto</div>
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-8">
+          <label class="form-label">Nombre del proyecto *</label>
+          <input name="name" class="form-control" required placeholder="Ej: Oficinas Torre Reforma">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Cliente</label>
+          <input name="client" class="form-control" placeholder="Nombre del cliente">
+        </div>
+        <div class="col-md-5">
+          <label class="form-label">Clave del proyecto *
+            <i class="bi bi-info-circle text-muted ms-1" data-bs-toggle="tooltip"
+               title="Ej: OficinasPalmas1 | Cero5Cien-402 | RSF-LT1013"></i>
+          </label>
+          <input name="clave" class="form-control" required placeholder="Ej: OficinasPalmas1"
+                 id="claveInput" oninput="updatePreview()">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Versión</label>
+          <input name="version" class="form-control" value="V1" placeholder="V1" id="verInput" oninput="updatePreview()">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Fecha (AAMMDD)</label>
+          <input name="fecha" class="form-control" placeholder="260418" id="fechaInput" oninput="updatePreview()">
+        </div>
+        <!-- Preview nombre de archivo -->
+        <div class="col-12">
+          <div class="p-2 rounded" style="background:#f0f4ff;border:1px solid #c7d7f9;">
+            <small class="text-muted d-block mb-1">Vista previa del nombre de archivo:</small>
+            <code id="previewIE" class="text-primary">IE-{clave}-{versión}-{fecha}</code><br>
+            <code id="previewXREF" class="text-secondary">XREF-{clave}-{versión}-{fecha}</code>
+          </div>
+        </div>
+        <div class="col-12">
+          <label class="form-label">Notas</label>
+          <textarea name="notes" class="form-control" rows="2" placeholder="Descripción general, ubicación, etc."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header">Selecciona los alcances del proyecto</div>
+    <div class="card-body">
+      <div class="row g-2">
+        {% for alc in alcances_catalog %}
+        <div class="col-md-6">
+          <div class="form-check p-3 border rounded-3 h-100" style="cursor:pointer"
+               onclick="this.querySelector('input').click()">
+            <input class="form-check-input" type="checkbox" name="alcances"
+                   value="{{ alc.id }}" id="alc_{{ alc.id }}"
+                   {% if alc.id == 'cotizacion' %}checked{% endif %}>
+            <label class="form-check-label w-100" for="alc_{{ alc.id }}" style="cursor:pointer">
+              <span class="fw-semibold">{{ alc.nombre }}</span>
+              <div class="mt-1 d-flex flex-wrap gap-1">
+                <span class="badge src-{{ alc.source }}">{{ alc.source }}</span>
+                {% if alc.dep_label %}
+                  <span class="badge bg-light text-dark border" style="font-size:.7rem">
+                    <i class="bi bi-arrow-down-circle me-1"></i>{{ alc.dep_label }}
+                  </span>
+                {% endif %}
+                {% if alc.blocked_by %}
+                  <span class="badge bg-light text-muted border" style="font-size:.7rem">
+                    <i class="bi bi-lock me-1"></i>Depende de anteriores
+                  </span>
+                {% endif %}
+              </div>
+            </label>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex gap-2">
+    <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Crear proyecto</button>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">Cancelar</a>
+  </div>
+</form>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+  function updatePreview(){
+    const c=document.getElementById("claveInput").value||"{clave}";
+    const v=document.getElementById("verInput").value||"{versión}";
+    const f=document.getElementById("fechaInput").value||"{fecha}";
+    document.getElementById("previewIE").textContent=`IE-${c}-${v}-${f}`;
+    document.getElementById("previewXREF").textContent=`XREF-${c}-${v}-${f}`;
+  }
+  // Tooltips Bootstrap
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el=>new bootstrap.Tooltip(el));
+</script>
+{% endblock %}

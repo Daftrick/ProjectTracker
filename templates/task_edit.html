@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Editar tarea – Project Tracker{% endblock %}
+{% block page_title %}<i class="bi bi-pencil me-2 text-primary"></i>Editar tarea{% endblock %}
+{% block topbar_actions %}
+  <a href="{{ url_for('tasks') }}" class="btn btn-sm btn-outline-secondary">
+    <i class="bi bi-arrow-left me-1"></i>Volver
+  </a>
+{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width:700px">
+  <div class="card-body">
+    <form method="post">
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="form-label">Título *</label>
+          <input name="title" class="form-control" required value="{{ task.title }}">
+        </div>
+        <div class="col-12">
+          <label class="form-label">Descripción</label>
+          <textarea name="description" class="form-control" rows="2">{{ task.description }}</textarea>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Proyecto</label>
+          <input name="project" class="form-control" value="{{ task.project }}">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Prioridad</label>
+          <select name="priority" class="form-select">
+            {% for p in ["Alta","Media","Baja"] %}
+              <option {% if task.priority==p %}selected{% endif %}>{{ p }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Estado</label>
+          <select name="status" class="form-select">
+            {% for s in ["Pendiente","En Progreso","Completada","Bloqueada","Cancelada"] %}
+              <option {% if task.status==s %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Asignado a</label>
+          <select name="assignee" class="form-select">
+            <option value="">Sin asignar</option>
+            {% for m in team %}
+              <option {% if task.assignee==m.name %}selected{% endif %}>{{ m.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Fecha límite</label>
+          <input type="date" name="due_date" class="form-control" value="{{ task.due_date }}">
+        </div>
+        <div class="col-12">
+          <label class="form-label">Notas</label>
+          <textarea name="notes" class="form-control" rows="3">{{ task.notes }}</textarea>
+        </div>
+        <div class="col-12 d-flex gap-2">
+          <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Guardar cambios</button>
+          <a href="{{ url_for('tasks') }}" class="btn btn-outline-secondary">Cancelar</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

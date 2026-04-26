@@ -1,0 +1,42 @@
+[
+  {
+    "id": "6319022A",
+    "nombre": "Procables de México",
+    "contacto": "Ernesto Salazar Gómez",
+    "email": "",
+    "telefono": "55 6165 7380",
+    "categoria": "Materiales Eléctricos Generales",
+    "notas": "Indicar Nombre del Proyecto en cada Cotización. Pago por Transferencia en MXN. RFC PME970722H58.",
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "59151701",
+    "nombre": "Eléctrica Observatorio",
+    "contacto": "Ramón",
+    "email": "",
+    "telefono": "56 3564 6395",
+    "categoria": "Materiales Eléctricos Generales",
+    "notas": "Indicar Nombre del Proyecto en cada Cotización. Pago por Transferencia en MXN. RFC EOB930315LF1.",
+    "created_at": "2026-04-20"
+  },
+  {
+    "id": "EFFA6567",
+    "nombre": "Torsa - Ferreteria IA Kilar",
+    "contacto": "Torsa",
+    "email": "ventas2@lacasadeltornillo.email",
+    "telefono": "52779206",
+    "categoria": "Herramientas",
+    "notas": "Indicar Nombre del Proyecto en cada Cotización. Pago por Transferencia en MXN. RFC FIK200420CN6",
+    "created_at": "2026-04-21"
+  },
+  {
+    "id": "72A740BF",
+    "nombre": "Tamex",
+    "contacto": "Rogelio Paz",
+    "email": "rogelio.pm@tamex.mx",
+    "telefono": "55 5457 2921",
+    "categoria": "Materiales Eléctricos Generales",
+    "notas": "",
+    "created_at": "2026-04-23"
+  }
+]
