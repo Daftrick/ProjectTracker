@@ -3662,5 +3662,13 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24"
+  },
+  {
+    "id": "3A3EF89A",
+    "nombre": "Rondana | 1/4\"",
+    "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-04-26"
   }
 ]

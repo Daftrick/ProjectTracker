@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v8.0 — 26-Apr-2026
+## Versión actual: v8.2 — 25-Apr-2026
 
 ---
 
@@ -396,6 +396,10 @@ Los aliases aceptados en formularios: `general`, `preliminar`, `extraordinaria`,
 | 2026-04-26 | Versión bumped v6.0 → v7.0 (feature: secciones en cotizaciones) |
 | 2026-04-26 | Lanzadores: `INICIAR.vbs`/`INICIAR.bat` ya no abren otra pestaña ni levantan otra instancia si el puerto 8080 está activo; `REINICIAR.bat` reinicia sólo el proceso dueño del puerto y relanza sin abrir navegador |
 | 2026-04-26 | Versión bumped v7.0 → v8.0 (feature: lanzadores idempotentes) |
+| 2026-04-25 | Tabla de alcances: filas expandibles con observaciones+notas+historial completo (botón ▼ por alcance) |
+| 2026-04-25 | Versión bumped v8.0 → v8.1 (patch: UX tabla alcances) |
+| 2026-04-25 | logica_cuantificaciones.txt v2.0 — sincronizado con estado real: secciones COT, scanner CSV, blueprints, esquemas JSON, port 8080, rutas implementadas vs. pendientes |
+| 2026-04-25 | Versión bumped v8.1 → v8.2 (patch: documentación interna actualizada) |
 
 ---
 

@@ -87,6 +87,28 @@
     font-size:.74rem;
     line-height:1;
   }
+
+  /* ── Fila expandible de detalle ── */
+  .detail-row { display:none; }
+  .detail-row.open { display:table-row; }
+  .detail-row > td { padding:0 !important; border-bottom:none !important; }
+  .detail-row.open > td { border-bottom:1px solid rgba(255,255,255,.06) !important; }
+  .detail-inner { padding:10px 16px 14px 20px; border-left:3px solid #5a82c8; background:rgba(55,100,200,.06); }
+  .detail-section-title { font-size:.7rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:#7b8494; margin-bottom:5px; }
+  .obs-item { margin-bottom:6px; }
+  .obs-note { font-size:.8rem; padding:5px 9px; border-left:2px solid #D4537E; background:rgba(212,83,126,.08); border-radius:0 4px 4px 0; margin-top:3px; line-height:1.5; color:inherit; }
+  .obs-no-note { font-size:.78rem; color:#7b8494; font-style:italic; margin-top:2px; padding-left:4px; }
+  .tl-list { display:flex; flex-direction:column; gap:3px; }
+  .tl-item { display:flex; gap:8px; align-items:flex-start; }
+  .tl-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; margin-top:4px; }
+  .tl-obs-dot  { background:#D4537E; }
+  .tl-aprobado-dot { background:#22c55e; }
+  .tl-change-dot { background:#5a82c8; }
+  .tl-date  { font-size:.75rem; color:#7b8494; margin-right:4px; white-space:nowrap; }
+  .tl-arrow { font-size:.78rem; }
+  .tl-note  { font-size:.75rem; color:#7b8494; }
+  .expand-btn { transition:transform .2s; }
+  .expand-btn.open { transform:rotate(180deg); }
 </style>
 {% endblock %}
 
@@ -195,7 +217,7 @@
             <th style="width:32%">Alcance</th>
             <th>Info. externa</th>
             <th>Estado</th>
-            <th>Historial</th>
+            <th>Últ. cambio</th>
             <th class="text-end">Acciones</th>
           </tr>
         </thead>
@@ -257,13 +279,18 @@
             </td>
             <td>
               {% if t.history %}
-                <small class="text-muted">
-                  {% set last = t.history[-1] %}
-                  {{ last.date | fdate }} — {{ last.note | truncate(35,True) }}
-                </small>
+                {% set last = t.history[-1] %}
+                <small class="text-muted d-block">{{ last.date | fdate }}</small>
+                <small style="font-size:.72rem;color:#7b8494">{{ last.from }} → {{ last.to }}</small>
               {% else %}—{% endif %}
             </td>
             <td class="text-end">
+              {% if t.history or (subtasks[t.id] is defined and subtasks[t.id]) %}
+              <button class="btn btn-sm btn-outline-secondary me-1 expand-btn" id="expand-{{ t.id }}"
+                      onclick="toggleDetail('{{ t.id }}')" title="Ver detalle">
+                <i class="bi bi-chevron-down"></i>
+              </button>
+              {% endif %}
               {% if not project.closed_at %}
               <button class="btn btn-sm btn-outline-secondary"
                       data-bs-toggle="modal" data-bs-target="#modalStatus"
@@ -276,6 +303,55 @@
               {% endif %}
             </td>
           </tr>
+          {% if t.history or (subtasks[t.id] is defined and subtasks[t.id]) %}
+          <tr class="detail-row" id="detail-{{ t.id }}">
+            <td colspan="5">
+              <div class="detail-inner">
+                {% if subtasks[t.id] is defined and subtasks[t.id] %}
+                <div class="detail-section mb-3">
+                  <div class="detail-section-title">Observaciones activas</div>
+                  {% for st in subtasks[t.id] %}
+                  <div class="obs-item">
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="badge bs-{{ st.status | replace(' ', '-') }}" style="font-size:.7rem">
+                        <i class="bi bi-arrow-return-right me-1"></i>{{ st.title }}
+                      </span>
+                      <span class="badge bs-{{ st.status | replace(' ', '-') }}" style="font-size:.68rem">{{ st.status }}</span>
+                    </div>
+                    {% if st.notes %}
+                    <div class="obs-note">{{ st.notes }}</div>
+                    {% else %}
+                    <div class="obs-no-note">Sin notas registradas</div>
+                    {% endif %}
+                  </div>
+                  {% endfor %}
+                </div>
+                {% endif %}
+                {% if t.history %}
+                <div class="detail-section">
+                  <div class="detail-section-title">Historial completo</div>
+                  <div class="tl-list">
+                    {% for entry in t.history | reverse %}
+                    <div class="tl-item">
+                      <div class="tl-dot
+                        {% if entry.to == 'Observaciones' %}tl-obs-dot
+                        {% elif entry.to == 'Aprobado' %}tl-aprobado-dot
+                        {% else %}tl-change-dot{% endif %}">
+                      </div>
+                      <div>
+                        <span class="tl-date">{{ entry.date | fdate }}</span>
+                        <span class="tl-arrow">{{ entry.from }} → {{ entry.to }}</span>
+                        {% if entry.note %}<span class="tl-note"> · {{ entry.note }}</span>{% endif %}
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+          {% endif %}
           {% endfor %}
         </tbody>
       </table>
@@ -1086,6 +1162,16 @@
 
 {% block extra_js %}
 <script>
+  // ── Fila expandible de detalle ──────────────────────────────────────────────
+  function toggleDetail(taskId) {
+    const row = document.getElementById('detail-' + taskId);
+    const btn = document.getElementById('expand-' + taskId);
+    if (!row) return;
+    const isOpen = row.classList.contains('open');
+    row.classList.toggle('open', !isOpen);
+    if (btn) btn.classList.toggle('open', !isOpen);
+  }
+
   // Modal Info Externa
   document.getElementById("modalInfo").addEventListener("show.bs.modal", function(e) {
     const btn = e.relatedTarget;

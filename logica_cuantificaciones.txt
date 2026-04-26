@@ -1,8 +1,14 @@
 ================================================================================
   SISTEMA DE CUANTIFICACIONES — LÓGICA DE DISEÑO
   Documento de referencia para implementación en cualquier disciplina
-  Versión 1.0 — Abril 2026
+  Versión 2.0 — 25-Apr-2026  (sincronizado con app v8.1)
 ================================================================================
+
+  ESTADO DE IMPLEMENTACIÓN
+  ─────────────────────────
+  [✓] IMPLEMENTADO     → Funciona en producción en la app actual
+  [~] PARCIAL          → Implementado solo parte de la funcionalidad
+  [□] PENDIENTE        → Diseñado pero no implementado aún
 
 
 ────────────────────────────────────────────────────────────────────────────────
@@ -10,357 +16,646 @@
 ────────────────────────────────────────────────────────────────────────────────
 
 Gestionar el ciclo completo de cuantificación de materiales para proyectos de
-ingeniería, desde la extracción automática de cantidades desde herramientas CAD
-hasta la generación de listas de materiales (LDM), cotizaciones a proveedores
-y cotizaciones al cliente, manteniendo trazabilidad completa en cada paso.
+ingeniería eléctrica, desde la extracción automática de cantidades desde
+AutoCAD/LISP hasta la generación de listas de materiales (LDM), cotizaciones
+a proveedores y cotizaciones al cliente, manteniendo trazabilidad completa.
 
-El sistema es agnóstico a la disciplina (eléctrico, civil, mecánico, etc.)
-siempre que exista una herramienta de origen capaz de exportar CSV con las
-columnas definidas en el catálogo.
+El núcleo del sistema es ProjectTracker, una app Flask local que persiste
+datos en JSON y opera sin base de datos ni conexión a internet.
 
 Principios de diseño:
   - Trazabilidad completa: cualquier ítem de una cotización se puede rastrear
-    hasta el plano de origen
-  - Sin duplicaciones ni omisiones: cada CSV alimenta exactamente una LDM
-  - Cambios controlados: toda actualización pasa por una revisión de diferencias
+    hasta el catálogo global, y en el futuro hasta el plano de origen
+  - Sin duplicaciones: cada CSV alimenta exactamente una LDM
+  - Cambios controlados: toda actualización de CSV pasa por diff previo
   - Escalable por disciplina y por proyecto
 
 
 ────────────────────────────────────────────────────────────────────────────────
-2. ENTIDADES PRINCIPALES
+2. ENTORNO TÉCNICO ACTUAL
 ────────────────────────────────────────────────────────────────────────────────
 
-2.1 PROYECTO
-  - codigo          : clave corta única (ej. OM001, IE2026-003)
-  - nombre
-  - cliente
-  - fecha_inicio
-  - estado          : activo / pausado / cerrado
+  Python:     C:\Users\daftr\AppData\Local\Python\pythoncore-3.14-64\python.exe
+  Framework:  Flask ≥ 3.0.0  (blueprints: projects_bp, quotes_bp, materials_bp, admin_bp)
+  PDF:        fpdf2 ≥ 2.7.9
+  Puerto:     8080  (override con PROJECT_TRACKER_PORT=N)
+  Inicio:     INICIAR.vbs   — instala deps, espera 3s, abre navegador, Flask sin ventana
+  Debug:      DEBUG.bat     — con ventana de consola, auto-reload con FLASK_DEBUG=1
+  Reinicio:   REINICIAR.bat — mata proceso dueño del puerto 8080 y relanza sin abrir navegador
+  Persistencia: JSON plano en data/ (sin base de datos)
+  Ruta raíz:  H:\My Drive\Omniious\Claude Code\ProjectTracker\
 
-2.2 CATÁLOGO DE MATERIALES
-  - codigo_item     : único, heredado del sistema CAD
-  - descripcion
-  - unidad          : m, pza, kg, m2, etc.
-  - categoria       : Cable / Conduit / Tablero / Conector / etc.
-  - precio_referencia (opcional, actualizable)
+  Archivos de datos:
+    data/projects.json      → proyectos
+    data/tasks.json         → tareas y subtareas de alcances
+    data/deliveries.json    → entregas ZIP
+    data/quotes.json        → cotizaciones al cliente
+    data/materiales.json    → listas de materiales (LDMs)
+    data/catalogo.json      → catálogo global de artículos
+    data/proveedores.json   → proveedores
+    data/fichas.json        → fichas técnicas de equipos
+    data/config.json        → rutas de Drive (drive_projects_path, drive_fichas_path)
 
-  Nota: los nombres de columna en el CSV exportado desde CAD deben coincidir
-  exactamente con los campos del catálogo para evitar mapeos manuales.
-
-2.3 ARCHIVO CSV (origen CAD)
-  - nombre_archivo  : [PROYECTO]-v[VERSION_PLANO]-i[CONSECUTIVO]-[FECHA].csv
-  - proyecto_codigo
-  - version_plano   : versión del DWG de origen (ej. 2, 3)
-  - consecutivo_csv : número de exportaciones del mismo plano/versión (1, 2, 3)
-  - fecha_exportacion
-  - estado          : pendiente / importado / desactualizado
-
-  Ejemplo de nombre: OM001-v2-i1-20260420.csv
-                     OM001-v2-i2-20260424.csv  (re-exportación del mismo plano v2)
-
-2.4 LISTA DE MATERIALES (LDM)
-  - ldm_id          : [PROYECTO]-LDM[NN]  → ej. OM001-LDM01
-  - proyecto_codigo
-  - csv_origen      : nombre del CSV que la generó (null si es manual)
-  - fecha_importacion
-  - version_activa  : versión del plano en el momento de la importación
-  - estado          : borrador / emitida / cancelada
-  - notas
-
-  Renglones de LDM:
-  - codigo_item
-  - descripcion     (del catálogo)
-  - unidad          (del catálogo)
-  - qty_csv         : cantidad original del CSV (nunca modificable)
-  - qty_ldm         : cantidad real a cotizar (puede diferir de qty_csv)
-  - qty_editada     : booleano — indica si el usuario modificó qty_ldm
-  - qty_nota        : razón del ajuste manual (ej. "redondeo a múltiplo de 10")
-  - origen          : "csv" | "manual"
-
-  Regla clave:
-    qty_csv es de solo lectura — solo el CSV la puede cambiar.
-    qty_ldm es del ingeniero — el CSV puede sugerirla, el ingeniero la aprueba.
-
-2.5 COTIZACIÓN DE PROVEEDOR (CPROV)
-  - cprov_id        : CPROV-[PROYECTO]-[LDM_REF]-[PROVEEDOR]-[NUM_COT_PROV]
-  - ldm_origen      : ID de la LDM asociada
-  - proveedor
-  - num_cot_proveedor : folio del proveedor en su propio documento
-  - fecha
-  - archivo_pdf     : nombre del archivo en la carpeta del proyecto
-  - estado          : recibida / aceptada / rechazada
-
-  Renglones de CPROV:
-  - codigo_item
-  - qty_cotizada
-  - precio_unitario
-  - precio_total    : calculado (qty × precio_unit)
-  - subtotal_cprov  : suma de todos los renglones
-
-2.6 COTIZACIÓN AL CLIENTE (COT)
-  - cot_id          : COT-[PROYECTO]-[TIPO][NN]-[FECHA]  → ej. COT-OM001-G01-20260420
-  - proyecto_codigo
-  - tipo            : Preliminar (P) | General (G) | Extraordinario (E)
-  - numero_secuencial : por tipo y por proyecto (01, 02, 03...)
-  - fecha
-  - estado          : borrador / enviada / aceptada / rechazada
-  - archivo_pdf     : COT-OM001-G01-20260420.pdf
-
-  Renglones de COT:
-  - descripcion     (puede ser agrupada, no necesariamente ítem a ítem)
-  - cantidad
-  - precio_unitario
-  - precio_total
-  - subtotal, iva, total
+  Carpeta proyecto en Drive:
+    IE-{folder_num:03d}-{clave}   →  ej. IE-004-OM001
 
 
 ────────────────────────────────────────────────────────────────────────────────
-3. NOMENCLATURA DE ARCHIVOS
+3. ENTIDADES PRINCIPALES — ESQUEMA REAL (JSON)
 ────────────────────────────────────────────────────────────────────────────────
 
-Todos los archivos viven en la misma carpeta del proyecto (sin subcarpetas).
-Se identifican por prefijo:
+3.1 CATÁLOGO DE ARTÍCULOS  [✓]  →  data/catalogo.json
 
-  CSV de plano:           [PROYECTO]-v[VER_PLANO]-i[CONSEC]-[FECHA].csv
-  LDM (PDF emitido):      LDM-[PROYECTO]-[NN]-[FECHA].pdf
-  Cotización proveedor:   CPROV-[PROYECTO]-[LDM_REF]-[PROVEEDOR]-[NUM_COT].pdf
-  Cotización cliente:     COT-[PROYECTO]-[TIPO][NN]-[FECHA].pdf
+  {
+    "id":          "42075597",        // UUID 8-chars hex, generado por app (new_id())
+    "nombre":      "Tubo Conduit Galvanizado Pared Delgada | 27 [mm] (1\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y MO",
+    "unidad":      "pza",            // pza, m, m2, m3, kg, hrs, tramo, rollo, ml, etc.
+    "precio":      0.0,              // precio de referencia (puede ser 0)
+    "created_at":  "2026-04-20"      // YYYY-MM-DD, asignado por app
+  }
+
+  Convenciones de nomenclatura observadas:
+    nombre      → "[Tipo] | [Dimensión/Especificación]"
+    descripcion → "[Marca/Fabricante] | [Alcance del suministro]"
+
+  El catálogo es GLOBAL (no pertenece a ningún proyecto).
+  Los ítems se vinculan a COT y LDM por catalog_item_id.
+  La vinculación puede hacerse por ID o por coincidencia de nombre (fallback).
+
+  APIs disponibles [✓]:
+    GET  /api/catalogo?q={texto}        → búsqueda, máx 30 resultados
+    POST /api/catalogo/add              → agregar artículo (body JSON)
+    POST /api/catalogo/bulk-delete      → eliminar varios por IDs
+    POST /api/catalogo/<id>/edit        → editar artículo (soporta AJAX)
+    POST /api/catalogo/<id>/delete      → eliminar artículo
+
+
+3.2 LISTA DE MATERIALES (LDM)  [✓]  →  data/materiales.json
+
+  {
+    "id":           "E2BAF2B5",          // UUID 8-chars hex
+    "project_id":   "8CC7C53F",          // ID del proyecto padre
+    "ldm_number":   "LDM-OM001-01",      // formato: LDM-{clave}-{seq:02d}
+    "seq":          1,                   // secuencial dentro del proyecto
+    "proveedor":    "Procables de México",
+    "fecha":        "2026-04-06",        // YYYY-MM-DD
+    "items": [
+      {
+        "catalog_item_id": "42075597",   // vínculo al catálogo (puede ser "")
+        "description": "Tubo Conduit Galvanizado Pared Delgada | 27 [mm] (1\")",
+        "unit":        "pza",
+        "qty":         70.0,
+        "precio_cot":  0.0,              // precio del proveedor (usuario lo llena)
+        "total_cot":   0.0               // qty * precio_cot, calculado por app
+      }
+    ],
+    "subtotal_cot":  0.0,               // suma de total_cot de todos los ítems
+    "cot_proveedor": null,              // número/referencia de cotización del proveedor
+    "notes":         "",
+    "created_at":    "2026-04-20"
+  }
+
+  Nota de compatibilidad — formatos legacy en materiales.json:
+    LDM-{clave}-{MMDD}-{seq:02d}    →  ej. LDM-Cero5Cien-0402-01  (obsoleto)
+    LDM-{clave}-{seq:02d}           →  ej. LDM-OM001-01            (actual)
+
+  Campos pendientes de implementar para flujo CSV→LDM [□]:
+    "csv_origen"    → nombre del archivo CSV que generó la LDM (null si manual)
+    "csv_sources"   → lista de CSV vinculados (para muchos-a-uno futuro)
+    "qty_csv"       → cantidad original del CSV (inmutable)
+    "qty_editada"   → booleano: el usuario modificó qty manualmente
+
+  PDF generado: LDM-{clave}-{seq:02d}-{AAMMDD}.pdf  → guardado en carpeta Drive
+  API JSON:
+    POST /api/ldm/<id>/costo    → { "subtotal_cot": 1234.56 }  (actualización inline)
+
+
+3.3 COTIZACIÓN AL CLIENTE (COT)  [✓]  →  data/quotes.json
+
+  {
+    "id":           "F726B1CF",
+    "project_id":   "A044D4FE",
+    "quote_number": "COT-OM001-G01-20260419",   // auto-generado, sobreescribible
+    "quote_type":   "General",                  // "General" | "Preliminar" | "Extraordinaria"
+    "version":      "",                         // campo libre (ej. "Rev.1")
+    "client":       "Cliente Privado",          // tomado del proyecto
+    "project_name": "Oficinas OM001",           // tomado del proyecto
+    "date":         "2026-04-19",               // YYYY-MM-DD
+    "items": [
+      {
+        "catalog_item_id": "42075597",          // vínculo al catálogo (puede ser "")
+        "description": "Salida Eléctrica para Luminaria",
+        "unit":        "pza",
+        "qty":         100.0,
+        "price":       900.0,                   // precio unitario de VENTA al cliente
+        "total":       90000.0,                 // qty * price, calculado por app
+        "catalog_description": "Argos | Incluye MO",  // descripción secundaria del catálogo
+        "section":     "Iluminación"            // sección opcional para agrupar partidas
+      }
+    ],
+    "subtotal":    90000.0,
+    "tax_rate":    16.0,                        // IVA en porcentaje (default 16)
+    "tax":         14400.0,
+    "total":       104400.0,
+    "currency":    "MXN",                       // "MXN" | "USD" | "EUR"
+    "notes":       "",
+    "created_at":  "2026-04-19"
+  }
+
+  Tipos de cotización y códigos en el número:
+    Código P → Preliminar   : estimación antes de ingeniería de detalle
+    Código G → General      : cotización formal del proyecto completo
+    Código E → Extraordinaria: trabajos adicionales fuera del alcance original
+
+  Numeración automática (catalog.py:next_quote_number):
+    COT-{clave}-{G|P|E}{NN:02d}-{YYYYMMDD}
+    Secuencial independiente POR TIPO dentro del proyecto.
+    NN = len(cotizaciones del mismo tipo en el proyecto) + 1
+    El usuario puede sobreescribir el número en el formulario.
+
+  Secciones (feature v7.0) [✓]:
+    Cada ítem tiene campo "section" (string, puede ser "").
+    Los ítems con la misma sección consecutiva se agrupan.
+    catalog.py:quote_section_groups() genera lista de grupos con subtotal.
+    hydrate_quote() añade clave "sections" al dict de la cotización.
+    La vista y el PDF muestran encabezado de sección + subtotal por sección.
+
+  Vinculación con catálogo:
+    Prioridad 1: por catalog_item_id (UUID exacto)
+    Prioridad 2: por nombre normalizado (fallback, solo en lectura/hidratación)
+    catalog.py:hydrate_quote_item() resuelve el vínculo en cada carga.
+
+  PDF generado: {quote_number}.pdf → guardado en carpeta Drive del proyecto
+  Ruta: GET /projects/<id>/quote/<qid>/pdf
+
+
+3.4 ARCHIVO CSV DE PLANO (origen AutoCAD/LISP)  [~ parcial]
+
+  Formato de nombre requerido (OBLIGATORIO para que la app lo reconozca):
+    {CLAVE}-v{VERSION_PLANO}-i{CONSECUTIVO}-{YYYYMMDD}.csv
 
   Ejemplos:
-    OM001-v2-i1-20260420.csv
-    LDM-OM001-01-20260420.pdf
+    OM001-v2-i1-20260420.csv    → primera exportación del plano v2
+    OM001-v2-i2-20260424.csv    → re-exportación del mismo plano v2
+    OM001-v3-i1-20260502.csv    → plano con revisión de versión
+
+  Parser implementado (drive.py:parse_csv_plano_filename):
+    Extrae: project (clave), version (int), consecutive (int), date (YYYYMMDD)
+    Genera: date_label (DD/MM/YYYY) para mostrar en UI
+    Regex: ^{CLAVE}-v{\\d+}-i{\\d+}-{\\d{8}}\\.csv$  (case-insensitive)
+
+  El escáner (drive.py:scan_drive_folder) detecta los CSV por patrón:
+    ^{clave}-v\\d  (los separa del resto de archivos antes de clasificar)
+
+  Estados del CSV en la UI [✓]:
+    "Pendiente"      → CSV en carpeta, no vinculado a ninguna LDM
+    "Actualización"  → CSV posterior al último CSV importado (nueva versión disponible)
+    "Importado"      → vinculado a una LDM existente (campos csv_origen/csv_sources en LDM)
+    "Desactualizado" → vinculado a LDM pero hay un CSV más reciente en la carpeta
+
+  Lógica de comparación (drive.py:decorate_csv_plano):
+    Ordena por (version, consecutive, date) — clave: csv_version_key()
+    El más reciente con mayor (version, consecutive, date) es el "latest"
+    Si linked y key < latest_key  → Desactualizado
+    Si linked y key == latest_key → Importado
+    Si not linked y key > latest_linked_key → Actualización
+    Si not linked                 → Pendiente
+
+  Vinculación con LDM (lectura de campos alternativos en LDM):
+    drive.py:_ldm_csv_sources() lee: csv_origen, csv_origin, csv_filename, csv_sources[]
+    Estos campos NO existen aún en LDMs creadas por la app (flujo CSV→LDM pendiente).
+
+  Importación real de CSV a LDM [□ PENDIENTE]:
+    La app detecta y muestra el estado de los CSV pero aún no los importa.
+    La ruta POST /api/import/ldm no existe aún.
+    Ver Sección 5 para diseño del flujo de importación.
+
+  Formato de contenido del CSV (para el script LISP):
+    description,unit,qty
+    "Tubo Conduit Pared Delgada | 27 [mm] (1\")","pza",70
+    "Abrazadera para Unicanal | 27 [mm] (1\")","pza",125
+
+    Reglas:
+    - Columnas obligatorias: description, unit, qty
+    - Codificación: UTF-8
+    - Separador: coma (,)
+    - Strings con comas: entre comillas dobles
+    - NO incluir precio_cot ni total_cot (los llena el usuario en la app)
+    - description debe coincidir con el catálogo (o será ítem sin vínculo)
+
+
+3.5 PROYECTO  [✓]  →  data/projects.json
+
+  {
+    "id":        "8CC7C53F",
+    "name":      "Oficinas OM001",
+    "clave":     "OM001",           // clave corta única (usada en nomenclatura)
+    "client":    "Cliente Privado",
+    "version":   "V1",
+    "fecha":     "260420",          // AAMMDD
+    "alcances":  ["iluminacion", "contactos", "hvac", "cuadro_cargas"],
+    "notes":     "",
+    "folder_num": "004",            // NNN auto-incremental, asignado al crear
+    "closed_at":  null,
+    "created_at": "2026-04-19"
+  }
+
+  Carpeta Drive: IE-{folder_num:03d}-{clave}  →  ej. IE-004-OM001
+
+
+────────────────────────────────────────────────────────────────────────────────
+4. NOMENCLATURA DE ARCHIVOS EN CARPETA DE PROYECTO
+────────────────────────────────────────────────────────────────────────────────
+
+  Todos los archivos viven en la carpeta raíz del proyecto (sin subcarpetas).
+  Se identifican por prefijo:
+
+  Tipo                   Patrón de nombre                           Estado
+  ─────────────────────────────────────────────────────────────────────────
+  Plano eléctrico DWG    IE-{clave}-{VER}-{FECHA}.dwg              [✓]
+  Plano eléctrico PDF    IE-{clave}-{VER}-{FECHA}.pdf              [✓]
+  Memoria de cálculo     MEM-{clave}-{VER}-{FECHA}.pdf             [✓]
+  XREFs / trabajo        XREF-{clave}-{VER}-{FECHA}.*              [✓]
+  LDM emitida            LDM-{clave}-{NN}-{AAMMDD}.pdf             [✓]
+  Cot. proveedor PDF     CPROV-{clave}-{LDM}-{PROV}-{NUM}.pdf      [~]
+  Cotización cliente     COT-{clave}-{G|P|E}{NN}-{YYYYMMDD}.pdf    [✓]
+  CSV de plano           {clave}-v{VER}-i{CONSEC}-{YYYYMMDD}.csv   [~ detección ✓ / importación □]
+  Entrega ZIP            Entrega-{clave}-{VER}-{AAMMDD}.zip        [✓]
+
+  Ejemplos:
+    IE-OM001-V1-260420.dwg
+    IE-OM001-V1-260420.pdf
+    MEM-OM001-V1-260420.pdf
+    LDM-OM001-01-260420.pdf
     CPROV-OM001-LDM01-ABB-45231.pdf
     COT-OM001-P01-20260410.pdf
     COT-OM001-G01-20260420.pdf
     COT-OM001-E01-20260502.pdf
+    OM001-v2-i1-20260420.csv
+    Entrega-OM001-V1-260501.zip
 
 
 ────────────────────────────────────────────────────────────────────────────────
-4. FLUJO DE TRABAJO COMPLETO
+5. FLUJO DE TRABAJO — ESTADO DE IMPLEMENTACIÓN
 ────────────────────────────────────────────────────────────────────────────────
 
-4.1 GENERACIÓN DE CSV DESDE CAD
+5.1 GENERACIÓN DE CSV DESDE AUTOCAD/LISP  [□ Pendiente — lado LISP]
 
-  [CAD + Script/LISP]
-    ↓ Aplica reglas de redondeo (configuradas en el script, no en la app)
-    ↓ Exporta CSV con columnas que coinciden con el catálogo
-    ↓ Nombra el archivo: [PROYECTO]-v[VER_PLANO]-i[CONSEC]-[FECHA].csv
-    ↓ Guarda en carpeta del proyecto (sincronizada con Drive u otro)
+  [LISP en AutoCAD]
+    ↓ Cuenta y clasifica objetos del dibujo (luminarias, circuitos, etc.)
+    ↓ Aplica reglas de redondeo configuradas en el script (NO en la app)
+    ↓ Exporta CSV con columnas: description, unit, qty
+    ↓ Nombra el archivo: {CLAVE}-v{VER_PLANO}-i{CONSEC}-{YYYYMMDD}.csv
+    ↓ Guarda en carpeta del proyecto (sincronizada con Drive)
 
-  El redondeo se maneja íntegramente en el CAD/LISP:
-    - El ingeniero configura reglas por categoría en el script
+  El redondeo es responsabilidad exclusiva del LISP:
     - La app recibe cantidades ya procesadas
     - La app NO implementa lógica de redondeo propia
 
-  El campo qty_csv en la app siempre refleja lo que llegó del CSV.
-  Si el ingeniero ajusta manualmente en la app → qty_ldm ≠ qty_csv y
-  qty_editada = true.
+5.2 DETECCIÓN DE CSV EN LA APP  [✓ Implementado]
 
-4.2 IMPORTACIÓN DE CSV A LDM
+  Al abrir un proyecto → pestaña Documentos → sección "CSVs de plano":
+    - La app escanea la carpeta del proyecto (drive.py:scan_drive_folder)
+    - Detecta archivos que coinciden con el patrón {clave}-v\\d...
+    - Muestra cada CSV con badge de estado: Pendiente / Actualización /
+      Importado / Desactualizado
+    - Muestra: versión del plano, consecutivo, fecha de exportación, tamaño
 
-  Paso 1: La app escanea la carpeta del proyecto
-    → Lista los CSV disponibles que no han sido importados aún
-    → Identifica si algún CSV es versión actualizada de uno ya importado
+5.3 IMPORTACIÓN DE CSV A LDM  [□ Pendiente]
 
-  Paso 2: El usuario selecciona el CSV a importar
-    → La app valida que cada código_item del CSV exista en el catálogo
-    → Si hay items desconocidos: alerta con opción de agregarlos al catálogo
+  DISEÑO (aún no implementado):
 
-  Paso 3: Creación de LDM
-    → Se genera LDM con ID automático: [PROYECTO]-LDM[NN]
-    → Cada renglón se crea con qty_csv = qty_ldm (valores del CSV)
-    → qty_editada = false para todos los renglones
-    → origen = "csv" para todos los renglones
+  Paso 1: Usuario hace click en "Importar" en el CSV deseado
+    → La app valida que cada description del CSV exista en el catálogo
+    → Si hay ítems desconocidos: alerta con opción de agregarlos al catálogo
 
-  Paso 4: El usuario puede agregar renglones manuales
-    → origen = "manual"
-    → qty_csv = null (no viene de ningún CSV)
-    → qty_ldm = cantidad ingresada manualmente
+  Paso 2: Si la LDM ya existe (actualización):
+    → Muestra pantalla de diff:
 
-  Regla anti-duplicación:
-    Un CSV puede asociarse a una sola LDM.
-    Si el usuario intenta importar un CSV ya vinculado a otra LDM del mismo
-    proyecto, la app alerta y pregunta si quiere actualizar la LDM existente
-    o crear una LDM adicional (caso excepcional justificado).
-
-4.3 ACTUALIZACIÓN DE LDM POR NUEVA VERSIÓN DE CSV
-
-  Cuando llega un CSV actualizado (mismo plano, versión incrementada):
-    → La app detecta el archivo nuevo en la carpeta del proyecto
-    → Muestra notificación en la vista del proyecto:
-       "LDM-OM001-01 tiene una versión de plano disponible (v2-i2)"
-    → El usuario inicia la actualización
-
-  Pantalla de diff antes de aplicar cambios:
-
-    Ítem            CSV anterior   CSV nuevo    LDM actual   Acción sugerida
-    ─────────────────────────────────────────────────────────────────────────
-    Cable THHN 12   120 m          150 m        120 m        ✎ Actualizar
-    Conduit 3/4"    45 m           45 m         50 m (*)     ⚠ Mantener (*)
-    Conector 3/4"   30 pza         30 pza       30 pza       ✓ Sin cambio
-    Caja 4x4        —              12 pza       —            + Agregar nuevo
-    Tape negro      10 rll         —            10 rll       - Retirado de plano
+    Ítem             CSV anterior  CSV nuevo  LDM actual  Acción sugerida
+    ────────────────────────────────────────────────────────────────────
+    Cable THHN 12    120 m         150 m      120 m       ✎ Actualizar
+    Conduit 3/4"     45 m          45 m       50 m (*)    ⚠ Revisar (*)
+    Conector 3/4"    30 pza        30 pza     30 pza      ✓ Sin cambio
+    Caja 4x4         —             12 pza     —           + Nuevo
+    Tape negro       10 rll        —          10 rll      - Retirado
 
     (*) qty_editada = true → el usuario había ajustado manualmente
 
-  Reglas del diff:
-    ✓ Sin cambio       → qty_csv igual, sin acción
-    ✎ Actualizar       → qty_csv cambió, qty_editada = false → actualizar automático
-    ⚠ Revisar         → qty_csv cambió, qty_editada = true → requiere decisión manual
-    + Agregar nuevo    → ítem no existía en LDM → se agrega (usuario confirma)
-    - Retirado de plano → ítem ya no está en CSV → se marca, no se borra automáticamente
+    Reglas del diff:
+      ✓ Sin cambio    → qty_csv igual, qty_editada false → sin acción
+      ✎ Actualizar    → qty_csv cambió, qty_editada false → actualización automática
+      ⚠ Revisar       → qty_csv cambió, qty_editada true → decisión manual requerida
+      + Nuevo         → ítem no existía en LDM → agregar (usuario confirma)
+      - Retirado      → ítem ya no está en CSV → marcar, no borrar automáticamente
 
-  Después del diff, el usuario aprueba y la app aplica los cambios.
-  Los renglones de origen "manual" nunca se tocan en el diff.
+  Paso 3: Creación de LDM
+    → ID automático: LDM-{clave}-{NN:02d}
+    → Cada renglón: qty_csv = qty_ldm = valor del CSV
+    → qty_editada = false, origen = "csv"
+    → LDM guarda referencia al CSV: csv_origen = nombre del archivo
 
-4.4 COTIZACIÓN A PROVEEDOR (CPROV)
+  Paso 4: El usuario agrega renglones manuales si los necesita
+    → origen = "manual", qty_csv = null
 
-  Desde una LDM emitida, el usuario puede:
-    → Registrar una cotización de proveedor
-    → Ingresar: proveedor, número de cotización del proveedor, fecha
-    → Por renglón: precio unitario cotizado
-    → La app calcula totales automáticamente
-    → El archivo PDF del proveedor se sube o se registra con nombre CPROV-...
-    → El costo total de la CPROV queda vinculado a la LDM
+  Ruta pendiente: POST /api/import/ldm
 
-  Una LDM puede tener múltiples CPROVs (comparativo de precios).
-  El usuario marca cuál CPROV es la "aceptada" para el cálculo de margen.
+5.4 CREACIÓN MANUAL DE LDM  [✓ Implementado]
 
-4.5 COTIZACIÓN AL CLIENTE (COT)
+  Ruta: GET/POST /projects/<id>/ldm/new
+  Formulario: proveedor, fecha, ítems con autocomplete de catálogo
+  El usuario captura: description, unit, qty, precio_cot (opcional)
+  La app genera ldm_number automáticamente.
+  El costo puede editarse inline en la tabla (API /api/ldm/<id>/costo).
+  El número de cotización del proveedor se asigna vía modal.
+  PDF: GET /projects/<id>/ldm/<lid>/pdf → LDM-{clave}-{NN}-{AAMMDD}.pdf en Drive
 
-  Se genera de forma independiente a la cadena CSV→LDM.
-  Puede referenciar varias LDMs o ser totalmente manual.
-  El número se auto-genera: COT-[PROYECTO]-[P/G/E][NN]-[FECHA]
-  Tipos:
-    P = Preliminar: estimación inicial antes de tener ingeniería de detalle completa
-    G = General: cotización formal del proyecto o de una etapa
-    E = Extraordinario: trabajo fuera del alcance original
+5.5 COTIZACIÓN A PROVEEDOR (CPROV)  [~ parcial]
 
-  El PDF se nombra igual al número de cotización.
+  Estado actual:
+  [✓] El usuario puede registrar el número de cotización del proveedor en la LDM
+      (campo cot_proveedor) vía modal o inline.
+  [✓] El archivo PDF del proveedor (CPROV-...) en la carpeta Drive se detecta
+      y muestra en la pestaña Documentos, con badge "vinculado" / "sin vincular".
+  [□] No existe entidad CPROV en la base de datos (sin tabla propia en JSON).
+  [□] No hay captura de precios unitarios por renglón desde el PDF del proveedor.
+  [□] No hay comparativo multi-proveedor.
 
-4.6 VISTA FINANCIERA DEL PROYECTO
+  En la práctica actual:
+    El usuario recibe la cotización del proveedor por correo (PDF).
+    Lo nombra CPROV-{clave}-{LDM}-{PROV}-{NUM}.pdf y lo guarda en Drive.
+    En la app, registra el número de referencia en el campo cot_proveedor de la LDM.
+    Captura el costo total de la LDM manualmente (subtotal_cot editable inline).
 
-  Cotizado al cliente : suma de COTs aceptadas
-  Costo proveedores   : suma de CPROVs aceptadas
-  Margen bruto        : cotizado - costo
-  Margen %            : (margen / cotizado) × 100
+5.6 COTIZACIÓN AL CLIENTE (COT)  [✓ Implementado]
+
+  Rutas:
+    GET/POST /projects/<id>/quote/new      → nueva cotización
+    GET/POST /projects/<id>/quote/<qid>/edit → editar cotización
+    GET      /projects/<id>/quote/<qid>/view → vista de solo lectura
+    GET      /projects/<id>/quote/<qid>/pdf  → genera PDF en Drive
+
+  Formulario con:
+    - Tipo (General/Preliminar/Extraordinaria), fecha, moneda, IVA
+    - Ítems con autocomplete de catálogo
+    - Secciones opcionales para agrupar partidas con subtotal por sección
+    - Barra de totales fija en la parte inferior (subtotal + IVA + total)
+    - Número de cotización auto-generado pero sobreescribible
+    - Drag-and-drop para reordenar partidas
+
+  Vista de cotización (quote_project_detail.html):
+    - Muestra ítems agrupados por sección con encabezado y subtotal
+    - Los ítems sin sección forman un grupo con nombre vacío
+
+  PDF: {quote_number}.pdf guardado en la carpeta Drive del proyecto.
+
+5.7 VISTA FINANCIERA DEL PROYECTO  [✓ Implementado]
+
+  En el header de project_detail.html:
+    Cotizado al cliente : suma de total de todas las COTs del proyecto
+    Costo proveedores   : suma de subtotal_cot de todas las LDMs
+    Margen bruto        : cotizado - costo
+    Margen %            : (margen / cotizado) × 100
+
+  Los datos se calculan en routes/projects.py al renderizar project_detail.
 
 
 ────────────────────────────────────────────────────────────────────────────────
-5. REGLAS DE INTEGRIDAD
+6. REGLAS DE INTEGRIDAD (diseño objetivo)
 ────────────────────────────────────────────────────────────────────────────────
 
 R1. Un CSV → una sola LDM (en el mismo proyecto).
     Excepción documentada para proyectos por etapas con autorización explícita.
+    [□ Pendiente de enforcement al implementar importación]
 
 R2. qty_csv es inmutable después de la importación.
     Solo una re-importación del CSV puede actualizarla, y siempre con diff previo.
+    [□ Pendiente — campo aún no existe en LDMs actuales]
 
 R3. Los renglones de origen "manual" son invisibles al proceso de diff.
-    No se actualizan, no se eliminan por cambios en CSV.
+    No se actualizan ni se eliminan por cambios en CSV.
+    [□ Pendiente]
 
 R4. No se borran renglones automáticamente.
     Los ítems retirados del plano se marcan como "retirados", el ingeniero
-    decide si eliminarlos o conservarlos (pueden ser materiales ya comprados).
+    decide si eliminarlos (pueden ser materiales ya comprados).
+    [□ Pendiente]
 
 R5. Una LDM puede emitirse (PDF) solo si tiene al menos un renglón.
+    [✓ Implementado — la app valida en validate_ldm_form]
 
-R6. Una CPROV debe estar vinculada a una LDM existente.
-
-R7. El número de COT se asigna secuencialmente por tipo dentro del proyecto.
-    Los tipos son P (Preliminar), G (General) y E (Extraordinario).
-    No puede haber dos COT-OM001-G01, ni dos COT-OM001-P01, etc.
+R6. El número de COT se asigna secuencialmente por tipo dentro del proyecto.
+    No puede haber dos COT-OM001-G01, ni dos COT-OM001-P01.
     La secuencia es independiente por tipo: P01, P02... / G01, G02... / E01, E02...
+    [✓ Implementado — next_quote_number en catalog.py]
+
+R7. Monedas válidas para COT: MXN, USD, EUR.
+    [✓ Implementado — validate_quote_form en validators.py]
 
 
 ────────────────────────────────────────────────────────────────────────────────
-6. GESTIÓN DE DOCUMENTOS EN CARPETA DE PROYECTO
+7. ESCÁNER DE CARPETA DE PROYECTO (drive.py)
 ────────────────────────────────────────────────────────────────────────────────
 
-La app escanea la carpeta del proyecto y clasifica los archivos por prefijo:
+scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None)
+  → Retorna dict con listas de archivos clasificadas por tipo.
 
-  Prefijo       Tipo                    Columna en vista Documentos
-  ────────────────────────────────────────────────────────────────
-  LDM-          Lista de materiales     Lista de Materiales
-  COT-          Cotización cliente      Cotizaciones
-  CPROV-        Cotización proveedor    Cotizaciones
-  [PROY]-v      CSV de plano            (vista técnica / importación)
-  Otros         Archivos de trabajo     Trabajo / Otros
+Clasificación por prefijo (en orden de prioridad):
+  1. CSV de plano: {clave}-v\\d... → csv_plano[]
+  2. LDM-*         → ldm_files[]
+  3. CPROV-* o COT-* → cot_files[]  (o provider_quote_files[] si coincide con proveedor LDM)
+  4. MEM-*         → mem_files[]
+  5. IE-*          → ie_files[]
+  6. XREF*         → work_files[]
+  7. resto         → other_files[]
 
-  Cada archivo listado muestra: nombre, fecha, tamaño, botón abrir/descargar.
-  Los archivos reconocidos por la BD muestran su estado (borrador, emitido, etc.)
+  Los archivos IE-* y MEM-* se decoran con "highlight":
+    - decorate_latest() detecta la versión más reciente por patrón -V{N}-{FECHA}
+    - El archivo más reciente tiene highlight=True (color especial en UI)
 
+Detección de cotizaciones de proveedor:
+  provider_quote_status(filename, ldms):
+    - Normaliza el nombre del archivo (quita acentos, lowercase)
+    - Busca token del proveedor de cada LDM en el nombre del archivo
+    - Si token del proveedor + número de cot_proveedor ambos presentes → linked=True
+    - Si solo token del proveedor → linked=False (archivo del proveedor no vinculado)
 
-────────────────────────────────────────────────────────────────────────────────
-7. EXTENSIBILIDAD A OTRAS DISCIPLINAS
-────────────────────────────────────────────────────────────────────────────────
-
-Para adaptar el sistema a otra disciplina (civil, mecánico, etc.):
-
-  1. Catálogo: cargar los materiales de la disciplina con sus unidades propias
-  2. Script de exportación: adaptar el script CAD/BIM para exportar con las
-     mismas columnas que el catálogo (código, descripción, unidad, cantidad)
-  3. Categorías: definir las categorías de la disciplina para agrupar en LDM
-  4. Reglas de redondeo: configurar en el script de exportación según la
-     disciplina (m2, m3, ton, etc.)
-  5. El resto del flujo (CSV→LDM→CPROV→COT) es idéntico
-
-  El sistema es agnóstico al tipo de material. Lo único disciplina-específico
-  es el catálogo y el script de exportación CAD.
-
-
-────────────────────────────────────────────────────────────────────────────────
-8. INTERFAZ — PANTALLAS CLAVE
-────────────────────────────────────────────────────────────────────────────────
-
-8.1 VISTA PROYECTO
-  - Resumen financiero (cotizado / costo / margen)
-  - Tabs: LDMs | Cotizaciones | Documentos | Equipo
-  - Notificaciones de CSV nuevos o actualizados disponibles
-
-8.2 IMPORTAR CSV
-  - Lista de CSVs disponibles en carpeta del proyecto
-  - Indicador: "Nuevo" / "Actualización de LDM-XX" / "Ya importado"
-  - Pantalla de validación de columnas (primera vez por proyecto)
-  - Pantalla de diff (en actualizaciones)
-
-8.3 VISTA LDM
-  - Tabla de renglones: código, descripción, unidad, qty_csv, qty_ldm, origen
-  - Indicador visual en celdas con qty_editada = true
-  - Botón "Actualizar desde CSV" si hay versión nueva disponible
-  - Panel de CPROVs vinculadas con precios y totales
-  - Botón "Emitir PDF"
-
-8.4 CONFIGURACIÓN DE PROYECTO
-  - Ruta de carpeta de proyecto (para escaneo de archivos)
-  - Mapeo de columnas CSV → catálogo (guardado por proyecto)
-
-8.5 CATÁLOGO GLOBAL
-  - CRUD de materiales
-  - Columnas: código, descripción, unidad, categoría, precio_referencia
-  - Import/export masivo vía CSV
+Decoración de CSV de plano:
+  decorate_csv_plano(files, ldms, clave):
+    - Ordena por (version, consecutive, date)
+    - Compara con csv_origen/csv_sources de las LDMs del proyecto
+    - Asigna badge: Pendiente / Actualización / Importado / Desactualizado
+    - Retorna: parsed (dict con campos del nombre), status, status_label, badge_class,
+               hint, linked_ldm, is_latest
 
 
 ────────────────────────────────────────────────────────────────────────────────
-9. DECISIONES DE DISEÑO PENDIENTES
+8. CATÁLOGO — VINCULACIÓN CON LDM Y COT (catalog.py)
+────────────────────────────────────────────────────────────────────────────────
+
+catalog_maps()
+  → Retorna (by_id: dict, by_name: dict)
+  → by_id: {catalog_item_id: artículo}
+  → by_name: {nombre_normalizado: artículo}
+  → La normalización quita caracteres especiales y comprime espacios
+
+resolve_catalog_binding(item, by_id, by_name, text_key, infer_by_name)
+  → Prioridad 1: vincula por catalog_item_id si está presente y existe en catálogo
+  → Prioridad 2: vincula por nombre normalizado (solo si infer_by_name=True)
+  → Retorna (catalog_item_id, catalog_item) — puede ser (""", None) si no encontrado
+
+hydrate_quote_item(item, by_id, by_name)
+  → Resuelve vínculo, toma nombre/unidad del catálogo si existe
+  → Calcula total = qty * price
+  → Añade: catalog_linked (bool), catalog_missing (bool), section (str)
+
+hydrate_quote(quote, by_id, by_name)
+  → Hidrata todos los ítems
+  → Recalcula subtotal, tax, total
+  → Añade "sections" = quote_section_groups(items)
+    → Lista de {"name": str, "items": [...], "subtotal": float}
+    → Ítems con mismo "section" consecutivo → mismo grupo
+    → Ítems sin sección → grupo con name=""
+
+hydrate_ldm_item / hydrate_ldm  →  misma lógica pero para precio_cot/total_cot
+
+
+────────────────────────────────────────────────────────────────────────────────
+9. RUTAS HTTP — MÓDULO DE COTIZACIONES Y MATERIALES
+────────────────────────────────────────────────────────────────────────────────
+
+Blueprint quotes_bp  (tracker/routes/quotes.py):
+  GET/POST /projects/<id>/quote/new              → nueva cotización
+  GET/POST /projects/<id>/quote/<qid>/edit       → editar cotización
+  GET      /projects/<id>/quote/<qid>/view       → vista solo lectura
+  POST     /projects/<id>/quote/<qid>/delete     → eliminar cotización
+  GET      /projects/<id>/quote/<qid>/pdf        → generar PDF en Drive
+
+Blueprint materials_bp  (tracker/routes/materials.py):
+  GET/POST /projects/<id>/ldm/new                → nueva LDM
+  GET/POST /projects/<id>/ldm/<lid>/edit         → editar LDM
+  POST     /projects/<id>/ldm/<lid>/delete       → eliminar LDM
+  POST     /projects/<id>/ldm/<lid>/set_cot      → asignar Nº cotización proveedor
+  GET      /projects/<id>/ldm/<lid>/pdf          → generar PDF LDM en Drive
+  POST     /api/ldm/<lid>/costo                  → actualizar subtotal_cot (JSON)
+
+Blueprint admin_bp  (tracker/routes/admin.py):
+  GET  /api/catalogo?q={texto}                   → búsqueda de artículos (JSON)
+  POST /api/catalogo/add                         → agregar artículo al catálogo (JSON)
+  POST /api/catalogo/bulk-delete                 → eliminar varios (JSON)
+  POST /api/catalogo/<id>/edit                   → editar artículo
+  POST /api/catalogo/<id>/delete                 → eliminar artículo
+
+Rutas pendientes de implementar [□]:
+  POST /api/import/catalogo   → importar CSV al catálogo global
+  POST /api/import/ldm        → importar CSV como nueva LDM en un proyecto
+  POST /api/import/cotizacion → importar CSV como nueva cotización
+
+
+────────────────────────────────────────────────────────────────────────────────
+10. FORMATO CSV PARA IMPORTACIÓN DESDE LISP — ESPECIFICACIÓN OBJETIVO
+────────────────────────────────────────────────────────────────────────────────
+
+10.1 CSV DE ARTÍCULOS → CATÁLOGO GLOBAL
+  Nombre sugerido: catalogo_import_{AAMMDD}.csv
+  Columnas: nombre, descripcion, unidad, precio
+  Ejemplo:
+    nombre,descripcion,unidad,precio
+    "Tubo Conduit Galvanizado Pared Delgada | 27 [mm] (1\")","Argos | Suministro e Instalación","pza",0.0
+
+  Notas:
+    - "id" y "created_at" los genera la app automáticamente
+    - "precio" puede ser 0.0
+
+10.2 CSV DE ARTÍCULOS → LDM (cuantificación de materiales)
+  Nombre OBLIGATORIO: {CLAVE}-v{VER}-i{CONSEC}-{YYYYMMDD}.csv
+  Columnas obligatorias: description, unit, qty
+  Ejemplo:
+    description,unit,qty
+    "Tubo Conduit Pared Delgada | 27 [mm] (1\")","pza",70
+    "Abrazadera para Unicanal | 27 [mm] (1\")","pza",125
+
+  Notas:
+    - NO incluir precio_cot ni total_cot (los llena el usuario)
+    - description debe coincidir con catálogo (o será ítem sin vínculo)
+    - La app pregunta proyecto y proveedor al importar
+
+10.3 CSV DE CONCEPTOS → COTIZACIÓN AL CLIENTE (propuesta futura)
+  Nombre sugerido: cot_{clave}_{AAMMDD}.csv
+  Columnas: description, unit, qty, price, section (opcional)
+  Ejemplo:
+    description,unit,qty,price,section
+    "Iluminación","","","","Iluminación"          ← fila de sección (price y qty vacíos)
+    "Salida Eléctrica para Luminaria","pza",100,900.00,"Iluminación"
+    "Contactos","","","","Contactos"              ← nueva sección
+    "Contacto Sencillo","pza",80,750.00,"Contactos"
+
+  Notas:
+    - Si la fila tiene description pero qty y price vacíos → fila de sección
+    - La app asigna quote_number, client, project_name al importar
+    - El usuario revisa y ajusta precios antes de emitir
+
+
+────────────────────────────────────────────────────────────────────────────────
+11. ESQUEMA RESUMEN — DIFERENCIAS CLAVE ENTRE MÓDULOS
+────────────────────────────────────────────────────────────────────────────────
+
+                  CATÁLOGO      LDM (al proveedor)     COT (al cliente)
+                  ─────────     ──────────────────     ────────────────
+Precio base       precio        precio_cot             price
+                  (referencia,  (0 al inicio,          (precio de venta,
+                  puede ser 0)  usuario lo llena)       definido en la COT)
+
+¿Tiene IVA?       No            No                     Sí (tax_rate, default 16%)
+
+¿Tiene secciones? No            No                     Sí (campo "section" por ítem)
+
+¿Pertenece a      No (global)   Sí (project_id)        Sí (project_id)
+un proyecto?
+
+¿Tiene proveedor? No            Sí                     No (es para el cliente)
+
+Numeración        id (8-hex)    LDM-{clave}-{seq:02d}  COT-{clave}-{G|P|E}{NN}-
+                                                        {YYYYMMDD}
+
+Campos del ítem   nombre        description            description
+                  descripcion   unit                   unit
+                  unidad        qty                    qty
+                  precio        precio_cot             price
+                                total_cot              total
+                                catalog_item_id        catalog_item_id
+                                                       catalog_description
+                                                       section
+
+
+────────────────────────────────────────────────────────────────────────────────
+12. DECISIONES DE DISEÑO PENDIENTES
 ────────────────────────────────────────────────────────────────────────────────
 
 □ ¿El sistema permite múltiples CSVs consolidados en una sola LDM?
   (caso: proyecto grande con varios planos que se cotizan juntos)
-  → Requiere tabla de "csv_a_ldm" muchos-a-muchos con restricciones
+  → Requiere lista csv_sources[] en LDM y lógica de merge en importación
+
+□ ¿Las LDMs tendrán cpROV con detalle de precios por renglón?
+  (captura de precio_unitario proveedor por ítem, no solo subtotal total)
+  → Útil para comparativo multi-proveedor ítem por ítem
 
 □ ¿Las CPROVs se comparan en una vista tipo "comparativo de precios"?
   → Útil para seleccionar el mejor proveedor ítem por ítem
 
-□ ¿Se requiere control de acceso por roles?
-  (solo el ingeniero puede editar qty_ldm, el ayudante solo puede ver)
+□ ¿Se requiere watcher de carpeta para detectar CSV nuevos en tiempo real?
+  → Actualmente se detectan al reabrir la vista del proyecto.
+  → La alternativa (inotify/watchdog) agrega complejidad al proceso.
 
-□ ¿El sistema debe generar la notificación de "CSV actualizado" en tiempo real
-  (watcher de carpeta) o solo al reabrir el proyecto?
+□ ¿Los precios de referencia del catálogo se actualizan desde las LDMs/CPROVs?
+  (aprendizaje de precios históricos del campo precio en catálogo.json)
 
-□ ¿Los precios de referencia del catálogo se actualizan desde las CPROVs?
-  (aprendizaje de precios históricos)
+□ Validación de formularios mejorada:
+  → Actualmente errores solo como flash messages globales
+  → Pendiente: mostrar error junto a cada campo del formulario
+  → Pendiente: preservar valores capturados después de validación fallida
 
 ================================================================================
-  FIN DEL DOCUMENTO
+  FIN DEL DOCUMENTO — app v8.1 — 25-Apr-2026
 ================================================================================
