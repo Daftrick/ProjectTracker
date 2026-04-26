@@ -390,6 +390,7 @@ Los aliases aceptados en formularios: `general`, `preliminar`, `extraordinaria`,
 | 2026-04-25 | Versión bumped v5.0 → v5.1 (patch: fix UI + mejora de mantenibilidad de versión) |
 | 2026-04-25 | Estado de exportaciones CSV en Drive: parseo `{CLAVE}-v{VER}-i{CONSEC}-{FECHA}.csv`, badges de estado en Documentos y pruebas de escaneo |
 | 2026-04-25 | Versión bumped v5.1 → v6.0 (feature: estado de CSV de plano) |
+| 2026-04-25 | Repositorio Git local sincronizable con GitHub remoto `https://github.com/Daftrick/ProjectTracker.git` (`origin`) |
 
 ---
 
