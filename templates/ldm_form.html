@@ -1,8 +1,9 @@
 {% extends "base.html" %}
-{% block title %}{% if ldm %}Editar{% else %}Nueva{% endif %} Lista de Materiales – {{ project.name }}{% endblock %}
+{% set import_preview = ldm and ldm.is_import_preview %}
+{% block title %}{% if import_preview %}Importar CSV{% elif ldm %}Editar{% else %}Nueva{% endif %} Lista de Materiales – {{ project.name }}{% endblock %}
 {% block page_title %}
   <i class="bi bi-card-list me-2 text-warning"></i>
-  {% if ldm %}Editar {{ ldm.ldm_number }}{% else %}Nueva lista de materiales — {{ project.clave }}{% endif %}
+  {% if import_preview %}Importar CSV a LDM — {{ project.clave }}{% elif ldm %}Editar {{ ldm.ldm_number }}{% else %}Nueva lista de materiales — {{ project.clave }}{% endif %}
 {% endblock %}
 {% block topbar_actions %}
   <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-materiales"
@@ -129,7 +130,7 @@
     </div>
     {% if ldm %}
     <div class="meta-item">
-      <span class="meta-label">Lista </span>
+      <span class="meta-label">{% if import_preview %}Origen {% else %}Lista {% endif %}</span>
       <span class="meta-val text-warning">{{ ldm.ldm_number }}</span>
     </div>
     {% endif %}
@@ -141,7 +142,7 @@
     <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-materiales"
        class="btn btn-outline-secondary btn-sm">Cancelar</a>
     <button type="submit" class="btn btn-warning btn-sm px-4 text-dark">
-      <i class="bi bi-check-lg me-1"></i>{% if ldm %}Guardar cambios{% else %}Crear lista{% endif %}
+      <i class="bi bi-check-lg me-1"></i>{% if import_preview %}Crear LDM{% elif ldm %}Guardar cambios{% else %}Crear lista{% endif %}
     </button>
   </div>
 </div>
@@ -155,6 +156,13 @@
     <div class="card mb-3">
       <div class="card-header">Datos generales</div>
       <div class="card-body">
+        {% if import_preview %}
+        <div class="alert alert-info py-2 mb-3" style="font-size:.85rem">
+          <i class="bi bi-filetype-csv me-1"></i>
+          Revisa los artículos importados desde <strong class="font-monospace">{{ ldm.csv_origen }}</strong>,
+          elige proveedor y crea la LDM.
+        </div>
+        {% endif %}
         <div class="row g-3">
           <div class="col-md-6">
             <label class="form-label">

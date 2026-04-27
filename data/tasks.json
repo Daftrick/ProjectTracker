@@ -444,7 +444,7 @@
     "title": "IE - Iluminación",
     "source": "externa",
     "external_dep": "Diseño de iluminación (otra área)",
-    "status": "En progreso",
+    "status": "Observaciones",
     "parent_task_id": null,
     "notes": "",
     "history": [
@@ -465,6 +465,12 @@
         "to": "En progreso",
         "date": "2026-04-25",
         "note": "Realizar Plano de Trayectorias y Canalizaciones\r\nVerificar el Sistema de Control. Dali vs Homeworks"
+      },
+      {
+        "from": "En progreso",
+        "to": "Observaciones",
+        "date": "2026-04-26",
+        "note": "Observaciones Junta - 18 de Abril"
       }
     ],
     "created_at": "2026-04-19"
@@ -497,6 +503,12 @@
         "to": "Observaciones",
         "date": "2026-04-25",
         "note": "Generar Nuevo Plano de Trayectorias y Canalizaciones.\r\nVerificar Alturas, Ubicaciones y Circuitos de Contactos."
+      },
+      {
+        "from": "Observaciones",
+        "to": "Observaciones",
+        "date": "2026-04-26",
+        "note": "Observaciones de Junta - 18 de Abril"
       }
     ],
     "created_at": "2026-04-19"
@@ -791,7 +803,21 @@
         "note": "Subtarea observación #1"
       }
     ],
-    "created_at": "2026-04-25"
+    "created_at": "2026-04-25",
+    "checklist": [
+      {
+        "id": "BD5F1E1F",
+        "text": "Generar Nuevo Plano de Trayectorias y Canalizaciones",
+        "done": false,
+        "done_at": null
+      },
+      {
+        "id": "1AA918D2",
+        "text": "Verificar Alturas, Ubicaciones y Circuitos de Contactos",
+        "done": false,
+        "done_at": null
+      }
+    ]
   },
   {
     "id": "268EF72F",
@@ -802,16 +828,42 @@
     "external_dep": null,
     "status": "Pendiente",
     "parent_task_id": "9E8AC73D",
-    "notes": "Completar Cédulas de Cableado y Generar Planos",
+    "notes": "Junta con Arquitectura",
     "history": [
       {
         "from": null,
         "to": "Pendiente",
         "date": "2026-04-25",
         "note": "Subtarea observación #1"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Pendiente",
+        "date": "2026-04-26",
+        "note": "Observación editada"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Pendiente",
+        "date": "2026-04-26",
+        "note": "Observación editada"
       }
     ],
-    "created_at": "2026-04-25"
+    "created_at": "2026-04-25",
+    "checklist": [
+      {
+        "id": "AFE78664",
+        "text": "Completar Cédulas de Cableado",
+        "done": false,
+        "done_at": null
+      },
+      {
+        "id": "2C2E40F1",
+        "text": "Generar Planos",
+        "done": false,
+        "done_at": null
+      }
+    ]
   },
   {
     "id": "F9E398D1",
@@ -832,5 +884,45 @@
       }
     ],
     "created_at": "2026-04-25"
+  },
+  {
+    "id": "D96CF36D",
+    "project_id": "8CC7C53F",
+    "alcance": "iluminacion",
+    "title": "Obs. #1 — IE - Iluminación",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": "AE9571D2",
+    "notes": "Observaciones Junta - 18 de Abril",
+    "checklist": [
+      {
+        "id": "1B0DA32C",
+        "text": "Revisar Control de Iluminación",
+        "done": false,
+        "done_at": null
+      },
+      {
+        "id": "F439F9B6",
+        "text": "Revisar Ubicaciones",
+        "done": false,
+        "done_at": null
+      },
+      {
+        "id": "6B21FCD9",
+        "text": "Revisar Sembrado",
+        "done": false,
+        "done_at": null
+      }
+    ],
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-26",
+        "note": "Subtarea observación #1"
+      }
+    ],
+    "created_at": "2026-04-26"
   }
 ]

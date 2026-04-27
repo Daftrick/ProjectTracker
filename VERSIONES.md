@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v8.2 — 25-Apr-2026
+## Versión actual: v12.0 — 27-Apr-2026
 
 ---
 
@@ -57,6 +57,7 @@ ProjectTracker/
 │   ├── storage.py              # load/save JSON, new_id (UUID 8 chars), today(), BASE_DIR, DATA_DIR
 │   ├── services.py             # Lógica de negocio pura: crear proyectos+tareas, sincronizar alcances, cambiar status
 │   ├── catalog.py              # hydrate_quote/ldm, catalog_maps, parse_*_items, quote_type_key/code
+│   ├── csv_import.py           # Parser CSV para importar exportaciones LISP como LDM
 │   ├── validators.py           # validate_project_form, validate_quote_form, validate_ldm_form
 │   ├── pdfs.py                 # build_quote_pdf, build_ldm_pdf (fpdf2); logo desde Drive o .codex_tmp
 │   ├── drive.py                # load/save_config, folder_name, scan_drive_folder, find_delivery_files
@@ -103,6 +104,8 @@ ProjectTracker/
 │
 └── tests/
     ├── test_services.py        # unittest: crear proyecto, sync alcances, bloqueos, subtareas obs
+    ├── test_drive.py           # unittest: escaneo Drive, CSVs de plano y archivos ignorados
+    ├── test_csv_import.py      # unittest: parser CSV para LDM
     └── test_validators.py      # unittest: formularios vacíos, filas vacías, números inválidos
 ```
 
@@ -121,24 +124,25 @@ Carpeta Drive: `IE-{folder_num}-{clave}` (ej. `IE-004-OM001`)
 ```
 id, project_id, alcance (id de alcance), title, source (propia|externa),
 external_dep, info_status, status, parent_task_id (null=principal),
-notes, history[{from, to, date, note}], created_at
+notes, checklist[{id, text, done, done_at}], history[{from, to, date, note}], created_at
 ```
-Las tareas con `parent_task_id` son subtareas de observación (auto-creadas al pasar a "Observaciones").
+Las tareas con `parent_task_id` son subtareas de observación (auto-creadas al pasar a "Observaciones"). Pueden incluir `checklist` para dar seguimiento puntual y marcar cumplimiento por ítem.
 
 ### Cotización (`quotes.json`)
 ```
 id, project_id, quote_number, quote_type (General|Preliminar|Extraordinaria),
 version, client, project_name, date, currency, tax_rate, items[],
-subtotal, tax, total, notes, created_at
+subtotal, tax, total, notes, project_basis_note, created_at
 ```
 Item: `{catalog_item_id, description, unit, qty, price, total, catalog_description, section}`
 
 ### LDM — Lista de Materiales (`materiales.json`)
 ```
 id, project_id, ldm_number (LDM-{clave}-{NN}), seq,
-proveedor, fecha, items[], subtotal_cot, cot_proveedor, notes, created_at
+proveedor, fecha, items[], subtotal_cot, cot_proveedor, notes,
+csv_origen, csv_sources[], created_at
 ```
-Item: `{catalog_item_id, description, unit, qty, precio_cot, total_cot}`
+Item: `{catalog_item_id, description, unit, qty, precio_cot, total_cot, qty_csv, qty_editada, origen}`
 
 ### Catálogo (`catalogo.json`)
 ```
@@ -201,7 +205,7 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | Tareas | Subtareas automáticas de observación | `services.py:apply_task_status_change` |
 | Entregas | Generación de ZIP desde carpeta Drive | `routes/projects.py:create_delivery` |
 | Entregas | Servir archivos individuales del proyecto | `routes/projects.py:serve_project_file` |
-| Drive | Escaneo y clasificación de archivos por carpeta | `drive.py:scan_drive_folder` |
+| Drive | Escaneo y clasificación de archivos por carpeta; ignora `.bak`, `.dwl`, `.dwl2` | `drive.py:scan_drive_folder` |
 | Drive | Estado de exportaciones CSV de plano (`Pendiente`, `Importado`, `Desactualizado`) | `drive.py:decorate_csv_plano` |
 | Drive | Detección de cotizaciones de proveedor por nombre | `drive.py:provider_quote_status` |
 | Drive | Migraciones de datos al arranque | `drive.py:migrate_*` |
@@ -209,7 +213,9 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | Cotizaciones | Generación de PDF con portada y condiciones | `pdfs.py:build_quote_pdf` |
 | Cotizaciones | Hidratación desde catálogo (por ID o por nombre) | `catalog.py:hydrate_quote` |
 | Cotizaciones | Secciones opcionales con encabezado y subtotal por sección en formulario, vista y PDF | `validators.py` + `catalog.py` + `pdfs.py` |
+| Cotizaciones | Nota base de proyecto en portada del PDF según tipo: preliminar sin nota, general con último DWG, extraordinaria con nota manual | `routes/quotes.py` + `drive.py:latest_dwg_stem` + `pdfs.py` |
 | LDMs | CRUD, PDF, set costo manual | `routes/materials.py` |
+| LDMs | Importación CSV de plano → nueva LDM con revisión previa, vínculo `csv_origen` y bloqueo de reimportación del mismo CSV | `routes/materials.py:import_ldm_csv` + `csv_import.py` |
 | LDMs | API JSON para actualizar costo (`/api/ldm/<id>/costo`) | `routes/materials.py:api_ldm_set_costo` |
 | Catálogo | CRUD + búsqueda + API JSON (`/api/catalogo`) | `routes/admin.py` |
 | Catálogo | Bulk delete vía API (`/api/catalogo/bulk-delete`) | `routes/admin.py` |
@@ -218,6 +224,9 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | Fichas | CRUD global + vinculación a proyectos | `routes/admin.py` |
 | Equipo | CRUD miembros | `routes/admin.py` |
 | Ajustes | Rutas Drive (projects y fichas) | `routes/projects.py:settings` |
+| Documentos | CSVs de plano en pestaña Documentos — columna LDM lista archivos `{clave}-v{N}-i{N}-{fecha}.csv` con nombre, fecha, tamaño y botón Descargar; aviso vacío cuando no hay archivos | `routes/projects.py` + `project_detail.html` |
+| Observaciones | Guardar texto de observación existente vía ruta dedicada | `routes/projects.py:update_observation` |
+| Observaciones | Toggle de ítem de checklist de observación vía ruta dedicada | `routes/projects.py:toggle_checklist_item` |
 | App | Shutdown graceful vía POST `/shutdown` | `routes/projects.py:shutdown` |
 | Validación | Servidor: proyecto, cotización, LDM | `validators.py` |
 | Filtros | `fdate` (YYYY-MM-DD → DD/MM/YYYY), `currency` ($X,XXX.XX) | `domain.py` |
@@ -246,6 +255,8 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | GET | `/projects/<id>/files/<filename>` | `serve_project_file` | Servir archivo de Drive |
 | GET/POST | `/settings` | `settings` | Configurar rutas Drive |
 | POST | `/shutdown` | `shutdown` | Detener servidor |
+| POST | `/projects/<id>/observations/<obs_id>/update` | `update_observation` | Guardar texto de observación existente |
+| POST | `/projects/<id>/observations/<obs_id>/checklist/<item_id>` | `toggle_checklist_item` | Toggle ítem de checklist de observación |
 
 ### Blueprint `quotes_bp`
 
@@ -262,6 +273,7 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | Método | Path | Función | Descripción |
 |---|---|---|---|
 | GET/POST | `/projects/<id>/ldm/new` | `new_ldm` | Nueva lista de materiales |
+| GET/POST | `/projects/<id>/ldm/import/<filename>` | `import_ldm_csv` | Importar CSV de plano como nueva LDM |
 | GET/POST | `/projects/<id>/ldm/<lid>/edit` | `edit_ldm` | Editar LDM |
 | POST | `/projects/<id>/ldm/<lid>/delete` | `delete_ldm` | Eliminar LDM |
 | POST | `/projects/<id>/ldm/<lid>/set_cot` | `set_ldm_cot` | Guardar # cotización proveedor |
@@ -302,7 +314,7 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | `project_detail.html` | `GET /projects/<id>` |
 | `quote_project_form.html` | `GET/POST /projects/<id>/quote/new` y `.../edit` |
 | `quote_project_detail.html` | `GET /projects/<id>/quote/<qid>/view` |
-| `ldm_form.html` | `GET/POST /projects/<id>/ldm/new` y `.../edit` |
+| `ldm_form.html` | `GET/POST /projects/<id>/ldm/new`, `.../ldm/import/<filename>` y `.../edit` |
 | `catalogo.html` | `GET/POST /catalogo` |
 | `proveedores.html` | `GET/POST /proveedores` |
 | `fichas.html` | `GET/POST /fichas` |
@@ -326,6 +338,16 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 Ej: OM001-v2-i1-20260420.csv
 ```
 Detectado en `scan_drive_folder` con regex `^{clave}-v\d` (case-insensitive).
+El contenido importable acepta encabezados `description,unit,qty` o `descripcion,unidad,cantidad`
+con separador coma o punto y coma. Filas de metadatos opcionales: `#proveedor`, `#fecha`, `#proyecto_clave`.
+
+**Archivos ignorados por escáner Drive:**
+```
+*.bak
+*.dwl
+*.dwl2
+*.zip
+```
 
 **LDM PDF:**
 ```
@@ -373,6 +395,11 @@ La función `next_quote_number(project, all_quotes, quote_type, date_str)` en `c
 
 Los aliases aceptados en formularios: `general`, `preliminar`, `extraordinaria`, `extraordinario`.
 
+Reglas de portada PDF:
+- Preliminar: no muestra nota base.
+- General: muestra `Cotización realizada con base en el proyecto: {último DWG sin extensión}` usando el `.dwg` más reciente/versionado en la carpeta Drive del proyecto.
+- Extraordinaria: muestra la misma leyenda con el texto capturado manualmente en el formulario.
+
 ---
 
 ## Historial de cambios recientes
@@ -400,13 +427,30 @@ Los aliases aceptados en formularios: `general`, `preliminar`, `extraordinaria`,
 | 2026-04-25 | Versión bumped v8.0 → v8.1 (patch: UX tabla alcances) |
 | 2026-04-25 | logica_cuantificaciones.txt v2.0 — sincronizado con estado real: secciones COT, scanner CSV, blueprints, esquemas JSON, port 8080, rutas implementadas vs. pendientes |
 | 2026-04-25 | Versión bumped v8.1 → v8.2 (patch: documentación interna actualizada) |
+| 2026-04-26 | Observaciones: checklist opcional por subtarea, marcado de cumplimiento desde el desglose de alcance y cierre/reapertura automática según puntos cumplidos |
+| 2026-04-26 | Versión bumped v8.2 → v9.0 (feature: checklist de observaciones) |
+| 2026-04-26 | Observaciones existentes: botón para generar checklist desde la nota y generación automática desde la nota si el checklist manual queda vacío |
+| 2026-04-26 | Versión bumped v9.0 → v9.1 (patch: generación visible de checklist) |
+| 2026-04-26 | Observaciones: se elimina generación de checklist desde nota, se agrega edición de observaciones existentes, nuevas observaciones incrementan `Obs. #N` aun si el alcance ya está en Observaciones y el contador del dashboard mide observaciones activas |
+| 2026-04-26 | Versión bumped v9.1 → v9.2 (patch: edición manual de observaciones) |
+| 2026-04-26 | Bug fix: botón "Guardar" en modal editar observación no respondía en móvil — se añadió `modal-dialog-scrollable` y se reemplazó listener `show.bs.modal` (relatedTarget frágil en móvil) por click listeners directos en `.obs-edit-btn` |
+| 2026-04-26 | Versión bumped v9.2 → v9.3 (patch: fix botón guardar observación en móvil) |
+| 2026-04-26 | CSVs de plano en pestaña Documentos: columna LDM muestra archivos `{clave}-v{N}-i{N}-{fecha}.csv` con nombre, fecha, tamaño y botón Descargar; aviso vacío cuando no hay archivos |
+| 2026-04-26 | Nuevas rutas Flask: `POST /projects/<id>/observations/<obs_id>/update` y `POST /projects/<id>/observations/<obs_id>/checklist/<item_id>` para guardar observaciones y hacer toggle de checklist |
+| 2026-04-26 | Bug fix: modal editar observación no respondía en Chrome móvil — modales movidos fuera de `#main` (CSS transition en el contenedor rompía z-index en WebKit), JS cambiado de `click` listeners en elementos ocultos a evento `show.bs.modal` |
+| 2026-04-26 | Versión bumped v9.3 → v10.0 (feature: CSVs de plano en Documentos + rutas de observaciones/checklist) |
+| 2026-04-27 | Importación CSV→LDM: parser `tracker/csv_import.py`, ruta `GET/POST /projects/<id>/ldm/import/<filename>`, botón en Documentos y dropdown en Materiales para crear LDM desde CSV detectado |
+| 2026-04-27 | Drive scanner: se ignoran archivos auxiliares de AutoCAD `*.bak`, `*.dwl`, `*.dwl2` para que no aparezcan en Documentos/Otros |
+| 2026-04-27 | Tests: parser CSV de LDM y escaneo Drive con archivos auxiliares ignorados |
+| 2026-04-27 | Versión bumped v10.0 → v11.0 (feature: importación CSV→LDM) |
+| 2026-04-27 | PDFs de cotización: nota base después del título según tipo; generales usan el último `.dwg` sin extensión y extraordinarias permiten nota manual desde la app |
+| 2026-04-27 | Versión bumped v11.0 → v12.0 (feature: nota base de proyecto en PDF de cotización) |
 
 ---
 
 ## Pendientes / En desarrollo
 
 **Alta prioridad:**
-- Importación de CSV desde AutoCAD → LDM (diseño completo en `REFERENCIA_ESTRUCTURAS_CSV.txt` y `logica_cuantificaciones.txt` si existe)
 - Mostrar errores de validación junto a cada campo en formularios (actualmente sólo como flash messages globales)
 - Preservar valores capturados en formularios después de validación fallida
 

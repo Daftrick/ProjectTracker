@@ -2,7 +2,7 @@ import os
 import tempfile
 import unittest
 
-from tracker.drive import decorate_csv_plano, parse_csv_plano_filename, scan_drive_folder
+from tracker.drive import decorate_csv_plano, latest_dwg_stem, parse_csv_plano_filename, scan_drive_folder
 
 
 class DriveCsvStatusTest(unittest.TestCase):
@@ -40,6 +40,30 @@ class DriveCsvStatusTest(unittest.TestCase):
 
         self.assertEqual(len(result["csv_plano"]), 1)
         self.assertEqual(result["csv_plano"][0]["status"], "pendiente")
+
+    def test_scan_drive_folder_ignores_autocad_auxiliary_files(self):
+        with tempfile.TemporaryDirectory() as root:
+            folder = os.path.join(root, "IE-001-OM001")
+            os.mkdir(folder)
+            for filename in ("IE-OM001.dwg.bak", "IE-OM001.dwl", "IE-OM001.dwl2"):
+                with open(os.path.join(folder, filename), "w", encoding="utf-8") as handle:
+                    handle.write("aux")
+
+            result = scan_drive_folder("IE-001-OM001", root, [], clave="OM001")
+
+        self.assertEqual(result["deliverable"], [])
+        self.assertEqual(result["working"], [])
+        self.assertEqual(result["other_files"], [])
+
+    def test_latest_dwg_stem_prefers_highest_version_and_omits_extension(self):
+        with tempfile.TemporaryDirectory() as folder:
+            for filename in ("IE-OM001-V1-260401.dwg", "IE-OM001-V3-260420.dwg", "IE-OM001-V2-260425.dwg"):
+                with open(os.path.join(folder, filename), "w", encoding="utf-8") as handle:
+                    handle.write("dwg")
+
+            result = latest_dwg_stem(folder)
+
+        self.assertEqual(result, "IE-OM001-V3-260420")
 
 
 if __name__ == "__main__":

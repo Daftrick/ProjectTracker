@@ -93,6 +93,7 @@ def validate_quote_form(form):
         "currency": currency,
         "tax_rate": tax_rate,
         "notes": _clean(form.get("notes")),
+        "project_basis_note": _clean(form.get("project_basis_note")),
         "items": items,
         "subtotal": round(subtotal, 2),
     }

@@ -9,7 +9,13 @@ from flask import Blueprint, abort, flash, redirect, render_template, request, s
 from ..catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from ..domain import ALCANCES, check_blocked, get_progress
 from ..drive import find_delivery_files, folder_name, load_config, save_config, scan_drive_folder
-from ..services import apply_task_status_change, create_project_with_tasks, sync_project_alcances
+from ..services import (
+    apply_task_status_change,
+    create_project_with_tasks,
+    sync_project_alcances,
+    update_observation_details,
+    update_observation_checklist_item,
+)
 from ..storage import load, new_id, save, today
 from ..validators import validate_project_form
 
@@ -24,7 +30,13 @@ def dashboard():
         progress = get_progress(project["id"], tasks)
         project.update(progress)
         main_tasks = [task for task in tasks if task["project_id"] == project["id"] and not task.get("parent_task_id")]
-        project["obs"] = sum(1 for task in main_tasks if task["status"] == "Observaciones")
+        project["obs"] = sum(
+            1
+            for task in tasks
+            if task["project_id"] == project["id"]
+            and task.get("parent_task_id")
+            and task.get("status") != "Aprobado"
+        )
         project["review"] = sum(1 for task in main_tasks if task["status"] == "Revisión")
     active = [project for project in projects if not project.get("closed_at") and project.get("status") != "Completado"]
     completed = [project for project in projects if not project.get("closed_at") and project.get("status") == "Completado"]
@@ -193,6 +205,7 @@ def update_task_status(project_id, task_id):
         task_id,
         request.form.get("status"),
         request.form.get("note", "").strip(),
+        request.form.get("checklist", "").strip(),
     )
     if not result["task"]:
         return redirect(url_for("project_detail", project_id=project_id))
@@ -204,7 +217,58 @@ def update_task_status(project_id, task_id):
         flash(f"Subtarea de seguimiento #{obs_num} creada.", "info")
     save("tasks", result["tasks"])
     flash(f"Estado → '{result['task']['status']}'.", "success")
-    return redirect(url_for("project_detail", project_id=project_id))
+    open_task = task_id if result["created_observation"] else None
+    target = url_for("project_detail", project_id=project_id)
+    if open_task:
+        target = f"{target}?open={open_task}"
+    return redirect(target + "#tab-alcances")
+
+
+@bp.route(
+    "/projects/<project_id>/observations/<observation_id>/checklist/<item_id>",
+    methods=["POST"],
+    endpoint="update_observation_checklist",
+)
+def update_observation_checklist(project_id, observation_id, item_id):
+    tasks = load("tasks")
+    result = update_observation_checklist_item(
+        tasks,
+        project_id,
+        observation_id,
+        item_id,
+        bool(request.form.get("done")),
+    )
+    if result["task"]:
+        save("tasks", result["tasks"])
+    parent_id = result["task"].get("parent_task_id") if result["task"] else None
+    target = url_for("project_detail", project_id=project_id)
+    if parent_id:
+        target = f"{target}?open={parent_id}"
+    return redirect(target + "#tab-alcances")
+
+
+@bp.route(
+    "/projects/<project_id>/observations/<observation_id>/update",
+    methods=["POST"],
+    endpoint="update_observation",
+)
+def update_observation(project_id, observation_id):
+    tasks = load("tasks")
+    result = update_observation_details(
+        tasks,
+        project_id,
+        observation_id,
+        request.form.get("notes", ""),
+        request.form.get("checklist", ""),
+    )
+    if result["task"]:
+        save("tasks", result["tasks"])
+        flash("Observación actualizada.", "success")
+    parent_id = result["task"].get("parent_task_id") if result["task"] else None
+    target = url_for("project_detail", project_id=project_id)
+    if parent_id:
+        target = f"{target}?open={parent_id}"
+    return redirect(target + "#tab-alcances")
 
 
 @bp.route("/projects/<project_id>/tasks/<task_id>/info", methods=["POST"], endpoint="update_task_info")

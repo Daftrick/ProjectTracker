@@ -170,7 +170,7 @@
           <!-- Tipo de cotización -->
           <div class="col-md-3">
             <label class="form-label">Tipo de cotización</label>
-            <select name="quote_type" class="form-select" id="quoteType" onchange="updateNum()">
+            <select name="quote_type" class="form-select" id="quoteType" onchange="updateQuoteType()">
               <option value="General" {% if not quote or quote.get('quote_type','General')=='General' %}selected{% endif %}>General</option>
               <option value="Preliminar" {% if quote and quote.get('quote_type')=='Preliminar' %}selected{% endif %}>Preliminar</option>
               <option value="Extraordinaria" {% if quote and quote.get('quote_type') in ['Extraordinaria','Extraordinario'] %}selected{% endif %}>Extraordinaria</option>
@@ -218,6 +218,11 @@
             <label class="form-label">Notas / Condiciones de pago</label>
             <textarea name="notes" class="form-control" rows="2"
                       placeholder="Forma de pago, tiempo de entrega, exclusiones...">{{ quote.notes if quote else '' }}</textarea>
+          </div>
+          <div class="col-12 d-none" id="projectBasisNoteGroup">
+            <label class="form-label">Nota base de proyecto <small class="text-muted">(extraordinaria)</small></label>
+            <textarea name="project_basis_note" class="form-control" rows="2"
+                      placeholder="Nombre del proyecto o plano base">{{ quote.project_basis_note if quote else '' }}</textarea>
           </div>
         </div>
       </div>
@@ -548,6 +553,18 @@
     updateNum();
   }
 
+  function updateProjectBasisNoteVisibility() {
+    const group = document.getElementById("projectBasisNoteGroup");
+    if (!group) return;
+    const tipo = document.getElementById("quoteType").value;
+    group.classList.toggle("d-none", tipo !== "Extraordinaria");
+  }
+
+  function updateQuoteType() {
+    updateNum();
+    updateProjectBasisNoteVisibility();
+  }
+
   document.getElementById("quoteNumInput").addEventListener("input", () => {
     userEditedNum = true;
   });
@@ -558,6 +575,7 @@
     if (document.getElementById("itemsBody").children.length === 0) addRow();
     syncItemSections();
     updateTotals();
+    updateProjectBasisNoteVisibility();
     // Solo auto-generar el número en cotizaciones nuevas
     {% if not quote %}
     updateNum();

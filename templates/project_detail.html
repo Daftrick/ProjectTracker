@@ -98,6 +98,12 @@
   .obs-item { margin-bottom:6px; }
   .obs-note { font-size:.8rem; padding:5px 9px; border-left:2px solid #D4537E; background:rgba(212,83,126,.08); border-radius:0 4px 4px 0; margin-top:3px; line-height:1.5; color:inherit; }
   .obs-no-note { font-size:.78rem; color:#7b8494; font-style:italic; margin-top:2px; padding-left:4px; }
+  .obs-checklist { display:flex; flex-direction:column; gap:4px; margin-top:7px; }
+  .obs-check-item { display:flex; align-items:center; gap:7px; font-size:.8rem; color:#b0bac8; }
+  .obs-check-item.done { color:#7b8494; text-decoration:line-through; }
+  .obs-check-item .form-check-input { margin:0; width:14px; height:14px; }
+  .obs-check-progress { font-size:.7rem; color:#7b8494; }
+  .obs-edit-btn { font-size:.72rem; padding:2px 8px; }
   .tl-list { display:flex; flex-direction:column; gap:3px; }
   .tl-item { display:flex; gap:8px; align-items:flex-start; }
   .tl-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; margin-top:4px; }
@@ -107,7 +113,17 @@
   .tl-date  { font-size:.75rem; color:#7b8494; margin-right:4px; white-space:nowrap; }
   .tl-arrow { font-size:.78rem; }
   .tl-note  { font-size:.75rem; color:#7b8494; }
-  .expand-btn { transition:transform .2s; }
+  .scope-title-cell { display:flex; align-items:flex-start; gap:8px; }
+  .scope-title-body { min-width:0; }
+  .expand-btn {
+    width:24px;
+    height:24px;
+    min-width:24px;
+    padding:0;
+    font-size:.72rem;
+    line-height:1;
+    transition:transform .2s;
+  }
   .expand-btn.open { transform:rotate(180deg); }
 </style>
 {% endblock %}
@@ -226,17 +242,30 @@
           {% set blocked = t._blocked and t.status == "Pendiente" %}
           <tr class="alcance-row {% if blocked %}blocked{% endif %}">
             <td>
-              <div class="fw-semibold" style="font-size:.875rem">{{ t.title }}</div>
-              {% if t.notes %}<small class="text-muted">{{ t.notes }}</small>{% endif %}
-              {% if subtasks[t.id] is defined %}
-                <div class="mt-1">
-                  {% for st in subtasks[t.id] %}
-                    <span class="badge status-pill bs-{{ st.status | replace(' ', '-') }}" style="font-size:.7rem">
-                      <i class="bi bi-arrow-return-right me-1"></i>{{ st.title|truncate(30,True) }} · {{ st.status }}
-                    </span>
-                  {% endfor %}
+              <div class="scope-title-cell">
+                {% if t.history or (subtasks[t.id] is defined and subtasks[t.id]) %}
+                <button class="btn btn-outline-secondary expand-btn" id="expand-{{ t.id }}"
+                        onclick="toggleDetail('{{ t.id }}')" title="Ver detalle">
+                  <i class="bi bi-chevron-down"></i>
+                </button>
+                {% endif %}
+                <div class="scope-title-body">
+                  <div class="fw-semibold" style="font-size:.875rem">{{ t.title }}</div>
+                  {% if t.notes %}<small class="text-muted">{{ t.notes }}</small>{% endif %}
+                  {% if subtasks[t.id] is defined %}
+                    {% set active_obs = subtasks[t.id] | rejectattr('status', 'equalto', 'Aprobado') | list %}
+                    {% if active_obs %}
+                    <div class="mt-1">
+                      {% for st in active_obs %}
+                        <span class="badge status-pill bs-{{ st.status | replace(' ', '-') }}" style="font-size:.7rem">
+                          <i class="bi bi-arrow-return-right me-1"></i>{{ st.title|truncate(30,True) }} · {{ st.status }}
+                        </span>
+                      {% endfor %}
+                    </div>
+                    {% endif %}
+                  {% endif %}
                 </div>
-              {% endif %}
+              </div>
             </td>
             <td>
               {% if t.alcance not in info_ext_excluded %}
@@ -285,12 +314,6 @@
               {% else %}—{% endif %}
             </td>
             <td class="text-end">
-              {% if t.history or (subtasks[t.id] is defined and subtasks[t.id]) %}
-              <button class="btn btn-sm btn-outline-secondary me-1 expand-btn" id="expand-{{ t.id }}"
-                      onclick="toggleDetail('{{ t.id }}')" title="Ver detalle">
-                <i class="bi bi-chevron-down"></i>
-              </button>
-              {% endif %}
               {% if not project.closed_at %}
               <button class="btn btn-sm btn-outline-secondary"
                       data-bs-toggle="modal" data-bs-target="#modalStatus"
@@ -308,24 +331,56 @@
             <td colspan="5">
               <div class="detail-inner">
                 {% if subtasks[t.id] is defined and subtasks[t.id] %}
+                {% set active_obs = subtasks[t.id] | rejectattr('status', 'equalto', 'Aprobado') | list %}
+                {% if active_obs %}
                 <div class="detail-section mb-3">
                   <div class="detail-section-title">Observaciones activas</div>
-                  {% for st in subtasks[t.id] %}
+                  {% for st in active_obs %}
                   <div class="obs-item">
-                    <div class="d-flex align-items-center gap-2">
+                    {% set checklist_text %}{% for item in st.checklist or [] %}{{ item.text }}{% if not loop.last %}
+{% endif %}{% endfor %}{% endset %}
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
                       <span class="badge bs-{{ st.status | replace(' ', '-') }}" style="font-size:.7rem">
                         <i class="bi bi-arrow-return-right me-1"></i>{{ st.title }}
                       </span>
                       <span class="badge bs-{{ st.status | replace(' ', '-') }}" style="font-size:.68rem">{{ st.status }}</span>
+                      {% if not project.closed_at %}
+                      <button class="btn btn-sm btn-outline-secondary obs-edit-btn" type="button"
+                              data-bs-toggle="modal" data-bs-target="#modalEditObservation"
+                              data-observation-id="{{ st.id }}"
+                              data-observation-title="{{ st.title }}"
+                              data-observation-notes="{{ st.notes | e }}"
+                              data-observation-checklist="{{ checklist_text | e }}">
+                        <i class="bi bi-pencil me-1"></i>Editar
+                      </button>
+                      {% endif %}
                     </div>
                     {% if st.notes %}
                     <div class="obs-note">{{ st.notes }}</div>
                     {% else %}
                     <div class="obs-no-note">Sin notas registradas</div>
                     {% endif %}
+                    {% if st.checklist %}
+                    {% set done_count = st.checklist | selectattr('done') | list | length %}
+                    <div class="obs-checklist">
+                      <div class="obs-check-progress">{{ done_count }}/{{ st.checklist|length }} puntos cumplidos</div>
+                      {% for item in st.checklist %}
+                      <form method="post"
+                            action="{{ url_for('update_observation_checklist', project_id=project.id, observation_id=st.id, item_id=item.id) }}">
+                        <label class="obs-check-item {% if item.done %}done{% endif %}">
+                          <input class="form-check-input" type="checkbox" name="done" value="1"
+                                 {% if item.done %}checked{% endif %}
+                                 {% if project.closed_at %}disabled{% else %}onchange="this.form.submit()"{% endif %}>
+                          <span>{{ item.text }}</span>
+                        </label>
+                      </form>
+                      {% endfor %}
+                    </div>
+                    {% endif %}
                   </div>
                   {% endfor %}
                 </div>
+                {% endif %}
                 {% endif %}
                 {% if t.history %}
                 <div class="detail-section">
@@ -467,6 +522,13 @@
                     </small>
                     {% if f.linked_ldm %}
                       <small class="text-muted csv-meta">{{ f.linked_ldm }}</small>
+                    {% endif %}
+                    {% if not project.closed_at and not f.linked_ldm %}
+                    <a href="{{ url_for('import_ldm_csv', project_id=project.id, filename=f.name) }}"
+                       class="btn btn-sm p-0 px-1 btn-outline-warning text-warning"
+                       title="Importar {{ f.name }} como nueva LDM" style="font-size:.7rem">
+                      <i class="bi bi-box-arrow-in-down"></i>
+                    </a>
                     {% endif %}
                     <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name, dl=1) }}"
                        class="btn btn-sm p-0 px-1 btn-outline-secondary" title="Descargar {{ f.name }} ({{ f.size_str }})" style="font-size:.7rem">
@@ -743,10 +805,31 @@
       Listas de materiales para proveedores — <strong>{{ project.clave }}</strong>
     </span>
     {% if not project.closed_at %}
-    <a href="{{ url_for('new_ldm', project_id=project.id) }}"
-       class="btn btn-warning btn-sm text-dark">
-      <i class="bi bi-plus-lg me-1"></i>Nueva lista
-    </a>
+    {% set importable_csvs = scan.csv_plano | selectattr('linked_ldm', 'equalto', '') | list %}
+    <div class="d-flex gap-2">
+      <div class="dropdown">
+        <button class="btn btn-outline-warning btn-sm dropdown-toggle"
+                type="button" data-bs-toggle="dropdown"
+                {% if not importable_csvs %}disabled{% endif %}>
+          <i class="bi bi-filetype-csv me-1"></i>Importar CSV
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark">
+          {% for f in importable_csvs %}
+          <li>
+            <a class="dropdown-item"
+               href="{{ url_for('import_ldm_csv', project_id=project.id, filename=f.name) }}">
+              <span class="font-monospace">{{ f.name }}</span>
+              <small class="text-muted d-block">{{ f.status_label }}</small>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <a href="{{ url_for('new_ldm', project_id=project.id) }}"
+         class="btn btn-warning btn-sm text-dark">
+        <i class="bi bi-plus-lg me-1"></i>Nueva lista
+      </a>
+    </div>
     {% endif %}
   </div>
 
@@ -855,38 +938,6 @@
   {% endif %}
 </div>
 
-<!-- Modal: Asignar Nº cotización proveedor -->
-<div class="modal fade" id="modalSetCot" tabindex="-1">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <form id="setCotForm" method="post">
-        <div class="modal-header">
-          <h5 class="modal-title" style="font-size:1rem">
-            <i class="bi bi-hash me-2 text-warning"></i>Nº cotización proveedor
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <p class="text-muted mb-2" style="font-size:.85rem" id="setCotLabel"></p>
-          <label class="form-label">Número / referencia del proveedor</label>
-          <input name="cot_proveedor" id="setCotInput" class="form-control"
-                 placeholder="Ej. COT-2026-0042">
-          <small class="text-muted mt-1 d-block">
-            El PDF del proveedor queda en la carpeta del proyecto en Drive.
-          </small>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary"
-                  data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-warning text-dark">
-            <i class="bi bi-check-lg me-1"></i>Guardar
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
 <!-- ── TAB FICHAS TÉCNICAS ── -->
 <div class="tab-pane fade" id="tab-fichas">
   <div class="row g-3">
@@ -964,6 +1015,9 @@
 
 </div><!-- /tab-content -->
 
+{% endblock %}
+
+{% block modals %}
 <!-- ── Modal: Info Externa ── -->
 <div class="modal fade" id="modalInfo" tabindex="-1">
   <div class="modal-dialog">
@@ -1048,9 +1102,44 @@
             <textarea name="note" class="form-control" rows="2"
                       placeholder="Descripción del cambio, razón de observación, etc."></textarea>
           </div>
+          <div class="mb-3 d-none" id="observationChecklistFields">
+            <label class="form-label">Checklist de observaciones</label>
+            <textarea name="checklist" class="form-control" rows="4"
+                      placeholder="Un punto por línea"></textarea>
+          </div>
           <div class="alert alert-info border-0" style="font-size:.82rem">
             <i class="bi bi-info-circle me-1"></i>
             Si seleccionas <strong>Observaciones</strong>, se creará automáticamente una subtarea de seguimiento.
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal: Editar observación ── -->
+<div class="modal fade" id="modalEditObservation" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <form id="observationForm" method="post" action="#">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-list-check me-2 text-primary"></i>Editar observación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p class="fw-semibold" id="observationTitle"></p>
+          <div class="mb-3">
+            <label class="form-label">Observación</label>
+            <textarea name="notes" class="form-control" rows="3" id="observationNotes"></textarea>
+          </div>
+          <div class="mb-0">
+            <label class="form-label">Checklist</label>
+            <textarea name="checklist" class="form-control" rows="5" id="observationChecklist"
+                      placeholder="Un punto por línea"></textarea>
           </div>
         </div>
         <div class="modal-footer">
@@ -1158,6 +1247,37 @@
   </div>
 </div>
 
+<!-- ── Modal: Asignar Nº cotización proveedor ── -->
+<div class="modal fade" id="modalSetCot" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <form id="setCotForm" method="post">
+        <div class="modal-header">
+          <h5 class="modal-title" style="font-size:1rem">
+            <i class="bi bi-hash me-2 text-warning"></i>Nº cotización proveedor
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p class="text-muted mb-2" style="font-size:.85rem" id="setCotLabel"></p>
+          <label class="form-label">Número / referencia del proveedor</label>
+          <input name="cot_proveedor" id="setCotInput" class="form-control"
+                 placeholder="Ej. COT-2026-0042">
+          <small class="text-muted mt-1 d-block">
+            El PDF del proveedor queda en la carpeta del proyecto en Drive.
+          </small>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary"
+                  data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-warning text-dark">
+            <i class="bi bi-check-lg me-1"></i>Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}
@@ -1197,12 +1317,33 @@
   // Modal de cambio de estado
   document.getElementById("modalStatus").addEventListener("show.bs.modal", function(e) {
     const btn = e.relatedTarget;
+    const form = document.getElementById("statusForm");
     document.getElementById("modalTaskTitle").textContent = btn.dataset.taskTitle;
     document.getElementById("modalStatusSelect").value    = btn.dataset.taskStatus;
-    document.getElementById("statusForm").action =
+    form.action =
       "/projects/{{ project.id }}/tasks/" + btn.dataset.taskId + "/status";
+    form.querySelector('textarea[name="note"]').value = "";
+    form.querySelector('textarea[name="checklist"]').value = "";
     const blocked = btn.dataset.blocked === "true";
     document.getElementById("blockedAlert").classList.toggle("d-none", !blocked);
+    toggleObservationChecklistFields();
+  });
+
+  document.getElementById("modalStatusSelect").addEventListener("change", toggleObservationChecklistFields);
+
+  function toggleObservationChecklistFields() {
+    const isObservations = document.getElementById("modalStatusSelect").value === "Observaciones";
+    document.getElementById("observationChecklistFields").classList.toggle("d-none", !isObservations);
+  }
+
+  // Modal editar observación — usa show.bs.modal (mismo patrón que modalStatus, fiable en móvil)
+  document.getElementById("modalEditObservation").addEventListener("show.bs.modal", function(e) {
+    const btn = e.relatedTarget;
+    const form = document.getElementById("observationForm");
+    document.getElementById("observationTitle").textContent = btn.dataset.observationTitle || "";
+    document.getElementById("observationNotes").value       = btn.dataset.observationNotes || "";
+    document.getElementById("observationChecklist").value   = btn.dataset.observationChecklist || "";
+    form.action = "/projects/{{ project.id }}/observations/" + btn.dataset.observationId + "/update";
   });
 
   // Activar tab correcto si hay hash en URL
@@ -1212,6 +1353,9 @@
       const tab = document.querySelector(`a[href="${hash}"]`);
       if (tab) new bootstrap.Tab(tab).show();
     }
+    const params = new URLSearchParams(window.location.search);
+    const openTask = params.get("open");
+    if (openTask) toggleDetail(openTask);
   });
 
   // Preview en modal editar

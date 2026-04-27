@@ -81,7 +81,23 @@ def quote_cover_copy(quote):
         sequence = quote_sequence_from_number(quote.get("quote_number"))
         subtitle = f"Número secuencial de cotización {sequence}" if sequence else "Número secuencial de cotización"
         return "Cotización Extraordinaria de\nInstalaciones Eléctricas", subtitle
-    return "Cotización de Instalaciones\nEléctricas", "Última Versión del Proyecto"
+    return "Cotización de Instalaciones\nEléctricas", None
+
+
+def quote_project_basis_note(quote):
+    quote_type = quote_type_key(quote.get("quote_type"))
+    if quote_type == "Preliminar":
+        return ""
+    if quote_type == "General":
+        source = quote.get("project_basis_source")
+    elif quote_type == "Extraordinaria":
+        source = quote.get("project_basis_note")
+    else:
+        source = ""
+    source = str(source or "").strip()
+    if not source:
+        return ""
+    return f"Cotización realizada con base en el proyecto: {source}"
 
 
 def quote_catalog_description(item, catalog_lookup):
@@ -145,6 +161,7 @@ def build_quote_pdf(project, quote, output_path):
     quote_number = sanitize_pdf_text(quote.get("quote_number", "Cotización"))
     quote_date = format_date_long(quote.get("date"))
     cover_title, cover_subtitle = quote_cover_copy(quote)
+    cover_basis_note = quote_project_basis_note(quote)
     logo_path = quote_logo_path()
     catalog_lookup = catalog_description_lookup()
 
@@ -337,6 +354,12 @@ def build_quote_pdf(project, quote, output_path):
     pdf.set_text_color(*INK)
     pdf.set_font("Helvetica", "B", 23)
     pdf.multi_cell(158, 9.5, sanitize_pdf_text(cover_title))
+    if cover_basis_note:
+        pdf.ln(1)
+        pdf.set_x(16)
+        pdf.set_text_color(*NAVY_2)
+        pdf.set_font("Helvetica", "", 10.5)
+        pdf.multi_cell(170, 5.3, sanitize_pdf_text(cover_basis_note))
     if cover_subtitle:
         pdf.ln(1)
         pdf.set_x(16)

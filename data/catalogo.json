@@ -2041,7 +2041,7 @@
   },
   {
     "id": "8AA69AB5",
-    "nombre": "Interruptor Termomagnético QO215 | 2 Polos | 15 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO215 | 2 Polos | 15 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2049,7 +2049,7 @@
   },
   {
     "id": "56C24ED0",
-    "nombre": "Interruptor Termomagnético QO220 | 2 Polos | 20 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO220 | 2 Polos | 20 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2057,7 +2057,7 @@
   },
   {
     "id": "9690E597",
-    "nombre": "Interruptor Termomagnético QO230 | 2 Polos | 30 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO230 | 2 Polos | 30 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2065,7 +2065,7 @@
   },
   {
     "id": "7D6A1B33",
-    "nombre": "Interruptor Termomagnético QO240 | 2 Polos | 40 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO240 | 2 Polos | 40 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2073,7 +2073,7 @@
   },
   {
     "id": "BD11A7C8",
-    "nombre": "Interruptor Termomagnético QO250 | 2 Polos | 50 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO250 | 2 Polos | 50 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2081,7 +2081,7 @@
   },
   {
     "id": "9814B089",
-    "nombre": "Interruptor Termomagnético QO260 | 2 Polos | 60 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO260 | 2 Polos | 60 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2089,7 +2089,7 @@
   },
   {
     "id": "A1C5788F",
-    "nombre": "Interruptor Termomagnético QO270 | 2 Polos | 70 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO270 | 2 Polos | 70 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2097,7 +2097,7 @@
   },
   {
     "id": "A95A1CA8",
-    "nombre": "Interruptor Termomagnético QO280 | 2 Polos | 80 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO280 | 2 Polos | 80 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2105,7 +2105,7 @@
   },
   {
     "id": "1251C6D9",
-    "nombre": "Interruptor Termomagnético QO2100 | 2 Polos | 100 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO2100 | 2 Polos | 100 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2113,7 +2113,7 @@
   },
   {
     "id": "0B610EAA",
-    "nombre": "Interruptor Termomagnético QO2125 | 2 Polos | 125 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO2125 | 2 Polos | 125 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2121,7 +2121,7 @@
   },
   {
     "id": "4EDE8418",
-    "nombre": "Interruptor Termomagnético QO315 | 3 Polos | 15 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO315 | 3 Polos | 15 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2129,7 +2129,7 @@
   },
   {
     "id": "24EE097B",
-    "nombre": "Interruptor Termomagnético QO320 | 3 Polos | 20 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO320 | 3 Polos | 20 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2137,7 +2137,7 @@
   },
   {
     "id": "BFCD35EE",
-    "nombre": "Interruptor Termomagnético QO330 | 3 Polos | 30 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO330 | 3 Polos | 30 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2145,7 +2145,7 @@
   },
   {
     "id": "4ED5C93D",
-    "nombre": "Interruptor Termomagnético QO340 | 3 Polos | 40 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO340 | 3 Polos | 40 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2153,7 +2153,7 @@
   },
   {
     "id": "F84249D5",
-    "nombre": "Interruptor Termomagnético QO350 | 3 Polos | 50 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO350 | 3 Polos | 50 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2161,7 +2161,7 @@
   },
   {
     "id": "43181664",
-    "nombre": "Interruptor Termomagnético QO360 | 3 Polos | 60 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO360 | 3 Polos | 60 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2169,7 +2169,7 @@
   },
   {
     "id": "D90135E7",
-    "nombre": "Interruptor Termomagnético QO370 | 3 Polos | 70 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO370 | 3 Polos | 70 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2177,7 +2177,7 @@
   },
   {
     "id": "35B41312",
-    "nombre": "Interruptor Termomagnético QO380 | 3 Polos | 80 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO380 | 3 Polos | 80 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
@@ -2185,7 +2185,7 @@
   },
   {
     "id": "429C2A88",
-    "nombre": "Interruptor Termomagnético QO3100 | 3 Polos | 100 [A] | 120/240 [V]",
+    "nombre": "Interruptor Termomagnético QO3100 | 3 Polos | 100 [A] | 240 [V]",
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,

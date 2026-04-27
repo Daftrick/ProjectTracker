@@ -6,6 +6,8 @@ import unicodedata
 
 from .storage import DATA_DIR, load, save
 
+IGNORED_SCAN_EXTENSIONS = {".bak", ".dwl", ".dwl2"}
+
 CONFIG_FILE = os.path.join(DATA_DIR, "config.json")
 
 
@@ -113,6 +115,33 @@ def decorate_latest(names):
 
 def decorate_plain(names, **extra):
     return [{"name": name, **extra} for name in sorted(names)]
+
+
+def latest_dwg_stem(folder):
+    if not folder or not os.path.isdir(folder):
+        return ""
+    candidates = []
+    for item in os.listdir(folder):
+        path = os.path.join(folder, item)
+        _, ext = os.path.splitext(item.lower())
+        if not os.path.isfile(path) or ext != ".dwg":
+            continue
+        if ext in IGNORED_SCAN_EXTENSIONS:
+            continue
+        candidates.append(item)
+    if not candidates:
+        return ""
+
+    latest = max(
+        candidates,
+        key=lambda name: (
+            version_key(name) is not None,
+            version_key(name) or (-1, 0),
+            os.path.getmtime(os.path.join(folder, name)),
+            name,
+        ),
+    )
+    return os.path.splitext(latest)[0]
 
 
 def parse_csv_plano_filename(filename, clave=None):
@@ -275,7 +304,8 @@ def scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None):
 
     for item in sorted(os.listdir(folder)):
         path = os.path.join(folder, item)
-        if not os.path.isfile(path) or item.lower().endswith(".zip"):
+        _, ext = os.path.splitext(item.lower())
+        if not os.path.isfile(path) or item.lower().endswith(".zip") or ext in IGNORED_SCAN_EXTENSIONS:
             continue
         # Detect CSV plano files before other categories
         if item.lower().endswith(".csv") and csv_pattern and csv_pattern.match(item):

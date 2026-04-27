@@ -74,7 +74,45 @@ def sync_project_alcances(project, tasks, new_alcances, id_factory=new_id, today
     return {"added": added, "removed": removed, "tasks": updated_tasks}
 
 
-def apply_task_status_change(tasks, project_id, task_id, new_status, note="", id_factory=new_id, today_value=None):
+def build_checklist_items(checklist_text, id_factory=new_id):
+    return [
+        {"id": id_factory(), "text": line.strip(), "done": False, "done_at": None}
+        for line in str(checklist_text or "").splitlines()
+        if line.strip()
+    ]
+
+
+def build_edited_checklist_items(checklist_text, existing_items, id_factory=new_id):
+    remaining = list(existing_items or [])
+    edited = []
+    for line in str(checklist_text or "").splitlines():
+        text = line.strip()
+        if not text:
+            continue
+        match = next((item for item in remaining if item.get("text") == text), None)
+        if match:
+            remaining.remove(match)
+            edited.append({
+                "id": match.get("id") or id_factory(),
+                "text": text,
+                "done": bool(match.get("done")),
+                "done_at": match.get("done_at"),
+            })
+        else:
+            edited.append({"id": id_factory(), "text": text, "done": False, "done_at": None})
+    return edited
+
+
+def apply_task_status_change(
+    tasks,
+    project_id,
+    task_id,
+    new_status,
+    note="",
+    checklist_text="",
+    id_factory=new_id,
+    today_value=None,
+):
     change_date = today_value or today()
     updated_tasks = list(tasks)
     task = next((item for item in updated_tasks if item["id"] == task_id), None)
@@ -96,7 +134,11 @@ def apply_task_status_change(tasks, project_id, task_id, new_status, note="", id
     })
 
     created_observation = None
-    if new_status == "Observaciones" and old_status != "Observaciones":
+    should_create_observation = (
+        new_status == "Observaciones"
+        and (old_status != "Observaciones" or clean_note or str(checklist_text or "").strip())
+    )
+    if should_create_observation:
         obs_num = sum(1 for item in updated_tasks if item.get("parent_task_id") == task_id) + 1
         created_observation = {
             "id": id_factory(),
@@ -108,6 +150,7 @@ def apply_task_status_change(tasks, project_id, task_id, new_status, note="", id
             "status": "Pendiente",
             "parent_task_id": task_id,
             "notes": clean_note,
+            "checklist": build_checklist_items(checklist_text, id_factory),
             "history": [{"from": None, "to": "Pendiente", "date": change_date, "note": f"Subtarea observación #{obs_num}"}],
             "created_at": change_date,
         }
@@ -119,3 +162,75 @@ def apply_task_status_change(tasks, project_id, task_id, new_status, note="", id
         "blocked": False,
         "created_observation": created_observation,
     }
+
+
+def update_observation_details(tasks, project_id, observation_id, note="", checklist_text="", id_factory=new_id, today_value=None):
+    change_date = today_value or today()
+    updated_tasks = list(tasks)
+    observation = next(
+        (
+            item
+            for item in updated_tasks
+            if item["id"] == observation_id
+            and item["project_id"] == project_id
+            and item.get("parent_task_id")
+        ),
+        None,
+    )
+    if not observation:
+        return {"task": None, "tasks": updated_tasks}
+
+    old_status = observation.get("status", "Pendiente")
+    observation["notes"] = str(note or "").strip()
+    checklist = build_edited_checklist_items(checklist_text, observation.get("checklist", []), id_factory)
+    observation["checklist"] = checklist
+    if checklist:
+        observation["status"] = "Aprobado" if all(item.get("done") for item in checklist) else "Pendiente"
+    else:
+        observation["status"] = "Pendiente"
+    observation.setdefault("history", []).append({
+        "from": old_status,
+        "to": observation["status"],
+        "date": change_date,
+        "note": "Observación editada",
+    })
+    return {"task": observation, "tasks": updated_tasks}
+
+
+def update_observation_checklist_item(tasks, project_id, observation_id, item_id, done, today_value=None):
+    change_date = today_value or today()
+    updated_tasks = list(tasks)
+    observation = next(
+        (
+            item
+            for item in updated_tasks
+            if item["id"] == observation_id
+            and item["project_id"] == project_id
+            and item.get("parent_task_id")
+        ),
+        None,
+    )
+    if not observation:
+        return {"task": None, "tasks": updated_tasks}
+
+    checklist = observation.get("checklist", [])
+    target = next((item for item in checklist if item.get("id") == item_id), None)
+    if not target:
+        return {"task": observation, "tasks": updated_tasks}
+
+    target["done"] = bool(done)
+    target["done_at"] = change_date if done else None
+
+    if checklist:
+        old_status = observation.get("status", "Pendiente")
+        new_status = "Aprobado" if all(item.get("done") for item in checklist) else "Pendiente"
+        if old_status != new_status:
+            observation["status"] = new_status
+            observation.setdefault("history", []).append({
+                "from": old_status,
+                "to": new_status,
+                "date": change_date,
+                "note": "Checklist completado" if new_status == "Aprobado" else "Checklist reabierto",
+            })
+
+    return {"task": observation, "tasks": updated_tasks}

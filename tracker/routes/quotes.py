@@ -3,7 +3,7 @@ import os
 from flask import Blueprint, flash, jsonify, redirect, render_template, request, url_for
 
 from ..catalog import catalog_maps, hydrate_quote, next_quote_number, quote_type_key
-from ..drive import folder_name, load_config
+from ..drive import folder_name, latest_dwg_stem, load_config
 from ..pdfs import build_quote_pdf
 from ..storage import load, new_id, save, today
 from ..validators import validate_quote_form
@@ -42,6 +42,7 @@ def new_quote(project_id):
             "total": round(validation["subtotal"] + validation["subtotal"] * validation["tax_rate"] / 100, 2),
             "currency": validation["currency"],
             "notes": validation["notes"],
+            "project_basis_note": validation["project_basis_note"] if quote_type == "Extraordinaria" else "",
             "created_at": today(),
         }
         quotes.append(quote)
@@ -92,6 +93,7 @@ def edit_quote(project_id, quote_id):
             "total": round(validation["subtotal"] + validation["subtotal"] * validation["tax_rate"] / 100, 2),
             "currency": validation["currency"],
             "notes": validation["notes"],
+            "project_basis_note": validation["project_basis_note"] if validation["quote_type"] == "Extraordinaria" else "",
         })
         save("quotes", quotes)
         flash("Cotización actualizada.", "success")
@@ -153,6 +155,8 @@ def quote_pdf(project_id, quote_id):
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
     pdf_name = f"{hydrated.get('quote_number', 'COT')}.pdf"
     pdf_path = os.path.join(project_folder, pdf_name)
+    if quote_type_key(hydrated.get("quote_type")) == "General":
+        hydrated["project_basis_source"] = latest_dwg_stem(project_folder)
     try:
         build_quote_pdf(project, hydrated, pdf_path)
         flash(f"PDF generado en Drive: {pdf_name}", "success")

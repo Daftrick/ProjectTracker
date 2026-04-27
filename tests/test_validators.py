@@ -65,6 +65,7 @@ class ValidatorsTest(unittest.TestCase):
                 ("date", "2026-04-24"),
                 ("tax_rate", "16"),
                 ("currency", "MXN"),
+                ("project_basis_note", "Plano autorizado"),
                 ("item_desc[]", "Interruptor"),
                 ("item_unit[]", "pza"),
                 ("item_qty[]", "2"),
@@ -75,6 +76,7 @@ class ValidatorsTest(unittest.TestCase):
         )
 
         self.assertTrue(result["ok"])
+        self.assertEqual(result["project_basis_note"], "Plano autorizado")
         self.assertEqual(result["subtotal"], 21.0)
         self.assertEqual(result["items"][0]["total"], 21.0)
 
