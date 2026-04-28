@@ -1,6 +1,22 @@
 from flask import request
 
-from .storage import load, today
+from .storage import load, save, today
+
+
+def migrate_catalog_fields():
+    """Asegura que cada artículo tenga el campo `categoria` (default '').
+
+    Migración idempotente y suave: solo agrega claves faltantes; no toca
+    artículos ya migrados ni cambia valores existentes.
+    """
+    items = load("catalogo")
+    changed = False
+    for item in items:
+        if "categoria" not in item:
+            item["categoria"] = ""
+            changed = True
+    if changed:
+        save("catalogo", items)
 
 
 QUOTE_TYPE_GENERAL = "General"
@@ -101,10 +117,18 @@ def quote_section_groups(items):
 def hydrate_quote_item(item, catalog_by_id, catalog_by_name, infer_by_name=True):
     hydrated = dict(item)
     stored_price = safe_float(hydrated.get("price", item.get("price", 0) if isinstance(item, dict) else 0))
+    deleted_catalog_item = hydrated.get("deleted_catalog_item") or None
     catalog_item_id, catalog_item = resolve_catalog_binding(
         hydrated, catalog_by_id, catalog_by_name, "description", infer_by_name=infer_by_name
     )
-    if catalog_item:
+    if deleted_catalog_item:
+        hydrated["catalog_item_id"] = ""
+        hydrated["catalog_description"] = quote_item_catalog_description(hydrated) or deleted_catalog_item.get("descripcion", "")
+        hydrated["catalog_linked"] = False
+        hydrated["catalog_missing"] = False
+        hydrated["catalog_deleted"] = True
+        hydrated["price"] = stored_price
+    elif catalog_item:
         hydrated["catalog_item_id"] = catalog_item_id
         hydrated["description"] = catalog_item.get("nombre", hydrated.get("description", ""))
         hydrated["unit"] = catalog_item.get("unidad", hydrated.get("unit", "pza"))
@@ -112,12 +136,14 @@ def hydrate_quote_item(item, catalog_by_id, catalog_by_name, infer_by_name=True)
         hydrated["catalog_description"] = catalog_item.get("descripcion", "").strip()
         hydrated["catalog_linked"] = True
         hydrated["catalog_missing"] = False
+        hydrated["catalog_deleted"] = False
     else:
         if catalog_item_id:
             hydrated["catalog_item_id"] = catalog_item_id
         hydrated["catalog_description"] = quote_item_catalog_description(hydrated)
         hydrated["catalog_linked"] = False
         hydrated["catalog_missing"] = bool(catalog_item_id)
+        hydrated["catalog_deleted"] = False
         hydrated["price"] = stored_price
     hydrated["section"] = quote_item_section(hydrated)
     hydrated["qty"] = safe_float(hydrated.get("qty", 0))
@@ -142,20 +168,28 @@ def hydrate_quote(quote, catalog_by_id=None, catalog_by_name=None):
 
 def hydrate_ldm_item(item, catalog_by_id, catalog_by_name, infer_by_name=True):
     hydrated = dict(item)
+    deleted_catalog_item = hydrated.get("deleted_catalog_item") or None
     catalog_item_id, catalog_item = resolve_catalog_binding(
         hydrated, catalog_by_id, catalog_by_name, "description", infer_by_name=infer_by_name
     )
-    if catalog_item:
+    if deleted_catalog_item:
+        hydrated["catalog_item_id"] = ""
+        hydrated["catalog_linked"] = False
+        hydrated["catalog_missing"] = False
+        hydrated["catalog_deleted"] = True
+    elif catalog_item:
         hydrated["catalog_item_id"] = catalog_item_id
         hydrated["description"] = catalog_item.get("nombre", hydrated.get("description", ""))
         hydrated["unit"] = catalog_item.get("unidad", hydrated.get("unit", "pza"))
         hydrated["catalog_linked"] = True
         hydrated["catalog_missing"] = False
+        hydrated["catalog_deleted"] = False
     else:
         if catalog_item_id:
             hydrated["catalog_item_id"] = catalog_item_id
         hydrated["catalog_linked"] = False
         hydrated["catalog_missing"] = bool(catalog_item_id)
+        hydrated["catalog_deleted"] = False
     hydrated["qty"] = safe_float(hydrated.get("qty", 0))
     if "precio_cot" in hydrated:
         hydrated["precio_cot"] = safe_float(hydrated.get("precio_cot", 0))

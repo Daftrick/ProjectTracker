@@ -3,9 +3,11 @@ from datetime import date, datetime
 
 from flask import Blueprint, flash, jsonify, redirect, render_template, request, url_for
 
-from ..catalog import catalog_maps, catalog_name_key, hydrate_ldm, hydrate_ldm_item
+from ..catalog import catalog_maps, catalog_name_key, hydrate_ldm, hydrate_ldm_item, safe_float
 from ..csv_import import parse_ldm_csv
+from ..deletions import purge_deleted_catalog_items_from_record
 from ..drive import folder_name, load_config, parse_csv_plano_filename
+from ..form_models import ldm_from_form
 from ..pdfs import build_ldm_pdf
 from ..storage import load, new_id, save, today
 from ..validators import validate_ldm_form
@@ -109,6 +111,17 @@ def _attach_csv_item_metadata(items, csv_items):
     return enriched
 
 
+def _render_ldm_form(project, ldm, field_errors=None):
+    return render_template(
+        "ldm_form.html",
+        project=project,
+        ldm=ldm,
+        proveedores=load("proveedores"),
+        today=today(),
+        field_errors=field_errors or {},
+    )
+
+
 @bp.route("/projects/<project_id>/ldm/new", methods=["GET", "POST"], endpoint="new_ldm")
 def new_ldm(project_id):
     project = _find_project(project_id)
@@ -119,7 +132,11 @@ def new_ldm(project_id):
         if not validation["ok"]:
             for error in validation["errors"]:
                 flash(error, "warning")
-            return redirect(url_for("materials_bp.new_ldm", project_id=project_id))
+            return _render_ldm_form(
+                project,
+                ldm_from_form(request.form),
+                field_errors=validation["field_errors"],
+            )
         all_ldms = load("materiales")
         seq = len([item for item in all_ldms if item["project_id"] == project_id]) + 1
         ldm = {
@@ -139,7 +156,7 @@ def new_ldm(project_id):
         save("materiales", all_ldms)
         flash(f"Lista {ldm['ldm_number']} creada.", "success")
         return redirect(url_for("materials_bp.edit_ldm", project_id=project_id, ldm_id=ldm["id"]))
-    return render_template("ldm_form.html", project=project, ldm=None, proveedores=load("proveedores"), today=today())
+    return _render_ldm_form(project, None)
 
 
 @bp.route("/projects/<project_id>/ldm/import/<path:filename>", methods=["GET", "POST"], endpoint="import_ldm_csv")
@@ -172,7 +189,16 @@ def import_ldm_csv(project_id, filename):
         if not validation["ok"]:
             for error in validation["errors"]:
                 flash(error, "warning")
-            return redirect(url_for("materials_bp.import_ldm_csv", project_id=project_id, filename=clean_name))
+            fallback = {
+                "is_import_preview": True,
+                "ldm_number": f"CSV: {clean_name}",
+                "csv_origen": clean_name,
+            }
+            return _render_ldm_form(
+                project,
+                ldm_from_form(request.form, fallback_ldm=fallback),
+                field_errors=validation["field_errors"],
+            )
         all_ldms = load("materiales")
         seq = len([item for item in all_ldms if item["project_id"] == project_id]) + 1
         items = _attach_csv_item_metadata(validation["items"], parsed["items"])
@@ -211,13 +237,7 @@ def import_ldm_csv(project_id, filename):
         flash("La clave de proyecto indicada en el CSV no coincide con este proyecto.", "warning")
     if missing_catalog:
         flash(f"{len(missing_catalog)} artículo(s) no tienen coincidencia exacta en catálogo.", "warning")
-    return render_template(
-        "ldm_form.html",
-        project=project,
-        ldm=preview,
-        proveedores=load("proveedores"),
-        today=today(),
-    )
+    return _render_ldm_form(project, preview)
 
 
 @bp.route("/projects/<project_id>/ldm/<ldm_id>/edit", methods=["GET", "POST"], endpoint="edit_ldm")
@@ -232,7 +252,11 @@ def edit_ldm(project_id, ldm_id):
         if not validation["ok"]:
             for error in validation["errors"]:
                 flash(error, "warning")
-            return redirect(url_for("materials_bp.edit_ldm", project_id=project_id, ldm_id=ldm_id))
+            return _render_ldm_form(
+                project,
+                ldm_from_form(request.form, fallback_ldm=ldm),
+                field_errors=validation["field_errors"],
+            )
         ldm["proveedor"] = validation["proveedor"]
         ldm["fecha"] = validation["fecha"]
         ldm["items"] = validation["items"]
@@ -243,7 +267,7 @@ def edit_ldm(project_id, ldm_id):
         flash("Lista de materiales actualizada.", "success")
         return redirect(url_for("materials_bp.edit_ldm", project_id=project_id, ldm_id=ldm_id))
     hydrated = hydrate_ldm(ldm, *catalog_maps())
-    return render_template("ldm_form.html", project=project, ldm=hydrated, proveedores=load("proveedores"), today=today())
+    return _render_ldm_form(project, hydrated)
 
 
 @bp.route("/api/ldm/<ldm_id>/costo", methods=["POST"], endpoint="api_ldm_set_costo")
@@ -266,6 +290,34 @@ def api_ldm_set_costo(ldm_id):
 def delete_ldm(project_id, ldm_id):
     save("materiales", [item for item in load("materiales") if item["id"] != ldm_id])
     flash("Lista eliminada.", "warning")
+    return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+
+
+@bp.route(
+    "/projects/<project_id>/ldm/<ldm_id>/purge-deleted-catalog",
+    methods=["POST"],
+    endpoint="purge_ldm_deleted_catalog_items",
+)
+def purge_ldm_deleted_catalog_items(project_id, ldm_id):
+    all_ldms = load("materiales")
+    ldm = next((item for item in all_ldms if item["id"] == ldm_id and item["project_id"] == project_id), None)
+    if not ldm:
+        flash("Lista no encontrada.", "danger")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+
+    updated_ldm, removed = purge_deleted_catalog_items_from_record(ldm)
+    if any("precio_cot" in item or "total_cot" in item for item in updated_ldm.get("items", [])):
+        updated_ldm["subtotal_cot"] = round(
+            sum(
+                safe_float(item.get("total_cot"))
+                or safe_float(item.get("qty", 0)) * safe_float(item.get("precio_cot", 0))
+                for item in updated_ldm.get("items", [])
+            ),
+            2,
+        )
+    ldm.update(updated_ldm)
+    save("materiales", all_ldms)
+    flash(f"Se eliminaron {removed} artículo(s) con catálogo eliminado de la LDM.", "warning")
     return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
 
 

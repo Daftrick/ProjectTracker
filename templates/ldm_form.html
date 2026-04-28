@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% set import_preview = ldm and ldm.is_import_preview %}
-{% block title %}{% if import_preview %}Importar CSV{% elif ldm %}Editar{% else %}Nueva{% endif %} Lista de Materiales – {{ project.name }}{% endblock %}
+{% set existing_ldm = ldm and ldm.id and not import_preview %}
+{% block title %}{% if import_preview %}Importar CSV{% elif existing_ldm %}Editar{% else %}Nueva{% endif %} Lista de Materiales – {{ project.name }}{% endblock %}
 {% block page_title %}
   <i class="bi bi-card-list me-2 text-warning"></i>
-  {% if import_preview %}Importar CSV a LDM — {{ project.clave }}{% elif ldm %}Editar {{ ldm.ldm_number }}{% else %}Nueva lista de materiales — {{ project.clave }}{% endif %}
+  {% if import_preview %}Importar CSV a LDM — {{ project.clave }}{% elif existing_ldm %}Editar {{ ldm.ldm_number }}{% else %}Nueva lista de materiales — {{ project.clave }}{% endif %}
 {% endblock %}
 {% block topbar_actions %}
   <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-materiales"
@@ -68,6 +69,8 @@
   .ac-add:hover, .ac-add.ac-hover { background: rgba(50,130,80,.15); color: #80c89a; }
   .ac-divider { border-top: 1px solid rgba(255,255,255,.1); margin: 2px 0; }
   .row-tools { display:flex; justify-content:flex-end; gap:4px; flex-wrap:nowrap; }
+  .deleted-catalog-row td { background: rgba(145,60,60,.16) !important; }
+  .deleted-catalog-badge { font-size:.68rem; }
   .ldm-row { cursor: default; }
   .ldm-row.dragging { opacity: .45; }
   .drag-cell { width: 38px; text-align: center; vertical-align: middle; }
@@ -119,6 +122,7 @@
 {% endblock %}
 
 {% block content %}
+{% set fe = field_errors|default({}) %}
 <form method="post" id="ldmForm">
 
 <!-- ── Barra de acciones fija ── -->
@@ -128,7 +132,7 @@
       <span class="meta-label">Proyecto </span>
       <span class="meta-val">{{ project.clave }}</span>
     </div>
-    {% if ldm %}
+    {% if ldm and ldm.ldm_number %}
     <div class="meta-item">
       <span class="meta-label">{% if import_preview %}Origen {% else %}Lista {% endif %}</span>
       <span class="meta-val text-warning">{{ ldm.ldm_number }}</span>
@@ -142,7 +146,7 @@
     <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-materiales"
        class="btn btn-outline-secondary btn-sm">Cancelar</a>
     <button type="submit" class="btn btn-warning btn-sm px-4 text-dark">
-      <i class="bi bi-check-lg me-1"></i>{% if import_preview %}Crear LDM{% elif ldm %}Guardar cambios{% else %}Crear lista{% endif %}
+      <i class="bi bi-check-lg me-1"></i>{% if import_preview %}Crear LDM{% elif existing_ldm %}Guardar cambios{% else %}Crear lista{% endif %}
     </button>
   </div>
 </div>
@@ -172,10 +176,11 @@
                 <i class="bi bi-box-arrow-up-right"></i> Gestionar
               </a>
             </label>
-            <input name="proveedor" class="form-control" required
+            <input name="proveedor" class="form-control{% if fe.get('proveedor') %} is-invalid{% endif %}" required
                    list="proveedoresList"
                    placeholder="Selecciona o escribe el nombre del proveedor"
                    value="{{ ldm.proveedor if ldm else '' }}">
+            {% if fe.get('proveedor') %}<div class="invalid-feedback">{{ fe.get('proveedor') }}</div>{% endif %}
             <datalist id="proveedoresList">
               {% for p in proveedores %}
               <option value="{{ p.nombre }}"
@@ -194,8 +199,9 @@
           </div>
           <div class="col-md-6">
             <label class="form-label">Fecha</label>
-            <input type="date" name="fecha" class="form-control"
+            <input type="date" name="fecha" class="form-control{% if fe.get('fecha') %} is-invalid{% endif %}"
                    value="{{ ldm.fecha if ldm else today }}">
+            {% if fe.get('fecha') %}<div class="invalid-feedback">{{ fe.get('fecha') }}</div>{% endif %}
           </div>
           <div class="col-12">
             <label class="form-label">Notas / instrucciones</label>
@@ -208,20 +214,42 @@
 
     <!-- Tabla de artículos -->
     <div class="card sticky-items-card">
-      <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-        <span>Artículos a cotizar</span>
-        <div class="d-flex gap-2">
-          <button type="button" class="btn btn-sm btn-outline-secondary"
-                  data-bs-toggle="modal" data-bs-target="#catalogModal"
-                  onclick="openCatalogNew()">
-            <i class="bi bi-box-seam me-1"></i>Buscar catálogo
-          </button>
-          <button type="button" class="btn btn-sm btn-outline-primary" onclick="addRow()">
-            <i class="bi bi-plus-lg"></i> Agregar fila
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+          <span>
+            Artículos a cotizar
+            <small class="text-muted ms-2" id="partidaFilterCount"></small>
+          </span>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary"
+                    data-bs-toggle="modal" data-bs-target="#catalogModal"
+                    onclick="openCatalogNew()">
+              <i class="bi bi-box-seam me-1"></i>Buscar catálogo
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-primary" onclick="addRow()">
+              <i class="bi bi-plus-lg"></i> Agregar fila
+            </button>
+          </div>
+        </div>
+        <div class="input-group input-group-sm">
+          <span class="input-group-text bg-transparent border-end-0">
+            <i class="bi bi-funnel text-muted"></i>
+          </span>
+          <input type="search" id="partidaFilter" class="form-control border-start-0"
+                 placeholder="Filtrar artículos capturados… (varias palabras AND, busca en descripción y unidad)"
+                 autocomplete="off">
+          <button type="button" class="btn btn-outline-secondary" id="partidaFilterClear"
+                  title="Limpiar filtro" tabindex="-1">
+            <i class="bi bi-x-lg"></i>
           </button>
         </div>
       </div>
       <div class="card-body p-0">
+        {% if fe.get('items') %}
+        <div class="alert alert-warning rounded-0 border-start-0 border-end-0 mb-0 py-2">
+          {{ fe.get('items') }}
+        </div>
+        {% endif %}
         <table class="table mb-0 sticky-items-table" id="itemsTable">
           <thead class="table-light">
             <tr>
@@ -235,8 +263,15 @@
           <tbody id="itemsBody">
             {% if ldm and ldm['items'] %}
               {% for item in ldm['items'] %}
-              <tr class="ldm-row">
+              {% set deleted_catalog = item.deleted_catalog_item or {} %}
+              <tr class="ldm-row {% if item.catalog_deleted %}deleted-catalog-row{% endif %}">
                 <td class="drag-cell">
+                  <input type="hidden" name="item_deleted_catalog_id[]" value="{{ deleted_catalog.id or '' }}">
+                  <input type="hidden" name="item_deleted_catalog_nombre[]" value="{{ deleted_catalog.nombre or '' }}">
+                  <input type="hidden" name="item_deleted_catalog_descripcion[]" value="{{ deleted_catalog.descripcion or '' }}">
+                  <input type="hidden" name="item_deleted_catalog_unidad[]" value="{{ deleted_catalog.unidad or '' }}">
+                  <input type="hidden" name="item_deleted_catalog_precio[]" value="{{ deleted_catalog.precio or '' }}">
+                  <input type="hidden" name="item_deleted_catalog_deleted_at[]" value="{{ deleted_catalog.deleted_at or '' }}">
                   <span class="drag-handle" title="Arrastrar para reordenar">
                     <i class="bi bi-grip-vertical"></i>
                   </span>
@@ -247,6 +282,13 @@
                            value="{{ item.description }}" autocomplete="off" required>
                     <input type="hidden" name="item_catalog_id[]" value="{{ item.catalog_item_id or '' }}">
                     <div class="ac-dropdown" role="listbox"></div>
+                    {% if item.catalog_deleted %}
+                    <div class="mt-1">
+                      <span class="badge bg-danger deleted-catalog-badge">
+                        Catálogo eliminado{% if deleted_catalog.deleted_at %} · {{ deleted_catalog.deleted_at | fdate }}{% endif %}
+                      </span>
+                    </div>
+                    {% endif %}
                   </div>
                 </td>
                 <td>
@@ -359,6 +401,12 @@
     tr.className = "ldm-row";
     tr.innerHTML = `
       <td class="drag-cell">
+        <input type="hidden" name="item_deleted_catalog_id[]" value="">
+        <input type="hidden" name="item_deleted_catalog_nombre[]" value="">
+        <input type="hidden" name="item_deleted_catalog_descripcion[]" value="">
+        <input type="hidden" name="item_deleted_catalog_unidad[]" value="">
+        <input type="hidden" name="item_deleted_catalog_precio[]" value="">
+        <input type="hidden" name="item_deleted_catalog_deleted_at[]" value="">
         <span class="drag-handle" title="Arrastrar para reordenar">
           <i class="bi bi-grip-vertical"></i>
         </span>
@@ -481,11 +529,18 @@
     row.querySelector('[name="item_catalog_id[]"]').value = item.id || "";
     row.querySelector('[name="item_desc[]"]').value = item.nombre;
     row.querySelector('[name="item_unit[]"]').value = item.unidad;
+    clearDeletedCatalogState(row);
+    row.classList.remove("deleted-catalog-row");
   }
 
   function clearCatalogLink(row) {
     const idInput = row.querySelector('[name="item_catalog_id[]"]');
     if (idInput) idInput.value = "";
+  }
+
+  function clearDeletedCatalogState(row) {
+    row.querySelectorAll('[name^="item_deleted_catalog_"]').forEach(input => input.value = "");
+    row.querySelector(".deleted-catalog-badge")?.closest(".mt-1")?.remove();
   }
 
   function addToCatalog() {
@@ -722,6 +777,63 @@
       if (!draggingRow) return;
       clearDragState();
     });
+  });
+
+  // ── Filtro inline de partidas (no afecta el submit) ─────────────────────────
+  //
+  // La caja "Filtrar artículos…" aplica búsqueda por tokens (AND, sin acentos,
+  // case-insensitive) sobre descripción + unidad de cada renglón. Las filas
+  // que no machean se ocultan con display:none, pero permanecen en el DOM
+  // para que el formulario siga enviándolas al guardar.
+
+  function _ptkNormalize(text) {
+    return String(text || "")
+      .toLowerCase()
+      .normalize("NFKD")
+      .replace(/[̀-ͯ]/g, "");
+  }
+  function _ptkTokens(query) {
+    return _ptkNormalize(query).split(/\s+/).filter(Boolean);
+  }
+  function _ptkRowText(row) {
+    const desc = row.querySelector('[name="item_desc[]"]')?.value || "";
+    const unit = row.querySelector('[name="item_unit[]"]')?.value || "";
+    return _ptkNormalize(`${desc} ${unit}`);
+  }
+
+  function applyPartidaFilter() {
+    const input   = document.getElementById("partidaFilter");
+    const counter = document.getElementById("partidaFilterCount");
+    const tbody   = document.getElementById("itemsBody");
+    if (!input || !tbody) return;
+    const tokens = _ptkTokens(input.value);
+    const rows = [...tbody.querySelectorAll(".ldm-row")];
+    let visible = 0;
+    rows.forEach(row => {
+      const match = !tokens.length || tokens.every(t => _ptkRowText(row).includes(t));
+      row.style.display = match ? "" : "none";
+      if (match) visible++;
+    });
+    const total = rows.length;
+    counter.textContent = tokens.length
+      ? `(${visible}/${total} visibles)`
+      : (total ? `(${total} artículo${total === 1 ? "" : "s"})` : "");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const filterInput = document.getElementById("partidaFilter");
+    const clearBtn    = document.getElementById("partidaFilterClear");
+    if (!filterInput) return;
+    filterInput.addEventListener("input", applyPartidaFilter);
+    clearBtn?.addEventListener("click", () => {
+      filterInput.value = "";
+      applyPartidaFilter();
+      filterInput.focus();
+    });
+    document.getElementById("itemsBody").addEventListener("input", e => {
+      if (e.target.matches('[name^="item_"]')) applyPartidaFilter();
+    });
+    applyPartidaFilter();
   });
 </script>
 {% endblock %}

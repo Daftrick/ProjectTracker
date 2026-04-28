@@ -5,6 +5,8 @@
   <a href="{{ url_for('dashboard') }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Volver</a>
 {% endblock %}
 {% block content %}
+{% set fs = form_state.fields %}
+{% set fe = form_state.field_errors %}
 <div style="max-width:720px">
 <form method="post">
   <div class="card mb-3">
@@ -13,27 +15,30 @@
       <div class="row g-3">
         <div class="col-md-8">
           <label class="form-label">Nombre del proyecto *</label>
-          <input name="name" class="form-control" required placeholder="Ej: Oficinas Torre Reforma">
+          <input name="name" class="form-control{% if fe.get('name') %} is-invalid{% endif %}" required placeholder="Ej: Oficinas Torre Reforma" value="{{ fs.name }}">
+          {% if fe.get('name') %}<div class="invalid-feedback">{{ fe.get('name') }}</div>{% endif %}
         </div>
         <div class="col-md-4">
           <label class="form-label">Cliente</label>
-          <input name="client" class="form-control" placeholder="Nombre del cliente">
+          <input name="client" class="form-control" placeholder="Nombre del cliente" value="{{ fs.client }}">
         </div>
         <div class="col-md-5">
           <label class="form-label">Clave del proyecto *
             <i class="bi bi-info-circle text-muted ms-1" data-bs-toggle="tooltip"
                title="Ej: OficinasPalmas1 | Cero5Cien-402 | RSF-LT1013"></i>
           </label>
-          <input name="clave" class="form-control" required placeholder="Ej: OficinasPalmas1"
-                 id="claveInput" oninput="updatePreview()">
+          <input name="clave" class="form-control{% if fe.get('clave') %} is-invalid{% endif %}" required placeholder="Ej: OficinasPalmas1"
+                 id="claveInput" oninput="updatePreview()" value="{{ fs.clave }}">
+          {% if fe.get('clave') %}<div class="invalid-feedback">{{ fe.get('clave') }}</div>{% endif %}
         </div>
         <div class="col-md-3">
           <label class="form-label">Versión</label>
-          <input name="version" class="form-control" value="V1" placeholder="V1" id="verInput" oninput="updatePreview()">
+          <input name="version" class="form-control" value="{{ fs.version }}" placeholder="V1" id="verInput" oninput="updatePreview()">
         </div>
         <div class="col-md-4">
           <label class="form-label">Fecha (AAMMDD)</label>
-          <input name="fecha" class="form-control" placeholder="260418" id="fechaInput" oninput="updatePreview()">
+          <input name="fecha" class="form-control{% if fe.get('fecha') %} is-invalid{% endif %}" placeholder="260418" id="fechaInput" oninput="updatePreview()" value="{{ fs.fecha }}">
+          {% if fe.get('fecha') %}<div class="invalid-feedback">{{ fe.get('fecha') }}</div>{% endif %}
         </div>
         <!-- Preview nombre de archivo -->
         <div class="col-12">
@@ -45,7 +50,7 @@
         </div>
         <div class="col-12">
           <label class="form-label">Notas</label>
-          <textarea name="notes" class="form-control" rows="2" placeholder="Descripción general, ubicación, etc."></textarea>
+          <textarea name="notes" class="form-control" rows="2" placeholder="Descripción general, ubicación, etc.">{{ fs.notes }}</textarea>
         </div>
       </div>
     </div>
@@ -54,6 +59,9 @@
   <div class="card mb-3">
     <div class="card-header">Selecciona los alcances del proyecto</div>
     <div class="card-body">
+      {% if fe.get('alcances') %}
+      <div class="alert alert-warning py-2 mb-3">{{ fe.get('alcances') }}</div>
+      {% endif %}
       <div class="row g-2">
         {% for alc in alcances_catalog %}
         <div class="col-md-6">
@@ -61,7 +69,7 @@
                onclick="this.querySelector('input').click()">
             <input class="form-check-input" type="checkbox" name="alcances"
                    value="{{ alc.id }}" id="alc_{{ alc.id }}"
-                   {% if alc.id == 'cotizacion' %}checked{% endif %}>
+                   {% if alc.id in form_state.alcances %}checked{% endif %}>
             <label class="form-check-label w-100" for="alc_{{ alc.id }}" style="cursor:pointer">
               <span class="fw-semibold">{{ alc.nombre }}</span>
               <div class="mt-1 d-flex flex-wrap gap-1">
@@ -101,6 +109,7 @@
     document.getElementById("previewIE").textContent=`IE-${c}-${v}-${f}`;
     document.getElementById("previewXREF").textContent=`XREF-${c}-${v}-${f}`;
   }
+  updatePreview();
   // Tooltips Bootstrap
   document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el=>new bootstrap.Tooltip(el));
 </script>

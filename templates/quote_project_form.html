@@ -1,8 +1,9 @@
 {% extends "base.html" %}
-{% block title %}{% if quote %}Editar{% else %}Nueva{% endif %} Cotización – {{ project.name }}{% endblock %}
+{% set existing_quote = quote and quote.id %}
+{% block title %}{% if existing_quote %}Editar{% else %}Nueva{% endif %} Cotización – {{ project.name }}{% endblock %}
 {% block page_title %}
   <i class="bi bi-receipt me-2 text-success"></i>
-  {% if quote %}Editar {{ quote.quote_number }}{% else %}Nueva cotización — {{ project.clave }}{% endif %}
+  {% if existing_quote %}Editar {{ quote.quote_number }}{% else %}Nueva cotización — {{ project.clave }}{% endif %}
 {% endblock %}
 {% block topbar_actions %}
   <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-quote" class="btn btn-sm btn-outline-secondary">
@@ -65,6 +66,8 @@
   .ac-add:hover, .ac-add.ac-hover { background: rgba(50,130,80,.15); color: #80c89a; }
   .ac-divider { border-top: 1px solid rgba(255,255,255,.1); margin: 2px 0; }
   .row-tools { display:flex; justify-content:flex-end; gap:4px; flex-wrap:nowrap; }
+  .deleted-catalog-row td { background: rgba(145,60,60,.16) !important; }
+  .deleted-catalog-badge { font-size:.68rem; }
   .quote-row { cursor: default; }
   .quote-draggable.dragging { opacity: .45; }
   .quote-section-row td {
@@ -134,6 +137,7 @@
 </style>
 {% endblock %}
 {% block content %}
+{% set fe = field_errors|default({}) %}
 <form method="post" id="quoteForm">
 
 <!-- ── Barra de resumen fija ── -->
@@ -156,7 +160,7 @@
     <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-quote"
        class="btn btn-outline-secondary btn-sm">Cancelar</a>
     <button type="submit" class="btn btn-primary btn-sm px-4">
-      <i class="bi bi-check-lg me-1"></i>{% if quote %}Guardar{% else %}Crear cotización{% endif %}
+      <i class="bi bi-check-lg me-1"></i>{% if existing_quote %}Guardar{% else %}Crear cotización{% endif %}
     </button>
   </div>
 </div>
@@ -192,8 +196,9 @@
           <!-- Fecha -->
           <div class="col-md-4">
             <label class="form-label">Fecha</label>
-            <input type="date" name="date" class="form-control" id="quoteDate"
+            <input type="date" name="date" class="form-control{% if fe.get('date') %} is-invalid{% endif %}" id="quoteDate"
                    value="{{ quote.date if quote else today }}" oninput="updateNum()">
+            {% if fe.get('date') %}<div class="invalid-feedback">{{ fe.get('date') }}</div>{% endif %}
           </div>
           <!-- Versión (opcional, referencia interna) -->
           <div class="col-md-2">
@@ -203,16 +208,18 @@
           </div>
           <div class="col-md-2">
             <label class="form-label">Moneda</label>
-            <select name="currency" class="form-select">
+            <select name="currency" class="form-select{% if fe.get('currency') %} is-invalid{% endif %}">
               {% for c in ["MXN","USD","EUR"] %}
                 <option {% if quote and quote.currency==c %}selected{% elif not quote and c=="MXN" %}selected{% endif %}>{{ c }}</option>
               {% endfor %}
             </select>
+            {% if fe.get('currency') %}<div class="invalid-feedback">{{ fe.get('currency') }}</div>{% endif %}
           </div>
           <div class="col-md-2">
             <label class="form-label">IVA (%)</label>
-            <input type="number" name="tax_rate" class="form-control" id="taxRate"
+            <input type="number" name="tax_rate" class="form-control{% if fe.get('tax_rate') %} is-invalid{% endif %}" id="taxRate"
                    value="{{ quote.tax_rate if quote else 16 }}" min="0" max="100" step="0.01">
+            {% if fe.get('tax_rate') %}<div class="invalid-feedback">{{ fe.get('tax_rate') }}</div>{% endif %}
           </div>
           <div class="col-12">
             <label class="form-label">Notas / Condiciones de pago</label>
@@ -228,21 +235,43 @@
       </div>
     </div>
     <div class="card sticky-items-card">
-      <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-        <span>Partidas</span>
-        <div class="d-flex gap-2">
-          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#catalogModal" onclick="openCatalogNew()">
-            <i class="bi bi-box-seam me-1"></i>Buscar catálogo
-          </button>
-          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addSection()">
-            <i class="bi bi-layout-text-sidebar-reverse me-1"></i>Agregar sección
-          </button>
-          <button type="button" class="btn btn-sm btn-outline-primary" onclick="addRow()">
-            <i class="bi bi-plus-lg"></i> Agregar fila
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+          <span>
+            Partidas
+            <small class="text-muted ms-2" id="partidaFilterCount"></small>
+          </span>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#catalogModal" onclick="openCatalogNew()">
+              <i class="bi bi-box-seam me-1"></i>Buscar catálogo
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addSection()">
+              <i class="bi bi-layout-text-sidebar-reverse me-1"></i>Agregar sección
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-primary" onclick="addRow()">
+              <i class="bi bi-plus-lg"></i> Agregar fila
+            </button>
+          </div>
+        </div>
+        <div class="input-group input-group-sm">
+          <span class="input-group-text bg-transparent border-end-0">
+            <i class="bi bi-funnel text-muted"></i>
+          </span>
+          <input type="search" id="partidaFilter" class="form-control border-start-0"
+                 placeholder="Filtrar partidas capturadas… (varias palabras AND, busca en descripción, unidad y sección)"
+                 autocomplete="off">
+          <button type="button" class="btn btn-outline-secondary" id="partidaFilterClear"
+                  title="Limpiar filtro" tabindex="-1">
+            <i class="bi bi-x-lg"></i>
           </button>
         </div>
       </div>
       <div class="card-body p-0">
+        {% if fe.get('items') %}
+        <div class="alert alert-warning rounded-0 border-start-0 border-end-0 mb-0 py-2">
+          {{ fe.get('items') }}
+        </div>
+        {% endif %}
         <table class="table mb-0 sticky-items-table" id="itemsTable">
           <thead class="table-light">
             <tr>
@@ -270,6 +299,12 @@
                   <input type="hidden" name="item_unit[]" value="">
                   <input type="hidden" name="item_qty[]" value="">
                   <input type="hidden" name="item_price[]" value="">
+                  <input type="hidden" name="item_deleted_catalog_id[]" value="">
+                  <input type="hidden" name="item_deleted_catalog_nombre[]" value="">
+                  <input type="hidden" name="item_deleted_catalog_descripcion[]" value="">
+                  <input type="hidden" name="item_deleted_catalog_unidad[]" value="">
+                  <input type="hidden" name="item_deleted_catalog_precio[]" value="">
+                  <input type="hidden" name="item_deleted_catalog_deleted_at[]" value="">
                   <span class="drag-handle" title="Arrastrar sección">
                     <i class="bi bi-grip-vertical"></i>
                   </span>
@@ -287,10 +322,17 @@
               </tr>
               {% set section_ns.current = item_section %}
               {% endif %}
-              <tr class="quote-row quote-draggable">
+              {% set deleted_catalog = item.deleted_catalog_item or {} %}
+              <tr class="quote-row quote-draggable {% if item.catalog_deleted %}deleted-catalog-row{% endif %}">
                 <td class="drag-cell">
                   <input type="hidden" name="item_kind[]" value="item">
                   <input type="hidden" name="item_section[]" value="{{ item_section }}">
+                  <input type="hidden" name="item_deleted_catalog_id[]" value="{{ deleted_catalog.id or '' }}">
+                  <input type="hidden" name="item_deleted_catalog_nombre[]" value="{{ deleted_catalog.nombre or '' }}">
+                  <input type="hidden" name="item_deleted_catalog_descripcion[]" value="{{ deleted_catalog.descripcion or '' }}">
+                  <input type="hidden" name="item_deleted_catalog_unidad[]" value="{{ deleted_catalog.unidad or '' }}">
+                  <input type="hidden" name="item_deleted_catalog_precio[]" value="{{ deleted_catalog.precio or '' }}">
+                  <input type="hidden" name="item_deleted_catalog_deleted_at[]" value="{{ deleted_catalog.deleted_at or '' }}">
                   <span class="drag-handle" title="Arrastrar para reordenar">
                     <i class="bi bi-grip-vertical"></i>
                   </span>
@@ -302,6 +344,13 @@
                     <input type="hidden" name="item_catalog_id[]" value="{{ item.catalog_item_id or '' }}">
                     <input type="hidden" name="item_desc2[]" value="{{ item.catalog_description or item.description_secondary or '' }}">
                     <div class="ac-dropdown" role="listbox"></div>
+                    {% if item.catalog_deleted %}
+                    <div class="mt-1">
+                      <span class="badge bg-danger deleted-catalog-badge">
+                        Catálogo eliminado{% if deleted_catalog.deleted_at %} · {{ deleted_catalog.deleted_at | fdate }}{% endif %}
+                      </span>
+                    </div>
+                    {% endif %}
                   </div>
                 </td>
                 <td><input name="item_unit[]" class="form-control form-control-sm" value="{{ item.unit }}"></td>
@@ -404,6 +453,12 @@
       <td class="drag-cell">
         <input type="hidden" name="item_kind[]" value="item">
         <input type="hidden" name="item_section[]" value="">
+        <input type="hidden" name="item_deleted_catalog_id[]" value="">
+        <input type="hidden" name="item_deleted_catalog_nombre[]" value="">
+        <input type="hidden" name="item_deleted_catalog_descripcion[]" value="">
+        <input type="hidden" name="item_deleted_catalog_unidad[]" value="">
+        <input type="hidden" name="item_deleted_catalog_precio[]" value="">
+        <input type="hidden" name="item_deleted_catalog_deleted_at[]" value="">
         <span class="drag-handle" title="Arrastrar para reordenar">
           <i class="bi bi-grip-vertical"></i>
         </span>
@@ -454,6 +509,12 @@
         <input type="hidden" name="item_unit[]" value="">
         <input type="hidden" name="item_qty[]" value="">
         <input type="hidden" name="item_price[]" value="">
+        <input type="hidden" name="item_deleted_catalog_id[]" value="">
+        <input type="hidden" name="item_deleted_catalog_nombre[]" value="">
+        <input type="hidden" name="item_deleted_catalog_descripcion[]" value="">
+        <input type="hidden" name="item_deleted_catalog_unidad[]" value="">
+        <input type="hidden" name="item_deleted_catalog_precio[]" value="">
+        <input type="hidden" name="item_deleted_catalog_deleted_at[]" value="">
         <span class="drag-handle" title="Arrastrar sección">
           <i class="bi bi-grip-vertical"></i>
         </span>
@@ -785,6 +846,8 @@
     row.querySelector('[name="item_desc2[]"]').value = item.descripcion || "";
     row.querySelector('[name="item_unit[]"]').value  = item.unidad;
     row.querySelector('[name="item_price[]"]').value = item.precio;
+    clearDeletedCatalogState(row);
+    row.classList.remove("deleted-catalog-row");
     calcRow(row.querySelector(".qty"));
   }
 
@@ -795,6 +858,11 @@
       const desc2Input = row.querySelector('[name="item_desc2[]"]');
       if (desc2Input) desc2Input.value = "";
     }
+  }
+
+  function clearDeletedCatalogState(row) {
+    row.querySelectorAll('[name^="item_deleted_catalog_"]').forEach(input => input.value = "");
+    row.querySelector(".deleted-catalog-badge")?.closest(".mt-1")?.remove();
   }
 
   /** Abre el modal de catálogo apuntando a la fila row, con el formulario
@@ -934,6 +1002,98 @@
       syncItemSections();
       clearDragState();
     });
+  });
+
+  // ── Filtro inline de partidas (no afecta el submit) ─────────────────────────
+  //
+  // La caja "Filtrar partidas…" aplica búsqueda por tokens (AND, sin acentos,
+  // case-insensitive) sobre descripción + unidad + sección de cada renglón.
+  // Las filas que no machean se ocultan con display:none, pero permanecen en
+  // el DOM para que el formulario siga enviándolas al guardar.
+  //
+  // Para secciones: la sección se muestra si su título machea o si alguna
+  // partida bajo ella machea, de modo que el contexto no se pierde.
+
+  function _ptkNormalize(text) {
+    return String(text || "")
+      .toLowerCase()
+      .normalize("NFKD")
+      .replace(/[̀-ͯ]/g, "");
+  }
+  function _ptkTokens(query) {
+    return _ptkNormalize(query).split(/\s+/).filter(Boolean);
+  }
+  function _ptkRowText(row) {
+    const desc  = row.querySelector('[name="item_desc[]"]')?.value  || "";
+    const unit  = row.querySelector('[name="item_unit[]"]')?.value  || "";
+    const desc2 = row.querySelector('[name="item_desc2[]"]')?.value || "";
+    const section = row.querySelector('[name="item_section[]"]')?.value || "";
+    return _ptkNormalize(`${desc} ${unit} ${desc2} ${section}`);
+  }
+
+  function applyPartidaFilter() {
+    const input   = document.getElementById("partidaFilter");
+    const counter = document.getElementById("partidaFilterCount");
+    const tbody   = document.getElementById("itemsBody");
+    if (!input || !tbody) return;
+    const tokens = _ptkTokens(input.value);
+
+    // Agrupar por sección: cada sectionRow inicia un grupo nuevo
+    const groups = [];
+    let current = { sectionRow: null, items: [] };
+    [...tbody.children].forEach(row => {
+      if (row.classList.contains("quote-section-row")) {
+        if (current.sectionRow || current.items.length) groups.push(current);
+        current = { sectionRow: row, items: [] };
+      } else if (row.classList.contains("quote-row")) {
+        current.items.push(row);
+      }
+    });
+    if (current.sectionRow || current.items.length) groups.push(current);
+
+    let visible = 0;
+    let total   = 0;
+
+    groups.forEach(g => {
+      total += g.items.length;
+      if (!tokens.length) {
+        if (g.sectionRow) g.sectionRow.style.display = "";
+        g.items.forEach(it => { it.style.display = ""; visible++; });
+        return;
+      }
+      const sectionTitle = g.sectionRow
+        ? _ptkNormalize(g.sectionRow.querySelector('[name="item_section[]"]')?.value || "")
+        : "";
+      const sectionMatch = sectionTitle && tokens.every(t => sectionTitle.includes(t));
+      let groupHasMatch = sectionMatch;
+      g.items.forEach(it => {
+        const rowMatch = sectionMatch || tokens.every(t => _ptkRowText(it).includes(t));
+        it.style.display = rowMatch ? "" : "none";
+        if (rowMatch) { visible++; groupHasMatch = true; }
+      });
+      if (g.sectionRow) g.sectionRow.style.display = groupHasMatch ? "" : "none";
+    });
+
+    counter.textContent = tokens.length
+      ? `(${visible}/${total} visibles)`
+      : (total ? `(${total} partida${total === 1 ? "" : "s"})` : "");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const filterInput = document.getElementById("partidaFilter");
+    const clearBtn    = document.getElementById("partidaFilterClear");
+    if (!filterInput) return;
+    filterInput.addEventListener("input", applyPartidaFilter);
+    clearBtn?.addEventListener("click", () => {
+      filterInput.value = "";
+      applyPartidaFilter();
+      filterInput.focus();
+    });
+    // Al agregar/eliminar filas o cambiar descripciones, refrescar el contador.
+    document.getElementById("itemsBody").addEventListener("input", e => {
+      if (e.target.matches('[name^="item_"]')) applyPartidaFilter();
+    });
+    applyPartidaFilter();
   });
 </script>
 {% endblock %}

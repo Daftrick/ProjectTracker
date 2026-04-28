@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v12.0 — 27-Apr-2026
+## Versión actual: v16.0 — 28-Apr-2026
 
 ---
 
@@ -31,9 +31,12 @@ Regla: al subir versión mayor, el decimal se reinicia a 0.
 | PDF | fpdf2 ≥ 2.7.9 |
 | Puerto | **8080** (default) — override con `PROJECT_TRACKER_PORT=N` |
 | Debug | `FLASK_DEBUG=1` activa auto-reload |
-| Inicio normal | `INICIAR.vbs` — instala deps, espera 3 s, abre `http://localhost:8080` y levanta Flask sin ventana visible |
+| Inicio normal | Windows: `INICIAR.vbs` — instala deps, espera 3 s, abre `http://localhost:8080` y levanta Flask sin ventana visible |
+| Inicio normal (macOS) | `INICIAR.command` — instala deps, espera 3 s, abre `http://localhost:8080` y levanta Flask en Terminal |
 | Inicio debug | `DEBUG.bat` — ejecuta `app.py` con ventana de consola |
-| Reinicio | `REINICIAR.bat` |
+| Inicio debug (macOS) | `DEBUG.command` — ejecuta `app.py` con auto-reload y abre la app |
+| Reinicio | Windows: `REINICIAR.bat` |
+| Reinicio (macOS) | `REINICIAR.command` — detiene el proceso del puerto 8080 y relanza sin abrir otra pestaña del navegador |
 | Persistencia | JSON plano en `data/` (sin base de datos) |
 | Ruta raíz | `H:\My Drive\Omniious\Claude Code\ProjectTracker\` |
 
@@ -44,8 +47,11 @@ Regla: al subir versión mayor, el decimal se reinicia a 0.
 ```
 ProjectTracker/
 ├── app.py                      # Punto de entrada mínimo; llama create_app() y corre Flask
-├── INICIAR.vbs                 # Lanzador principal sin ventana de consola
+├── INICIAR.vbs                 # Lanzador principal Windows sin ventana de consola
+├── INICIAR.command             # Lanzador principal macOS
+├── DEBUG.command               # Lanzador debug macOS
 ├── DEBUG.bat                   # Lanzador con ventana visible para depuración
+├── REINICIAR.command           # Reinicio macOS
 ├── REINICIAR.bat               # Reinicia el servidor
 ├── requirements.txt            # flask>=3.0.0, fpdf2>=2.7.9
 ├── ROADMAP_MEJORAS.md          # Backlog de mejoras acordadas
@@ -56,7 +62,9 @@ ProjectTracker/
 │   ├── domain.py               # Catálogo de alcances, statuses, fdate/currency filters, get_progress
 │   ├── storage.py              # load/save JSON, new_id (UUID 8 chars), today(), BASE_DIR, DATA_DIR
 │   ├── services.py             # Lógica de negocio pura: crear proyectos+tareas, sincronizar alcances, cambiar status
-│   ├── catalog.py              # hydrate_quote/ldm, catalog_maps, parse_*_items, quote_type_key/code
+│   ├── catalog.py              # hydrate_quote/ldm, catalog_maps, parse_*_items, quote_type_key/code, migrate_catalog_fields
+│   ├── catalog_search.py       # tokenize, match_item, filter_catalog, list_categories (búsqueda por tokens AND + categoría)
+│   ├── consistency.py          # compute_consistency, compare_items por catalog_item_id (margen 30%/0%)
 │   ├── csv_import.py           # Parser CSV para importar exportaciones LISP como LDM
 │   ├── validators.py           # validate_project_form, validate_quote_form, validate_ldm_form
 │   ├── pdfs.py                 # build_quote_pdf, build_ldm_pdf (fpdf2); logo desde Drive o .codex_tmp
@@ -106,7 +114,9 @@ ProjectTracker/
     ├── test_services.py        # unittest: crear proyecto, sync alcances, bloqueos, subtareas obs
     ├── test_drive.py           # unittest: escaneo Drive, CSVs de plano y archivos ignorados
     ├── test_csv_import.py      # unittest: parser CSV para LDM
-    └── test_validators.py      # unittest: formularios vacíos, filas vacías, números inválidos
+    ├── test_validators.py      # unittest: formularios vacíos, filas vacías, números inválidos
+    ├── test_catalog_search.py  # unittest: tokens AND, categoría, list_categories, smoke /api/catalogo
+    └── test_consistency.py     # unittest: agregaciones, umbrales 30%/0%, issues por artículo
 ```
 
 ---
@@ -146,9 +156,9 @@ Item: `{catalog_item_id, description, unit, qty, precio_cot, total_cot, qty_csv,
 
 ### Catálogo (`catalogo.json`)
 ```
-id, nombre, descripcion, unidad, precio, created_at
+id, nombre, descripcion, unidad, precio, categoria, created_at
 ```
-IDs son UUID de 8 chars en mayúsculas. Artículos se vinculan a items de COT y LDM por `catalog_item_id`.
+IDs son UUID de 8 chars en mayúsculas. Artículos se vinculan a items de COT y LDM por `catalog_item_id`. El campo `categoria` es libre (con datalist sugerido) y se migra suavemente vía `migrate_catalog_fields()` al arranque.
 
 ### Proveedor (`proveedores.json`)
 ```
@@ -217,9 +227,14 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | LDMs | CRUD, PDF, set costo manual | `routes/materials.py` |
 | LDMs | Importación CSV de plano → nueva LDM con revisión previa, vínculo `csv_origen` y bloqueo de reimportación del mismo CSV | `routes/materials.py:import_ldm_csv` + `csv_import.py` |
 | LDMs | API JSON para actualizar costo (`/api/ldm/<id>/costo`) | `routes/materials.py:api_ldm_set_costo` |
-| Catálogo | CRUD + búsqueda + API JSON (`/api/catalogo`) | `routes/admin.py` |
+| Catálogo | CRUD + búsqueda por tokens AND (sin acentos) + filtro por categoría + API JSON (`/api/catalogo`, `/api/catalogo/categorias`) | `routes/admin.py` + `catalog_search.py` |
 | Catálogo | Bulk delete vía API (`/api/catalogo/bulk-delete`) | `routes/admin.py` |
-| Catálogo | Alta rápida desde formulario de COT/LDM | `routes/admin.py:api_catalogo_add` |
+| Catálogo | Alta rápida desde formulario de COT/LDM (acepta categoría) | `routes/admin.py:api_catalogo_add` |
+| Catálogo | Migración suave que agrega campo `categoria=''` a artículos existentes al arranque | `catalog.py:migrate_catalog_fields` |
+| COT/LDM | Filtro inline de partidas capturadas: caja con tokens AND, busca en descripción/unidad/sección, oculta filas no machean sin afectar el submit | `quote_project_form.html` + `ldm_form.html` |
+| Consistencia | Reporte automatizado COT vs LDM por proyecto: cotización General más reciente vs suma de costos LDM, agregación por `catalog_item_id`, margen %, status (ok/warning/critical) con umbrales 30%/0% | `consistency.py` |
+| Consistencia | KPI clickeable en cada card del dashboard con margen % y badge de estado | `dashboard.html` |
+| Consistencia | Tab dedicado en detalle de proyecto con totales, badges de issues y tabla por artículo (qty COT vs LDM, precio venta vs costo promedio ponderado, margen unitario, etiquetas missing_in_ldm/missing_in_cot/qty_mismatch/below_cost) | `project_detail.html` |
 | Proveedores | CRUD + búsqueda | `routes/admin.py` |
 | Fichas | CRUD global + vinculación a proyectos | `routes/admin.py` |
 | Equipo | CRUD miembros | `routes/admin.py` |
@@ -288,8 +303,9 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | POST | `/catalogo/<id>/edit` | `edit_catalogo` | Editar artículo (soporta AJAX) |
 | POST | `/catalogo/<id>/delete` | `delete_catalogo` | Eliminar artículo (soporta AJAX) |
 | POST | `/api/catalogo/bulk-delete` | `bulk_delete_catalogo` | Eliminar varios artículos |
-| GET | `/api/catalogo` | `api_catalogo` | Buscar artículos (JSON, max 30) |
-| POST | `/api/catalogo/add` | `api_catalogo_add` | Agregar artículo vía JSON |
+| GET | `/api/catalogo` | `api_catalogo` | Buscar artículos (JSON, max 50, tokens AND + filtro `categoria`) |
+| GET | `/api/catalogo/categorias` | `api_catalogo_categorias` | Lista única de categorías existentes (JSON) |
+| POST | `/api/catalogo/add` | `api_catalogo_add` | Agregar artículo vía JSON (acepta `categoria`) |
 | GET/POST | `/proveedores` | `proveedores` | CRUD proveedores |
 | POST | `/proveedores/<id>/edit` | `edit_proveedor` | Editar proveedor |
 | POST | `/proveedores/<id>/delete` | `delete_proveedor` | Eliminar proveedor |
@@ -445,24 +461,82 @@ Reglas de portada PDF:
 | 2026-04-27 | Versión bumped v10.0 → v11.0 (feature: importación CSV→LDM) |
 | 2026-04-27 | PDFs de cotización: nota base después del título según tipo; generales usan el último `.dwg` sin extensión y extraordinarias permiten nota manual desde la app |
 | 2026-04-27 | Versión bumped v11.0 → v12.0 (feature: nota base de proyecto en PDF de cotización) |
+| 2026-04-27 | macOS: nuevo lanzador `INICIAR.command` para abrir Project Tracker con doble clic, instalar dependencias, evitar instancias duplicadas y abrir el navegador |
+| 2026-04-27 | Versión bumped v12.0 → v13.0 (feature: lanzador nativo para macOS) |
+| 2026-04-27 | macOS: nuevos lanzadores `DEBUG.command` y `REINICIAR.command` para depuración y reinicio, alineados con el flujo ya disponible en Windows |
+| 2026-04-27 | Versión bumped v13.0 → v14.0 (feature: paridad de lanzadores Windows/macOS) |
+| 2026-04-27 | `pdfs.py:build_ldm_pdf` — rediseño del PDF de Listas de Materiales adoptando la estética del PDF de cotizaciones (banner negro + logo, paleta navy/ink/muted, header de páginas y tabla con marca/detalle del catálogo). Layout colapsado en una sola hoja: banner con logo + bloque PROYECTO/PROVEEDOR/FECHA + Detalle de partidas + tabla. Sin portada separada, sin caja de totales, sin alcance, sin términos y condiciones, sin firma. Subtotal cotizado se conserva sólo cuando los items traen precios. |
+| 2026-04-27 | Versión bumped v14.0 → v14.1 (patch: rediseño estético del PDF de LDM) |
+| 2026-04-27 | `pdfs.py:build_ldm_pdf` — banner del logo extendido a 56 mm con dimensiones explícitas (`LOGO_W=60`, `LOGO_H=40`) y centrado horizontal/vertical calculado automáticamente en lugar de coordenadas mágicas |
+| 2026-04-27 | `pdfs.py:build_ldm_pdf` — márgenes laterales reducidos a 2.5 mm vía constante `LATERAL_MARGIN`; header/footer/info/tabla derivan de `pdf.l_margin` y `content_width`, las columnas (incluyendo descripción) recalculan ancho automáticamente |
+| 2026-04-27 | `pdfs.py:build_ldm_pdf` — columnas UNIDAD y CANT. con ancho compartido (`UNIT_QTY_W=18`) y texto centrado tanto en header como en valores |
+| 2026-04-27 | Versión bumped v14.1 → v14.2 (patch: pulido del PDF de LDM — banner, márgenes y columnas) |
+| 2026-04-27 | `pdfs.py:build_quote_pdf` — paridad con LDM: márgenes laterales a 2.5 mm vía `LATERAL_MARGIN`, header/footer/scope/tabla derivados de `pdf.l_margin` y `content_width`. Columnas UNIDAD/CANT. con ancho compartido (`UNIT_QTY_W=18`) y texto centrado; descripción absorbe el ancho extra automáticamente. Constantes `NUM_W`, `PRICE_W` para mantener la suma == ancho de contenido. La portada (coordenadas absolutas 16/178) se conserva intacta. |
+| 2026-04-27 | Versión bumped v14.2 → v14.3 (patch: paridad de márgenes y columnas en PDF de cotizaciones) |
+| 2026-04-27 | `pdfs.py:build_quote_pdf` — columnas P. UNIT. e IMPORTE con ancho compartido (`PRICE_W=28`) y texto centrado (header y valores); UNIDAD/CANT. reducidas a `UNIT_QTY_W=16` para dar aire. Subtotal de sección también centrado. |
+| 2026-04-27 | `pdfs.py:build_quote_pdf` — reordenado: el bloque "Alcance" se renderiza antes que el título "Detalle de partidas" para que el contexto preceda al desglose. |
+| 2026-04-27 | Versión bumped v14.3 → v14.4 (patch: ajustes finos en columnas y orden de secciones del PDF de cotizaciones) |
+| 2026-04-27 | `pdfs.py` (LDM y cotizaciones) — ajuste de tipografía de la tabla de partidas: nombre del artículo a 10 pt, marca y detalle a 7.5 pt, header a 8 pt, datos numéricos a 10 pt. Line-heights recalibrados (5.0 / 3.7 / 3.7) y fila mínima 14 mm. `PRICE_W` aumentado a 30 mm para alojar valores en 10 pt centrados. |
+| 2026-04-27 | `pdfs.py` (LDM y cotizaciones) — `LATERAL_MARGIN` subido de 2.5 mm a 5 mm en ambos PDFs. |
+| 2026-04-27 | Versión bumped v14.4 → v14.5 (patch: tipografía y márgenes de tabla de partidas, ambos PDFs) |
+| 2026-04-27 | `pdfs.py` (LDM y cotizaciones) — bug fix: descripciones largas se renderizaban con marca/detalle encima de la segunda línea del título. Causa: `wrap_text` calculaba el wrap con el font activo (8.6pt) en lugar del font de render (10pt B), subestimando líneas. Fix: setear font correcto antes de `wrap_text` para que las métricas coincidan con el render real. |
+| 2026-04-27 | Versión bumped v14.5 → v14.6 (patch: fix overlap de marca sobre título multi-línea) |
+| 2026-04-27 | `pdfs.py` (LDM y cotizaciones) — fix definitivo de altura de filas: el conteo de líneas para `row_h` ahora viene de `multi_cell(..., dry_run=True, output="LINES")`, garantizando que coincida con el render real (mi `wrap_text` pre-wrappea con conectores pero fpdf2 puede repartir distinto al renderizar). Se cambia `align="L"` para evitar artefactos de justificación, y el cursor entre bloques (título → marca → detalle) usa `pdf.get_y()` en lugar de coordenadas calculadas. |
+| 2026-04-27 | Versión bumped v14.6 → v14.7 (patch: dry_run para conteo exacto de líneas y align="L" en descripciones) |
+| 2026-04-27 | `pdfs.py` (LDM y cotizaciones) — bug fix: textos con `|` ahora pegan el separador a los grupos inmediatos de ambos lados (`Delgada | 27 [mm]`) usando espacios no rompibles sólo donde hace falta, evitando que fpdf2 parta palabras como "Delgada" o deje `|` suelto al final/inicio de línea. El wrap sin `|` conserva cortes normales por grupos. También se cambió la fecha vacía de `—` a `-` para evitar errores de Helvetica. |
+| 2026-04-27 | Versión bumped v14.7 → v14.8 (patch: fix de saltos raros alrededor de `|` en PDFs) |
+| 2026-04-27 | `pdfs.py` (LDM y cotizaciones) — columnas compactadas para ampliar `DESCRIPCION`: cotizaciones pasan a `#=8`, `UNIDAD/CANT.=14`, `P.UNIT./IMPORTE=28`; LDM pasa a `#=8`, `UNIDAD/CANT.=15`, `P.UNIT./IMPORTE=28`. La descripción gana ancho sin volver a justificar texto a la derecha. |
+| 2026-04-27 | Versión bumped v14.8 → v14.9 (patch: más ancho útil para nombres en PDFs) |
+| 2026-04-27 | `pdfs.py` (LDM y cotizaciones) — ajuste fino de wrap en descripciones: se protegen unidades compuestas como `120/240 [V]`, `240-600 [V]`, `35 [mm] (1 1/4")` y configuraciones `3F - 4H` para evitar cortes entre valor/unidad o guiones colgados. |
+| 2026-04-27 | Versión bumped v14.9 → v14.10 (patch: agrupación de unidades compuestas en PDFs) |
+| 2026-04-27 | `pdfs.py` (LDM y cotizaciones) — pre-wrap propio para la columna `DESCRIPCION`: calcula líneas con el ancho real de columna y el font activo antes de llamar a `multi_cell`, moviendo el grupo anterior junto al `|` y al siguiente grupo cuando hace falta. Evita cortes internos como `Interrupt/or Principal` sin volver a crear bloques no rompibles demasiado largos. |
+| 2026-04-27 | Versión bumped v14.10 → v14.11 (patch: pre-wrap fino de separadores `|` en PDFs) |
+| 2026-04-28 | Formularios principales: alta de proyecto, cotizaciones y LDMs ahora conservan la captura cuando falla validación y muestran errores junto al campo o sección correspondiente |
+| 2026-04-28 | Versión bumped v14.11 → v14.12 (patch: UX de validación inline y preservación de formularios) |
+| 2026-04-28 | Arquitectura: nuevo `tracker/form_models.py` para reconstruir view-models de cotizaciones y LDMs desde formularios inválidos; `routes/quotes.py` y `routes/materials.py` quedan más delgados |
+| 2026-04-28 | Versión bumped v14.12 → v14.13 (patch: extracción de form view-models) |
+| 2026-04-28 | Formularios administrativos: catálogo, proveedores, fichas, equipo y ajustes ahora muestran errores inline y conservan captura cuando falla validación; ajustes valida rutas locales antes de guardar |
+| 2026-04-28 | Tests: `tests/test_admin_forms.py` cubre preservación de captura y errores inline en formularios administrativos |
+| 2026-04-28 | Versión bumped v14.13 → v14.14 (patch: validación inline en formularios administrativos) |
+| 2026-04-28 | Arquitectura: nuevo `tracker/project_view.py` para construir el contexto completo de `project_detail`; `routes/projects.py` queda más delgado y enfocado en HTTP |
+| 2026-04-28 | Tests: `tests/test_project_view.py` cubre agrupación de tareas/subtareas, fichas vinculadas, cierre permitido y cálculos de margen del detalle de proyecto |
+| 2026-04-28 | Versión bumped v14.14 → v14.15 (patch: extracción del view-model de detalle de proyecto) |
+| 2026-04-28 | Eliminaciones seguras: nuevo `tracker/deletions.py`; borrar proyectos elimina datos dependientes y desvincula fichas, borrar artículos de catálogo limpia `catalog_item_id` en cotizaciones/LDMs para evitar referencias a objetos eliminados |
+| 2026-04-28 | Confirmaciones destructivas: borrar proyecto muestra conteos de tareas, cotizaciones, LDMs, entregas y vínculos a fichas afectados; catálogo avisa cuando limpia referencias en documentos existentes |
+| 2026-04-28 | Tests: `tests/test_deletions.py` cubre cascadas de proyecto y limpieza de referencias de catálogo |
+| 2026-04-28 | Versión bumped v14.15 → v14.16 (patch: eliminaciones seguras y limpieza de referencias huérfanas) |
+| 2026-04-28 | Catálogo histórico: borrar artículos del catálogo ahora desconecta `catalog_item_id` en cotizaciones/LDMs, pero conserva una copia `deleted_catalog_item` del artículo eliminado para mantener el renglón visible sin referenciar objetos inexistentes |
+| 2026-04-28 | UI COT/LDM: los renglones originados en catálogo eliminado se muestran marcados en rojo; el detalle del proyecto muestra badges de alerta por documento y agrega acción `Purgar` para eliminar por completo esos renglones cuando se decida |
+| 2026-04-28 | Backend: nuevas rutas `purge_quote_deleted_catalog_items` y `purge_ldm_deleted_catalog_items`; recalculan totales/subtotales después de purgar partidas o artículos marcados como catálogo eliminado |
+| 2026-04-28 | Tests: `tests/test_deletions.py`, `tests/test_form_models.py` y `tests/test_validators.py` cubren snapshot histórico, preservación en formularios/validación y purga definitiva de renglones marcados |
+| 2026-04-28 | Versión bumped v14.16 → v14.17 (patch: conservar items de catálogo borrado y permitir purga definitiva) |
+| 2026-04-28 | Catálogo: nuevo módulo `tracker/catalog_search.py` (puro, sin I/O) con `tokenize`, `match_item`, `filter_catalog`, `list_categories`. Búsqueda por tokens AND, sin acentos, case-insensitive, indexada sobre nombre + descripción + categoría |
+| 2026-04-28 | Catálogo: campo libre `categoria` en artículos. Migración suave `migrate_catalog_fields()` corre al arranque y agrega `categoria=''` a artículos existentes sin tocar otros campos |
+| 2026-04-28 | API `/api/catalogo` ahora acepta `q` (tokens AND) y `categoria`; tope subido de 30 a 50 (`API_CATALOG_LIMIT`). Nueva ruta `GET /api/catalogo/categorias` para datalists/filtros. POST `/api/catalogo/add` acepta `categoria` |
+| 2026-04-28 | UI catálogo: columna `Categoría` con badge, selector de filtro, datalist global con categorías existentes; modales de nuevo/editar incluyen el campo. Render alfabético siempre |
+| 2026-04-28 | COT y LDM: filtro inline en el card-header de partidas (tokens AND, busca en descripción/unidad/sección, sin acentos). Las filas ocultas mantienen su input para el submit; contador `(X/Y visibles)` y botón limpiar |
+| 2026-04-28 | Tests: `tests/test_catalog_search.py` cubre tokenización, match con tokens y categoría, filtrado, deduplicación de categorías y smoke de la API JSON |
+| 2026-04-28 | Versión bumped v14.17 → v15.0 (feature: búsqueda por tokens, categoría general en catálogo, filtro inline de partidas en COT/LDM) |
+| 2026-04-28 | Consistencia: nuevo módulo `tracker/consistency.py` (puro, sin I/O) con `pick_active_quote`, `aggregate_quote_items`, `aggregate_ldm_items`, `compare_items`, `compute_consistency`. Selecciona la cotización General más reciente como base; agrega artículos por `catalog_item_id` a través de todas las LDMs del proyecto; computa margen % y status discreto (ok/warning/critical/no_data) con umbrales 30%/0%. Detecta issues por artículo: missing_in_ldm, missing_in_cot, qty_mismatch, below_cost; severidad ordenada en la salida |
+| 2026-04-28 | `project_view.py` ahora inyecta `consistency` al contexto del detalle de proyecto; `routes/projects.py:dashboard` carga catálogo + cotizaciones + LDMs hidratados una sola vez y llama `compute_consistency` por proyecto evitando N+1 |
+| 2026-04-28 | Dashboard: nueva KPI clickeable por card de proyecto activo (margen %, badge ok/warning/critical/no_data) que enlaza directo a `#tab-consistencia` |
+| 2026-04-28 | Detalle de proyecto: nuevo tab "Consistencia" con encabezado de KPIs (subtotal cotizado, costo proveedor, margen abs, margen %), badges de issues y tabla por artículo de catálogo con qty COT/LDM, precio venta, costo promedio ponderado, margen unitario y etiquetas de problema. El tab muestra mini-badge de severidad cuando hay critical/warning |
+| 2026-04-28 | Tests: `tests/test_consistency.py` cubre umbrales 30%/0%, selección de General activa con fallback, agregación por `catalog_item_id` cruzando LDMs, detección de los 4 tipos de issue, escenarios sin COT/sin LDM y filtrado por `project_id` |
+| 2026-04-28 | Versión bumped v15.0 → v16.0 (feature: automatización de consistencia COT vs LDM por artículo de catálogo, KPIs en dashboard y tab dedicado en detalle de proyecto) |
 
 ---
 
 ## Pendientes / En desarrollo
 
 **Alta prioridad:**
-- Mostrar errores de validación junto a cada campo en formularios (actualmente sólo como flash messages globales)
-- Preservar valores capturados en formularios después de validación fallida
+- Sin pendientes críticos abiertos; siguiente foco recomendado: consistencia COT/LDM y auditoría visual de renglones marcados como catálogo eliminado en datos históricos.
 
 **Media prioridad (ver `ROADMAP_MEJORAS.md`):**
-- Filtros y búsqueda en formularios de cotización/LDM (autocompletado de catálogo)
 - Confirmaciones más finas en acciones destructivas
-- Automatización de consistencia entre cotización y materiales (comparar total COT vs subtotal LDMs)
 - Mejoras de codificación/acentos en PDFs generados
 
 **Baja prioridad:**
 - Mejor integración con Drive (crear carpetas automáticamente)
-- Dashboard de margen por proyecto (total cotizado − costo proveedor)
 
 ---
 

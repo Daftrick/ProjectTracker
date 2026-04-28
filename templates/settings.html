@@ -2,6 +2,7 @@
 {% block title %}Ajustes – Project Tracker{% endblock %}
 {% block page_title %}<i class="bi bi-gear me-2"></i>Ajustes{% endblock %}
 {% block content %}
+{% set fe = field_errors|default({}) %}
 <div style="max-width:600px">
   <div class="card mb-3">
     <div class="card-header"><i class="bi bi-google me-2 text-primary"></i>Integración con Google Drive</div>
@@ -9,9 +10,10 @@
       <form method="post">
         <div class="mb-3">
           <label class="form-label fw-semibold">Ruta de la carpeta de Proyectos</label>
-          <input name="drive_projects_path" class="form-control font-monospace"
+          <input name="drive_projects_path" class="form-control font-monospace{% if fe.get('drive_projects_path') %} is-invalid{% endif %}"
                  value="{{ cfg.drive_projects_path }}"
                  placeholder="G:\Mi unidad\Proyectos">
+          {% if fe.get('drive_projects_path') %}<div class="invalid-feedback">{{ fe.get('drive_projects_path') }}</div>{% endif %}
           <div class="form-text">
             Ejemplo: <code>G:\Mi unidad\Proyectos</code> o <code>C:\Users\Rick\Google Drive\Proyectos</code><br>
             Cada proyecto debe tener una subcarpeta con el mismo nombre que su <strong>Clave</strong>.
@@ -19,9 +21,10 @@
         </div>
         <div class="mb-3">
           <label class="form-label fw-semibold">Ruta de la carpeta de Fichas Técnicas</label>
-          <input name="drive_fichas_path" class="form-control font-monospace"
+          <input name="drive_fichas_path" class="form-control font-monospace{% if fe.get('drive_fichas_path') %} is-invalid{% endif %}"
                  value="{{ cfg.drive_fichas_path }}"
                  placeholder="G:\Mi unidad\Fichas Técnicas">
+          {% if fe.get('drive_fichas_path') %}<div class="invalid-feedback">{{ fe.get('drive_fichas_path') }}</div>{% endif %}
           <div class="form-text">
             Los PDFs de fichas deben estar aquí con el nombre <code>FT-{Tipo}-{Marca}-{Modelo}.pdf</code>
           </div>

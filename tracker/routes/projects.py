@@ -7,8 +7,11 @@ from datetime import date
 from flask import Blueprint, abort, flash, redirect, render_template, request, send_from_directory, url_for
 
 from ..catalog import catalog_maps, hydrate_ldm, hydrate_quote
-from ..domain import ALCANCES, check_blocked, get_progress
+from ..consistency import compute_consistency
+from ..deletions import delete_project_data
+from ..domain import ALCANCES, get_progress
 from ..drive import find_delivery_files, folder_name, load_config, save_config, scan_drive_folder
+from ..project_view import build_project_detail_context
 from ..services import (
     apply_task_status_change,
     create_project_with_tasks,
@@ -22,10 +25,33 @@ from ..validators import validate_project_form
 bp = Blueprint("projects_bp", __name__)
 
 
+def _blank_project_form_state():
+    return {
+        "fields": {
+            "name": "",
+            "client": "",
+            "clave": "",
+            "version": "V1",
+            "fecha": "",
+            "notes": "",
+        },
+        "alcances": ["cotizacion"],
+        "field_errors": {},
+    }
+
+
 @bp.route("/", endpoint="dashboard")
 def dashboard():
     projects = load("projects")
     tasks = load("tasks")
+    # Cargar quotes y LDMs hidratados una sola vez para reutilizar entre todos
+    # los proyectos (evita N+1 lecturas de catálogo).
+    catalog_by_id, catalog_by_name = catalog_maps()
+    raw_quotes = load("quotes")
+    raw_materiales = load("materiales")
+    hydrated_quotes = [hydrate_quote(q, catalog_by_id, catalog_by_name) for q in raw_quotes]
+    hydrated_ldms = [hydrate_ldm(m, catalog_by_id, catalog_by_name) for m in raw_materiales]
+
     for project in projects:
         progress = get_progress(project["id"], tasks)
         project.update(progress)
@@ -38,6 +64,11 @@ def dashboard():
             and task.get("status") != "Aprobado"
         )
         project["review"] = sum(1 for task in main_tasks if task["status"] == "Revisión")
+        # KPI de consistencia COT vs LDM.
+        project["consistency"] = compute_consistency(
+            project, hydrated_quotes, hydrated_ldms, catalog_by_id
+        )
+
     active = [project for project in projects if not project.get("closed_at") and project.get("status") != "Completado"]
     completed = [project for project in projects if not project.get("closed_at") and project.get("status") == "Completado"]
     closed = [project for project in projects if project.get("closed_at")]
@@ -52,7 +83,14 @@ def new_project():
         if not validation["ok"]:
             for error in validation["errors"]:
                 flash(error, "warning")
-            return redirect(url_for("new_project"))
+            return render_template(
+                "project_new.html",
+                form_state={
+                    "fields": validation["fields"],
+                    "alcances": validation["alcances"],
+                    "field_errors": validation["field_errors"],
+                },
+            )
         projects = load("projects")
         project, tasks = create_project_with_tasks(
             projects, load("tasks"), validation["fields"], validation["alcances"]
@@ -62,7 +100,7 @@ def new_project():
         save("tasks", tasks)
         flash(f"Proyecto '{project['name']}' creado con {len(selected)} alcance(s).", "success")
         return redirect(url_for("project_detail", project_id=project["id"]))
-    return render_template("project_new.html")
+    return render_template("project_new.html", form_state=_blank_project_form_state())
 
 
 @bp.route("/projects/<project_id>", endpoint="project_detail")
@@ -72,79 +110,7 @@ def project_detail(project_id):
     if not project:
         flash("Proyecto no encontrado.", "danger")
         return redirect(url_for("dashboard"))
-    all_tasks = load("tasks")
-    project_tasks = [task for task in all_tasks if task["project_id"] == project_id]
-    main_tasks = [task for task in project_tasks if not task.get("parent_task_id")]
-    for task in main_tasks:
-        task["_blocked"] = check_blocked(task, main_tasks)
-    subtasks = {}
-    for task in project_tasks:
-        if task.get("parent_task_id"):
-            subtasks.setdefault(task["parent_task_id"], []).append(task)
-
-    deliveries = sorted(
-        [delivery for delivery in load("deliveries") if delivery["project_id"] == project_id],
-        key=lambda item: item.get("date", ""),
-        reverse=True,
-    )
-    catalog_by_id, catalog_by_name = catalog_maps()
-    quotes = sorted(
-        [hydrate_quote(quote, catalog_by_id, catalog_by_name) for quote in load("quotes") if quote["project_id"] == project_id],
-        key=lambda item: item.get("created_at", ""),
-        reverse=True,
-    )
-    ldms = sorted(
-        [hydrate_ldm(ldm, catalog_by_id, catalog_by_name) for ldm in load("materiales") if ldm["project_id"] == project_id],
-        key=lambda item: item.get("seq", 0),
-    )
-    all_fichas = load("fichas")
-    linked = [ficha for ficha in all_fichas if project_id in ficha.get("projects", [])]
-    unlinked = [ficha for ficha in all_fichas if project_id not in ficha.get("projects", [])]
-    progress = get_progress(project_id, all_tasks)
-    can_close = (
-        progress["approved"] == progress["total"]
-        and progress["total"] > 0
-        and any(delivery.get("dtype") == "completa" for delivery in deliveries)
-    )
-    cfg = load_config()
-    drive_folder = folder_name(project)
-    scan = scan_drive_folder(drive_folder, cfg.get("drive_projects_path", ""), ldms, clave=project["clave"])
-    available = find_delivery_files(
-        drive_folder,
-        project["clave"],
-        project.get("version", "V1"),
-        project.get("fecha", ""),
-        cfg.get("drive_projects_path", ""),
-        cfg.get("drive_fichas_path", ""),
-        linked,
-    )
-    total_cotizado = round(sum(quote.get("total", 0) for quote in quotes), 2)
-    costo_proveedor = round(sum(ldm.get("subtotal_cot", 0) for ldm in ldms), 2)
-    margen = round(total_cotizado - costo_proveedor, 2)
-    return render_template(
-        "project_detail.html",
-        project=project,
-        main_tasks=main_tasks,
-        subtasks=subtasks,
-        deliveries=deliveries,
-        scan=scan,
-        available=available,
-        quotes=quotes,
-        ldms=ldms,
-        linked_fichas=linked,
-        unlinked_fichas=unlinked,
-        prog=progress,
-        can_close=can_close,
-        team=load("team"),
-        today=today(),
-        today_short=date.today().strftime("%y%m%d"),
-        folder_name=drive_folder,
-        file_ie=f"IE-{project['clave']}-{project['version']}-{project['fecha']}",
-        file_xref=f"XREF-{project['clave']}-{project['version']}-{project['fecha']}",
-        total_cotizado=total_cotizado,
-        costo_proveedor=costo_proveedor,
-        margen=margen,
-    )
+    return render_template("project_detail.html", **build_project_detail_context(project))
 
 
 @bp.route("/projects/<project_id>/update", methods=["POST"], endpoint="update_project")
@@ -187,12 +153,29 @@ def reopen_project(project_id):
 
 @bp.route("/projects/<project_id>/delete", methods=["POST"], endpoint="delete_project")
 def delete_project(project_id):
-    save("projects", [item for item in load("projects") if item["id"] != project_id])
-    save("tasks", [item for item in load("tasks") if item["project_id"] != project_id])
-    save("deliveries", [item for item in load("deliveries") if item["project_id"] != project_id])
-    save("quotes", [item for item in load("quotes") if item["project_id"] != project_id])
-    save("materiales", [item for item in load("materiales") if item["project_id"] != project_id])
-    flash("Proyecto eliminado.", "warning")
+    result = delete_project_data(
+        project_id,
+        load("projects"),
+        load("tasks"),
+        load("deliveries"),
+        load("quotes"),
+        load("materiales"),
+        load("fichas"),
+    )
+    save("projects", result["projects"])
+    save("tasks", result["tasks"])
+    save("deliveries", result["deliveries"])
+    save("quotes", result["quotes"])
+    save("materiales", result["materiales"])
+    save("fichas", result["fichas"])
+    counts = result["counts"]
+    flash(
+        "Proyecto eliminado. "
+        f"Se limpiaron {counts['tasks']} tarea(s), {counts['quotes']} cotización(es), "
+        f"{counts['materiales']} LDM(s), {counts['deliveries']} entrega(s) y "
+        f"{counts['ficha_refs']} vínculo(s) a fichas.",
+        "warning",
+    )
     return redirect(url_for("dashboard"))
 
 
@@ -297,12 +280,24 @@ def save_task_note(project_id, task_id):
 def settings():
     cfg = load_config()
     if request.method == "POST":
-        cfg["drive_projects_path"] = request.form.get("drive_projects_path", "").strip()
-        cfg["drive_fichas_path"] = request.form.get("drive_fichas_path", "").strip()
+        submitted = {
+            "drive_projects_path": request.form.get("drive_projects_path", "").strip(),
+            "drive_fichas_path": request.form.get("drive_fichas_path", "").strip(),
+        }
+        field_errors = {}
+        if submitted["drive_projects_path"] and not os.path.isdir(submitted["drive_projects_path"]):
+            field_errors["drive_projects_path"] = "La ruta de proyectos no existe en este equipo."
+        if submitted["drive_fichas_path"] and not os.path.isdir(submitted["drive_fichas_path"]):
+            field_errors["drive_fichas_path"] = "La ruta de fichas técnicas no existe en este equipo."
+        if field_errors:
+            for error in field_errors.values():
+                flash(error, "warning")
+            return render_template("settings.html", cfg=submitted, field_errors=field_errors)
+        cfg.update(submitted)
         save_config(cfg)
         flash("Configuración guardada.", "success")
         return redirect(url_for("settings"))
-    return render_template("settings.html", cfg=cfg)
+    return render_template("settings.html", cfg=cfg, field_errors={})
 
 
 @bp.route("/projects/<project_id>/alcances/update", methods=["POST"], endpoint="update_project_alcances")

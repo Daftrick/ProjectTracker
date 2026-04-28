@@ -7,6 +7,8 @@
   </button>
 {% endblock %}
 {% block content %}
+{% set fs = form_state|default({}) %}
+{% set fe = field_errors|default({}) %}
 {% if team %}
 <div class="row g-3 mb-3">
   {% for m in team %}
@@ -52,11 +54,15 @@
         </div>
         <div class="modal-body">
           <div class="row g-3">
-            <div class="col-md-7"><label class="form-label">Nombre *</label><input name="name" class="form-control" required></div>
-            <div class="col-md-5"><label class="form-label">Rol</label><input name="role" class="form-control" placeholder="Ing. Eléctrico..."></div>
-            <div class="col-md-6"><label class="form-label">Correo</label><input type="email" name="email" class="form-control"></div>
-            <div class="col-md-6"><label class="form-label">Teléfono</label><input name="phone" class="form-control"></div>
-            <div class="col-12"><label class="form-label">Notas</label><textarea name="notes" class="form-control" rows="2"></textarea></div>
+            <div class="col-md-7">
+              <label class="form-label">Nombre *</label>
+              <input name="name" class="form-control{% if fe.get('name') %} is-invalid{% endif %}" required value="{{ fs.name or '' }}">
+              {% if fe.get('name') %}<div class="invalid-feedback">{{ fe.get('name') }}</div>{% endif %}
+            </div>
+            <div class="col-md-5"><label class="form-label">Rol</label><input name="role" class="form-control" placeholder="Ing. Eléctrico..." value="{{ fs.role or '' }}"></div>
+            <div class="col-md-6"><label class="form-label">Correo</label><input type="email" name="email" class="form-control" value="{{ fs.email or '' }}"></div>
+            <div class="col-md-6"><label class="form-label">Teléfono</label><input name="phone" class="form-control" value="{{ fs.phone or '' }}"></div>
+            <div class="col-12"><label class="form-label">Notas</label><textarea name="notes" class="form-control" rows="2">{{ fs.notes or '' }}</textarea></div>
           </div>
         </div>
         <div class="modal-footer">
@@ -67,4 +73,13 @@
     </div>
   </div>
 </div>
+{% endblock %}
+{% block extra_js %}
+{% if open_modal %}
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  bootstrap.Modal.getOrCreateInstance(document.getElementById("{{ open_modal }}")).show();
+});
+</script>
+{% endif %}
 {% endblock %}

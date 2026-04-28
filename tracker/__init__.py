@@ -2,6 +2,7 @@ import os
 
 from flask import Flask
 
+from .catalog import migrate_catalog_fields
 from .domain import APP_VERSION, ALCANCES, ALCANCES_BY_ID, INFO_EXT_EXCLUDED, TASK_STATUSES, TIPOS_FICHA, currency, fdate
 from .drive import migrate_folder_numbers, migrate_task_names, migrate_task_statuses
 from .routes.admin import bp as admin_bp
@@ -19,6 +20,7 @@ def create_app():
     migrate_task_statuses()
     migrate_task_names()
     migrate_folder_numbers()
+    migrate_catalog_fields()
 
     app.add_template_filter(fdate, "fdate")
     app.add_template_filter(currency, "currency")

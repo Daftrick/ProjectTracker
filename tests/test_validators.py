@@ -18,6 +18,10 @@ class ValidatorsTest(unittest.TestCase):
         self.assertIn("La clave del proyecto es requerida.", result["errors"])
         self.assertIn("Selecciona al menos un alcance.", result["errors"])
         self.assertIn("La fecha del proyecto debe usar formato AAMMDD, por ejemplo 260424.", result["errors"])
+        self.assertEqual(result["field_errors"]["name"], "El nombre del proyecto es requerido.")
+        self.assertEqual(result["field_errors"]["clave"], "La clave del proyecto es requerida.")
+        self.assertEqual(result["field_errors"]["fecha"], "La fecha del proyecto debe usar formato AAMMDD, por ejemplo 260424.")
+        self.assertEqual(result["field_errors"]["alcances"], "Selecciona al menos un alcance.")
 
     def test_quote_ignores_default_empty_row_but_requires_real_items(self):
         result = validate_quote_form(
@@ -58,6 +62,8 @@ class ValidatorsTest(unittest.TestCase):
         self.assertIn("Fila 1: cantidad debe ser un número válido.", result["errors"])
         self.assertIn("Fila 1: cantidad debe ser mayor a 0.", result["errors"])
         self.assertIn("Fila 1: precio unitario no puede ser negativo.", result["errors"])
+        self.assertEqual(result["field_errors"]["tax_rate"], "IVA debe estar entre 0 y 100.")
+        self.assertEqual(result["field_errors"]["items"], "Revisa las partidas marcadas por la validación.")
 
     def test_quote_accepts_valid_item_and_computes_subtotal(self):
         result = validate_quote_form(
@@ -79,6 +85,32 @@ class ValidatorsTest(unittest.TestCase):
         self.assertEqual(result["project_basis_note"], "Plano autorizado")
         self.assertEqual(result["subtotal"], 21.0)
         self.assertEqual(result["items"][0]["total"], 21.0)
+
+    def test_quote_preserves_deleted_catalog_snapshot(self):
+        result = validate_quote_form(
+            MultiDict([
+                ("date", "2026-04-24"),
+                ("tax_rate", "16"),
+                ("currency", "MXN"),
+                ("item_desc[]", "Interruptor histórico"),
+                ("item_unit[]", "pza"),
+                ("item_qty[]", "2"),
+                ("item_price[]", "10.50"),
+                ("item_catalog_id[]", ""),
+                ("item_desc2[]", "Detalle"),
+                ("item_deleted_catalog_id[]", "CAT1"),
+                ("item_deleted_catalog_nombre[]", "Interruptor"),
+                ("item_deleted_catalog_descripcion[]", "Detalle"),
+                ("item_deleted_catalog_unidad[]", "pza"),
+                ("item_deleted_catalog_precio[]", "10.50"),
+                ("item_deleted_catalog_deleted_at[]", "2026-04-28"),
+            ])
+        )
+
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["items"][0]["catalog_item_id"], "")
+        self.assertEqual(result["items"][0]["deleted_catalog_item"]["id"], "CAT1")
+        self.assertEqual(result["items"][0]["deleted_catalog_item"]["precio"], 10.5)
 
     def test_quote_assigns_items_to_section_rows(self):
         result = validate_quote_form(
@@ -125,6 +157,8 @@ class ValidatorsTest(unittest.TestCase):
         self.assertEqual(result["items"], [])
         self.assertIn("Proveedor es requerido.", result["errors"])
         self.assertIn("Agrega al menos un artículo a la lista de materiales.", result["errors"])
+        self.assertEqual(result["field_errors"]["proveedor"], "Proveedor es requerido.")
+        self.assertEqual(result["field_errors"]["items"], "Agrega al menos un artículo a la lista de materiales.")
 
     def test_ldm_accepts_valid_item(self):
         result = validate_ldm_form(
@@ -140,6 +174,29 @@ class ValidatorsTest(unittest.TestCase):
 
         self.assertTrue(result["ok"])
         self.assertEqual(result["items"][0]["qty"], 12.5)
+
+    def test_ldm_preserves_deleted_catalog_snapshot(self):
+        result = validate_ldm_form(
+            MultiDict([
+                ("proveedor", "Proveedor Uno"),
+                ("fecha", "2026-04-24"),
+                ("item_desc[]", "Cable histórico"),
+                ("item_unit[]", "m"),
+                ("item_qty[]", "12.5"),
+                ("item_catalog_id[]", ""),
+                ("item_deleted_catalog_id[]", "CAT9"),
+                ("item_deleted_catalog_nombre[]", "Cable"),
+                ("item_deleted_catalog_descripcion[]", "THW"),
+                ("item_deleted_catalog_unidad[]", "m"),
+                ("item_deleted_catalog_precio[]", "12.5"),
+                ("item_deleted_catalog_deleted_at[]", "2026-04-28"),
+            ])
+        )
+
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["items"][0]["catalog_item_id"], "")
+        self.assertEqual(result["items"][0]["deleted_catalog_item"]["id"], "CAT9")
+        self.assertEqual(result["items"][0]["deleted_catalog_item"]["precio"], 12.5)
 
 
 if __name__ == "__main__":

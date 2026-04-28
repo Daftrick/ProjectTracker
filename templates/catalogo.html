@@ -17,15 +17,28 @@
 {% endblock %}
 
 {% block content %}
+{% set fs = form_state|default({}) %}
+{% set fe = field_errors|default({}) %}
 
 <!-- Barra de búsqueda -->
 <div class="card mb-4">
   <div class="card-body py-2">
-    <form method="get" class="d-flex gap-2 align-items-center">
+    <form method="get" class="d-flex gap-2 align-items-center flex-wrap">
       <i class="bi bi-search text-muted"></i>
-      <input name="q" class="form-control border-0 shadow-none" placeholder="Buscar por nombre o descripción…"
-             value="{{ q }}" autofocus style="font-size:.9rem">
-      {% if q %}
+      <input name="q" class="form-control border-0 shadow-none flex-grow-1"
+             placeholder="Buscar por nombre, descripción o categoría… (varias palabras AND)"
+             value="{{ q }}" autofocus style="font-size:.9rem;min-width:240px">
+      <select name="categoria" class="form-select form-select-sm w-auto"
+              onchange="this.form.submit()" title="Filtrar por categoría">
+        <option value="">Todas las categorías</option>
+        {% for cat in categorias %}
+        <option value="{{ cat }}" {% if cat == categoria %}selected{% endif %}>{{ cat }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="btn btn-sm btn-outline-primary text-nowrap">
+        <i class="bi bi-funnel me-1"></i>Filtrar
+      </button>
+      {% if q or categoria %}
       <a href="{{ url_for('catalogo') }}" class="btn btn-sm btn-outline-secondary text-nowrap">
         <i class="bi bi-x me-1"></i>Limpiar
       </a>
@@ -34,10 +47,23 @@
   </div>
 </div>
 
+<datalist id="categoriasList">
+  {% for cat in categorias %}
+  <option value="{{ cat }}">
+  {% endfor %}
+</datalist>
+
 {% if items %}
 <div class="card">
   <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-    <span>Artículos{% if q %} — resultados para «{{ q }}»{% endif %}</span>
+    <span>
+      Artículos
+      {% if q or categoria %}
+        — {{ items|length }} de {{ total_count }} resultado(s)
+        {% if q %} para «{{ q }}»{% endif %}
+        {% if categoria %} en «{{ categoria }}»{% endif %}
+      {% endif %}
+    </span>
     <div class="d-flex align-items-center gap-3">
       <!-- Barra de acciones múltiples -->
       <div id="bulkBar" class="d-none d-flex align-items-center gap-2">
@@ -59,9 +85,10 @@
           <th style="width:3%" class="text-center ps-3">
             <input type="checkbox" id="checkAll" class="form-check-input">
           </th>
-          <th style="width:27%">Nombre</th>
-          <th style="width:34%">Descripción</th>
-          <th style="width:10%" class="text-center">Unidad</th>
+          <th style="width:23%">Nombre</th>
+          <th style="width:28%">Descripción</th>
+          <th style="width:12%">Categoría</th>
+          <th style="width:8%" class="text-center">Unidad</th>
           <th style="width:14%" class="text-end">Precio unitario</th>
           <th style="width:12%" class="text-end">Acciones</th>
         </tr>
@@ -74,6 +101,13 @@
           </td>
           <td class="fw-semibold cell-nombre">{{ item.nombre }}</td>
           <td class="text-muted cell-desc" style="font-size:.85rem">{{ item.descripcion or '—' }}</td>
+          <td class="cell-categoria">
+            {% if item.categoria %}
+              <span class="badge bg-secondary-subtle text-secondary-emphasis border">{{ item.categoria }}</span>
+            {% else %}
+              <span class="text-muted" style="font-size:.8rem">—</span>
+            {% endif %}
+          </td>
           <td class="text-center cell-unidad">
             <span class="badge bg-light text-dark border">{{ item.unidad }}</span>
           </td>
@@ -120,23 +154,35 @@
         <div class="modal-body">
           <div class="mb-3">
             <label class="form-label">Nombre <span class="text-danger">*</span></label>
-            <input name="nombre" class="form-control" placeholder="Ej. Luminaria LED 2x18W" required>
+            <input name="nombre" class="form-control{% if fe.get('nombre') %} is-invalid{% endif %}"
+                   placeholder="Ej. Luminaria LED 2x18W" required
+                   value="{{ fs.nombre or '' }}">
+            {% if fe.get('nombre') %}<div class="invalid-feedback">{{ fe.get('nombre') }}</div>{% endif %}
           </div>
           <div class="mb-3">
             <label class="form-label">Descripción</label>
             <textarea name="descripcion" class="form-control" rows="2"
-                      placeholder="Marca, modelo, especificaciones…"></textarea>
+                      placeholder="Marca, modelo, especificaciones…">{{ fs.descripcion or '' }}</textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Categoría <small class="text-muted">(opcional)</small></label>
+            <input name="categoria" class="form-control" list="categoriasList"
+                   placeholder="Ej. Iluminación, Tableros, Conductores…"
+                   value="{{ fs.categoria or '' }}">
+            <small class="text-muted">Mantén las categorías generales para reutilizarlas entre proyectos.</small>
           </div>
           <div class="row g-3">
             <div class="col-md-4">
               <label class="form-label">Unidad</label>
-              <input name="unidad" class="form-control" value="pza" placeholder="pza, m, m², hrs…">
+              <input name="unidad" class="form-control" value="{{ fs.unidad or 'pza' }}" placeholder="pza, m, m², hrs…">
             </div>
             <div class="col-md-8">
               <label class="form-label">Precio unitario (MXN)</label>
               <div class="input-group">
                 <span class="input-group-text">$</span>
-                <input type="number" name="precio" class="form-control" value="0" min="0" step="0.01">
+                <input type="number" name="precio" class="form-control{% if fe.get('precio') %} is-invalid{% endif %}"
+                       value="{{ fs.precio or 0 }}" min="0" step="0.01">
+                {% if fe.get('precio') %}<div class="invalid-feedback">{{ fe.get('precio') }}</div>{% endif %}
               </div>
             </div>
           </div>
@@ -167,6 +213,11 @@
           <div class="mb-3">
             <label class="form-label">Descripción</label>
             <textarea name="descripcion" id="editDesc" class="form-control" rows="2"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Categoría <small class="text-muted">(opcional)</small></label>
+            <input name="categoria" id="editCategoria" class="form-control" list="categoriasList"
+                   placeholder="Ej. Iluminación, Tableros, Conductores…">
           </div>
           <div class="row g-3">
             <div class="col-md-4">
@@ -204,10 +255,11 @@ function formatCurrency(v) {
 
 // ── Abrir modal de edición ────────────────────────────────────────────────
 function openEdit(item) {
-  document.getElementById('editNombre').value = item.nombre;
-  document.getElementById('editDesc').value   = item.descripcion || '';
-  document.getElementById('editUnidad').value = item.unidad;
-  document.getElementById('editPrecio').value = item.precio;
+  document.getElementById('editNombre').value    = item.nombre;
+  document.getElementById('editDesc').value      = item.descripcion || '';
+  document.getElementById('editCategoria').value = item.categoria || '';
+  document.getElementById('editUnidad').value    = item.unidad;
+  document.getElementById('editPrecio').value    = item.precio;
   document.getElementById('editForm').dataset.itemId = item.id;
   new bootstrap.Modal(document.getElementById('modalEdit')).show();
 }
@@ -234,6 +286,17 @@ document.getElementById('editForm').addEventListener('submit', async function(e)
       row.querySelector('.cell-desc').textContent   = json.item.descripcion || '—';
       row.querySelector('.cell-unidad .badge').textContent = json.item.unidad;
       row.querySelector('.cell-precio').textContent = formatCurrency(json.item.precio);
+      const catCell = row.querySelector('.cell-categoria');
+      if (catCell) {
+        if (json.item.categoria) {
+          const safe = String(json.item.categoria).replace(/[&<>"']/g,
+            c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+          catCell.innerHTML =
+            `<span class="badge bg-secondary-subtle text-secondary-emphasis border">${safe}</span>`;
+        } else {
+          catCell.innerHTML = '<span class="text-muted" style="font-size:.8rem">—</span>';
+        }
+      }
       // Actualizar el onclick del botón editar con los nuevos datos
       row.querySelector('button[title="Editar"]')
          .setAttribute('onclick', `openEdit(${JSON.stringify(json.item)})`);
@@ -254,6 +317,8 @@ async function deleteItem(id, nombre) {
     document.getElementById('row-' + id)?.remove();
     updateSelectionUI();
     updateTotalCount();
+    const refs = (json.counts?.quote_refs || 0) + (json.counts?.material_refs || 0);
+    if (refs > 0) alert(`Artículo eliminado. Se limpiaron ${refs} referencia(s) en cotizaciones/LDMs.`);
   }
 }
 
@@ -311,6 +376,9 @@ async function bulkDelete() {
     document.getElementById('checkAll').checked = false;
     updateSelectionUI();
     updateTotalCount();
+    if (json.refs_cleared > 0) {
+      alert(`Artículos eliminados. Se limpiaron ${json.refs_cleared} referencia(s) en cotizaciones/LDMs.`);
+    }
   }
 }
 
@@ -319,5 +387,11 @@ function updateTotalCount() {
   const n = document.querySelectorAll('#catalogoTbody tr').length;
   document.getElementById('totalCount').textContent = `${n} artículo(s)`;
 }
+
+{% if open_modal %}
+window.addEventListener('DOMContentLoaded', () => {
+  bootstrap.Modal.getOrCreateInstance(document.getElementById('{{ open_modal }}')).show();
+});
+{% endif %}
 </script>
 {% endblock %}

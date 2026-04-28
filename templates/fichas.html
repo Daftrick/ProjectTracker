@@ -7,6 +7,8 @@
   </button>
 {% endblock %}
 {% block content %}
+{% set fs = form_state|default({}) %}
+{% set fe = field_errors|default({}) %}
 <!-- Filtro -->
 <div class="card mb-3">
   <div class="card-body py-2">
@@ -93,17 +95,24 @@
           <div class="row g-3">
             <div class="col-md-4">
               <label class="form-label">Tipo *</label>
-              <select name="tipo" class="form-select" id="tipoSel" oninput="updateCode()">
-                {% for t in tipos_ficha %}<option>{{ t }}</option>{% endfor %}
+              <select name="tipo" class="form-select{% if fe.get('tipo') %} is-invalid{% endif %}" id="tipoSel" oninput="updateCode()">
+                {% for t in tipos_ficha %}<option {% if fs.tipo==t %}selected{% endif %}>{{ t }}</option>{% endfor %}
               </select>
+              {% if fe.get('tipo') %}<div class="invalid-feedback">{{ fe.get('tipo') }}</div>{% endif %}
             </div>
             <div class="col-md-4">
               <label class="form-label">Marca *</label>
-              <input name="marca" class="form-control" required placeholder="Ej: PHILIPS" id="marcaIn" oninput="updateCode()">
+              <input name="marca" class="form-control{% if fe.get('marca') %} is-invalid{% endif %}" required
+                     placeholder="Ej: PHILIPS" id="marcaIn" oninput="updateCode()"
+                     value="{{ fs.marca or '' }}">
+              {% if fe.get('marca') %}<div class="invalid-feedback">{{ fe.get('marca') }}</div>{% endif %}
             </div>
             <div class="col-md-4">
               <label class="form-label">Modelo *</label>
-              <input name="modelo" class="form-control" required placeholder="Ej: BN126C" id="modeloIn" oninput="updateCode()">
+              <input name="modelo" class="form-control{% if fe.get('modelo') %} is-invalid{% endif %}" required
+                     placeholder="Ej: BN126C" id="modeloIn" oninput="updateCode()"
+                     value="{{ fs.modelo or '' }}">
+              {% if fe.get('modelo') %}<div class="invalid-feedback">{{ fe.get('modelo') }}</div>{% endif %}
             </div>
             <div class="col-12">
               <div class="p-2 rounded" style="background:#f0f4ff;border:1px solid #c7d7f9;">
@@ -113,17 +122,17 @@
             </div>
             <div class="col-12">
               <label class="form-label">Descripción</label>
-              <input name="descripcion" class="form-control" placeholder="Ej: Luminaria LED empotrada 18W">
+              <input name="descripcion" class="form-control" placeholder="Ej: Luminaria LED empotrada 18W" value="{{ fs.descripcion or '' }}">
             </div>
             <div class="col-12">
               <label class="form-label">Archivo PDF en Drive <small class="text-muted">(nombre exacto del archivo)</small></label>
               <input name="filename" class="form-control font-monospace" placeholder="Ej: FT-LUM-PHILIPS-BN126C.pdf"
-                     id="filenameIn">
+                     id="filenameIn" value="{{ fs.filename or '' }}">
               <div class="form-text">Este nombre se usa para incluir la ficha en el entregable ZIP.</div>
             </div>
             <div class="col-12">
               <label class="form-label">Notas</label>
-              <textarea name="notes" class="form-control" rows="2" placeholder="Especificaciones, proveedor, precio referencia..."></textarea>
+              <textarea name="notes" class="form-control" rows="2" placeholder="Especificaciones, proveedor, precio referencia...">{{ fs.notes or '' }}</textarea>
             </div>
           </div>
         </div>
@@ -150,5 +159,11 @@
   document.getElementById("filenameIn").addEventListener("input",function(){
     this.dataset.manual=this.value?"1":"";
   });
+  updateCode();
+  {% if open_modal %}
+  window.addEventListener("DOMContentLoaded", () => {
+    bootstrap.Modal.getOrCreateInstance(document.getElementById("{{ open_modal }}")).show();
+  });
+  {% endif %}
 </script>
 {% endblock %}

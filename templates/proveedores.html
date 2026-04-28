@@ -8,6 +8,8 @@
 {% endblock %}
 
 {% block content %}
+{% set fs = form_state|default({}) %}
+{% set fe = field_errors|default({}) %}
 
 <!-- Barra de búsqueda -->
 <div class="card mb-4">
@@ -130,14 +132,17 @@
           <div class="row g-3">
             <div class="col-md-8">
               <label class="form-label">Nombre <span class="text-danger">*</span></label>
-              <input name="nombre" class="form-control" required
-                     placeholder="Ej. Distribuidora Eléctrica del Norte">
+              <input name="nombre" class="form-control{% if fe.get('nombre') %} is-invalid{% endif %}" required
+                     placeholder="Ej. Distribuidora Eléctrica del Norte"
+                     value="{{ fs.nombre or '' }}">
+              {% if fe.get('nombre') %}<div class="invalid-feedback">{{ fe.get('nombre') }}</div>{% endif %}
             </div>
             <div class="col-md-4">
               <label class="form-label">Categoría</label>
               <input name="categoria" class="form-control"
                      placeholder="Ej. Iluminación, Conductores…"
-                     list="categoriasNew">
+                     list="categoriasNew"
+                     value="{{ fs.categoria or '' }}">
               <datalist id="categoriasNew">
                 <option value="Iluminación">
                 <option value="Conductores y cable">
@@ -153,21 +158,22 @@
             </div>
             <div class="col-md-4">
               <label class="form-label">Persona de contacto</label>
-              <input name="contacto" class="form-control" placeholder="Nombre del contacto">
+              <input name="contacto" class="form-control" placeholder="Nombre del contacto" value="{{ fs.contacto or '' }}">
             </div>
             <div class="col-md-4">
               <label class="form-label">Email</label>
               <input type="email" name="email" class="form-control"
-                     placeholder="contacto@proveedor.com">
+                     placeholder="contacto@proveedor.com"
+                     value="{{ fs.email or '' }}">
             </div>
             <div class="col-md-4">
               <label class="form-label">Teléfono</label>
-              <input name="telefono" class="form-control" placeholder="55 1234 5678">
+              <input name="telefono" class="form-control" placeholder="55 1234 5678" value="{{ fs.telefono or '' }}">
             </div>
             <div class="col-12">
               <label class="form-label">Notas</label>
               <textarea name="notas" class="form-control" rows="2"
-                        placeholder="Condiciones de pago, tiempo de entrega típico, observaciones…"></textarea>
+                        placeholder="Condiciones de pago, tiempo de entrega típico, observaciones…">{{ fs.notas or '' }}</textarea>
             </div>
           </div>
         </div>
@@ -262,5 +268,11 @@ function openEdit(p) {
   document.getElementById("editForm").action  = "/proveedores/" + p.id + "/edit";
   new bootstrap.Modal(document.getElementById("modalEdit")).show();
 }
+
+{% if open_modal %}
+window.addEventListener("DOMContentLoaded", () => {
+  bootstrap.Modal.getOrCreateInstance(document.getElementById("{{ open_modal }}")).show();
+});
+{% endif %}
 </script>
 {% endblock %}

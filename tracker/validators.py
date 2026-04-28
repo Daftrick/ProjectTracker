@@ -15,7 +15,7 @@ def _is_blank(value):
     return _clean(value) == ""
 
 
-def _parse_float(value, field_label, errors, row=None, default=0.0):
+def _parse_float(value, field_label, errors, row=None, default=0.0, field_errors=None, field_key=None):
     raw = _clean(value)
     if raw == "":
         return default
@@ -23,24 +23,48 @@ def _parse_float(value, field_label, errors, row=None, default=0.0):
         return float(raw.replace(",", "."))
     except ValueError:
         prefix = f"Fila {row}: " if row else ""
-        errors.append(f"{prefix}{field_label} debe ser un número válido.")
+        message = f"{prefix}{field_label} debe ser un número válido."
+        errors.append(message)
+        if field_errors is not None and field_key:
+            field_errors.setdefault(field_key, message)
         return default
 
 
-def _validate_iso_date(value, field_label, errors):
+def _validate_iso_date(value, field_label, errors, field_errors=None, field_key=None):
     cleaned = _clean(value)
     if not cleaned:
-        errors.append(f"{field_label} es requerida.")
+        message = f"{field_label} es requerida."
+        errors.append(message)
+        if field_errors is not None and field_key:
+            field_errors.setdefault(field_key, message)
         return ""
     try:
         datetime.strptime(cleaned, "%Y-%m-%d")
     except ValueError:
-        errors.append(f"{field_label} debe tener formato AAAA-MM-DD.")
+        message = f"{field_label} debe tener formato AAAA-MM-DD."
+        errors.append(message)
+        if field_errors is not None and field_key:
+            field_errors.setdefault(field_key, message)
     return cleaned
+
+
+def _deleted_catalog_item_at(ids, names, descriptions, units, prices, deleted_dates, index):
+    deleted_id = _clean(ids[index]) if index < len(ids) else ""
+    if not deleted_id:
+        return None
+    return {
+        "id": deleted_id,
+        "nombre": _clean(names[index]) if index < len(names) else "",
+        "descripcion": _clean(descriptions[index]) if index < len(descriptions) else "",
+        "unidad": _clean(units[index]) if index < len(units) else "",
+        "precio": _parse_float(prices[index], "precio de catálogo eliminado", [], default=0) if index < len(prices) else 0,
+        "deleted_at": _clean(deleted_dates[index]) if index < len(deleted_dates) else "",
+    }
 
 
 def validate_project_form(form, selected_alcances, allowed_alcances):
     errors = []
+    field_errors = {}
     fields = {
         "name": _clean(form.get("name")),
         "clave": _clean(form.get("clave")),
@@ -52,40 +76,80 @@ def validate_project_form(form, selected_alcances, allowed_alcances):
     selected = [_clean(item) for item in selected_alcances if _clean(item)]
 
     if not fields["name"]:
-        errors.append("El nombre del proyecto es requerido.")
+        message = "El nombre del proyecto es requerido."
+        errors.append(message)
+        field_errors["name"] = message
     if not fields["clave"]:
-        errors.append("La clave del proyecto es requerida.")
+        message = "La clave del proyecto es requerida."
+        errors.append(message)
+        field_errors["clave"] = message
     if fields["fecha"] and not PROJECT_DATE_RE.match(fields["fecha"]):
-        errors.append("La fecha del proyecto debe usar formato AAMMDD, por ejemplo 260424.")
+        message = "La fecha del proyecto debe usar formato AAMMDD, por ejemplo 260424."
+        errors.append(message)
+        field_errors["fecha"] = message
     if not selected:
-        errors.append("Selecciona al menos un alcance.")
+        message = "Selecciona al menos un alcance."
+        errors.append(message)
+        field_errors["alcances"] = message
 
     unknown = [alcance for alcance in selected if alcance not in allowed_alcances]
     if unknown:
-        errors.append("Hay alcances no reconocidos en el formulario.")
-
-    return {"ok": not errors, "errors": errors, "fields": fields, "alcances": selected}
-
-
-def validate_quote_form(form):
-    errors = []
-    tax_rate = _parse_float(form.get("tax_rate", 16), "IVA", errors, default=16)
-    if tax_rate < 0 or tax_rate > 100:
-        errors.append("IVA debe estar entre 0 y 100.")
-
-    currency = _clean(form.get("currency")) or "MXN"
-    if currency not in VALID_CURRENCIES:
-        errors.append("Moneda no reconocida.")
-        currency = "MXN"
-
-    items, subtotal = _parse_quote_items(form, errors)
-    if not items:
-        errors.append("Agrega al menos una partida a la cotización.")
-    date_value = _validate_iso_date(form.get("date"), "La fecha de la cotización", errors)
+        message = "Hay alcances no reconocidos en el formulario."
+        errors.append(message)
+        field_errors["alcances"] = message
 
     return {
         "ok": not errors,
         "errors": errors,
+        "field_errors": field_errors,
+        "fields": fields,
+        "alcances": selected,
+    }
+
+
+def validate_quote_form(form):
+    errors = []
+    field_errors = {}
+    tax_rate = _parse_float(
+        form.get("tax_rate", 16),
+        "IVA",
+        errors,
+        default=16,
+        field_errors=field_errors,
+        field_key="tax_rate",
+    )
+    if tax_rate < 0 or tax_rate > 100:
+        message = "IVA debe estar entre 0 y 100."
+        errors.append(message)
+        field_errors.setdefault("tax_rate", message)
+
+    currency = _clean(form.get("currency")) or "MXN"
+    if currency not in VALID_CURRENCIES:
+        message = "Moneda no reconocida."
+        errors.append(message)
+        field_errors["currency"] = message
+        currency = "MXN"
+
+    item_error_start = len(errors)
+    items, subtotal = _parse_quote_items(form, errors)
+    if not items:
+        message = "Agrega al menos una partida a la cotización."
+        errors.append(message)
+        field_errors.setdefault("items", message)
+    elif len(errors) > item_error_start:
+        field_errors.setdefault("items", "Revisa las partidas marcadas por la validación.")
+    date_value = _validate_iso_date(
+        form.get("date"),
+        "La fecha de la cotización",
+        errors,
+        field_errors=field_errors,
+        field_key="date",
+    )
+
+    return {
+        "ok": not errors,
+        "errors": errors,
+        "field_errors": field_errors,
         "quote_type": quote_type_key(form.get("quote_type", "General")),
         "quote_number": _clean(form.get("quote_number")),
         "version": _clean(form.get("version")),
@@ -101,18 +165,33 @@ def validate_quote_form(form):
 
 def validate_ldm_form(form):
     errors = []
+    field_errors = {}
     proveedor = _clean(form.get("proveedor"))
     if not proveedor:
-        errors.append("Proveedor es requerido.")
+        message = "Proveedor es requerido."
+        errors.append(message)
+        field_errors["proveedor"] = message
 
+    item_error_start = len(errors)
     items, subtotal_cot = _parse_ldm_items(form, errors)
     if not items:
-        errors.append("Agrega al menos un artículo a la lista de materiales.")
-    date_value = _validate_iso_date(form.get("fecha"), "La fecha de la lista", errors)
+        message = "Agrega al menos un artículo a la lista de materiales."
+        errors.append(message)
+        field_errors.setdefault("items", message)
+    elif len(errors) > item_error_start:
+        field_errors.setdefault("items", "Revisa los artículos marcados por la validación.")
+    date_value = _validate_iso_date(
+        form.get("fecha"),
+        "La fecha de la lista",
+        errors,
+        field_errors=field_errors,
+        field_key="fecha",
+    )
 
     return {
         "ok": not errors,
         "errors": errors,
+        "field_errors": field_errors,
         "proveedor": proveedor,
         "fecha": date_value,
         "items": items,
@@ -131,6 +210,12 @@ def _parse_quote_items(form, errors):
     qtys = form.getlist("item_qty[]")
     prices = form.getlist("item_price[]")
     catalog_ids = form.getlist("item_catalog_id[]")
+    deleted_ids = form.getlist("item_deleted_catalog_id[]")
+    deleted_names = form.getlist("item_deleted_catalog_nombre[]")
+    deleted_descriptions = form.getlist("item_deleted_catalog_descripcion[]")
+    deleted_units = form.getlist("item_deleted_catalog_unidad[]")
+    deleted_prices = form.getlist("item_deleted_catalog_precio[]")
+    deleted_dates = form.getlist("item_deleted_catalog_deleted_at[]")
     catalog_by_id, catalog_by_name = catalog_maps()
     items = []
     subtotal = 0.0
@@ -175,8 +260,19 @@ def _parse_quote_items(form, errors):
             "catalog_description": _clean(desc2s[index]) if index < len(desc2s) else "",
             "section": section,
         }
+        deleted_catalog_item = _deleted_catalog_item_at(
+            deleted_ids,
+            deleted_names,
+            deleted_descriptions,
+            deleted_units,
+            deleted_prices,
+            deleted_dates,
+            index,
+        )
+        if deleted_catalog_item:
+            raw_item["deleted_catalog_item"] = deleted_catalog_item
         hydrated = hydrate_quote_item(raw_item, catalog_by_id, catalog_by_name, infer_by_name=False)
-        items.append({
+        parsed_item = {
             "catalog_item_id": hydrated.get("catalog_item_id", ""),
             "description": hydrated["description"],
             "unit": hydrated["unit"] or "pza",
@@ -185,7 +281,10 @@ def _parse_quote_items(form, errors):
             "total": hydrated["total"],
             "catalog_description": hydrated.get("catalog_description", ""),
             "section": hydrated.get("section", ""),
-        })
+        }
+        if hydrated.get("deleted_catalog_item"):
+            parsed_item["deleted_catalog_item"] = hydrated["deleted_catalog_item"]
+        items.append(parsed_item)
         subtotal += hydrated["total"]
 
     return items, subtotal
@@ -197,6 +296,12 @@ def _parse_ldm_items(form, errors):
     qtys = form.getlist("item_qty[]")
     prices = form.getlist("item_precio_cot[]")
     catalog_ids = form.getlist("item_catalog_id[]")
+    deleted_ids = form.getlist("item_deleted_catalog_id[]")
+    deleted_names = form.getlist("item_deleted_catalog_nombre[]")
+    deleted_descriptions = form.getlist("item_deleted_catalog_descripcion[]")
+    deleted_units = form.getlist("item_deleted_catalog_unidad[]")
+    deleted_prices = form.getlist("item_deleted_catalog_precio[]")
+    deleted_dates = form.getlist("item_deleted_catalog_deleted_at[]")
     catalog_by_id, catalog_by_name = catalog_maps()
     items = []
     subtotal = 0.0
@@ -231,15 +336,29 @@ def _parse_ldm_items(form, errors):
             "qty": qty,
             "precio_cot": price,
         }
+        deleted_catalog_item = _deleted_catalog_item_at(
+            deleted_ids,
+            deleted_names,
+            deleted_descriptions,
+            deleted_units,
+            deleted_prices,
+            deleted_dates,
+            index,
+        )
+        if deleted_catalog_item:
+            raw_item["deleted_catalog_item"] = deleted_catalog_item
         hydrated = hydrate_ldm_item(raw_item, catalog_by_id, catalog_by_name, infer_by_name=False)
-        items.append({
+        parsed_item = {
             "catalog_item_id": hydrated.get("catalog_item_id", ""),
             "description": hydrated["description"],
             "unit": hydrated["unit"] or "pza",
             "qty": hydrated["qty"],
             "precio_cot": hydrated.get("precio_cot", 0.0),
             "total_cot": hydrated.get("total_cot", 0.0),
-        })
+        }
+        if hydrated.get("deleted_catalog_item"):
+            parsed_item["deleted_catalog_item"] = hydrated["deleted_catalog_item"]
+        items.append(parsed_item)
         subtotal += hydrated.get("total_cot", 0.0)
 
     return items, subtotal

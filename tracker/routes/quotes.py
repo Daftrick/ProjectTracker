@@ -1,14 +1,27 @@
 import os
 
-from flask import Blueprint, flash, jsonify, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 
-from ..catalog import catalog_maps, hydrate_quote, next_quote_number, quote_type_key
+from ..catalog import catalog_maps, hydrate_quote, next_quote_number, quote_type_key, safe_float
+from ..deletions import purge_deleted_catalog_items_from_record
 from ..drive import folder_name, latest_dwg_stem, load_config
+from ..form_models import quote_default_numbers, quote_from_form
 from ..pdfs import build_quote_pdf
 from ..storage import load, new_id, save, today
 from ..validators import validate_quote_form
 
 bp = Blueprint("quotes_bp", __name__)
+
+
+def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None):
+    return render_template(
+        "quote_project_form.html",
+        project=project,
+        quote=quote,
+        today=today(),
+        field_errors=field_errors or {},
+        **quote_default_numbers(project, quotes, quote_id=quote_id),
+    )
 
 
 @bp.route("/projects/<project_id>/quote/new", methods=["GET", "POST"], endpoint="new_quote")
@@ -22,7 +35,12 @@ def new_quote(project_id):
         if not validation["ok"]:
             for error in validation["errors"]:
                 flash(error, "warning")
-            return redirect(url_for("quotes_bp.new_quote", project_id=project_id))
+            return _render_quote_form(
+                project,
+                quote_from_form(request.form),
+                quotes,
+                field_errors=validation["field_errors"],
+            )
         quote_type = validation["quote_type"]
         date_str = validation["date"]
         quote_number = request.form.get("quote_number", "").strip() or next_quote_number(project, quotes, quote_type, date_str)
@@ -49,23 +67,7 @@ def new_quote(project_id):
         save("quotes", quotes)
         flash(f"Cotización {quote['quote_number']} creada.", "success")
         return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=quote["id"]))
-    general_quotes = [quote for quote in quotes if quote["project_id"] == project_id and quote_type_key(quote.get("quote_type")) == "General"]
-    preliminary_quotes = [quote for quote in quotes if quote["project_id"] == project_id and quote_type_key(quote.get("quote_type")) == "Preliminar"]
-    extraordinary_quotes = [quote for quote in quotes if quote["project_id"] == project_id and quote_type_key(quote.get("quote_type")) == "Extraordinaria"]
-    today_str = today()
-    date_token = today_str.replace("-", "")
-    default_num_g = f"COT-{project['clave']}-G{len(general_quotes) + 1:02d}-{date_token}"
-    default_num_p = f"COT-{project['clave']}-P{len(preliminary_quotes) + 1:02d}-{date_token}"
-    default_num_e = f"COT-{project['clave']}-E{len(extraordinary_quotes) + 1:02d}-{date_token}"
-    return render_template(
-        "quote_project_form.html",
-        project=project,
-        quote=None,
-        today=today_str,
-        default_num_g=default_num_g,
-        default_num_p=default_num_p,
-        default_num_e=default_num_e,
-    )
+    return _render_quote_form(project, None, quotes)
 
 
 @bp.route("/projects/<project_id>/quote/<quote_id>/edit", methods=["GET", "POST"], endpoint="edit_quote")
@@ -80,7 +82,13 @@ def edit_quote(project_id, quote_id):
         if not validation["ok"]:
             for error in validation["errors"]:
                 flash(error, "warning")
-            return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=quote_id))
+            return _render_quote_form(
+                project,
+                quote_from_form(request.form, fallback_quote=quote),
+                quotes,
+                field_errors=validation["field_errors"],
+                quote_id=quote_id,
+            )
         quote.update({
             "quote_number": validation["quote_number"] or quote["quote_number"],
             "quote_type": validation["quote_type"],
@@ -98,24 +106,8 @@ def edit_quote(project_id, quote_id):
         save("quotes", quotes)
         flash("Cotización actualizada.", "success")
         return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=quote_id))
-    other_quotes = [item for item in quotes if item["id"] != quote_id]
-    general_quotes = [item for item in other_quotes if item["project_id"] == project_id and quote_type_key(item.get("quote_type")) == "General"]
-    preliminary_quotes = [item for item in other_quotes if item["project_id"] == project_id and quote_type_key(item.get("quote_type")) == "Preliminar"]
-    extraordinary_quotes = [item for item in other_quotes if item["project_id"] == project_id and quote_type_key(item.get("quote_type")) == "Extraordinaria"]
-    date_token = today().replace("-", "")
-    default_num_g = f"COT-{project['clave']}-G{len(general_quotes) + 1:02d}-{date_token}"
-    default_num_p = f"COT-{project['clave']}-P{len(preliminary_quotes) + 1:02d}-{date_token}"
-    default_num_e = f"COT-{project['clave']}-E{len(extraordinary_quotes) + 1:02d}-{date_token}"
     hydrated = hydrate_quote(quote, *catalog_maps())
-    return render_template(
-        "quote_project_form.html",
-        project=project,
-        quote=hydrated,
-        today=today(),
-        default_num_g=default_num_g,
-        default_num_p=default_num_p,
-        default_num_e=default_num_e,
-    )
+    return _render_quote_form(project, hydrated, quotes, quote_id=quote_id)
 
 
 @bp.route("/projects/<project_id>/quote/<quote_id>/view", endpoint="view_quote")
@@ -135,6 +127,33 @@ def view_quote(project_id, quote_id):
 def delete_quote(project_id, quote_id):
     save("quotes", [item for item in load("quotes") if item["id"] != quote_id])
     flash("Cotización eliminada.", "warning")
+    return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+
+@bp.route(
+    "/projects/<project_id>/quote/<quote_id>/purge-deleted-catalog",
+    methods=["POST"],
+    endpoint="purge_quote_deleted_catalog_items",
+)
+def purge_quote_deleted_catalog_items(project_id, quote_id):
+    quotes = load("quotes")
+    quote = next((item for item in quotes if item["id"] == quote_id and item["project_id"] == project_id), None)
+    if not quote:
+        flash("Cotización no encontrada.", "danger")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+    updated_quote, removed = purge_deleted_catalog_items_from_record(quote)
+    subtotal = round(
+        sum(safe_float(item.get("qty", 0)) * safe_float(item.get("price", 0)) for item in updated_quote.get("items", [])),
+        2,
+    )
+    tax_rate = safe_float(updated_quote.get("tax_rate", 16), 16)
+    updated_quote["subtotal"] = subtotal
+    updated_quote["tax"] = round(subtotal * tax_rate / 100, 2)
+    updated_quote["total"] = round(subtotal + updated_quote["tax"], 2)
+    quote.update(updated_quote)
+    save("quotes", quotes)
+    flash(f"Se eliminaron {removed} partida(s) con catálogo eliminado de la cotización.", "warning")
     return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
 
 
