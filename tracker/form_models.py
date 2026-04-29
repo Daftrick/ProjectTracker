@@ -84,6 +84,7 @@ def quote_from_form(form, fallback_quote=None):
         "quote_number": form.get("quote_number", "").strip(),
         "version": form.get("version", "").strip(),
         "date": form.get("date", "").strip(),
+        "valid_until": form.get("valid_until", "").strip(),
         "currency": form.get("currency", "MXN").strip() or "MXN",
         "tax_rate": form.get("tax_rate", "16").strip() or "16",
         "notes": form.get("notes", "").strip(),

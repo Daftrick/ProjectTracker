@@ -1,11 +1,54 @@
 import os
 import tempfile
 import unittest
+from unittest.mock import patch
 
-from tracker.drive import decorate_csv_plano, latest_dwg_stem, parse_csv_plano_filename, scan_drive_folder
+from tracker.drive import (
+    active_drive_paths,
+    decorate_csv_plano,
+    latest_dwg_stem,
+    normalize_config,
+    parse_csv_plano_filename,
+    resolve_config_path,
+    scan_drive_folder,
+)
 
 
 class DriveCsvStatusTest(unittest.TestCase):
+    def test_config_preserves_distinct_windows_and_macos_drive_paths(self):
+        cfg = normalize_config({
+            "drive_projects_path": r"H:\My Drive\Omniious\Proyectos IE",
+            "drive_fichas_path": r"H:\My Drive\Omniious\Proyectos IE\Fichas Tecnicas",
+            "drive_projects_path_macos": "/Users/rick/Library/CloudStorage/GoogleDrive-rick/My Drive/Omniious/Proyectos IE",
+            "drive_fichas_path_macos": "/Users/rick/Library/CloudStorage/GoogleDrive-rick/My Drive/Omniious/Proyectos IE/Fichas Tecnicas",
+        })
+
+        self.assertEqual(resolve_config_path(cfg, "drive_projects_path", "windows"), r"H:\My Drive\Omniious\Proyectos IE")
+        self.assertEqual(
+            resolve_config_path(cfg, "drive_projects_path", "macos"),
+            "/Users/rick/Library/CloudStorage/GoogleDrive-rick/My Drive/Omniious/Proyectos IE",
+        )
+        self.assertEqual(resolve_config_path(cfg, "drive_fichas_path", "windows"), r"H:\My Drive\Omniious\Proyectos IE\Fichas Tecnicas")
+        self.assertEqual(
+            resolve_config_path(cfg, "drive_fichas_path", "macos"),
+            "/Users/rick/Library/CloudStorage/GoogleDrive-rick/My Drive/Omniious/Proyectos IE/Fichas Tecnicas",
+        )
+
+    def test_active_drive_paths_uses_current_platform_specific_value(self):
+        cfg = {
+            "drive_projects_path_windows": r"H:\My Drive\Omniious\Proyectos IE",
+            "drive_projects_path_macos": "/Users/rick/Drive/Proyectos IE",
+            "drive_fichas_path_windows": r"H:\My Drive\Omniious\Fichas",
+            "drive_fichas_path_macos": "/Users/rick/Drive/Fichas",
+        }
+
+        with patch("tracker.drive.current_platform_key", return_value="macos"):
+            paths = active_drive_paths(cfg)
+
+        self.assertEqual(paths["platform"], "macos")
+        self.assertEqual(paths["projects"], "/Users/rick/Drive/Proyectos IE")
+        self.assertEqual(paths["fichas"], "/Users/rick/Drive/Fichas")
+
     def test_parse_csv_plano_filename_extracts_export_metadata(self):
         parsed = parse_csv_plano_filename("OM001-v2-i3-20260425.csv", "OM001")
 

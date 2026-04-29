@@ -181,7 +181,7 @@
             </select>
           </div>
           <!-- Número de cotización (auto-generado, editable) -->
-          <div class="col-md-5">
+          <div class="col-md-4">
             <label class="form-label d-flex justify-content-between">
               <span>Número de cotización</span>
               <button type="button" class="btn btn-link p-0" style="font-size:.75rem"
@@ -194,11 +194,17 @@
                    placeholder="COT-…">
           </div>
           <!-- Fecha -->
-          <div class="col-md-4">
+          <div class="col-md-2">
             <label class="form-label">Fecha</label>
             <input type="date" name="date" class="form-control{% if fe.get('date') %} is-invalid{% endif %}" id="quoteDate"
                    value="{{ quote.date if quote else today }}" oninput="updateNum()">
             {% if fe.get('date') %}<div class="invalid-feedback">{{ fe.get('date') }}</div>{% endif %}
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Vigente hasta</label>
+            <input type="date" name="valid_until" class="form-control{% if fe.get('valid_until') %} is-invalid{% endif %}"
+                   value="{{ quote.valid_until if quote else '' }}">
+            {% if fe.get('valid_until') %}<div class="invalid-feedback">{{ fe.get('valid_until') }}</div>{% endif %}
           </div>
           <!-- Versión (opcional, referencia interna) -->
           <div class="col-md-2">

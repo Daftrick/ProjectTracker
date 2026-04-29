@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v16.0 — 28-Apr-2026
+## Versión actual: v16.3 — 28-Apr-2026
 
 ---
 
@@ -29,6 +29,7 @@ Regla: al subir versión mayor, el decimal se reinicia a 0.
 | Lenguaje | Python 3.14 (`C:\Users\daftr\AppData\Local\Python\pythoncore-3.14-64\python.exe`) |
 | Framework | Flask ≥ 3.0.0 |
 | PDF | fpdf2 ≥ 2.7.9 |
+| Excel | openpyxl ≥ 3.1.0 |
 | Puerto | **8080** (default) — override con `PROJECT_TRACKER_PORT=N` |
 | Debug | `FLASK_DEBUG=1` activa auto-reload |
 | Inicio normal | Windows: `INICIAR.vbs` — instala deps, espera 3 s, abre `http://localhost:8080` y levanta Flask sin ventana visible |
@@ -53,7 +54,7 @@ ProjectTracker/
 ├── DEBUG.bat                   # Lanzador con ventana visible para depuración
 ├── REINICIAR.command           # Reinicio macOS
 ├── REINICIAR.bat               # Reinicia el servidor
-├── requirements.txt            # flask>=3.0.0, fpdf2>=2.7.9
+├── requirements.txt            # flask>=3.0.0, fpdf2>=2.7.9, openpyxl>=3.1.0
 ├── ROADMAP_MEJORAS.md          # Backlog de mejoras acordadas
 ├── VERSIONES.md                # ← Este archivo (fuente de verdad)
 │
@@ -73,7 +74,7 @@ ProjectTracker/
 │   └── routes/
 │       ├── __init__.py         # (vacío)
 │       ├── projects.py         # Blueprint projects_bp — proyectos, tareas, entregas, ajustes, shutdown
-│       ├── quotes.py           # Blueprint quotes_bp — cotizaciones CRUD + PDF
+│       ├── quotes.py           # Blueprint quotes_bp — cotizaciones CRUD + PDF + Excel
 │       ├── materials.py        # Blueprint materials_bp — LDMs CRUD + PDF + API costo
 │       └── admin.py            # Blueprint admin_bp — catálogo, proveedores, fichas, equipo
 │
@@ -221,6 +222,7 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | Drive | Migraciones de datos al arranque | `drive.py:migrate_*` |
 | Cotizaciones | CRUD P/G/E, numeración automática | `routes/quotes.py` + `catalog.py` |
 | Cotizaciones | Generación de PDF con portada y condiciones | `pdfs.py:build_quote_pdf` |
+| Cotizaciones | Exportación Excel (.xlsx) simple: encabezado, artículos con nombre/unidad/cantidad/precios/totales, subtotales por sección y cierre con IVA y TOTAL | `routes/quotes.py:quote_excel` |
 | Cotizaciones | Hidratación desde catálogo (por ID o por nombre) | `catalog.py:hydrate_quote` |
 | Cotizaciones | Secciones opcionales con encabezado y subtotal por sección en formulario, vista y PDF | `validators.py` + `catalog.py` + `pdfs.py` |
 | Cotizaciones | Nota base de proyecto en portada del PDF según tipo: preliminar sin nota, general con último DWG, extraordinaria con nota manual | `routes/quotes.py` + `drive.py:latest_dwg_stem` + `pdfs.py` |
@@ -282,6 +284,7 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | GET | `/projects/<id>/quote/<qid>/view` | `view_quote` | Vista de sólo lectura |
 | POST | `/projects/<id>/quote/<qid>/delete` | `delete_quote` | Eliminar cotización |
 | GET | `/projects/<id>/quote/<qid>/pdf` | `quote_pdf` | Generar PDF en Drive |
+| GET | `/projects/<id>/quote/<qid>/excel` | `quote_excel` | Descargar Excel (.xlsx) |
 
 ### Blueprint `materials_bp`
 
@@ -523,6 +526,16 @@ Reglas de portada PDF:
 | 2026-04-28 | Detalle de proyecto: nuevo tab "Consistencia" con encabezado de KPIs (subtotal cotizado, costo proveedor, margen abs, margen %), badges de issues y tabla por artículo de catálogo con qty COT/LDM, precio venta, costo promedio ponderado, margen unitario y etiquetas de problema. El tab muestra mini-badge de severidad cuando hay critical/warning |
 | 2026-04-28 | Tests: `tests/test_consistency.py` cubre umbrales 30%/0%, selección de General activa con fallback, agregación por `catalog_item_id` cruzando LDMs, detección de los 4 tipos de issue, escenarios sin COT/sin LDM y filtrado por `project_id` |
 | 2026-04-28 | Versión bumped v15.0 → v16.0 (feature: automatización de consistencia COT vs LDM por artículo de catálogo, KPIs en dashboard y tab dedicado en detalle de proyecto) |
+| 2026-04-28 | Hotfix detalle de proyecto: el tab de consistencia usa `cn['items']` en lugar de `cn.items` para evitar que Jinja lea el método interno del diccionario y lance `TypeError: 'builtin_function_or_method' object is not iterable` |
+| 2026-04-28 | Versión bumped v16.0 → v16.1 (patch: corrección de render en tab Consistencia) |
+| 2026-04-28 | Configuración Drive multiplataforma: `config.json` ahora conserva rutas independientes para Windows/macOS/Linux (`drive_projects_path_windows`, `drive_projects_path_macos`, etc.) y la app resuelve automáticamente la ruta activa según el sistema actual |
+| 2026-04-28 | Ajustes: la pantalla de Google Drive muestra "Este equipo" y las rutas guardadas por sistema, permitiendo que Windows use `H:\...` y macOS use `/Users/.../Library/CloudStorage/...` sin sobrescribirse |
+| 2026-04-28 | Escaneo/exportación: Documentos, entregas ZIP, PDFs de COT/LDM, importación CSV y descarga de archivos de proyecto usan la ruta Drive activa del sistema operativo actual |
+| 2026-04-28 | Tests: `tests/test_drive.py` cubre convivencia de rutas Windows/macOS y resolución de rutas activas por plataforma |
+| 2026-04-28 | Versión bumped v16.1 → v16.2 (patch: convivencia de rutas Drive entre Windows y macOS) |
+| 2026-04-28 | Cotizaciones: nuevo botón **Excel** en la tabla de cotizaciones del detalle de proyecto y en la vista de detalle de cotización; genera y descarga un `.xlsx` con openpyxl — encabezado (número, cliente, proyecto, fecha, moneda), tabla de artículos (nombre, unidad, cantidad, precio unitario, total), subtotales por sección cuando aplica, y cierre con Subtotal / IVA / TOTAL en negrita. Sin colores ni tipografías especiales |
+| 2026-04-28 | `requirements.txt` — agregada dependencia `openpyxl>=3.1.0` |
+| 2026-04-28 | Versión bumped v16.2 → v16.3 (patch: exportación Excel de cotizaciones) |
 
 ---
 

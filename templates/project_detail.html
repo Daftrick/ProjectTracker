@@ -725,7 +725,7 @@
               <td class="text-end">
                 <form method="post"
                       action="{{ url_for('delete_delivery', project_id=project.id, delivery_id=d.id) }}"
-                      class="d-inline" onsubmit="return confirm('¿Eliminar este registro de entrega?')">
+                      class="d-inline" onsubmit="return confirm('\u00bfEliminar el registro de entrega {{ d.zip_name }}?\nSolo se elimina el registro; el archivo ZIP en Drive NO se borra.\n\nEsta acci\u00f3n no se puede deshacer.')">
                   <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                 </form>
               </td>
@@ -793,6 +793,8 @@
                class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Ver detalle"><i class="bi bi-eye"></i><span class="action-label">Ver</span></a>
             <a href="{{ url_for('quote_pdf', project_id=project.id, quote_id=q.id) }}"
                class="btn btn-sm btn-outline-success me-1 action-btn" title="Generar PDF en Drive"><i class="bi bi-file-earmark-pdf"></i><span class="action-label">PDF</span></a>
+            <a href="{{ url_for('quotes_bp.quote_excel', project_id=project.id, quote_id=q.id) }}"
+               class="btn btn-sm btn-outline-success me-1 action-btn" title="Descargar Excel"><i class="bi bi-file-earmark-spreadsheet"></i><span class="action-label">Excel</span></a>
             {% if not project.closed_at %}
             <a href="{{ url_for('edit_quote', project_id=project.id, quote_id=q.id) }}"
                class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Editar"><i class="bi bi-pencil"></i><span class="action-label">Editar</span></a>
@@ -805,7 +807,7 @@
             </form>
             {% endif %}
             <form method="post" action="{{ url_for('delete_quote', project_id=project.id, quote_id=q.id) }}"
-                  class="d-inline" onsubmit="return confirm('¿Eliminar?')">
+                  class="d-inline" onsubmit="return confirm('\u00bfEliminar la cotizaci\u00f3n {{ q.quote_number }}?\nTotal: {{ q.total | currency }} {{ q.currency }}\n\nEsta acci\u00f3n no se puede deshacer.')">
               <button class="btn btn-sm btn-outline-danger action-btn"><i class="bi bi-trash"></i><span class="action-label">Eliminar</span></button>
             </form>
             {% endif %}
@@ -954,7 +956,7 @@
   </div>
 
   <!-- Tabla detallada por artículo -->
-  {% if cn.items %}
+  {% if cn['items'] %}
   <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
       <span class="fw-semibold" style="font-size:.875rem">Detalle por artículo de catálogo</span>
@@ -976,7 +978,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for row in cn.items %}
+          {% for row in cn['items'] %}
           {% set row_color = status_color_map[row.status] %}
           {% set row_icon  = status_icon_map[row.status] %}
           <tr class="{% if row.status == 'critical' %}table-danger{% elif row.status == 'warning' %}table-warning{% endif %}">
@@ -1155,10 +1157,18 @@
               <i class="bi bi-pencil"></i><span class="action-label">Editar</span>
             </a>
             {% if deleted_catalog_items %}
+            {% set purge_names = namespace(items=[]) %}
+            {% for deleted_item in deleted_catalog_items %}
+              {% set deleted_catalog = deleted_item.deleted_catalog_item or {} %}
+              {% set purge_names.items = purge_names.items + [deleted_catalog.nombre or deleted_item.description or 'Artículo sin nombre'] %}
+            {% endfor %}
             <form method="post"
                   action="{{ url_for('purge_ldm_deleted_catalog_items', project_id=project.id, ldm_id=ldm.id) }}"
                   class="d-inline"
-                  onsubmit="return confirm('¿Eliminar por completo {{ deleted_catalog_items|length }} artículo(s) marcados como catálogo eliminado de {{ ldm.ldm_number }}?')">
+                  data-purge-record="{{ ldm.ldm_number }}"
+                  data-purge-kind="artículo(s)"
+                  data-purge-items='{{ purge_names.items | tojson }}'
+                  onsubmit="return confirmDeletedCatalogPurge(this)">
               <button class="btn btn-sm btn-outline-danger me-1 action-btn" title="Eliminar artículos con catálogo eliminado">
                 <i class="bi bi-eraser"></i><span class="action-label">Purgar</span>
               </button>
@@ -1167,7 +1177,7 @@
             <form method="post"
                   action="{{ url_for('delete_ldm', project_id=project.id, ldm_id=ldm.id) }}"
                   class="d-inline"
-                  onsubmit="return confirm('¿Eliminar {{ ldm.ldm_number }}?')">
+                  onsubmit="return confirm('\u00bfEliminar {{ ldm.ldm_number }}?\n{{ ldm.items|length }} art\u00edculo(s){% if ldm.subtotal_cot %} - {{ ldm.subtotal_cot | currency }}{% endif %}\n\nEsta acci\u00f3n no se puede deshacer.')">
               <button class="btn btn-sm btn-outline-danger action-btn">
                 <i class="bi bi-trash"></i><span class="action-label">Eliminar</span>
               </button>
@@ -1631,6 +1641,20 @@
     document.getElementById("setCotInput").value       = current || "";
     document.getElementById("setCotForm").action       =
       "/projects/{{ project.id }}/ldm/" + ldmId + "/set_cot";
+  }
+
+  function confirmDeletedCatalogPurge(form) {
+    let names = [];
+    try {
+      names = JSON.parse(form.dataset.purgeItems || "[]");
+    } catch (err) {
+      names = [];
+    }
+    const record = form.dataset.purgeRecord || "esta lista";
+    const kind = form.dataset.purgeKind || "elemento(s)";
+    const itemLines = names.map(name => `- ${name}`).join("\n");
+    const detail = itemLines ? `\n\nArtículos afectados:\n${itemLines}` : "";
+    return confirm(`¿Eliminar por completo ${names.length} ${kind} marcados como catálogo eliminado de ${record}?${detail}`);
   }
 
   // ── Edición inline: columna "Costo cotizado" ──────────────────────────────

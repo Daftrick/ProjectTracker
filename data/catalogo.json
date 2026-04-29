@@ -5,7 +5,8 @@
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-19"
+    "created_at": "2026-04-19",
+    "categoria": ""
   },
   {
     "id": "3EF4F34C",
@@ -13,7 +14,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "CF8E020E",
@@ -21,7 +23,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "6080C3DF",
@@ -29,7 +32,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "94B273C0",
@@ -37,7 +41,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "BD9EA6E4",
@@ -45,7 +50,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "5A31DD1C",
@@ -53,7 +59,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "9CF3C72B",
@@ -61,7 +68,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "6B4F82DD",
@@ -69,7 +77,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "17074C17",
@@ -77,7 +86,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "191D7987",
@@ -85,7 +95,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "63EF677F",
@@ -93,7 +104,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "458AEC86",
@@ -101,7 +113,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "9AC13BC2",
@@ -109,7 +122,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "EFA814EB",
@@ -117,7 +131,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "60CA5FEE",
@@ -125,7 +140,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "5880609C",
@@ -133,7 +149,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "79921E56",
@@ -141,7 +158,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "7B7F4147",
@@ -149,7 +167,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "DE9EF199",
@@ -157,7 +176,8 @@
     "descripcion": "Burndy | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "D5D4E2AA",
@@ -165,7 +185,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "7FB42249",
@@ -173,7 +194,8 @@
     "descripcion": "Himel | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "573F7605",
@@ -181,7 +203,8 @@
     "descripcion": "Himel | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "AC40DA48",
@@ -189,7 +212,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "60882F0F",
@@ -197,7 +221,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "35F797E1",
@@ -205,7 +230,8 @@
     "descripcion": "Condulet | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "08190240",
@@ -213,7 +239,8 @@
     "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "322EF0AC",
@@ -221,7 +248,8 @@
     "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "C1E67F16",
@@ -229,7 +257,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "DE626994",
@@ -237,7 +266,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "50A2EBC0",
@@ -245,7 +275,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "DBA5C185",
@@ -253,7 +284,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "2540119E",
@@ -261,7 +293,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "C116C004",
@@ -269,7 +302,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "E32BE145",
@@ -277,7 +311,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "1D5577C3",
@@ -285,7 +320,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "E2D36AC3",
@@ -293,7 +329,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "C82014A6",
@@ -301,7 +338,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "92218A02",
@@ -309,7 +347,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "D4CA8413",
@@ -317,7 +356,8 @@
     "descripcion": "Thorsman | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "D0ECADEF",
@@ -325,7 +365,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "0AE22940",
@@ -333,7 +374,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "7914927E",
@@ -341,7 +383,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "C7B13638",
@@ -349,7 +392,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "17B415D8",
@@ -357,7 +401,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "7132C911",
@@ -365,7 +410,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "98961499",
@@ -373,7 +419,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "D2879612",
@@ -381,7 +428,8 @@
     "descripcion": "Comex | Incluye Suministro",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "9824265A",
@@ -389,7 +437,8 @@
     "descripcion": "Comex | Incluye Suministro",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "8A97357A",
@@ -397,7 +446,8 @@
     "descripcion": "Comex | Incluye Suministro",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "86E959D6",
@@ -405,7 +455,8 @@
     "descripcion": "Comex | Incluye Suministro",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "55946E84",
@@ -413,7 +464,8 @@
     "descripcion": "Comex | Incluye Suministro",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "802B4677",
@@ -421,7 +473,8 @@
     "descripcion": "Comex | Incluye Suministro",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-20"
+    "created_at": "2026-04-20",
+    "categoria": ""
   },
   {
     "id": "1F183CFD",
@@ -429,7 +482,8 @@
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "4C172E56",
@@ -437,7 +491,8 @@
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "C8D6402B",
@@ -445,7 +500,8 @@
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "E06E3F5D",
@@ -453,7 +509,8 @@
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "E7D23B77",
@@ -461,7 +518,8 @@
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "08E0125B",
@@ -469,7 +527,8 @@
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "31F3EE77",
@@ -477,7 +536,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "945E2D9E",
@@ -485,7 +545,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "0AEAAC55",
@@ -493,7 +554,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "041CA82C",
@@ -501,7 +563,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "3626E718",
@@ -509,7 +572,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A0307F9A",
@@ -517,7 +581,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "047C8246",
@@ -525,7 +590,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "E76B29A8",
@@ -533,7 +599,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "33B3D724",
@@ -541,7 +608,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "97E634EE",
@@ -549,7 +617,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "5BC616CB",
@@ -557,7 +626,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "3119B6E7",
@@ -565,7 +635,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "DC2E7A1A",
@@ -573,7 +644,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "C8B79448",
@@ -581,7 +653,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "D53207F7",
@@ -589,7 +662,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "1A96C797",
@@ -597,7 +671,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "8D4AFF78",
@@ -605,7 +680,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "D2A82D03",
@@ -613,7 +689,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "8F0B1614",
@@ -621,7 +698,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "988855E3",
@@ -629,7 +707,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "C307672C",
@@ -637,7 +716,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "C6CE7855",
@@ -645,7 +725,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "E023E6F1",
@@ -653,7 +734,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "35BC9322",
@@ -661,7 +743,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "EF8567CE",
@@ -669,7 +752,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "A833CF9D",
@@ -677,7 +761,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "61939906",
@@ -685,7 +770,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "5FAC1AC5",
@@ -693,7 +779,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "46202E0F",
@@ -701,7 +788,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "108B1E71",
@@ -709,7 +797,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "9A26631F",
@@ -717,7 +806,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "65C9486F",
@@ -725,7 +815,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "8A82E35B",
@@ -733,7 +824,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "053A106F",
@@ -741,7 +833,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "EFBBD73C",
@@ -749,7 +842,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "6E3A33B4",
@@ -757,7 +851,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "38721C75",
@@ -765,7 +860,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "1410BDC2",
@@ -773,7 +869,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "83E104EF",
@@ -781,7 +878,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "8814838A",
@@ -789,7 +887,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "659638F2",
@@ -797,7 +896,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "1AD70201",
@@ -805,7 +905,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "AE62FA3E",
@@ -813,7 +914,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "A5784CF0",
@@ -821,7 +923,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "5DC4D2D2",
@@ -829,7 +932,8 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "EBB67A73",
@@ -837,7 +941,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "94F9F3D2",
@@ -845,7 +950,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "41C2A601",
@@ -853,7 +959,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "C53A7E82",
@@ -861,7 +968,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "CB63E0F6",
@@ -869,7 +977,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "4FAB2ED6",
@@ -877,7 +986,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "9E6C63DE",
@@ -885,7 +995,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "ABCAFAD1",
@@ -893,7 +1004,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "854962B0",
@@ -901,7 +1013,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "B42852C3",
@@ -909,7 +1022,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "CFAD6E63",
@@ -917,7 +1031,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "06776B34",
@@ -925,7 +1040,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "E335956F",
@@ -933,7 +1049,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "18C5C03E",
@@ -941,7 +1058,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "EFF4FECF",
@@ -949,7 +1067,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "8DC8C842",
@@ -957,7 +1076,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "34AA2A37",
@@ -965,7 +1085,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "91D25844",
@@ -973,7 +1094,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "6893EDC3",
@@ -981,7 +1103,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "95B9504F",
@@ -989,7 +1112,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "67217B57",
@@ -997,7 +1121,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "816111D1",
@@ -1005,7 +1130,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "01F79130",
@@ -1013,7 +1139,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "B6CAD20E",
@@ -1021,7 +1148,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "7C4D60A4",
@@ -1029,7 +1157,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "3229324E",
@@ -1037,7 +1166,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "56C8E50B",
@@ -1045,7 +1175,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "FDF220ED",
@@ -1053,7 +1184,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "6A489BC7",
@@ -1061,7 +1193,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "04A50B58",
@@ -1069,7 +1202,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "D3B47C7D",
@@ -1077,7 +1211,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "378F0253",
@@ -1085,7 +1220,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "5500EE99",
@@ -1093,7 +1229,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "1C762EE1",
@@ -1101,7 +1238,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "66F75365",
@@ -1109,7 +1247,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A16F4B2C",
@@ -1117,7 +1256,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "8368CF40",
@@ -1125,7 +1265,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "B27C5D3E",
@@ -1133,7 +1274,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "21CA0A90",
@@ -1141,7 +1283,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "7DDAF764",
@@ -1149,7 +1292,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "CC3D4905",
@@ -1157,7 +1301,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "B1EB0757",
@@ -1165,7 +1310,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "8AAF22AE",
@@ -1173,7 +1319,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "37B1DF13",
@@ -1181,7 +1328,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "7B08FE7E",
@@ -1189,7 +1337,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "8DB60C90",
@@ -1197,7 +1346,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "112D3391",
@@ -1205,7 +1355,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "120AD643",
@@ -1213,7 +1364,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "0C4DD4A8",
@@ -1221,7 +1373,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "97EEB372",
@@ -1229,7 +1382,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "C38D6E4F",
@@ -1237,7 +1391,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "87DCBE2D",
@@ -1245,7 +1400,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "D49E7F50",
@@ -1253,7 +1409,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "C4453C1F",
@@ -1261,7 +1418,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "DFAE2224",
@@ -1269,7 +1427,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "51A12AC6",
@@ -1277,7 +1436,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "75BE2B59",
@@ -1285,7 +1445,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "1E4D9A9D",
@@ -1293,7 +1454,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "9E4997EB",
@@ -1301,7 +1463,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "33934677",
@@ -1309,7 +1472,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "C76389A4",
@@ -1317,7 +1481,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "42E7ADEB",
@@ -1325,7 +1490,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A3F7AD28",
@@ -1333,7 +1499,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "2C48B4D7",
@@ -1341,7 +1508,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "B497844E",
@@ -1349,7 +1517,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "E5AF8061",
@@ -1357,7 +1526,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "28206AAE",
@@ -1365,7 +1535,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "F6B09172",
@@ -1373,7 +1544,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "CDA4F5FD",
@@ -1381,7 +1553,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "43CD1EC4",
@@ -1389,7 +1562,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "6F045DAE",
@@ -1397,7 +1571,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "6DFAE841",
@@ -1405,7 +1580,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "75D8D7AC",
@@ -1413,7 +1589,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "8A93A2B7",
@@ -1421,7 +1598,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "571B95F5",
@@ -1429,7 +1607,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "382445DA",
@@ -1437,7 +1616,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "F4FE7000",
@@ -1445,7 +1625,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "45A9845E",
@@ -1453,7 +1634,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "D7DE6384",
@@ -1461,7 +1643,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "ECCFA62E",
@@ -1469,7 +1652,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "57FF3AF7",
@@ -1477,7 +1661,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "05BEB8F8",
@@ -1485,7 +1670,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "05D05AE0",
@@ -1493,7 +1679,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "7EF3D33C",
@@ -1501,7 +1688,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "2E8738AD",
@@ -1509,7 +1697,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "12E1C4B4",
@@ -1517,7 +1706,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "CDB02F11",
@@ -1525,7 +1715,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "8556757D",
@@ -1533,7 +1724,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "CD3B9CBA",
@@ -1541,7 +1733,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "8ECBBA73",
@@ -1549,7 +1742,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "C4D56BC2",
@@ -1557,7 +1751,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "9246B11F",
@@ -1565,7 +1760,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "F8E29D25",
@@ -1573,7 +1769,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "9AE816E9",
@@ -1581,7 +1778,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "1E62162D",
@@ -1589,7 +1787,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "5DBDB618",
@@ -1597,7 +1796,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "92570F01",
@@ -1605,7 +1805,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "DDEE5B91",
@@ -1613,7 +1814,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "F1239EB0",
@@ -1621,7 +1823,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "07055CBB",
@@ -1629,7 +1832,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A7C1D283",
@@ -1637,7 +1841,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "9B73B1D9",
@@ -1645,7 +1850,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "B8D2E394",
@@ -1653,7 +1859,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "C46480E2",
@@ -1661,7 +1868,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "ED1EF9F9",
@@ -1669,7 +1877,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "2998492B",
@@ -1677,7 +1886,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "7B152773",
@@ -1685,7 +1895,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A4109C30",
@@ -1693,7 +1904,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "0DD1750C",
@@ -1701,7 +1913,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "374C6CC3",
@@ -1709,7 +1922,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "C6DAB3C9",
@@ -1717,7 +1931,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "90F651DE",
@@ -1725,7 +1940,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "2D62FDEB",
@@ -1733,7 +1949,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "732E099C",
@@ -1741,7 +1958,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "7C99B319",
@@ -1749,7 +1967,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "C9E3F4A5",
@@ -1757,7 +1976,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "1CAAFE55",
@@ -1765,7 +1985,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "DAF405B6",
@@ -1773,7 +1994,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "D3F0E6CC",
@@ -1781,7 +2003,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "46A12E0C",
@@ -1789,7 +2012,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "EE453F70",
@@ -1797,7 +2021,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "4C2C63F8",
@@ -1805,7 +2030,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "F7D24F17",
@@ -1813,7 +2039,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "B9381C85",
@@ -1821,7 +2048,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "93EF2E83",
@@ -1829,7 +2057,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "9CAB30C3",
@@ -1837,7 +2066,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "E11B23AB",
@@ -1845,7 +2075,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "EF7D2E96",
@@ -1853,7 +2084,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "2A33BE0D",
@@ -1861,7 +2093,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "C058643C",
@@ -1869,7 +2102,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "EB0516C7",
@@ -1877,7 +2111,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "E535F629",
@@ -1885,7 +2120,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "FC1627D8",
@@ -1893,7 +2129,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-22"
+    "created_at": "2026-04-22",
+    "categoria": ""
   },
   {
     "id": "25C9A5F5",
@@ -1901,7 +2138,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "4B2343BB",
@@ -1909,7 +2147,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "C16EBD16",
@@ -1917,7 +2156,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "F3641115",
@@ -1925,7 +2165,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "ED1BD558",
@@ -1933,7 +2174,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "C08DA40D",
@@ -1941,7 +2183,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "DB4E8D9C",
@@ -1949,7 +2192,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "DF4B729D",
@@ -1957,7 +2201,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "2D6B3BE0",
@@ -1965,7 +2210,8 @@
     "descripcion": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "4B2E24BF",
@@ -1973,7 +2219,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "73618927",
@@ -1981,7 +2228,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "15514DE1",
@@ -1989,7 +2237,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "6B776A1B",
@@ -1997,7 +2246,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "DCB8D811",
@@ -2005,7 +2255,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "028E91EA",
@@ -2013,7 +2264,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A5255B64",
@@ -2021,7 +2273,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "B22F1D90",
@@ -2029,7 +2282,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "1D851D14",
@@ -2037,7 +2291,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "8AA69AB5",
@@ -2045,7 +2300,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "56C24ED0",
@@ -2053,7 +2309,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "9690E597",
@@ -2061,7 +2318,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "7D6A1B33",
@@ -2069,7 +2327,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "BD11A7C8",
@@ -2077,7 +2336,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "9814B089",
@@ -2085,7 +2345,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A1C5788F",
@@ -2093,7 +2354,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A95A1CA8",
@@ -2101,7 +2363,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "1251C6D9",
@@ -2109,7 +2372,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "0B610EAA",
@@ -2117,7 +2381,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "4EDE8418",
@@ -2125,7 +2390,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "24EE097B",
@@ -2133,7 +2399,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "BFCD35EE",
@@ -2141,7 +2408,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "4ED5C93D",
@@ -2149,7 +2417,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "F84249D5",
@@ -2157,7 +2426,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "43181664",
@@ -2165,7 +2435,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "D90135E7",
@@ -2173,7 +2444,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "35B41312",
@@ -2181,7 +2453,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "429C2A88",
@@ -2189,7 +2462,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "4176F6DB",
@@ -2197,7 +2471,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "D777434F",
@@ -2205,7 +2480,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A4181820",
@@ -2213,7 +2489,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "0961AF82",
@@ -2221,7 +2498,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "FFE4AFAF",
@@ -2229,7 +2507,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "B335B39E",
@@ -2237,7 +2516,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "D1084BAA",
@@ -2245,7 +2525,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "6E4D2C7F",
@@ -2253,7 +2534,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "D1377897",
@@ -2261,7 +2543,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "78E6E91D",
@@ -2269,7 +2552,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "25940BBE",
@@ -2277,7 +2561,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "96AFFD5D",
@@ -2285,7 +2570,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A9201C09",
@@ -2293,7 +2579,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "5ABE876B",
@@ -2301,7 +2588,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "ECBB6931",
@@ -2309,7 +2597,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "160C9285",
@@ -2317,7 +2606,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "98C681F0",
@@ -2325,7 +2615,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "9EB8267A",
@@ -2333,7 +2624,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "BFA412D0",
@@ -2341,7 +2633,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "F50CC862",
@@ -2349,7 +2642,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "0F21F6F2",
@@ -2357,7 +2651,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "D04E1C40",
@@ -2365,7 +2660,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "9E8D2868",
@@ -2373,7 +2669,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "BE0CE93E",
@@ -2381,7 +2678,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "F34E1319",
@@ -2389,7 +2687,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "0BE19387",
@@ -2397,7 +2696,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "E9A3945B",
@@ -2405,7 +2705,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "44966A0E",
@@ -2413,7 +2714,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "5D8598DA",
@@ -2421,7 +2723,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "4A2C7045",
@@ -2429,7 +2732,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "59B5A4EC",
@@ -2437,7 +2741,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "03462886",
@@ -2445,7 +2750,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "8F942358",
@@ -2453,7 +2759,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "84178E1D",
@@ -2461,7 +2768,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "C66843E7",
@@ -2469,7 +2777,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "969468AA",
@@ -2477,7 +2786,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "509FBCCF",
@@ -2485,7 +2795,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A709D777",
@@ -2493,7 +2804,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "9D83245A",
@@ -2501,7 +2813,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A86449AB",
@@ -2509,7 +2822,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "ED4F18F4",
@@ -2517,7 +2831,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "1454409F",
@@ -2525,7 +2840,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "B8F2A791",
@@ -2533,7 +2849,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "131BF8DE",
@@ -2541,7 +2858,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "BCF9637F",
@@ -2549,7 +2867,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "3A0F578D",
@@ -2557,7 +2876,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "CD8646C0",
@@ -2565,7 +2885,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "1E5AA889",
@@ -2573,7 +2894,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "849F5637",
@@ -2581,7 +2903,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "3A64FA3A",
@@ -2589,7 +2912,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "CC5916DB",
@@ -2597,7 +2921,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "F87E4D7B",
@@ -2605,7 +2930,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "F737D67B",
@@ -2613,7 +2939,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "1C0BB18F",
@@ -2621,7 +2948,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A6783EC7",
@@ -2629,7 +2957,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "79551A81",
@@ -2637,7 +2966,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "B418B08F",
@@ -2645,7 +2975,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "FDFF1266",
@@ -2653,7 +2984,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "1AB360B5",
@@ -2661,7 +2993,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "FFE6242B",
@@ -2669,7 +3002,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "7D4449A1",
@@ -2677,7 +3011,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "875635EF",
@@ -2685,7 +3020,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "7BF7A519",
@@ -2693,7 +3029,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "5534E1A3",
@@ -2701,7 +3038,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "018C18B3",
@@ -2709,7 +3047,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "B074AABC",
@@ -2717,7 +3056,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "C29BE27C",
@@ -2725,7 +3065,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "F4680A80",
@@ -2733,7 +3074,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "BA1D47E8",
@@ -2741,7 +3083,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "7C5954F8",
@@ -2749,7 +3092,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "62CF0704",
@@ -2757,7 +3101,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "0D70BB0B",
@@ -2765,7 +3110,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "D478E993",
@@ -2773,7 +3119,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "959BD150",
@@ -2781,7 +3128,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "9706813C",
@@ -2789,7 +3137,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "C23CD302",
@@ -2797,7 +3146,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "5F70AC46",
@@ -2805,7 +3155,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "B6701B97",
@@ -2813,7 +3164,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "4762B398",
@@ -2821,7 +3173,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "474908C9",
@@ -2829,7 +3182,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "F30FA6F3",
@@ -2837,7 +3191,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "67AF07AE",
@@ -2845,7 +3200,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "3CE3CB32",
@@ -2853,7 +3209,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "908C7B3B",
@@ -2861,7 +3218,8 @@
     "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "DB240F97",
@@ -2869,7 +3227,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "405C472A",
@@ -2877,7 +3236,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "FA9A0D02",
@@ -2885,7 +3245,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "027B0499",
@@ -2893,7 +3254,8 @@
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "m",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "544481E8",
@@ -2901,7 +3263,8 @@
     "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "84FB50AB",
@@ -2909,7 +3272,8 @@
     "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "57C882D6",
@@ -2917,7 +3281,8 @@
     "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "0911935B",
@@ -2925,7 +3290,8 @@
     "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "40A5B306",
@@ -2933,7 +3299,8 @@
     "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "FD63E58B",
@@ -2941,7 +3308,8 @@
     "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "12333D28",
@@ -2949,7 +3317,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "EBF5B3B0",
@@ -2957,7 +3326,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "CEB51FAD",
@@ -2965,7 +3335,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "26D480AA",
@@ -2973,7 +3344,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "6E5A643B",
@@ -2981,7 +3353,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "F0E1C590",
@@ -2989,7 +3362,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "4147714B",
@@ -2997,7 +3371,8 @@
     "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "444655BA",
@@ -3005,7 +3380,8 @@
     "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A1473B2C",
@@ -3013,7 +3389,8 @@
     "descripcion": "Arla | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "0C147816",
@@ -3021,7 +3398,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "CAE7672D",
@@ -3029,7 +3407,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "33F4913C",
@@ -3037,7 +3416,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "73784D64",
@@ -3045,7 +3425,8 @@
     "descripcion": "Coperweld | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "1BF5211A",
@@ -3053,7 +3434,8 @@
     "descripcion": "Coperweld | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "AD9D362B",
@@ -3061,7 +3443,8 @@
     "descripcion": "Coperweld | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "D61A75A9",
@@ -3069,7 +3452,8 @@
     "descripcion": "Coperweld | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A45A9CBB",
@@ -3077,7 +3461,8 @@
     "descripcion": "Coperweld | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "BD05E23F",
@@ -3085,7 +3470,8 @@
     "descripcion": "Coperweld | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "0F75F09C",
@@ -3093,7 +3479,8 @@
     "descripcion": "Burndy | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "0DBD4733",
@@ -3101,7 +3488,8 @@
     "descripcion": "Burndy | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "F75CDAC2",
@@ -3109,7 +3497,8 @@
     "descripcion": "Burndy | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "4AB19072",
@@ -3117,7 +3506,8 @@
     "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "C0E04615",
@@ -3125,7 +3515,8 @@
     "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "53E91A6E",
@@ -3133,7 +3524,8 @@
     "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "289CCABA",
@@ -3141,7 +3533,8 @@
     "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "1E918815",
@@ -3149,7 +3542,8 @@
     "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "AD58C45B",
@@ -3157,7 +3551,8 @@
     "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "D2C93011",
@@ -3165,7 +3560,8 @@
     "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "7B3D5C4F",
@@ -3173,7 +3569,8 @@
     "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "7D07F258",
@@ -3181,7 +3578,8 @@
     "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "CF5B0963",
@@ -3189,7 +3587,8 @@
     "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "BF862566",
@@ -3197,7 +3596,8 @@
     "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "72B984EF",
@@ -3205,7 +3605,8 @@
     "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "A3896EB6",
@@ -3213,7 +3614,8 @@
     "descripcion": "Leviton | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-21"
+    "created_at": "2026-04-21",
+    "categoria": ""
   },
   {
     "id": "DF89D08C",
@@ -3221,7 +3623,8 @@
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "56A13CED",
@@ -3229,7 +3632,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "3754E826",
@@ -3237,7 +3641,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "8F45B371",
@@ -3245,7 +3650,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "81F2CB4E",
@@ -3253,7 +3659,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "DEF379B0",
@@ -3261,7 +3668,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "9C32D7FA",
@@ -3269,7 +3677,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "854DCE76",
@@ -3277,7 +3686,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "1B294EA0",
@@ -3285,7 +3695,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "8C67BE59",
@@ -3293,7 +3704,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "C71B8652",
@@ -3301,7 +3713,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "E01FADCB",
@@ -3309,7 +3722,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "AB435C12",
@@ -3317,7 +3731,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "2F39CA84",
@@ -3325,7 +3740,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "2356BD1A",
@@ -3333,7 +3749,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "7DA84B2E",
@@ -3341,7 +3758,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "389D75CF",
@@ -3349,7 +3767,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "35D0AB4E",
@@ -3357,7 +3776,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "274BD890",
@@ -3365,7 +3785,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "F26B731A",
@@ -3373,7 +3794,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "0C59B8A1",
@@ -3381,7 +3803,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "23A6189B",
@@ -3389,7 +3812,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "CBE98F76",
@@ -3397,7 +3821,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "DB1A3E9F",
@@ -3405,7 +3830,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "63FD1E4C",
@@ -3413,7 +3839,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "2BD943C8",
@@ -3421,7 +3848,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "6CD297B8",
@@ -3429,7 +3857,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "58D3CFB6",
@@ -3437,7 +3866,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "C1036A59",
@@ -3445,7 +3875,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "87943ADB",
@@ -3453,7 +3884,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "2B9146D3",
@@ -3461,7 +3893,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "A42CD3EB",
@@ -3469,7 +3902,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "F3A4708B",
@@ -3477,7 +3911,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "B8207F51",
@@ -3485,7 +3920,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "CAF604DB",
@@ -3493,7 +3929,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "D56418EF",
@@ -3501,7 +3938,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "5F18CAD9",
@@ -3509,7 +3947,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "952E3B76",
@@ -3517,7 +3956,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "DF250E4A",
@@ -3525,7 +3965,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "486B97DE",
@@ -3533,7 +3974,8 @@
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "38BD1A2E",
@@ -3541,7 +3983,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "5AF43982",
@@ -3549,7 +3992,8 @@
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "AE80F5CD",
@@ -3557,7 +4001,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "CE216A50",
@@ -3565,7 +4010,8 @@
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "ml",
     "precio": 0.0,
-    "created_at": "2026-04-24"
+    "created_at": "2026-04-24",
+    "categoria": ""
   },
   {
     "id": "3A3EF89A",
@@ -3573,6 +4019,7 @@
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "created_at": "2026-04-26"
+    "created_at": "2026-04-26",
+    "categoria": ""
   }
 ]

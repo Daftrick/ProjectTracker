@@ -10,7 +10,7 @@ from ..catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from ..consistency import compute_consistency
 from ..deletions import delete_project_data
 from ..domain import ALCANCES, get_progress
-from ..drive import find_delivery_files, folder_name, load_config, save_config, scan_drive_folder
+from ..drive import active_drive_paths, current_platform_key, find_delivery_files, folder_name, load_config, save_config, scan_drive_folder
 from ..project_view import build_project_detail_context
 from ..services import (
     apply_task_status_change,
@@ -98,6 +98,26 @@ def new_project():
         projects.append(project)
         save("projects", projects)
         save("tasks", tasks)
+        # ── Crear carpeta en Drive automáticamente ──────────────────────────
+        try:
+            cfg = load_config()
+            drive_root = active_drive_paths(cfg)["projects"]
+            if drive_root and os.path.isdir(drive_root):
+                new_folder = os.path.join(drive_root, folder_name(project))
+                if not os.path.exists(new_folder):
+                    os.makedirs(new_folder, exist_ok=True)
+                    flash(
+                        f"Carpeta creada en Drive: {folder_name(project)}",
+                        "info",
+                    )
+                else:
+                    flash(
+                        f"La carpeta {folder_name(project)} ya existía en Drive.",
+                        "info",
+                    )
+        except Exception as drive_exc:
+            flash(f"Proyecto creado, pero no se pudo crear la carpeta en Drive: {drive_exc}", "warning")
+        # ───────────────────────────────────────────────────────────────────
         flash(f"Proyecto '{project['name']}' creado con {len(selected)} alcance(s).", "success")
         return redirect(url_for("project_detail", project_id=project["id"]))
     return render_template("project_new.html", form_state=_blank_project_form_state())
@@ -279,11 +299,21 @@ def save_task_note(project_id, task_id):
 @bp.route("/settings", methods=["GET", "POST"], endpoint="settings")
 def settings():
     cfg = load_config()
+    platform_key = current_platform_key()
     if request.method == "POST":
+        submitted_cfg = dict(cfg)
+        projects_key = f"drive_projects_path_{platform_key}"
+        fichas_key = f"drive_fichas_path_{platform_key}"
         submitted = {
             "drive_projects_path": request.form.get("drive_projects_path", "").strip(),
             "drive_fichas_path": request.form.get("drive_fichas_path", "").strip(),
         }
+        submitted_cfg[projects_key] = submitted["drive_projects_path"]
+        submitted_cfg[fichas_key] = submitted["drive_fichas_path"]
+        if not submitted_cfg.get("drive_projects_path"):
+            submitted_cfg["drive_projects_path"] = submitted["drive_projects_path"]
+        if not submitted_cfg.get("drive_fichas_path"):
+            submitted_cfg["drive_fichas_path"] = submitted["drive_fichas_path"]
         field_errors = {}
         if submitted["drive_projects_path"] and not os.path.isdir(submitted["drive_projects_path"]):
             field_errors["drive_projects_path"] = "La ruta de proyectos no existe en este equipo."
@@ -292,12 +322,11 @@ def settings():
         if field_errors:
             for error in field_errors.values():
                 flash(error, "warning")
-            return render_template("settings.html", cfg=submitted, field_errors=field_errors)
-        cfg.update(submitted)
-        save_config(cfg)
+            return render_template("settings.html", cfg=_settings_view_config(submitted_cfg), field_errors=field_errors)
+        save_config(submitted_cfg)
         flash("Configuración guardada.", "success")
         return redirect(url_for("settings"))
-    return render_template("settings.html", cfg=cfg, field_errors={})
+    return render_template("settings.html", cfg=_settings_view_config(cfg), field_errors={})
 
 
 @bp.route("/projects/<project_id>/alcances/update", methods=["POST"], endpoint="update_project_alcances")
@@ -324,8 +353,9 @@ def create_delivery(project_id):
     if not project:
         return redirect(url_for("dashboard"))
     cfg = load_config()
-    projects_root = cfg.get("drive_projects_path", "")
-    fichas_root = cfg.get("drive_fichas_path", "")
+    drive_paths = active_drive_paths(cfg)
+    projects_root = drive_paths["projects"]
+    fichas_root = drive_paths["fichas"]
     drive_folder = folder_name(project)
     delivery_type = request.form.get("dtype", "completa")
     notes = request.form.get("notes", "").strip()
@@ -406,7 +436,7 @@ def serve_project_file(project_id, filename):
     if not project:
         abort(404)
     cfg = load_config()
-    root = cfg.get("drive_projects_path", "")
+    root = active_drive_paths(cfg)["projects"]
     drive_folder = folder_name(project)
     project_folder = os.path.join(root, drive_folder) if root else None
     if not project_folder or not os.path.isdir(project_folder):
@@ -416,6 +446,16 @@ def serve_project_file(project_id, filename):
         abort(404)
     as_attachment = request.args.get("dl") == "1"
     return send_from_directory(project_folder, filename, as_attachment=as_attachment)
+
+
+def _settings_view_config(cfg):
+    drive_paths = active_drive_paths(cfg)
+    view_cfg = dict(cfg)
+    view_cfg["current_platform"] = drive_paths["platform"]
+    view_cfg["current_platform_label"] = drive_paths["platform_label"]
+    view_cfg["drive_projects_path"] = drive_paths["projects"]
+    view_cfg["drive_fichas_path"] = drive_paths["fichas"]
+    return view_cfg
 
 
 @bp.route("/shutdown", methods=["POST"], endpoint="shutdown")

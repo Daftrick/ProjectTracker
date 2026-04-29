@@ -6,7 +6,7 @@ from flask import Blueprint, flash, jsonify, redirect, render_template, request,
 from ..catalog import catalog_maps, catalog_name_key, hydrate_ldm, hydrate_ldm_item, safe_float
 from ..csv_import import parse_ldm_csv
 from ..deletions import purge_deleted_catalog_items_from_record
-from ..drive import folder_name, load_config, parse_csv_plano_filename
+from ..drive import active_drive_paths, folder_name, load_config, parse_csv_plano_filename
 from ..form_models import ldm_from_form
 from ..pdfs import build_ldm_pdf
 from ..storage import load, new_id, save, today
@@ -25,7 +25,7 @@ def _find_project(project_id):
 
 def _project_drive_folder(project):
     cfg = load_config()
-    root = cfg.get("drive_projects_path", "")
+    root = active_drive_paths(cfg)["projects"]
     if not root:
         return None
     return os.path.join(root, folder_name(project))
@@ -341,7 +341,7 @@ def ldm_pdf(project_id, ldm_id):
         return redirect(url_for("dashboard"))
     hydrated = hydrate_ldm(ldm, *catalog_maps())
     cfg = load_config()
-    root = cfg.get("drive_projects_path", "")
+    root = active_drive_paths(cfg)["projects"]
     drive_folder = folder_name(project)
     project_folder = os.path.join(root, drive_folder) if root else None
     if not project_folder or not os.path.isdir(project_folder):

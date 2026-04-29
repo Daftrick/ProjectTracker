@@ -2,6 +2,7 @@ import datetime
 import json
 import os
 import re
+import sys
 import unicodedata
 
 from .storage import DATA_DIR, load, save
@@ -9,20 +10,95 @@ from .storage import DATA_DIR, load, save
 IGNORED_SCAN_EXTENSIONS = {".bak", ".dwl", ".dwl2"}
 
 CONFIG_FILE = os.path.join(DATA_DIR, "config.json")
+CONFIG_DEFAULTS = {
+    "drive_projects_path": "",
+    "drive_fichas_path": "",
+    "drive_projects_path_windows": "",
+    "drive_fichas_path_windows": "",
+    "drive_projects_path_macos": "",
+    "drive_fichas_path_macos": "",
+    "drive_projects_path_linux": "",
+    "drive_fichas_path_linux": "",
+}
+
+
+def current_platform_key():
+    if os.name == "nt":
+        return "windows"
+    if sys.platform == "darwin":
+        return "macos"
+    return "linux"
+
+
+def platform_label(platform_key=None):
+    labels = {"windows": "Windows", "macos": "macOS", "linux": "Linux"}
+    return labels.get(platform_key or current_platform_key(), platform_key or current_platform_key())
+
+
+def _platform_path_key(base_key, platform_key=None):
+    return f"{base_key}_{platform_key or current_platform_key()}"
+
+
+def _infer_platform_for_path(path):
+    clean = str(path or "").strip()
+    if not clean:
+        return ""
+    if re.match(r"^[A-Za-z]:[\\/]", clean) or "\\" in clean:
+        return "windows"
+    if clean.startswith(("/Users/", "/Volumes/")):
+        return "macos"
+    if clean.startswith("/"):
+        return "linux"
+    return current_platform_key()
+
+
+def normalize_config(cfg):
+    normalized = dict(CONFIG_DEFAULTS)
+    normalized.update(cfg or {})
+    for base_key in ("drive_projects_path", "drive_fichas_path"):
+        legacy_value = str(normalized.get(base_key, "") or "").strip()
+        inferred = _infer_platform_for_path(legacy_value)
+        platform_key = _platform_path_key(base_key, inferred) if inferred else ""
+        if platform_key and not normalized.get(platform_key):
+            normalized[platform_key] = legacy_value
+    return normalized
+
+
+def resolve_config_path(cfg, base_key, platform_key=None):
+    normalized = normalize_config(cfg)
+    platform_key = platform_key or current_platform_key()
+    platform_value = str(normalized.get(_platform_path_key(base_key, platform_key), "") or "").strip()
+    if platform_value:
+        return platform_value
+    legacy_value = str(normalized.get(base_key, "") or "").strip()
+    if legacy_value and _infer_platform_for_path(legacy_value) == platform_key:
+        return legacy_value
+    return ""
+
+
+def active_drive_paths(cfg=None):
+    cfg = normalize_config(cfg if cfg is not None else load_config())
+    platform_key = current_platform_key()
+    return {
+        "platform": platform_key,
+        "platform_label": platform_label(platform_key),
+        "projects": resolve_config_path(cfg, "drive_projects_path", platform_key),
+        "fichas": resolve_config_path(cfg, "drive_fichas_path", platform_key),
+    }
 
 
 def load_config():
     os.makedirs(DATA_DIR, exist_ok=True)
     if not os.path.exists(CONFIG_FILE):
-        return {"drive_projects_path": "", "drive_fichas_path": ""}
+        return normalize_config({})
     with open(CONFIG_FILE, encoding="utf-8") as handle:
-        return json.load(handle)
+        return normalize_config(json.load(handle))
 
 
 def save_config(cfg):
     os.makedirs(DATA_DIR, exist_ok=True)
     with open(CONFIG_FILE, "w", encoding="utf-8") as handle:
-        json.dump(cfg, handle, ensure_ascii=False, indent=2)
+        json.dump(normalize_config(cfg), handle, ensure_ascii=False, indent=2)
 
 
 def migrate_task_statuses():

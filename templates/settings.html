@@ -5,25 +5,32 @@
 {% set fe = field_errors|default({}) %}
 <div style="max-width:600px">
   <div class="card mb-3">
-    <div class="card-header"><i class="bi bi-google me-2 text-primary"></i>Integración con Google Drive</div>
+    <div class="card-header">
+      <i class="bi bi-google me-2 text-primary"></i>Integración con Google Drive
+      <span class="badge bg-light text-dark border ms-2">Este equipo: {{ cfg.current_platform_label }}</span>
+    </div>
     <div class="card-body">
       <form method="post">
+        <div class="alert alert-info py-2" style="font-size:.88rem">
+          <i class="bi bi-info-circle me-1"></i>
+          Las rutas de Drive se guardan por sistema operativo. Windows y macOS pueden apuntar a la misma carpeta compartida usando rutas locales distintas, sin sobrescribirse.
+        </div>
         <div class="mb-3">
-          <label class="form-label fw-semibold">Ruta de la carpeta de Proyectos</label>
+          <label class="form-label fw-semibold">Ruta de la carpeta de Proyectos en {{ cfg.current_platform_label }}</label>
           <input name="drive_projects_path" class="form-control font-monospace{% if fe.get('drive_projects_path') %} is-invalid{% endif %}"
                  value="{{ cfg.drive_projects_path }}"
-                 placeholder="G:\Mi unidad\Proyectos">
+                 placeholder="{% if cfg.current_platform == 'windows' %}G:\Mi unidad\Proyectos{% else %}/Users/tu-usuario/Library/CloudStorage/GoogleDrive-tu@correo.com/My Drive/Proyectos{% endif %}">
           {% if fe.get('drive_projects_path') %}<div class="invalid-feedback">{{ fe.get('drive_projects_path') }}</div>{% endif %}
           <div class="form-text">
-            Ejemplo: <code>G:\Mi unidad\Proyectos</code> o <code>C:\Users\Rick\Google Drive\Proyectos</code><br>
+            Windows puede usar <code>G:\Mi unidad\Proyectos</code>; macOS suele usar <code>/Users/.../Library/CloudStorage/GoogleDrive.../My Drive/Proyectos</code>.<br>
             Cada proyecto debe tener una subcarpeta con el mismo nombre que su <strong>Clave</strong>.
           </div>
         </div>
         <div class="mb-3">
-          <label class="form-label fw-semibold">Ruta de la carpeta de Fichas Técnicas</label>
+          <label class="form-label fw-semibold">Ruta de la carpeta de Fichas Técnicas en {{ cfg.current_platform_label }}</label>
           <input name="drive_fichas_path" class="form-control font-monospace{% if fe.get('drive_fichas_path') %} is-invalid{% endif %}"
                  value="{{ cfg.drive_fichas_path }}"
-                 placeholder="G:\Mi unidad\Fichas Técnicas">
+                 placeholder="{% if cfg.current_platform == 'windows' %}G:\Mi unidad\Fichas Técnicas{% else %}/Users/tu-usuario/Library/CloudStorage/GoogleDrive-tu@correo.com/My Drive/Fichas Técnicas{% endif %}">
           {% if fe.get('drive_fichas_path') %}<div class="invalid-feedback">{{ fe.get('drive_fichas_path') }}</div>{% endif %}
           <div class="form-text">
             Los PDFs de fichas deben estar aquí con el nombre <code>FT-{Tipo}-{Marca}-{Modelo}.pdf</code>
@@ -39,6 +46,26 @@
           {% else %}
             <span class="badge bg-warning text-dark">Sin configurar</span>
           {% endif %}
+        </div>
+
+        <div class="border rounded-3 p-3 mb-3 bg-light">
+          <div class="fw-semibold mb-2" style="font-size:.9rem">Rutas guardadas por sistema</div>
+          <div class="small mb-1">
+            <span class="badge bg-dark me-1">Windows</span>
+            <code>{{ cfg.drive_projects_path_windows or 'Sin ruta de proyectos' }}</code>
+          </div>
+          <div class="small mb-2 ps-1">
+            <span class="text-muted">Fichas:</span>
+            <code>{{ cfg.drive_fichas_path_windows or 'Sin ruta' }}</code>
+          </div>
+          <div class="small mb-1">
+            <span class="badge bg-dark me-1">macOS</span>
+            <code>{{ cfg.drive_projects_path_macos or 'Sin ruta de proyectos' }}</code>
+          </div>
+          <div class="small ps-1">
+            <span class="text-muted">Fichas:</span>
+            <code>{{ cfg.drive_fichas_path_macos or 'Sin ruta' }}</code>
+          </div>
         </div>
 
         <button type="submit" class="btn btn-primary">

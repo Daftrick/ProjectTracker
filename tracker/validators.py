@@ -48,6 +48,20 @@ def _validate_iso_date(value, field_label, errors, field_errors=None, field_key=
     return cleaned
 
 
+def _validate_optional_iso_date(value, field_label, errors, field_errors=None, field_key=None):
+    cleaned = _clean(value)
+    if not cleaned:
+        return ""
+    try:
+        datetime.strptime(cleaned, "%Y-%m-%d")
+    except ValueError:
+        message = f"{field_label} debe tener formato AAAA-MM-DD."
+        errors.append(message)
+        if field_errors is not None and field_key:
+            field_errors.setdefault(field_key, message)
+    return cleaned
+
+
 def _deleted_catalog_item_at(ids, names, descriptions, units, prices, deleted_dates, index):
     deleted_id = _clean(ids[index]) if index < len(ids) else ""
     if not deleted_id:
@@ -145,6 +159,13 @@ def validate_quote_form(form):
         field_errors=field_errors,
         field_key="date",
     )
+    valid_until = _validate_optional_iso_date(
+        form.get("valid_until"),
+        "Vigente hasta",
+        errors,
+        field_errors=field_errors,
+        field_key="valid_until",
+    )
 
     return {
         "ok": not errors,
@@ -154,6 +175,7 @@ def validate_quote_form(form):
         "quote_number": _clean(form.get("quote_number")),
         "version": _clean(form.get("version")),
         "date": date_value,
+        "valid_until": valid_until,
         "currency": currency,
         "tax_rate": tax_rate,
         "notes": _clean(form.get("notes")),

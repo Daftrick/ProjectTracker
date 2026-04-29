@@ -306,6 +306,4 @@ def sanitize_pdf_text(text):
         .replace("\u201c", '"')
         .replace("\u201d", '"')
         .replace("\u2026", "...")
-        .encode("latin-1", errors="replace")
-        .decode("latin-1")
     )

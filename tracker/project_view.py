@@ -3,7 +3,7 @@ from datetime import date
 from .catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from .consistency import compute_consistency
 from .domain import check_blocked, get_progress
-from .drive import find_delivery_files, folder_name, load_config, scan_drive_folder
+from .drive import active_drive_paths, find_delivery_files, folder_name, load_config, scan_drive_folder
 from .storage import load, today
 
 
@@ -57,15 +57,16 @@ def build_project_detail_context(project):
     )
 
     cfg = load_config()
+    drive_paths = active_drive_paths(cfg)
     drive_folder = folder_name(project)
-    scan = scan_drive_folder(drive_folder, cfg.get("drive_projects_path", ""), ldms, clave=project["clave"])
+    scan = scan_drive_folder(drive_folder, drive_paths["projects"], ldms, clave=project["clave"])
     available = find_delivery_files(
         drive_folder,
         project["clave"],
         project.get("version", "V1"),
         project.get("fecha", ""),
-        cfg.get("drive_projects_path", ""),
-        cfg.get("drive_fichas_path", ""),
+        drive_paths["projects"],
+        drive_paths["fichas"],
         linked_fichas,
     )
 

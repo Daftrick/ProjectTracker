@@ -1,4 +1,10 @@
 {
   "drive_projects_path": "H:\\My Drive\\Omniious\\Proyectos IE",
-  "drive_fichas_path": "H:\\My Drive\\Omniious\\Proyectos IE\\Fichas Tecnicas"
+  "drive_fichas_path": "H:\\My Drive\\Omniious\\Proyectos IE\\Fichas Tecnicas",
+  "drive_projects_path_windows": "H:\\My Drive\\Omniious\\Proyectos IE",
+  "drive_fichas_path_windows": "H:\\My Drive\\Omniious\\Proyectos IE\\Fichas Tecnicas",
+  "drive_projects_path_macos": "/Users/macbook/Library/CloudStorage/GoogleDrive-ricardo@omniious.com/My Drive/Omniious/Proyectos IE",
+  "drive_fichas_path_macos": "/Users/macbook/Library/CloudStorage/GoogleDrive-ricardo@omniious.com/My Drive/Omniious/Proyectos IE/Fichas Tecnicas",
+  "drive_projects_path_linux": "",
+  "drive_fichas_path_linux": ""
 }
