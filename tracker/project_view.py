@@ -77,7 +77,14 @@ def build_project_detail_context(project):
 
     # Reporte de consistencia: compara la cotización General activa contra el
     # costo de proveedor agregado por catalog_item_id.
-    consistency = compute_consistency(project, quotes, ldms, catalog_by_id)
+    consistency = compute_consistency(
+        project,
+        quotes,
+        ldms,
+        catalog_by_id,
+        bundles=load("bundles"),
+        comparison_rules=load("comparison_rules"),
+    )
 
     return {
         "project": project,

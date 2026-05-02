@@ -267,9 +267,17 @@
        data-label="Fichas Técnicas">
       <i class="bi bi-journal-bookmark"></i><span class="nav-label"> Fichas Técnicas</span>
     </a>
-    <a href="{{ url_for('catalogo') }}" class="nav-link {% if request.endpoint=='catalogo' %}active{% endif %}"
+    <a href="{{ url_for('catalogo') }}" class="nav-link {% if request.endpoint in ('catalogo','admin_bp.catalogo') %}active{% endif %}"
        data-label="Catálogo">
       <i class="bi bi-box-seam"></i><span class="nav-label"> Catálogo</span>
+    </a>
+    <a href="{{ url_for('bundles') }}" class="nav-link {% if request.endpoint in ('bundles','admin_bp.bundles','update_bundle','admin_bp.update_bundle','update_bundle_version','admin_bp.update_bundle_version') %}active{% endif %}"
+       data-label="Bundles">
+      <i class="bi bi-boxes"></i><span class="nav-label"> Bundles</span>
+    </a>
+    <a href="{{ url_for('comparison_rules') }}" class="nav-link {% if request.endpoint in ('comparison_rules','admin_bp.comparison_rules','edit_comparison_rule','admin_bp.edit_comparison_rule') %}active{% endif %}"
+       data-label="Reglas COT/LDM">
+      <i class="bi bi-arrow-left-right"></i><span class="nav-label"> Reglas COT/LDM</span>
     </a>
     <a href="{{ url_for('proveedores') }}" class="nav-link {% if request.endpoint in ('proveedores','edit_proveedor') %}active{% endif %}"
        data-label="Proveedores">

@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v18.0 — 02-May-2026
+## Versión actual: v21.0 — 02-May-2026
 
 ---
 
@@ -425,6 +425,10 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
+| 2026-05-02 | Versión bumped v19.0 → v20.0 (feature: UI Admin para bundles versionados y reglas de comparación COT/LDM; nuevas pantallas `/bundles` y `/comparison-rules`, navegación lateral y pruebas smoke de rutas) |
+| 2026-05-02 | Versión bumped v20.0 → v21.0 (feature: visualización de consistencia técnica por bundles en detalle de proyecto, con materiales esperados vs LDM equivalente, trazabilidad de origen y filtros locales) |
+| 2026-05-02 | Fase 2 bundles: CRUD visual para crear/eliminar bundles, editar datos generales, duplicar versiones, activar/eliminar versiones y editar componentes por versión con cantidades, merma y regla opcional. |
+| 2026-05-02 | Fase 2 reglas COT/LDM: CRUD visual para relacionar artículo COT esperado contra artículo LDM real, con factor, dirección, redondeo, tolerancia, activación/desactivación y notas. |
 | 2026-04-24 | Refactorización de `app.py` monolito → blueprints (`routes/projects`, `quotes`, `materials`, `admin`) |
 | 2026-04-24 | Extracción de lógica de negocio a `tracker/services.py` (crear proyecto+tareas, sync alcances, cambio status) |
 | 2026-04-24 | Adición de `tracker/validators.py` con validadores reutilizables para proyecto, cotización y LDM |
@@ -548,10 +552,6 @@ Reglas de portada PDF:
 
 ---
 
-| 2026-05-02 | Consistencia COT/LDM: auditoría visual fase 2. `tracker/consistency.py` ahora detecta margen bajo por artículo (`low_margin`), calcula totales ligados/no ligados a catálogo, delta de cantidades, márgenes unitarios porcentuales y acciones sugeridas por issue. |
-| 2026-05-02 | `project_detail.html` — mejora del tab Consistencia con cobertura por catálogo, bloque de acciones sugeridas, filtro local de artículos/issues, delta de cantidades y diagnóstico accionable por renglón. |
-| 2026-05-02 | Tests: `tests/test_consistency.py` cubre margen bajo, acciones sugeridas y totales ligados/no ligados a catálogo. |
-| 2026-05-02 | Versión bumped v17.1 → v18.0 (feature: auditoría visual y acciones sugeridas para consistencia COT/LDM) |
 ## Pendientes / En desarrollo
 
 **Alta prioridad:**

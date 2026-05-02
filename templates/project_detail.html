@@ -213,9 +213,10 @@
     <a class="nav-link" data-bs-toggle="tab" href="#tab-consistencia" id="tab-consistencia-link">
       <i class="bi bi-shield-check me-1"></i>Consistencia
       {% set _cn_status = consistency.status %}
-      {% if _cn_status == 'critical' %}
+      {% set _tech_status = consistency.bundle_consistency.status if consistency.bundle_consistency is defined else 'no_data' %}
+      {% if _cn_status == 'critical' or _tech_status == 'critical' %}
         <span class="badge bg-danger ms-1" style="font-size:.62rem">!</span>
-      {% elif _cn_status == 'warning' %}
+      {% elif _cn_status == 'warning' or _tech_status == 'warning' %}
         <span class="badge bg-warning text-dark ms-1" style="font-size:.62rem">⚠</span>
       {% endif %}
     </a>
@@ -831,6 +832,20 @@
   {% set status_color_map = {'ok': 'success', 'warning': 'warning', 'critical': 'danger', 'no_data': 'secondary'} %}
   {% set status_icon_map = {'ok': 'check-circle-fill', 'warning': 'exclamation-triangle-fill', 'critical': 'x-octagon-fill', 'no_data': 'info-circle'} %}
   {% set issue_color_map = {'below_cost': 'danger', 'missing_in_ldm': 'danger', 'missing_in_cot': 'secondary', 'qty_mismatch': 'warning', 'low_margin': 'warning'} %}
+  {% set tech_issue_label_map = {
+    'ok': 'OK',
+    'missing_in_ldm': 'Faltante en LDM',
+    'extra_in_ldm': 'Extra en LDM',
+    'qty_shortage': 'Cantidad insuficiente',
+    'qty_excess': 'Excedente'
+  } %}
+  {% set tech_issue_color_map = {
+    'ok': 'success',
+    'missing_in_ldm': 'danger',
+    'extra_in_ldm': 'warning',
+    'qty_shortage': 'danger',
+    'qty_excess': 'warning'
+  } %}
   {% set bs_color = status_color_map[cn.status] %}
   {% set bs_icon = status_icon_map[cn.status] %}
 
@@ -946,6 +961,168 @@
         <i class="bi bi-link-45deg me-1"></i>
         Hay renglones sin vínculo a catálogo. No entran al cruce por artículo hasta que se liguen al catálogo.
       </div>
+      {% endif %}
+    </div>
+  </div>
+
+
+  <!-- Consistencia técnica por bundles -->
+  {% set tech = cn.bundle_consistency|default({}) %}
+  {% set tech_status = tech.status|default('no_data') %}
+  {% set tech_summary = tech.summary|default({}) %}
+  {% set tech_rows = tech.rows|default([]) %}
+  {% set tech_color = status_color_map.get(tech_status, 'secondary') %}
+  {% set tech_icon = status_icon_map.get(tech_status, 'info-circle') %}
+  <div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+      <span class="fw-semibold" style="font-size:.875rem">
+        <i class="bi bi-diagram-3 me-1"></i>
+        Consistencia técnica por bundles
+      </span>
+      <div class="d-flex align-items-center gap-2 flex-wrap">
+        {% if tech.bundle_quote_items %}
+          <span class="badge bg-light text-dark border">{{ tech.bundle_quote_items|length }} partida(s) COT con bundle</span>
+        {% endif %}
+        <span class="badge bg-{{ tech_color }}{% if tech_color == 'warning' %} text-dark{% endif %}">
+          <i class="bi bi-{{ tech_icon }} me-1"></i>
+          {% if tech_status == 'ok' %}Materiales consistentes{% elif tech_status == 'warning' %}Revisar diferencias{% elif tech_status == 'critical' %}Faltantes críticos{% else %}Sin datos técnicos{% endif %}
+        </span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row g-3 mb-3">
+        <div class="col-md-3">
+          <div class="margen-box p-3 h-100" style="font-size:.85rem">
+            <div class="text-muted mb-1">Materiales evaluados</div>
+            <div class="fw-bold" style="font-size:1.05rem">{{ tech_summary.items_total|default(0) }}</div>
+            <small class="text-muted">Componentes esperados vs LDM convertida</small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="margen-box p-3 h-100" style="font-size:.85rem">
+            <div class="text-muted mb-1">Críticos</div>
+            <div class="fw-bold text-danger" style="font-size:1.05rem">{{ tech_summary.items_critical|default(0) }}</div>
+            <small class="text-muted">Faltantes o cantidades insuficientes</small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="margen-box p-3 h-100" style="font-size:.85rem">
+            <div class="text-muted mb-1">Observaciones</div>
+            <div class="fw-bold text-warning" style="font-size:1.05rem">{{ tech_summary.items_warning|default(0) }}</div>
+            <small class="text-muted">Excedentes o extras en LDM</small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="margen-box p-3 h-100" style="font-size:.85rem">
+            <div class="text-muted mb-1">LDM sin catálogo</div>
+            <div class="fw-bold {% if tech.ldm_unlinked.count|default(0) %}text-warning{% else %}text-muted{% endif %}" style="font-size:1.05rem">
+              {{ tech.ldm_unlinked.count|default(0) }}
+            </div>
+            <small class="text-muted">No entra a comparación técnica</small>
+          </div>
+        </div>
+      </div>
+
+      {% if tech_summary.items_total|default(0) > 0 %}
+      <div class="d-flex flex-wrap gap-2 mb-3">
+        {% if tech_summary.missing_in_ldm|default(0) %}<span class="badge bg-danger">{{ tech_summary.missing_in_ldm }} material(es) faltante(s)</span>{% endif %}
+        {% if tech_summary.qty_shortage|default(0) %}<span class="badge bg-danger">{{ tech_summary.qty_shortage }} con cantidad insuficiente</span>{% endif %}
+        {% if tech_summary.extra_in_ldm|default(0) %}<span class="badge bg-warning text-dark">{{ tech_summary.extra_in_ldm }} extra(s) en LDM</span>{% endif %}
+        {% if tech_summary.qty_excess|default(0) %}<span class="badge bg-warning text-dark">{{ tech_summary.qty_excess }} con excedente</span>{% endif %}
+        {% if tech_summary.items_ok|default(0) %}<span class="badge bg-success">{{ tech_summary.items_ok }} OK</span>{% endif %}
+      </div>
+      {% endif %}
+
+      {% if tech.invalid_components %}
+      <div class="alert alert-danger py-2" style="font-size:.82rem">
+        <i class="bi bi-exclamation-octagon me-1"></i>
+        Hay {{ tech.invalid_components|length }} componente(s) de bundle sin artículo de catálogo. Corrige el bundle en Catálogo → Bundles.
+      </div>
+      {% endif %}
+
+      {% if tech.unmapped_quote_items %}
+      <div class="alert alert-secondary py-2" style="font-size:.82rem">
+        <i class="bi bi-info-circle me-1"></i>
+        {{ tech.unmapped_quote_items|length }} partida(s) de la COT activa no tienen bundle configurado y se comparan sólo en la consistencia comercial.
+      </div>
+      {% endif %}
+
+      {% if tech_rows %}
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+        <div class="text-muted" style="font-size:.82rem">
+          La LDM se normaliza con reglas COT/LDM cuando el material se compra en otra unidad, por ejemplo pza/tramo → ml.
+        </div>
+        <input id="technicalConsistencyFilter" type="search" class="form-control form-control-sm" style="width:260px" placeholder="Filtrar material / origen / regla">
+      </div>
+      <div class="table-responsive">
+        <table class="table mb-0" style="font-size:.84rem" id="technicalConsistencyTable">
+          <thead class="table-light">
+            <tr>
+              <th style="width:4%"></th>
+              <th>Material esperado</th>
+              <th class="text-center" style="width:7%">Unidad</th>
+              <th class="text-end" style="width:10%">Esperado</th>
+              <th class="text-end" style="width:10%">LDM equiv.</th>
+              <th class="text-end" style="width:10%">Diferencia</th>
+              <th style="width:14%">Estado</th>
+              <th style="width:25%">Origen / trazabilidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in tech_rows %}
+            {% set rc = status_color_map.get(row.status, 'secondary') %}
+            {% set ri = status_icon_map.get(row.status, 'info-circle') %}
+            {% set issue_label = tech_issue_label_map.get(row.issue, row.issue) %}
+            {% set issue_color = tech_issue_color_map.get(row.issue, rc) %}
+            <tr class="technical-consistency-row {% if row.status == 'critical' %}table-danger{% elif row.status == 'warning' %}table-warning{% endif %}"
+                data-search="{{ row.nombre }} {{ row.unidad }} {{ row.issue }} {{ row.comparison_rule_id }} {% for src in row.sources_expected %}{{ src.bundle_name }} {% endfor %}{% for src in row.sources_actual %}{{ src.ldm_number }} {{ src.description }} {% endfor %}">
+              <td class="text-center"><i class="bi bi-{{ ri }} text-{{ rc }}"></i></td>
+              <td>
+                <div class="fw-semibold">{{ row.nombre }}</div>
+                <small class="text-muted font-monospace">{{ row.catalog_item_id }}</small>
+              </td>
+              <td class="text-center"><span class="badge bg-light text-dark border">{{ row.unidad or '—' }}</span></td>
+              <td class="text-end font-monospace">{{ '%.4g'|format(row.expected_qty) }}</td>
+              <td class="text-end font-monospace">{{ '%.4g'|format(row.actual_qty) }}</td>
+              <td class="text-end font-monospace fw-semibold {% if row.diff_qty < 0 %}text-danger{% elif row.diff_qty > 0 %}text-warning{% else %}text-success{% endif %}">
+                {{ '%+.4g'|format(row.diff_qty) }}
+              </td>
+              <td>
+                <span class="badge bg-{{ issue_color }}{% if issue_color == 'warning' %} text-dark{% endif %}" style="font-size:.68rem">{{ issue_label }}</span>
+                <small class="d-block text-muted mt-1">Tol. {{ row.tolerance_pct }}%</small>
+                {% if row.comparison_rule_id %}<small class="d-block font-monospace text-muted">Regla: {{ row.comparison_rule_id }}</small>{% endif %}
+              </td>
+              <td>
+                {% if row.sources_expected %}
+                  <div class="mb-1"><small class="text-muted fw-semibold">Esperado desde COT</small></div>
+                  {% for src in row.sources_expected[:3] %}
+                    <small class="d-block text-muted">
+                      {{ src.bundle_name }}{% if src.bundle_version %} v{{ src.bundle_version }}{% endif %} · COT {{ '%.4g'|format(src.quote_qty) }} × {{ '%.4g'|format(src.component_qty) }}
+                    </small>
+                  {% endfor %}
+                  {% if row.sources_expected|length > 3 %}<small class="text-muted">+{{ row.sources_expected|length - 3 }} origen(es)</small>{% endif %}
+                {% endif %}
+                {% if row.sources_actual %}
+                  <div class="mt-2 mb-1"><small class="text-muted fw-semibold">LDM real</small></div>
+                  {% for src in row.sources_actual[:3] %}
+                    <small class="d-block text-muted">
+                      <span class="font-monospace">{{ src.ldm_number or 'LDM' }}</span> · {{ '%.4g'|format(src.qty_original) }} → {{ '%.4g'|format(src.qty_converted) }}
+                    </small>
+                  {% endfor %}
+                  {% if row.sources_actual|length > 3 %}<small class="text-muted">+{{ row.sources_actual|length - 3 }} LDM(s)</small>{% endif %}
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+        <div class="text-center py-4 text-muted">
+          <i class="bi bi-diagram-3 fs-2 d-block mb-2"></i>
+          Sin comparación técnica todavía.
+          <div class="mt-2"><small>Crea bundles y reglas COT/LDM para que la COT se expanda a materiales esperados.</small></div>
+        </div>
       {% endif %}
     </div>
   </div>
@@ -1655,6 +1832,19 @@
     input.addEventListener("input", function () {
       const terms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
       document.querySelectorAll("#consistencyTable .consistency-row").forEach(row => {
+        const haystack = (row.dataset.search || row.textContent || "").toLowerCase();
+        row.style.display = terms.every(term => haystack.includes(term)) ? "" : "none";
+      });
+    });
+  })();
+
+  // Filtro local de tabla Consistencia técnica por bundles
+  (function () {
+    const input = document.getElementById("technicalConsistencyFilter");
+    if (!input) return;
+    input.addEventListener("input", function () {
+      const terms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+      document.querySelectorAll("#technicalConsistencyTable .technical-consistency-row").forEach(row => {
         const haystack = (row.dataset.search || row.textContent || "").toLowerCase();
         row.style.display = terms.every(term => haystack.includes(term)) ? "" : "none";
       });

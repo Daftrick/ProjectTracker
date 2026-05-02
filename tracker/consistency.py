@@ -6,13 +6,18 @@ combinarse para vistas: dashboard, detalle de proyecto, banners en formularios.
 
 Reglas de comparación:
     - Cotización activa = la cotización General más reciente del proyecto.
-      Si no hay General, se usa la más reciente de cualquier tipo.
+      Si no hay General, se usa la más reciente de cualquier tipo (la UI
+      indicará explícitamente que no hubo General).
     - Costo proveedor = suma de subtotales de todas las LDMs del proyecto.
     - Comparación por artículo: se agrega por `catalog_item_id`. Los items
       sin enlace al catálogo se contabilizan en `unlinked_*` para alertar.
     - Margen % = (cotizado - costo) / cotizado * 100. Si cotizado == 0 → None.
-    - Auditoría por artículo: detecta faltantes, diferencias de cantidad,
-      venta bajo costo y margen unitario bajo.
+
+Umbrales de estado (mantener en una sola constante para futura configurabilidad):
+    margen >= MARGIN_OK_PCT   (30%)  → "ok"        (consistente)
+    0   <= margen <  30%             → "warning"   (revisar)
+    margen <  0%                     → "critical"  (LDM > COT)
+    sin datos suficientes            → "no_data"
 """
 
 from __future__ import annotations
@@ -20,9 +25,10 @@ from __future__ import annotations
 from typing import Iterable
 
 from .catalog import quote_type_key
+from .bundles import expand_quote_bundles
+from .comparison_rules import aggregate_ldm_for_expected_items, compare_expected_vs_actual
 
 MARGIN_OK_PCT = 30.0
-LOW_ITEM_MARGIN_PCT = 30.0
 QTY_TOLERANCE = 0.01  # diferencias menores se consideran iguales (redondeos)
 
 STATUS_OK = "ok"
@@ -37,38 +43,6 @@ STATUS_LABELS = {
     STATUS_NO_DATA: "Sin datos",
 }
 
-ISSUE_LABELS = {
-    "missing_in_ldm": "Sin LDM",
-    "missing_in_cot": "Sin COT",
-    "qty_mismatch": "Cantidad diferente",
-    "below_cost": "Debajo de costo",
-    "low_margin": "Margen bajo",
-}
-
-ISSUE_ACTIONS = {
-    "missing_in_ldm": "Agregar a LDM o confirmar que no requiere compra.",
-    "missing_in_cot": "Agregar a COT o retirar de LDM si no corresponde al alcance.",
-    "qty_mismatch": "Revisar cantidades entre COT y LDM.",
-    "below_cost": "Subir precio de venta, renegociar costo o justificar pérdida.",
-    "low_margin": "Revisar precio de venta o costo para recuperar margen.",
-}
-
-ISSUE_SEVERITY = {
-    "below_cost": STATUS_CRITICAL,
-    "missing_in_ldm": STATUS_CRITICAL,
-    "missing_in_cot": STATUS_WARNING,
-    "qty_mismatch": STATUS_WARNING,
-    "low_margin": STATUS_WARNING,
-}
-
-ISSUE_PRIORITY = {
-    "below_cost": 0,
-    "missing_in_ldm": 1,
-    "qty_mismatch": 2,
-    "missing_in_cot": 3,
-    "low_margin": 4,
-}
-
 
 def _safe_float(value, default: float = 0.0) -> float:
     try:
@@ -79,12 +53,6 @@ def _safe_float(value, default: float = 0.0) -> float:
 
 def _round(value: float, places: int = 2) -> float:
     return round(value, places)
-
-
-def _pct(numerator: float, denominator: float) -> float | None:
-    if denominator <= 0:
-        return None
-    return _round(numerator / denominator * 100, 1)
 
 
 def classify_margin(margin_pct: float | None) -> str:
@@ -200,47 +168,18 @@ def _detect_item_issues(qty_cot: float, qty_ldm: float, price_cot: float, cost_a
         issues.append("missing_in_cot")
     if qty_cot > 0 and qty_ldm > 0 and abs(qty_cot - qty_ldm) > QTY_TOLERANCE:
         issues.append("qty_mismatch")
-    if price_cot > 0 and cost_avg > 0:
-        margin_unit = price_cot - cost_avg
-        margin_unit_pct = _pct(margin_unit, price_cot)
-        if margin_unit < 0:
-            issues.append("below_cost")
-        elif margin_unit_pct is not None and margin_unit_pct < LOW_ITEM_MARGIN_PCT:
-            issues.append("low_margin")
+    if price_cot > 0 and cost_avg > 0 and price_cot < cost_avg:
+        issues.append("below_cost")
     return issues
 
 
 def _classify_item(issues: list[str]) -> str:
     """Severidad del renglón para colorear."""
-    if any(ISSUE_SEVERITY.get(issue) == STATUS_CRITICAL for issue in issues):
+    if "below_cost" in issues or "missing_in_ldm" in issues:
         return STATUS_CRITICAL
     if issues:
         return STATUS_WARNING
     return STATUS_OK
-
-
-def _primary_action(issues: list[str]) -> dict | None:
-    if not issues:
-        return None
-    issue = sorted(issues, key=lambda item: ISSUE_PRIORITY.get(item, 99))[0]
-    return {
-        "issue": issue,
-        "label": ISSUE_LABELS.get(issue, issue),
-        "text": ISSUE_ACTIONS.get(issue, "Revisar el renglón."),
-        "status": ISSUE_SEVERITY.get(issue, STATUS_WARNING),
-    }
-
-
-def _issue_details(issues: list[str]) -> list[dict]:
-    return [
-        {
-            "issue": issue,
-            "label": ISSUE_LABELS.get(issue, issue),
-            "action": ISSUE_ACTIONS.get(issue, "Revisar el renglón."),
-            "status": ISSUE_SEVERITY.get(issue, STATUS_WARNING),
-        }
-        for issue in sorted(issues, key=lambda item: ISSUE_PRIORITY.get(item, 99))
-    ]
 
 
 def compare_items(
@@ -256,23 +195,14 @@ def compare_items(
         ldm = ldm_linked.get(cid) or {}
         qty_cot = _safe_float(cot.get("qty"))
         qty_ldm = _safe_float(ldm.get("qty"))
-        total_cot = _safe_float(cot.get("total"))
-        total_ldm = _safe_float(ldm.get("total_cot"))
         price_cot = _safe_float(cot.get("price_avg"))
         cost_avg = _safe_float(ldm.get("cost_avg"))
-        margin_unit = _round(price_cot - cost_avg) if price_cot and cost_avg else None
-        margin_unit_pct = _pct(margin_unit, price_cot) if margin_unit is not None else None
-        margin_total = _round(total_cot - total_ldm) if (total_cot or total_ldm) else None
-        margin_total_pct = _pct(margin_total, total_cot) if margin_total is not None else None
-        qty_delta = _round(qty_ldm - qty_cot) if (qty_cot or qty_ldm) else 0.0
         issues = _detect_item_issues(qty_cot, qty_ldm, price_cot, cost_avg)
         catalog_item = catalog_by_id.get(cid) or {}
-        cot_desc = cot.get("descripciones") or []
-        ldm_desc = ldm.get("descripciones") or []
         nombre = (
             catalog_item.get("nombre")
-            or (cot_desc or [""])[0]
-            or (ldm_desc or [""])[0]
+            or (cot.get("descripciones") or [""])[0]
+            or (ldm.get("descripciones") or [""])[0]
             or cid
         )
         rows.append({
@@ -282,21 +212,11 @@ def compare_items(
             "unidad": catalog_item.get("unidad", ""),
             "qty_cot": qty_cot,
             "qty_ldm": qty_ldm,
-            "qty_delta": qty_delta,
             "price_cot": price_cot,
             "cost_avg": cost_avg,
-            "total_cot": _round(total_cot),
-            "total_ldm": _round(total_ldm),
-            "margin_unit": margin_unit,
-            "margin_unit_pct": margin_unit_pct,
-            "margin_total": margin_total,
-            "margin_total_pct": margin_total_pct,
-            "quote_descripciones": cot_desc,
-            "ldm_descripciones": ldm_desc,
+            "margin_unit": _round(price_cot - cost_avg) if price_cot and cost_avg else None,
             "ldm_numbers": ldm.get("ldm_numbers", []),
             "issues": issues,
-            "issue_details": _issue_details(issues),
-            "primary_action": _primary_action(issues),
             "status": _classify_item(issues),
         })
 
@@ -315,7 +235,6 @@ def _summarize_rows(rows: list[dict]) -> dict:
         "missing_in_cot": 0,
         "qty_mismatch": 0,
         "below_cost": 0,
-        "low_margin": 0,
     }
     for row in rows:
         status_key = f"items_{row['status']}"
@@ -327,50 +246,13 @@ def _summarize_rows(rows: list[dict]) -> dict:
     return summary
 
 
-def _suggested_actions(rows: list[dict], quote_unlinked: dict, ldm_unlinked: dict) -> list[dict]:
-    counts: dict[str, int] = {}
-    first_status: dict[str, str] = {}
-    for row in rows:
-        for issue in row.get("issues", []):
-            counts[issue] = counts.get(issue, 0) + 1
-            first_status.setdefault(issue, ISSUE_SEVERITY.get(issue, STATUS_WARNING))
-
-    if quote_unlinked.get("count"):
-        counts["quote_unlinked"] = quote_unlinked["count"]
-        first_status["quote_unlinked"] = STATUS_WARNING
-    if ldm_unlinked.get("count"):
-        counts["ldm_unlinked"] = ldm_unlinked["count"]
-        first_status["ldm_unlinked"] = STATUS_WARNING
-
-    labels = {
-        **ISSUE_LABELS,
-        "quote_unlinked": "COT sin catálogo",
-        "ldm_unlinked": "LDM sin catálogo",
-    }
-    actions = {
-        **ISSUE_ACTIONS,
-        "quote_unlinked": "Vincular partidas manuales de COT al catálogo.",
-        "ldm_unlinked": "Vincular partidas manuales de LDM al catálogo.",
-    }
-    priority = {**ISSUE_PRIORITY, "quote_unlinked": 5, "ldm_unlinked": 6}
-    result = []
-    for issue, count in counts.items():
-        result.append({
-            "issue": issue,
-            "count": count,
-            "label": labels.get(issue, issue),
-            "text": actions.get(issue, "Revisar."),
-            "status": first_status.get(issue, STATUS_WARNING),
-        })
-    result.sort(key=lambda item: priority.get(item["issue"], 99))
-    return result
-
-
 def compute_consistency(
     project: dict,
     quotes: Iterable[dict],
     ldms: Iterable[dict],
     catalog_by_id: dict | None = None,
+    bundles: Iterable[dict] | None = None,
+    comparison_rules: Iterable[dict] | None = None,
 ) -> dict:
     """Reporte completo de consistencia para un proyecto.
 
@@ -386,10 +268,6 @@ def compute_consistency(
 
     quote_subtotal = _round(_safe_float((active_quote or {}).get("subtotal")))
     ldm_subtotal = _round(sum(_safe_float(m.get("subtotal_cot")) for m in project_ldms))
-    quote_linked_total = _round(sum(item.get("total", 0.0) for item in quote_linked.values()))
-    ldm_linked_total = _round(sum(item.get("total_cot", 0.0) for item in ldm_linked.values()))
-    quote_unlinked_total = _round(quote_unlinked.get("total", 0.0))
-    ldm_unlinked_total = _round(ldm_unlinked.get("total", 0.0))
     margin_abs = _round(quote_subtotal - ldm_subtotal)
     if quote_subtotal > 0:
         margin_pct = _round(margin_abs / quote_subtotal * 100, 1)
@@ -399,7 +277,29 @@ def compute_consistency(
 
     rows = compare_items(quote_linked, ldm_linked, catalog_by_id or {})
     summary = _summarize_rows(rows)
-    suggested_actions = _suggested_actions(rows, quote_unlinked, ldm_unlinked)
+
+    # Consistencia técnica por bundles: la COT se expande a materiales
+    # esperados y la LDM se normaliza con reglas de comparación (por ejemplo
+    # tubería cotizada en ml vs comprada por pieza/tramo).
+    bundle_expansion = expand_quote_bundles(active_quote, bundles or [], catalog_by_id or {})
+    technical_actual = aggregate_ldm_for_expected_items(project_ldms, comparison_rules or [], catalog_by_id or {})
+    technical_compare = compare_expected_vs_actual(
+        bundle_expansion["items"],
+        technical_actual["items"],
+        comparison_rules or [],
+        catalog_by_id or {},
+    )
+    bundle_consistency = {
+        "status": technical_compare["status"],
+        "rows": technical_compare["rows"],
+        "summary": technical_compare["summary"],
+        "expected": bundle_expansion["items"],
+        "actual": technical_actual["items"],
+        "ldm_unlinked": technical_actual["unlinked"],
+        "bundle_quote_items": bundle_expansion["bundle_quote_items"],
+        "unmapped_quote_items": bundle_expansion["unmapped_quote_items"],
+        "invalid_components": bundle_expansion["invalid_components"],
+    }
 
     has_general = any(
         quote_type_key(q.get("quote_type")) == "General" for q in project_quotes
@@ -411,10 +311,6 @@ def compute_consistency(
         "has_general_quote": has_general,
         "quote_subtotal": quote_subtotal,
         "ldm_subtotal": ldm_subtotal,
-        "quote_linked_total": quote_linked_total,
-        "ldm_linked_total": ldm_linked_total,
-        "quote_unlinked_total": quote_unlinked_total,
-        "ldm_unlinked_total": ldm_unlinked_total,
         "margin_abs": margin_abs,
         "margin_pct": margin_pct,
         "status": status,
@@ -423,5 +319,5 @@ def compute_consistency(
         "summary": summary,
         "quote_unlinked": quote_unlinked,
         "ldm_unlinked": ldm_unlinked,
-        "suggested_actions": suggested_actions,
+        "bundle_consistency": bundle_consistency,
     }

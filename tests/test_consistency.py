@@ -233,45 +233,55 @@ class ComputeConsistencyTest(unittest.TestCase):
         self.assertEqual(report["quote_subtotal"], 10)
 
 
-class LowMarginAndActionsTest(unittest.TestCase):
-    def test_detects_low_margin_without_below_cost(self):
-        quote = _quote("A", "General", "2026-04-01", [
-            _q_item("CAT-LOW", 10, 100),
+class BundleConsistencyIntegrationTest(unittest.TestCase):
+    def test_compute_consistency_includes_bundle_technical_report(self):
+        quote = _quote("Q1", "General", "2026-05-02", [
+            _q_item("COT-OUTLET", 10, 100, description="Salida contacto"),
         ])
-        ldm = _ldm("L1", [
-            _l_item("CAT-LOW", 10, 75),  # margen unitario 25 %
-        ])
-        q_linked, _ = cn.aggregate_quote_items(quote)
-        l_linked, _ = cn.aggregate_ldm_items([ldm])
-
-        rows = cn.compare_items(q_linked, l_linked, catalog_by_id={})
-        row = rows[0]
-        self.assertIn("low_margin", row["issues"])
-        self.assertNotIn("below_cost", row["issues"])
-        self.assertEqual(row["status"], "warning")
-        self.assertEqual(row["margin_unit"], 25)
-        self.assertEqual(row["margin_unit_pct"], 25.0)
-        self.assertEqual(row["primary_action"]["issue"], "low_margin")
-
-    def test_report_includes_suggested_actions_and_linked_totals(self):
-        quote = _quote("Q1", "General", "2026-04-01", [
-            _q_item("CAT-1", 1, 100),
-            _q_item("", 1, 50, description="Manual COT"),
-        ])
-        ldm = _ldm("L1", [
-            _l_item("CAT-1", 1, 95),  # low_margin
-            _l_item("", 1, 30, description="Manual LDM"),
-        ])
-        report = cn.compute_consistency(PROJECT, [quote], [ldm], catalog_by_id={})
-        self.assertEqual(report["quote_linked_total"], 100)
-        self.assertEqual(report["ldm_linked_total"], 95)
-        self.assertEqual(report["quote_unlinked_total"], 50)
-        self.assertEqual(report["ldm_unlinked_total"], 30)
-        self.assertEqual(report["summary"]["low_margin"], 1)
-        issues = [item["issue"] for item in report["suggested_actions"]]
-        self.assertIn("low_margin", issues)
-        self.assertIn("quote_unlinked", issues)
-        self.assertIn("ldm_unlinked", issues)
+        ldms = [_ldm("L1", [
+            _l_item("TUBO-PZA", 4, 0, description="Tubo por pieza"),
+            _l_item("CABLE-10", 60, 0, description="Cable 10"),
+        ])]
+        bundles = [{
+            "id": "B1",
+            "catalog_item_id": "COT-OUTLET",
+            "name": "Salida contacto",
+            "active_version": 1,
+            "versions": [{
+                "version": 1,
+                "status": "active",
+                "components": [
+                    {"catalog_item_id": "TUBO-ML", "qty": 1.2},
+                    {"catalog_item_id": "CABLE-10", "qty": 6},
+                ],
+            }],
+        }]
+        rules = [{
+            "id": "R-TUBO",
+            "cot_catalog_item_id": "TUBO-ML",
+            "ldm_catalog_item_id": "TUBO-PZA",
+            "factor": 3,
+            "direction": "ldm_to_cot",
+            "tolerance_pct": 0,
+        }]
+        result = cn.compute_consistency(
+            PROJECT,
+            [quote],
+            ldms,
+            {
+                "TUBO-ML": {"nombre": "Tubo ml", "unidad": "ml"},
+                "CABLE-10": {"nombre": "Cable 10", "unidad": "m"},
+            },
+            bundles=bundles,
+            comparison_rules=rules,
+        )
+        technical = result["bundle_consistency"]
+        self.assertEqual(technical["status"], "ok")
+        rows = {row["catalog_item_id"]: row for row in technical["rows"]}
+        self.assertEqual(rows["TUBO-ML"]["expected_qty"], 12)
+        self.assertEqual(rows["TUBO-ML"]["actual_qty"], 12)
+        self.assertEqual(rows["CABLE-10"]["expected_qty"], 60)
+        self.assertEqual(rows["CABLE-10"]["actual_qty"], 60)
 
 
 if __name__ == "__main__":

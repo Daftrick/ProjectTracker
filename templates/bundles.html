@@ -1,0 +1,282 @@
+{% extends "base.html" %}
+{% block title %}Bundles – Project Tracker{% endblock %}
+{% block page_title %}<i class="bi bi-boxes me-2 text-primary"></i>Bundles de catálogo{% endblock %}
+{% block topbar_actions %}
+  <a href="{{ url_for('catalogo') }}" class="btn btn-sm btn-outline-secondary me-2">
+    <i class="bi bi-box-seam me-1"></i>Catálogo
+  </a>
+  <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalNewBundle">
+    <i class="bi bi-plus-lg me-1"></i>Nuevo bundle
+  </button>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+  .bundle-card { scroll-margin-top: 90px; }
+  .component-table th { font-size:.78rem; }
+  .component-table td { vertical-align: middle; }
+  .status-dot { width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px; }
+  .status-active { background:#22c55e; }
+  .status-draft { background:#d6a84f; }
+  .status-archived { background:#64748b; }
+  .small-muted { font-size:.76rem;color:#8a9298; }
+</style>
+{% endblock %}
+
+{% macro catalog_option(item, selected='') -%}
+  <option value="{{ item.id }}" {% if item.id == selected %}selected{% endif %}>
+    {{ item.nombre }}{% if item.unidad %} · {{ item.unidad }}{% endif %}
+  </option>
+{%- endmacro %}
+
+{% macro rule_option(rule, selected='') -%}
+  <option value="{{ rule.id }}" {% if rule.id == selected %}selected{% endif %}>
+    {{ rule.name or rule.id }}
+  </option>
+{%- endmacro %}
+
+{% block content %}
+<div class="alert alert-info py-2" style="font-size:.86rem">
+  <i class="bi bi-info-circle me-1"></i>
+  Un bundle permite cotizar un artículo comercial como una sola partida y compararlo técnicamente contra varios insumos de LDM.
+  Cada bundle tiene versiones; sólo una versión activa participa en la consistencia.
+</div>
+
+<div class="card mb-4">
+  <div class="card-body py-2 d-flex flex-wrap gap-2 align-items-center">
+    <span class="text-muted small">Atajos:</span>
+    <a href="{{ url_for('comparison_rules') }}" class="btn btn-sm btn-outline-primary">
+      <i class="bi bi-arrow-left-right me-1"></i>Reglas COT/LDM
+    </a>
+    <span class="small-muted">Bundles registrados: {{ bundles|length }}</span>
+  </div>
+</div>
+
+{% if bundles %}
+<div class="accordion" id="bundlesAccordion">
+  {% for bundle in bundles %}
+  {% set active_version = get_active_bundle_version(bundle) %}
+  {% set catalog_item = catalog_by_id.get(bundle.catalog_item_id, {}) %}
+  <div class="card mb-3 bundle-card" id="bundle-{{ bundle.id }}">
+    <div class="card-header d-flex justify-content-between align-items-start gap-2 flex-wrap">
+      <div>
+        <div class="fw-semibold">
+          <i class="bi bi-boxes me-1 text-primary"></i>{{ bundle.name or catalog_item.nombre or bundle.catalog_item_id }}
+        </div>
+        <div class="small-muted">
+          Artículo COT: <span class="font-monospace">{{ bundle.catalog_item_id }}</span>
+          {% if catalog_item.unidad %} · Unidad {{ catalog_item.unidad }}{% endif %}
+          · Versión activa: {% if active_version %}v{{ active_version.version }}{% else %}—{% endif %}
+        </div>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#bundleBody{{ bundle.id }}">
+          <i class="bi bi-pencil-square me-1"></i>Editar
+        </button>
+        <form method="post" action="{{ url_for('delete_bundle', bundle_id=bundle.id) }}"
+              onsubmit="return confirm('¿Eliminar este bundle y todas sus versiones?')">
+          <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+        </form>
+      </div>
+    </div>
+    <div id="bundleBody{{ bundle.id }}" class="collapse {% if open_bundle_id == bundle.id %}show{% endif %}" data-bs-parent="#bundlesAccordion">
+      <div class="card-body">
+        <form method="post" action="{{ url_for('update_bundle', bundle_id=bundle.id) }}" class="row g-2 align-items-end mb-4">
+          <div class="col-lg-6">
+            <label class="form-label">Artículo comercial de COT</label>
+            <select name="catalog_item_id" class="form-select form-select-sm" required>
+              {% for item in catalog %}{{ catalog_option(item, bundle.catalog_item_id) }}{% endfor %}
+            </select>
+          </div>
+          <div class="col-lg-4">
+            <label class="form-label">Nombre visible</label>
+            <input name="name" class="form-control form-control-sm" value="{{ bundle.name }}">
+          </div>
+          <div class="col-lg-2">
+            <button class="btn btn-sm btn-success w-100"><i class="bi bi-save me-1"></i>Guardar</button>
+          </div>
+        </form>
+
+        <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+          <h6 class="mb-0 text-muted">Versiones del bundle</h6>
+          <form method="post" action="{{ url_for('add_bundle_version_route', bundle_id=bundle.id) }}" class="d-flex gap-2 align-items-center flex-wrap">
+            <select name="source_version" class="form-select form-select-sm w-auto" title="Copiar desde versión">
+              {% for version in bundle.versions %}
+              <option value="{{ version.version }}">Copiar v{{ version.version }}</option>
+              {% endfor %}
+            </select>
+            <input name="label" class="form-control form-control-sm" style="width:180px" placeholder="Etiqueta nueva versión">
+            <label class="form-check form-check-inline small mb-0">
+              <input class="form-check-input" type="checkbox" name="make_active" value="1"> activar
+            </label>
+            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-files me-1"></i>Duplicar versión</button>
+          </form>
+        </div>
+
+        {% for version in bundle.versions %}
+        <div class="border rounded p-3 mb-3">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+            <div>
+              <span class="status-dot status-{{ version.status }}"></span>
+              <strong>v{{ version.version }}</strong>
+              <span class="text-muted">{{ version.label }}</span>
+              <span class="badge bg-secondary ms-1">{{ version.status }}</span>
+            </div>
+            <div class="d-flex gap-2">
+              {% if version.status != 'active' %}
+              <form method="post" action="{{ url_for('activate_bundle_version_route', bundle_id=bundle.id, version_number=version.version) }}">
+                <button class="btn btn-sm btn-outline-success">Activar</button>
+              </form>
+              {% endif %}
+              <form method="post" action="{{ url_for('delete_bundle_version_route', bundle_id=bundle.id, version_number=version.version) }}"
+                    onsubmit="return confirm('¿Eliminar la versión {{ version.version }}?')">
+                <button class="btn btn-sm btn-outline-danger">Eliminar versión</button>
+              </form>
+            </div>
+          </div>
+
+          <form method="post" action="{{ url_for('update_bundle_version', bundle_id=bundle.id, version_number=version.version) }}">
+            <div class="row g-2 mb-2">
+              <div class="col-md-4">
+                <label class="form-label">Etiqueta</label>
+                <input name="label" class="form-control form-control-sm" value="{{ version.label }}">
+              </div>
+              <div class="col-md-8">
+                <label class="form-label">Notas</label>
+                <input name="notes" class="form-control form-control-sm" value="{{ version.notes }}">
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-sm component-table mb-2" data-component-table>
+                <thead>
+                  <tr>
+                    <th style="width:34%">Componente LDM esperado</th>
+                    <th style="width:10%" class="text-end">Cant.</th>
+                    <th style="width:9%" class="text-end">Merma %</th>
+                    <th style="width:23%">Regla COT/LDM</th>
+                    <th style="width:19%">Notas</th>
+                    <th style="width:5%"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for component in version.components %}
+                  <tr>
+                    <td>
+                      <select name="component_catalog_item_id[]" class="form-select form-select-sm">
+                        <option value="">Seleccionar...</option>
+                        {% for item in catalog %}{{ catalog_option(item, component.catalog_item_id) }}{% endfor %}
+                      </select>
+                    </td>
+                    <td><input name="component_qty[]" type="number" step="0.0001" class="form-control form-control-sm text-end" value="{{ component.qty }}"></td>
+                    <td><input name="component_waste_pct[]" type="number" step="0.01" class="form-control form-control-sm text-end" value="{{ component.waste_pct }}"></td>
+                    <td>
+                      <select name="component_comparison_rule_id[]" class="form-select form-select-sm">
+                        <option value="">Sin regla específica</option>
+                        {% for rule in comparison_rules %}{{ rule_option(rule, component.comparison_rule_id) }}{% endfor %}
+                      </select>
+                    </td>
+                    <td><input name="component_notes[]" class="form-control form-control-sm" value="{{ component.notes }}"></td>
+                    <td class="text-end"><button type="button" class="btn btn-sm btn-outline-danger" onclick="removeComponentRow(this)"><i class="bi bi-x"></i></button></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addComponentRow(this)">
+                <i class="bi bi-plus-lg me-1"></i>Agregar componente
+              </button>
+              <button class="btn btn-sm btn-success"><i class="bi bi-save me-1"></i>Guardar versión</button>
+            </div>
+          </form>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="card"><div class="card-body text-center text-muted py-5">No hay bundles creados.</div></div>
+{% endif %}
+
+<!-- Modal nuevo bundle -->
+<div class="modal fade" id="modalNewBundle" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <form method="post" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Nuevo bundle</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3 mb-3">
+          <div class="col-lg-7">
+            <label class="form-label">Artículo comercial de COT</label>
+            <select name="catalog_item_id" class="form-select" required>
+              <option value="">Seleccionar artículo...</option>
+              {% for item in catalog %}
+              <option value="{{ item.id }}" {% if item.id in bundle_item_ids %}disabled{% endif %}>{{ item.nombre }} · {{ item.unidad }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-lg-5">
+            <label class="form-label">Nombre del bundle</label>
+            <input name="name" class="form-control" placeholder="Opcional; si se deja vacío usa el nombre del catálogo">
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-sm component-table" data-component-table>
+            <thead><tr><th>Componente</th><th class="text-end">Cant.</th><th class="text-end">Merma %</th><th>Regla</th><th>Notas</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addComponentRow(this)">
+          <i class="bi bi-plus-lg me-1"></i>Agregar componente
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-primary">Crear bundle</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<template id="componentRowTemplate">
+  <tr>
+    <td>
+      <select name="component_catalog_item_id[]" class="form-select form-select-sm">
+        <option value="">Seleccionar...</option>
+        {% for item in catalog %}<option value="{{ item.id }}">{{ item.nombre }} · {{ item.unidad }}</option>{% endfor %}
+      </select>
+    </td>
+    <td><input name="component_qty[]" type="number" step="0.0001" class="form-control form-control-sm text-end" value="1"></td>
+    <td><input name="component_waste_pct[]" type="number" step="0.01" class="form-control form-control-sm text-end" value="0"></td>
+    <td>
+      <select name="component_comparison_rule_id[]" class="form-select form-select-sm">
+        <option value="">Sin regla específica</option>
+        {% for rule in comparison_rules %}<option value="{{ rule.id }}">{{ rule.name or rule.id }}</option>{% endfor %}
+      </select>
+    </td>
+    <td><input name="component_notes[]" class="form-control form-control-sm"></td>
+    <td class="text-end"><button type="button" class="btn btn-sm btn-outline-danger" onclick="removeComponentRow(this)"><i class="bi bi-x"></i></button></td>
+  </tr>
+</template>
+
+<script>
+function closestComponentTable(btn) {
+  const root = btn.closest('form') || btn.closest('.modal-body') || document;
+  return root.querySelector('[data-component-table] tbody');
+}
+function addComponentRow(btn) {
+  const tbody = closestComponentTable(btn);
+  const tpl = document.getElementById('componentRowTemplate');
+  tbody.appendChild(tpl.content.cloneNode(true));
+}
+function removeComponentRow(btn) {
+  const tr = btn.closest('tr');
+  if (tr) tr.remove();
+}
+</script>
+{% endblock %}

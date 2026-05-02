@@ -1,6 +1,23 @@
 from flask import Blueprint, flash, jsonify, redirect, render_template, request, url_for
 
+from ..bundles import (
+    activate_bundle_version,
+    add_bundle_version,
+    create_bundle,
+    delete_bundle_version,
+    get_active_bundle_version,
+    normalize_bundle,
+)
 from ..catalog_search import filter_catalog, list_categories
+from ..comparison_rules import (
+    DIRECTION_COT_TO_LDM,
+    DIRECTION_LDM_TO_COT,
+    ROUND_CEIL,
+    ROUND_FLOOR,
+    ROUND_NONE,
+    ROUND_ROUND,
+    normalize_rule,
+)
 from ..deletions import delete_catalog_items_data
 from ..domain import TIPOS_FICHA
 from ..storage import load, new_id, save, today
@@ -259,6 +276,314 @@ def api_catalogo_add():
     items.append(new_item)
     save("catalogo", items)
     return jsonify(new_item), 201
+
+
+# ─────────────────────────────────────────────────────────────
+# Bundles versionados y reglas de comparación COT/LDM
+# ─────────────────────────────────────────────────────────────
+
+def _catalog_by_id():
+    return {str(item.get("id", "")).strip(): item for item in load("catalogo")}
+
+
+def _catalog_name(item_id, catalog_by_id=None):
+    catalog_by_id = catalog_by_id or _catalog_by_id()
+    item = catalog_by_id.get(str(item_id or "").strip()) or {}
+    return item.get("nombre") or str(item_id or "")
+
+
+def _parse_float(value, default=0.0):
+    raw = _clean(value).replace(",", ".")
+    if not raw:
+        return default
+    try:
+        return float(raw)
+    except ValueError:
+        return default
+
+
+def _parse_components(form):
+    ids = form.getlist("component_catalog_item_id[]")
+    qtys = form.getlist("component_qty[]")
+    wastes = form.getlist("component_waste_pct[]")
+    rules = form.getlist("component_comparison_rule_id[]")
+    notes = form.getlist("component_notes[]")
+    components = []
+    max_len = max(len(ids), len(qtys), len(wastes), len(rules), len(notes), 0)
+    for index in range(max_len):
+        catalog_item_id = _clean(ids[index] if index < len(ids) else "")
+        qty = _parse_float(qtys[index] if index < len(qtys) else "0")
+        if not catalog_item_id and qty <= 0:
+            continue
+        components.append({
+            "catalog_item_id": catalog_item_id,
+            "qty": qty,
+            "waste_pct": _parse_float(wastes[index] if index < len(wastes) else "0"),
+            "comparison_rule_id": _clean(rules[index] if index < len(rules) else ""),
+            "notes": _clean(notes[index] if index < len(notes) else ""),
+        })
+    return components
+
+
+def _find_bundle(bundles, bundle_id):
+    return next((bundle for bundle in bundles if bundle.get("id") == bundle_id), None)
+
+
+def _find_version(bundle, version_number):
+    target = int(version_number)
+    current = normalize_bundle(bundle)
+    return next((version for version in current.get("versions", []) if int(version.get("version", 0)) == target), None)
+
+
+def _render_bundles(open_bundle_id=""):
+    catalog = load("catalogo")
+    catalog_by_id = {item["id"]: item for item in catalog if item.get("id")}
+    bundles = [normalize_bundle(bundle) for bundle in load("bundles")]
+    bundle_item_ids = {bundle.get("catalog_item_id") for bundle in bundles}
+    comparison_rules = [normalize_rule(rule) for rule in load("comparison_rules")]
+    return render_template(
+        "bundles.html",
+        bundles=bundles,
+        catalog=catalog,
+        catalog_by_id=catalog_by_id,
+        bundle_item_ids=bundle_item_ids,
+        comparison_rules=comparison_rules,
+        open_bundle_id=open_bundle_id,
+        get_active_bundle_version=get_active_bundle_version,
+    )
+
+
+@bp.route("/bundles", methods=["GET", "POST"], endpoint="bundles")
+def bundles():
+    if request.method == "POST":
+        catalog_item_id = _clean(request.form.get("catalog_item_id"))
+        catalog_by_id = _catalog_by_id()
+        item = catalog_by_id.get(catalog_item_id)
+        if not item:
+            flash("Selecciona un artículo válido del catálogo para crear el bundle.", "warning")
+            return _render_bundles()
+        existing = next((bundle for bundle in load("bundles") if bundle.get("catalog_item_id") == catalog_item_id), None)
+        if existing:
+            flash("Ese artículo ya tiene un bundle asociado.", "warning")
+            return redirect(url_for("bundles") + f"#bundle-{existing.get('id')}")
+        components = _parse_components(request.form)
+        bundle = create_bundle(
+            catalog_item_id,
+            request.form.get("name") or item.get("nombre") or catalog_item_id,
+            components,
+            bundle_id=new_id(),
+        )
+        bundle["created_at"] = today()
+        bundle["updated_at"] = today()
+        items = load("bundles")
+        items.append(bundle)
+        save("bundles", items)
+        flash("Bundle creado.", "success")
+        return redirect(url_for("bundles") + f"#bundle-{bundle['id']}")
+    return _render_bundles()
+
+
+@bp.route("/bundles/<bundle_id>/update", methods=["POST"], endpoint="update_bundle")
+def update_bundle(bundle_id):
+    items = load("bundles")
+    bundle = _find_bundle(items, bundle_id)
+    if not bundle:
+        flash("Bundle no encontrado.", "danger")
+        return redirect(url_for("bundles"))
+    catalog_item_id = _clean(request.form.get("catalog_item_id")) or bundle.get("catalog_item_id")
+    catalog_by_id = _catalog_by_id()
+    if catalog_item_id not in catalog_by_id:
+        flash("Selecciona un artículo de catálogo válido.", "warning")
+        return redirect(url_for("bundles") + f"#bundle-{bundle_id}")
+    duplicate = next((b for b in items if b.get("id") != bundle_id and b.get("catalog_item_id") == catalog_item_id), None)
+    if duplicate:
+        flash("Otro bundle ya usa ese artículo de catálogo.", "warning")
+        return redirect(url_for("bundles") + f"#bundle-{bundle_id}")
+    bundle["catalog_item_id"] = catalog_item_id
+    bundle["name"] = _clean(request.form.get("name")) or catalog_by_id[catalog_item_id].get("nombre") or catalog_item_id
+    bundle["updated_at"] = today()
+    save("bundles", items)
+    flash("Bundle actualizado.", "success")
+    return redirect(url_for("bundles") + f"#bundle-{bundle_id}")
+
+
+@bp.route("/bundles/<bundle_id>/delete", methods=["POST"], endpoint="delete_bundle")
+def delete_bundle(bundle_id):
+    before = load("bundles")
+    after = [bundle for bundle in before if bundle.get("id") != bundle_id]
+    save("bundles", after)
+    flash("Bundle eliminado.", "warning")
+    return redirect(url_for("bundles"))
+
+
+@bp.route("/bundles/<bundle_id>/versions/<int:version_number>/update", methods=["POST"], endpoint="update_bundle_version")
+def update_bundle_version(bundle_id, version_number):
+    items = load("bundles")
+    bundle = _find_bundle(items, bundle_id)
+    if not bundle:
+        flash("Bundle no encontrado.", "danger")
+        return redirect(url_for("bundles"))
+    current = normalize_bundle(bundle)
+    version = _find_version(current, version_number)
+    if not version:
+        flash("Versión no encontrada.", "danger")
+        return redirect(url_for("bundles") + f"#bundle-{bundle_id}")
+    version["label"] = _clean(request.form.get("label")) or f"Versión {version_number}"
+    version["notes"] = _clean(request.form.get("notes"))
+    version["components"] = _parse_components(request.form)
+    current["updated_at"] = today()
+    items[items.index(bundle)] = current
+    save("bundles", items)
+    flash("Versión de bundle actualizada.", "success")
+    return redirect(url_for("bundles") + f"#bundle-{bundle_id}")
+
+
+@bp.route("/bundles/<bundle_id>/versions/add", methods=["POST"], endpoint="add_bundle_version_route")
+def add_bundle_version_route(bundle_id):
+    items = load("bundles")
+    bundle = _find_bundle(items, bundle_id)
+    if not bundle:
+        flash("Bundle no encontrado.", "danger")
+        return redirect(url_for("bundles"))
+    source_version_number = int(_parse_float(request.form.get("source_version"), 0))
+    source = _find_version(bundle, source_version_number) if source_version_number else get_active_bundle_version(bundle)
+    components = [dict(component) for component in (source or {}).get("components", [])]
+    make_active = bool(request.form.get("make_active"))
+    updated = add_bundle_version(
+        bundle,
+        components=components,
+        label=_clean(request.form.get("label")),
+        notes=_clean(request.form.get("notes")),
+        make_active=make_active,
+    )
+    updated["updated_at"] = today()
+    items[items.index(bundle)] = updated
+    save("bundles", items)
+    flash("Nueva versión creada.", "success")
+    return redirect(url_for("bundles") + f"#bundle-{bundle_id}")
+
+
+@bp.route("/bundles/<bundle_id>/versions/<int:version_number>/activate", methods=["POST"], endpoint="activate_bundle_version_route")
+def activate_bundle_version_route(bundle_id, version_number):
+    items = load("bundles")
+    bundle = _find_bundle(items, bundle_id)
+    if bundle:
+        try:
+            updated = activate_bundle_version(bundle, version_number)
+            updated["updated_at"] = today()
+            items[items.index(bundle)] = updated
+            save("bundles", items)
+            flash("Versión activada.", "success")
+        except ValueError as exc:
+            flash(str(exc), "warning")
+    return redirect(url_for("bundles") + f"#bundle-{bundle_id}")
+
+
+@bp.route("/bundles/<bundle_id>/versions/<int:version_number>/delete", methods=["POST"], endpoint="delete_bundle_version_route")
+def delete_bundle_version_route(bundle_id, version_number):
+    items = load("bundles")
+    bundle = _find_bundle(items, bundle_id)
+    if bundle:
+        try:
+            updated = delete_bundle_version(bundle, version_number)
+            updated["updated_at"] = today()
+            items[items.index(bundle)] = updated
+            save("bundles", items)
+            flash("Versión eliminada.", "warning")
+        except ValueError as exc:
+            flash(str(exc), "warning")
+    return redirect(url_for("bundles") + f"#bundle-{bundle_id}")
+
+
+def _rule_form(form):
+    return {
+        "name": _clean(form.get("name")),
+        "cot_catalog_item_id": _clean(form.get("cot_catalog_item_id")),
+        "ldm_catalog_item_id": _clean(form.get("ldm_catalog_item_id")),
+        "cot_unit": _clean(form.get("cot_unit")),
+        "ldm_unit": _clean(form.get("ldm_unit")),
+        "factor": _parse_float(form.get("factor"), 1.0) or 1.0,
+        "direction": _clean(form.get("direction")) or DIRECTION_LDM_TO_COT,
+        "rounding": _clean(form.get("rounding")) or ROUND_NONE,
+        "tolerance_pct": _parse_float(form.get("tolerance_pct"), 5.0),
+        "active": bool(form.get("active")),
+        "notes": _clean(form.get("notes")),
+    }
+
+
+def _render_comparison_rules(open_rule_id=""):
+    catalog = load("catalogo")
+    catalog_by_id = {item["id"]: item for item in catalog if item.get("id")}
+    rules = [normalize_rule(rule) for rule in load("comparison_rules")]
+    return render_template(
+        "comparison_rules.html",
+        rules=rules,
+        catalog=catalog,
+        catalog_by_id=catalog_by_id,
+        open_rule_id=open_rule_id,
+        directions=[DIRECTION_LDM_TO_COT, DIRECTION_COT_TO_LDM],
+        roundings=[ROUND_NONE, ROUND_CEIL, ROUND_FLOOR, ROUND_ROUND],
+    )
+
+
+@bp.route("/comparison-rules", methods=["GET", "POST"], endpoint="comparison_rules")
+def comparison_rules():
+    if request.method == "POST":
+        form_state = _rule_form(request.form)
+        catalog_by_id = _catalog_by_id()
+        if form_state["cot_catalog_item_id"] not in catalog_by_id or form_state["ldm_catalog_item_id"] not in catalog_by_id:
+            flash("Selecciona artículos válidos para COT y LDM.", "warning")
+            return _render_comparison_rules()
+        rule = normalize_rule({
+            "id": new_id(),
+            **form_state,
+            "created_at": today(),
+            "updated_at": today(),
+        })
+        rules = load("comparison_rules")
+        rules.append(rule)
+        save("comparison_rules", rules)
+        flash("Regla de comparación creada.", "success")
+        return redirect(url_for("comparison_rules") + f"#rule-{rule['id']}")
+    return _render_comparison_rules()
+
+
+@bp.route("/comparison-rules/<rule_id>/edit", methods=["POST"], endpoint="edit_comparison_rule")
+def edit_comparison_rule(rule_id):
+    rules = load("comparison_rules")
+    rule = next((item for item in rules if item.get("id") == rule_id), None)
+    if not rule:
+        flash("Regla no encontrada.", "danger")
+        return redirect(url_for("comparison_rules"))
+    form_state = _rule_form(request.form)
+    catalog_by_id = _catalog_by_id()
+    if form_state["cot_catalog_item_id"] not in catalog_by_id or form_state["ldm_catalog_item_id"] not in catalog_by_id:
+        flash("Selecciona artículos válidos para COT y LDM.", "warning")
+        return redirect(url_for("comparison_rules") + f"#rule-{rule_id}")
+    rule.update(form_state)
+    rule["updated_at"] = today()
+    save("comparison_rules", rules)
+    flash("Regla actualizada.", "success")
+    return redirect(url_for("comparison_rules") + f"#rule-{rule_id}")
+
+
+@bp.route("/comparison-rules/<rule_id>/toggle", methods=["POST"], endpoint="toggle_comparison_rule")
+def toggle_comparison_rule(rule_id):
+    rules = load("comparison_rules")
+    rule = next((item for item in rules if item.get("id") == rule_id), None)
+    if rule:
+        rule["active"] = not bool(rule.get("active", True))
+        rule["updated_at"] = today()
+        save("comparison_rules", rules)
+        flash("Estado de regla actualizado.", "info")
+    return redirect(url_for("comparison_rules") + f"#rule-{rule_id}")
+
+
+@bp.route("/comparison-rules/<rule_id>/delete", methods=["POST"], endpoint="delete_comparison_rule")
+def delete_comparison_rule(rule_id):
+    save("comparison_rules", [rule for rule in load("comparison_rules") if rule.get("id") != rule_id])
+    flash("Regla eliminada.", "warning")
+    return redirect(url_for("comparison_rules"))
 
 
 @bp.route("/proveedores", methods=["GET", "POST"], endpoint="proveedores")

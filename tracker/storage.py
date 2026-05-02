@@ -16,6 +16,8 @@ FILES = {
     "catalogo": os.path.join(DATA_DIR, "catalogo.json"),
     "proveedores": os.path.join(DATA_DIR, "proveedores.json"),
     "team": os.path.join(DATA_DIR, "team.json"),
+    "bundles": os.path.join(DATA_DIR, "bundles.json"),
+    "comparison_rules": os.path.join(DATA_DIR, "comparison_rules.json"),
 }
 
 

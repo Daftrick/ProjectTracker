@@ -22,7 +22,9 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 - [x] Mejorar integración Drive con rutas multiplataforma.
 - [x] Guardar PDFs y Excel de cotización/LDM en carpeta Drive del proyecto.
 - [x] Agregar pruebas unitarias para servicios, validaciones, catálogo, Drive, consistencia y eliminaciones.
-- [x] Mejorar auditoría visual COT/LDM con margen bajo por artículo, cobertura de catálogo, filtro y acciones sugeridas.
+- [x] Fase 1 — Núcleo de bundles versionados y reglas de comparación técnica COT/LDM. Implementado en v19.0.
+- [x] Fase 2 — UI Admin para bundles versionados y reglas de comparación COT/LDM. Implementado en v20.0.
+- [x] Fase 3 — Visualización de consistencia técnica por bundles en detalle de proyecto. Implementado en v21.0.
 
 ---
 
@@ -30,12 +32,18 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 
 ### Alta prioridad
 
-#### 1. Consistencia COT/LDM — fase siguiente
+#### 1. Auditoría visual de consistencia COT/LDM
 
-- Evaluar si conviene permitir sincronización parcial entre COT y LDM.
-- Agregar flujo guiado para reconectar partidas sin catálogo.
-- Evaluar exportación del reporte de consistencia a Excel/PDF.
-- Revisar si los umbrales de margen deben configurarse por categoría.
+- Mejorar la lectura visual de diferencias entre cotización y LDM en la nueva capa técnica de bundles.
+- Mostrar en el detalle del proyecto una tabla específica de materiales esperados por bundle contra LDM real.
+- Destacar:
+  - faltantes en LDM,
+  - excedentes en LDM,
+  - diferencias de cantidad,
+  - bundles sin versión activa,
+  - componentes sin regla de comparación cuando aplique conversión COT/LDM.
+- Agregar acciones sugeridas para corregir inconsistencias.
+- Evaluar si conviene permitir sincronización parcial entre COT, bundle y LDM.
 
 #### 2. Revisión de datos históricos con catálogo eliminado
 
@@ -122,11 +130,10 @@ Las confirmaciones deben mostrar impacto antes de ejecutar la acción.
 
 Orden sugerido de trabajo:
 
-1. Auditoría visual y corrección guiada de consistencia COT/LDM.
-2. Confirmaciones destructivas restantes.
-3. Revisión de partidas históricas con catálogo eliminado.
-4. Creación automática de carpetas Drive.
-5. Corrección de acentos/codificación en vistas y PDFs.
+1. Fase 3 — Mostrar la consistencia técnica de bundles en `project_detail.html` con tabla de materiales esperados vs LDM real.
+2. Fase 3 — Agregar alertas de bundles sin versión activa, componentes inválidos y reglas faltantes.
+3. Fase 3 — Permitir navegación desde un issue técnico hacia el bundle o regla que lo genera.
+
 
 ---
 
