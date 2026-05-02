@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v16.3 — 28-Apr-2026
+## Versión actual: v18.0 — 02-May-2026
 
 ---
 
@@ -222,7 +222,7 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | Drive | Migraciones de datos al arranque | `drive.py:migrate_*` |
 | Cotizaciones | CRUD P/G/E, numeración automática | `routes/quotes.py` + `catalog.py` |
 | Cotizaciones | Generación de PDF con portada y condiciones | `pdfs.py:build_quote_pdf` |
-| Cotizaciones | Exportación Excel (.xlsx) simple: encabezado, artículos con nombre/unidad/cantidad/precios/totales, subtotales por sección y cierre con IVA y TOTAL | `routes/quotes.py:quote_excel` |
+| Cotizaciones | Exportación Excel (.xlsx): guarda el archivo directamente en la carpeta Drive del proyecto (igual que los PDFs); encabezado con número/cliente/proyecto/fecha/moneda, artículos con nombre/unidad/cantidad/precios/totales, subtotales por sección cuando aplica, cierre con IVA y TOTAL en negrita | `routes/quotes.py:quote_excel` + `_build_quote_workbook` |
 | Cotizaciones | Hidratación desde catálogo (por ID o por nombre) | `catalog.py:hydrate_quote` |
 | Cotizaciones | Secciones opcionales con encabezado y subtotal por sección en formulario, vista y PDF | `validators.py` + `catalog.py` + `pdfs.py` |
 | Cotizaciones | Nota base de proyecto en portada del PDF según tipo: preliminar sin nota, general con último DWG, extraordinaria con nota manual | `routes/quotes.py` + `drive.py:latest_dwg_stem` + `pdfs.py` |
@@ -536,9 +536,22 @@ Reglas de portada PDF:
 | 2026-04-28 | Cotizaciones: nuevo botón **Excel** en la tabla de cotizaciones del detalle de proyecto y en la vista de detalle de cotización; genera y descarga un `.xlsx` con openpyxl — encabezado (número, cliente, proyecto, fecha, moneda), tabla de artículos (nombre, unidad, cantidad, precio unitario, total), subtotales por sección cuando aplica, y cierre con Subtotal / IVA / TOTAL en negrita. Sin colores ni tipografías especiales |
 | 2026-04-28 | `requirements.txt` — agregada dependencia `openpyxl>=3.1.0` |
 | 2026-04-28 | Versión bumped v16.2 → v16.3 (patch: exportación Excel de cotizaciones) |
+| 2026-04-29 | Bug fix: `project_detail.html` — confirmación de eliminar LDM usaba `ldm.items\|length` que en Jinja resuelve al método built-in `.items()` del dict lanzando `TypeError: object of type 'builtin_function_or_method' has no len()`. Corregido a `ldm['items']\|length` (notación de corchetes). El mismo patrón ya estaba corregido en el tab de Consistencia con `cn['items']` |
+| 2026-04-29 | Versión bumped v16.3 → v16.4 (patch: fix TypeError al abrir pestaña de proyecto con LDMs) |
+| 2026-04-30 | Cotizaciones (`templates/quote_project_form.html`): selección múltiple de partidas con checkbox por fila + "seleccionar todo" en el header de la tabla. Barra de acciones masivas que aparece al haber selección con dropdown de sección destino (poblado dinámicamente con secciones existentes + opción `(Sin sección)`) y botones **Mover**, **Copiar** y **Eliminar** |
+| 2026-04-30 | Mover relocaliza las filas físicamente al final de la sección destino preservando orden relativo; `syncItemSections()` reasigna el `item_section[]` oculto al guardar. Copiar clona las filas con `cloneNode` + helper `copyInputValues` para transferir los `.value` actuales de los inputs (que `cloneNode` no copia). Eliminar pide confirmación |
+| 2026-04-30 | "Seleccionar todo" respeta el filtro inline de partidas (sólo afecta filas visibles) y refleja estado indeterminado cuando hay selección parcial. Las filas seleccionadas se resaltan visualmente. Los checkboxes no llevan atributo `name`, así que no se envían al backend ni cambian el contrato del form |
+| 2026-04-30 | Versión bumped v16.4 → v17.0 (feature: selección múltiple de partidas en cotización con mover/copiar/eliminar entre secciones) |
+| 2026-05-02 | Bug fix: `INICIAR.bat` instalaba `flask fpdf2` de forma literal sin incluir `openpyxl`; corregido a `pip install -r requirements.txt` para garantizar que todas las dependencias del archivo se instalen al reiniciar |
+| 2026-05-02 | `routes/quotes.py:quote_excel` — cambio de comportamiento: el Excel de cotización ya no se descarga en el navegador sino que se guarda en la carpeta Drive del proyecto (igual que los PDFs). Ruta valida que la carpeta Drive exista antes de intentar guardar y redirige a `#tab-quote` con flash de éxito o error. `_build_quote_excel_response` renombrada a `_build_quote_workbook` y refactorizada para devolver `(wb, filename)` en lugar de una respuesta `send_file` |
+| 2026-05-02 | Versión bumped v17.0 → v17.1 (patch: fix instalación de openpyxl en INICIAR.bat + Excel de cotización guarda en Drive como los PDFs) |
 
 ---
 
+| 2026-05-02 | Consistencia COT/LDM: auditoría visual fase 2. `tracker/consistency.py` ahora detecta margen bajo por artículo (`low_margin`), calcula totales ligados/no ligados a catálogo, delta de cantidades, márgenes unitarios porcentuales y acciones sugeridas por issue. |
+| 2026-05-02 | `project_detail.html` — mejora del tab Consistencia con cobertura por catálogo, bloque de acciones sugeridas, filtro local de artículos/issues, delta de cantidades y diagnóstico accionable por renglón. |
+| 2026-05-02 | Tests: `tests/test_consistency.py` cubre margen bajo, acciones sugeridas y totales ligados/no ligados a catálogo. |
+| 2026-05-02 | Versión bumped v17.1 → v18.0 (feature: auditoría visual y acciones sugeridas para consistencia COT/LDM) |
 ## Pendientes / En desarrollo
 
 **Alta prioridad:**

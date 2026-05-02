@@ -924,5 +924,25 @@
       }
     ],
     "created_at": "2026-04-26"
+  },
+  {
+    "id": "A29A7521",
+    "project_id": "BCBDACF2",
+    "alcance": "cotizacion",
+    "title": "Cotización",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-04-30",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-04-30"
   }
 ]

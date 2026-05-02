@@ -84,5 +84,20 @@
     "folder_num": "004",
     "closed_at": null,
     "created_at": "2026-04-19"
+  },
+  {
+    "id": "BCBDACF2",
+    "name": "Casa Tepeapulco",
+    "clave": "IE-005-Tepeapulco",
+    "client": "Cliente Privado",
+    "version": "V1",
+    "fecha": "260430",
+    "alcances": [
+      "cotizacion"
+    ],
+    "notes": "Cotización de Remodelación de Instalaciones Eléctricas de Iluminación y Contactos",
+    "folder_num": "005",
+    "closed_at": null,
+    "created_at": "2026-04-30"
   }
 ]

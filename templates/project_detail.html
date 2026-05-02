@@ -830,6 +830,7 @@
   {% set cn = consistency %}
   {% set status_color_map = {'ok': 'success', 'warning': 'warning', 'critical': 'danger', 'no_data': 'secondary'} %}
   {% set status_icon_map = {'ok': 'check-circle-fill', 'warning': 'exclamation-triangle-fill', 'critical': 'x-octagon-fill', 'no_data': 'info-circle'} %}
+  {% set issue_color_map = {'below_cost': 'danger', 'missing_in_ldm': 'danger', 'missing_in_cot': 'secondary', 'qty_mismatch': 'warning', 'low_margin': 'warning'} %}
   {% set bs_color = status_color_map[cn.status] %}
   {% set bs_icon = status_icon_map[cn.status] %}
 
@@ -862,20 +863,14 @@
         <div class="col-md-3">
           <div class="margen-box p-3" style="font-size:.85rem">
             <div class="text-muted mb-1">Subtotal cotizado</div>
-            <div class="fw-bold text-success" style="font-size:1.05rem">
-              {{ cn.quote_subtotal | currency }}
-            </div>
-            {% if cn.active_quote %}
-            <small class="text-muted d-block mt-1">{{ cn.active_quote.quote_number }}</small>
-            {% endif %}
+            <div class="fw-bold text-success" style="font-size:1.05rem">{{ cn.quote_subtotal | currency }}</div>
+            {% if cn.active_quote %}<small class="text-muted d-block mt-1">{{ cn.active_quote.quote_number }}</small>{% endif %}
           </div>
         </div>
         <div class="col-md-3">
           <div class="margen-box p-3" style="font-size:.85rem">
             <div class="text-muted mb-1">Costo proveedor (LDMs)</div>
-            <div class="fw-bold text-warning" style="font-size:1.05rem">
-              {{ cn.ldm_subtotal | currency }}
-            </div>
+            <div class="fw-bold text-warning" style="font-size:1.05rem">{{ cn.ldm_subtotal | currency }}</div>
             <small class="text-muted d-block mt-1">{{ ldms|length }} lista(s)</small>
           </div>
         </div>
@@ -894,62 +889,62 @@
             <div class="fw-bold text-{{ bs_color }}{% if bs_color == 'warning' %} text-warning{% endif %}" style="font-size:1.05rem">
               {% if cn.margin_pct is not none %}{{ cn.margin_pct }}%{% else %}—{% endif %}
             </div>
-            <small class="text-muted d-block mt-1">
-              umbrales: ≥30% ok · 0–30% revisar · &lt;0% crítico
-            </small>
+            <small class="text-muted d-block mt-1">≥30% ok · 0–30% revisar · &lt;0% crítico</small>
           </div>
         </div>
       </div>
 
       {% if cn.summary.items_total > 0 %}
-      <div class="row g-2 mt-2">
+      <div class="row g-2 mt-3">
         <div class="col">
           <div class="d-flex flex-wrap gap-2">
-            <span class="badge bg-light text-dark border">
-              <i class="bi bi-list-ul me-1"></i>{{ cn.summary.items_total }} artículo(s) en catálogo
-            </span>
-            {% if cn.summary.items_critical %}
-            <span class="badge bg-danger">
-              <i class="bi bi-x-octagon me-1"></i>{{ cn.summary.items_critical }} crítico(s)
-            </span>
-            {% endif %}
-            {% if cn.summary.items_warning %}
-            <span class="badge bg-warning text-dark">
-              <i class="bi bi-exclamation-triangle me-1"></i>{{ cn.summary.items_warning }} con observaciones
-            </span>
-            {% endif %}
-            {% if cn.summary.missing_in_ldm %}
-            <span class="badge bg-danger-subtle text-danger-emphasis border border-danger-subtle">
-              {{ cn.summary.missing_in_ldm }} en COT sin LDM
-            </span>
-            {% endif %}
-            {% if cn.summary.missing_in_cot %}
-            <span class="badge bg-secondary-subtle text-secondary-emphasis border">
-              {{ cn.summary.missing_in_cot }} en LDM sin COT
-            </span>
-            {% endif %}
-            {% if cn.summary.qty_mismatch %}
-            <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">
-              {{ cn.summary.qty_mismatch }} con cantidades diferentes
-            </span>
-            {% endif %}
-            {% if cn.summary.below_cost %}
-            <span class="badge bg-danger">
-              {{ cn.summary.below_cost }} debajo de costo
-            </span>
-            {% endif %}
+            <span class="badge bg-light text-dark border"><i class="bi bi-list-ul me-1"></i>{{ cn.summary.items_total }} artículo(s)</span>
+            {% if cn.summary.items_critical %}<span class="badge bg-danger"><i class="bi bi-x-octagon me-1"></i>{{ cn.summary.items_critical }} crítico(s)</span>{% endif %}
+            {% if cn.summary.items_warning %}<span class="badge bg-warning text-dark"><i class="bi bi-exclamation-triangle me-1"></i>{{ cn.summary.items_warning }} con observaciones</span>{% endif %}
+            {% if cn.summary.missing_in_ldm %}<span class="badge bg-danger">{{ cn.summary.missing_in_ldm }} en COT sin LDM</span>{% endif %}
+            {% if cn.summary.missing_in_cot %}<span class="badge bg-secondary">{{ cn.summary.missing_in_cot }} en LDM sin COT</span>{% endif %}
+            {% if cn.summary.qty_mismatch %}<span class="badge bg-warning text-dark">{{ cn.summary.qty_mismatch }} con cantidades ≠</span>{% endif %}
+            {% if cn.summary.below_cost %}<span class="badge bg-danger">{{ cn.summary.below_cost }} debajo de costo</span>{% endif %}
+            {% if cn.summary.low_margin %}<span class="badge bg-warning text-dark">{{ cn.summary.low_margin }} con margen bajo</span>{% endif %}
           </div>
         </div>
       </div>
       {% endif %}
 
+      <div class="row g-2 mt-3">
+        <div class="col-md-6">
+          <div class="margen-box p-3 h-100" style="font-size:.82rem">
+            <div class="fw-semibold mb-2"><i class="bi bi-link-45deg me-1"></i>Cobertura por catálogo</div>
+            <div class="d-flex justify-content-between"><span class="text-muted">COT ligado a catálogo</span><span>{{ cn.quote_linked_total | currency }}</span></div>
+            <div class="d-flex justify-content-between"><span class="text-muted">COT sin catálogo</span><span class="{% if cn.quote_unlinked.count %}text-warning{% else %}text-muted{% endif %}">{{ cn.quote_unlinked.count }} renglón(es) · {{ cn.quote_unlinked_total | currency }}</span></div>
+            <div class="d-flex justify-content-between mt-1"><span class="text-muted">LDM ligado a catálogo</span><span>{{ cn.ldm_linked_total | currency }}</span></div>
+            <div class="d-flex justify-content-between"><span class="text-muted">LDM sin catálogo</span><span class="{% if cn.ldm_unlinked.count %}text-warning{% else %}text-muted{% endif %}">{{ cn.ldm_unlinked.count }} renglón(es) · {{ cn.ldm_unlinked_total | currency }}</span></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="margen-box p-3 h-100" style="font-size:.82rem">
+            <div class="fw-semibold mb-2"><i class="bi bi-clipboard-check me-1"></i>Acciones sugeridas</div>
+            {% if cn.suggested_actions %}
+              <div class="d-flex flex-column gap-1">
+              {% for action in cn.suggested_actions %}
+                {% set ac = status_color_map[action.status] %}
+                <div class="d-flex gap-2 align-items-start">
+                  <span class="badge bg-{{ ac }}{% if ac == 'warning' %} text-dark{% endif %}" style="font-size:.65rem">{{ action.count }}</span>
+                  <span><strong>{{ action.label }}:</strong> {{ action.text }}</span>
+                </div>
+              {% endfor %}
+              </div>
+            {% else %}
+              <span class="text-muted">Sin acciones pendientes.</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
       {% if cn.quote_unlinked.count or cn.ldm_unlinked.count %}
       <div class="alert alert-secondary py-2 mt-3 mb-0" style="font-size:.82rem">
         <i class="bi bi-link-45deg me-1"></i>
-        Renglones sin vínculo a catálogo (no se pueden comparar artículo a artículo):
-        <strong>{{ cn.quote_unlinked.count }}</strong> en COT ({{ cn.quote_unlinked.total | currency }}),
-        <strong>{{ cn.ldm_unlinked.count }}</strong> en LDM ({{ cn.ldm_unlinked.total | currency }}).
-        Liga esos renglones al catálogo para incluirlos en el análisis.
+        Hay renglones sin vínculo a catálogo. No entran al cruce por artículo hasta que se liguen al catálogo.
       </div>
       {% endif %}
     </div>
@@ -958,82 +953,76 @@
   <!-- Tabla detallada por artículo -->
   {% if cn['items'] %}
   <div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
+    <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
       <span class="fw-semibold" style="font-size:.875rem">Detalle por artículo de catálogo</span>
-      <small class="text-muted">Ordenado por severidad</small>
+      <div class="d-flex gap-2 align-items-center">
+        <small class="text-muted">Ordenado por severidad</small>
+        <input id="consistencyFilter" type="search" class="form-control form-control-sm" style="width:220px" placeholder="Filtrar artículo / issue">
+      </div>
     </div>
     <div class="card-body p-0">
-      <table class="table mb-0" style="font-size:.85rem">
-        <thead class="table-light">
-          <tr>
-            <th style="width:4%"></th>
-            <th>Artículo</th>
-            <th class="text-center" style="width:8%">Unidad</th>
-            <th class="text-end" style="width:9%">Qty COT</th>
-            <th class="text-end" style="width:9%">Qty LDM</th>
-            <th class="text-end" style="width:11%">Precio venta</th>
-            <th class="text-end" style="width:11%">Costo prom.</th>
-            <th class="text-end" style="width:11%">Margen unit.</th>
-            <th style="width:18%">Observaciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for row in cn['items'] %}
-          {% set row_color = status_color_map[row.status] %}
-          {% set row_icon  = status_icon_map[row.status] %}
-          <tr class="{% if row.status == 'critical' %}table-danger{% elif row.status == 'warning' %}table-warning{% endif %}">
-            <td class="text-center">
-              <i class="bi bi-{{ row_icon }} text-{{ row_color }}"></i>
-            </td>
-            <td>
-              <div class="fw-semibold">{{ row.nombre }}</div>
-              {% if row.categoria %}
-              <small class="text-muted">{{ row.categoria }}</small>
-              {% endif %}
-              {% if row.ldm_numbers %}
-              <small class="text-muted d-block font-monospace" style="font-size:.7rem">
-                {{ row.ldm_numbers | join(', ') }}
-              </small>
-              {% endif %}
-            </td>
-            <td class="text-center">
-              <span class="badge bg-light text-dark border">{{ row.unidad or '—' }}</span>
-            </td>
-            <td class="text-end font-monospace">
-              {% if row.qty_cot %}{{ '%.2f'|format(row.qty_cot) }}{% else %}<span class="text-muted">—</span>{% endif %}
-            </td>
-            <td class="text-end font-monospace">
-              {% if row.qty_ldm %}{{ '%.2f'|format(row.qty_ldm) }}{% else %}<span class="text-muted">—</span>{% endif %}
-            </td>
-            <td class="text-end font-monospace">
-              {% if row.price_cot %}{{ row.price_cot | currency }}{% else %}<span class="text-muted">—</span>{% endif %}
-            </td>
-            <td class="text-end font-monospace">
-              {% if row.cost_avg %}{{ row.cost_avg | currency }}{% else %}<span class="text-muted">—</span>{% endif %}
-            </td>
-            <td class="text-end font-monospace fw-semibold {% if row.margin_unit is not none and row.margin_unit < 0 %}text-danger{% elif row.margin_unit is not none and row.margin_unit > 0 %}text-success{% else %}text-muted{% endif %}">
-              {% if row.margin_unit is not none %}{{ row.margin_unit | currency }}{% else %}—{% endif %}
-            </td>
-            <td>
-              {% for issue in row.issues %}
-                {% if issue == 'missing_in_ldm' %}
-                <span class="badge bg-danger me-1" style="font-size:.65rem">Sin LDM</span>
-                {% elif issue == 'missing_in_cot' %}
-                <span class="badge bg-secondary me-1" style="font-size:.65rem">Sin COT</span>
-                {% elif issue == 'qty_mismatch' %}
-                <span class="badge bg-warning text-dark me-1" style="font-size:.65rem">Cantidad ≠</span>
-                {% elif issue == 'below_cost' %}
-                <span class="badge bg-danger me-1" style="font-size:.65rem">Debajo de costo</span>
+      <div class="table-responsive">
+        <table class="table mb-0" style="font-size:.85rem" id="consistencyTable">
+          <thead class="table-light">
+            <tr>
+              <th style="width:4%"></th>
+              <th>Artículo</th>
+              <th class="text-center" style="width:7%">Unidad</th>
+              <th class="text-end" style="width:8%">Qty COT</th>
+              <th class="text-end" style="width:8%">Qty LDM</th>
+              <th class="text-end" style="width:8%">Δ Qty</th>
+              <th class="text-end" style="width:10%">Precio</th>
+              <th class="text-end" style="width:10%">Costo</th>
+              <th class="text-end" style="width:10%">Margen unit.</th>
+              <th style="width:21%">Diagnóstico / acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in cn['items'] %}
+            {% set row_color = status_color_map[row.status] %}
+            {% set row_icon  = status_icon_map[row.status] %}
+            <tr class="consistency-row {% if row.status == 'critical' %}table-danger{% elif row.status == 'warning' %}table-warning{% endif %}"
+                data-search="{{ row.nombre }} {{ row.categoria }} {{ row.issues|join(' ') }} {{ row.ldm_numbers|join(' ') }}">
+              <td class="text-center"><i class="bi bi-{{ row_icon }} text-{{ row_color }}"></i></td>
+              <td>
+                <div class="fw-semibold">{{ row.nombre }}</div>
+                {% if row.categoria %}<small class="text-muted">{{ row.categoria }}</small>{% endif %}
+                {% if row.ldm_numbers %}<small class="text-muted d-block font-monospace" style="font-size:.7rem">{{ row.ldm_numbers | join(', ') }}</small>{% endif %}
+              </td>
+              <td class="text-center"><span class="badge bg-light text-dark border">{{ row.unidad or '—' }}</span></td>
+              <td class="text-end font-monospace">{% if row.qty_cot %}{{ '%.2f'|format(row.qty_cot) }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
+              <td class="text-end font-monospace">{% if row.qty_ldm %}{{ '%.2f'|format(row.qty_ldm) }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
+              <td class="text-end font-monospace {% if row.qty_delta > 0 %}text-warning{% elif row.qty_delta < 0 %}text-info{% else %}text-muted{% endif %}">
+                {% if row.qty_delta %}{{ '%+.2f'|format(row.qty_delta) }}{% else %}0.00{% endif %}
+              </td>
+              <td class="text-end font-monospace">{% if row.price_cot %}{{ row.price_cot | currency }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
+              <td class="text-end font-monospace">{% if row.cost_avg %}{{ row.cost_avg | currency }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
+              <td class="text-end font-monospace fw-semibold {% if row.margin_unit is not none and row.margin_unit < 0 %}text-danger{% elif row.margin_unit_pct is not none and row.margin_unit_pct < 30 %}text-warning{% elif row.margin_unit is not none and row.margin_unit > 0 %}text-success{% else %}text-muted{% endif %}">
+                {% if row.margin_unit is not none %}
+                  {{ row.margin_unit | currency }}
+                  {% if row.margin_unit_pct is not none %}<small class="d-block text-muted">{{ row.margin_unit_pct }}%</small>{% endif %}
+                {% else %}—{% endif %}
+              </td>
+              <td>
+                {% if row.issue_details %}
+                  <div class="d-flex flex-wrap gap-1 mb-1">
+                  {% for detail in row.issue_details %}
+                    {% set ic = issue_color_map[detail.issue] %}
+                    <span class="badge bg-{{ ic }}{% if ic == 'warning' %} text-dark{% endif %}" style="font-size:.65rem">{{ detail.label }}</span>
+                  {% endfor %}
+                  </div>
+                  {% if row.primary_action %}
+                  <small class="d-block text-muted"><strong>Acción:</strong> {{ row.primary_action.text }}</small>
+                  {% endif %}
+                {% else %}
+                  <small class="text-muted">OK</small>
                 {% endif %}
-              {% endfor %}
-              {% if not row.issues %}
-              <small class="text-muted">OK</small>
-              {% endif %}
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   {% else %}
@@ -1097,7 +1086,8 @@
         </thead>
         <tbody>
         {% for ldm in ldms %}
-        {% set deleted_catalog_items = ldm['items'] | selectattr('catalog_deleted') | list %}
+        {% set ldm_items = ldm['items'] %}
+        {% set deleted_catalog_items = ldm_items | selectattr('catalog_deleted') | list %}
         <tr>
           <td>
             <span class="fw-semibold font-monospace text-warning">{{ ldm.ldm_number }}</span>
@@ -1108,7 +1098,7 @@
           <td>{{ ldm.proveedor or '—' }}</td>
           <td><small class="text-muted">{{ ldm.fecha | fdate }}</small></td>
           <td class="text-center">
-            <span class="badge bg-light text-dark border">{{ ldm['items'] | length }}</span>
+            <span class="badge bg-light text-dark border">{{ ldm_items | length }}</span>
           </td>
           <td class="text-end ldm-costo-cell" data-ldm-id="{{ ldm.id }}"
               title="Clic para editar">
@@ -1177,7 +1167,7 @@
             <form method="post"
                   action="{{ url_for('delete_ldm', project_id=project.id, ldm_id=ldm.id) }}"
                   class="d-inline"
-                  onsubmit="return confirm('\u00bfEliminar {{ ldm.ldm_number }}?\n{{ ldm.items|length }} art\u00edculo(s){% if ldm.subtotal_cot %} - {{ ldm.subtotal_cot | currency }}{% endif %}\n\nEsta acci\u00f3n no se puede deshacer.')">
+                  onsubmit="return confirm('\u00bfEliminar {{ ldm.ldm_number }}?\n{{ ldm_items|length }} art\u00edculo(s){% if ldm.subtotal_cot %} - {{ ldm.subtotal_cot | currency }}{% endif %}\n\nEsta acci\u00f3n no se puede deshacer.')">
               <button class="btn btn-sm btn-outline-danger action-btn">
                 <i class="bi bi-trash"></i><span class="action-label">Eliminar</span>
               </button>
@@ -1656,6 +1646,20 @@
     const detail = itemLines ? `\n\nArtículos afectados:\n${itemLines}` : "";
     return confirm(`¿Eliminar por completo ${names.length} ${kind} marcados como catálogo eliminado de ${record}?${detail}`);
   }
+
+
+  // Filtro local de tabla Consistencia COT vs LDM
+  (function () {
+    const input = document.getElementById("consistencyFilter");
+    if (!input) return;
+    input.addEventListener("input", function () {
+      const terms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+      document.querySelectorAll("#consistencyTable .consistency-row").forEach(row => {
+        const haystack = (row.dataset.search || row.textContent || "").toLowerCase();
+        row.style.display = terms.every(term => haystack.includes(term)) ? "" : "none";
+      });
+    });
+  })();
 
   // ── Edición inline: columna "Costo cotizado" ──────────────────────────────
   (function () {

@@ -25,9 +25,9 @@ set "PYTHON=C:\Users\daftr\AppData\Local\Python\pythoncore-3.14-64\python.exe"
 powershell -NoProfile -ExecutionPolicy Bypass -Command "if (Get-NetTCPConnection -LocalPort %APP_PORT% -State Listen -ErrorAction SilentlyContinue) { exit 0 } else { exit 1 }" >nul 2>&1
 if not errorlevel 1 goto already_running
 
-REM Instalar Flask con el mismo Python que corre la app
+REM Instalar dependencias desde requirements.txt (incluye flask, fpdf2, openpyxl, etc.)
 echo Verificando dependencias...
-"%PYTHON%" -m pip install flask fpdf2 --quiet
+"%PYTHON%" -m pip install -r requirements.txt --quiet
 
 echo.
 echo Iniciando servidor en %APP_URL%

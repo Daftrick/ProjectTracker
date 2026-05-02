@@ -89,7 +89,48 @@
     color: #fff;
     box-shadow: none;
   }
-  .drag-cell { width: 38px; text-align: center; vertical-align: middle; }
+  .drag-cell {
+    width: 64px;
+    text-align: center;
+    vertical-align: middle;
+    padding-left: 6px;
+    padding-right: 6px;
+    white-space: nowrap;
+  }
+  .drag-cell .select-checkbox {
+    margin-right: 4px;
+    cursor: pointer;
+    vertical-align: middle;
+  }
+  .quote-row.row-selected td {
+    background: rgba(80, 130, 200, 0.14) !important;
+  }
+  .bulk-actions-bar {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    background: rgba(60, 95, 165, 0.16);
+    border: 1px solid rgba(120, 165, 230, 0.32);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 8px;
+  }
+  .bulk-actions-bar.active { display: flex; }
+  .bulk-actions-bar .selection-count {
+    font-weight: 600;
+    color: #d2dde9;
+    font-size: .85rem;
+  }
+  .bulk-actions-bar .form-select-sm,
+  .bulk-actions-bar .form-label-sm {
+    max-width: 240px;
+  }
+  .bulk-actions-bar .form-label-sm {
+    color: #8a9298;
+    font-size: .78rem;
+    margin: 0;
+  }
   .drag-handle {
     display: inline-flex;
     align-items: center;
@@ -271,6 +312,31 @@
             <i class="bi bi-x-lg"></i>
           </button>
         </div>
+        <!-- Barra de acciones masivas (aparece al seleccionar partidas) -->
+        <div id="bulkSelectionToolbar" class="bulk-actions-bar">
+          <span class="selection-count" id="bulkSelectionCount">0 seleccionadas</span>
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <span class="form-label-sm">Sección destino:</span>
+            <select id="bulkSectionSelect" class="form-select form-select-sm"
+                    title="Sección a la que mover o copiar las partidas seleccionadas"></select>
+            <button type="button" class="btn btn-sm btn-outline-primary" onclick="moveSelectedToSection()"
+                    title="Mover las partidas seleccionadas a la sección destino">
+              <i class="bi bi-arrow-right-circle me-1"></i>Mover
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-info" onclick="copySelectedToSection()"
+                    title="Duplicar las partidas seleccionadas en la sección destino">
+              <i class="bi bi-files me-1"></i>Copiar
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteSelectedRows()"
+                    title="Eliminar las partidas seleccionadas">
+              <i class="bi bi-trash me-1"></i>Eliminar
+            </button>
+            <button type="button" class="btn btn-sm btn-link text-muted text-decoration-none"
+                    onclick="clearSelection()" title="Limpiar selección">
+              <i class="bi bi-x-lg me-1"></i>Limpiar
+            </button>
+          </div>
+        </div>
       </div>
       <div class="card-body p-0">
         {% if fe.get('items') %}
@@ -281,8 +347,11 @@
         <table class="table mb-0 sticky-items-table" id="itemsTable">
           <thead class="table-light">
             <tr>
-              <th style="width:4%"></th>
-              <th style="width:36%">Descripción</th>
+              <th style="width:7%" class="text-center">
+                <input type="checkbox" id="selectAll" class="form-check-input select-checkbox"
+                       onclick="toggleSelectAll(this)" title="Seleccionar/deseleccionar todas las partidas visibles">
+              </th>
+              <th style="width:33%">Descripción</th>
               <th style="width:10%">Unidad</th>
               <th style="width:11%">Cantidad</th>
               <th style="width:15%">Precio unit.</th>
@@ -339,6 +408,8 @@
                   <input type="hidden" name="item_deleted_catalog_unidad[]" value="{{ deleted_catalog.unidad or '' }}">
                   <input type="hidden" name="item_deleted_catalog_precio[]" value="{{ deleted_catalog.precio or '' }}">
                   <input type="hidden" name="item_deleted_catalog_deleted_at[]" value="{{ deleted_catalog.deleted_at or '' }}">
+                  <input type="checkbox" class="form-check-input select-checkbox item-select"
+                         onchange="updateSelectionUI()" title="Seleccionar partida">
                   <span class="drag-handle" title="Arrastrar para reordenar">
                     <i class="bi bi-grip-vertical"></i>
                   </span>
@@ -465,6 +536,8 @@
         <input type="hidden" name="item_deleted_catalog_unidad[]" value="">
         <input type="hidden" name="item_deleted_catalog_precio[]" value="">
         <input type="hidden" name="item_deleted_catalog_deleted_at[]" value="">
+        <input type="checkbox" class="form-check-input select-checkbox item-select"
+               onchange="updateSelectionUI()" title="Seleccionar partida">
         <span class="drag-handle" title="Arrastrar para reordenar">
           <i class="bi bi-grip-vertical"></i>
         </span>
@@ -544,6 +617,7 @@
     document.getElementById("itemsBody").appendChild(tr);
     syncItemSections();
     updateTotals();
+    if (typeof updateSelectionUI === "function") updateSelectionUI();
   }
   function addSection(title) {
     const tr = document.createElement("tr");
@@ -554,11 +628,215 @@
     input.focus();
     input.select();
     syncItemSections();
+    if (typeof refreshBulkSectionSelect === "function") refreshBulkSectionSelect();
   }
   function removeAnyRow(btn) {
     btn.closest("tr").remove();
     syncItemSections();
     updateTotals();
+    updateSelectionUI();
+  }
+
+  // ── Selección múltiple de partidas ─────────────────────────────────────────
+  //
+  // Permite seleccionar varias partidas (no secciones) con los checkboxes y
+  // aplicar acciones masivas: mover, copiar o eliminar. La sección destino se
+  // elige en un select que se rellena dinámicamente con las secciones actuales
+  // más una opción "(Sin sección)" para la zona previa al primer encabezado.
+  function getSelectedItemRows() {
+    return Array.from(document.querySelectorAll('#itemsBody .quote-row'))
+      .filter(r => r.querySelector('.item-select')?.checked);
+  }
+
+  function getSectionList() {
+    // Devuelve [{row: <tr>|null, name: "..."}] — index 0 es "(Sin sección)"
+    const sections = [{ row: null, name: '(Sin sección)' }];
+    document.querySelectorAll('#itemsBody .quote-section-row').forEach(r => {
+      const title = r.querySelector('[name="item_section[]"]')?.value.trim() || '(Sin nombre)';
+      sections.push({ row: r, name: title });
+    });
+    return sections;
+  }
+
+  function refreshBulkSectionSelect() {
+    const select = document.getElementById('bulkSectionSelect');
+    if (!select) return;
+    const previous = select.value;
+    const sections = getSectionList();
+    select.innerHTML = sections
+      .map((s, idx) => `<option value="${idx}">${escHtml(s.name)}</option>`)
+      .join('');
+    // Restaurar selección previa si sigue siendo válida
+    if (previous !== '' && parseInt(previous) < sections.length) {
+      select.value = previous;
+    }
+  }
+
+  function updateSelectionUI() {
+    const selected = getSelectedItemRows();
+    const toolbar = document.getElementById('bulkSelectionToolbar');
+    const counter = document.getElementById('bulkSelectionCount');
+
+    // Toggle visual de la fila seleccionada
+    document.querySelectorAll('#itemsBody .quote-row').forEach(r => {
+      const cb = r.querySelector('.item-select');
+      r.classList.toggle('row-selected', !!(cb && cb.checked));
+    });
+
+    if (selected.length > 0) {
+      toolbar?.classList.add('active');
+      if (counter) {
+        counter.textContent = selected.length === 1
+          ? '1 partida seleccionada'
+          : `${selected.length} partidas seleccionadas`;
+      }
+      refreshBulkSectionSelect();
+    } else {
+      toolbar?.classList.remove('active');
+    }
+
+    // Estado del checkbox "seleccionar todo" (considera solo filas visibles)
+    const visibleItems = Array.from(document.querySelectorAll('#itemsBody .quote-row'))
+      .filter(r => r.style.display !== 'none');
+    const visibleSelected = visibleItems.filter(r => r.querySelector('.item-select')?.checked);
+    const checkAll = document.getElementById('selectAll');
+    if (checkAll) {
+      if (visibleItems.length === 0) {
+        checkAll.checked = false;
+        checkAll.indeterminate = false;
+      } else if (visibleSelected.length === visibleItems.length) {
+        checkAll.checked = true;
+        checkAll.indeterminate = false;
+      } else if (visibleSelected.length > 0) {
+        checkAll.checked = false;
+        checkAll.indeterminate = true;
+      } else {
+        checkAll.checked = false;
+        checkAll.indeterminate = false;
+      }
+    }
+  }
+
+  function toggleSelectAll(checkbox) {
+    // Solo afecta a partidas visibles (respeta el filtro)
+    document.querySelectorAll('#itemsBody .quote-row').forEach(r => {
+      if (r.style.display === 'none') return;
+      const cb = r.querySelector('.item-select');
+      if (cb) cb.checked = checkbox.checked;
+    });
+    updateSelectionUI();
+  }
+
+  function clearSelection() {
+    document.querySelectorAll('#itemsBody .item-select').forEach(cb => cb.checked = false);
+    updateSelectionUI();
+  }
+
+  /** Devuelve el elemento ANTES del cual debe insertarse contenido para que
+   *  caiga dentro de la sección con índice sectionIdx (según getSectionList).
+   *  Retorna null si debe agregarse al final del tbody. */
+  function getInsertionAnchor(sectionIdx) {
+    const sections = getSectionList();
+    const target = sections[sectionIdx];
+    if (!target) return null;
+    if (target.row === null) {
+      // (Sin sección): insertar antes del primer hijo del tbody
+      return document.getElementById('itemsBody').firstElementChild;
+    }
+    // Insertar después de la fila de sección, antes de la siguiente sección
+    let next = target.row.nextElementSibling;
+    while (next && !next.classList.contains('quote-section-row')) {
+      next = next.nextElementSibling;
+    }
+    return next; // null = no hay siguiente sección → append al final
+  }
+
+  function moveSelectedToSection() {
+    const selected = getSelectedItemRows();
+    if (!selected.length) return;
+    const select = document.getElementById('bulkSectionSelect');
+    const sectionIdx = parseInt(select.value);
+    if (isNaN(sectionIdx)) return;
+
+    const tbody = document.getElementById('itemsBody');
+    let anchor = getInsertionAnchor(sectionIdx);
+    // Saltar anchors que sean parte de la selección (evita inserciones que se
+    // mueven solas y conserva el orden relativo)
+    while (anchor && selected.includes(anchor)) {
+      anchor = anchor.nextElementSibling;
+    }
+
+    selected.forEach(row => {
+      if (anchor) tbody.insertBefore(row, anchor);
+      else tbody.appendChild(row);
+    });
+
+    syncItemSections();
+    updateTotals();
+    clearSelection();
+    if (typeof applyPartidaFilter === 'function') applyPartidaFilter();
+  }
+
+  /** Copia los valores actuales (.value) de los inputs del row origen al destino,
+   *  ya que cloneNode(true) NO copia los valores escritos vía JS, solo atributos. */
+  function copyInputValues(srcRow, destRow) {
+    const srcInputs  = srcRow.querySelectorAll('input, textarea, select');
+    const destInputs = destRow.querySelectorAll('input, textarea, select');
+    srcInputs.forEach((src, i) => {
+      const dest = destInputs[i];
+      if (!dest) return;
+      if (src.type === 'checkbox' || src.type === 'radio') {
+        dest.checked = src.checked;
+      } else if (src.tagName === 'SELECT') {
+        dest.value = src.value;
+      } else {
+        dest.value = src.value;
+      }
+    });
+  }
+
+  function copySelectedToSection() {
+    const selected = getSelectedItemRows();
+    if (!selected.length) return;
+    const select = document.getElementById('bulkSectionSelect');
+    const sectionIdx = parseInt(select.value);
+    if (isNaN(sectionIdx)) return;
+
+    const tbody = document.getElementById('itemsBody');
+    const anchor = getInsertionAnchor(sectionIdx);
+
+    selected.forEach(row => {
+      const clone = row.cloneNode(true);
+      copyInputValues(row, clone);
+      // Limpiar estados que no deben heredarse en la copia
+      clone.classList.remove('drop-target', 'dragging', 'row-selected');
+      const cb = clone.querySelector('.item-select');
+      if (cb) cb.checked = false;
+      // Cerrar cualquier dropdown de autocomplete clonado
+      const dd = clone.querySelector('.ac-dropdown');
+      if (dd) { dd.classList.remove('ac-open'); dd.innerHTML = ''; }
+      if (anchor) tbody.insertBefore(clone, anchor);
+      else tbody.appendChild(clone);
+    });
+
+    syncItemSections();
+    updateTotals();
+    clearSelection();
+    if (typeof applyPartidaFilter === 'function') applyPartidaFilter();
+  }
+
+  function deleteSelectedRows() {
+    const selected = getSelectedItemRows();
+    if (!selected.length) return;
+    const msg = selected.length === 1
+      ? '¿Eliminar la partida seleccionada?'
+      : `¿Eliminar las ${selected.length} partidas seleccionadas?`;
+    if (!confirm(msg)) return;
+    selected.forEach(row => row.remove());
+    syncItemSections();
+    updateTotals();
+    updateSelectionUI();
+    if (typeof applyPartidaFilter === 'function') applyPartidaFilter();
   }
   function syncItemSections() {
     let currentSection = "";
@@ -648,6 +926,7 @@
     updateNum();
     {% endif %}
     syncStickyItemsOffsets();
+    updateSelectionUI();
   });
   window.addEventListener("resize", syncStickyItemsOffsets);
 
@@ -903,6 +1182,9 @@
         _acSearch(e.target);
       } else if (e.target.name === "item_unit[]" || e.target.name === "item_price[]") {
         clearCatalogLink(e.target.closest("tr"));
+      } else if (e.target.classList.contains("section-title-input")) {
+        // Refrescar el dropdown de la barra masiva si el usuario renombra una sección
+        if (typeof refreshBulkSectionSelect === "function") refreshBulkSectionSelect();
       }
     });
 
@@ -1083,6 +1365,9 @@
     counter.textContent = tokens.length
       ? `(${visible}/${total} visibles)`
       : (total ? `(${total} partida${total === 1 ? "" : "s"})` : "");
+
+    // Sincroniza el checkbox "seleccionar todo" con la nueva visibilidad
+    if (typeof updateSelectionUI === "function") updateSelectionUI();
   }
 
   document.addEventListener("DOMContentLoaded", () => {

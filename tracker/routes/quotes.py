@@ -1,7 +1,6 @@
-import io
 import os
 
-from flask import Blueprint, flash, redirect, render_template, request, send_file, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 from ..catalog import catalog_maps, hydrate_quote, next_quote_number, quote_type_key, safe_float
 from ..deletions import purge_deleted_catalog_items_from_record
@@ -189,18 +188,58 @@ def quote_pdf(project_id, quote_id):
 
 @bp.route("/projects/<project_id>/quote/<quote_id>/excel", endpoint="quote_excel")
 def quote_excel(project_id, quote_id):
-    """Genera y descarga la cotización como archivo Excel (.xlsx)."""
-    from openpyxl import Workbook
-    from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
+    """Genera la cotización como Excel y la guarda en la carpeta Drive del proyecto."""
+    try:
+        from openpyxl import Workbook
+        from openpyxl.styles import Alignment, Font
+    except ImportError as exc:
+        flash(
+            "openpyxl no está instalado. Reinicia la app con INICIAR.bat "
+            f"para instalar dependencias. Detalle: {exc}",
+            "danger",
+        )
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
 
     project = next((item for item in load("projects") if item["id"] == project_id), None)
     quote = next((item for item in load("quotes") if item["id"] == quote_id), None)
     if not project or not quote:
         flash("Cotización no encontrada.", "danger")
         return redirect(url_for("dashboard"))
+
+    # Resolver carpeta Drive del proyecto (igual que quote_pdf)
+    cfg = load_config()
+    root = active_drive_paths(cfg)["projects"]
+    drive_folder = folder_name(project)
+    project_folder = os.path.join(root, drive_folder) if root else None
+    if not project_folder or not os.path.isdir(project_folder):
+        flash("Carpeta del proyecto no encontrada en Drive. Verifica Ajustes.", "danger")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+    try:
+        wb, filename = _build_quote_workbook(project, quote, Workbook, Alignment, Font)
+        excel_path = os.path.join(project_folder, filename)
+        wb.save(excel_path)
+        flash(f"Excel generado en Drive: {filename}", "success")
+    except Exception as exc:
+        try:
+            from flask import current_app
+            current_app.logger.exception("Error generando Excel de cotización")
+        except Exception:
+            import traceback
+            traceback.print_exc()
+        flash(f"Error al generar Excel: {type(exc).__name__}: {exc}", "danger")
+    return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+
+def _build_quote_workbook(project, quote, Workbook, Alignment, Font):
+    """Construye el workbook Excel de la cotización.
+
+    Devuelve (wb, filename) para que el caller decida cómo persistirlo.
+    """
     hydrated = hydrate_quote(quote, *catalog_maps())
     sections = hydrated.get("sections", [])
     has_sections = any(section.get("name") for section in sections)
+    filename = f"{hydrated.get('quote_number', 'cotizacion')}.xlsx"
 
     wb = Workbook()
     ws = wb.active
@@ -250,7 +289,6 @@ def quote_excel(project_id, quote_id):
 
     # ── Artículos ───────────────────────────────────────────────────────────
     row_num = 0
-    currency = hydrated.get("currency", "")
     for section in sections:
         if section.get("name"):
             section_row = [""] * total_col
@@ -283,7 +321,6 @@ def quote_excel(project_id, quote_id):
                     price,
                     total,
                 ])
-            # Alinear números
             r = ws.max_row
             ws.cell(row=r, column=qty_col).alignment = Alignment(horizontal="right")
             ws.cell(row=r, column=price_col).alignment = Alignment(horizontal="right")
@@ -328,14 +365,4 @@ def quote_excel(project_id, quote_id):
             ws.cell(row=r, column=subtotal_label_col).font = Font(bold=True)
             ws.cell(row=r, column=total_col).font = Font(bold=True)
 
-    # ── Serializar y enviar ─────────────────────────────────────────────────
-    buf = io.BytesIO()
-    wb.save(buf)
-    buf.seek(0)
-    filename = f"{hydrated.get('quote_number', 'cotizacion')}.xlsx"
-    return send_file(
-        buf,
-        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        as_attachment=True,
-        download_name=filename,
-    )
+    return wb, filename

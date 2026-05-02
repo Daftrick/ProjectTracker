@@ -233,5 +233,46 @@ class ComputeConsistencyTest(unittest.TestCase):
         self.assertEqual(report["quote_subtotal"], 10)
 
 
+class LowMarginAndActionsTest(unittest.TestCase):
+    def test_detects_low_margin_without_below_cost(self):
+        quote = _quote("A", "General", "2026-04-01", [
+            _q_item("CAT-LOW", 10, 100),
+        ])
+        ldm = _ldm("L1", [
+            _l_item("CAT-LOW", 10, 75),  # margen unitario 25 %
+        ])
+        q_linked, _ = cn.aggregate_quote_items(quote)
+        l_linked, _ = cn.aggregate_ldm_items([ldm])
+
+        rows = cn.compare_items(q_linked, l_linked, catalog_by_id={})
+        row = rows[0]
+        self.assertIn("low_margin", row["issues"])
+        self.assertNotIn("below_cost", row["issues"])
+        self.assertEqual(row["status"], "warning")
+        self.assertEqual(row["margin_unit"], 25)
+        self.assertEqual(row["margin_unit_pct"], 25.0)
+        self.assertEqual(row["primary_action"]["issue"], "low_margin")
+
+    def test_report_includes_suggested_actions_and_linked_totals(self):
+        quote = _quote("Q1", "General", "2026-04-01", [
+            _q_item("CAT-1", 1, 100),
+            _q_item("", 1, 50, description="Manual COT"),
+        ])
+        ldm = _ldm("L1", [
+            _l_item("CAT-1", 1, 95),  # low_margin
+            _l_item("", 1, 30, description="Manual LDM"),
+        ])
+        report = cn.compute_consistency(PROJECT, [quote], [ldm], catalog_by_id={})
+        self.assertEqual(report["quote_linked_total"], 100)
+        self.assertEqual(report["ldm_linked_total"], 95)
+        self.assertEqual(report["quote_unlinked_total"], 50)
+        self.assertEqual(report["ldm_unlinked_total"], 30)
+        self.assertEqual(report["summary"]["low_margin"], 1)
+        issues = [item["issue"] for item in report["suggested_actions"]]
+        self.assertIn("low_margin", issues)
+        self.assertIn("quote_unlinked", issues)
+        self.assertIn("ldm_unlinked", issues)
+
+
 if __name__ == "__main__":
     unittest.main()

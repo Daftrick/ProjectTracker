@@ -4021,5 +4021,50 @@
     "precio": 0.0,
     "created_at": "2026-04-26",
     "categoria": ""
+  },
+  {
+    "id": "6CA7BF58",
+    "nombre": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+    "descripcion": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "lote",
+    "precio": 1950.0,
+    "categoria": "Iluminación",
+    "created_at": "2026-04-30"
+  },
+  {
+    "id": "5C329F0A",
+    "nombre": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+    "descripcion": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "lote",
+    "precio": 2750.0,
+    "categoria": "Contactos",
+    "created_at": "2026-04-30"
+  },
+  {
+    "id": "C65CCA87",
+    "nombre": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 250.0,
+    "categoria": "Mano de Obra",
+    "created_at": "2026-04-30"
+  },
+  {
+    "id": "374DD97B",
+    "nombre": "Desarrollo de Circuito Eléctrico para HVAC | 20 [m] | Sin Tubería",
+    "descripcion": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 8 AWG | 10 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "lote",
+    "precio": 4135.0,
+    "categoria": "HVAC",
+    "created_at": "2026-04-30"
+  },
+  {
+    "id": "541DE8C0",
+    "nombre": "Ranurado en Muro",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "ml",
+    "precio": 100.0,
+    "categoria": "Mano de Obra",
+    "created_at": "2026-04-30"
   }
 ]

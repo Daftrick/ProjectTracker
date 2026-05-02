@@ -333,5 +333,1716 @@
     "currency": "MXN",
     "notes": "",
     "created_at": "2026-04-23"
+  },
+  {
+    "id": "3D859973",
+    "project_id": "BCBDACF2",
+    "quote_number": "COT-IE-005-Tepeapulco-G01-20260430",
+    "quote_type": "General",
+    "version": "V1",
+    "client": "Cliente Privado",
+    "project_name": "Casa Tepeapulco",
+    "date": "2026-04-30",
+    "valid_until": "2026-05-08",
+    "items": [
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 6.0,
+        "price": 900.0,
+        "total": 5400.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 10.0,
+        "price": 1100.0,
+        "total": 11000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 750.0,
+        "total": 2250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "DF89D08C",
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 2100.0,
+        "total": 4200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "C8D6402B",
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 650.0,
+        "total": 650.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "541DE8C0",
+        "description": "Ranurado en Muro",
+        "unit": "ml",
+        "qty": 15.0,
+        "price": 100.0,
+        "total": 1500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 2.0,
+        "price": 2750.0,
+        "total": 5500.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 1950.0,
+        "total": 1950.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "374DD97B",
+        "description": "Desarrollo de Circuito Eléctrico para HVAC | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 2.0,
+        "price": 4135.0,
+        "total": 8270.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 8 AWG | 10 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 35.0,
+        "price": 250.0,
+        "total": 8750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 16.0,
+        "price": 900.0,
+        "total": 14400.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAñO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 1100.0,
+        "total": 5500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAñO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 750.0,
+        "total": 3750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAñO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 3.0,
+        "price": 2750.0,
+        "total": 8250.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "BAñO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 2.0,
+        "price": 1950.0,
+        "total": 3900.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "BAñO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 25.0,
+        "price": 250.0,
+        "total": 6250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAñO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 900.0,
+        "total": 7200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 1 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 1100.0,
+        "total": 16500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 1 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 750.0,
+        "total": 3750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 1 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "DF89D08C",
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 2100.0,
+        "total": 2100.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 1 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "C8D6402B",
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 650.0,
+        "total": 650.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 1 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "541DE8C0",
+        "description": "Ranurado en Muro",
+        "unit": "ml",
+        "qty": 20.0,
+        "price": 100.0,
+        "total": 2000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 1 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 3.0,
+        "price": 2750.0,
+        "total": 8250.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 1 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 2.0,
+        "price": 1950.0,
+        "total": 3900.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 1 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "374DD97B",
+        "description": "Desarrollo de Circuito Eléctrico para HVAC | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 4135.0,
+        "total": 4135.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 8 AWG | 10 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 1 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 250.0,
+        "total": 3750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 1 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 900.0,
+        "total": 7200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARA 2 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 1100.0,
+        "total": 16500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARA 2 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 750.0,
+        "total": 3750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARA 2 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "DF89D08C",
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 2100.0,
+        "total": 2100.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARA 2 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "C8D6402B",
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 650.0,
+        "total": 650.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARA 2 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "541DE8C0",
+        "description": "Ranurado en Muro",
+        "unit": "ml",
+        "qty": 20.0,
+        "price": 100.0,
+        "total": 2000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARA 2 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 2.0,
+        "price": 2750.0,
+        "total": 5500.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARA 2 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 2.0,
+        "price": 1950.0,
+        "total": 3900.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARA 2 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "374DD97B",
+        "description": "Desarrollo de Circuito Eléctrico para HVAC | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 4135.0,
+        "total": 4135.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 8 AWG | 10 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARA 2 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 250.0,
+        "total": 3750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARA 2 - BAÑO Y PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 900.0,
+        "total": 7200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 3"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 10.0,
+        "price": 1100.0,
+        "total": 11000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 3"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 750.0,
+        "total": 2250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 3"
+      },
+      {
+        "catalog_item_id": "DF89D08C",
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 2100.0,
+        "total": 2100.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 3"
+      },
+      {
+        "catalog_item_id": "C8D6402B",
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 650.0,
+        "total": 650.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 3"
+      },
+      {
+        "catalog_item_id": "541DE8C0",
+        "description": "Ranurado en Muro",
+        "unit": "ml",
+        "qty": 15.0,
+        "price": 100.0,
+        "total": 1500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 3"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 2750.0,
+        "total": 2750.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 3"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 1950.0,
+        "total": 1950.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 3"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 10.0,
+        "price": 250.0,
+        "total": 2500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA SECUNDARIA 3"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 10.0,
+        "price": 900.0,
+        "total": 9000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "COMEDOR"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 6.0,
+        "price": 1100.0,
+        "total": 6600.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "COMEDOR"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 750.0,
+        "total": 1500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "COMEDOR"
+      },
+      {
+        "catalog_item_id": "DF89D08C",
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 2100.0,
+        "total": 2100.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "COMEDOR"
+      },
+      {
+        "catalog_item_id": "C8D6402B",
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 650.0,
+        "total": 650.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "COMEDOR"
+      },
+      {
+        "catalog_item_id": "541DE8C0",
+        "description": "Ranurado en Muro",
+        "unit": "ml",
+        "qty": 20.0,
+        "price": 100.0,
+        "total": 2000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "COMEDOR"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 2.0,
+        "price": 2750.0,
+        "total": 5500.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "COMEDOR"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 1950.0,
+        "total": 1950.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "COMEDOR"
+      },
+      {
+        "catalog_item_id": "374DD97B",
+        "description": "Desarrollo de Circuito Eléctrico para HVAC | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 4135.0,
+        "total": 4135.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 8 AWG | 10 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "COMEDOR"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 20.0,
+        "price": 250.0,
+        "total": 5000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "COMEDOR"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 10.0,
+        "price": 900.0,
+        "total": 9000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE SERVICIOS PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 1100.0,
+        "total": 8800.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE SERVICIOS PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 750.0,
+        "total": 2250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE SERVICIOS PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "DF89D08C",
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 2100.0,
+        "total": 2100.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE SERVICIOS PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "C8D6402B",
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 650.0,
+        "total": 650.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE SERVICIOS PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "541DE8C0",
+        "description": "Ranurado en Muro",
+        "unit": "ml",
+        "qty": 15.0,
+        "price": 100.0,
+        "total": 1500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE SERVICIOS PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 2.0,
+        "price": 2750.0,
+        "total": 5500.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE SERVICIOS PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 2.0,
+        "price": 1950.0,
+        "total": 3900.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE SERVICIOS PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "374DD97B",
+        "description": "Desarrollo de Circuito Eléctrico para HVAC | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 4135.0,
+        "total": 4135.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 8 AWG | 10 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE SERVICIOS PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 250.0,
+        "total": 3750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE SERVICIOS PLANTA ALTA"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 900.0,
+        "total": 13500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE CINE SÓTANO"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 10.0,
+        "price": 1100.0,
+        "total": 11000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE CINE SÓTANO"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 750.0,
+        "total": 3750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE CINE SÓTANO"
+      },
+      {
+        "catalog_item_id": "DF89D08C",
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 2100.0,
+        "total": 2100.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE CINE SÓTANO"
+      },
+      {
+        "catalog_item_id": "C8D6402B",
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 650.0,
+        "total": 650.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE CINE SÓTANO"
+      },
+      {
+        "catalog_item_id": "541DE8C0",
+        "description": "Ranurado en Muro",
+        "unit": "ml",
+        "qty": 25.0,
+        "price": 100.0,
+        "total": 2500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE CINE SÓTANO"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 3.0,
+        "price": 2750.0,
+        "total": 8250.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE CINE SÓTANO"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 2.0,
+        "price": 1950.0,
+        "total": 3900.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE CINE SÓTANO"
+      },
+      {
+        "catalog_item_id": "374DD97B",
+        "description": "Desarrollo de Circuito Eléctrico para HVAC | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 4135.0,
+        "total": 4135.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 8 AWG | 10 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE CINE SÓTANO"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 250.0,
+        "total": 3750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "RECÁMARA DE CINE SÓTANO"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 25.0,
+        "price": 900.0,
+        "total": 22500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "COCINA"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 1100.0,
+        "total": 16500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "COCINA"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 4.0,
+        "price": 750.0,
+        "total": 3000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "COCINA"
+      },
+      {
+        "catalog_item_id": "DF89D08C",
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 2100.0,
+        "total": 2100.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "COCINA"
+      },
+      {
+        "catalog_item_id": "C8D6402B",
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 650.0,
+        "total": 650.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "COCINA"
+      },
+      {
+        "catalog_item_id": "541DE8C0",
+        "description": "Ranurado en Muro",
+        "unit": "ml",
+        "qty": 20.0,
+        "price": 100.0,
+        "total": 2000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "COCINA"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 6.0,
+        "price": 2750.0,
+        "total": 16500.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "COCINA"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 3.0,
+        "price": 1950.0,
+        "total": 5850.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "COCINA"
+      },
+      {
+        "catalog_item_id": "374DD97B",
+        "description": "Desarrollo de Circuito Eléctrico para HVAC | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 4135.0,
+        "total": 4135.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 8 AWG | 10 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "COCINA"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 35.0,
+        "price": 250.0,
+        "total": 8750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "COCINA"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 18.0,
+        "price": 900.0,
+        "total": 16200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 1100.0,
+        "total": 5500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 750.0,
+        "total": 1500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "DF89D08C",
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 2100.0,
+        "total": 6300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "C8D6402B",
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 650.0,
+        "total": 1950.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "541DE8C0",
+        "description": "Ranurado en Muro",
+        "unit": "ml",
+        "qty": 20.0,
+        "price": 100.0,
+        "total": 2000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 2.0,
+        "price": 2750.0,
+        "total": 5500.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 1950.0,
+        "total": 1950.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "374DD97B",
+        "description": "Desarrollo de Circuito Eléctrico para HVAC | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 3.0,
+        "price": 4135.0,
+        "total": 12405.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 8 AWG | 10 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 25.0,
+        "price": 250.0,
+        "total": 6250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 6.0,
+        "price": 900.0,
+        "total": 5400.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "VESTÍBULO"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 1100.0,
+        "total": 3300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "VESTÍBULO"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 750.0,
+        "total": 750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "VESTÍBULO"
+      },
+      {
+        "catalog_item_id": "541DE8C0",
+        "description": "Ranurado en Muro",
+        "unit": "ml",
+        "qty": 10.0,
+        "price": 100.0,
+        "total": 1000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "VESTÍBULO"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 2750.0,
+        "total": 2750.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "VESTÍBULO"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 1950.0,
+        "total": 1950.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "VESTÍBULO"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 10.0,
+        "price": 250.0,
+        "total": 2500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "VESTÍBULO"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 20.0,
+        "price": 900.0,
+        "total": 18000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "DESPACHO"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 1100.0,
+        "total": 8800.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "DESPACHO"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 750.0,
+        "total": 2250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "DESPACHO"
+      },
+      {
+        "catalog_item_id": "DF89D08C",
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 2100.0,
+        "total": 2100.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "DESPACHO"
+      },
+      {
+        "catalog_item_id": "C8D6402B",
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 650.0,
+        "total": 650.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "DESPACHO"
+      },
+      {
+        "catalog_item_id": "541DE8C0",
+        "description": "Ranurado en Muro",
+        "unit": "ml",
+        "qty": 10.0,
+        "price": 100.0,
+        "total": 1000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "DESPACHO"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 2.0,
+        "price": 2750.0,
+        "total": 5500.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "DESPACHO"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 2.0,
+        "price": 1950.0,
+        "total": 3900.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "DESPACHO"
+      },
+      {
+        "catalog_item_id": "374DD97B",
+        "description": "Desarrollo de Circuito Eléctrico para HVAC | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 4135.0,
+        "total": 4135.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 8 AWG | 10 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "DESPACHO"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 250.0,
+        "total": 250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "DESPACHO"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 18.0,
+        "price": 900.0,
+        "total": 16200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 10.0,
+        "price": 1100.0,
+        "total": 11000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 750.0,
+        "total": 2250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA"
+      },
+      {
+        "catalog_item_id": "DF89D08C",
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 2100.0,
+        "total": 2100.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA"
+      },
+      {
+        "catalog_item_id": "C8D6402B",
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 650.0,
+        "total": 650.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA"
+      },
+      {
+        "catalog_item_id": "541DE8C0",
+        "description": "Ranurado en Muro",
+        "unit": "ml",
+        "qty": 5.0,
+        "price": 100.0,
+        "total": 500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 3.0,
+        "price": 2750.0,
+        "total": 8250.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "SALA"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 2.0,
+        "price": 1950.0,
+        "total": 3900.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "SALA"
+      },
+      {
+        "catalog_item_id": "374DD97B",
+        "description": "Desarrollo de Circuito Eléctrico para HVAC | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 4135.0,
+        "total": 4135.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 8 AWG | 10 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "SALA"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 250.0,
+        "total": 250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 900.0,
+        "total": 13500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "FAMILY - BAÑO Y RECÁMARA SECUNDARIA 4"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 13.0,
+        "price": 1100.0,
+        "total": 14300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "FAMILY - BAÑO Y RECÁMARA SECUNDARIA 4"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 6.0,
+        "price": 750.0,
+        "total": 4500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "FAMILY - BAÑO Y RECÁMARA SECUNDARIA 4"
+      },
+      {
+        "catalog_item_id": "DF89D08C",
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 2100.0,
+        "total": 4200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "FAMILY - BAÑO Y RECÁMARA SECUNDARIA 4"
+      },
+      {
+        "catalog_item_id": "C8D6402B",
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 650.0,
+        "total": 1300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "FAMILY - BAÑO Y RECÁMARA SECUNDARIA 4"
+      },
+      {
+        "catalog_item_id": "541DE8C0",
+        "description": "Ranurado en Muro",
+        "unit": "ml",
+        "qty": 25.0,
+        "price": 100.0,
+        "total": 2500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "FAMILY - BAÑO Y RECÁMARA SECUNDARIA 4"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 4.0,
+        "price": 2750.0,
+        "total": 11000.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "FAMILY - BAÑO Y RECÁMARA SECUNDARIA 4"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 3.0,
+        "price": 1950.0,
+        "total": 5850.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "FAMILY - BAÑO Y RECÁMARA SECUNDARIA 4"
+      },
+      {
+        "catalog_item_id": "374DD97B",
+        "description": "Desarrollo de Circuito Eléctrico para HVAC | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 2.0,
+        "price": 4135.0,
+        "total": 8270.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 8 AWG | 10 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "FAMILY - BAÑO Y RECÁMARA SECUNDARIA 4"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 30.0,
+        "price": 250.0,
+        "total": 7500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "FAMILY - BAÑO Y RECÁMARA SECUNDARIA 4"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 20.0,
+        "price": 900.0,
+        "total": 18000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ESTACIONAMIENTO - BODEGAS Y CUARTO DE CHOFERES"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 1100.0,
+        "total": 16500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ESTACIONAMIENTO - BODEGAS Y CUARTO DE CHOFERES"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 750.0,
+        "total": 6000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ESTACIONAMIENTO - BODEGAS Y CUARTO DE CHOFERES"
+      },
+      {
+        "catalog_item_id": "DF89D08C",
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 2100.0,
+        "total": 2100.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ESTACIONAMIENTO - BODEGAS Y CUARTO DE CHOFERES"
+      },
+      {
+        "catalog_item_id": "C8D6402B",
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 650.0,
+        "total": 650.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ESTACIONAMIENTO - BODEGAS Y CUARTO DE CHOFERES"
+      },
+      {
+        "catalog_item_id": "541DE8C0",
+        "description": "Ranurado en Muro",
+        "unit": "ml",
+        "qty": 25.0,
+        "price": 100.0,
+        "total": 2500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ESTACIONAMIENTO - BODEGAS Y CUARTO DE CHOFERES"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 4.0,
+        "price": 2750.0,
+        "total": 11000.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ESTACIONAMIENTO - BODEGAS Y CUARTO DE CHOFERES"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 4.0,
+        "price": 1950.0,
+        "total": 7800.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ESTACIONAMIENTO - BODEGAS Y CUARTO DE CHOFERES"
+      },
+      {
+        "catalog_item_id": "374DD97B",
+        "description": "Desarrollo de Circuito Eléctrico para HVAC | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 4135.0,
+        "total": 4135.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 8 AWG | 10 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ESTACIONAMIENTO - BODEGAS Y CUARTO DE CHOFERES"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 35.0,
+        "price": 250.0,
+        "total": 8750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ESTACIONAMIENTO - BODEGAS Y CUARTO DE CHOFERES"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 115.0,
+        "price": 900.0,
+        "total": 103500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS VERDES EXTERIORES"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 10.0,
+        "price": 1100.0,
+        "total": 11000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS VERDES EXTERIORES"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 750.0,
+        "total": 3750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS VERDES EXTERIORES"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 3.0,
+        "price": 2750.0,
+        "total": 8250.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS VERDES EXTERIORES"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 3.0,
+        "price": 1950.0,
+        "total": 5850.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS VERDES EXTERIORES"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 130.0,
+        "price": 250.0,
+        "total": 32500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS VERDES EXTERIORES"
+      },
+      {
+        "catalog_item_id": "0C4DD4A8",
+        "description": "Tubo Conduit PVC SP | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 150.0,
+        "price": 210.75,
+        "total": 31612.5,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS VERDES EXTERIORES"
+      },
+      {
+        "catalog_item_id": "18C5C03E",
+        "description": "Cable de Cobre | THHW-LS | Calibre 12 AWG",
+        "unit": "m",
+        "qty": 300.0,
+        "price": 35.85,
+        "total": 10755.0,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS VERDES EXTERIORES"
+      },
+      {
+        "catalog_item_id": "8DC8C842",
+        "description": "Cable de Cobre | THHW-LS | Calibre 6 AWG",
+        "unit": "m",
+        "qty": 180.0,
+        "price": 135.05,
+        "total": 24309.0,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS VERDES EXTERIORES"
+      },
+      {
+        "catalog_item_id": "41C2A601",
+        "description": "Cable de Cobre | Desnudo | Calibre 12 AWG",
+        "unit": "m",
+        "qty": 150.0,
+        "price": 25.95,
+        "total": 3892.5,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS VERDES EXTERIORES"
+      },
+      {
+        "catalog_item_id": "7B7F4147",
+        "description": "Cable de Cobre | Desnudo | Calibre 10 AWG",
+        "unit": "m",
+        "qty": 90.0,
+        "price": 35.95,
+        "total": 3235.5,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS VERDES EXTERIORES"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 900.0,
+        "total": 4500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 1100.0,
+        "total": 5500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 750.0,
+        "total": 1500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      },
+      {
+        "catalog_item_id": "5C329F0A",
+        "description": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 3.0,
+        "price": 2750.0,
+        "total": 8250.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 10 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      },
+      {
+        "catalog_item_id": "6CA7BF58",
+        "description": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+        "unit": "lote",
+        "qty": 1.0,
+        "price": 1950.0,
+        "total": 1950.0,
+        "catalog_description": "Omniious | 40 [m] de Cable de Cobre THHW-LS Calibre 12 AWG | 20 [m] de Cable de Cobre Desnudo Calibre 12 AWG | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      },
+      {
+        "catalog_item_id": "C65CCA87",
+        "description": "Desmontaje y/o Desmantelamiento de Salida Eléctrica",
+        "unit": "pza",
+        "qty": 10.0,
+        "price": 250.0,
+        "total": 2500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Tablero Eléctrico | NQ | NQ424AB225 | 42 Espacios | Trifásico | 3F - 4H | 225 [A] | 120/240 [V] | Interruptor Principal",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 27500.0,
+        "total": 27500.0,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Tablero Eléctrico | NQ | NQ304L400 | 30 Espacios | Trifásico | 3F - 4H | 400 [A] | 120/240 [V] | Zapatas Principales",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 22500.0,
+        "total": 22500.0,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Interruptor Termomagnético HDL36150 | 3 Polos | 150 [A] | 240 - 600 [V]",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 23000.0,
+        "total": 23000.0,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Interruptor Termomagnético QO115 | 1 Polo | 15 [A] | 120 [V]",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 295.0,
+        "total": 4425.0,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Interruptor Termomagnético QO120 | 1 Polo | 20 [A] | 120 [V]",
+        "unit": "pza",
+        "qty": 25.0,
+        "price": 295.0,
+        "total": 7375.0,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Interruptor Termomagnético QO220 | 2 Polos | 20 [A] | 240 [V]",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 870.0,
+        "total": 6960.0,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Interruptor Termomagnético QO230 | 2 Polos | 30 [A] | 240 [V]",
+        "unit": "pza",
+        "qty": 6.0,
+        "price": 870.0,
+        "total": 5220.0,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Interruptor Termomagnético QO3100 | 3 Polos | 100 [A] | 240 [V]",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 11295.0,
+        "total": 11295.0,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Cable de Cobre | THHW-LS | Calibre 2/0 AWG",
+        "unit": "m",
+        "qty": 200.0,
+        "price": 645.95,
+        "total": 129190.0,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Cable de Cobre | Desnudo | Calibre 8 AWG",
+        "unit": "m",
+        "qty": 50.0,
+        "price": 55.65,
+        "total": 2782.5,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "CUARTO DE SERVICIOS"
+      }
+    ],
+    "subtotal": 1267162.0,
+    "tax_rate": 16.0,
+    "tax": 202745.92,
+    "total": 1469907.92,
+    "currency": "MXN",
+    "notes": "",
+    "project_basis_note": "",
+    "created_at": "2026-04-30"
   }
 ]
