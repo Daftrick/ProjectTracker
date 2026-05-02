@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v21.0 — 02-May-2026
+## Versión actual: v21.1 — 02-May-2026
 
 ---
 
@@ -65,7 +65,9 @@ ProjectTracker/
 │   ├── services.py             # Lógica de negocio pura: crear proyectos+tareas, sincronizar alcances, cambiar status
 │   ├── catalog.py              # hydrate_quote/ldm, catalog_maps, parse_*_items, quote_type_key/code, migrate_catalog_fields
 │   ├── catalog_search.py       # tokenize, match_item, filter_catalog, list_categories (búsqueda por tokens AND + categoría)
-│   ├── consistency.py          # compute_consistency, compare_items por catalog_item_id (margen 30%/0%)
+│   ├── consistency.py          # compute_consistency, compare_items por catalog_item_id + consistencia técnica por bundles
+│   ├── bundles.py              # Bundles manuales versionados vinculados a artículos de catálogo
+│   ├── comparison_rules.py     # Reglas de comparación/conversión COT↔LDM por artículo
 │   ├── csv_import.py           # Parser CSV para importar exportaciones LISP como LDM
 │   ├── validators.py           # validate_project_form, validate_quote_form, validate_ldm_form
 │   ├── pdfs.py                 # build_quote_pdf, build_ldm_pdf (fpdf2); logo desde Drive o .codex_tmp
@@ -84,6 +86,8 @@ ProjectTracker/
 │   ├── deliveries.json
 │   ├── quotes.json
 │   ├── materiales.json         # LDMs (Listas de Materiales)
+│   ├── bundles.json            # Bundles/versiones/componentes por artículo de catálogo
+│   ├── comparison_rules.json   # Reglas de equivalencia COT↔LDM y conversiones de unidad
 │   ├── fichas.json             # Fichas técnicas de equipos
 │   ├── catalogo.json           # Catálogo maestro de artículos con precios
 │   ├── proveedores.json
@@ -99,6 +103,8 @@ ProjectTracker/
 │   ├── quote_project_detail.html # Vista detalle cotización
 │   ├── ldm_form.html           # Alta/edición LDM
 │   ├── catalogo.html           # CRUD catálogo maestro
+│   ├── bundles.html            # CRUD de bundles, versiones y componentes
+│   ├── comparison_rules.html   # CRUD de reglas de comparación COT/LDM
 │   ├── proveedores.html        # CRUD proveedores
 │   ├── fichas.html             # CRUD fichas técnicas globales
 │   ├── team.html               # CRUD equipo
@@ -160,6 +166,26 @@ Item: `{catalog_item_id, description, unit, qty, precio_cot, total_cot, qty_csv,
 id, nombre, descripcion, unidad, precio, categoria, created_at
 ```
 IDs son UUID de 8 chars en mayúsculas. Artículos se vinculan a items de COT y LDM por `catalog_item_id`. El campo `categoria` es libre (con datalist sugerido) y se migra suavemente vía `migrate_catalog_fields()` al arranque.
+
+### Bundle (`bundles.json`)
+```
+id, catalog_item_id, name, active_version, created_at, updated_at, versions[]
+```
+Versión de bundle:
+```
+version, label, status (draft|active|archived), notes, components[], created_at, updated_at
+```
+Componente:
+```
+catalog_item_id, qty, waste_pct, comparison_rule_id, notes
+```
+Los bundles son manuales y se vinculan al artículo comercial de catálogo usado en COT. La cotización no se expande al guardar; la expansión ocurre durante el análisis de consistencia técnica.
+
+### Regla de comparación (`comparison_rules.json`)
+```
+id, name, cot_catalog_item_id, ldm_catalog_item_id, cot_unit, ldm_unit, factor, direction, rounding, tolerance_pct, active, notes, created_at, updated_at
+```
+Permite comparar artículos equivalentes con unidades distintas. Ejemplo: COT cotiza tubería por metro lineal y LDM compra piezas/tramos; una regla puede convertir `pza × 3.0 = ml equivalente`.
 
 ### Proveedor (`proveedores.json`)
 ```
@@ -237,6 +263,11 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | Consistencia | Reporte automatizado COT vs LDM por proyecto: cotización General más reciente vs suma de costos LDM, agregación por `catalog_item_id`, margen %, status (ok/warning/critical) con umbrales 30%/0% | `consistency.py` |
 | Consistencia | KPI clickeable en cada card del dashboard con margen % y badge de estado | `dashboard.html` |
 | Consistencia | Tab dedicado en detalle de proyecto con totales, badges de issues y tabla por artículo (qty COT vs LDM, precio venta vs costo promedio ponderado, margen unitario, etiquetas missing_in_ldm/missing_in_cot/qty_mismatch/below_cost) | `project_detail.html` |
+| Consistencia | Auditoría visual ampliada: acciones sugeridas, margen bajo por artículo, totales ligados/no ligados a catálogo y filtros locales de issues | `consistency.py` + `project_detail.html` |
+| Bundles | Núcleo de bundles manuales versionados: crear bundle, agregar/activar/eliminar versiones, expandir COT a materiales esperados y validar componentes | `bundles.py` |
+| Reglas COT/LDM | Conversión técnica entre artículos equivalentes con unidades distintas, factor, dirección, redondeo y tolerancia | `comparison_rules.py` |
+| Consistencia técnica | Comparación de materiales esperados por bundles contra LDM real, con equivalencias COT↔LDM, faltantes, excedentes, extras, componentes inválidos y trazabilidad | `consistency.py` + `project_detail.html` |
+| Admin | CRUD visual de bundles, versiones, componentes y reglas de comparación COT/LDM | `routes/admin.py` + `bundles.html` + `comparison_rules.html` |
 | Proveedores | CRUD + búsqueda | `routes/admin.py` |
 | Fichas | CRUD global + vinculación a proyectos | `routes/admin.py` |
 | Equipo | CRUD miembros | `routes/admin.py` |
@@ -309,6 +340,17 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | GET | `/api/catalogo` | `api_catalogo` | Buscar artículos (JSON, max 50, tokens AND + filtro `categoria`) |
 | GET | `/api/catalogo/categorias` | `api_catalogo_categorias` | Lista única de categorías existentes (JSON) |
 | POST | `/api/catalogo/add` | `api_catalogo_add` | Agregar artículo vía JSON (acepta `categoria`) |
+| GET/POST | `/bundles` | `bundles` | CRUD/listado de bundles |
+| POST | `/bundles/<id>/update` | `update_bundle` | Editar datos generales del bundle |
+| POST | `/bundles/<id>/delete` | `delete_bundle` | Eliminar bundle completo |
+| POST | `/bundles/<id>/versions/<version>/update` | `update_bundle_version` | Editar versión y componentes |
+| POST | `/bundles/<id>/versions/add` | `add_bundle_version_route` | Duplicar/agregar versión de bundle |
+| POST | `/bundles/<id>/versions/<version>/activate` | `activate_bundle_version_route` | Activar versión de bundle |
+| POST | `/bundles/<id>/versions/<version>/delete` | `delete_bundle_version_route` | Eliminar versión de bundle |
+| GET/POST | `/comparison-rules` | `comparison_rules` | CRUD/listado de reglas COT/LDM |
+| POST | `/comparison-rules/<id>/edit` | `edit_comparison_rule` | Editar regla de comparación |
+| POST | `/comparison-rules/<id>/toggle` | `toggle_comparison_rule` | Activar/desactivar regla |
+| POST | `/comparison-rules/<id>/delete` | `delete_comparison_rule` | Eliminar regla |
 | GET/POST | `/proveedores` | `proveedores` | CRUD proveedores |
 | POST | `/proveedores/<id>/edit` | `edit_proveedor` | Editar proveedor |
 | POST | `/proveedores/<id>/delete` | `delete_proveedor` | Eliminar proveedor |
@@ -335,6 +377,8 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | `quote_project_detail.html` | `GET /projects/<id>/quote/<qid>/view` |
 | `ldm_form.html` | `GET/POST /projects/<id>/ldm/new`, `.../ldm/import/<filename>` y `.../edit` |
 | `catalogo.html` | `GET/POST /catalogo` |
+| `bundles.html` | `GET/POST /bundles`, edición de versiones/componentes |
+| `comparison_rules.html` | `GET/POST /comparison-rules` |
 | `proveedores.html` | `GET/POST /proveedores` |
 | `fichas.html` | `GET/POST /fichas` |
 | `team.html` | `GET/POST /team` |
@@ -425,10 +469,11 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
-| 2026-05-02 | Versión bumped v19.0 → v20.0 (feature: UI Admin para bundles versionados y reglas de comparación COT/LDM; nuevas pantallas `/bundles` y `/comparison-rules`, navegación lateral y pruebas smoke de rutas) |
-| 2026-05-02 | Versión bumped v20.0 → v21.0 (feature: visualización de consistencia técnica por bundles en detalle de proyecto, con materiales esperados vs LDM equivalente, trazabilidad de origen y filtros locales) |
-| 2026-05-02 | Fase 2 bundles: CRUD visual para crear/eliminar bundles, editar datos generales, duplicar versiones, activar/eliminar versiones y editar componentes por versión con cantidades, merma y regla opcional. |
-| 2026-05-02 | Fase 2 reglas COT/LDM: CRUD visual para relacionar artículo COT esperado contra artículo LDM real, con factor, dirección, redondeo, tolerancia, activación/desactivación y notas. |
+| 2026-05-02 | Versión bumped v21.0 → v21.1 (patch: hardening del tab Consistencia técnica para evitar errores de render con datos incompletos en algunos proyectos; se agregan defaults seguros para `bundle_consistency`, filas, summary, trazabilidad y valores nulos). |
+| 2026-05-02 | Versión bumped v20.0 → v21.0 (feature: visualización de consistencia técnica por bundles en detalle de proyecto, con materiales esperados vs LDM equivalente, trazabilidad de origen, filtros locales, alertas de datos incompletos y badge de severidad técnica). |
+| 2026-05-02 | Versión bumped v19.0 → v20.0 (feature: UI Admin para bundles versionados y reglas de comparación COT/LDM; nuevas pantallas `/bundles` y `/comparison-rules`, navegación lateral y pruebas smoke de rutas). |
+| 2026-05-02 | Versión bumped v18.0 → v19.0 (feature: núcleo de bundles manuales versionados + reglas de comparación técnica COT/LDM; agrega `bundles.py`, `comparison_rules.py`, `data/bundles.json`, `data/comparison_rules.json` y pruebas puras). |
+| 2026-05-02 | Versión bumped v17.1 → v18.0 (feature: auditoría visual ampliada de consistencia COT/LDM con margen bajo por artículo, acciones sugeridas, totales ligados/no ligados a catálogo y filtros locales de issues). |
 | 2026-04-24 | Refactorización de `app.py` monolito → blueprints (`routes/projects`, `quotes`, `materials`, `admin`) |
 | 2026-04-24 | Extracción de lógica de negocio a `tracker/services.py` (crear proyecto+tareas, sync alcances, cambio status) |
 | 2026-04-24 | Adición de `tracker/validators.py` con validadores reutilizables para proyecto, cotización y LDM |
@@ -555,14 +600,17 @@ Reglas de portada PDF:
 ## Pendientes / En desarrollo
 
 **Alta prioridad:**
-- Sin pendientes críticos abiertos; siguiente foco recomendado: consistencia COT/LDM y auditoría visual de renglones marcados como catálogo eliminado en datos históricos.
+- Probar bundles reales en proyectos existentes y ajustar reglas de equivalencia COT/LDM.
+- Revisar trazabilidad técnica cuando existan partidas COT sin bundle, LDMs sin `catalog_item_id` o reglas faltantes.
+- Mantener auditoría de datos históricos con artículos de catálogo eliminados.
 
 **Media prioridad (ver `ROADMAP_MEJORAS.md`):**
-- Confirmaciones más finas en acciones destructivas
-- Mejoras de codificación/acentos en PDFs generados
+- Confirmaciones más finas en acciones destructivas.
+- Mejoras de codificación/acentos en vistas y PDFs generados.
+- Mejoras visuales adicionales al editor de bundles/reglas si el catálogo crece.
 
 **Baja prioridad:**
-- Mejor integración con Drive (crear carpetas automáticamente)
+- Mejor integración con Drive y reportes exportables de consistencia técnica.
 
 ---
 

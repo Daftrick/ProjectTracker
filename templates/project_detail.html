@@ -968,9 +968,13 @@
 
   <!-- Consistencia técnica por bundles -->
   {% set tech = cn.bundle_consistency|default({}) %}
-  {% set tech_status = tech.status|default('no_data') %}
+  {% set tech_status = tech.status|default('no_data', true) %}
   {% set tech_summary = tech.summary|default({}) %}
   {% set tech_rows = tech.rows|default([]) %}
+  {% set tech_ldm_unlinked = tech.ldm_unlinked|default({'count': 0, 'total': 0}) %}
+  {% set tech_bundle_quote_items = tech.bundle_quote_items|default([]) %}
+  {% set tech_unmapped_quote_items = tech.unmapped_quote_items|default([]) %}
+  {% set tech_invalid_components = tech.invalid_components|default([]) %}
   {% set tech_color = status_color_map.get(tech_status, 'secondary') %}
   {% set tech_icon = status_icon_map.get(tech_status, 'info-circle') %}
   <div class="card mb-3">
@@ -980,8 +984,8 @@
         Consistencia técnica por bundles
       </span>
       <div class="d-flex align-items-center gap-2 flex-wrap">
-        {% if tech.bundle_quote_items %}
-          <span class="badge bg-light text-dark border">{{ tech.bundle_quote_items|length }} partida(s) COT con bundle</span>
+        {% if tech_bundle_quote_items %}
+          <span class="badge bg-light text-dark border">{{ tech_bundle_quote_items|length }} partida(s) COT con bundle</span>
         {% endif %}
         <span class="badge bg-{{ tech_color }}{% if tech_color == 'warning' %} text-dark{% endif %}">
           <i class="bi bi-{{ tech_icon }} me-1"></i>
@@ -1015,8 +1019,8 @@
         <div class="col-md-3">
           <div class="margen-box p-3 h-100" style="font-size:.85rem">
             <div class="text-muted mb-1">LDM sin catálogo</div>
-            <div class="fw-bold {% if tech.ldm_unlinked.count|default(0) %}text-warning{% else %}text-muted{% endif %}" style="font-size:1.05rem">
-              {{ tech.ldm_unlinked.count|default(0) }}
+            <div class="fw-bold {% if tech_ldm_unlinked.count|default(0) %}text-warning{% else %}text-muted{% endif %}" style="font-size:1.05rem">
+              {{ tech_ldm_unlinked.count|default(0) }}
             </div>
             <small class="text-muted">No entra a comparación técnica</small>
           </div>
@@ -1033,17 +1037,17 @@
       </div>
       {% endif %}
 
-      {% if tech.invalid_components %}
+      {% if tech_invalid_components %}
       <div class="alert alert-danger py-2" style="font-size:.82rem">
         <i class="bi bi-exclamation-octagon me-1"></i>
-        Hay {{ tech.invalid_components|length }} componente(s) de bundle sin artículo de catálogo. Corrige el bundle en Catálogo → Bundles.
+        Hay {{ tech_invalid_components|length }} componente(s) de bundle sin artículo de catálogo. Corrige el bundle en Catálogo → Bundles.
       </div>
       {% endif %}
 
-      {% if tech.unmapped_quote_items %}
+      {% if tech_unmapped_quote_items %}
       <div class="alert alert-secondary py-2" style="font-size:.82rem">
         <i class="bi bi-info-circle me-1"></i>
-        {{ tech.unmapped_quote_items|length }} partida(s) de la COT activa no tienen bundle configurado y se comparan sólo en la consistencia comercial.
+        {{ tech_unmapped_quote_items|length }} partida(s) de la COT activa no tienen bundle configurado y se comparan sólo en la consistencia comercial.
       </div>
       {% endif %}
 
@@ -1070,46 +1074,49 @@
           </thead>
           <tbody>
             {% for row in tech_rows %}
-            {% set rc = status_color_map.get(row.status, 'secondary') %}
-            {% set ri = status_icon_map.get(row.status, 'info-circle') %}
-            {% set issue_label = tech_issue_label_map.get(row.issue, row.issue) %}
-            {% set issue_color = tech_issue_color_map.get(row.issue, rc) %}
-            <tr class="technical-consistency-row {% if row.status == 'critical' %}table-danger{% elif row.status == 'warning' %}table-warning{% endif %}"
-                data-search="{{ row.nombre }} {{ row.unidad }} {{ row.issue }} {{ row.comparison_rule_id }} {% for src in row.sources_expected %}{{ src.bundle_name }} {% endfor %}{% for src in row.sources_actual %}{{ src.ldm_number }} {{ src.description }} {% endfor %}">
+            {% set row_status = row.status|default('no_data', true) %}
+            {% set row_issue = row.issue|default('', true) %}
+            {% set row_diff_qty = row.diff_qty|default(0, true)|float %}
+            {% set rc = status_color_map.get(row_status, 'secondary') %}
+            {% set ri = status_icon_map.get(row_status, 'info-circle') %}
+            {% set issue_label = tech_issue_label_map.get(row_issue, row_issue) %}
+            {% set issue_color = tech_issue_color_map.get(row_issue, rc) %}
+            <tr class="technical-consistency-row {% if row_status == 'critical' %}table-danger{% elif row_status == 'warning' %}table-warning{% endif %}"
+                data-search="{{ row.nombre|default('') }} {{ row.unidad|default('') }} {{ row_issue }} {{ row.comparison_rule_id|default('') }} {% for src in row.sources_expected|default([]) %}{{ src.bundle_name|default('Bundle') }} {% endfor %}{% for src in row.sources_actual|default([]) %}{{ src.ldm_number }} {{ src.description }} {% endfor %}">
               <td class="text-center"><i class="bi bi-{{ ri }} text-{{ rc }}"></i></td>
               <td>
-                <div class="fw-semibold">{{ row.nombre }}</div>
-                <small class="text-muted font-monospace">{{ row.catalog_item_id }}</small>
+                <div class="fw-semibold">{{ row.nombre|default('Sin nombre') }}</div>
+                <small class="text-muted font-monospace">{{ row.catalog_item_id|default('') }}</small>
               </td>
-              <td class="text-center"><span class="badge bg-light text-dark border">{{ row.unidad or '—' }}</span></td>
-              <td class="text-end font-monospace">{{ '%.4g'|format(row.expected_qty) }}</td>
-              <td class="text-end font-monospace">{{ '%.4g'|format(row.actual_qty) }}</td>
-              <td class="text-end font-monospace fw-semibold {% if row.diff_qty < 0 %}text-danger{% elif row.diff_qty > 0 %}text-warning{% else %}text-success{% endif %}">
-                {{ '%+.4g'|format(row.diff_qty) }}
+              <td class="text-center"><span class="badge bg-light text-dark border">{{ row.unidad|default('—', true) }}</span></td>
+              <td class="text-end font-monospace">{{ '%.4g'|format(row.expected_qty|default(0, true)|float) }}</td>
+              <td class="text-end font-monospace">{{ '%.4g'|format(row.actual_qty|default(0, true)|float) }}</td>
+              <td class="text-end font-monospace fw-semibold {% if row_diff_qty < 0 %}text-danger{% elif row_diff_qty > 0 %}text-warning{% else %}text-success{% endif %}">
+                {{ '%+.4g'|format(row_diff_qty) }}
               </td>
               <td>
                 <span class="badge bg-{{ issue_color }}{% if issue_color == 'warning' %} text-dark{% endif %}" style="font-size:.68rem">{{ issue_label }}</span>
-                <small class="d-block text-muted mt-1">Tol. {{ row.tolerance_pct }}%</small>
-                {% if row.comparison_rule_id %}<small class="d-block font-monospace text-muted">Regla: {{ row.comparison_rule_id }}</small>{% endif %}
+                <small class="d-block text-muted mt-1">Tol. {{ row.tolerance_pct|default(0, true) }}%</small>
+                {% if row.comparison_rule_id|default('') %}<small class="d-block font-monospace text-muted">Regla: {{ row.comparison_rule_id|default('') }}</small>{% endif %}
               </td>
               <td>
-                {% if row.sources_expected %}
+                {% if row.sources_expected|default([]) %}
                   <div class="mb-1"><small class="text-muted fw-semibold">Esperado desde COT</small></div>
-                  {% for src in row.sources_expected[:3] %}
+                  {% for src in (row.sources_expected|default([]))[:3] %}
                     <small class="d-block text-muted">
-                      {{ src.bundle_name }}{% if src.bundle_version %} v{{ src.bundle_version }}{% endif %} · COT {{ '%.4g'|format(src.quote_qty) }} × {{ '%.4g'|format(src.component_qty) }}
+                      {{ src.bundle_name|default('Bundle') }}{% if src.bundle_version|default('') %} v{{ src.bundle_version }}{% endif %} · COT {{ '%.4g'|format(src.quote_qty|default(0, true)|float) }} × {{ '%.4g'|format(src.component_qty|default(0, true)|float) }}
                     </small>
                   {% endfor %}
-                  {% if row.sources_expected|length > 3 %}<small class="text-muted">+{{ row.sources_expected|length - 3 }} origen(es)</small>{% endif %}
+                  {% if row.sources_expected|default([])|length > 3 %}<small class="text-muted">+{{ row.sources_expected|default([])|length - 3 }} origen(es)</small>{% endif %}
                 {% endif %}
-                {% if row.sources_actual %}
+                {% if row.sources_actual|default([]) %}
                   <div class="mt-2 mb-1"><small class="text-muted fw-semibold">LDM real</small></div>
-                  {% for src in row.sources_actual[:3] %}
+                  {% for src in (row.sources_actual|default([]))[:3] %}
                     <small class="d-block text-muted">
-                      <span class="font-monospace">{{ src.ldm_number or 'LDM' }}</span> · {{ '%.4g'|format(src.qty_original) }} → {{ '%.4g'|format(src.qty_converted) }}
+                      <span class="font-monospace">{{ src.ldm_number|default('LDM', true) }}</span> · {{ '%.4g'|format(src.qty_original|default(0, true)|float) }} → {{ '%.4g'|format(src.qty_converted|default(0, true)|float) }}
                     </small>
                   {% endfor %}
-                  {% if row.sources_actual|length > 3 %}<small class="text-muted">+{{ row.sources_actual|length - 3 }} LDM(s)</small>{% endif %}
+                  {% if row.sources_actual|default([])|length > 3 %}<small class="text-muted">+{{ row.sources_actual|default([])|length - 3 }} LDM(s)</small>{% endif %}
                 {% endif %}
               </td>
             </tr>
@@ -1156,40 +1163,54 @@
           </thead>
           <tbody>
             {% for row in cn['items'] %}
-            {% set row_color = status_color_map[row.status] %}
-            {% set row_icon  = status_icon_map[row.status] %}
-            <tr class="consistency-row {% if row.status == 'critical' %}table-danger{% elif row.status == 'warning' %}table-warning{% endif %}"
-                data-search="{{ row.nombre }} {{ row.categoria }} {{ row.issues|join(' ') }} {{ row.ldm_numbers|join(' ') }}">
+            {% set commercial_row_status = row.get('status', 'no_data') %}
+            {% set row_color = status_color_map.get(commercial_row_status, 'secondary') %}
+            {% set row_icon  = status_icon_map.get(commercial_row_status, 'info-circle') %}
+            {% set row_issues = row.get('issues', []) %}
+            {% set row_ldm_numbers = row.get('ldm_numbers', []) %}
+            {% set qty_delta = row.get('qty_delta', 0) or 0 %}
+            {% set qty_cot = row.get('qty_cot') %}
+            {% set qty_ldm = row.get('qty_ldm') %}
+            {% set price_cot = row.get('price_cot') %}
+            {% set cost_avg = row.get('cost_avg') %}
+            {% set margin_unit = row.get('margin_unit') %}
+            {% set margin_unit_pct = row.get('margin_unit_pct') %}
+            {% set issue_details = row.get('issue_details', []) %}
+            {% set primary_action = row.get('primary_action') %}
+            <tr class="consistency-row {% if commercial_row_status == 'critical' %}table-danger{% elif commercial_row_status == 'warning' %}table-warning{% endif %}"
+                data-search="{{ row.get('nombre', 'Sin nombre') }} {{ row.get('categoria', '') }} {{ row_issues|join(' ') }} {{ row_ldm_numbers|join(' ') }}">
               <td class="text-center"><i class="bi bi-{{ row_icon }} text-{{ row_color }}"></i></td>
               <td>
-                <div class="fw-semibold">{{ row.nombre }}</div>
-                {% if row.categoria %}<small class="text-muted">{{ row.categoria }}</small>{% endif %}
-                {% if row.ldm_numbers %}<small class="text-muted d-block font-monospace" style="font-size:.7rem">{{ row.ldm_numbers | join(', ') }}</small>{% endif %}
+                <div class="fw-semibold">{{ row.get('nombre', 'Sin nombre') }}</div>
+                {% if row.get('categoria') %}<small class="text-muted">{{ row.get('categoria') }}</small>{% endif %}
+                {% if row_ldm_numbers %}<small class="text-muted d-block font-monospace" style="font-size:.7rem">{{ row_ldm_numbers | join(', ') }}</small>{% endif %}
               </td>
-              <td class="text-center"><span class="badge bg-light text-dark border">{{ row.unidad or '—' }}</span></td>
-              <td class="text-end font-monospace">{% if row.qty_cot %}{{ '%.2f'|format(row.qty_cot) }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
-              <td class="text-end font-monospace">{% if row.qty_ldm %}{{ '%.2f'|format(row.qty_ldm) }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
-              <td class="text-end font-monospace {% if row.qty_delta > 0 %}text-warning{% elif row.qty_delta < 0 %}text-info{% else %}text-muted{% endif %}">
-                {% if row.qty_delta %}{{ '%+.2f'|format(row.qty_delta) }}{% else %}0.00{% endif %}
+              <td class="text-center"><span class="badge bg-light text-dark border">{{ row.get('unidad') or '—' }}</span></td>
+              <td class="text-end font-monospace">{% if qty_cot %}{{ '%.2f'|format(qty_cot) }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
+              <td class="text-end font-monospace">{% if qty_ldm %}{{ '%.2f'|format(qty_ldm) }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
+              <td class="text-end font-monospace {% if qty_delta > 0 %}text-warning{% elif qty_delta < 0 %}text-info{% else %}text-muted{% endif %}">
+                {% if qty_delta %}{{ '%+.2f'|format(qty_delta) }}{% else %}0.00{% endif %}
               </td>
-              <td class="text-end font-monospace">{% if row.price_cot %}{{ row.price_cot | currency }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
-              <td class="text-end font-monospace">{% if row.cost_avg %}{{ row.cost_avg | currency }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
-              <td class="text-end font-monospace fw-semibold {% if row.margin_unit is not none and row.margin_unit < 0 %}text-danger{% elif row.margin_unit_pct is not none and row.margin_unit_pct < 30 %}text-warning{% elif row.margin_unit is not none and row.margin_unit > 0 %}text-success{% else %}text-muted{% endif %}">
-                {% if row.margin_unit is not none %}
-                  {{ row.margin_unit | currency }}
-                  {% if row.margin_unit_pct is not none %}<small class="d-block text-muted">{{ row.margin_unit_pct }}%</small>{% endif %}
+              <td class="text-end font-monospace">{% if price_cot %}{{ price_cot | currency }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
+              <td class="text-end font-monospace">{% if cost_avg %}{{ cost_avg | currency }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
+              <td class="text-end font-monospace fw-semibold {% if margin_unit is not none and margin_unit < 0 %}text-danger{% elif margin_unit_pct is not none and margin_unit_pct < 30 %}text-warning{% elif margin_unit is not none and margin_unit > 0 %}text-success{% else %}text-muted{% endif %}">
+                {% if margin_unit is not none %}
+                  {{ margin_unit | currency }}
+                  {% if margin_unit_pct is not none %}<small class="d-block text-muted">{{ margin_unit_pct }}%</small>{% endif %}
                 {% else %}—{% endif %}
               </td>
               <td>
-                {% if row.issue_details %}
+                {% if issue_details %}
                   <div class="d-flex flex-wrap gap-1 mb-1">
-                  {% for detail in row.issue_details %}
-                    {% set ic = issue_color_map[detail.issue] %}
-                    <span class="badge bg-{{ ic }}{% if ic == 'warning' %} text-dark{% endif %}" style="font-size:.65rem">{{ detail.label }}</span>
+                  {% for detail in issue_details %}
+                    {% set issue_key = detail.get('issue', 'unknown') if detail is mapping else detail.issue|default('unknown') %}
+                    {% set issue_label = detail.get('label', issue_key) if detail is mapping else detail.label|default(issue_key) %}
+                    {% set ic = issue_color_map.get(issue_key, 'secondary') %}
+                    <span class="badge bg-{{ ic }}{% if ic == 'warning' %} text-dark{% endif %}" style="font-size:.65rem">{{ issue_label }}</span>
                   {% endfor %}
                   </div>
-                  {% if row.primary_action %}
-                  <small class="d-block text-muted"><strong>Acción:</strong> {{ row.primary_action.text }}</small>
+                  {% if primary_action %}
+                  <small class="d-block text-muted"><strong>Acción:</strong> {{ primary_action.get('text', '') if primary_action is mapping else primary_action.text|default('') }}</small>
                   {% endif %}
                 {% else %}
                   <small class="text-muted">OK</small>
