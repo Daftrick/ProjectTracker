@@ -8,6 +8,7 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 
 ### Ya completado
 
+- [x] Artículos ignorados en comparación COT/LDM: se conservan como costo del proyecto, pero no se atribuyen directamente al cliente en el cruce.
 - [x] Reducir el monolito de `app.py`.
 - [x] Separar rutas por dominio en blueprints.
 - [x] Crear módulos claros para dominio, almacenamiento, catálogo, Drive, PDFs y validaciones.
@@ -130,9 +131,9 @@ Las confirmaciones deben mostrar impacto antes de ejecutar la acción.
 
 Orden sugerido de trabajo:
 
-1. Fase 3 — Mostrar la consistencia técnica de bundles en `project_detail.html` con tabla de materiales esperados vs LDM real.
-2. Fase 3 — Agregar alertas de bundles sin versión activa, componentes inválidos y reglas faltantes.
-3. Fase 3 — Permitir navegación desde un issue técnico hacia el bundle o regla que lo genera.
+1. Probar artículos ignorados en comparación COT/LDM con proyectos reales.
+2. Mejorar navegación desde un issue técnico hacia el bundle, regla o artículo ignorado que lo genera.
+3. Evaluar reportes/exportación de consistencia comercial y técnica.
 
 
 ---

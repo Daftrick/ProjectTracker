@@ -30,6 +30,7 @@ class ProjectViewTest(unittest.TestCase):
             "team": [{"id": "M1", "name": "Ana"}],
             "bundles": [],
             "comparison_rules": [],
+            "comparison_ignored_items": [],
         }
 
         def fake_load(key):

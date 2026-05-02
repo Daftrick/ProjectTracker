@@ -15,6 +15,7 @@
   .rule-card { scroll-margin-top: 90px; }
   .rule-meta { font-size:.76rem;color:#8a9298; }
   .factor-cell { font-variant-numeric: tabular-nums; }
+  .ignored-card { scroll-margin-top: 90px; }
 </style>
 {% endblock %}
 
@@ -27,11 +28,95 @@
   </select>
 {%- endmacro %}
 
+{% macro direction_select(selected='ldm_to_cot') -%}
+  {% set current_direction = selected or 'ldm_to_cot' %}
+  <select name="direction" class="form-select">
+    <option value="ldm_to_cot" {% if current_direction == 'ldm_to_cot' %}selected{% endif %}>LDM → COT</option>
+    <option value="cot_to_ldm" {% if current_direction == 'cot_to_ldm' %}selected{% endif %}>COT → LDM</option>
+  </select>
+{%- endmacro %}
+
+{% macro rounding_select(selected='none') -%}
+  {% set current_rounding = selected or 'none' %}
+  <select name="rounding" class="form-select">
+    <option value="none" {% if current_rounding == 'none' %}selected{% endif %}>Sin redondeo</option>
+    <option value="ceil" {% if current_rounding == 'ceil' %}selected{% endif %}>Hacia arriba</option>
+    <option value="floor" {% if current_rounding == 'floor' %}selected{% endif %}>Hacia abajo</option>
+    <option value="round" {% if current_rounding == 'round' %}selected{% endif %}>Redondeo normal</option>
+  </select>
+{%- endmacro %}
+
+{% macro scope_select(selected='both') -%}
+  {% set current_scope = selected or 'both' %}
+  <select name="scope" class="form-select">
+    <option value="both" {% if current_scope == 'both' %}selected{% endif %}>Comercial + Técnica</option>
+    <option value="commercial" {% if current_scope == 'commercial' %}selected{% endif %}>Solo comercial</option>
+    <option value="technical" {% if current_scope == 'technical' %}selected{% endif %}>Solo técnica</option>
+  </select>
+{%- endmacro %}
+
 {% block content %}
 <div class="alert alert-info py-2" style="font-size:.86rem">
   <i class="bi bi-info-circle me-1"></i>
   Estas reglas relacionan artículos equivalentes entre COT y LDM cuando no comparten unidad o ID de catálogo.
   Ejemplo: COT cotiza tubería en ml y LDM compra piezas/tramos.
+</div>
+
+
+<div class="card mb-4" id="ignored-items">
+  <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <div>
+      <span class="fw-semibold">Artículos ignorados en comparación</span>
+      <div class="text-muted" style="font-size:.78rem">Cuentan como costo del proyecto, pero no se cruzan contra partidas atribuibles al cliente.</div>
+    </div>
+    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalNewIgnored">
+      <i class="bi bi-plus-lg me-1"></i>Ignorar artículo
+    </button>
+  </div>
+  <div class="card-body p-0">
+    {% if ignored_items %}
+    <table class="table mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Artículo</th>
+          <th style="width:16%">Alcance</th>
+          <th>Notas</th>
+          <th style="width:12%" class="text-center">Estado</th>
+          <th style="width:12%" class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ignored in ignored_items %}
+        {% set item = catalog_by_id.get(ignored.catalog_item_id, {}) %}
+        <tr class="ignored-card" id="ignored-{{ ignored.id }}">
+          <td>
+            <div class="fw-semibold">{{ item.nombre or ignored.catalog_item_id }}</div>
+            <div class="rule-meta">{{ item.unidad or '' }} · {{ ignored.catalog_item_id }}</div>
+          </td>
+          <td>
+            {% if ignored.scope == 'commercial' %}Solo comercial{% elif ignored.scope == 'technical' %}Solo técnica{% else %}Comercial + Técnica{% endif %}
+          </td>
+          <td class="text-muted" style="font-size:.84rem">{{ ignored.notes or '—' }}</td>
+          <td class="text-center">
+            {% if ignored.active %}<span class="badge bg-success-subtle text-success-emphasis border">Activo</span>{% else %}<span class="badge bg-secondary">Inactivo</span>{% endif %}
+          </td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-secondary me-1" data-bs-toggle="modal" data-bs-target="#modalEditIgnored{{ ignored.id }}"><i class="bi bi-pencil"></i></button>
+            <form method="post" action="{{ url_for('toggle_comparison_ignored', ignored_id=ignored.id) }}" class="d-inline">
+              <button class="btn btn-sm btn-outline-warning"><i class="bi bi-power"></i></button>
+            </form>
+            <form method="post" action="{{ url_for('delete_comparison_ignored', ignored_id=ignored.id) }}" class="d-inline" onsubmit="return confirm('¿Eliminar este artículo ignorado?')">
+              <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="text-center text-muted py-4">No hay artículos ignorados.</div>
+    {% endif %}
+  </div>
 </div>
 
 {% if rules %}
@@ -61,7 +146,8 @@
             <div class="fw-semibold">{{ rule.name or rule.id }}</div>
             <div class="rule-meta">
               {% if rule.active %}<span class="badge bg-success-subtle text-success-emphasis border">Activa</span>{% else %}<span class="badge bg-secondary">Inactiva</span>{% endif %}
-              {{ rule.direction }} · {{ rule.rounding }}
+              {{ 'LDM → COT' if rule.direction == 'ldm_to_cot' else 'COT → LDM' }} ·
+              {% if rule.rounding == 'ceil' %}Hacia arriba{% elif rule.rounding == 'floor' %}Hacia abajo{% elif rule.rounding == 'round' %}Redondeo normal{% else %}Sin redondeo{% endif %}
             </div>
           </td>
           <td>{{ cot_item.nombre or rule.cot_catalog_item_id }}<div class="rule-meta">{{ rule.cot_unit or cot_item.unidad }}</div></td>
@@ -94,7 +180,6 @@
     <form method="post" action="{{ url_for('edit_comparison_rule', rule_id=rule.id) }}" class="modal-content">
       <div class="modal-header"><h5 class="modal-title">Editar regla</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
       <div class="modal-body">
-        {% include 'comparison_rules_form_fields.html' ignore missing %}
         <div class="row g-3">
           <div class="col-md-6"><label class="form-label">Nombre</label><input name="name" class="form-control" value="{{ rule.name }}"></div>
           <div class="col-md-3"><label class="form-label">Unidad COT</label><input name="cot_unit" class="form-control" value="{{ rule.cot_unit }}"></div>
@@ -102,8 +187,8 @@
           <div class="col-md-6"><label class="form-label">Artículo COT esperado</label>{{ catalog_select('cot_catalog_item_id', rule.cot_catalog_item_id) }}</div>
           <div class="col-md-6"><label class="form-label">Artículo LDM real</label>{{ catalog_select('ldm_catalog_item_id', rule.ldm_catalog_item_id) }}</div>
           <div class="col-md-3"><label class="form-label">Factor</label><input type="number" step="0.0001" name="factor" class="form-control" value="{{ rule.factor }}"></div>
-          <div class="col-md-3"><label class="form-label">Dirección</label><select name="direction" class="form-select">{% for d in directions %}<option value="{{ d }}" {% if d==rule.direction %}selected{% endif %}>{{ d }}</option>{% endfor %}</select></div>
-          <div class="col-md-3"><label class="form-label">Redondeo</label><select name="rounding" class="form-select">{% for r in roundings %}<option value="{{ r }}" {% if r==rule.rounding %}selected{% endif %}>{{ r }}</option>{% endfor %}</select></div>
+          <div class="col-md-3"><label class="form-label">Dirección</label>{{ direction_select(rule.direction) }}</div>
+          <div class="col-md-3"><label class="form-label">Redondeo</label>{{ rounding_select(rule.rounding) }}</div>
           <div class="col-md-3"><label class="form-label">Tolerancia %</label><input type="number" step="0.01" name="tolerance_pct" class="form-control" value="{{ rule.tolerance_pct }}"></div>
           <div class="col-12"><label class="form-label">Notas</label><textarea name="notes" rows="2" class="form-control">{{ rule.notes }}</textarea></div>
           <div class="col-12"><label class="form-check"><input class="form-check-input" type="checkbox" name="active" value="1" {% if rule.active %}checked{% endif %}> Regla activa</label></div>
@@ -114,6 +199,48 @@
   </div>
 </div>
 {% endfor %}
+
+
+<!-- Modales editar artículos ignorados -->
+{% for ignored in ignored_items %}
+<div class="modal fade" id="modalEditIgnored{{ ignored.id }}" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <form method="post" action="{{ url_for('edit_comparison_ignored', ignored_id=ignored.id) }}" class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Editar artículo ignorado</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-md-8"><label class="form-label">Artículo</label>{{ catalog_select('catalog_item_id', ignored.catalog_item_id) }}</div>
+          <div class="col-md-4"><label class="form-label">Alcance</label>{{ scope_select(ignored.scope) }}</div>
+          <div class="col-12"><label class="form-label">Notas</label><textarea name="notes" rows="2" class="form-control">{{ ignored.notes }}</textarea></div>
+          <div class="col-12"><label class="form-check"><input class="form-check-input" type="checkbox" name="active" value="1" {% if ignored.active %}checked{% endif %}> Activo</label></div>
+        </div>
+      </div>
+      <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button class="btn btn-success">Guardar</button></div>
+    </form>
+  </div>
+</div>
+{% endfor %}
+
+<!-- Modal nuevo artículo ignorado -->
+<div class="modal fade" id="modalNewIgnored" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <form method="post" action="{{ url_for('add_comparison_ignored') }}" class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Ignorar artículo en comparación</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">
+        <div class="alert alert-warning py-2" style="font-size:.84rem">
+          El artículo seguirá sumando al costo del proyecto, pero no generará faltantes, excedentes ni diferencias COT/LDM.
+        </div>
+        <div class="row g-3">
+          <div class="col-md-8"><label class="form-label">Artículo</label>{{ catalog_select('catalog_item_id') }}</div>
+          <div class="col-md-4"><label class="form-label">Alcance</label>{{ scope_select('both') }}</div>
+          <div class="col-12"><label class="form-label">Notas</label><textarea name="notes" rows="2" class="form-control"></textarea></div>
+          <div class="col-12"><label class="form-check"><input class="form-check-input" type="checkbox" name="active" value="1" checked> Activo</label></div>
+        </div>
+      </div>
+      <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button><button class="btn btn-primary">Guardar</button></div>
+    </form>
+  </div>
+</div>
 
 <!-- Modal nuevo -->
 <div class="modal fade" id="modalNewRule" tabindex="-1">
@@ -128,8 +255,8 @@
           <div class="col-md-6"><label class="form-label">Artículo COT esperado</label>{{ catalog_select('cot_catalog_item_id') }}</div>
           <div class="col-md-6"><label class="form-label">Artículo LDM real</label>{{ catalog_select('ldm_catalog_item_id') }}</div>
           <div class="col-md-3"><label class="form-label">Factor</label><input type="number" step="0.0001" name="factor" class="form-control" value="3"></div>
-          <div class="col-md-3"><label class="form-label">Dirección</label><select name="direction" class="form-select">{% for d in directions %}<option value="{{ d }}">{{ d }}</option>{% endfor %}</select></div>
-          <div class="col-md-3"><label class="form-label">Redondeo</label><select name="rounding" class="form-select">{% for r in roundings %}<option value="{{ r }}">{{ r }}</option>{% endfor %}</select></div>
+          <div class="col-md-3"><label class="form-label">Dirección</label>{{ direction_select('ldm_to_cot') }}</div>
+          <div class="col-md-3"><label class="form-label">Redondeo</label>{{ rounding_select('none') }}</div>
           <div class="col-md-3"><label class="form-label">Tolerancia %</label><input type="number" step="0.01" name="tolerance_pct" class="form-control" value="5"></div>
           <div class="col-12"><label class="form-label">Notas</label><textarea name="notes" rows="2" class="form-control"></textarea></div>
           <div class="col-12"><label class="form-check"><input class="form-check-input" type="checkbox" name="active" value="1" checked> Regla activa</label></div>

@@ -27,6 +27,13 @@ from typing import Iterable
 from .catalog import quote_type_key
 from .bundles import expand_quote_bundles
 from .comparison_rules import aggregate_ldm_for_expected_items, compare_expected_vs_actual
+from .comparison_ignored import (
+    SCOPE_COMMERCIAL,
+    SCOPE_TECHNICAL,
+    ignored_catalog_ids,
+    split_ignored_linked,
+    summarize_ignored,
+)
 
 MARGIN_OK_PCT = 30.0
 QTY_TOLERANCE = 0.01  # diferencias menores se consideran iguales (redondeos)
@@ -170,6 +177,10 @@ def _detect_item_issues(qty_cot: float, qty_ldm: float, price_cot: float, cost_a
         issues.append("qty_mismatch")
     if price_cot > 0 and cost_avg > 0 and price_cot < cost_avg:
         issues.append("below_cost")
+    elif price_cot > 0 and cost_avg > 0:
+        margin_pct = (price_cot - cost_avg) / price_cot * 100
+        if 0 <= margin_pct < MARGIN_OK_PCT:
+            issues.append("low_margin")
     return issues
 
 
@@ -180,6 +191,31 @@ def _classify_item(issues: list[str]) -> str:
     if issues:
         return STATUS_WARNING
     return STATUS_OK
+
+
+def _issue_details(issues: list[str]) -> list[str]:
+    labels = {
+        "missing_in_ldm": "Existe en COT pero no aparece en LDM.",
+        "missing_in_cot": "Existe en LDM pero no aparece en COT.",
+        "qty_mismatch": "La cantidad COT/LDM no coincide.",
+        "below_cost": "El costo unitario es mayor al precio de venta.",
+        "low_margin": "El margen unitario está por debajo del objetivo.",
+    }
+    return [labels.get(issue, issue) for issue in issues]
+
+
+def _primary_action(issues: list[str]) -> str:
+    if "below_cost" in issues:
+        return "Revisar precio de venta o costo proveedor."
+    if "missing_in_ldm" in issues:
+        return "Agregar material en LDM o marcar artículo como no requerido."
+    if "missing_in_cot" in issues:
+        return "Vincular a COT, integrar en bundle o marcar como ignorado."
+    if "qty_mismatch" in issues:
+        return "Revisar cantidades y unidades."
+    if "low_margin" in issues:
+        return "Revisar margen unitario."
+    return "Sin acción requerida."
 
 
 def compare_items(
@@ -212,11 +248,14 @@ def compare_items(
             "unidad": catalog_item.get("unidad", ""),
             "qty_cot": qty_cot,
             "qty_ldm": qty_ldm,
+            "qty_delta": _round(qty_ldm - qty_cot),
             "price_cot": price_cot,
             "cost_avg": cost_avg,
             "margin_unit": _round(price_cot - cost_avg) if price_cot and cost_avg else None,
             "ldm_numbers": ldm.get("ldm_numbers", []),
             "issues": issues,
+            "issue_details": _issue_details(issues),
+            "primary_action": _primary_action(issues),
             "status": _classify_item(issues),
         })
 
@@ -235,6 +274,7 @@ def _summarize_rows(rows: list[dict]) -> dict:
         "missing_in_cot": 0,
         "qty_mismatch": 0,
         "below_cost": 0,
+        "low_margin": 0,
     }
     for row in rows:
         status_key = f"items_{row['status']}"
@@ -253,6 +293,7 @@ def compute_consistency(
     catalog_by_id: dict | None = None,
     bundles: Iterable[dict] | None = None,
     comparison_rules: Iterable[dict] | None = None,
+    comparison_ignored_items: Iterable[dict] | None = None,
 ) -> dict:
     """Reporte completo de consistencia para un proyecto.
 
@@ -266,6 +307,10 @@ def compute_consistency(
     quote_linked, quote_unlinked = aggregate_quote_items(active_quote)
     ldm_linked, ldm_unlinked = aggregate_ldm_items(project_ldms)
 
+    ignored_commercial_ids = ignored_catalog_ids(comparison_ignored_items or [], scope=SCOPE_COMMERCIAL)
+    quote_linked, quote_ignored_linked = split_ignored_linked(quote_linked, ignored_commercial_ids)
+    ldm_linked, ldm_ignored_linked = split_ignored_linked(ldm_linked, ignored_commercial_ids)
+
     quote_subtotal = _round(_safe_float((active_quote or {}).get("subtotal")))
     ldm_subtotal = _round(sum(_safe_float(m.get("subtotal_cot")) for m in project_ldms))
     margin_abs = _round(quote_subtotal - ldm_subtotal)
@@ -275,17 +320,37 @@ def compute_consistency(
         margin_pct = None
     status = classify_margin(margin_pct) if (quote_subtotal > 0 or ldm_subtotal > 0) else STATUS_NO_DATA
 
+    quote_linked_total = _round(sum(_safe_float(item.get("total")) for item in quote_linked.values()))
+    ldm_linked_total = _round(sum(_safe_float(item.get("total_cot")) for item in ldm_linked.values()))
+    quote_unlinked_total = _round(_safe_float(quote_unlinked.get("total")))
+    ldm_unlinked_total = _round(_safe_float(ldm_unlinked.get("total")))
+
     rows = compare_items(quote_linked, ldm_linked, catalog_by_id or {})
     summary = _summarize_rows(rows)
+    suggested_actions = []
+    action_defs = [
+        ("missing_in_ldm", STATUS_CRITICAL, "Faltantes en LDM", "Agregar materiales faltantes, crear bundle o marcar artículo como ignorado."),
+        ("missing_in_cot", STATUS_WARNING, "Extras en LDM", "Atribuir a COT/bundle o marcar como costo no atribuible al cliente."),
+        ("qty_mismatch", STATUS_WARNING, "Cantidades diferentes", "Revisar cantidades, unidades y reglas COT/LDM."),
+        ("below_cost", STATUS_CRITICAL, "Venta bajo costo", "Corregir precio de venta o costo de proveedor."),
+        ("low_margin", STATUS_WARNING, "Margen bajo", "Revisar margen unitario."),
+    ]
+    for key, action_status, label, text in action_defs:
+        count = summary.get(key, 0)
+        if count:
+            suggested_actions.append({"key": key, "status": action_status, "label": label, "text": text, "count": count})
 
     # Consistencia técnica por bundles: la COT se expande a materiales
     # esperados y la LDM se normaliza con reglas de comparación (por ejemplo
     # tubería cotizada en ml vs comprada por pieza/tramo).
     bundle_expansion = expand_quote_bundles(active_quote, bundles or [], catalog_by_id or {})
     technical_actual = aggregate_ldm_for_expected_items(project_ldms, comparison_rules or [], catalog_by_id or {})
+    ignored_technical_ids = ignored_catalog_ids(comparison_ignored_items or [], scope=SCOPE_TECHNICAL)
+    technical_expected_items, technical_expected_ignored = split_ignored_linked(bundle_expansion["items"], ignored_technical_ids)
+    technical_actual_items, technical_actual_ignored = split_ignored_linked(technical_actual["items"], ignored_technical_ids)
     technical_compare = compare_expected_vs_actual(
-        bundle_expansion["items"],
-        technical_actual["items"],
+        technical_expected_items,
+        technical_actual_items,
         comparison_rules or [],
         catalog_by_id or {},
     )
@@ -293,8 +358,10 @@ def compute_consistency(
         "status": technical_compare["status"],
         "rows": technical_compare["rows"],
         "summary": technical_compare["summary"],
-        "expected": bundle_expansion["items"],
-        "actual": technical_actual["items"],
+        "expected": technical_expected_items,
+        "actual": technical_actual_items,
+        "ignored_expected": summarize_ignored(technical_expected_ignored, catalog_by_id or {}, total_key="total"),
+        "ignored_actual": summarize_ignored(technical_actual_ignored, catalog_by_id or {}, total_key="total_cot"),
         "ldm_unlinked": technical_actual["unlinked"],
         "bundle_quote_items": bundle_expansion["bundle_quote_items"],
         "unmapped_quote_items": bundle_expansion["unmapped_quote_items"],
@@ -317,7 +384,17 @@ def compute_consistency(
         "status_label": STATUS_LABELS[status],
         "items": rows,
         "summary": summary,
+        "quote_linked_total": quote_linked_total,
+        "ldm_linked_total": ldm_linked_total,
+        "quote_unlinked_total": quote_unlinked_total,
+        "ldm_unlinked_total": ldm_unlinked_total,
+        "suggested_actions": suggested_actions,
         "quote_unlinked": quote_unlinked,
         "ldm_unlinked": ldm_unlinked,
+        "ignored": {
+            "commercial_quote": summarize_ignored(quote_ignored_linked, catalog_by_id or {}, total_key="total"),
+            "commercial_ldm": summarize_ignored(ldm_ignored_linked, catalog_by_id or {}, total_key="total_cot"),
+            "catalog_ids": sorted(ignored_commercial_ids | ignored_technical_ids),
+        },
         "bundle_consistency": bundle_consistency,
     }

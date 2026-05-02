@@ -956,6 +956,18 @@
         </div>
       </div>
 
+      {% set ignored = cn.ignored|default({}) %}
+      {% set ignored_quote = ignored.commercial_quote|default({'count':0,'total':0,'rows':[]}) %}
+      {% set ignored_ldm = ignored.commercial_ldm|default({'count':0,'total':0,'rows':[]}) %}
+      {% if ignored_quote.count|default(0) or ignored_ldm.count|default(0) %}
+      <div class="alert alert-dark border py-2 mt-3 mb-0" style="font-size:.82rem">
+        <i class="bi bi-eye-slash me-1"></i>
+        <strong>Artículos ignorados:</strong> {{ ignored_quote.count|default(0) }} en COT ({{ ignored_quote.total|default(0) | currency }}) y
+        {{ ignored_ldm.count|default(0) }} en LDM ({{ ignored_ldm.total|default(0) | currency }}).
+        Se consideran en el costo total del proyecto, pero no generan diferencias atribuibles al cliente.
+      </div>
+      {% endif %}
+
       {% if cn.quote_unlinked.count or cn.ldm_unlinked.count %}
       <div class="alert alert-secondary py-2 mt-3 mb-0" style="font-size:.82rem">
         <i class="bi bi-link-45deg me-1"></i>
@@ -1026,6 +1038,16 @@
           </div>
         </div>
       </div>
+
+      {% set tech_ignored_expected = tech.ignored_expected|default({'count':0,'qty':0,'rows':[]}) %}
+      {% set tech_ignored_actual = tech.ignored_actual|default({'count':0,'qty':0,'rows':[]}) %}
+      {% if tech_ignored_expected.count|default(0) or tech_ignored_actual.count|default(0) %}
+      <div class="alert alert-dark border py-2 mb-3" style="font-size:.82rem">
+        <i class="bi bi-eye-slash me-1"></i>
+        Comparación técnica ignora {{ tech_ignored_expected.count|default(0) }} material(es) esperados y
+        {{ tech_ignored_actual.count|default(0) }} material(es) reales configurados como no atribuibles.
+      </div>
+      {% endif %}
 
       {% if tech_summary.items_total|default(0) > 0 %}
       <div class="d-flex flex-wrap gap-2 mb-3">

@@ -9,6 +9,7 @@ from ..bundles import (
     normalize_bundle,
 )
 from ..catalog_search import filter_catalog, list_categories
+from ..comparison_ignored import SCOPE_BOTH, SCOPE_COMMERCIAL, SCOPE_TECHNICAL, normalize_ignored_item
 from ..comparison_rules import (
     DIRECTION_COT_TO_LDM,
     DIRECTION_LDM_TO_COT,
@@ -286,6 +287,13 @@ def _catalog_by_id():
     return {str(item.get("id", "")).strip(): item for item in load("catalogo")}
 
 
+def _catalog_sorted_by_name():
+    return sorted(
+        load("catalogo"),
+        key=lambda item: str(item.get("nombre", "")).casefold(),
+    )
+
+
 def _catalog_name(item_id, catalog_by_id=None):
     catalog_by_id = catalog_by_id or _catalog_by_id()
     item = catalog_by_id.get(str(item_id or "").strip()) or {}
@@ -336,7 +344,7 @@ def _find_version(bundle, version_number):
 
 
 def _render_bundles(open_bundle_id=""):
-    catalog = load("catalogo")
+    catalog = _catalog_sorted_by_name()
     catalog_by_id = {item["id"]: item for item in catalog if item.get("id")}
     bundles = [normalize_bundle(bundle) for bundle in load("bundles")]
     bundle_item_ids = {bundle.get("catalog_item_id") for bundle in bundles}
@@ -496,6 +504,12 @@ def delete_bundle_version_route(bundle_id, version_number):
 
 
 def _rule_form(form):
+    direction = _clean(form.get("direction")) or DIRECTION_LDM_TO_COT
+    if direction not in {DIRECTION_LDM_TO_COT, DIRECTION_COT_TO_LDM}:
+        direction = DIRECTION_LDM_TO_COT
+    rounding = _clean(form.get("rounding")) or ROUND_NONE
+    if rounding not in {ROUND_NONE, ROUND_CEIL, ROUND_FLOOR, ROUND_ROUND}:
+        rounding = ROUND_NONE
     return {
         "name": _clean(form.get("name")),
         "cot_catalog_item_id": _clean(form.get("cot_catalog_item_id")),
@@ -503,16 +517,35 @@ def _rule_form(form):
         "cot_unit": _clean(form.get("cot_unit")),
         "ldm_unit": _clean(form.get("ldm_unit")),
         "factor": _parse_float(form.get("factor"), 1.0) or 1.0,
-        "direction": _clean(form.get("direction")) or DIRECTION_LDM_TO_COT,
-        "rounding": _clean(form.get("rounding")) or ROUND_NONE,
+        "direction": direction,
+        "rounding": rounding,
         "tolerance_pct": _parse_float(form.get("tolerance_pct"), 5.0),
         "active": bool(form.get("active")),
         "notes": _clean(form.get("notes")),
     }
 
 
+def _ignored_form(form):
+    scope = _clean(form.get("scope")) or SCOPE_BOTH
+    if scope not in {SCOPE_BOTH, SCOPE_COMMERCIAL, SCOPE_TECHNICAL}:
+        scope = SCOPE_BOTH
+    return {
+        "catalog_item_id": _clean(form.get("catalog_item_id")),
+        "scope": scope,
+        "active": bool(form.get("active")),
+        "notes": _clean(form.get("notes")),
+    }
+
+
+def _ignored_items_sorted():
+    return sorted(
+        [normalize_ignored_item(item) for item in load("comparison_ignored_items")],
+        key=lambda item: (item.get("scope", ""), _catalog_name(item.get("catalog_item_id")).casefold()),
+    )
+
+
 def _render_comparison_rules(open_rule_id=""):
-    catalog = load("catalogo")
+    catalog = _catalog_sorted_by_name()
     catalog_by_id = {item["id"]: item for item in catalog if item.get("id")}
     rules = [normalize_rule(rule) for rule in load("comparison_rules")]
     return render_template(
@@ -523,6 +556,8 @@ def _render_comparison_rules(open_rule_id=""):
         open_rule_id=open_rule_id,
         directions=[DIRECTION_LDM_TO_COT, DIRECTION_COT_TO_LDM],
         roundings=[ROUND_NONE, ROUND_CEIL, ROUND_FLOOR, ROUND_ROUND],
+        ignored_items=_ignored_items_sorted(),
+        ignored_scopes=[SCOPE_BOTH, SCOPE_COMMERCIAL, SCOPE_TECHNICAL],
     )
 
 
@@ -584,6 +619,70 @@ def delete_comparison_rule(rule_id):
     save("comparison_rules", [rule for rule in load("comparison_rules") if rule.get("id") != rule_id])
     flash("Regla eliminada.", "warning")
     return redirect(url_for("comparison_rules"))
+
+
+@bp.route("/comparison-ignored", methods=["POST"], endpoint="add_comparison_ignored")
+def add_comparison_ignored():
+    form_state = _ignored_form(request.form)
+    catalog_by_id = _catalog_by_id()
+    if form_state["catalog_item_id"] not in catalog_by_id:
+        flash("Selecciona un artículo válido para ignorar.", "warning")
+        return redirect(url_for("comparison_rules") + "#ignored-items")
+    items = load("comparison_ignored_items")
+    duplicate = next(
+        (item for item in items if item.get("catalog_item_id") == form_state["catalog_item_id"] and item.get("scope", SCOPE_BOTH) == form_state["scope"]),
+        None,
+    )
+    if duplicate:
+        flash("Ese artículo ya está configurado para ese alcance de comparación.", "warning")
+        return redirect(url_for("comparison_rules") + "#ignored-items")
+    ignored = normalize_ignored_item({
+        "id": new_id(),
+        **form_state,
+        "created_at": today(),
+        "updated_at": today(),
+    })
+    items.append(ignored)
+    save("comparison_ignored_items", items)
+    flash("Artículo ignorado agregado.", "success")
+    return redirect(url_for("comparison_rules") + "#ignored-items")
+
+
+@bp.route("/comparison-ignored/<ignored_id>/edit", methods=["POST"], endpoint="edit_comparison_ignored")
+def edit_comparison_ignored(ignored_id):
+    items = load("comparison_ignored_items")
+    ignored = next((item for item in items if item.get("id") == ignored_id), None)
+    if not ignored:
+        flash("Configuración no encontrada.", "danger")
+        return redirect(url_for("comparison_rules") + "#ignored-items")
+    form_state = _ignored_form(request.form)
+    if form_state["catalog_item_id"] not in _catalog_by_id():
+        flash("Selecciona un artículo válido.", "warning")
+        return redirect(url_for("comparison_rules") + "#ignored-items")
+    ignored.update(form_state)
+    ignored["updated_at"] = today()
+    save("comparison_ignored_items", items)
+    flash("Artículo ignorado actualizado.", "success")
+    return redirect(url_for("comparison_rules") + "#ignored-items")
+
+
+@bp.route("/comparison-ignored/<ignored_id>/toggle", methods=["POST"], endpoint="toggle_comparison_ignored")
+def toggle_comparison_ignored(ignored_id):
+    items = load("comparison_ignored_items")
+    ignored = next((item for item in items if item.get("id") == ignored_id), None)
+    if ignored:
+        ignored["active"] = not bool(ignored.get("active", True))
+        ignored["updated_at"] = today()
+        save("comparison_ignored_items", items)
+        flash("Estado de artículo ignorado actualizado.", "info")
+    return redirect(url_for("comparison_rules") + "#ignored-items")
+
+
+@bp.route("/comparison-ignored/<ignored_id>/delete", methods=["POST"], endpoint="delete_comparison_ignored")
+def delete_comparison_ignored(ignored_id):
+    save("comparison_ignored_items", [item for item in load("comparison_ignored_items") if item.get("id") != ignored_id])
+    flash("Artículo ignorado eliminado.", "warning")
+    return redirect(url_for("comparison_rules") + "#ignored-items")
 
 
 @bp.route("/proveedores", methods=["GET", "POST"], endpoint="proveedores")

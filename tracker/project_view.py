@@ -84,6 +84,7 @@ def build_project_detail_context(project):
         catalog_by_id,
         bundles=load("bundles"),
         comparison_rules=load("comparison_rules"),
+        comparison_ignored_items=load("comparison_ignored_items"),
     )
 
     return {

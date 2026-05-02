@@ -51,6 +51,7 @@ def dashboard():
     raw_materiales = load("materiales")
     bundles = load("bundles")
     comparison_rules = load("comparison_rules")
+    comparison_ignored_items = load("comparison_ignored_items")
     hydrated_quotes = [hydrate_quote(q, catalog_by_id, catalog_by_name) for q in raw_quotes]
     hydrated_ldms = [hydrate_ldm(m, catalog_by_id, catalog_by_name) for m in raw_materiales]
 
@@ -74,6 +75,7 @@ def dashboard():
             catalog_by_id,
             bundles=bundles,
             comparison_rules=comparison_rules,
+            comparison_ignored_items=comparison_ignored_items,
         )
 
     active = [project for project in projects if not project.get("closed_at") and project.get("status") != "Completado"]

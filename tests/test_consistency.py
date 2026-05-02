@@ -284,5 +284,55 @@ class BundleConsistencyIntegrationTest(unittest.TestCase):
         self.assertEqual(rows["CABLE-10"]["actual_qty"], 60)
 
 
+class IgnoredItemsConsistencyTest(unittest.TestCase):
+    def test_ignored_ldm_item_keeps_project_cost_but_not_comparison_issue(self):
+        quote = _quote("Q1", "General", "2026-05-02", [
+            _q_item("CAT-1", 1, 100),
+        ])
+        ldm = _ldm("L1", [
+            _l_item("CAT-1", 1, 40),
+            _l_item("INDIRECT", 5, 10, description="Consumible indirecto"),
+        ])
+        report = cn.compute_consistency(
+            PROJECT,
+            [quote],
+            [ldm],
+            catalog_by_id={"INDIRECT": {"nombre": "Consumible indirecto", "unidad": "pza"}},
+            comparison_ignored_items=[{"catalog_item_id": "INDIRECT", "scope": "commercial", "active": True}],
+        )
+        self.assertEqual(report["ldm_subtotal"], 90)
+        self.assertEqual([row["catalog_item_id"] for row in report["items"]], ["CAT-1"])
+        self.assertEqual(report["ignored"]["commercial_ldm"]["count"], 1)
+        self.assertEqual(report["ignored"]["commercial_ldm"]["total"], 50)
+
+    def test_ignored_technical_item_not_compared_in_bundle_report(self):
+        quote = _quote("Q1", "General", "2026-05-02", [_q_item("BUNDLE", 2, 100)])
+        bundles = [{
+            "id": "B1",
+            "catalog_item_id": "BUNDLE",
+            "active_version": 1,
+            "versions": [{
+                "version": 1,
+                "status": "active",
+                "components": [
+                    {"catalog_item_id": "MAT", "qty": 1},
+                    {"catalog_item_id": "INDIRECT", "qty": 1},
+                ],
+            }],
+        }]
+        report = cn.compute_consistency(
+            PROJECT,
+            [quote],
+            [],
+            catalog_by_id={},
+            bundles=bundles,
+            comparison_ignored_items=[{"catalog_item_id": "INDIRECT", "scope": "technical", "active": True}],
+        )
+        rows = {row["catalog_item_id"]: row for row in report["bundle_consistency"]["rows"]}
+        self.assertIn("MAT", rows)
+        self.assertNotIn("INDIRECT", rows)
+        self.assertEqual(report["bundle_consistency"]["ignored_expected"]["count"], 1)
+
+
 if __name__ == "__main__":
     unittest.main()

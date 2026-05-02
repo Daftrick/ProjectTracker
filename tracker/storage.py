@@ -18,6 +18,7 @@ FILES = {
     "team": os.path.join(DATA_DIR, "team.json"),
     "bundles": os.path.join(DATA_DIR, "bundles.json"),
     "comparison_rules": os.path.join(DATA_DIR, "comparison_rules.json"),
+    "comparison_ignored_items": os.path.join(DATA_DIR, "comparison_ignored_items.json"),
 }
 
 
