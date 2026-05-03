@@ -37,15 +37,28 @@
           </div>
         </div>
 
-        <!-- Verificación de rutas -->
-        <div class="mb-3">
-          {% if cfg.drive_projects_path %}
-            {% set exists_msg = "✓ Ruta configurada" %}
-            <span class="badge bg-success">{{ exists_msg }}</span>
-            <code class="ms-2 text-muted" style="font-size:.8rem">{{ cfg.drive_projects_path }}</code>
-          {% else %}
-            <span class="badge bg-warning text-dark">Sin configurar</span>
-          {% endif %}
+        <!-- Verificación de rutas en disco -->
+        {% set ps = path_status|default({}) %}
+        <div class="mb-3 p-3 rounded-3 border" style="background:#0d1120;font-size:.85rem">
+          <div class="fw-semibold mb-2 text-muted">Estado de rutas en este equipo</div>
+          <div class="d-flex align-items-center gap-2 mb-1">
+            {% if ps.get('projects_ok') %}
+              <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Proyectos accesible</span>
+            {% elif ps.get('projects_set') %}
+              <span class="badge bg-danger"><i class="bi bi-x-circle me-1"></i>Proyectos no encontrada</span>
+            {% else %}
+              <span class="badge bg-secondary">Proyectos sin configurar</span>
+            {% endif %}
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            {% if ps.get('fichas_ok') %}
+              <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Fichas accesible</span>
+            {% elif ps.get('fichas_set') %}
+              <span class="badge bg-danger"><i class="bi bi-x-circle me-1"></i>Fichas no encontrada</span>
+            {% else %}
+              <span class="badge bg-secondary">Fichas sin configurar</span>
+            {% endif %}
+          </div>
         </div>
 
         <div class="border rounded-3 p-3 mb-3 bg-light">

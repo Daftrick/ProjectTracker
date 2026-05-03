@@ -28,6 +28,7 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 - [x] Fase 3 — Visualización de consistencia técnica por bundles en detalle de proyecto. Implementado en v21.0.
 - [x] Mejora 4 — Corrección de acentos y codificación: auditoría completa de templates, validators, rutas y PDFs. Únicos bugs reales encontrados en `build_ldm_pdf` ("Pagina" → "Página", "DESCRIPCION" → "DESCRIPCIÓN"). Implementado en v23.1.
 - [x] Revisión de datos históricos con catálogo eliminado: sistema completo de auditoría visual con badges, flujo de tres acciones (preservar/reconectar/purgar) y página dedicada. Implementado en v24.0.
+- [x] Integración Drive mejorada: `scan_drive_folder` con tipos de error diferenciados, detección de `missing_base`, fix de bug de caché, creación automática de carpeta desde UI, alertas de archivos faltantes y validación de rutas en Ajustes. Implementado en v24.1.
 
 ---
 
@@ -35,20 +36,7 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 
 ### Alta prioridad
 
-#### 1. Auditoría visual de consistencia COT/LDM
-
-- Mejorar la lectura visual de diferencias entre cotización y LDM en la nueva capa técnica de bundles.
-- Mostrar en el detalle del proyecto una tabla específica de materiales esperados por bundle contra LDM real.
-- Destacar:
-  - faltantes en LDM,
-  - excedentes en LDM,
-  - diferencias de cantidad,
-  - bundles sin versión activa,
-  - componentes sin regla de comparación cuando aplique conversión COT/LDM.
-- Agregar acciones sugeridas para corregir inconsistencias.
-- Evaluar si conviene permitir sincronización parcial entre COT, bundle y LDM.
-
-#### 2. Auditoría visual de consistencia COT/LDM
+#### 1. Auditoría visual de consistencia COT/LDM (bundles técnicos)
 
 - Mejorar la lectura visual de diferencias entre cotización y LDM en la nueva capa técnica de bundles.
 - Mostrar en el detalle del proyecto una tabla específica de materiales esperados por bundle contra LDM real.
@@ -80,15 +68,7 @@ Las confirmaciones deben mostrar impacto antes de ejecutar la acción.
 
 ### Media prioridad
 
-#### 4. Integración Drive avanzada
-
-- Crear automáticamente carpeta de proyecto si no existe.
-- Validar rutas configuradas con mensajes más claros.
-- Detectar mejor archivos esperados por proyecto.
-- Mejorar clasificación de documentos en la pestaña Drive.
-- Agregar alertas cuando falten archivos base del proyecto.
-
-#### 5. Limpieza residual de rutas/templates
+#### 4. Limpieza residual de rutas/templates
 
 - Revisar si aún existe lógica crítica en templates.
 - Mover cálculos repetidos a view-models o servicios.
@@ -99,7 +79,7 @@ Las confirmaciones deben mostrar impacto antes de ejecutar la acción.
 
 ### Baja prioridad
 
-#### 6. Filtros y búsqueda adicionales
+#### 5. Filtros y búsqueda adicionales
 
 - Mejorar filtros en vistas con muchos datos.
 - Agregar búsqueda más específica en:
@@ -110,14 +90,14 @@ Las confirmaciones deben mostrar impacto antes de ejecutar la acción.
   - fichas técnicas.
 - Evaluar filtros por proyecto, proveedor, categoría, fecha y estado.
 
-#### 7. Mejoras de UX general
+#### 6. Mejoras de UX general
 
 - Pulir navegación entre tabs.
 - Mejorar mensajes flash.
 - Agregar indicadores de carga en acciones lentas.
 - Mejorar experiencia móvil en tablas y modales.
 
-#### 8. Exportaciones y reportes
+#### 7. Exportaciones y reportes
 
 - Revisar formato de Excel generado.
 - Evaluar exportación de reportes de consistencia.
@@ -130,9 +110,9 @@ Las confirmaciones deben mostrar impacto antes de ejecutar la acción.
 
 Orden sugerido de trabajo:
 
-1. Probar artículos ignorados en comparación COT/LDM con proyectos reales.
-2. Mejorar navegación desde un issue técnico hacia el bundle, regla o artículo ignorado que lo genera.
-3. Evaluar reportes/exportación de consistencia comercial y técnica.
+1. **Auditoría visual de consistencia COT/LDM con bundles** — tabla de materiales esperados vs. LDM real, con faltantes, excedentes y acciones sugeridas (ítem 1, alta prioridad).
+2. **Confirmaciones destructivas** — estandarizar las acciones críticas que aún no piden confirmación ni muestran impacto (ítem 2).
+3. **Probar la integración Drive** con proyectos reales: verificar botón "Crear carpeta", alertas de archivos faltantes y validación de rutas en Ajustes.
 
 
 ---

@@ -488,16 +488,41 @@ def _format_mtime(mtime_ts):
     return datetime.datetime.fromtimestamp(mtime_ts).strftime("%d-%b-%Y %H:%M")
 
 
+def create_project_folder(folder_nm, projects_root):
+    """Crea la carpeta de proyecto en Drive si no existe.
+
+    Retorna (created: bool, error: str|None).
+    - created=True  → carpeta recién creada
+    - created=False, error=None → carpeta ya existía
+    - created=False, error=str  → fallo al crear
+    """
+    if not projects_root:
+        return False, "Ruta de proyectos Drive no configurada. Ve a Ajustes para configurarla."
+    if not os.path.isdir(projects_root):
+        return False, f"La ruta raíz no existe en este equipo: {projects_root}"
+    folder = os.path.join(projects_root, folder_nm)
+    if os.path.isdir(folder):
+        return False, None  # ya existía
+    try:
+        os.makedirs(folder, exist_ok=True)
+        clear_drive_cache()
+        return True, None
+    except Exception as exc:
+        return False, f"No se pudo crear la carpeta: {exc}"
+
+
 def scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None):
-    # Compile dynamic patterns if not already done
-    if clave and not PATTERNS['csv_plano']:
+    # Compile dynamic patterns per-clave (reset cuando cambia la clave)
+    if clave:
         PATTERNS['csv_plano'] = re.compile(rf"^{re.escape(clave)}-v\d", re.IGNORECASE)
 
     # Create hash for LDMs to detect changes
     ldms_hash = hash(json.dumps(ldms or [], sort_keys=True, default=str))
 
-    # Check cache first
-    cached_result = _drive_cache.get(projects_root, clave, ldms_hash)
+    folder = os.path.join(projects_root, folder_nm) if projects_root else ""
+
+    # Check cache first (keyed por carpeta específica del proyecto)
+    cached_result = _drive_cache.get(folder, clave, ldms_hash)
     if cached_result:
         return cached_result
 
@@ -515,16 +540,27 @@ def scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None):
         "work_files": [],
         "other_files": [],
         "csv_plano": [],
+        "missing_base": [],
         "error": None,
+        "error_type": None,   # "unconfigured" | "root_missing" | "folder_missing"
         "folder": folder_nm,
+        "root_exists": False,
+        "folder_exists": False,
     }
     if not projects_root:
         result["error"] = "Ruta de proyectos Drive no configurada."
+        result["error_type"] = "unconfigured"
         return result
-    folder = os.path.join(projects_root, folder_nm)
+    if not os.path.isdir(projects_root):
+        result["error"] = "La ruta raíz de proyectos no existe en este equipo."
+        result["error_type"] = "root_missing"
+        return result
+    result["root_exists"] = True
     if not os.path.isdir(folder):
-        result["error"] = f"Carpeta no encontrada: {folder}"
+        result["error"] = f"Carpeta del proyecto no encontrada en Drive: {folder_nm}"
+        result["error_type"] = "folder_missing"
         return result
+    result["folder_exists"] = True
 
     ie_files = []
     mem_files = []
@@ -592,8 +628,22 @@ def scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None):
     result["cot"] = sorted(cot_files)
     result["other"] = sorted(other_files + provider_quote_files)
 
-    # Cache the result
-    _drive_cache.put(projects_root, clave, ldms_hash, result)
+    # ── Archivos base esperados pero faltantes ────────────────────────────────
+    missing_base = []
+    has_ie_dwg = any(f.lower().endswith(".dwg") for f in ie_files)
+    has_ie_pdf = any(f.lower().endswith(".pdf") for f in ie_files)
+    if not has_ie_dwg:
+        missing_base.append({"key": "ie_dwg", "label": "Plano eléctrico (DWG)", "pattern": "IE-*.dwg"})
+    if not has_ie_pdf:
+        missing_base.append({"key": "ie_pdf", "label": "Plano eléctrico (PDF)", "pattern": "IE-*.pdf"})
+    if not mem_files:
+        missing_base.append({"key": "mem_pdf", "label": "Memoria de cálculo", "pattern": "MEM-*.pdf"})
+    if not cot_files:
+        missing_base.append({"key": "cot_pdf", "label": "Cotización (PDF)", "pattern": "COT-*.pdf"})
+    result["missing_base"] = missing_base
+
+    # Cache the result (keyed por carpeta específica del proyecto)
+    _drive_cache.put(folder, clave, ldms_hash, result)
 
     return result
 

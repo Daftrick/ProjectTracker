@@ -10,7 +10,7 @@ from ..catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from ..consistency import compute_consistency
 from ..deletions import delete_project_data
 from ..domain import ALCANCES, get_progress
-from ..drive import active_drive_paths, current_platform_key, find_delivery_files, folder_name, load_config, save_config, scan_drive_folder
+from ..drive import active_drive_paths, create_project_folder, current_platform_key, find_delivery_files, folder_name, load_config, save_config, scan_drive_folder
 from ..project_view import build_project_detail_context
 from ..services import (
     apply_task_status_change,
@@ -331,11 +331,25 @@ def settings():
         if field_errors:
             for error in field_errors.values():
                 flash(error, "warning")
-            return render_template("settings.html", cfg=_settings_view_config(submitted_cfg), field_errors=field_errors)
+            view_cfg = _settings_view_config(submitted_cfg)
+            path_status = {
+                "projects_ok": False,
+                "projects_set": bool(submitted["drive_projects_path"]),
+                "fichas_ok": False,
+                "fichas_set": bool(submitted["drive_fichas_path"]),
+            }
+            return render_template("settings.html", cfg=view_cfg, field_errors=field_errors, path_status=path_status)
         save_config(submitted_cfg)
         flash("Configuración guardada.", "success")
         return redirect(url_for("settings"))
-    return render_template("settings.html", cfg=_settings_view_config(cfg), field_errors={})
+    view_cfg = _settings_view_config(cfg)
+    path_status = {
+        "projects_ok": bool(view_cfg["drive_projects_path"]) and os.path.isdir(view_cfg["drive_projects_path"]),
+        "projects_set": bool(view_cfg["drive_projects_path"]),
+        "fichas_ok": bool(view_cfg["drive_fichas_path"]) and os.path.isdir(view_cfg["drive_fichas_path"]),
+        "fichas_set": bool(view_cfg["drive_fichas_path"]),
+    }
+    return render_template("settings.html", cfg=view_cfg, field_errors={}, path_status=path_status)
 
 
 @bp.route("/projects/<project_id>/alcances/update", methods=["POST"], endpoint="update_project_alcances")
@@ -431,6 +445,25 @@ def delete_delivery(project_id, delivery_id):
     save("deliveries", [item for item in load("deliveries") if item["id"] != delivery_id])
     flash("Registro de entrega eliminado.", "warning")
     return redirect(url_for("project_detail", project_id=project_id) + "#tab-docs")
+
+
+@bp.route("/projects/<project_id>/drive/create-folder", methods=["POST"], endpoint="create_drive_folder")
+def create_drive_folder(project_id):
+    """Crea la carpeta Drive del proyecto si aún no existe."""
+    project = next((item for item in load("projects") if item["id"] == project_id), None)
+    if not project:
+        return redirect(url_for("dashboard"))
+    cfg = load_config()
+    drive_root = active_drive_paths(cfg)["projects"]
+    fn = folder_name(project)
+    created, error = create_project_folder(fn, drive_root)
+    if error:
+        flash(error, "danger")
+    elif created:
+        flash(f"Carpeta creada en Drive: {fn}", "success")
+    else:
+        flash(f"La carpeta {fn} ya existe en Drive.", "info")
+    return redirect(url_for("project_detail", project_id=project_id) + "#tab-drive")
 
 
 @bp.route("/projects/<project_id>/files/<path:filename>", endpoint="serve_project_file")
