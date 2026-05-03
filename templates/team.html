@@ -27,9 +27,13 @@
         {% if m.phone %}<div><small><i class="bi bi-telephone text-muted me-1"></i>{{ m.phone }}</small></div>{% endif %}
         <hr class="my-2">
         <div class="d-flex justify-content-end">
-          <form method="post" action="{{ url_for('delete_member', member_id=m.id) }}"
-                onsubmit="return confirm('¿Eliminar?')">
-            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+          <form method="post" action="{{ url_for('delete_member', member_id=m.id) }}">
+            <button type="button" class="btn btn-sm btn-outline-danger"
+                    data-confirm-title='Eliminar miembro {{ m.name | e }}'
+                    data-confirm-body='<dl class="row small mb-0">{% if m.role %}<dt class="col-5">Rol</dt><dd class="col-7">{{ m.role | e }}</dd>{% endif %}{% if m.email %}<dt class="col-5">Email</dt><dd class="col-7">{{ m.email | e }}</dd>{% endif %}</dl>'
+                    onclick="submitFormWithConfirm(this)">
+              <i class="bi bi-trash"></i>
+            </button>
           </form>
         </div>
       </div>

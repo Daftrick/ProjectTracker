@@ -245,6 +245,7 @@ def expand_quote_bundles(quote: dict | None, bundles: Iterable[dict], catalog_by
                 "waste_pct": waste_pct,
                 "expected_qty": _round(expected_qty),
                 "notes": comp.get("notes", ""),
+                "comparison_rule_id": comp["comparison_rule_id"],
             }
             bucket["sources"].append(source)
             bundle_rows.append({"component_catalog_item_id": comp_cid, **source})

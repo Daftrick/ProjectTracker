@@ -48,8 +48,8 @@
     "hash": "c219d8fcf1de4dd9f444fc3fc4e8291e"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\domain.py": {
-    "mtime": 1777795506.789,
-    "hash": "6fba3740a8eef6defae0484f00234730"
+    "mtime": 1777813030.442,
+    "hash": "cd3934fc8695b924f0090974e0a6c785"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\services.py": {
     "mtime": 1777221852.715,
@@ -80,12 +80,12 @@
     "hash": "af3e248cb30a4a4d4765fa5b00a71ae2"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\consistency.py": {
-    "mtime": 1777764618.0,
-    "hash": "2042b0db7da06b04a1f3ee968a246c26"
+    "mtime": 1777811844.164,
+    "hash": "eee9783f126ded4bb6a47b9b6a070d54"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\bundles.py": {
-    "mtime": 1777754370.0,
-    "hash": "a6b4983186e8b170ccfe82eee1b9073e"
+    "mtime": 1777811814.201,
+    "hash": "ac7aa79edf485d87b25a0b34fea4174e"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\comparison_rules.py": {
     "mtime": 1777754370.0,
@@ -104,8 +104,8 @@
     "hash": "a628e59f899059a506690f3e14ae93f8"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\routes\\admin.py": {
-    "mtime": 1777764562.0,
-    "hash": "21030869a4df3d5814ebb299c31cc6d3"
+    "mtime": 1777812854.934,
+    "hash": "9ad5745bd204fda876e468d6bb81dee4"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\routes\\projects.py": {
     "mtime": 1777796275.158,
@@ -191,21 +191,21 @@
     "mtime": 1777183519.453,
     "hash": "acd3a9b345e3eccfe16023ee8d180152"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\VERSIONES.md": {
-    "mtime": 1777796556.661,
-    "hash": "f72bf3d8cffe5619d0fb4c4f9ec7dafd"
-  },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\ROADMAP_MEJORAS.md": {
-    "mtime": 1777796613.76,
-    "hash": "6d9581dac32a1bf3d542cf459e37bf2c"
+    "mtime": 1777813082.833,
+    "hash": "e7991cd35ea4e635f4b5d3c346186ba9"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\CLAUDE.md": {
-    "mtime": 1777796924.527,
-    "hash": "2ed67c68f28bc1ef95ac24167431d7e8"
+    "mtime": 1777799455.178,
+    "hash": "cfae1810881af37eb738d28c73470ccb"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\VERSIONES.md": {
+    "mtime": 1777813057.041,
+    "hash": "95be56bdaf6f429280c58bd2b6e6700b"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\base.html": {
-    "mtime": 1777795366.828,
-    "hash": "d37656fa0eec3b88251f8e5daad26365"
+    "mtime": 1777812836.607,
+    "hash": "ab055c91ddb33a89b734624349847641"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\dashboard.html": {
     "mtime": 1777345363.176,
@@ -228,12 +228,12 @@
     "hash": "3084595fc5a4a0957fbe618d9d76c8f5"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\fichas.html": {
-    "mtime": 1777339437.659,
-    "hash": "89900f1268c44d613056c27c05aeeb15"
+    "mtime": 1777812947.157,
+    "hash": "67c6eef75f0bd7fe86ccee2fba6792b9"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\project_detail.html": {
-    "mtime": 1777796306.788,
-    "hash": "4318c22d3866381d33647e72df4f0bf0"
+    "mtime": 1777812928.245,
+    "hash": "a91493a18543a8cf35582e059e7984a9"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\project_new.html": {
     "mtime": 1777337364.254,
@@ -272,20 +272,20 @@
     "hash": "8a35f563db8dc39a25838db6992ec53e"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\team.html": {
-    "mtime": 1777339437.691,
-    "hash": "58df5a99d2579cdaa2d4f5c9704510ac"
+    "mtime": 1777812961.592,
+    "hash": "8280732842a205cb259e2ab51ca23aa1"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\catalogo.html": {
-    "mtime": 1777754370.0,
-    "hash": "7f10fc972236c59003ed40b463ad06f3"
+    "mtime": 1777812997.008,
+    "hash": "73016d19414aef89408c41f86cf3f34d"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\ldm_form.html": {
     "mtime": 1777767038.685,
     "hash": "baf961b0ba51cdb54b237bdcac19cfcc"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\proveedores.html": {
-    "mtime": 1777339437.622,
-    "hash": "708b54bb2a1fe530ded2768c1d2856d8"
+    "mtime": 1777812954.957,
+    "hash": "a5662029dd1d904b18183d6783922524"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\bundles.html": {
     "mtime": 1777754447.0,

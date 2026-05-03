@@ -87,9 +87,11 @@
             </button>
             <form method="post"
                   action="{{ url_for('delete_proveedor', prov_id=p.id) }}"
-                  class="d-inline"
-                  onsubmit="return confirm('¿Eliminar «{{ p.nombre }}»?')">
-              <button class="btn btn-sm btn-outline-danger">
+                  class="d-inline">
+              <button type="button" class="btn btn-sm btn-outline-danger"
+                      data-confirm-title='Eliminar proveedor {{ p.nombre | e }}'
+                      data-confirm-body='<dl class="row small mb-0">{% if p.categoria %}<dt class="col-5">Categoría</dt><dd class="col-7">{{ p.categoria | e }}</dd>{% endif %}{% if p.contacto %}<dt class="col-5">Contacto</dt><dd class="col-7">{{ p.contacto | e }}</dd>{% endif %}{% if p.email %}<dt class="col-5">Email</dt><dd class="col-7">{{ p.email | e }}</dd>{% endif %}</dl>'
+                      onclick="submitFormWithConfirm(this)">
                 <i class="bi bi-trash"></i>
               </button>
             </form>

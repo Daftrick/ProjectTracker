@@ -61,9 +61,14 @@
           {% if not f.projects %}<small class="text-muted">Sin proyectos</small>{% endif %}
         </td>
         <td class="text-end">
-          <form method="post" action="{{ url_for('delete_ficha', ficha_id=f.id) }}"
-                class="d-inline" onsubmit="return confirm('¿Eliminar esta ficha?')">
-            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+          <form method="post" action="{{ url_for('delete_ficha', ficha_id=f.id) }}" class="d-inline">
+            {% set nproy = f.projects | length %}
+            <button type="button" class="btn btn-sm btn-outline-danger"
+                    data-confirm-title='Eliminar ficha {{ f.code | e }}'
+                    data-confirm-body='<dl class="row small mb-0"><dt class="col-5">Tipo</dt><dd class="col-7">{{ f.tipo | e }}</dd><dt class="col-5">Marca</dt><dd class="col-7">{{ f.marca | e }}</dd><dt class="col-5">Modelo</dt><dd class="col-7">{{ f.modelo | e }}</dd></dl>{% if nproy > 0 %}<div class="alert alert-warning py-1 mt-2 mb-0 small"><i class="bi bi-exclamation-triangle me-1"></i>Está vinculada a <strong>{{ nproy }}</strong> proyecto(s). Los vínculos se eliminarán.</div>{% endif %}'
+                    onclick="submitFormWithConfirm(this)">
+              <i class="bi bi-trash"></i>
+            </button>
           </form>
         </td>
       </tr>

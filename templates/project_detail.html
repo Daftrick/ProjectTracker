@@ -769,8 +769,13 @@
               <td class="text-end">
                 <form method="post"
                       action="{{ url_for('delete_delivery', project_id=project.id, delivery_id=d.id) }}"
-                      class="d-inline" onsubmit="return confirm('\u00bfEliminar el registro de entrega {{ d.zip_name }}?\nSolo se elimina el registro; el archivo ZIP en Drive NO se borra.\n\nEsta acci\u00f3n no se puede deshacer.')">
-                  <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                      class="d-inline">
+                  <button type="button" class="btn btn-sm btn-outline-danger"
+                          data-confirm-title="Eliminar entrega"
+                          data-confirm-body='<p class="mb-2">\u00bfEliminar el registro de entrega <strong>{{ d.zip_name | e }}</strong>?</p><dl class="row small mb-1"><dt class="col-5">Versi\u00f3n</dt><dd class="col-7">{{ d.version | e }}</dd><dt class="col-5">Tipo</dt><dd class="col-7">{{ d.dtype | capitalize }}</dd><dt class="col-5">Archivos</dt><dd class="col-7">{{ d.files_included | length }}</dd></dl><div class="alert alert-info py-1 mb-0" style="font-size:.82rem"><i class="bi bi-info-circle me-1"></i>Solo se elimina el registro. El ZIP en Drive <strong>no</strong> se borra.</div>'
+                          onclick="submitFormWithConfirm(this)">
+                    <i class="bi bi-trash"></i>
+                  </button>
                 </form>
               </td>
             </tr>
@@ -844,15 +849,25 @@
                class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Editar"><i class="bi bi-pencil"></i><span class="action-label">Editar</span></a>
             {% if deleted_catalog_items %}
             <form method="post" action="{{ url_for('purge_quote_deleted_catalog_items', project_id=project.id, quote_id=q.id) }}"
-                  class="d-inline" onsubmit="return confirm('¿Eliminar por completo {{ deleted_catalog_items|length }} partida(s) marcadas como catálogo eliminado de {{ q.quote_number }}?')">
-              <button class="btn btn-sm btn-outline-danger me-1 action-btn" title="Eliminar partidas con catálogo eliminado">
+                  class="d-inline">
+              <button type="button" class="btn btn-sm btn-outline-danger me-1 action-btn"
+                      title="Eliminar partidas con catálogo eliminado"
+                      data-confirm-title='Purgar catálogo eliminado — {{ q.quote_number | e }}'
+                      data-confirm-body='<p class="mb-1">¿Purgar definitivamente <strong>{{ deleted_catalog_items|length }}</strong> partida(s) marcadas como catálogo eliminado de <strong>{{ q.quote_number | e }}</strong>?</p><ul class="mb-0 small">{% for item in deleted_catalog_items %}<li class="text-muted">{{ (item.get("description") or item.get("deleted_catalog_item", {}).get("nombre") or "—") | e }}</li>{% endfor %}</ul>'
+                      data-confirm-text="Purgar"
+                      onclick="submitFormWithConfirm(this)">
                 <i class="bi bi-eraser"></i><span class="action-label">Purgar</span>
               </button>
             </form>
             {% endif %}
             <form method="post" action="{{ url_for('delete_quote', project_id=project.id, quote_id=q.id) }}"
-                  class="d-inline" onsubmit="return confirm('\u00bfEliminar la cotizaci\u00f3n {{ q.quote_number }}?\nTotal: {{ q.total | currency }} {{ q.currency }}\n\nEsta acci\u00f3n no se puede deshacer.')">
-              <button class="btn btn-sm btn-outline-danger action-btn"><i class="bi bi-trash"></i><span class="action-label">Eliminar</span></button>
+                  class="d-inline">
+              <button type="button" class="btn btn-sm btn-outline-danger action-btn"
+                      data-confirm-title='Eliminar cotizaci\u00f3n {{ q.quote_number | e }}'
+                      data-confirm-body='<dl class="row small mb-0"><dt class="col-5">Tipo</dt><dd class="col-7">{{ q.get("quote_type","General") | e }}</dd><dt class="col-5">Fecha</dt><dd class="col-7">{{ q.date | fdate }}</dd><dt class="col-5">Partidas</dt><dd class="col-7">{{ q["items"]|length }}</dd><dt class="col-5">Total</dt><dd class="col-7 fw-bold text-success">{{ q.total | currency }} {{ q.currency | e }}</dd></dl>'
+                      onclick="submitFormWithConfirm(this)">
+                <i class="bi bi-trash"></i><span class="action-label">Eliminar</span>
+              </button>
             </form>
             {% endif %}
           </td>
@@ -1026,12 +1041,24 @@
   {% set tech_status = tech.status|default('no_data', true) %}
   {% set tech_summary = tech.summary|default({}) %}
   {% set tech_rows = tech.rows|default([]) %}
+  {% set tech_bundle_rows = tech.bundle_rows|default([]) %}
   {% set tech_ldm_unlinked = tech.ldm_unlinked|default({'count': 0, 'total': 0}) %}
   {% set tech_bundle_quote_items = tech.bundle_quote_items|default([]) %}
   {% set tech_unmapped_quote_items = tech.unmapped_quote_items|default([]) %}
   {% set tech_invalid_components = tech.invalid_components|default([]) %}
+  {% set tech_bundles_no_version = tech.bundles_no_active_version|default([]) %}
+  {% set tech_components_no_rule = tech.components_no_rule|default([]) %}
+  {% set tech_suggested_actions = tech.technical_suggested_actions|default([]) %}
   {% set tech_color = status_color_map.get(tech_status, 'secondary') %}
   {% set tech_icon = status_icon_map.get(tech_status, 'info-circle') %}
+  {% set tech_action_map = {
+    'missing_in_ldm': 'Agregar material en la LDM del proyecto.',
+    'extra_in_ldm': 'Verificar origen; si no corresponde a este proyecto, marcar como ignorado técnico.',
+    'qty_shortage': 'Aumentar cantidad en LDM o ajustar la regla de conversión COT/LDM.',
+    'qty_excess': 'Revisar excedente: ajustar regla de conversión o revisar el bundle.',
+    'ok': ''
+  } %}
+  {% set tech_other_invalid = tech_invalid_components | rejectattr('reason', 'equalto', 'bundle_without_active_version') | list %}
   <div class="card mb-3">
     <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
       <span class="fw-semibold" style="font-size:.875rem">
@@ -1041,6 +1068,11 @@
       <div class="d-flex align-items-center gap-2 flex-wrap">
         {% if tech_bundle_quote_items %}
           <span class="badge bg-light text-dark border">{{ tech_bundle_quote_items|length }} partida(s) COT con bundle</span>
+        {% endif %}
+        {% if tech_bundles_no_version %}
+          <span class="badge bg-danger">
+            <i class="bi bi-exclamation-octagon me-1"></i>{{ tech_bundles_no_version|length }} bundle(s) sin versión activa
+          </span>
         {% endif %}
         <span class="badge bg-{{ tech_color }}{% if tech_color == 'warning' %} text-dark{% endif %}">
           <i class="bi bi-{{ tech_icon }} me-1"></i>
@@ -1073,14 +1105,47 @@
         </div>
         <div class="col-md-3">
           <div class="margen-box p-3 h-100" style="font-size:.85rem">
-            <div class="text-muted mb-1">LDM sin catálogo</div>
-            <div class="fw-bold {% if tech_ldm_unlinked.count|default(0) %}text-warning{% else %}text-muted{% endif %}" style="font-size:1.05rem">
-              {{ tech_ldm_unlinked.count|default(0) }}
+            <div class="text-muted mb-1">Bundles sin versión activa</div>
+            <div class="fw-bold {% if tech_bundles_no_version %}text-danger{% else %}text-muted{% endif %}" style="font-size:1.05rem">
+              {{ tech_bundles_no_version|length }}
             </div>
-            <small class="text-muted">No entra a comparación técnica</small>
+            <small class="text-muted">LDM sin catálogo: {{ tech_ldm_unlinked.count|default(0) }}</small>
           </div>
         </div>
       </div>
+
+      {% if tech_bundles_no_version %}
+      <div class="alert alert-danger py-2 mb-2" style="font-size:.82rem">
+        <i class="bi bi-exclamation-octagon me-1"></i>
+        <strong>{{ tech_bundles_no_version|length }} bundle(s) sin versión activa.</strong>
+        La COT tiene partidas con bundle configurado pero sin versión activa; esas partidas no generan materiales esperados.
+        <a href="{{ url_for('bundles') }}" class="alert-link ms-2">Configurar bundles →</a>
+      </div>
+      {% endif %}
+
+      {% if tech_components_no_rule %}
+      <div class="alert alert-warning py-2 mb-2" style="font-size:.82rem">
+        <i class="bi bi-exclamation-triangle me-1"></i>
+        <strong>{{ tech_components_no_rule|length }} componente(s) con regla de comparación referenciada pero no encontrada.</strong>
+        La comparación de esos materiales puede ser imprecisa.
+        <a href="{{ url_for('comparison_rules') }}" class="alert-link ms-2">Administrar reglas →</a>
+      </div>
+      {% endif %}
+
+      {% if tech_other_invalid %}
+      <div class="alert alert-danger py-2 mb-2" style="font-size:.82rem">
+        <i class="bi bi-exclamation-octagon me-1"></i>
+        {{ tech_other_invalid|length }} componente(s) de bundle sin artículo de catálogo válido.
+        <a href="{{ url_for('bundles') }}" class="alert-link ms-2">Corregir bundle →</a>
+      </div>
+      {% endif %}
+
+      {% if tech_unmapped_quote_items %}
+      <div class="alert alert-secondary py-2 mb-2" style="font-size:.82rem">
+        <i class="bi bi-info-circle me-1"></i>
+        {{ tech_unmapped_quote_items|length }} partida(s) de la COT activa sin bundle configurado — sólo aparecen en la consistencia comercial.
+      </div>
+      {% endif %}
 
       {% set tech_ignored_expected = tech.ignored_expected|default({'count':0,'qty':0,'rows':[]}) %}
       {% set tech_ignored_actual = tech.ignored_actual|default({'count':0,'qty':0,'rows':[]}) %}
@@ -1089,6 +1154,21 @@
         <i class="bi bi-eye-slash me-1"></i>
         Comparación técnica ignora {{ tech_ignored_expected.count|default(0) }} material(es) esperados y
         {{ tech_ignored_actual.count|default(0) }} material(es) reales configurados como no atribuibles.
+      </div>
+      {% endif %}
+
+      {% if tech_suggested_actions %}
+      <div class="margen-box p-3 mb-3" style="font-size:.82rem">
+        <div class="fw-semibold mb-2"><i class="bi bi-clipboard-check me-1"></i>Acciones sugeridas</div>
+        <div class="d-flex flex-column gap-1">
+          {% for action in tech_suggested_actions %}
+            {% set ac = status_color_map.get(action.status, 'secondary') %}
+            <div class="d-flex gap-2 align-items-start">
+              <span class="badge bg-{{ ac }}{% if ac == 'warning' %} text-dark{% endif %}" style="font-size:.65rem">{{ action.count }}</span>
+              <span><strong>{{ action.label }}:</strong> {{ action.text }}</span>
+            </div>
+          {% endfor %}
+        </div>
       </div>
       {% endif %}
 
@@ -1102,93 +1182,191 @@
       </div>
       {% endif %}
 
-      {% if tech_invalid_components %}
-      <div class="alert alert-danger py-2" style="font-size:.82rem">
-        <i class="bi bi-exclamation-octagon me-1"></i>
-        Hay {{ tech_invalid_components|length }} componente(s) de bundle sin artículo de catálogo. Corrige el bundle en Catálogo → Bundles.
-      </div>
-      {% endif %}
-
-      {% if tech_unmapped_quote_items %}
-      <div class="alert alert-secondary py-2" style="font-size:.82rem">
-        <i class="bi bi-info-circle me-1"></i>
-        {{ tech_unmapped_quote_items|length }} partida(s) de la COT activa no tienen bundle configurado y se comparan sólo en la consistencia comercial.
-      </div>
-      {% endif %}
-
       {% if tech_rows %}
       <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
-        <div class="text-muted" style="font-size:.82rem">
-          La LDM se normaliza con reglas COT/LDM cuando el material se compra en otra unidad, por ejemplo pza/tramo → ml.
+        <div>
+          <ul class="nav nav-pills" style="font-size:.8rem">
+            <li class="nav-item">
+              <button type="button" class="nav-link active py-1 px-3" id="techTabMaterial" onclick="switchTechView('material')">
+                <i class="bi bi-table me-1"></i>Por material
+              </button>
+            </li>
+            {% if tech_bundle_quote_items %}
+            <li class="nav-item">
+              <button type="button" class="nav-link py-1 px-3" id="techTabBundle" onclick="switchTechView('bundle')">
+                <i class="bi bi-diagram-3 me-1"></i>Por bundle
+              </button>
+            </li>
+            {% endif %}
+          </ul>
         </div>
         <input id="technicalConsistencyFilter" type="search" class="form-control form-control-sm" style="width:260px" placeholder="Filtrar material / origen / regla">
       </div>
-      <div class="table-responsive">
-        <table class="table mb-0" style="font-size:.84rem" id="technicalConsistencyTable">
-          <thead class="table-light">
-            <tr>
-              <th style="width:4%"></th>
-              <th>Material esperado</th>
-              <th class="text-center" style="width:7%">Unidad</th>
-              <th class="text-end" style="width:10%">Esperado</th>
-              <th class="text-end" style="width:10%">LDM equiv.</th>
-              <th class="text-end" style="width:10%">Diferencia</th>
-              <th style="width:14%">Estado</th>
-              <th style="width:25%">Origen / trazabilidad</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for row in tech_rows %}
-            {% set row_status = row.status|default('no_data', true) %}
-            {% set row_issue = row.issue|default('', true) %}
-            {% set row_diff_qty = row.diff_qty|default(0, true)|float %}
-            {% set rc = status_color_map.get(row_status, 'secondary') %}
-            {% set ri = status_icon_map.get(row_status, 'info-circle') %}
-            {% set issue_label = tech_issue_label_map.get(row_issue, row_issue) %}
-            {% set issue_color = tech_issue_color_map.get(row_issue, rc) %}
-            <tr class="technical-consistency-row {% if row_status == 'critical' %}table-danger{% elif row_status == 'warning' %}table-warning{% endif %}"
-                data-search="{{ row.nombre|default('') }} {{ row.unidad|default('') }} {{ row_issue }} {{ row.comparison_rule_id|default('') }} {% for src in row.sources_expected|default([]) %}{{ src.bundle_name|default('Bundle') }} {% endfor %}{% for src in row.sources_actual|default([]) %}{{ src.ldm_number }} {{ src.description }} {% endfor %}">
-              <td class="text-center"><i class="bi bi-{{ ri }} text-{{ rc }}"></i></td>
-              <td>
-                <div class="fw-semibold">{{ row.nombre|default('Sin nombre') }}</div>
-                <small class="text-muted font-monospace">{{ row.catalog_item_id|default('') }}</small>
-              </td>
-              <td class="text-center"><span class="badge bg-light text-dark border">{{ row.unidad|default('—', true) }}</span></td>
-              <td class="text-end font-monospace">{{ '%.4g'|format(row.expected_qty|default(0, true)|float) }}</td>
-              <td class="text-end font-monospace">{{ '%.4g'|format(row.actual_qty|default(0, true)|float) }}</td>
-              <td class="text-end font-monospace fw-semibold {% if row_diff_qty < 0 %}text-danger{% elif row_diff_qty > 0 %}text-warning{% else %}text-success{% endif %}">
-                {{ '%+.4g'|format(row_diff_qty) }}
-              </td>
-              <td>
-                <span class="badge bg-{{ issue_color }}{% if issue_color == 'warning' %} text-dark{% endif %}" style="font-size:.68rem">{{ issue_label }}</span>
-                <small class="d-block text-muted mt-1">Tol. {{ row.tolerance_pct|default(0, true) }}%</small>
-                {% if row.comparison_rule_id|default('') %}<small class="d-block font-monospace text-muted">Regla: {{ row.comparison_rule_id|default('') }}</small>{% endif %}
-              </td>
-              <td>
-                {% if row.sources_expected|default([]) %}
-                  <div class="mb-1"><small class="text-muted fw-semibold">Esperado desde COT</small></div>
-                  {% for src in (row.sources_expected|default([]))[:3] %}
-                    <small class="d-block text-muted">
-                      {{ src.bundle_name|default('Bundle') }}{% if src.bundle_version|default('') %} v{{ src.bundle_version }}{% endif %} · COT {{ '%.4g'|format(src.quote_qty|default(0, true)|float) }} × {{ '%.4g'|format(src.component_qty|default(0, true)|float) }}
-                    </small>
-                  {% endfor %}
-                  {% if row.sources_expected|default([])|length > 3 %}<small class="text-muted">+{{ row.sources_expected|default([])|length - 3 }} origen(es)</small>{% endif %}
-                {% endif %}
-                {% if row.sources_actual|default([]) %}
-                  <div class="mt-2 mb-1"><small class="text-muted fw-semibold">LDM real</small></div>
-                  {% for src in (row.sources_actual|default([]))[:3] %}
-                    <small class="d-block text-muted">
-                      <span class="font-monospace">{{ src.ldm_number|default('LDM', true) }}</span> · {{ '%.4g'|format(src.qty_original|default(0, true)|float) }} → {{ '%.4g'|format(src.qty_converted|default(0, true)|float) }}
-                    </small>
-                  {% endfor %}
-                  {% if row.sources_actual|default([])|length > 3 %}<small class="text-muted">+{{ row.sources_actual|default([])|length - 3 }} LDM(s)</small>{% endif %}
-                {% endif %}
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+
+      <div id="techViewMaterial">
+        <p class="text-muted mb-2" style="font-size:.82rem">La LDM se normaliza con reglas COT/LDM cuando el material se compra en otra unidad, por ejemplo pza/tramo → ml.</p>
+        <div class="table-responsive">
+          <table class="table mb-0" style="font-size:.84rem" id="technicalConsistencyTable">
+            <thead class="table-light">
+              <tr>
+                <th style="width:3%"></th>
+                <th>Material esperado</th>
+                <th class="text-center" style="width:6%">Unidad</th>
+                <th class="text-end" style="width:9%">Esperado</th>
+                <th class="text-end" style="width:9%">LDM equiv.</th>
+                <th class="text-end" style="width:9%">Diferencia</th>
+                <th style="width:13%">Estado</th>
+                <th style="width:18%">Origen / trazabilidad</th>
+                <th style="width:17%">Acción sugerida</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in tech_rows %}
+              {% set row_status = row.status|default('no_data', true) %}
+              {% set row_issue = row.issue|default('', true) %}
+              {% set row_diff_qty = row.diff_qty|default(0, true)|float %}
+              {% set rc = status_color_map.get(row_status, 'secondary') %}
+              {% set ri = status_icon_map.get(row_status, 'info-circle') %}
+              {% set issue_label = tech_issue_label_map.get(row_issue, row_issue) %}
+              {% set issue_color = tech_issue_color_map.get(row_issue, rc) %}
+              {% set row_action = tech_action_map.get(row_issue, '') %}
+              <tr class="technical-consistency-row {% if row_status == 'critical' %}table-danger{% elif row_status == 'warning' %}table-warning{% endif %}"
+                  data-search="{{ row.nombre|default('') }} {{ row.unidad|default('') }} {{ row_issue }} {{ row.comparison_rule_id|default('') }} {% for src in row.sources_expected|default([]) %}{{ src.bundle_name|default('') }} {% endfor %}{% for src in row.sources_actual|default([]) %}{{ src.ldm_number|default('') }} {% endfor %}">
+                <td class="text-center"><i class="bi bi-{{ ri }} text-{{ rc }}"></i></td>
+                <td>
+                  <div class="fw-semibold">{{ row.nombre|default('Sin nombre') }}</div>
+                  <small class="text-muted font-monospace">{{ row.catalog_item_id|default('') }}</small>
+                </td>
+                <td class="text-center"><span class="badge bg-light text-dark border">{{ row.unidad|default('—', true) }}</span></td>
+                <td class="text-end font-monospace">{{ '%.4g'|format(row.expected_qty|default(0, true)|float) }}</td>
+                <td class="text-end font-monospace">{{ '%.4g'|format(row.actual_qty|default(0, true)|float) }}</td>
+                <td class="text-end font-monospace fw-semibold {% if row_diff_qty < 0 %}text-danger{% elif row_diff_qty > 0 %}text-warning{% else %}text-success{% endif %}">
+                  {% if row_diff_qty != 0 %}{{ '%+.4g'|format(row_diff_qty) }}{% else %}—{% endif %}
+                </td>
+                <td>
+                  <span class="badge bg-{{ issue_color }}{% if issue_color == 'warning' %} text-dark{% endif %}" style="font-size:.68rem">{{ issue_label }}</span>
+                  <small class="d-block text-muted mt-1">Tol. {{ row.tolerance_pct|default(0, true) }}%</small>
+                  {% if row.comparison_rule_id|default('') %}<small class="d-block font-monospace text-muted">Regla: {{ row.comparison_rule_id }}</small>{% endif %}
+                </td>
+                <td>
+                  {% if row.sources_expected|default([]) %}
+                    <div class="mb-1"><small class="text-muted fw-semibold">Desde COT</small></div>
+                    {% for src in (row.sources_expected|default([]))[:2] %}
+                      <small class="d-block text-muted">
+                        {{ src.bundle_name|default('Bundle') }}{% if src.bundle_version|default('') %} v{{ src.bundle_version }}{% endif %} · {{ '%.4g'|format(src.quote_qty|default(0, true)|float) }} × {{ '%.4g'|format(src.component_qty|default(0, true)|float) }}
+                      </small>
+                    {% endfor %}
+                    {% if row.sources_expected|default([])|length > 2 %}<small class="text-muted">+{{ row.sources_expected|default([])|length - 2 }} más</small>{% endif %}
+                  {% endif %}
+                  {% if row.sources_actual|default([]) %}
+                    <div class="mt-1 mb-1"><small class="text-muted fw-semibold">LDM real</small></div>
+                    {% for src in (row.sources_actual|default([]))[:2] %}
+                      <small class="d-block text-muted">
+                        <span class="font-monospace">{{ src.ldm_number|default('LDM', true) }}</span> · {{ '%.4g'|format(src.qty_original|default(0, true)|float) }} → {{ '%.4g'|format(src.qty_converted|default(0, true)|float) }}{% if src.rule_name|default('') %} <span class="text-info">({{ src.rule_name }})</span>{% endif %}
+                      </small>
+                    {% endfor %}
+                    {% if row.sources_actual|default([])|length > 2 %}<small class="text-muted">+{{ row.sources_actual|default([])|length - 2 }} LDM más</small>{% endif %}
+                  {% endif %}
+                </td>
+                <td>
+                  {% if row_action %}
+                    <small class="text-muted"><i class="bi bi-arrow-right-circle me-1"></i>{{ row_action }}</small>
+                  {% else %}
+                    <small class="text-success"><i class="bi bi-check-circle me-1"></i>Sin acción requerida.</small>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
+
+      {% if tech_bundle_quote_items %}
+      <div id="techViewBundle" style="display:none">
+        <p class="text-muted mb-3" style="font-size:.82rem"><i class="bi bi-info-circle me-1"></i>La cantidad LDM equivalente es el total del proyecto; no está desglosada por bundle.</p>
+        {% for bq in tech_bundle_quote_items %}
+          {% set bq_components = tech_bundle_rows | selectattr('bundle_catalog_item_id', 'equalto', bq.catalog_item_id) | list %}
+          {% if bq_components %}
+          <div class="card mb-3 border-secondary">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center py-2" style="font-size:.84rem">
+              <span>
+                <i class="bi bi-box-seam me-1 text-primary"></i>
+                <strong>{{ bq.description|default(bq.catalog_item_id) }}</strong>
+                <span class="badge bg-secondary ms-2" style="font-size:.68rem">v{{ bq.bundle_version|default('?') }}</span>
+              </span>
+              <span class="text-muted">COT: <strong>{{ '%.4g'|format(bq.qty|default(0)|float) }}</strong> unidades</span>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-sm mb-0" style="font-size:.83rem">
+                  <thead class="table-light">
+                    <tr>
+                      <th style="width:3%"></th>
+                      <th>Componente</th>
+                      <th class="text-center" style="width:6%">Unidad</th>
+                      <th class="text-end" style="width:10%">Factor bundle</th>
+                      <th class="text-end" style="width:11%">Esperado <small class="fw-normal text-muted d-block">esta partida</small></th>
+                      <th class="text-end" style="width:11%">LDM equiv. <small class="fw-normal text-muted d-block">total proyecto</small></th>
+                      <th class="text-end" style="width:10%">Δ total</th>
+                      <th style="width:12%">Estado</th>
+                      <th>Acción sugerida</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for br in bq_components %}
+                      {% set matching = tech_rows | selectattr('catalog_item_id', 'equalto', br.component_catalog_item_id) | list %}
+                      {% set comp_row = matching[0] if matching else {} %}
+                      {% set cr_status = comp_row.status|default('no_data', true) %}
+                      {% set cr_issue = comp_row.issue|default('', true) %}
+                      {% set cr_actual = comp_row.actual_qty|default(0, true)|float %}
+                      {% set cr_diff = comp_row.diff_qty|default(0, true)|float %}
+                      {% set br_expected = br.expected_qty|default(0, true)|float %}
+                      {% set crc = status_color_map.get(cr_status, 'secondary') %}
+                      {% set cri = status_icon_map.get(cr_status, 'info-circle') %}
+                      {% set cr_issue_label = tech_issue_label_map.get(cr_issue, cr_issue) %}
+                      {% set cr_issue_color = tech_issue_color_map.get(cr_issue, crc) %}
+                      {% set cr_action = tech_action_map.get(cr_issue, '') %}
+                      <tr class="{% if cr_status == 'critical' %}table-danger{% elif cr_status == 'warning' %}table-warning{% endif %}">
+                        <td class="text-center"><i class="bi bi-{{ cri }} text-{{ crc }}"></i></td>
+                        <td>
+                          <div class="fw-semibold">{{ comp_row.nombre|default(br.component_catalog_item_id) }}</div>
+                          <small class="text-muted font-monospace">{{ br.component_catalog_item_id }}</small>
+                          {% if br.comparison_rule_id|default('') %}<small class="d-block text-muted">Regla: {{ br.comparison_rule_id }}</small>{% endif %}
+                          {% if br.notes|default('') %}<small class="d-block text-muted fst-italic">{{ br.notes }}</small>{% endif %}
+                        </td>
+                        <td class="text-center"><span class="badge bg-light text-dark border">{{ comp_row.unidad|default('—', true) }}</span></td>
+                        <td class="text-end font-monospace text-muted">
+                          {{ '%.4g'|format(br.component_qty|default(0)|float) }}
+                          {% if br.waste_pct|default(0)|float > 0 %}<small class="d-block text-warning">+{{ br.waste_pct }}% merma</small>{% endif %}
+                        </td>
+                        <td class="text-end font-monospace fw-semibold">{{ '%.4g'|format(br_expected) }}</td>
+                        <td class="text-end font-monospace">{% if cr_actual %}{{ '%.4g'|format(cr_actual) }}{% else %}<span class="text-danger">—</span>{% endif %}</td>
+                        <td class="text-end font-monospace fw-semibold {% if cr_diff < 0 %}text-danger{% elif cr_diff > 0 %}text-warning{% else %}text-success{% endif %}">
+                          {% if cr_diff != 0 %}{{ '%+.4g'|format(cr_diff) }}{% else %}—{% endif %}
+                        </td>
+                        <td>
+                          <span class="badge bg-{{ cr_issue_color }}{% if cr_issue_color == 'warning' %} text-dark{% endif %}" style="font-size:.68rem">{{ cr_issue_label }}</span>
+                        </td>
+                        <td>
+                          {% if cr_action %}
+                            <small class="text-muted"><i class="bi bi-arrow-right-circle me-1"></i>{{ cr_action }}</small>
+                          {% else %}
+                            <small class="text-success"><i class="bi bi-check-circle me-1"></i>OK</small>
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+
       {% else %}
         <div class="text-center py-4 text-muted">
           <i class="bi bi-diagram-3 fs-2 d-block mb-2"></i>
@@ -1410,28 +1588,26 @@
               <i class="bi bi-pencil"></i><span class="action-label">Editar</span>
             </a>
             {% if deleted_catalog_items %}
-            {% set purge_names = namespace(items=[]) %}
-            {% for deleted_item in deleted_catalog_items %}
-              {% set deleted_catalog = deleted_item.deleted_catalog_item or {} %}
-              {% set purge_names.items = purge_names.items + [deleted_catalog.nombre or deleted_item.description or 'Artículo sin nombre'] %}
-            {% endfor %}
             <form method="post"
                   action="{{ url_for('purge_ldm_deleted_catalog_items', project_id=project.id, ldm_id=ldm.id) }}"
-                  class="d-inline"
-                  data-purge-record="{{ ldm.ldm_number }}"
-                  data-purge-kind="artículo(s)"
-                  data-purge-items='{{ purge_names.items | tojson }}'
-                  onsubmit="return confirmDeletedCatalogPurge(this)">
-              <button class="btn btn-sm btn-outline-danger me-1 action-btn" title="Eliminar artículos con catálogo eliminado">
+                  class="d-inline">
+              <button type="button" class="btn btn-sm btn-outline-danger me-1 action-btn"
+                      title="Eliminar artículos con catálogo eliminado"
+                      data-confirm-title='Purgar catálogo eliminado — {{ ldm.ldm_number | e }}'
+                      data-confirm-body='<p class="mb-1">¿Purgar definitivamente <strong>{{ deleted_catalog_items|length }}</strong> artículo(s) marcados como catálogo eliminado de <strong>{{ ldm.ldm_number | e }}</strong>?</p><ul class="mb-0 small">{% for item in deleted_catalog_items %}{% set dc = item.deleted_catalog_item or {} %}<li class="text-muted">{{ (dc.nombre or item.description or "Artículo sin nombre") | e }}</li>{% endfor %}</ul>'
+                      data-confirm-text="Purgar"
+                      onclick="submitFormWithConfirm(this)">
                 <i class="bi bi-eraser"></i><span class="action-label">Purgar</span>
               </button>
             </form>
             {% endif %}
             <form method="post"
                   action="{{ url_for('delete_ldm', project_id=project.id, ldm_id=ldm.id) }}"
-                  class="d-inline"
-                  onsubmit="return confirm('\u00bfEliminar {{ ldm.ldm_number }}?\n{{ ldm_items|length }} art\u00edculo(s){% if ldm.subtotal_cot %} - {{ ldm.subtotal_cot | currency }}{% endif %}\n\nEsta acci\u00f3n no se puede deshacer.')">
-              <button class="btn btn-sm btn-outline-danger action-btn">
+                  class="d-inline">
+              <button type="button" class="btn btn-sm btn-outline-danger action-btn"
+                      data-confirm-title='Eliminar {{ ldm.ldm_number | e }}'
+                      data-confirm-body='<dl class="row small mb-0">{% if ldm.proveedor %}<dt class="col-5">Proveedor</dt><dd class="col-7">{{ ldm.proveedor | e }}</dd>{% endif %}<dt class="col-5">Art\u00edculos</dt><dd class="col-7">{{ ldm_items|length }}</dd>{% if ldm.subtotal_cot %}<dt class="col-5">Costo</dt><dd class="col-7 fw-bold text-warning">{{ ldm.subtotal_cot | currency }}</dd>{% endif %}</dl>'
+                      onclick="submitFormWithConfirm(this)">
                 <i class="bi bi-trash"></i><span class="action-label">Eliminar</span>
               </button>
             </form>
@@ -1896,21 +2072,6 @@
       "/projects/{{ project.id }}/ldm/" + ldmId + "/set_cot";
   }
 
-  function confirmDeletedCatalogPurge(form) {
-    let names = [];
-    try {
-      names = JSON.parse(form.dataset.purgeItems || "[]");
-    } catch (err) {
-      names = [];
-    }
-    const record = form.dataset.purgeRecord || "esta lista";
-    const kind = form.dataset.purgeKind || "elemento(s)";
-    const itemLines = names.map(name => `- ${name}`).join("\n");
-    const detail = itemLines ? `\n\nArtículos afectados:\n${itemLines}` : "";
-    return confirm(`¿Eliminar por completo ${names.length} ${kind} marcados como catálogo eliminado de ${record}?${detail}`);
-  }
-
-
   // Filtro local de tabla Consistencia COT vs LDM
   (function () {
     const input = document.getElementById("consistencyFilter");
@@ -1923,6 +2084,18 @@
       });
     });
   })();
+
+  // Alternar vistas "por material" / "por bundle" en consistencia técnica
+  function switchTechView(view) {
+    var matEl = document.getElementById('techViewMaterial');
+    var bndEl = document.getElementById('techViewBundle');
+    var tabMat = document.getElementById('techTabMaterial');
+    var tabBnd = document.getElementById('techTabBundle');
+    if (matEl) matEl.style.display = view === 'material' ? '' : 'none';
+    if (bndEl) bndEl.style.display = view === 'bundle' ? '' : 'none';
+    if (tabMat) tabMat.classList.toggle('active', view === 'material');
+    if (tabBnd) tabBnd.classList.toggle('active', view === 'bundle');
+  }
 
   // Filtro local de tabla Consistencia técnica por bundles
   (function () {

@@ -305,21 +305,42 @@ document.getElementById('editForm').addEventListener('submit', async function(e)
   }
 });
 
-// ── Eliminar un artículo vía AJAX ─────────────────────────────────────────
+// ── Eliminar un artículo vía AJAX (con modal de impacto previo) ──────────
 async function deleteItem(id, nombre) {
-  if (!confirm(`¿Eliminar «${nombre}»?`)) return;
-  const res = await fetch(`/catalogo/${id}/delete`, {
-    method:  'POST',
-    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+  let body = `<p class="mb-2">¿Eliminar el artículo <strong>${escapeHtml(nombre)}</strong>?</p>`;
+  try {
+    const impact = await fetch(`/api/catalogo/${id}/impact`);
+    if (impact.ok) {
+      const data = await impact.json();
+      const total = (data.quote_refs || 0) + (data.material_refs || 0);
+      if (total > 0) {
+        body += `<div class="alert alert-warning py-1 mb-0" style="font-size:.82rem">
+          <i class="bi bi-exclamation-triangle me-1"></i>
+          Tiene referencias activas: <strong>${data.quote_refs}</strong> cotización(es) y
+          <strong>${data.material_refs}</strong> LDM(s).
+          <br><small class="text-muted">Las referencias se desconectarán pero los registros se conservarán.</small>
+        </div>`;
+      }
+    }
+  } catch (e) {}
+  confirmDelete({
+    title: 'Eliminar artículo de catálogo',
+    body,
+    onConfirm: async () => {
+      const res = await fetch(`/catalogo/${id}/delete`, {
+        method:  'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      });
+      const json = await res.json();
+      if (json.ok) {
+        document.getElementById('row-' + id)?.remove();
+        updateSelectionUI();
+        updateTotalCount();
+        const refs = (json.counts?.quote_refs || 0) + (json.counts?.material_refs || 0);
+        if (refs > 0) alert(`Artículo eliminado. Se marcaron ${refs} referencia(s) en cotizaciones/LDMs.`);
+      }
+    }
   });
-  const json = await res.json();
-  if (json.ok) {
-    document.getElementById('row-' + id)?.remove();
-    updateSelectionUI();
-    updateTotalCount();
-    const refs = (json.counts?.quote_refs || 0) + (json.counts?.material_refs || 0);
-    if (refs > 0) alert(`Artículo eliminado. Se limpiaron ${refs} referencia(s) en cotizaciones/LDMs.`);
-  }
 }
 
 // ── Checkboxes y selección múltiple ──────────────────────────────────────
@@ -360,26 +381,34 @@ function clearSelection() {
 }
 
 // ── Eliminar seleccionados ────────────────────────────────────────────────
-async function bulkDelete() {
+function bulkDelete() {
   const ids = [...document.querySelectorAll('.row-check:checked')].map(cb => cb.value);
   if (!ids.length) return;
-  if (!confirm(`¿Eliminar ${ids.length} artículo(s) seleccionados? Esta acción no se puede deshacer.`)) return;
-
-  const res = await fetch('/api/catalogo/bulk-delete', {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body:    JSON.stringify({ ids })
-  });
-  const json = await res.json();
-  if (json.ok) {
-    ids.forEach(id => document.getElementById('row-' + id)?.remove());
-    document.getElementById('checkAll').checked = false;
-    updateSelectionUI();
-    updateTotalCount();
-    if (json.refs_cleared > 0) {
-      alert(`Artículos eliminados. Se limpiaron ${json.refs_cleared} referencia(s) en cotizaciones/LDMs.`);
+  const body = `<p class="mb-2">¿Eliminar <strong>${ids.length}</strong> artículo(s) seleccionados?</p>
+    <div class="alert alert-warning py-1 mb-0" style="font-size:.82rem">
+      <i class="bi bi-exclamation-triangle me-1"></i>
+      Las referencias activas en cotizaciones y LDMs se desconectarán (los registros se conservan).
+    </div>`;
+  confirmDelete({
+    title: `Eliminar ${ids.length} artículo(s)`,
+    body,
+    onConfirm: async () => {
+      const res = await fetch('/api/catalogo/bulk-delete', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ ids })
+      });
+      const json = await res.json();
+      if (json.ok) {
+        ids.forEach(id => document.getElementById('row-' + id)?.remove());
+        clearSelection();
+        updateTotalCount();
+        if (json.refs_cleared > 0) {
+          alert(`${json.deleted} artículo(s) eliminados. Se marcaron ${json.refs_cleared} referencia(s) en cotizaciones/LDMs.`);
+        }
+      }
     }
-  }
+  });
 }
 
 // ── Actualizar contador total ─────────────────────────────────────────────

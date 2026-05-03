@@ -244,6 +244,26 @@ def bulk_delete_catalogo():
     })
 
 
+@bp.route("/api/catalogo/<item_id>/impact", methods=["GET"], endpoint="api_catalogo_impact")
+def api_catalogo_impact(item_id):
+    item_id = str(item_id).strip()
+    quotes = load("quotes")
+    materiales = load("materiales")
+    quote_refs = sum(
+        1
+        for q in quotes
+        for it in q.get("items", [])
+        if str(it.get("catalog_item_id", "")).strip() == item_id
+    )
+    material_refs = sum(
+        1
+        for m in materiales
+        for it in m.get("items", [])
+        if str(it.get("catalog_item_id", "")).strip() == item_id
+    )
+    return jsonify({"quote_refs": quote_refs, "material_refs": material_refs})
+
+
 @bp.route("/api/catalogo", endpoint="api_catalogo")
 def api_catalogo():
     query = request.args.get("q", "")

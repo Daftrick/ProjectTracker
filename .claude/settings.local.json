@@ -3,7 +3,26 @@
     "allow": [
       "PowerShell($env:PYTHONUTF8=1; python -c \"import graphify; print\\(dir\\(graphify\\)\\)\")",
       "PowerShell($env:PYTHONUTF8=1; graphify query \"why does load\\(\\) connect Admin Routes, Drive Setup, Document Generation, Deleted Catalog Audit, and LDM Import\" --budget 2000 2>&1 | head -60)",
-      "PowerShell($env:PYTHONUTF8=1; graphify query \"why does load\\(\\) connect Admin Routes, Drive Setup, Document Generation, Deleted Catalog Audit, and LDM Import\" --budget 2000 2>&1 | Select-Object -First 80)"
+      "PowerShell($env:PYTHONUTF8=1; graphify query \"why does load\\(\\) connect Admin Routes, Drive Setup, Document Generation, Deleted Catalog Audit, and LDM Import\" --budget 2000 2>&1 | Select-Object -First 80)",
+      "Bash(Get-ChildItem -Path \"h:\\\\My Drive\\\\Omniious\\\\Claude Code\\\\ProjectTracker\" -Recurse -Include \"*.py\", \"*.html\")",
+      "Bash(Select-Object FullName)",
+      "Bash(python -c \"from tracker.bundles import expand_quote_bundles; from tracker.consistency import compute_consistency; from tracker.comparison_rules import active_rules; print\\('imports OK'\\)\")",
+      "Bash(python -m pytest tracker/tests/test_bundles.py tracker/tests/test_comparison_rules.py tracker/tests/test_consistency.py -q)",
+      "Bash(python -m unittest tracker.tests.test_bundles tracker.tests.test_comparison_rules tracker.tests.test_consistency -v)",
+      "Bash(.venv\\\\Scripts\\\\python.exe -m unittest tests.test_bundles tests.test_comparison_rules tests.test_consistency -v)",
+      "Bash(graphify update *)",
+      "Bash(python -m compileall app.py tracker tests)",
+      "Bash(python -m unittest discover -s tests)",
+      "PowerShell(Copy-Item graphify-out/graph.json .graphify_old.json)",
+      "PowerShell(python -c $script)",
+      "PowerShell(Copy-Item \"graphify-out/graph.json\" \".graphify_old.json\" -Force)",
+      "Bash(Test-Path \"H:\\\\My Drive\\\\Omniious\\\\Claude Code\\\\ProjectTracker\\\\graphify-out\\\\.graphify_chunk_01.json\")",
+      "Read(//mnt/h/My Drive/Omniious/Claude Code/**)",
+      "Bash(python3 /tmp/gen_graph.py)",
+      "Read(//mnt/**)",
+      "Bash(ls /mnt/)",
+      "Bash(python3 /tmp/write_graph.py)",
+      "Bash(Get-ChildItem -Recurse -Include \"*.py\")"
     ]
   }
 }

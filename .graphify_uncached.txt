@@ -1,0 +1,10 @@
+H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\domain.py
+H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\routes\admin.py
+H:\My Drive\Omniious\Claude Code\ProjectTracker\ROADMAP_MEJORAS.md
+H:\My Drive\Omniious\Claude Code\ProjectTracker\VERSIONES.md
+H:\My Drive\Omniious\Claude Code\ProjectTracker\templates\base.html
+H:\My Drive\Omniious\Claude Code\ProjectTracker\templates\fichas.html
+H:\My Drive\Omniious\Claude Code\ProjectTracker\templates\project_detail.html
+H:\My Drive\Omniious\Claude Code\ProjectTracker\templates\team.html
+H:\My Drive\Omniious\Claude Code\ProjectTracker\templates\catalogo.html
+H:\My Drive\Omniious\Claude Code\ProjectTracker\templates\proveedores.html

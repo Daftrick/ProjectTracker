@@ -26,7 +26,7 @@ from typing import Iterable
 
 from .catalog import quote_type_key
 from .bundles import expand_quote_bundles
-from .comparison_rules import aggregate_ldm_for_expected_items, compare_expected_vs_actual
+from .comparison_rules import aggregate_ldm_for_expected_items, compare_expected_vs_actual, active_rules as _get_active_rules
 from .comparison_ignored import (
     SCOPE_COMMERCIAL,
     SCOPE_TECHNICAL,
@@ -354,6 +354,45 @@ def compute_consistency(
         comparison_rules or [],
         catalog_by_id or {},
     )
+    bundles_no_active_version = [
+        c for c in bundle_expansion["invalid_components"]
+        if c.get("reason") == "bundle_without_active_version"
+    ]
+
+    _active_rule_ids = {r["id"] for r in _get_active_rules(comparison_rules or [])}
+    components_no_rule = [
+        row for row in bundle_expansion["bundle_rows"]
+        if row.get("comparison_rule_id") and row["comparison_rule_id"] not in _active_rule_ids
+    ]
+
+    technical_suggested_actions: list[dict] = []
+    _tech_action_defs = [
+        ("missing_in_ldm", STATUS_CRITICAL, "Faltantes en LDM", "Agregar el material en la LDM del proyecto o corregir el bundle."),
+        ("qty_shortage", STATUS_CRITICAL, "Cantidad insuficiente en LDM", "Aumentar la cantidad en LDM o ajustar la regla de conversión COT/LDM."),
+        ("extra_in_ldm", STATUS_WARNING, "Extras en LDM", "Verificar si el material pertenece a este proyecto; si no, marcar como ignorado técnico."),
+        ("qty_excess", STATUS_WARNING, "Excedente de cantidad en LDM", "Revisar la regla de conversión o ajustar el factor en el bundle."),
+    ]
+    for key, action_status, label, text in _tech_action_defs:
+        count = technical_compare["summary"].get(key, 0)
+        if count:
+            technical_suggested_actions.append({"key": key, "status": action_status, "label": label, "text": text, "count": count})
+    if bundles_no_active_version:
+        technical_suggested_actions.append({
+            "key": "no_active_version",
+            "status": STATUS_CRITICAL,
+            "label": "Bundles sin versión activa",
+            "text": "Activar una versión en Catálogo → Bundles para que la COT se expanda correctamente.",
+            "count": len(bundles_no_active_version),
+        })
+    if components_no_rule:
+        technical_suggested_actions.append({
+            "key": "no_comparison_rule",
+            "status": STATUS_WARNING,
+            "label": "Componentes sin regla de comparación",
+            "text": "Crear las reglas COT/LDM faltantes en Admin → Reglas de comparación.",
+            "count": len(components_no_rule),
+        })
+
     bundle_consistency = {
         "status": technical_compare["status"],
         "rows": technical_compare["rows"],
@@ -364,8 +403,12 @@ def compute_consistency(
         "ignored_actual": summarize_ignored(technical_actual_ignored, catalog_by_id or {}, total_key="total_cot"),
         "ldm_unlinked": technical_actual["unlinked"],
         "bundle_quote_items": bundle_expansion["bundle_quote_items"],
+        "bundle_rows": bundle_expansion["bundle_rows"],
         "unmapped_quote_items": bundle_expansion["unmapped_quote_items"],
         "invalid_components": bundle_expansion["invalid_components"],
+        "bundles_no_active_version": bundles_no_active_version,
+        "components_no_rule": components_no_rule,
+        "technical_suggested_actions": technical_suggested_actions,
     }
 
     has_general = any(

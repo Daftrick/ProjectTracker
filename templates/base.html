@@ -327,6 +327,35 @@
     {% block content %}{% endblock %}
   </div>
 </div>
+<!-- ── Modal de confirmación destructiva (reutilizable en toda la app) ── -->
+<div class="modal fade" id="modalConfirmDelete" tabindex="-1" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border:1px solid rgba(220,53,69,.35)">
+      <div class="modal-header" style="background:rgba(220,53,69,.1);border-bottom:1px solid rgba(220,53,69,.2)">
+        <h5 class="modal-title text-danger">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          <span id="mcdTitle">Confirmar eliminación</span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div id="mcdBody"></div>
+        <p class="text-danger mb-0 mt-3" style="font-size:.82rem">
+          <i class="bi bi-lock-fill me-1"></i>Esta acción no se puede deshacer.
+        </p>
+      </div>
+      <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+          <i class="bi bi-x-lg me-1"></i>Cancelar
+        </button>
+        <button type="button" id="mcdConfirmBtn" class="btn btn-danger btn-sm">
+          <i class="bi bi-trash-fill me-1"></i>
+          <span id="mcdConfirmText">Eliminar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 {% block modals %}{% endblock %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -340,7 +369,6 @@
     var STORAGE_KEY = 'pt_sb_collapsed';
     var body = document.body;
 
-    // Restaurar estado guardado sin animación al cargar
     if (localStorage.getItem(STORAGE_KEY) === '1') {
       body.classList.add('sb-collapsed');
     }
@@ -349,6 +377,46 @@
       body.classList.toggle('sb-collapsed');
       localStorage.setItem(STORAGE_KEY, body.classList.contains('sb-collapsed') ? '1' : '0');
     });
+  })();
+
+  // ── Modal de confirmación destructiva ────────────────────────────
+  (function () {
+    var _modal = null;
+    var _cb = null;
+
+    function _getModal() {
+      if (!_modal) {
+        _modal = new bootstrap.Modal(document.getElementById('modalConfirmDelete'));
+        document.getElementById('mcdConfirmBtn').addEventListener('click', function () {
+          _modal.hide();
+          if (typeof _cb === 'function') _cb();
+        });
+      }
+      return _modal;
+    }
+
+    window.confirmDelete = function (config) {
+      document.getElementById('mcdTitle').textContent = config.title || 'Confirmar eliminación';
+      document.getElementById('mcdBody').innerHTML = config.body || '';
+      document.getElementById('mcdConfirmText').textContent = config.confirmText || 'Eliminar';
+      _cb = config.onConfirm || null;
+      _getModal().show();
+    };
+
+    window.submitFormWithConfirm = function (btn) {
+      window.confirmDelete({
+        title: btn.dataset.confirmTitle || 'Confirmar eliminación',
+        body: btn.dataset.confirmBody || '',
+        confirmText: btn.dataset.confirmText || 'Eliminar',
+        onConfirm: function () { btn.closest('form').submit(); }
+      });
+    };
+
+    window.escapeHtml = function (str) {
+      return String(str)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    };
   })();
 </script>
 {% block extra_js %}{% endblock %}

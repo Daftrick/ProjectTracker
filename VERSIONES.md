@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v24.0 — 03-May-2026
+## Versión actual: v25.1 — 03-May-2026
 
 ---
 
@@ -116,8 +116,17 @@ ProjectTracker/
     ├── test_drive.py           # unittest: escaneo Drive, CSVs de plano y archivos ignorados
     ├── test_csv_import.py      # unittest: parser CSV para LDM
     ├── test_validators.py      # unittest: formularios vacíos, filas vacías, números inválidos
-    ├── test_catalog_search.py  # unittest: tokens AND, categoría, list_categories, smoke /api/catalogo
-    └── test_consistency.py     # unittest: agregaciones, umbrales 30%/0%, issues por artículo
+    ├── test_catalog_search.py         # unittest: tokens AND, categoría, list_categories, smoke /api/catalogo
+    ├── test_consistency.py            # unittest: agregaciones, umbrales 30%/0%, issues por artículo, bundles, reglas, ignorados
+    ├── test_bundles.py                # unittest: normalización, versiones, expansión de bundles
+    ├── test_comparison_rules.py       # unittest: reglas activas, conversión COT/LDM, tolerancia
+    ├── test_comparison_ignored.py     # unittest: artículos ignorados no generan issues pero conservan costo
+    ├── test_admin_bundles_routes.py   # unittest: rutas Admin bundles y reglas
+    ├── test_admin_forms.py            # unittest: validación inline y preservación de formularios administrativos
+    ├── test_project_view.py           # unittest: contexto de project_detail (tareas, fichas, márgenes)
+    ├── test_deletions.py              # unittest: cascadas al eliminar proyecto y limpieza de referencias catálogo
+    ├── test_form_models.py            # unittest: view-models de cotización y LDM desde formularios inválidos
+    └── test_project_detail_bundle_ui.py  # unittest: render de la sección técnica de bundles en project_detail
 ```
 
 ---
@@ -577,8 +586,6 @@ Reglas de portada PDF:
 | 2026-05-02 | Versión bumped v21.0 → v21.1 (patch: hardening del tab Consistencia técnica para datos incompletos) |
 | 2026-05-02 | Hotfix detalle de proyecto: hardening adicional de filas comerciales en Consistencia; se reemplazan accesos frágiles a campos opcionales como `qty_delta`, `price_cot`, `cost_avg`, `margin_unit`, `issue_details` y `primary_action` por accesos seguros con defaults. |
 | 2026-05-02 | Versión bumped v21.1 → v21.2 (patch: hardening adicional de filas comerciales sin `qty_delta` u otros campos opcionales) |
-
-
 | 2026-05-02 | Bundles/Reglas COT-LDM: corrección de render en `/bundles` pasando `get_active_bundle_version` y `catalog_by_id` al template; listas de artículos/reglas ordenadas alfabéticamente. |
 | 2026-05-02 | Versión bumped v21.2 → v21.3 (patch: hardening de pantalla Bundles y orden alfabético de selectores). |
 | 2026-05-02 | Reglas COT/LDM: corrección de opciones visibles para Dirección (`LDM → COT`, `COT → LDM`) y Redondeo (`Sin redondeo`, `Hacia arriba`, `Hacia abajo`, `Redondeo normal`); validación defensiva en `admin.py`. |
@@ -590,12 +597,23 @@ Reglas de portada PDF:
 | 2026-05-02 | Tests: se agregó `tests/test_comparison_ignored.py` y cobertura en `tests/test_consistency.py` para validar que los artículos ignorados no generan diferencias, pero conservan costo. |
 | 2026-05-02 | Versión bumped v21.4 → v22.0 (feature: artículos ignorados en comparación COT/LDM como costos no atribuibles directamente al cliente). |
 | 2026-05-02 | `tracker/csv_import.py` — `parse_ldm_csv(path, catalog=None)`: parámetro opcional `catalog` construye índice `{nombre.lower() → id}` en O(1) y vincula automáticamente `catalog_item_id` a cada artículo importado cuya descripción coincida exactamente (case-insensitive) con un `nombre` del catálogo. Funciones auxiliares `_build_catalog_index` y `_match_catalog`. Items sin coincidencia conservan `catalog_item_id=''`. |
-| 2026-05-02 | `tracker/routes/materials.py` — `import_ldm_csv` pasa `catalog=load("catalogo")` al parser; el auto-link es transparente para el resto del flujo. |
-| 2026-05-02 | `templates/ldm_form.html` — nueva UIX en la vista previa de importación CSV: banner de resumen con conteo de artículos vinculados vs. sin vincular; badge verde "Vinculado al catálogo" y hint ámbar "Busca en catálogo" por fila. |
+| 2026-05-02 | `tracker/routes/materials.py` — `import_ldm_csv` pasa `catalog=load(“catalogo”)` al parser; el auto-link es transparente para el resto del flujo. |
+| 2026-05-02 | `templates/ldm_form.html` — nueva UIX en la vista previa de importación CSV: banner de resumen con conteo de artículos vinculados vs. sin vincular; badge verde “Vinculado al catálogo” y hint ámbar “Busca en catálogo” por fila. |
 | 2026-05-02 | `tests/test_csv_import.py` — 3 tests nuevos cubren auto-link exitoso, match case-insensitive y ausencia de catálogo (backward-compat). |
 | 2026-05-02 | Versión bumped v22.0 → v23.0 (feature: auto-vinculación catalog_item_id al importar CSV desde LISP). |
-| 2026-05-03 | `pdfs.py:build_ldm_pdf` — corrección de acentos: footer "Pagina" → "Página"; encabezados de tabla "DESCRIPCION" → "DESCRIPCIÓN" (con y sin precios). Auditoría completa de templates, validators y rutas confirmó que el resto del sistema ya tenía acentos correctos. |
+| 2026-05-03 | `pdfs.py:build_ldm_pdf` — corrección de acentos: footer “Pagina” → “Página”; encabezados de tabla “DESCRIPCION” → “DESCRIPCIÓN” (con y sin precios). Auditoría completa de templates, validators y rutas confirmó que el resto del sistema ya tenía acentos correctos. |
 | 2026-05-03 | Versión bumped v23.0 → v23.1 (patch: corrección de acentos en PDF de LDM — mejora 4 del roadmap). |
+| 2026-05-03 | Sistema completo de auditoría de catálogo eliminado: función `audit_deleted_catalog_items()` para analizar cotizaciones y LDMs con referencias obsoletas, página `/audit/deleted-catalog`, flujo de tres acciones (preservar/reconectar/purgar), badges visuales y funciones backend `preserve_/restore_/purge_deleted_catalog_item_in_record()`. |
+| 2026-05-03 | Versión bumped v23.1 → v24.0 (feature: sistema completo de auditoría y gestión de catálogo eliminado). |
+| 2026-05-03 | **Drive — integración mejorada**: `scan_drive_folder` diferencia errores por tipo (`unconfigured`/`root_missing`/`folder_missing`); detecta archivos base faltantes (`missing_base`); fix de bug de caché de proyecto cruzado; botón “Crear carpeta en Drive” desde UI cuando `error_type == folder_missing`; alertas de archivos base faltantes; validación de rutas en Ajustes con panel de estado ✓/✗. |
+| 2026-05-03 | Versión bumped v24.0 → v24.1 (patch: Drive con tipos de error diferenciados, creación de carpeta y validación de rutas). |
+| 2026-05-03 | `tracker/bundles.py` — `expand_quote_bundles()` agrega `comparison_rule_id` en cada entrada de `bundle_rows`, habilitando el cruce con reglas activas en la capa de consistencia. |
+| 2026-05-03 | `tracker/consistency.py` — `compute_consistency()` ahora calcula `bundles_no_active_version` (subset de invalid_components por razón), `components_no_rule` (bundle_rows con regla referenciada inexistente) y `technical_suggested_actions` (acciones en orden de prioridad). Los cuatro campos nuevos se incluyen en `bundle_consistency`. |
+| 2026-05-03 | `templates/project_detail.html` — sección técnica de consistencia rediseñada: KPI 4 cambia a “Bundles sin versión activa”; tres bloques de alerta diferenciados (versión faltante → rojo con link a Bundles, regla faltante → amarillo con link a Reglas, componentes inválidos → rojo genérico); panel de acciones sugeridas técnicas; toggle nav-pills “Por material” / “Por bundle”; tabla de materiales mejorada con columna “Acción sugerida”; vista anidada por bundle con sub-tabla de componentes (factor, cantidad esperada, equivalente LDM, Δ, badge, acción). Función JS `switchTechView` para alternar entre vistas. |
+| 2026-05-03 | Tests: 26 tests pasan (test_bundles: 4, test_comparison_rules: 4, test_consistency: 18, test_project_detail_bundle_ui: 1). |
+| 2026-05-03 | Versión bumped v24.1 → v25.0 (feature: auditoría visual de consistencia técnica COT/LDM por bundles con vistas material/bundle, alertas diferenciadas y acciones sugeridas). |
+| 2026-05-03 | Confirmaciones destructivas estandarizadas: modal Bootstrap `#modalConfirmDelete` reutilizable en toda la app con título, detalle de impacto y botones Cancelar/Eliminar. Funciones globales `confirmDelete()` y `submitFormWithConfirm()` en `base.html`. Cotización: tipo, fecha, partidas, total. LDM: proveedor, artículos, costo. Entrega: versión, tipo, archivos + nota "ZIP no se borra". Ficha: tipo/marca/modelo + alerta de proyectos vinculados. Proveedor: categoría, contacto, email. Miembro de equipo: rol, email. Purge catálogo: lista de artículos afectados. Catálogo individual: nuevo endpoint `GET /api/catalogo/<id>/impact` que devuelve referencias activas en cotizaciones/LDMs ANTES de eliminar. Catálogo masivo: modal con conteo y advertencia de desconexión. |
+| 2026-05-03 | Versión bumped v25.0 → v25.1 (patch: confirmaciones destructivas estandarizadas con modal de impacto). |
 
 ---
 
@@ -603,16 +621,16 @@ Reglas de portada PDF:
 
 **Alta prioridad:**
 - Probar bundles reales en proyectos existentes y ajustar reglas de equivalencia COT/LDM.
-- Revisar trazabilidad técnica cuando existan partidas COT sin bundle, LDMs sin `catalog_item_id` o reglas faltantes.
-- Mantener auditoría de datos históricos con artículos de catálogo eliminados.
+- Estandarizar confirmaciones destructivas (eliminar cotización, LDM, entrega, ficha, proveedor, miembro de equipo, artículo de catálogo con referencias).
+- Evaluar si conviene sincronización parcial COT ↔ bundle ↔ LDM (diseño pendiente).
 
 **Media prioridad (ver `ROADMAP_MEJORAS.md`):**
-- Confirmaciones más finas en acciones destructivas
-- Mejoras de codificación/acentos en vistas y PDFs generados
-- Mejoras visuales adicionales al editor de bundles/reglas si el catálogo crece
+- Limpieza residual de lógica en templates → view-models o servicios.
+- Mejorar filtros y búsqueda en cotizaciones, LDMs, documentos, proveedores y fichas.
 
 **Baja prioridad:**
-- Mejor integración con Drive y reportes exportables de consistencia técnica.
+- Mejoras de UX general (navegación, mensajes flash, carga, móvil).
+- Exportaciones y reportes: resumen ejecutivo por proyecto, reportes históricos.
 
 ---
 
