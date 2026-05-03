@@ -50,6 +50,50 @@ class LdmCsvImportTest(unittest.TestCase):
         self.assertEqual(result["items"], [])
         self.assertIn("El CSV debe incluir una columna qty o cantidad.", result["errors"])
 
+    def test_parse_ldm_csv_auto_links_catalog_item_id(self):
+        catalog = [
+            {"id": "3EF4F34C", "nombre": "Tubo Conduit Galvanizado Pared Delgada | 27 [mm] (1\")"},
+            {"id": "94B273C0", "nombre": "Monitor Metálico Galvanizado Pared Delgada | 27 [mm] (1\")"},
+        ]
+        with tempfile.TemporaryDirectory() as root:
+            path = os.path.join(root, "OM001-v2-i1-20260426.csv")
+            with open(path, "w", encoding="utf-8") as handle:
+                handle.write(
+                    "description,unit,qty\n"
+                    "\"Tubo Conduit Galvanizado Pared Delgada | 27 [mm] (1\"\")\",pza,10\n"
+                    "\"Artículo Sin Coincidencia\",pza,5\n"
+                )
+
+            result = parse_ldm_csv(path, catalog=catalog)
+
+        self.assertEqual(result["errors"], [])
+        self.assertEqual(result["items"][0]["catalog_item_id"], "3EF4F34C")
+        self.assertEqual(result["items"][1]["catalog_item_id"], "")
+
+    def test_parse_ldm_csv_catalog_match_is_case_insensitive(self):
+        catalog = [{"id": "ABCD1234", "nombre": "Cable de Cobre | THHW-LS | Calibre 12 AWG"}]
+        with tempfile.TemporaryDirectory() as root:
+            path = os.path.join(root, "OM001-v2-i1-20260426.csv")
+            with open(path, "w", encoding="utf-8") as handle:
+                handle.write(
+                    "description,unit,qty\n"
+                    "cable de cobre | thhw-ls | calibre 12 awg,m,100\n"
+                )
+
+            result = parse_ldm_csv(path, catalog=catalog)
+
+        self.assertEqual(result["items"][0]["catalog_item_id"], "ABCD1234")
+
+    def test_parse_ldm_csv_without_catalog_sets_empty_catalog_item_id(self):
+        with tempfile.TemporaryDirectory() as root:
+            path = os.path.join(root, "OM001-v2-i1-20260426.csv")
+            with open(path, "w", encoding="utf-8") as handle:
+                handle.write("description,unit,qty\nCable THW-LS,m,50\n")
+
+            result = parse_ldm_csv(path)
+
+        self.assertEqual(result["items"][0]["catalog_item_id"], "")
+
 
 if __name__ == "__main__":
     unittest.main()

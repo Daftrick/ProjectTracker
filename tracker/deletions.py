@@ -73,6 +73,95 @@ def purge_deleted_catalog_items_from_record(record):
     return updated, len(before) - len(updated["items"])
 
 
+def restore_deleted_catalog_item_in_record(record, item_index, new_catalog_id):
+    """Reconnect a deleted catalog item to a new catalog item"""
+    updated = dict(record)
+    items = list(updated.get("items", []) or [])
+
+    if 0 <= item_index < len(items):
+        item = dict(items[item_index])
+        if item.get("deleted_catalog_item"):
+            # Remove the deleted catalog item reference and set new catalog ID
+            item.pop("deleted_catalog_item", None)
+            item["catalog_item_id"] = str(new_catalog_id).strip()
+            items[item_index] = item
+            updated["items"] = items
+            return updated, True
+
+    return updated, False
+
+
+def preserve_deleted_catalog_item_in_record(record, item_index):
+    """Mark a deleted catalog item as preserved (keep historical reference)"""
+    updated = dict(record)
+    items = list(updated.get("items", []) or [])
+
+    if 0 <= item_index < len(items):
+        item = dict(items[item_index])
+        if item.get("deleted_catalog_item"):
+            # Mark as preserved - keep the deleted_catalog_item but add a flag
+            item["deleted_catalog_preserved"] = True
+            items[item_index] = item
+            updated["items"] = items
+            return updated, True
+
+    return updated, False
+
+
+def audit_deleted_catalog_items(records, record_type="quote"):
+    """
+    Audit records for deleted catalog items and return summary statistics.
+
+    Args:
+        records: List of records (quotes or ldms)
+        record_type: Type of records ("quote" or "ldm")
+
+    Returns:
+        Dict with audit statistics and detailed item information
+    """
+    audit_results = {
+        "total_records": len(records),
+        "records_with_deleted_items": 0,
+        "total_deleted_items": 0,
+        "preserved_items": 0,
+        "unresolved_items": 0,
+        "details": []
+    }
+
+    for record in records:
+        record_id = record.get("id", "")
+        record_name = record.get("quote_number", "") if record_type == "quote" else record.get("ldm_number", "")
+        deleted_items = []
+
+        for idx, item in enumerate(record.get("items", [])):
+            if item.get("deleted_catalog_item"):
+                is_preserved = item.get("deleted_catalog_preserved", False)
+                deleted_items.append({
+                    "index": idx,
+                    "description": item.get("description", ""),
+                    "deleted_item": item["deleted_catalog_item"],
+                    "preserved": is_preserved,
+                    "qty": item.get("qty", 0),
+                    "price": item.get("price", 0),
+                    "total": item.get("total", 0)
+                })
+
+        if deleted_items:
+            audit_results["records_with_deleted_items"] += 1
+            audit_results["total_deleted_items"] += len(deleted_items)
+            audit_results["preserved_items"] += sum(1 for item in deleted_items if item["preserved"])
+            audit_results["unresolved_items"] += sum(1 for item in deleted_items if not item["preserved"])
+
+            audit_results["details"].append({
+                "record_id": record_id,
+                "record_name": record_name,
+                "record_type": record_type,
+                "deleted_items": deleted_items
+            })
+
+    return audit_results
+
+
 def _mark_deleted_catalog_refs(records, deleted_items):
     cleaned = []
     refs_marked = 0

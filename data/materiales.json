@@ -8,7 +8,7 @@
     "fecha": "2026-04-06",
     "items": [
       {
-        "catalog_item_id": "",
+        "catalog_item_id": "3EF4F34C",
         "description": "Tubo Conduit Pared Delgada | 27 [mm] (1\")",
         "unit": "pza",
         "qty": 70.0,
@@ -24,7 +24,7 @@
         "total_cot": 0.0
       },
       {
-        "catalog_item_id": "",
+        "catalog_item_id": "6080C3DF",
         "description": "Codo Conduit Pared Delgada | 27 [mm] (1\")",
         "unit": "pza",
         "qty": 15.0,
@@ -32,7 +32,7 @@
         "total_cot": 0.0
       },
       {
-        "catalog_item_id": "",
+        "catalog_item_id": "94B273C0",
         "description": "Monitor Metálico Pared Delgada | 27 [mm] (1\")",
         "unit": "pza",
         "qty": 100.0,
@@ -40,7 +40,7 @@
         "total_cot": 0.0
       },
       {
-        "catalog_item_id": "",
+        "catalog_item_id": "BD9EA6E4",
         "description": "Cople Metálico Pared Delgada con Tornillo | 27 [mm] (1\")",
         "unit": "pza",
         "qty": 100.0,
@@ -48,7 +48,7 @@
         "total_cot": 0.0
       },
       {
-        "catalog_item_id": "",
+        "catalog_item_id": "5A31DD1C",
         "description": "Conector Metálico Pared Delgada | 27 [mm] (1\")",
         "unit": "pza",
         "qty": 150.0,
@@ -56,7 +56,7 @@
         "total_cot": 0.0
       },
       {
-        "catalog_item_id": "",
+        "catalog_item_id": "9CF3C72B",
         "description": "Tubo Conduit Pared Delgada | 35 [mm] (1 1/4\")",
         "unit": "pza",
         "qty": 15.0,
@@ -72,7 +72,7 @@
         "total_cot": 0.0
       },
       {
-        "catalog_item_id": "",
+        "catalog_item_id": "191D7987",
         "description": "Monitor Metálico Pared Delgada | 35 [mm] (1 1/4\")",
         "unit": "pza",
         "qty": 30.0,
@@ -80,7 +80,7 @@
         "total_cot": 0.0
       },
       {
-        "catalog_item_id": "",
+        "catalog_item_id": "63EF677F",
         "description": "Cople Metálico Pared Delgada con Tornillo | 35 [mm] (1 1/4\")",
         "unit": "pza",
         "qty": 30.0,
@@ -88,7 +88,7 @@
         "total_cot": 0.0
       },
       {
-        "catalog_item_id": "",
+        "catalog_item_id": "458AEC86",
         "description": "Conector Metálico Pared Delgada | 35 [mm] (1 1/4\")",
         "unit": "pza",
         "qty": 30.0,
@@ -242,6 +242,7 @@
         "catalog_item_id": "322EF0AC"
       },
       {
+        "catalog_item_id": "92218A02",
         "description": "Tubo Conduit Pared Delgada | 16 [mm] (1/2\")",
         "unit": "pza",
         "qty": 60.0,
@@ -249,6 +250,7 @@
         "total_cot": 0.0
       },
       {
+        "catalog_item_id": "D5D4E2AA",
         "description": "Tubo Conduit Pared Delgada | 21 [mm] (3/4\")",
         "unit": "pza",
         "qty": 60.0,
@@ -256,6 +258,7 @@
         "total_cot": 0.0
       },
       {
+        "catalog_item_id": "E2D36AC3",
         "description": "Cople Metálico Pared Delgada con Tornillo | 16 [mm] (1/2\")",
         "unit": "pza",
         "qty": 120.0,
@@ -263,6 +266,7 @@
         "total_cot": 0.0
       },
       {
+        "catalog_item_id": "C1E67F16",
         "description": "Cople Metálico Pared Delgada con Tornillo | 21 [mm] (3/4\")",
         "unit": "pza",
         "qty": 120.0,
@@ -270,6 +274,7 @@
         "total_cot": 0.0
       },
       {
+        "catalog_item_id": "1D5577C3",
         "description": "Conector Metálico Pared Delgada | 16 [mm] (1/2\")",
         "unit": "pza",
         "qty": 120.0,
@@ -277,6 +282,7 @@
         "total_cot": 0.0
       },
       {
+        "catalog_item_id": "DE626994",
         "description": "Conector Metálico Pared Delgada | 21 [mm] (3/4\")",
         "unit": "pza",
         "qty": 120.0,
@@ -284,6 +290,7 @@
         "total_cot": 0.0
       },
       {
+        "catalog_item_id": "C82014A6",
         "description": "Monitor Metálico Pared Delgada | 16 [mm] (1/2\")",
         "unit": "pza",
         "qty": 120.0,
@@ -291,6 +298,7 @@
         "total_cot": 0.0
       },
       {
+        "catalog_item_id": "DBA5C185",
         "description": "Monitor Metálico Pared Delgada | 21 [mm] (3/4\")",
         "unit": "pza",
         "qty": 120.0,
@@ -354,6 +362,7 @@
         "catalog_item_id": "7132C911"
       },
       {
+        "catalog_item_id": "3EF4F34C",
         "description": "Tubo Conduit Pared Delgada | 27 [mm] (1\")",
         "unit": "pza",
         "qty": 15.0,

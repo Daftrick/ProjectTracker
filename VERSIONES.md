@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v22.0 — 02-May-2026
+## Versión actual: v24.0 — 03-May-2026
 
 ---
 
@@ -227,7 +227,7 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | Cotizaciones | Secciones opcionales con encabezado y subtotal por sección en formulario, vista y PDF | `validators.py` + `catalog.py` + `pdfs.py` |
 | Cotizaciones | Nota base de proyecto en portada del PDF según tipo: preliminar sin nota, general con último DWG, extraordinaria con nota manual | `routes/quotes.py` + `drive.py:latest_dwg_stem` + `pdfs.py` |
 | LDMs | CRUD, PDF, set costo manual | `routes/materials.py` |
-| LDMs | Importación CSV de plano → nueva LDM con revisión previa, vínculo `csv_origen` y bloqueo de reimportación del mismo CSV | `routes/materials.py:import_ldm_csv` + `csv_import.py` |
+| LDMs | Importación CSV de plano → nueva LDM con revisión previa, vínculo `csv_origen` y bloqueo de reimportación del mismo CSV. Auto-vinculación de `catalog_item_id` por nombre exacto (case-insensitive) al importar. Preview muestra badge verde por artículo vinculado y hint ámbar por artículo sin vincular. | `routes/materials.py:import_ldm_csv` + `csv_import.py` |
 | LDMs | API JSON para actualizar costo (`/api/ldm/<id>/costo`) | `routes/materials.py:api_ldm_set_costo` |
 | Catálogo | CRUD + búsqueda por tokens AND (sin acentos) + filtro por categoría + API JSON (`/api/catalogo`, `/api/catalogo/categorias`) | `routes/admin.py` + `catalog_search.py` |
 | Catálogo | Bulk delete vía API (`/api/catalogo/bulk-delete`) | `routes/admin.py` |
@@ -425,6 +425,14 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
+| 2026-05-03 | Sistema completo de auditoría de catálogo eliminado: función `audit_deleted_catalog_items()` para analizar cotizaciones y LDMs con referencias obsoletas |
+| 2026-05-03 | Gestión visual de catálogo eliminado: badges con fecha de eliminación, indicadores visuales en filas problemáticas, estados diferenciados (sin resolver/preservado/normal) |
+| 2026-05-03 | Flujo de tres acciones para catálogo eliminado: preservar histórica (conservar referencia), reconectar a nuevo artículo, purgar definitivamente |
+| 2026-05-03 | Página de auditoría dedicada `/audit/deleted-catalog`: dashboard con métricas, tabla detallada por documento, recomendaciones de flujo de trabajo |
+| 2026-05-03 | Funciones backend: `preserve_deleted_catalog_item_in_record()`, `restore_deleted_catalog_item_in_record()`, `purge_deleted_catalog_items_from_record()` |
+| 2026-05-03 | UI mejorada: botones de acción con iconos descriptivos, modales de confirmación, JavaScript para operaciones AJAX en formularios de cotización |
+| 2026-05-03 | Enlace en menú principal: "Auditoría Catálogo" en sección Sistema del sidebar |
+| 2026-05-03 | Versión bumped v23.1 → v24.0 (feature: sistema completo de auditoría y gestión de catálogo eliminado) |
 | 2026-04-24 | Refactorización de `app.py` monolito → blueprints (`routes/projects`, `quotes`, `materials`, `admin`) |
 | 2026-04-24 | Extracción de lógica de negocio a `tracker/services.py` (crear proyecto+tareas, sync alcances, cambio status) |
 | 2026-04-24 | Adición de `tracker/validators.py` con validadores reutilizables para proyecto, cotización y LDM |
@@ -580,6 +588,13 @@ Reglas de portada PDF:
 | 2026-05-02 | UI Reglas COT/LDM: nueva sección “Artículos ignorados en comparación” con crear/editar/activar/desactivar/eliminar, alcance `Comercial + Técnica`, `Solo comercial` o `Solo técnica`. |
 | 2026-05-02 | Tests: se agregó `tests/test_comparison_ignored.py` y cobertura en `tests/test_consistency.py` para validar que los artículos ignorados no generan diferencias, pero conservan costo. |
 | 2026-05-02 | Versión bumped v21.4 → v22.0 (feature: artículos ignorados en comparación COT/LDM como costos no atribuibles directamente al cliente). |
+| 2026-05-02 | `tracker/csv_import.py` — `parse_ldm_csv(path, catalog=None)`: parámetro opcional `catalog` construye índice `{nombre.lower() → id}` en O(1) y vincula automáticamente `catalog_item_id` a cada artículo importado cuya descripción coincida exactamente (case-insensitive) con un `nombre` del catálogo. Funciones auxiliares `_build_catalog_index` y `_match_catalog`. Items sin coincidencia conservan `catalog_item_id=''`. |
+| 2026-05-02 | `tracker/routes/materials.py` — `import_ldm_csv` pasa `catalog=load("catalogo")` al parser; el auto-link es transparente para el resto del flujo. |
+| 2026-05-02 | `templates/ldm_form.html` — nueva UIX en la vista previa de importación CSV: banner de resumen con conteo de artículos vinculados vs. sin vincular; badge verde "Vinculado al catálogo" y hint ámbar "Busca en catálogo" por fila. |
+| 2026-05-02 | `tests/test_csv_import.py` — 3 tests nuevos cubren auto-link exitoso, match case-insensitive y ausencia de catálogo (backward-compat). |
+| 2026-05-02 | Versión bumped v22.0 → v23.0 (feature: auto-vinculación catalog_item_id al importar CSV desde LISP). |
+| 2026-05-03 | `pdfs.py:build_ldm_pdf` — corrección de acentos: footer "Pagina" → "Página"; encabezados de tabla "DESCRIPCION" → "DESCRIPCIÓN" (con y sin precios). Auditoría completa de templates, validators y rutas confirmó que el resto del sistema ya tenía acentos correctos. |
+| 2026-05-03 | Versión bumped v23.0 → v23.1 (patch: corrección de acentos en PDF de LDM — mejora 4 del roadmap). |
 
 ---
 

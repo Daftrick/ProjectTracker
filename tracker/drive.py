@@ -3,11 +3,24 @@ import json
 import os
 import re
 import sys
+import time
 import unicodedata
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from .storage import DATA_DIR, load, save
 
 IGNORED_SCAN_EXTENSIONS = {".bak", ".dwl", ".dwl2"}
+
+# Compiled regex patterns for performance
+PATTERNS = {
+    'csv_plano': None,  # Will be compiled with clave
+    'xref': re.compile(r'^XREF', re.IGNORECASE),
+    'ldm': re.compile(r'^LDM-', re.IGNORECASE),
+    'cot': re.compile(r'^(COT-|CPROV-)', re.IGNORECASE),
+    'mem': re.compile(r'^MEM-', re.IGNORECASE),
+    'ie': re.compile(r'^IE-', re.IGNORECASE),
+    'provider_quote': None,  # Will be compiled with token
+}
 
 CONFIG_FILE = os.path.join(DATA_DIR, "config.json")
 CONFIG_DEFAULTS = {
@@ -20,6 +33,137 @@ CONFIG_DEFAULTS = {
     "drive_projects_path_linux": "",
     "drive_fichas_path_linux": "",
 }
+
+
+class DriveCache:
+    """LRU cache for drive folder scans with TTL and mtime-based invalidation"""
+
+    def __init__(self, ttl=300):  # 5 minutes default
+        self.cache = {}
+        self.ttl = ttl
+
+    def _get_folder_mtime(self, folder):
+        """Get folder modification time for invalidation"""
+        try:
+            return os.stat(folder).st_mtime
+        except (OSError, FileNotFoundError):
+            return None
+
+    def _make_key(self, folder, clave, ldms_hash):
+        """Create cache key from folder path and parameters"""
+        return (folder, clave or "", ldms_hash)
+
+    def is_valid(self, key):
+        """Check if cached result is still valid"""
+        if key not in self.cache:
+            return False
+
+        cached_result, mtime_then, timestamp = self.cache[key]
+
+        # Check TTL
+        if time.time() - timestamp > self.ttl:
+            return False
+
+        # Check if folder has changed
+        folder, _, _ = key
+        mtime_now = self._get_folder_mtime(folder)
+        return mtime_then == mtime_now
+
+    def get(self, folder, clave, ldms_hash):
+        """Get cached result if valid"""
+        key = self._make_key(folder, clave, ldms_hash)
+        if self.is_valid(key):
+            return self.cache[key][0]
+        return None
+
+    def put(self, folder, clave, ldms_hash, result):
+        """Store result in cache"""
+        key = self._make_key(folder, clave, ldms_hash)
+        mtime_now = self._get_folder_mtime(folder)
+        self.cache[key] = (result, mtime_now, time.time())
+
+        # Simple LRU: keep only last 50 entries
+        if len(self.cache) > 50:
+            oldest_key = min(self.cache.keys(),
+                           key=lambda k: self.cache[k][2])
+            del self.cache[oldest_key]
+
+
+# Global cache instance
+_drive_cache = DriveCache()
+
+
+class LazyFileLoader:
+    """Lazy loader for large files to avoid loading all file metadata at once"""
+
+    def __init__(self, max_workers=4):
+        self.max_workers = max_workers
+        self._executor = None
+
+    def _get_file_info(self, file_path):
+        """Get file information for a single file"""
+        try:
+            stat = os.stat(file_path)
+            return {
+                "name": os.path.basename(file_path),
+                "size": stat.st_size,
+                "mtime": stat.st_mtime,
+                "path": file_path
+            }
+        except (OSError, FileNotFoundError):
+            return None
+
+    def load_files_parallel(self, folder_path, file_filter=None):
+        """Load file information in parallel for better performance"""
+        if not os.path.isdir(folder_path):
+            return []
+
+        if self._executor is None:
+            self._executor = ThreadPoolExecutor(max_workers=self.max_workers)
+
+        file_paths = []
+        for item in os.listdir(folder_path):
+            path = os.path.join(folder_path, item)
+            if os.path.isfile(path) and (file_filter is None or file_filter(item)):
+                file_paths.append(path)
+
+        # Submit all file info requests
+        future_to_path = {
+            self._executor.submit(self._get_file_info, path): path
+            for path in file_paths
+        }
+
+        # Collect results as they complete
+        results = []
+        for future in as_completed(future_to_path):
+            result = future.result()
+            if result:
+                results.append(result)
+
+        return sorted(results, key=lambda x: x["name"])
+
+    def shutdown(self):
+        """Shutdown the thread pool"""
+        if self._executor:
+            self._executor.shutdown(wait=True)
+            self._executor = None
+
+
+# Global lazy loader instance
+_lazy_loader = LazyFileLoader()
+
+
+def clear_drive_cache():
+    """Clear the drive scan cache. Useful for testing or forcing fresh scans."""
+    global _drive_cache
+    _drive_cache = DriveCache()
+
+
+def clear_lazy_loader():
+    """Shutdown and clear the lazy loader thread pool."""
+    global _lazy_loader
+    _lazy_loader.shutdown()
+    _lazy_loader = LazyFileLoader()
 
 
 def current_platform_key():
@@ -322,8 +466,12 @@ def provider_quote_status(filename, ldms):
             provider_tokens.add(token)
         if token and quote and token in normalized_name and quote in normalized_name:
             return {"is_provider_quote": True, "linked": True}
+
+    # Compile provider quote pattern if needed
     for token in provider_tokens:
-        if normalized_name.endswith(".pdf") and re.match(rf"^{re.escape(token)}\s*-\s*[\w\-]+", normalized_name):
+        if not PATTERNS['provider_quote']:
+            PATTERNS['provider_quote'] = re.compile(rf"^{re.escape(token)}\s*-\s*[\w\-]+", re.IGNORECASE)
+        if normalized_name.endswith(".pdf") and PATTERNS['provider_quote'].match(normalized_name):
             return {"is_provider_quote": True, "linked": False}
     return {"is_provider_quote": False, "linked": False}
 
@@ -341,6 +489,18 @@ def _format_mtime(mtime_ts):
 
 
 def scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None):
+    # Compile dynamic patterns if not already done
+    if clave and not PATTERNS['csv_plano']:
+        PATTERNS['csv_plano'] = re.compile(rf"^{re.escape(clave)}-v\d", re.IGNORECASE)
+
+    # Create hash for LDMs to detect changes
+    ldms_hash = hash(json.dumps(ldms or [], sort_keys=True, default=str))
+
+    # Check cache first
+    cached_result = _drive_cache.get(projects_root, clave, ldms_hash)
+    if cached_result:
+        return cached_result
+
     result = {
         "deliverable": [],
         "working": [],
@@ -375,35 +535,42 @@ def scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None):
     other_files = []
     csv_plano_files = []
 
-    # Pattern: {clave}-v{digits}... (case-insensitive), e.g. OM001-v2-i1-20260420.csv
-    csv_pattern = re.compile(rf"^{re.escape(clave)}-v\d", re.IGNORECASE) if clave else None
+    # Use compiled patterns
+    csv_pattern = PATTERNS['csv_plano'] if clave else None
 
-    for item in sorted(os.listdir(folder)):
-        path = os.path.join(folder, item)
-        _, ext = os.path.splitext(item.lower())
-        if not os.path.isfile(path) or item.lower().endswith(".zip") or ext in IGNORED_SCAN_EXTENSIONS:
-            continue
+    # Filter function for file types we care about
+    def file_filter(filename):
+        _, ext = os.path.splitext(filename.lower())
+        return not (filename.lower().endswith(".zip") or ext in IGNORED_SCAN_EXTENSIONS)
+
+    # Load files in parallel for better performance
+    file_infos = _lazy_loader.load_files_parallel(folder, file_filter)
+
+    for file_info in file_infos:
+        item = file_info["name"]
+        path = file_info["path"]
+
         # Detect CSV plano files before other categories
         if item.lower().endswith(".csv") and csv_pattern and csv_pattern.match(item):
-            stat = os.stat(path)
             csv_plano_files.append({
                 "name": item,
-                "size_str": _format_size(stat.st_size),
-                "mtime_str": _format_mtime(stat.st_mtime),
+                "size_str": _format_size(file_info["size"]),
+                "mtime_str": _format_mtime(file_info["mtime"]),
             })
             continue
+
         provider_quote = provider_quote_status(item, ldms)
-        if item.startswith("LDM-"):
+        if PATTERNS['ldm'].match(item):
             ldm_files.append(item)
         elif provider_quote["is_provider_quote"]:
             provider_quote_files.append(item)
-        elif item.startswith(("COT-", "CPROV-")):
+        elif PATTERNS['cot'].match(item):
             cot_files.append(item)
-        elif item.startswith("MEM-"):
+        elif PATTERNS['mem'].match(item):
             mem_files.append(item)
-        elif item.startswith("IE-"):
+        elif PATTERNS['ie'].match(item):
             ie_files.append(item)
-        elif item.upper().startswith("XREF"):
+        elif PATTERNS['xref'].match(item.upper()):
             work_files.append(item)
         else:
             other_files.append(item)
@@ -424,7 +591,78 @@ def scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None):
     result["ldm"] = sorted(ldm_files)
     result["cot"] = sorted(cot_files)
     result["other"] = sorted(other_files + provider_quote_files)
+
+    # Cache the result
+    _drive_cache.put(projects_root, clave, ldms_hash, result)
+
     return result
+
+
+def batch_scan_drive_folders(folder_names, projects_root, ldms_dict=None, max_workers=4):
+    """
+    Scan multiple drive folders in parallel for better performance.
+
+    Args:
+        folder_names: List of folder names to scan
+        projects_root: Root path for projects
+        ldms_dict: Dictionary mapping folder names to their LDMs (optional)
+        max_workers: Maximum number of parallel workers
+
+    Returns:
+        Dictionary mapping folder names to their scan results
+    """
+    if not projects_root or not os.path.isdir(projects_root):
+        return {name: {"error": "Invalid projects root path"} for name in folder_names}
+
+    results = {}
+    start_time = time.time()
+    processed_count = 0
+    error_count = 0
+
+    def scan_single_folder(folder_name):
+        nonlocal processed_count, error_count
+        try:
+            ldms = ldms_dict.get(folder_name, []) if ldms_dict else []
+            # Extract clave from folder name (IE-{folder_num}-{clave})
+            clave = None
+            if folder_name.startswith("IE-") and "-" in folder_name:
+                parts = folder_name.split("-")
+                if len(parts) >= 3:
+                    clave = parts[2]
+            result = scan_drive_folder(folder_name, projects_root, ldms, clave)
+            processed_count += 1
+            return folder_name, result
+        except Exception as exc:
+            error_count += 1
+            return folder_name, {"error": f"Scan failed: {exc}"}
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_to_folder = {
+            executor.submit(scan_single_folder, name): name
+            for name in folder_names
+        }
+
+        for future in as_completed(future_to_folder):
+            folder_name = future_to_folder[future]
+            try:
+                name, result = future.result()
+                results[name] = result
+            except Exception as exc:
+                results[folder_name] = {"error": f"Batch processing failed: {exc}"}
+                error_count += 1
+
+    # Add performance metrics to results
+    total_time = time.time() - start_time
+    results["_batch_metrics"] = {
+        "total_folders": len(folder_names),
+        "processed_successfully": processed_count,
+        "errors": error_count,
+        "total_time_seconds": round(total_time, 3),
+        "avg_time_per_folder": round(total_time / len(folder_names), 3) if folder_names else 0,
+        "parallel_workers": max_workers
+    }
+
+    return results
 
 
 def find_delivery_files(folder_nm, clave, version, fecha, projects_root, fichas_root, linked_fichas):

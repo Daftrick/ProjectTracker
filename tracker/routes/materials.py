@@ -178,7 +178,7 @@ def import_ldm_csv(project_id, filename):
         flash(f"{clean_name} ya está vinculado a {existing.get('ldm_number', 'una LDM')}.", "warning")
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
 
-    parsed = parse_ldm_csv(csv_path)
+    parsed = parse_ldm_csv(csv_path, catalog=load("catalogo"))
     if parsed["errors"]:
         for error in parsed["errors"]:
             flash(error, "warning")

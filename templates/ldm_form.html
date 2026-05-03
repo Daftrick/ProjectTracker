@@ -71,6 +71,14 @@
   .row-tools { display:flex; justify-content:flex-end; gap:4px; flex-wrap:nowrap; }
   .deleted-catalog-row td { background: rgba(145,60,60,.16) !important; }
   .deleted-catalog-badge { font-size:.68rem; }
+  .auto-linked-badge {
+    font-size: .68rem;
+    background: rgba(50,160,100,.18);
+    color: #6ecf96;
+    border: 1px solid rgba(50,160,100,.35);
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
   .ldm-row { cursor: default; }
   .ldm-row.dragging { opacity: .45; }
   .drag-cell { width: 38px; text-align: center; vertical-align: middle; }
@@ -161,11 +169,28 @@
       <div class="card-header">Datos generales</div>
       <div class="card-body">
         {% if import_preview %}
-        <div class="alert alert-info py-2 mb-3" style="font-size:.85rem">
+        {% set linked_count   = ldm['items'] | selectattr('catalog_item_id') | list | length %}
+        {% set total_count    = ldm['items'] | length %}
+        {% set unlinked_count = total_count - linked_count %}
+        <div class="alert alert-info py-2 mb-2" style="font-size:.85rem">
           <i class="bi bi-filetype-csv me-1"></i>
           Revisa los artículos importados desde <strong class="font-monospace">{{ ldm.csv_origen }}</strong>,
           elige proveedor y crea la LDM.
         </div>
+        {% if total_count > 0 %}
+        <div class="d-flex gap-2 flex-wrap mb-3" style="font-size:.82rem">
+          {% if linked_count > 0 %}
+          <span class="badge rounded-pill" style="background:rgba(50,160,100,.2);color:#6ecf96;border:1px solid rgba(50,160,100,.35)">
+            <i class="bi bi-link-45deg me-1"></i>{{ linked_count }} vinculado{{ 's' if linked_count != 1 }} al catálogo
+          </span>
+          {% endif %}
+          {% if unlinked_count > 0 %}
+          <span class="badge rounded-pill" style="background:rgba(200,150,40,.15);color:#d4ab5a;border:1px solid rgba(200,150,40,.35)">
+            <i class="bi bi-exclamation-triangle me-1"></i>{{ unlinked_count }} sin vincular — busca manualmente en catálogo
+          </span>
+          {% endif %}
+        </div>
+        {% endif %}
         {% endif %}
         <div class="row g-3">
           <div class="col-md-6">
@@ -286,6 +311,18 @@
                     <div class="mt-1">
                       <span class="badge bg-danger deleted-catalog-badge">
                         Catálogo eliminado{% if deleted_catalog.deleted_at %} · {{ deleted_catalog.deleted_at | fdate }}{% endif %}
+                      </span>
+                    </div>
+                    {% elif import_preview and item.catalog_item_id %}
+                    <div class="mt-1">
+                      <span class="auto-linked-badge">
+                        <i class="bi bi-link-45deg"></i> Vinculado al catálogo
+                      </span>
+                    </div>
+                    {% elif import_preview and not item.catalog_item_id %}
+                    <div class="mt-1">
+                      <span style="font-size:.68rem;color:#a07030">
+                        <i class="bi bi-search"></i> Busca en catálogo
                       </span>
                     </div>
                     {% endif %}

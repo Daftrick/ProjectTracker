@@ -292,6 +292,10 @@
        data-label="Ajustes / Drive">
       <i class="bi bi-gear"></i><span class="nav-label"> Ajustes / Drive</span>
     </a>
+    <a href="{{ url_for('quotes_bp.audit_deleted_catalog') }}" class="nav-link {% if request.endpoint=='quotes_bp.audit_deleted_catalog' %}active{% endif %}"
+       data-label="Auditoría Catálogo">
+      <i class="bi bi-exclamation-triangle"></i><span class="nav-label"> Auditoría Catálogo</span>
+    </a>
   </nav>
   <div class="sfooter">
     <span class="footer-text"><i class="bi bi-circle-fill me-1" style="color:#3a7a50;font-size:.55rem"></i>Activo</span>

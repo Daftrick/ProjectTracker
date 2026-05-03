@@ -26,6 +26,8 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 - [x] Fase 1 — Núcleo de bundles versionados y reglas de comparación técnica COT/LDM. Implementado en v19.0.
 - [x] Fase 2 — UI Admin para bundles versionados y reglas de comparación COT/LDM. Implementado en v20.0.
 - [x] Fase 3 — Visualización de consistencia técnica por bundles en detalle de proyecto. Implementado en v21.0.
+- [x] Mejora 4 — Corrección de acentos y codificación: auditoría completa de templates, validators, rutas y PDFs. Únicos bugs reales encontrados en `build_ldm_pdf` ("Pagina" → "Página", "DESCRIPCION" → "DESCRIPCIÓN"). Implementado en v23.1.
+- [x] Revisión de datos históricos con catálogo eliminado: sistema completo de auditoría visual con badges, flujo de tres acciones (preservar/reconectar/purgar) y página dedicada. Implementado en v24.0.
 
 ---
 
@@ -46,16 +48,20 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 - Agregar acciones sugeridas para corregir inconsistencias.
 - Evaluar si conviene permitir sincronización parcial entre COT, bundle y LDM.
 
-#### 2. Revisión de datos históricos con catálogo eliminado
+#### 2. Auditoría visual de consistencia COT/LDM
 
-- Auditar cotizaciones y LDMs con partidas marcadas como catálogo eliminado.
-- Mejorar los badges o alertas visuales.
-- Definir flujo claro para:
-  - conservar partida histórica,
-  - reconectar a nuevo artículo de catálogo,
-  - purgar partida definitivamente.
+- Mejorar la lectura visual de diferencias entre cotización y LDM en la nueva capa técnica de bundles.
+- Mostrar en el detalle del proyecto una tabla específica de materiales esperados por bundle contra LDM real.
+- Destacar:
+  - faltantes en LDM,
+  - excedentes en LDM,
+  - diferencias de cantidad,
+  - bundles sin versión activa,
+  - componentes sin regla de comparación cuando aplique conversión COT/LDM.
+- Agregar acciones sugeridas para corregir inconsistencias.
+- Evaluar si conviene permitir sincronización parcial entre COT, bundle y LDM.
 
-#### 3. Confirmaciones destructivas pendientes
+#### 2. Confirmaciones destructivas pendientes
 
 Estandarizar confirmaciones para acciones críticas:
 
@@ -74,14 +80,7 @@ Las confirmaciones deben mostrar impacto antes de ejecutar la acción.
 
 ### Media prioridad
 
-#### 4. Mejoras de codificación, acentos y textos
-
-- Revisar textos raros por codificación.
-- Corregir acentos en vistas, PDFs y mensajes flash.
-- Normalizar textos de botones, títulos y mensajes del sistema.
-- Verificar compatibilidad con caracteres especiales en PDF.
-
-#### 5. Integración Drive avanzada
+#### 4. Integración Drive avanzada
 
 - Crear automáticamente carpeta de proyecto si no existe.
 - Validar rutas configuradas con mensajes más claros.
@@ -89,7 +88,7 @@ Las confirmaciones deben mostrar impacto antes de ejecutar la acción.
 - Mejorar clasificación de documentos en la pestaña Drive.
 - Agregar alertas cuando falten archivos base del proyecto.
 
-#### 6. Limpieza residual de rutas/templates
+#### 5. Limpieza residual de rutas/templates
 
 - Revisar si aún existe lógica crítica en templates.
 - Mover cálculos repetidos a view-models o servicios.
@@ -100,7 +99,7 @@ Las confirmaciones deben mostrar impacto antes de ejecutar la acción.
 
 ### Baja prioridad
 
-#### 7. Filtros y búsqueda adicionales
+#### 6. Filtros y búsqueda adicionales
 
 - Mejorar filtros en vistas con muchos datos.
 - Agregar búsqueda más específica en:
@@ -111,14 +110,14 @@ Las confirmaciones deben mostrar impacto antes de ejecutar la acción.
   - fichas técnicas.
 - Evaluar filtros por proyecto, proveedor, categoría, fecha y estado.
 
-#### 8. Mejoras de UX general
+#### 7. Mejoras de UX general
 
 - Pulir navegación entre tabs.
 - Mejorar mensajes flash.
 - Agregar indicadores de carga en acciones lentas.
 - Mejorar experiencia móvil en tablas y modales.
 
-#### 9. Exportaciones y reportes
+#### 8. Exportaciones y reportes
 
 - Revisar formato de Excel generado.
 - Evaluar exportación de reportes de consistencia.

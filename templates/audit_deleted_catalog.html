@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% block title %}Auditoría - Catálogo Eliminado{% endblock %}
+{% block page_title %}
+  <i class="bi bi-exclamation-triangle text-warning me-2"></i>
+  Auditoría: Partidas con Catálogo Eliminado
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0">Resumen de Auditoría</h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-4">
+          <div class="col-md-3">
+            <div class="card bg-light">
+              <div class="card-body text-center">
+                <h3 class="text-primary">{{ audit.total_quotes }}</h3>
+                <p class="mb-0">Cotizaciones Totales</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card bg-light">
+              <div class="card-body text-center">
+                <h3 class="text-primary">{{ audit.total_ldms }}</h3>
+                <p class="mb-0">LDMs Totales</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card bg-danger bg-opacity-10">
+              <div class="card-body text-center">
+                <h3 class="text-danger">{{ audit.unresolved_items }}</h3>
+                <p class="mb-0">Partidas Sin Resolver</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card bg-success bg-opacity-10">
+              <div class="card-body text-center">
+                <h3 class="text-success">{{ audit.preserved_items }}</h3>
+                <p class="mb-0">Partidas Conservadas</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <div class="alert alert-info">
+            <strong>Resumen:</strong> Se encontraron {{ audit.total_deleted_items }} partidas con referencias a artículos eliminados del catálogo.
+            De estas, {{ audit.unresolved_items }} requieren atención inmediata.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if audit.details %}
+    <div class="card mt-4">
+      <div class="card-header">
+        <h5 class="mb-0">Detalles por Documento</h5>
+      </div>
+      <div class="card-body">
+        {% for detail in audit.details %}
+        <div class="card mb-3 {% if detail.deleted_items | selectattr('preserved', 'equalto', false) | list %}border-danger{% else %}border-success{% endif %}">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h6 class="mb-0">
+                {% if detail.record_type == "quote" %}
+                  <i class="bi bi-receipt text-primary me-2"></i>
+                  Cotización: {{ detail.record_name }}
+                {% else %}
+                  <i class="bi bi-file-earmark-text text-info me-2"></i>
+                  LDM: {{ detail.record_name }}
+                {% endif %}
+              </h6>
+              <div>
+                {% set unresolved = detail.deleted_items | selectattr('preserved', 'equalto', false) | list %}
+                {% if unresolved %}
+                  <span class="badge bg-danger">{{ unresolved | length }} sin resolver</span>
+                {% else %}
+                  <span class="badge bg-success">Todas conservadas</span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-sm mb-0">
+                <thead>
+                  <tr>
+                    <th>Partida</th>
+                    <th>Artículo Eliminado</th>
+                    <th>Fecha Eliminación</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in detail.deleted_items %}
+                  <tr {% if not item.preserved %}class="table-danger"{% endif %}>
+                    <td>{{ item.index + 1 }}</td>
+                    <td>
+                      <strong>{{ item.deleted_item.nombre }}</strong><br>
+                      <small class="text-muted">{{ item.deleted_item.descripcion }}</small>
+                    </td>
+                    <td>{{ item.deleted_item.deleted_at | fdate if item.deleted_item.deleted_at else 'N/A' }}</td>
+                    <td>{{ item.qty }}</td>
+                    <td>${{ "%.2f"|format(item.price) }}</td>
+                    <td>${{ "%.2f"|format(item.total) }}</td>
+                    <td>
+                      {% if item.preserved %}
+                        <span class="badge bg-success">Conservada</span>
+                      {% else %}
+                        <span class="badge bg-danger">Requiere Acción</span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if detail.record_type == "quote" %}
+                        <div class="btn-group btn-group-sm">
+                          {% if not item.preserved %}
+                            <a href="{{ url_for('quotes_bp.edit_quote', project_id=detail.record_id.split('-')[1] if '-' in detail.record_id else '', quote_id=detail.record_id) }}#item-{{ item.index }}"
+                               class="btn btn-outline-primary btn-sm"
+                               title="Ir a la cotización">
+                              <i class="bi bi-pencil"></i> Gestionar
+                            </a>
+                          {% endif %}
+                        </div>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% else %}
+    <div class="card mt-4">
+      <div class="card-body text-center">
+        <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
+        <h5 class="mt-3">¡Todo en orden!</h5>
+        <p class="text-muted">No se encontraron partidas con referencias a artículos eliminados del catálogo.</p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0">Flujo de Trabajo Recomendado</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card bg-warning bg-opacity-10 border-warning">
+              <div class="card-body text-center">
+                <i class="bi bi-clock-history text-warning" style="font-size: 2rem;"></i>
+                <h6 class="mt-2">Conservar Histórica</h6>
+                <p class="small mb-0">Para partidas que deben mantenerse por referencia histórica o contractual.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card bg-success bg-opacity-10 border-success">
+              <div class="card-body text-center">
+                <i class="bi bi-link text-success" style="font-size: 2rem;"></i>
+                <h6 class="mt-2">Reconectar</h6>
+                <p class="small mb-0">Cuando existe un artículo equivalente en el catálogo actual.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card bg-danger bg-opacity-10 border-danger">
+              <div class="card-body text-center">
+                <i class="bi bi-trash2 text-danger" style="font-size: 2rem;"></i>
+                <h6 class="mt-2">Purgar</h6>
+                <p class="small mb-0">Eliminar definitivamente cuando la partida ya no es necesaria.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

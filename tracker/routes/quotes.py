@@ -366,3 +366,135 @@ def _build_quote_workbook(project, quote, Workbook, Alignment, Font):
             ws.cell(row=r, column=total_col).font = Font(bold=True)
 
     return wb, filename
+
+
+@bp.route("/projects/<project_id>/quote/<quote_id>/item/<int:item_index>/restore", methods=["POST"], endpoint="restore_deleted_item")
+def restore_deleted_item(project_id, quote_id, item_index):
+    """Restore a deleted catalog item by reconnecting it to a new catalog item"""
+    project = next((item for item in load("projects") if item["id"] == project_id), None)
+    quotes = load("quotes")
+    quote = next((item for item in quotes if item["id"] == quote_id), None)
+
+    if not project or not quote:
+        flash("Cotización no encontrada.", "danger")
+        return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=quote_id))
+
+    new_catalog_id = request.form.get("new_catalog_id", "").strip()
+    if not new_catalog_id:
+        flash("Debe seleccionar un nuevo artículo del catálogo.", "warning")
+        return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=quote_id))
+
+    from ..deletions import restore_deleted_catalog_item_in_record
+    updated_quote, success = restore_deleted_catalog_item_in_record(quote, item_index, new_catalog_id)
+
+    if success:
+        # Update the quote in the list
+        for i, q in enumerate(quotes):
+            if q["id"] == quote_id:
+                quotes[i] = updated_quote
+                break
+        save("quotes", quotes)
+        flash("Partida reconectada exitosamente al nuevo artículo del catálogo.", "success")
+    else:
+        flash("No se pudo reconectar la partida. Verifique que existe y está eliminada.", "warning")
+
+    return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=quote_id))
+
+
+@bp.route("/projects/<project_id>/quote/<quote_id>/item/<int:item_index>/preserve", methods=["POST"], endpoint="preserve_deleted_item")
+def preserve_deleted_item(project_id, quote_id, item_index):
+    """Mark a deleted catalog item as preserved (keep historical reference)"""
+    project = next((item for item in load("projects") if item["id"] == project_id), None)
+    quotes = load("quotes")
+    quote = next((item for item in quotes if item["id"] == quote_id), None)
+
+    if not project or not quote:
+        flash("Cotización no encontrada.", "danger")
+        return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=quote_id))
+
+    from ..deletions import preserve_deleted_catalog_item_in_record
+    updated_quote, success = preserve_deleted_catalog_item_in_record(quote, item_index)
+
+    if success:
+        # Update the quote in the list
+        for i, q in enumerate(quotes):
+            if q["id"] == quote_id:
+                quotes[i] = updated_quote
+                break
+        save("quotes", quotes)
+        flash("Partida marcada como conservada históricamente.", "info")
+    else:
+        flash("No se pudo marcar la partida como conservada.", "warning")
+
+    return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=quote_id))
+
+
+@bp.route("/projects/<project_id>/quote/<quote_id>/item/<int:item_index>/purge", methods=["POST"], endpoint="purge_deleted_item")
+def purge_deleted_item(project_id, quote_id, item_index):
+    """Purge a deleted catalog item from the quote"""
+    project = next((item for item in load("projects") if item["id"] == project_id), None)
+    quotes = load("quotes")
+    quote = next((item for item in quotes if item["id"] == quote_id), None)
+
+    if not project or not quote:
+        flash("Cotización no encontrada.", "danger")
+        return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=quote_id))
+
+    from ..deletions import purge_deleted_catalog_items_from_record
+
+    # Create a temporary record with just this item to purge
+    temp_record = {"items": [quote["items"][item_index]]}
+    purged_record, purged_count = purge_deleted_catalog_items_from_record(temp_record)
+
+    if purged_count > 0:
+        # Remove the item from the quote
+        updated_items = list(quote["items"])
+        updated_items.pop(item_index)
+        quote["items"] = updated_items
+
+        # Recalculate totals
+        from ..catalog import hydrate_quote
+        hydrated = hydrate_quote(quote, *catalog_maps())
+        quote.update({
+            "subtotal": hydrated["subtotal"],
+            "tax": hydrated["tax"],
+            "total": hydrated["total"]
+        })
+
+        # Update the quote in the list
+        for i, q in enumerate(quotes):
+            if q["id"] == quote_id:
+                quotes[i] = quote
+                break
+        save("quotes", quotes)
+        flash("Partida eliminada definitivamente de la cotización.", "warning")
+    else:
+        flash("No se pudo eliminar la partida.", "warning")
+
+    return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=quote_id))
+
+
+@bp.route("/audit/deleted-catalog", endpoint="audit_deleted_catalog")
+def audit_deleted_catalog():
+    """Audit all quotes and LDMs for deleted catalog items"""
+    from ..deletions import audit_deleted_catalog_items
+
+    quotes = load("quotes")
+    ldms = load("ldms") if os.path.exists(os.path.join(DATA_DIR, "ldms.json")) else []
+
+    quote_audit = audit_deleted_catalog_items(quotes, "quote")
+    ldm_audit = audit_deleted_catalog_items(ldms, "ldm")
+
+    # Combine results
+    combined_audit = {
+        "total_quotes": quote_audit["total_records"],
+        "total_ldms": ldm_audit["total_records"],
+        "quotes_with_deleted_items": quote_audit["records_with_deleted_items"],
+        "ldms_with_deleted_items": ldm_audit["records_with_deleted_items"],
+        "total_deleted_items": quote_audit["total_deleted_items"] + ldm_audit["total_deleted_items"],
+        "preserved_items": quote_audit["preserved_items"] + ldm_audit["preserved_items"],
+        "unresolved_items": quote_audit["unresolved_items"] + ldm_audit["unresolved_items"],
+        "details": quote_audit["details"] + ldm_audit["details"]
+    }
+
+    return render_template("audit_deleted_catalog.html", audit=combined_audit)

@@ -901,7 +901,7 @@ def build_ldm_pdf(project, ldm, output_path):
             self.line(left, self.get_y() - 1.5, right, self.get_y() - 1.5)
             self.set_font("DejaVu", "", 8)
             self.set_text_color(*MUTED)
-            self.cell(0, 5, _safe_text(f"Project Tracker - Pagina {self.page_no()}/{{nb}}"), align="C")
+            self.cell(0, 5, _safe_text(f"Project Tracker - Página {self.page_no()}/{{nb}}"), align="C")
 
     pdf = LDMPDF(project_name, ldm_number, ldm_date)
     if not _register_dejavu(pdf):
@@ -1100,12 +1100,12 @@ def build_ldm_pdf(project, ldm, output_path):
     if with_prices:
         desc_w = content_width - (NUM_W + UNIT_QTY_W * 2 + PRICE_W * 2)
         cols = [NUM_W, desc_w, UNIT_QTY_W, UNIT_QTY_W, PRICE_W, PRICE_W]
-        heads = ["#", "DESCRIPCION", "UNIDAD", "CANT.", "P. UNIT.", "IMPORTE"]
+        heads = ["#", "DESCRIPCIÓN", "UNIDAD", "CANT.", "P. UNIT.", "IMPORTE"]
         aligns = ["C", "L", "C", "C", "C", "C"]
     else:
         desc_w = content_width - (NUM_W + UNIT_QTY_W * 2)
         cols = [NUM_W, desc_w, UNIT_QTY_W, UNIT_QTY_W]
-        heads = ["#", "DESCRIPCION", "UNIDAD", "CANT."]
+        heads = ["#", "DESCRIPCIÓN", "UNIDAD", "CANT."]
         aligns = ["C", "L", "C", "C"]
 
     def table_header():

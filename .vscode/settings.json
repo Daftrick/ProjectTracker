@@ -1,0 +1,9 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "&": true,
+        "/^cd \"h:\\\\My Drive\\\\Omniious\\\\Claude Code\\\\ProjectTracker\" ; python -m pytest tests/test_drive\\.py -v$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

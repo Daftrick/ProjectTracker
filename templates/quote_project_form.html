@@ -446,6 +446,24 @@
                 </td>
                 <td class="text-end">
                   <div class="row-tools">
+                    {% if item.catalog_deleted %}
+                    <!-- Acciones para elementos eliminados del catálogo -->
+                    <div class="btn-group" role="group">
+                      <button type="button" class="btn btn-sm btn-outline-warning" title="Conservar histórica"
+                              onclick="preserveDeletedItem({{ loop.index0 }}, '{{ item.description }}')">
+                        <i class="bi bi-clock-history"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-outline-success" title="Reconectar a nuevo artículo"
+                              onclick="restoreDeletedItem({{ loop.index0 }}, '{{ item.description }}')">
+                        <i class="bi bi-link"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-outline-danger" title="Purgar definitivamente"
+                              onclick="purgeDeletedItem({{ loop.index0 }}, '{{ item.description }}')">
+                        <i class="bi bi-trash2"></i>
+                      </button>
+                    </div>
+                    {% else %}
+                    <!-- Acciones normales -->
                     <button type="button" class="btn btn-sm btn-outline-secondary" title="Buscar en catálogo"
                             onclick="openCatalogRow(this)" data-bs-toggle="modal" data-bs-target="#catalogModal">
                       <i class="bi bi-search"></i>
@@ -454,6 +472,7 @@
                             onclick="removeAnyRow(this)">
                       <i class="bi bi-x"></i>
                     </button>
+                    {% endif %}
                   </div>
                 </td>
               </tr>
@@ -1387,4 +1406,103 @@
     applyPartidaFilter();
   });
 </script>
+
+<!-- Funciones para manejar elementos eliminados del catálogo -->
+<script>
+  function preserveDeletedItem(itemIndex, description) {
+    if (!confirm(`¿Marcar "${description}" como conservada históricamente?\n\nEsta partida mantendrá su referencia histórica pero ya no se resaltará como problema.`)) {
+      return;
+    }
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = `{{ url_for('quotes_bp.preserve_deleted_item', project_id=project.id, quote_id=quote.id, item_index=0) | replace('item_index=0', 'item_index=') }}${itemIndex}`;
+
+    document.body.appendChild(form);
+    form.submit();
+  }
+
+  function restoreDeletedItem(itemIndex, description) {
+    // Mostrar modal para seleccionar nuevo artículo del catálogo
+    const modal = document.createElement('div');
+    modal.className = 'modal fade';
+    modal.innerHTML = `
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Reconectar partida eliminada</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p>Selecciona el nuevo artículo del catálogo para reconectar "${description}":</p>
+            <select id="newCatalogSelect" class="form-select" required>
+              <option value="">Cargando artículos...</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-success" onclick="submitRestore(${itemIndex})">Reconectar</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+    const bsModal = new bootstrap.Modal(modal);
+    bsModal.show();
+
+    // Cargar artículos del catálogo
+    fetch('/api/catalogo')
+      .then(r => r.json())
+      .then(items => {
+        const select = document.getElementById('newCatalogSelect');
+        select.innerHTML = '<option value="">Selecciona un artículo...</option>' +
+          items.map(item => `<option value="${item.id}">${item.nombre} (${item.unidad}) - $${item.precio}</option>`).join('');
+      })
+      .catch(err => {
+        console.error('Error cargando catálogo:', err);
+        document.getElementById('newCatalogSelect').innerHTML = '<option value="">Error cargando catálogo</option>';
+      });
+
+    // Limpiar modal del DOM cuando se cierre
+    modal.addEventListener('hidden.bs.modal', () => modal.remove());
+  }
+
+  function submitRestore(itemIndex) {
+    const select = document.getElementById('newCatalogSelect');
+    const newCatalogId = select.value;
+
+    if (!newCatalogId) {
+      alert('Debes seleccionar un artículo del catálogo.');
+      return;
+    }
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = `{{ url_for('quotes_bp.restore_deleted_item', project_id=project.id, quote_id=quote.id, item_index=0) | replace('item_index=0', 'item_index=') }}${itemIndex}`;
+
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'new_catalog_id';
+    input.value = newCatalogId;
+    form.appendChild(input);
+
+    document.body.appendChild(form);
+    form.submit();
+  }
+
+  function purgeDeletedItem(itemIndex, description) {
+    if (!confirm(`¿PURGAR DEFINITIVAMENTE "${description}"?\n\nEsta acción eliminará permanentemente la partida de la cotización. Esta operación no se puede deshacer.`)) {
+      return;
+    }
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = `{{ url_for('quotes_bp.purge_deleted_item', project_id=project.id, quote_id=quote.id, item_index=0) | replace('item_index=0', 'item_index=') }}${itemIndex}`;
+
+    document.body.appendChild(form);
+    form.submit();
+  }
+</script>
+
 {% endblock %}

@@ -48,9 +48,33 @@ def _detect_dialect(path):
         return csv.excel
 
 
-def parse_ldm_csv(path):
-    """Parse a LISP-exported material list CSV into LDM draft data."""
+def _build_catalog_index(catalog):
+    """Return {nombre.lower(): id} for O(1) lookup during CSV parsing."""
+    index = {}
+    for item in (catalog or []):
+        nombre = _clean(item.get("nombre", ""))
+        if nombre:
+            index[nombre.lower()] = item["id"]
+    return index
+
+
+def _match_catalog(description, index):
+    """Return catalog id if description matches a catalog nombre (case-insensitive)."""
+    return index.get(description.lower(), "")
+
+
+def parse_ldm_csv(path, catalog=None):
+    """Parse a LISP-exported material list CSV into LDM draft data.
+
+    Args:
+        path:    Path to the CSV file.
+        catalog: Optional list of catalog dicts (each with 'id' and 'nombre').
+                 When provided, items whose description matches a catalog nombre
+                 exactly (case-insensitive) are automatically linked via
+                 catalog_item_id.  Items with no match keep catalog_item_id=''.
+    """
     dialect = _detect_dialect(path)
+    catalog_index = _build_catalog_index(catalog)
     items = []
     metadata = {}
     errors = []
@@ -94,6 +118,7 @@ def parse_ldm_csv(path):
                 "qty_csv": qty,
                 "qty_editada": False,
                 "origen": "csv",
+                "catalog_item_id": _match_catalog(description, catalog_index),
             })
 
     if not items and not errors:
