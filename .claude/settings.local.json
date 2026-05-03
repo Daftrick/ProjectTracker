@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($env:PYTHONUTF8=1; python -c \"import graphify; print\\(dir\\(graphify\\)\\)\")",
+      "PowerShell($env:PYTHONUTF8=1; graphify query \"why does load\\(\\) connect Admin Routes, Drive Setup, Document Generation, Deleted Catalog Audit, and LDM Import\" --budget 2000 2>&1 | head -60)",
+      "PowerShell($env:PYTHONUTF8=1; graphify query \"why does load\\(\\) connect Admin Routes, Drive Setup, Document Generation, Deleted Catalog Audit, and LDM Import\" --budget 2000 2>&1 | Select-Object -First 80)"
+    ]
+  }
+}
