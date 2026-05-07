@@ -1,13 +1,18 @@
+import csv
+import io
 import os
+import re
 from datetime import date, datetime
 
-from flask import Blueprint, flash, jsonify, redirect, render_template, request, url_for
+from flask import Blueprint, Response, flash, jsonify, redirect, render_template, request, url_for
 
 from ..catalog import catalog_maps, catalog_name_key, hydrate_ldm, hydrate_ldm_item, safe_float
+from ..consistency import pick_active_quote
 from ..csv_import import parse_ldm_csv
 from ..deletions import purge_deleted_catalog_items_from_record
 from ..drive import active_drive_paths, folder_name, load_config, parse_csv_plano_filename
 from ..form_models import ldm_from_form
+from ..ldm_sync import append_missing_bundle_items_to_ldm
 from ..pdfs import build_ldm_pdf
 from ..storage import load, new_id, save, today
 from ..validators import validate_ldm_form
@@ -109,6 +114,39 @@ def _attach_csv_item_metadata(items, csv_items):
             current["origen"] = "manual"
         enriched.append(current)
     return enriched
+
+
+def _safe_filename_token(value):
+    cleaned = re.sub(r"[^A-Za-z0-9._-]+", "-", _clean_form_text(value)).strip("-._")
+    return cleaned or "LDM"
+
+
+def _csv_number(value):
+    return f"{safe_float(value):g}"
+
+
+def _ldm_csv_response(project, ldm):
+    hydrated = hydrate_ldm(ldm, *catalog_maps())
+    output = io.StringIO(newline="")
+    writer = csv.writer(output)
+    writer.writerow(["description", "unit", "qty", "catalog_item_id", "proveedor", "fecha", "ldm_number"])
+    for item in hydrated.get("items", []):
+        writer.writerow([
+            item.get("description", ""),
+            item.get("unit", "pza"),
+            _csv_number(item.get("qty", 0)),
+            item.get("catalog_item_id", ""),
+            hydrated.get("proveedor", ""),
+            hydrated.get("fecha", ""),
+            hydrated.get("ldm_number", ""),
+        ])
+
+    filename = f"{_safe_filename_token(hydrated.get('ldm_number') or project.get('clave'))}.csv"
+    return Response(
+        "\ufeff" + output.getvalue(),
+        mimetype="text/csv; charset=utf-8",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
 
 
 def _render_ldm_form(project, ldm, field_errors=None):
@@ -284,6 +322,66 @@ def api_ldm_set_costo(ldm_id):
     ldm["subtotal_cot"] = subtotal
     save("materiales", all_ldms)
     return jsonify({"ok": True, "subtotal_cot": subtotal})
+
+
+@bp.route("/projects/<project_id>/ldm/<ldm_id>/csv", endpoint="ldm_csv")
+def ldm_csv(project_id, ldm_id):
+    project = _find_project(project_id)
+    ldm = next(
+        (
+            item
+            for item in load("materiales")
+            if item.get("id") == ldm_id and item.get("project_id") == project_id
+        ),
+        None,
+    )
+    if not project or not ldm:
+        flash("Lista no encontrada.", "danger")
+        return redirect(url_for("dashboard"))
+    return _ldm_csv_response(project, ldm)
+
+
+@bp.route("/projects/<project_id>/ldm/<ldm_id>/sync-bundles", methods=["POST"], endpoint="sync_ldm_bundles")
+def sync_ldm_bundles(project_id, ldm_id):
+    project = _find_project(project_id)
+    all_ldms = load("materiales")
+    ldm = next((item for item in all_ldms if item.get("id") == ldm_id and item.get("project_id") == project_id), None)
+    if not project or not ldm:
+        flash("Lista no encontrada.", "danger")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+    if project.get("closed_at"):
+        flash("El proyecto está cerrado. Reábrelo para sincronizar materiales.", "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+
+    catalog_by_id, catalog_by_name = catalog_maps()
+    project_quotes = [
+        quote
+        for quote in load("quotes")
+        if quote.get("project_id") == project_id
+    ]
+    active_quote = pick_active_quote(project_quotes)
+    project_ldms = [
+        hydrate_ldm(item, catalog_by_id, catalog_by_name)
+        for item in all_ldms
+        if item.get("project_id") == project_id
+    ]
+    updated_ldm, additions = append_missing_bundle_items_to_ldm(
+        ldm,
+        active_quote,
+        project_ldms,
+        load("bundles"),
+        load("comparison_rules"),
+        catalog_by_id=catalog_by_id,
+        comparison_ignored_items=load("comparison_ignored_items"),
+    )
+    if not additions:
+        flash("No hay faltantes técnicos por sincronizar desde bundles.", "info")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+
+    ldm.update(updated_ldm)
+    save("materiales", all_ldms)
+    flash(f"Se agregaron {len(additions)} material(es) faltante(s) a {ldm.get('ldm_number', 'la LDM')}.", "success")
+    return redirect(url_for("materials_bp.edit_ldm", project_id=project_id, ldm_id=ldm_id))
 
 
 @bp.route("/projects/<project_id>/ldm/<ldm_id>/delete", methods=["POST"], endpoint="delete_ldm")

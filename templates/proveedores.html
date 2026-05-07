@@ -13,17 +13,36 @@
 
 <!-- Barra de búsqueda -->
 <div class="card mb-4">
-  <div class="card-body py-2">
-    <form method="get" class="d-flex gap-2 align-items-center">
-      <i class="bi bi-search text-muted"></i>
-      <input name="q" class="form-control border-0 shadow-none"
-             placeholder="Buscar por nombre, categoría o contacto…"
-             value="{{ q }}" autofocus style="font-size:.9rem">
-      {% if q %}
-      <a href="{{ url_for('proveedores') }}" class="btn btn-sm btn-outline-secondary text-nowrap">
-        <i class="bi bi-x me-1"></i>Limpiar
-      </a>
-      {% endif %}
+  <div class="card-body">
+    <form method="get" class="row g-2 align-items-end">
+      <div class="col-lg-6">
+        <label class="form-label mb-1">Buscar</label>
+        <div class="input-group input-group-sm">
+          <span class="input-group-text"><i class="bi bi-search text-muted"></i></span>
+          <input name="q" class="form-control"
+                 placeholder="Nombre, contacto, email, teléfono o notas"
+                 value="{{ q }}" autofocus>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <label class="form-label mb-1">Categoría</label>
+        <select name="categoria" class="form-select form-select-sm">
+          <option value="">Todas</option>
+          {% for cat in categorias %}
+          <option value="{{ cat }}" {% if categoria==cat %}selected{% endif %}>{{ cat }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-sm-6 col-lg-3 d-flex gap-2">
+        <button type="submit" class="btn btn-sm btn-outline-secondary flex-grow-1">
+          <i class="bi bi-funnel me-1"></i>Filtrar
+        </button>
+        {% if q or categoria %}
+        <a href="{{ url_for('proveedores') }}" class="btn btn-sm btn-link text-muted text-nowrap">
+          Limpiar
+        </a>
+        {% endif %}
+      </div>
     </form>
   </div>
 </div>
@@ -31,8 +50,8 @@
 {% if proveedores %}
 <div class="card">
   <div class="card-header d-flex justify-content-between align-items-center">
-    <span>{% if q %}Resultados para «{{ q }}»{% else %}Todos los proveedores{% endif %}</span>
-    <small class="text-muted">{{ proveedores|length }} proveedor(es)</small>
+    <span>{% if q or categoria %}Proveedores filtrados{% else %}Todos los proveedores{% endif %}</span>
+    <small class="text-muted">{{ proveedores|length }} de {{ total_count }} proveedor(es)</small>
   </div>
   <div class="card-body p-0">
     <table class="table mb-0">
@@ -107,6 +126,9 @@
   <i class="bi bi-truck fs-1 text-muted d-block mb-3"></i>
   {% if q %}
     <h5 class="text-muted">Sin resultados para «{{ q }}»</h5>
+    <a href="{{ url_for('proveedores') }}" class="btn btn-outline-secondary mt-2">Ver todos</a>
+  {% elif categoria %}
+    <h5 class="text-muted">Sin proveedores en «{{ categoria }}»</h5>
     <a href="{{ url_for('proveedores') }}" class="btn btn-outline-secondary mt-2">Ver todos</a>
   {% else %}
     <h5 class="text-muted">No hay proveedores registrados</h5>

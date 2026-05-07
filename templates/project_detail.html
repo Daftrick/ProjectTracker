@@ -212,11 +212,9 @@
   <li class="nav-item">
     <a class="nav-link" data-bs-toggle="tab" href="#tab-consistencia" id="tab-consistencia-link">
       <i class="bi bi-shield-check me-1"></i>Consistencia
-      {% set _cn_status = consistency.status %}
-      {% set _tech_status = consistency.bundle_consistency.status if consistency.bundle_consistency is defined else 'no_data' %}
-      {% if _cn_status == 'critical' or _tech_status == 'critical' %}
+      {% if consistency_view.tab_severity == 'critical' %}
         <span class="badge bg-danger ms-1" style="font-size:.62rem">!</span>
-      {% elif _cn_status == 'warning' or _tech_status == 'warning' %}
+      {% elif consistency_view.tab_severity == 'warning' %}
         <span class="badge bg-warning text-dark ms-1" style="font-size:.62rem">⚠</span>
       {% endif %}
     </a>
@@ -250,12 +248,12 @@
           </tr>
         </thead>
         <tbody>
-          {% for t in main_tasks %}
-          {% set blocked = t._blocked and t.status == "Pendiente" %}
-          <tr class="alcance-row {% if blocked %}blocked{% endif %}">
+          {% for row in task_rows %}
+          {% set t = row.task %}
+          <tr class="alcance-row {% if row.blocked %}blocked{% endif %}">
             <td>
               <div class="scope-title-cell">
-                {% if t.history or (subtasks[t.id] is defined and subtasks[t.id]) %}
+                {% if row.has_detail %}
                 <button class="btn btn-outline-secondary expand-btn" id="expand-{{ t.id }}"
                         onclick="toggleDetail('{{ t.id }}')" title="Ver detalle">
                   <i class="bi bi-chevron-down"></i>
@@ -264,30 +262,26 @@
                 <div class="scope-title-body">
                   <div class="fw-semibold" style="font-size:.875rem">{{ t.title }}</div>
                   {% if t.notes %}<small class="text-muted">{{ t.notes }}</small>{% endif %}
-                  {% if subtasks[t.id] is defined %}
-                    {% set active_obs = subtasks[t.id] | rejectattr('status', 'equalto', 'Aprobado') | list %}
-                    {% if active_obs %}
+                  {% if row.active_observations %}
                     <div class="mt-1">
-                      {% for st in active_obs %}
+                      {% for obs in row.active_observations %}
+                        {% set st = obs.task %}
                         <span class="badge status-pill bs-{{ st.status | replace(' ', '-') }}" style="font-size:.7rem">
                           <i class="bi bi-arrow-return-right me-1"></i>{{ st.title|truncate(30,True) }} · {{ st.status }}
                         </span>
                       {% endfor %}
                     </div>
-                    {% endif %}
                   {% endif %}
                 </div>
               </div>
             </td>
             <td>
               {% if t.alcance not in info_ext_excluded %}
-                {% set src = t.source or 'propia' %}
-                {% set ist = t.info_status or 'Pendiente' %}
                 <div class="d-flex flex-wrap align-items-center gap-1">
-                  {% if src == 'externa' %}
+                  {% if row.source == 'externa' %}
                     <span class="badge src-externa">Externa</span>
-                    <span class="badge {% if ist=='Entregado' %}bs-Aprobado{% else %}bs-Pendiente{% endif %}">
-                      {{ ist }}
+                    <span class="badge {% if row.info_status=='Entregado' %}bs-Aprobado{% else %}bs-Pendiente{% endif %}">
+                      {{ row.info_status }}
                     </span>
                     {% if t.external_dep %}
                       <br><small class="text-muted w-100" style="font-size:.75rem">{{ t.external_dep }}</small>
@@ -301,9 +295,9 @@
                         data-bs-toggle="modal" data-bs-target="#modalInfo"
                         data-task-id="{{ t.id }}"
                         data-task-title="{{ t.title }}"
-                        data-source="{{ src }}"
+                        data-source="{{ row.source }}"
                         data-ext-dep="{{ t.external_dep or '' }}"
-                        data-info-status="{{ ist }}">
+                        data-info-status="{{ row.info_status }}">
                   <i class="bi bi-pencil me-1"></i>Editar
                 </button>
                 {% endif %}
@@ -312,17 +306,16 @@
               {% endif %}
             </td>
             <td>
-              {% if blocked %}
+              {% if row.blocked %}
                 <span class="badge bs-Bloqueado"><i class="bi bi-lock me-1"></i>Bloqueado</span>
               {% else %}
                 <span class="badge bs-{{ t.status | replace(' ', '-') }} status-pill">{{ t.status }}</span>
               {% endif %}
             </td>
             <td>
-              {% if t.history %}
-                {% set last = t.history[-1] %}
-                <small class="text-muted d-block">{{ last.date | fdate }}</small>
-                <small style="font-size:.72rem;color:#7b8494">{{ last.from }} → {{ last.to }}</small>
+              {% if row.last_history %}
+                <small class="text-muted d-block">{{ row.last_history.date | fdate }}</small>
+                <small style="font-size:.72rem;color:#7b8494">{{ row.last_history.from }} → {{ row.last_history.to }}</small>
               {% else %}—{% endif %}
             </td>
             <td class="text-end">
@@ -332,25 +325,22 @@
                       data-task-id="{{ t.id }}"
                       data-task-title="{{ t.title }}"
                       data-task-status="{{ t.status }}"
-                      data-blocked="{{ 'true' if blocked else 'false' }}">
+                      data-blocked="{{ 'true' if row.blocked else 'false' }}">
                 <i class="bi bi-arrow-repeat"></i>
               </button>
               {% endif %}
             </td>
           </tr>
-          {% if t.history or (subtasks[t.id] is defined and subtasks[t.id]) %}
+          {% if row.has_detail %}
           <tr class="detail-row" id="detail-{{ t.id }}">
             <td colspan="5">
               <div class="detail-inner">
-                {% if subtasks[t.id] is defined and subtasks[t.id] %}
-                {% set active_obs = subtasks[t.id] | rejectattr('status', 'equalto', 'Aprobado') | list %}
-                {% if active_obs %}
+                {% if row.active_observations %}
                 <div class="detail-section mb-3">
                   <div class="detail-section-title">Observaciones activas</div>
-                  {% for st in active_obs %}
+                  {% for obs in row.active_observations %}
+                  {% set st = obs.task %}
                   <div class="obs-item">
-                    {% set checklist_text %}{% for item in st.checklist or [] %}{{ item.text }}{% if not loop.last %}
-{% endif %}{% endfor %}{% endset %}
                     <div class="d-flex align-items-center gap-2 flex-wrap">
                       <span class="badge bs-{{ st.status | replace(' ', '-') }}" style="font-size:.7rem">
                         <i class="bi bi-arrow-return-right me-1"></i>{{ st.title }}
@@ -362,7 +352,7 @@
                               data-observation-id="{{ st.id }}"
                               data-observation-title="{{ st.title }}"
                               data-observation-notes="{{ st.notes | e }}"
-                              data-observation-checklist="{{ checklist_text | e }}">
+                              data-observation-checklist="{{ obs.checklist_text | e }}">
                         <i class="bi bi-pencil me-1"></i>Editar
                       </button>
                       {% endif %}
@@ -372,11 +362,10 @@
                     {% else %}
                     <div class="obs-no-note">Sin notas registradas</div>
                     {% endif %}
-                    {% if st.checklist %}
-                    {% set done_count = st.checklist | selectattr('done') | list | length %}
+                    {% if obs.checklist %}
                     <div class="obs-checklist">
-                      <div class="obs-check-progress">{{ done_count }}/{{ st.checklist|length }} puntos cumplidos</div>
-                      {% for item in st.checklist %}
+                      <div class="obs-check-progress">{{ obs.done_count }}/{{ obs.checklist_count }} puntos cumplidos</div>
+                      {% for item in obs.checklist %}
                       <form method="post"
                             action="{{ url_for('update_observation_checklist', project_id=project.id, observation_id=st.id, item_id=item.id) }}">
                         <label class="obs-check-item {% if item.done %}done{% endif %}">
@@ -392,7 +381,6 @@
                   </div>
                   {% endfor %}
                 </div>
-                {% endif %}
                 {% endif %}
                 {% if t.history %}
                 <div class="detail-section">
@@ -494,9 +482,7 @@
                   <div class="mb-1">
                     <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name) }}"
                        target="_blank" class="drive-file-link">
-                      {% set ie_parts = f.name.rsplit('.', 1) %}
-                      {% set ie_ext = '.' ~ ie_parts[1] if ie_parts|length > 1 else '' %}
-                      {{ render_drive_filename(f.name, 'drive-code-ie-pdf' if f.highlight and ie_ext == '.pdf' else 'drive-code-ie-dwg' if f.highlight and ie_ext == '.dwg' else 'drive-code-ie' if f.highlight else 'drive-code-muted') }}
+                      {{ render_drive_filename(f.name, f.display_class) }}
                       <i class="bi bi-box-arrow-up-right ms-1" style="font-size:.7rem"></i>
                     </a>
                   </div>
@@ -510,7 +496,7 @@
                   <div class="mb-1">
                     <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name) }}"
                        target="_blank" class="drive-file-link">
-                      {{ render_drive_filename(f.name, 'drive-code-mem' if f.highlight else 'drive-code-muted') }}
+                      {{ render_drive_filename(f.name, f.display_class) }}
                       <i class="bi bi-box-arrow-up-right ms-1" style="font-size:.7rem"></i>
                     </a>
                   </div>
@@ -528,7 +514,7 @@
                   <div class="d-flex align-items-center gap-1 mb-1">
                     <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name) }}"
                        target="_blank" class="drive-file-link flex-fill">
-                      {{ render_drive_filename(f.name, 'drive-code-ldm') }}
+                      {{ render_drive_filename(f.name, f.display_class) }}
                     </a>
                     <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name, dl=1) }}"
                        class="btn btn-sm p-0 px-1 btn-outline-secondary" title="Descargar" style="font-size:.7rem">
@@ -543,7 +529,7 @@
                   <div class="d-flex align-items-center gap-1 mb-1">
                     <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name) }}"
                        target="_blank" class="drive-file-link flex-fill">
-                      {{ render_drive_filename(f.name, 'drive-code-prov' if f.linked else 'drive-code-muted') }}
+                      {{ render_drive_filename(f.name, f.display_class) }}
                     </a>
                     <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name, dl=1) }}"
                        class="btn btn-sm p-0 px-1 btn-outline-secondary" title="Descargar" style="font-size:.7rem">
@@ -552,7 +538,7 @@
                   </div>
                   {% endfor %}
                 {% endif %}
-                {% if not scan.ldm_files and not scan.provider_quote_files %}
+                {% if not scan.has_ldm_documents %}
                   <small class="text-muted">Sin archivos de LDM</small>
                 {% endif %}
                 <div class="drive-subgroup mt-3 mb-1">CSVs de plano</div>
@@ -560,7 +546,7 @@
                   {% for f in scan.csv_plano %}
                   <div class="d-flex align-items-center gap-1 mb-1">
                     <span class="drive-file-link flex-fill">
-                      {{ render_drive_filename(f.name, 'drive-code-cot' if f.status == 'importado' else 'drive-code-prov' if f.status == 'desactualizado' else 'drive-code-muted') }}
+                      {{ render_drive_filename(f.name, f.display_class) }}
                     </span>
                     <span class="badge {{ f.badge_class }} csv-status-badge" title="{{ f.hint }}">
                       {{ f.status_label }}
@@ -603,7 +589,7 @@
                   <div class="d-flex align-items-center gap-1 mb-1">
                     <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name) }}"
                        target="_blank" class="drive-file-link flex-fill">
-                      {{ render_drive_filename(f.name, 'drive-code-cot') }}
+                      {{ render_drive_filename(f.name, f.display_class) }}
                     </a>
                     <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name, dl=1) }}"
                        class="btn btn-sm p-0 px-1 btn-outline-secondary" title="Descargar" style="font-size:.7rem">
@@ -620,7 +606,7 @@
                   <div class="mb-1">
                     <a href="{{ url_for('serve_project_file', project_id=project.id, filename=f.name) }}"
                        target="_blank" class="drive-file-link">
-                      {{ render_drive_filename(f.name, 'drive-code-work' if f.highlight else 'drive-code-muted') }}
+                      {{ render_drive_filename(f.name, f.display_class) }}
                       <i class="bi bi-box-arrow-up-right ms-1" style="font-size:.7rem"></i>
                     </a>
                   </div>
@@ -632,7 +618,7 @@
               <div class="col-md-6 col-xl-2 drive-grid-col">
                 <div class="mb-2 text-muted fw-semibold drive-col-title">OTROS</div>
                 {% for f in scan.other_files %}
-                  <div>{{ render_drive_filename(f.name, 'drive-code-muted') }}</div>
+                  <div>{{ render_drive_filename(f.name, f.display_class) }}</div>
                 {% else %}
                   <small class="text-muted">—</small>
                 {% endfor %}
@@ -815,13 +801,13 @@
           <th class="text-end">IVA</th><th class="text-end">Total</th><th class="text-end">Acciones</th>
         </tr></thead>
         <tbody>
-        {% for q in quotes %}
-        {% set deleted_catalog_items = q['items'] | selectattr('catalog_deleted') | list %}
+        {% for row in quote_rows %}
+        {% set q = row.quote %}
         <tr>
           <td>
             <span class="fw-semibold font-monospace">{{ q.quote_number }}</span>
-            {% if deleted_catalog_items %}
-            <span class="badge bg-danger ms-1" style="font-size:.65rem">{{ deleted_catalog_items|length }} cat. eliminado(s)</span>
+            {% if row.deleted_catalog_count %}
+            <span class="badge bg-danger ms-1" style="font-size:.65rem">{{ row.deleted_catalog_count }} cat. eliminado(s)</span>
             {% endif %}
           </td>
           <td>
@@ -847,13 +833,13 @@
             {% if not project.closed_at %}
             <a href="{{ url_for('edit_quote', project_id=project.id, quote_id=q.id) }}"
                class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Editar"><i class="bi bi-pencil"></i><span class="action-label">Editar</span></a>
-            {% if deleted_catalog_items %}
+            {% if row.deleted_catalog_count %}
             <form method="post" action="{{ url_for('purge_quote_deleted_catalog_items', project_id=project.id, quote_id=q.id) }}"
                   class="d-inline">
               <button type="button" class="btn btn-sm btn-outline-danger me-1 action-btn"
                       title="Eliminar partidas con catálogo eliminado"
                       data-confirm-title='Purgar catálogo eliminado — {{ q.quote_number | e }}'
-                      data-confirm-body='<p class="mb-1">¿Purgar definitivamente <strong>{{ deleted_catalog_items|length }}</strong> partida(s) marcadas como catálogo eliminado de <strong>{{ q.quote_number | e }}</strong>?</p><ul class="mb-0 small">{% for item in deleted_catalog_items %}<li class="text-muted">{{ (item.get("description") or item.get("deleted_catalog_item", {}).get("nombre") or "—") | e }}</li>{% endfor %}</ul>'
+                      data-confirm-body='<p class="mb-1">¿Purgar definitivamente <strong>{{ row.deleted_catalog_count }}</strong> partida(s) marcadas como catálogo eliminado de <strong>{{ q.quote_number | e }}</strong>?</p><ul class="mb-0 small">{% for item in row.deleted_catalog_items %}<li class="text-muted">{{ (item.get("description") or item.get("deleted_catalog_item", {}).get("nombre") or "—") | e }}</li>{% endfor %}</ul>'
                       data-confirm-text="Purgar"
                       onclick="submitFormWithConfirm(this)">
                 <i class="bi bi-eraser"></i><span class="action-label">Purgar</span>
@@ -864,7 +850,7 @@
                   class="d-inline">
               <button type="button" class="btn btn-sm btn-outline-danger action-btn"
                       data-confirm-title='Eliminar cotizaci\u00f3n {{ q.quote_number | e }}'
-                      data-confirm-body='<dl class="row small mb-0"><dt class="col-5">Tipo</dt><dd class="col-7">{{ q.get("quote_type","General") | e }}</dd><dt class="col-5">Fecha</dt><dd class="col-7">{{ q.date | fdate }}</dd><dt class="col-5">Partidas</dt><dd class="col-7">{{ q["items"]|length }}</dd><dt class="col-5">Total</dt><dd class="col-7 fw-bold text-success">{{ q.total | currency }} {{ q.currency | e }}</dd></dl>'
+                      data-confirm-body='<dl class="row small mb-0"><dt class="col-5">Tipo</dt><dd class="col-7">{{ q.get("quote_type","General") | e }}</dd><dt class="col-5">Fecha</dt><dd class="col-7">{{ q.date | fdate }}</dd><dt class="col-5">Partidas</dt><dd class="col-7">{{ row.item_count }}</dd><dt class="col-5">Total</dt><dd class="col-7 fw-bold text-success">{{ q.total | currency }} {{ q.currency | e }}</dd></dl>'
                       onclick="submitFormWithConfirm(this)">
                 <i class="bi bi-trash"></i><span class="action-label">Eliminar</span>
               </button>
@@ -887,25 +873,9 @@
 <!-- ── TAB CONSISTENCIA COT vs LDM ── -->
 <div class="tab-pane fade" id="tab-consistencia">
   {% set cn = consistency %}
-  {% set status_color_map = {'ok': 'success', 'warning': 'warning', 'critical': 'danger', 'no_data': 'secondary'} %}
-  {% set status_icon_map = {'ok': 'check-circle-fill', 'warning': 'exclamation-triangle-fill', 'critical': 'x-octagon-fill', 'no_data': 'info-circle'} %}
-  {% set issue_color_map = {'below_cost': 'danger', 'missing_in_ldm': 'danger', 'missing_in_cot': 'secondary', 'qty_mismatch': 'warning', 'low_margin': 'warning'} %}
-  {% set tech_issue_label_map = {
-    'ok': 'OK',
-    'missing_in_ldm': 'Faltante en LDM',
-    'extra_in_ldm': 'Extra en LDM',
-    'qty_shortage': 'Cantidad insuficiente',
-    'qty_excess': 'Excedente'
-  } %}
-  {% set tech_issue_color_map = {
-    'ok': 'success',
-    'missing_in_ldm': 'danger',
-    'extra_in_ldm': 'warning',
-    'qty_shortage': 'danger',
-    'qty_excess': 'warning'
-  } %}
-  {% set bs_color = status_color_map[cn.status] %}
-  {% set bs_icon = status_icon_map[cn.status] %}
+  {% set cv = consistency_view %}
+  {% set bs_color = cv.badge_color %}
+  {% set bs_icon = cv.badge_icon %}
 
   <!-- Encabezado: estado + KPIs -->
   <div class="card mb-3">
@@ -997,12 +967,11 @@
         <div class="col-md-6">
           <div class="margen-box p-3 h-100" style="font-size:.82rem">
             <div class="fw-semibold mb-2"><i class="bi bi-clipboard-check me-1"></i>Acciones sugeridas</div>
-            {% if cn.suggested_actions %}
+            {% if cv.suggested_actions %}
               <div class="d-flex flex-column gap-1">
-              {% for action in cn.suggested_actions %}
-                {% set ac = status_color_map[action.status] %}
+              {% for action in cv.suggested_actions %}
                 <div class="d-flex gap-2 align-items-start">
-                  <span class="badge bg-{{ ac }}{% if ac == 'warning' %} text-dark{% endif %}" style="font-size:.65rem">{{ action.count }}</span>
+                  <span class="badge bg-{{ action.color }}{% if action.color == 'warning' %} text-dark{% endif %}" style="font-size:.65rem">{{ action.count }}</span>
                   <span><strong>{{ action.label }}:</strong> {{ action.text }}</span>
                 </div>
               {% endfor %}
@@ -1014,9 +983,8 @@
         </div>
       </div>
 
-      {% set ignored = cn.ignored|default({}) %}
-      {% set ignored_quote = ignored.commercial_quote|default({'count':0,'total':0,'rows':[]}) %}
-      {% set ignored_ldm = ignored.commercial_ldm|default({'count':0,'total':0,'rows':[]}) %}
+      {% set ignored_quote = cv.ignored_quote %}
+      {% set ignored_ldm = cv.ignored_ldm %}
       {% if ignored_quote.count|default(0) or ignored_ldm.count|default(0) %}
       <div class="alert alert-dark border py-2 mt-3 mb-0" style="font-size:.82rem">
         <i class="bi bi-eye-slash me-1"></i>
@@ -1037,28 +1005,15 @@
 
 
   <!-- Consistencia técnica por bundles -->
-  {% set tech = cn.bundle_consistency|default({}) %}
-  {% set tech_status = tech.status|default('no_data', true) %}
-  {% set tech_summary = tech.summary|default({}) %}
-  {% set tech_rows = tech.rows|default([]) %}
-  {% set tech_bundle_rows = tech.bundle_rows|default([]) %}
-  {% set tech_ldm_unlinked = tech.ldm_unlinked|default({'count': 0, 'total': 0}) %}
-  {% set tech_bundle_quote_items = tech.bundle_quote_items|default([]) %}
-  {% set tech_unmapped_quote_items = tech.unmapped_quote_items|default([]) %}
-  {% set tech_invalid_components = tech.invalid_components|default([]) %}
-  {% set tech_bundles_no_version = tech.bundles_no_active_version|default([]) %}
-  {% set tech_components_no_rule = tech.components_no_rule|default([]) %}
-  {% set tech_suggested_actions = tech.technical_suggested_actions|default([]) %}
-  {% set tech_color = status_color_map.get(tech_status, 'secondary') %}
-  {% set tech_icon = status_icon_map.get(tech_status, 'info-circle') %}
-  {% set tech_action_map = {
-    'missing_in_ldm': 'Agregar material en la LDM del proyecto.',
-    'extra_in_ldm': 'Verificar origen; si no corresponde a este proyecto, marcar como ignorado técnico.',
-    'qty_shortage': 'Aumentar cantidad en LDM o ajustar la regla de conversión COT/LDM.',
-    'qty_excess': 'Revisar excedente: ajustar regla de conversión o revisar el bundle.',
-    'ok': ''
-  } %}
-  {% set tech_other_invalid = tech_invalid_components | rejectattr('reason', 'equalto', 'bundle_without_active_version') | list %}
+  {% set tech = cv.technical %}
+  {% set tech_summary = tech.summary %}
+  {% set tech_ldm_unlinked = tech.ldm_unlinked %}
+  {% set tech_bundle_quote_items = tech.bundle_quote_items %}
+  {% set tech_unmapped_quote_items = tech.unmapped_quote_items %}
+  {% set tech_bundles_no_version = tech.bundles_no_active_version %}
+  {% set tech_components_no_rule = tech.components_no_rule %}
+  {% set tech_suggested_actions = tech.technical_suggested_actions %}
+  {% set tech_other_invalid = tech.other_invalid_components %}
   <div class="card mb-3">
     <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
       <span class="fw-semibold" style="font-size:.875rem">
@@ -1074,9 +1029,9 @@
             <i class="bi bi-exclamation-octagon me-1"></i>{{ tech_bundles_no_version|length }} bundle(s) sin versión activa
           </span>
         {% endif %}
-        <span class="badge bg-{{ tech_color }}{% if tech_color == 'warning' %} text-dark{% endif %}">
-          <i class="bi bi-{{ tech_icon }} me-1"></i>
-          {% if tech_status == 'ok' %}Materiales consistentes{% elif tech_status == 'warning' %}Revisar diferencias{% elif tech_status == 'critical' %}Faltantes críticos{% else %}Sin datos técnicos{% endif %}
+        <span class="badge bg-{{ tech.color }}{% if tech.color == 'warning' %} text-dark{% endif %}">
+          <i class="bi bi-{{ tech.icon }} me-1"></i>
+          {{ tech.status_label }}
         </span>
       </div>
     </div>
@@ -1162,9 +1117,8 @@
         <div class="fw-semibold mb-2"><i class="bi bi-clipboard-check me-1"></i>Acciones sugeridas</div>
         <div class="d-flex flex-column gap-1">
           {% for action in tech_suggested_actions %}
-            {% set ac = status_color_map.get(action.status, 'secondary') %}
             <div class="d-flex gap-2 align-items-start">
-              <span class="badge bg-{{ ac }}{% if ac == 'warning' %} text-dark{% endif %}" style="font-size:.65rem">{{ action.count }}</span>
+              <span class="badge bg-{{ action.color }}{% if action.color == 'warning' %} text-dark{% endif %}" style="font-size:.65rem">{{ action.count }}</span>
               <span><strong>{{ action.label }}:</strong> {{ action.text }}</span>
             </div>
           {% endfor %}
@@ -1182,7 +1136,7 @@
       </div>
       {% endif %}
 
-      {% if tech_rows %}
+      {% if tech.rows %}
       <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
         <div>
           <ul class="nav nav-pills" style="font-size:.8rem">
@@ -1221,56 +1175,48 @@
               </tr>
             </thead>
             <tbody>
-              {% for row in tech_rows %}
-              {% set row_status = row.status|default('no_data', true) %}
-              {% set row_issue = row.issue|default('', true) %}
-              {% set row_diff_qty = row.diff_qty|default(0, true)|float %}
-              {% set rc = status_color_map.get(row_status, 'secondary') %}
-              {% set ri = status_icon_map.get(row_status, 'info-circle') %}
-              {% set issue_label = tech_issue_label_map.get(row_issue, row_issue) %}
-              {% set issue_color = tech_issue_color_map.get(row_issue, rc) %}
-              {% set row_action = tech_action_map.get(row_issue, '') %}
-              <tr class="technical-consistency-row {% if row_status == 'critical' %}table-danger{% elif row_status == 'warning' %}table-warning{% endif %}"
-                  data-search="{{ row.nombre|default('') }} {{ row.unidad|default('') }} {{ row_issue }} {{ row.comparison_rule_id|default('') }} {% for src in row.sources_expected|default([]) %}{{ src.bundle_name|default('') }} {% endfor %}{% for src in row.sources_actual|default([]) %}{{ src.ldm_number|default('') }} {% endfor %}">
-                <td class="text-center"><i class="bi bi-{{ ri }} text-{{ rc }}"></i></td>
+              {% for rv in tech.rows %}
+              <tr class="technical-consistency-row {{ rv.row_class }}"
+                  data-search="{{ rv.search_text }}">
+                <td class="text-center"><i class="bi bi-{{ rv.icon }} text-{{ rv.color }}"></i></td>
                 <td>
-                  <div class="fw-semibold">{{ row.nombre|default('Sin nombre') }}</div>
-                  <small class="text-muted font-monospace">{{ row.catalog_item_id|default('') }}</small>
+                  <div class="fw-semibold">{{ rv.row.nombre|default('Sin nombre') }}</div>
+                  <small class="text-muted font-monospace">{{ rv.row.catalog_item_id|default('') }}</small>
                 </td>
-                <td class="text-center"><span class="badge bg-light text-dark border">{{ row.unidad|default('—', true) }}</span></td>
-                <td class="text-end font-monospace">{{ '%.4g'|format(row.expected_qty|default(0, true)|float) }}</td>
-                <td class="text-end font-monospace">{{ '%.4g'|format(row.actual_qty|default(0, true)|float) }}</td>
-                <td class="text-end font-monospace fw-semibold {% if row_diff_qty < 0 %}text-danger{% elif row_diff_qty > 0 %}text-warning{% else %}text-success{% endif %}">
-                  {% if row_diff_qty != 0 %}{{ '%+.4g'|format(row_diff_qty) }}{% else %}—{% endif %}
+                <td class="text-center"><span class="badge bg-light text-dark border">{{ rv.row.unidad|default('—', true) }}</span></td>
+                <td class="text-end font-monospace">{{ '%.4g'|format(rv.row.expected_qty|default(0, true)|float) }}</td>
+                <td class="text-end font-monospace">{{ '%.4g'|format(rv.row.actual_qty|default(0, true)|float) }}</td>
+                <td class="text-end font-monospace fw-semibold {% if rv.diff_qty < 0 %}text-danger{% elif rv.diff_qty > 0 %}text-warning{% else %}text-success{% endif %}">
+                  {% if rv.diff_qty != 0 %}{{ '%+.4g'|format(rv.diff_qty) }}{% else %}—{% endif %}
                 </td>
                 <td>
-                  <span class="badge bg-{{ issue_color }}{% if issue_color == 'warning' %} text-dark{% endif %}" style="font-size:.68rem">{{ issue_label }}</span>
-                  <small class="d-block text-muted mt-1">Tol. {{ row.tolerance_pct|default(0, true) }}%</small>
-                  {% if row.comparison_rule_id|default('') %}<small class="d-block font-monospace text-muted">Regla: {{ row.comparison_rule_id }}</small>{% endif %}
+                  <span class="badge bg-{{ rv.issue_color }}{% if rv.issue_color == 'warning' %} text-dark{% endif %}" style="font-size:.68rem">{{ rv.issue_label }}</span>
+                  <small class="d-block text-muted mt-1">Tol. {{ rv.row.tolerance_pct|default(0, true) }}%</small>
+                  {% if rv.row.comparison_rule_id|default('') %}<small class="d-block font-monospace text-muted">Regla: {{ rv.row.comparison_rule_id }}</small>{% endif %}
                 </td>
                 <td>
-                  {% if row.sources_expected|default([]) %}
+                  {% if rv.sources_expected_preview %}
                     <div class="mb-1"><small class="text-muted fw-semibold">Desde COT</small></div>
-                    {% for src in (row.sources_expected|default([]))[:2] %}
+                    {% for src in rv.sources_expected_preview %}
                       <small class="d-block text-muted">
                         {{ src.bundle_name|default('Bundle') }}{% if src.bundle_version|default('') %} v{{ src.bundle_version }}{% endif %} · {{ '%.4g'|format(src.quote_qty|default(0, true)|float) }} × {{ '%.4g'|format(src.component_qty|default(0, true)|float) }}
                       </small>
                     {% endfor %}
-                    {% if row.sources_expected|default([])|length > 2 %}<small class="text-muted">+{{ row.sources_expected|default([])|length - 2 }} más</small>{% endif %}
+                    {% if rv.sources_expected_more_count %}<small class="text-muted">+{{ rv.sources_expected_more_count }} más</small>{% endif %}
                   {% endif %}
-                  {% if row.sources_actual|default([]) %}
+                  {% if rv.sources_actual_preview %}
                     <div class="mt-1 mb-1"><small class="text-muted fw-semibold">LDM real</small></div>
-                    {% for src in (row.sources_actual|default([]))[:2] %}
+                    {% for src in rv.sources_actual_preview %}
                       <small class="d-block text-muted">
                         <span class="font-monospace">{{ src.ldm_number|default('LDM', true) }}</span> · {{ '%.4g'|format(src.qty_original|default(0, true)|float) }} → {{ '%.4g'|format(src.qty_converted|default(0, true)|float) }}{% if src.rule_name|default('') %} <span class="text-info">({{ src.rule_name }})</span>{% endif %}
                       </small>
                     {% endfor %}
-                    {% if row.sources_actual|default([])|length > 2 %}<small class="text-muted">+{{ row.sources_actual|default([])|length - 2 }} LDM más</small>{% endif %}
+                    {% if rv.sources_actual_more_count %}<small class="text-muted">+{{ rv.sources_actual_more_count }} LDM más</small>{% endif %}
                   {% endif %}
                 </td>
                 <td>
-                  {% if row_action %}
-                    <small class="text-muted"><i class="bi bi-arrow-right-circle me-1"></i>{{ row_action }}</small>
+                  {% if rv.action %}
+                    <small class="text-muted"><i class="bi bi-arrow-right-circle me-1"></i>{{ rv.action }}</small>
                   {% else %}
                     <small class="text-success"><i class="bi bi-check-circle me-1"></i>Sin acción requerida.</small>
                   {% endif %}
@@ -1286,8 +1232,6 @@
       <div id="techViewBundle" style="display:none">
         <p class="text-muted mb-3" style="font-size:.82rem"><i class="bi bi-info-circle me-1"></i>La cantidad LDM equivalente es el total del proyecto; no está desglosada por bundle.</p>
         {% for bq in tech_bundle_quote_items %}
-          {% set bq_components = tech_bundle_rows | selectattr('bundle_catalog_item_id', 'equalto', bq.catalog_item_id) | list %}
-          {% if bq_components %}
           <div class="card mb-3 border-secondary">
             <div class="card-header bg-light d-flex justify-content-between align-items-center py-2" style="font-size:.84rem">
               <span>
@@ -1314,43 +1258,31 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {% for br in bq_components %}
-                      {% set matching = tech_rows | selectattr('catalog_item_id', 'equalto', br.component_catalog_item_id) | list %}
-                      {% set comp_row = matching[0] if matching else {} %}
-                      {% set cr_status = comp_row.status|default('no_data', true) %}
-                      {% set cr_issue = comp_row.issue|default('', true) %}
-                      {% set cr_actual = comp_row.actual_qty|default(0, true)|float %}
-                      {% set cr_diff = comp_row.diff_qty|default(0, true)|float %}
-                      {% set br_expected = br.expected_qty|default(0, true)|float %}
-                      {% set crc = status_color_map.get(cr_status, 'secondary') %}
-                      {% set cri = status_icon_map.get(cr_status, 'info-circle') %}
-                      {% set cr_issue_label = tech_issue_label_map.get(cr_issue, cr_issue) %}
-                      {% set cr_issue_color = tech_issue_color_map.get(cr_issue, crc) %}
-                      {% set cr_action = tech_action_map.get(cr_issue, '') %}
-                      <tr class="{% if cr_status == 'critical' %}table-danger{% elif cr_status == 'warning' %}table-warning{% endif %}">
-                        <td class="text-center"><i class="bi bi-{{ cri }} text-{{ crc }}"></i></td>
+                    {% for comp in bq.components %}
+                      <tr class="{{ comp.row_class }}">
+                        <td class="text-center"><i class="bi bi-{{ comp.icon }} text-{{ comp.color }}"></i></td>
                         <td>
-                          <div class="fw-semibold">{{ comp_row.nombre|default(br.component_catalog_item_id) }}</div>
-                          <small class="text-muted font-monospace">{{ br.component_catalog_item_id }}</small>
-                          {% if br.comparison_rule_id|default('') %}<small class="d-block text-muted">Regla: {{ br.comparison_rule_id }}</small>{% endif %}
-                          {% if br.notes|default('') %}<small class="d-block text-muted fst-italic">{{ br.notes }}</small>{% endif %}
+                          <div class="fw-semibold">{{ comp.matching.row.nombre|default(comp.component.component_catalog_item_id) }}</div>
+                          <small class="text-muted font-monospace">{{ comp.component.component_catalog_item_id }}</small>
+                          {% if comp.component.comparison_rule_id|default('') %}<small class="d-block text-muted">Regla: {{ comp.component.comparison_rule_id }}</small>{% endif %}
+                          {% if comp.component.notes|default('') %}<small class="d-block text-muted fst-italic">{{ comp.component.notes }}</small>{% endif %}
                         </td>
-                        <td class="text-center"><span class="badge bg-light text-dark border">{{ comp_row.unidad|default('—', true) }}</span></td>
+                        <td class="text-center"><span class="badge bg-light text-dark border">{{ comp.matching.row.unidad|default('—', true) }}</span></td>
                         <td class="text-end font-monospace text-muted">
-                          {{ '%.4g'|format(br.component_qty|default(0)|float) }}
-                          {% if br.waste_pct|default(0)|float > 0 %}<small class="d-block text-warning">+{{ br.waste_pct }}% merma</small>{% endif %}
+                          {{ '%.4g'|format(comp.component.component_qty|default(0)|float) }}
+                          {% if comp.component.waste_pct|default(0)|float > 0 %}<small class="d-block text-warning">+{{ comp.component.waste_pct }}% merma</small>{% endif %}
                         </td>
-                        <td class="text-end font-monospace fw-semibold">{{ '%.4g'|format(br_expected) }}</td>
-                        <td class="text-end font-monospace">{% if cr_actual %}{{ '%.4g'|format(cr_actual) }}{% else %}<span class="text-danger">—</span>{% endif %}</td>
-                        <td class="text-end font-monospace fw-semibold {% if cr_diff < 0 %}text-danger{% elif cr_diff > 0 %}text-warning{% else %}text-success{% endif %}">
-                          {% if cr_diff != 0 %}{{ '%+.4g'|format(cr_diff) }}{% else %}—{% endif %}
-                        </td>
-                        <td>
-                          <span class="badge bg-{{ cr_issue_color }}{% if cr_issue_color == 'warning' %} text-dark{% endif %}" style="font-size:.68rem">{{ cr_issue_label }}</span>
+                        <td class="text-end font-monospace fw-semibold">{{ '%.4g'|format(comp.expected_qty) }}</td>
+                        <td class="text-end font-monospace">{% if comp.actual_qty %}{{ '%.4g'|format(comp.actual_qty) }}{% else %}<span class="text-danger">—</span>{% endif %}</td>
+                        <td class="text-end font-monospace fw-semibold {% if comp.diff_qty < 0 %}text-danger{% elif comp.diff_qty > 0 %}text-warning{% else %}text-success{% endif %}">
+                          {% if comp.diff_qty != 0 %}{{ '%+.4g'|format(comp.diff_qty) }}{% else %}—{% endif %}
                         </td>
                         <td>
-                          {% if cr_action %}
-                            <small class="text-muted"><i class="bi bi-arrow-right-circle me-1"></i>{{ cr_action }}</small>
+                          <span class="badge bg-{{ comp.issue_color }}{% if comp.issue_color == 'warning' %} text-dark{% endif %}" style="font-size:.68rem">{{ comp.issue_label }}</span>
+                        </td>
+                        <td>
+                          {% if comp.action %}
+                            <small class="text-muted"><i class="bi bi-arrow-right-circle me-1"></i>{{ comp.action }}</small>
                           {% else %}
                             <small class="text-success"><i class="bi bi-check-circle me-1"></i>OK</small>
                           {% endif %}
@@ -1362,7 +1294,6 @@
               </div>
             </div>
           </div>
-          {% endif %}
         {% endfor %}
       </div>
       {% endif %}
@@ -1405,55 +1336,38 @@
             </tr>
           </thead>
           <tbody>
-            {% for row in cn['items'] %}
-            {% set commercial_row_status = row.get('status', 'no_data') %}
-            {% set row_color = status_color_map.get(commercial_row_status, 'secondary') %}
-            {% set row_icon  = status_icon_map.get(commercial_row_status, 'info-circle') %}
-            {% set row_issues = row.get('issues', []) %}
-            {% set row_ldm_numbers = row.get('ldm_numbers', []) %}
-            {% set qty_delta = row.get('qty_delta', 0) or 0 %}
-            {% set qty_cot = row.get('qty_cot') %}
-            {% set qty_ldm = row.get('qty_ldm') %}
-            {% set price_cot = row.get('price_cot') %}
-            {% set cost_avg = row.get('cost_avg') %}
-            {% set margin_unit = row.get('margin_unit') %}
-            {% set margin_unit_pct = row.get('margin_unit_pct') %}
-            {% set issue_details = row.get('issue_details', []) %}
-            {% set primary_action = row.get('primary_action') %}
-            <tr class="consistency-row {% if commercial_row_status == 'critical' %}table-danger{% elif commercial_row_status == 'warning' %}table-warning{% endif %}"
-                data-search="{{ row.get('nombre', 'Sin nombre') }} {{ row.get('categoria', '') }} {{ row_issues|join(' ') }} {{ row_ldm_numbers|join(' ') }}">
-              <td class="text-center"><i class="bi bi-{{ row_icon }} text-{{ row_color }}"></i></td>
+            {% for rv in cv.commercial_rows %}
+            <tr class="consistency-row {{ rv.row_class }}"
+                data-search="{{ rv.search_text }}">
+              <td class="text-center"><i class="bi bi-{{ rv.icon }} text-{{ rv.color }}"></i></td>
               <td>
-                <div class="fw-semibold">{{ row.get('nombre', 'Sin nombre') }}</div>
-                {% if row.get('categoria') %}<small class="text-muted">{{ row.get('categoria') }}</small>{% endif %}
-                {% if row_ldm_numbers %}<small class="text-muted d-block font-monospace" style="font-size:.7rem">{{ row_ldm_numbers | join(', ') }}</small>{% endif %}
+                <div class="fw-semibold">{{ rv.row.get('nombre', 'Sin nombre') }}</div>
+                {% if rv.row.get('categoria') %}<small class="text-muted">{{ rv.row.get('categoria') }}</small>{% endif %}
+                {% if rv.ldm_numbers %}<small class="text-muted d-block font-monospace" style="font-size:.7rem">{{ rv.ldm_numbers | join(', ') }}</small>{% endif %}
               </td>
-              <td class="text-center"><span class="badge bg-light text-dark border">{{ row.get('unidad') or '—' }}</span></td>
-              <td class="text-end font-monospace">{% if qty_cot %}{{ '%.2f'|format(qty_cot) }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
-              <td class="text-end font-monospace">{% if qty_ldm %}{{ '%.2f'|format(qty_ldm) }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
-              <td class="text-end font-monospace {% if qty_delta > 0 %}text-warning{% elif qty_delta < 0 %}text-info{% else %}text-muted{% endif %}">
-                {% if qty_delta %}{{ '%+.2f'|format(qty_delta) }}{% else %}0.00{% endif %}
+              <td class="text-center"><span class="badge bg-light text-dark border">{{ rv.row.get('unidad') or '—' }}</span></td>
+              <td class="text-end font-monospace">{% if rv.qty_cot %}{{ '%.2f'|format(rv.qty_cot) }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
+              <td class="text-end font-monospace">{% if rv.qty_ldm %}{{ '%.2f'|format(rv.qty_ldm) }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
+              <td class="text-end font-monospace {% if rv.qty_delta > 0 %}text-warning{% elif rv.qty_delta < 0 %}text-info{% else %}text-muted{% endif %}">
+                {% if rv.qty_delta %}{{ '%+.2f'|format(rv.qty_delta) }}{% else %}0.00{% endif %}
               </td>
-              <td class="text-end font-monospace">{% if price_cot %}{{ price_cot | currency }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
-              <td class="text-end font-monospace">{% if cost_avg %}{{ cost_avg | currency }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
-              <td class="text-end font-monospace fw-semibold {% if margin_unit is not none and margin_unit < 0 %}text-danger{% elif margin_unit_pct is not none and margin_unit_pct < 30 %}text-warning{% elif margin_unit is not none and margin_unit > 0 %}text-success{% else %}text-muted{% endif %}">
-                {% if margin_unit is not none %}
-                  {{ margin_unit | currency }}
-                  {% if margin_unit_pct is not none %}<small class="d-block text-muted">{{ margin_unit_pct }}%</small>{% endif %}
+              <td class="text-end font-monospace">{% if rv.price_cot %}{{ rv.price_cot | currency }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
+              <td class="text-end font-monospace">{% if rv.cost_avg %}{{ rv.cost_avg | currency }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
+              <td class="text-end font-monospace fw-semibold {% if rv.margin_unit is not none and rv.margin_unit < 0 %}text-danger{% elif rv.margin_unit_pct is not none and rv.margin_unit_pct < 30 %}text-warning{% elif rv.margin_unit is not none and rv.margin_unit > 0 %}text-success{% else %}text-muted{% endif %}">
+                {% if rv.margin_unit is not none %}
+                  {{ rv.margin_unit | currency }}
+                  {% if rv.margin_unit_pct is not none %}<small class="d-block text-muted">{{ rv.margin_unit_pct }}%</small>{% endif %}
                 {% else %}—{% endif %}
               </td>
               <td>
-                {% if issue_details %}
+                {% if rv.issue_details %}
                   <div class="d-flex flex-wrap gap-1 mb-1">
-                  {% for detail in issue_details %}
-                    {% set issue_key = detail.get('issue', 'unknown') if detail is mapping else detail.issue|default('unknown') %}
-                    {% set issue_label = detail.get('label', issue_key) if detail is mapping else detail.label|default(issue_key) %}
-                    {% set ic = issue_color_map.get(issue_key, 'secondary') %}
-                    <span class="badge bg-{{ ic }}{% if ic == 'warning' %} text-dark{% endif %}" style="font-size:.65rem">{{ issue_label }}</span>
+                  {% for detail in rv.issue_details %}
+                    <span class="badge bg-{{ detail.color }}{% if detail.color == 'warning' %} text-dark{% endif %}" style="font-size:.65rem">{{ detail.label }}</span>
                   {% endfor %}
                   </div>
-                  {% if primary_action %}
-                  <small class="d-block text-muted"><strong>Acción:</strong> {{ primary_action.get('text', '') if primary_action is mapping else primary_action.text|default('') }}</small>
+                  {% if rv.primary_action_text %}
+                  <small class="d-block text-muted"><strong>Acción:</strong> {{ rv.primary_action_text }}</small>
                   {% endif %}
                 {% else %}
                   <small class="text-muted">OK</small>
@@ -1482,7 +1396,6 @@
       Listas de materiales para proveedores — <strong>{{ project.clave }}</strong>
     </span>
     {% if not project.closed_at %}
-    {% set importable_csvs = scan.csv_plano | selectattr('linked_ldm', 'equalto', '') | list %}
     <div class="d-flex gap-2">
       <div class="dropdown">
         <button class="btn btn-outline-warning btn-sm dropdown-toggle"
@@ -1526,50 +1439,48 @@
           </tr>
         </thead>
         <tbody>
-        {% for ldm in ldms %}
-        {% set ldm_items = ldm['items'] %}
-        {% set deleted_catalog_items = ldm_items | selectattr('catalog_deleted') | list %}
+        {% for row in ldm_rows %}
         <tr>
           <td>
-            <span class="fw-semibold font-monospace text-warning">{{ ldm.ldm_number }}</span>
-            {% if deleted_catalog_items %}
-            <span class="badge bg-danger ms-1" style="font-size:.65rem">{{ deleted_catalog_items|length }} cat. eliminado(s)</span>
+            <span class="fw-semibold font-monospace text-warning">{{ row.ldm.ldm_number }}</span>
+            {% if row.deleted_catalog_count %}
+            <span class="badge bg-danger ms-1" style="font-size:.65rem">{{ row.deleted_catalog_count }} cat. eliminado(s)</span>
             {% endif %}
           </td>
-          <td>{{ ldm.proveedor or '—' }}</td>
-          <td><small class="text-muted">{{ ldm.fecha | fdate }}</small></td>
+          <td>{{ row.ldm.proveedor or '—' }}</td>
+          <td><small class="text-muted">{{ row.ldm.fecha | fdate }}</small></td>
           <td class="text-center">
-            <span class="badge bg-light text-dark border">{{ ldm_items | length }}</span>
+            <span class="badge bg-light text-dark border">{{ row.item_count }}</span>
           </td>
-          <td class="text-end ldm-costo-cell" data-ldm-id="{{ ldm.id }}"
+          <td class="text-end ldm-costo-cell" data-ldm-id="{{ row.ldm.id }}"
               title="Clic para editar">
-            <span class="ldm-costo-display fw-semibold {% if ldm.subtotal_cot %}text-warning{% else %}text-muted{% endif %}"
-                  style="cursor:pointer;{% if not ldm.subtotal_cot %}font-size:.8rem{% endif %}">
-              {% if ldm.subtotal_cot %}{{ ldm.subtotal_cot | currency }}{% else %}—{% endif %}
+            <span class="ldm-costo-display fw-semibold {% if row.ldm.subtotal_cot %}text-warning{% else %}text-muted{% endif %}"
+                  style="cursor:pointer;{% if not row.ldm.subtotal_cot %}font-size:.8rem{% endif %}">
+              {% if row.ldm.subtotal_cot %}{{ row.ldm.subtotal_cot | currency }}{% else %}—{% endif %}
             </span>
             <input type="number" class="ldm-costo-input form-control form-control-sm text-end d-none"
-                   value="{{ ldm.subtotal_cot or 0 }}"
+                   value="{{ row.ldm.subtotal_cot or 0 }}"
                    step="0.01" min="0"
                    style="width:110px;display:none!important;margin-left:auto">
             <small class="ldm-costo-status d-none" style="font-size:.7rem"></small>
           </td>
           <td>
-            {% if ldm.cot_proveedor %}
+            {% if row.ldm.cot_proveedor %}
               <span class="badge bg-light text-dark border font-monospace">
-                {{ ldm.cot_proveedor }}
+                {{ row.ldm.cot_proveedor }}
               </span>
             {% else %}
               <button class="btn btn-sm btn-outline-secondary"
                       style="font-size:.75rem;padding:2px 8px"
-                      onclick="openSetCot('{{ ldm.id }}','{{ ldm.ldm_number }}','{{ ldm.cot_proveedor or '' }}')"
+                      onclick="openSetCot('{{ row.ldm.id }}','{{ row.ldm.ldm_number }}','{{ row.ldm.cot_proveedor or '' }}')"
                       data-bs-toggle="modal" data-bs-target="#modalSetCot">
                 <i class="bi bi-hash me-1"></i>Asignar Nº
               </button>
             {% endif %}
-            {% if ldm.cot_proveedor %}
+            {% if row.ldm.cot_proveedor %}
             <button class="btn btn-sm btn-link p-0 ms-1 text-muted"
                     style="font-size:.75rem"
-                    onclick="openSetCot('{{ ldm.id }}','{{ ldm.ldm_number }}','{{ ldm.cot_proveedor or '' }}')"
+                    onclick="openSetCot('{{ row.ldm.id }}','{{ row.ldm.ldm_number }}','{{ row.ldm.cot_proveedor or '' }}')"
                     data-bs-toggle="modal" data-bs-target="#modalSetCot"
                     title="Editar número">
               <i class="bi bi-pencil"></i>
@@ -1577,24 +1488,41 @@
             {% endif %}
           </td>
           <td class="text-end">
-            <a href="{{ url_for('ldm_pdf', project_id=project.id, ldm_id=ldm.id) }}"
+            <a href="{{ url_for('ldm_pdf', project_id=project.id, ldm_id=row.ldm.id) }}"
                class="btn btn-sm btn-outline-warning me-1 action-btn"
                title="Generar PDF en Drive">
               <i class="bi bi-file-earmark-pdf"></i><span class="action-label">PDF</span>
             </a>
+            <a href="{{ url_for('ldm_csv', project_id=project.id, ldm_id=row.ldm.id) }}"
+               class="btn btn-sm btn-outline-success me-1 action-btn"
+               title="Exportar CSV de esta lista">
+              <i class="bi bi-filetype-csv"></i><span class="action-label">CSV</span>
+            </a>
             {% if not project.closed_at %}
-            <a href="{{ url_for('edit_ldm', project_id=project.id, ldm_id=ldm.id) }}"
+            <form method="post"
+                  action="{{ url_for('sync_ldm_bundles', project_id=project.id, ldm_id=row.ldm.id) }}"
+                  class="d-inline">
+              <button type="button" class="btn btn-sm btn-outline-primary me-1 action-btn"
+                      title="Agregar faltantes desde bundles"
+                      data-confirm-title='Completar {{ row.ldm.ldm_number | e }} desde bundles'
+                      data-confirm-body='<p class="mb-1">Se agregarán sólo materiales técnicos faltantes o cantidades insuficientes calculadas desde la COT activa y bundles configurados.</p><p class="small text-muted mb-0">No se sobrescriben renglones existentes ni precios capturados.</p>'
+                      data-confirm-text="Completar LDM"
+                      onclick="submitFormWithConfirm(this)">
+                <i class="bi bi-diagram-3"></i><span class="action-label">Completar</span>
+              </button>
+            </form>
+            <a href="{{ url_for('edit_ldm', project_id=project.id, ldm_id=row.ldm.id) }}"
                class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Editar">
               <i class="bi bi-pencil"></i><span class="action-label">Editar</span>
             </a>
-            {% if deleted_catalog_items %}
+            {% if row.deleted_catalog_count %}
             <form method="post"
-                  action="{{ url_for('purge_ldm_deleted_catalog_items', project_id=project.id, ldm_id=ldm.id) }}"
+                  action="{{ url_for('purge_ldm_deleted_catalog_items', project_id=project.id, ldm_id=row.ldm.id) }}"
                   class="d-inline">
               <button type="button" class="btn btn-sm btn-outline-danger me-1 action-btn"
                       title="Eliminar artículos con catálogo eliminado"
-                      data-confirm-title='Purgar catálogo eliminado — {{ ldm.ldm_number | e }}'
-                      data-confirm-body='<p class="mb-1">¿Purgar definitivamente <strong>{{ deleted_catalog_items|length }}</strong> artículo(s) marcados como catálogo eliminado de <strong>{{ ldm.ldm_number | e }}</strong>?</p><ul class="mb-0 small">{% for item in deleted_catalog_items %}{% set dc = item.deleted_catalog_item or {} %}<li class="text-muted">{{ (dc.nombre or item.description or "Artículo sin nombre") | e }}</li>{% endfor %}</ul>'
+                      data-confirm-title='Purgar catálogo eliminado — {{ row.ldm.ldm_number | e }}'
+                      data-confirm-body='<p class="mb-1">¿Purgar definitivamente <strong>{{ row.deleted_catalog_count }}</strong> artículo(s) marcados como catálogo eliminado de <strong>{{ row.ldm.ldm_number | e }}</strong>?</p><ul class="mb-0 small">{% for item in row.deleted_catalog_items %}{% set dc = item.deleted_catalog_item or {} %}<li class="text-muted">{{ (dc.nombre or item.description or "Artículo sin nombre") | e }}</li>{% endfor %}</ul>'
                       data-confirm-text="Purgar"
                       onclick="submitFormWithConfirm(this)">
                 <i class="bi bi-eraser"></i><span class="action-label">Purgar</span>
@@ -1602,11 +1530,11 @@
             </form>
             {% endif %}
             <form method="post"
-                  action="{{ url_for('delete_ldm', project_id=project.id, ldm_id=ldm.id) }}"
+                  action="{{ url_for('delete_ldm', project_id=project.id, ldm_id=row.ldm.id) }}"
                   class="d-inline">
               <button type="button" class="btn btn-sm btn-outline-danger action-btn"
-                      data-confirm-title='Eliminar {{ ldm.ldm_number | e }}'
-                      data-confirm-body='<dl class="row small mb-0">{% if ldm.proveedor %}<dt class="col-5">Proveedor</dt><dd class="col-7">{{ ldm.proveedor | e }}</dd>{% endif %}<dt class="col-5">Art\u00edculos</dt><dd class="col-7">{{ ldm_items|length }}</dd>{% if ldm.subtotal_cot %}<dt class="col-5">Costo</dt><dd class="col-7 fw-bold text-warning">{{ ldm.subtotal_cot | currency }}</dd>{% endif %}</dl>'
+                      data-confirm-title='Eliminar {{ row.ldm.ldm_number | e }}'
+                      data-confirm-body='<dl class="row small mb-0">{% if row.ldm.proveedor %}<dt class="col-5">Proveedor</dt><dd class="col-7">{{ row.ldm.proveedor | e }}</dd>{% endif %}<dt class="col-5">Art\u00edculos</dt><dd class="col-7">{{ row.item_count }}</dd>{% if row.ldm.subtotal_cot %}<dt class="col-5">Costo</dt><dd class="col-7 fw-bold text-warning">{{ row.ldm.subtotal_cot | currency }}</dd>{% endif %}</dl>'
                       onclick="submitFormWithConfirm(this)">
                 <i class="bi bi-trash"></i><span class="action-label">Eliminar</span>
               </button>

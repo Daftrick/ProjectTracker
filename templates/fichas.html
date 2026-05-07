@@ -11,23 +11,48 @@
 {% set fe = field_errors|default({}) %}
 <!-- Filtro -->
 <div class="card mb-3">
-  <div class="card-body py-2">
+  <div class="card-body">
     <form method="get" class="row g-2 align-items-end">
-      <div class="col-auto">
+      <div class="col-lg-5">
+        <label class="form-label mb-1">Buscar</label>
+        <div class="input-group input-group-sm">
+          <span class="input-group-text"><i class="bi bi-search text-muted"></i></span>
+          <input name="q" class="form-control"
+                 placeholder="Código, marca, modelo, descripción o archivo"
+                 value="{{ q }}" autofocus>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-2">
         <label class="form-label mb-1">Tipo de equipo</label>
         <select name="tipo" class="form-select form-select-sm">
           <option value="">Todos</option>
           {% for t in tipos_ficha %}<option {% if filter_tipo==t %}selected{% endif %}>{{ t }}</option>{% endfor %}
         </select>
       </div>
-      <div class="col-auto">
-        <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="bi bi-funnel"></i> Filtrar</button>
+      <div class="col-sm-6 col-lg-2">
+        <label class="form-label mb-1">Vinculación</label>
+        <select name="vinculo" class="form-select form-select-sm">
+          <option value="">Todas</option>
+          <option value="con-proyecto" {% if filter_vinculo=="con-proyecto" %}selected{% endif %}>Con proyecto</option>
+          <option value="sin-proyecto" {% if filter_vinculo=="sin-proyecto" %}selected{% endif %}>Sin proyecto</option>
+        </select>
+      </div>
+      <div class="col-lg-3 d-flex gap-2">
+        <button type="submit" class="btn btn-sm btn-outline-secondary flex-grow-1">
+          <i class="bi bi-funnel me-1"></i>Filtrar
+        </button>
+        {% if q or filter_tipo or filter_vinculo %}
         <a href="{{ url_for('fichas') }}" class="btn btn-sm btn-link text-muted">Limpiar</a>
+        {% endif %}
       </div>
     </form>
   </div>
 </div>
 <div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span>{% if q or filter_tipo or filter_vinculo %}Fichas filtradas{% else %}Todas las fichas{% endif %}</span>
+    <small class="text-muted">{{ fichas|length }} de {{ total_count }} ficha(s)</small>
+  </div>
   <div class="card-body p-0">
     {% if fichas %}
     <table class="table mb-0">
@@ -78,10 +103,15 @@
     {% else %}
       <div class="text-center py-5 text-muted">
         <i class="bi bi-journal-bookmark fs-1 d-block mb-2"></i>
+        {% if q or filter_tipo or filter_vinculo %}
+        No hay fichas con los filtros seleccionados.<br>
+        <a href="{{ url_for('fichas') }}" class="btn btn-outline-secondary btn-sm mt-3">Ver todas</a>
+        {% else %}
         No hay fichas registradas aún.<br>
         <button class="btn btn-primary btn-sm mt-3" data-bs-toggle="modal" data-bs-target="#modalFicha">
           <i class="bi bi-plus-lg me-1"></i>Registrar primera ficha
         </button>
+        {% endif %}
       </div>
     {% endif %}
   </div>

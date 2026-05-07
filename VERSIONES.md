@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v25.1 — 03-May-2026
+## Versión actual: v27.1 — 06-May-2026
 
 ---
 
@@ -63,10 +63,13 @@ ProjectTracker/
 │   ├── domain.py               # Catálogo de alcances, statuses, fdate/currency filters, get_progress
 │   ├── storage.py              # load/save JSON, new_id (UUID 8 chars), today(), BASE_DIR, DATA_DIR
 │   ├── services.py             # Lógica de negocio pura: crear proyectos+tareas, sincronizar alcances, cambiar status
+│   ├── project_view.py         # View-model de project_detail: alcances, Drive, cotizaciones, LDMs y consistencia
+│   ├── admin_filters.py        # Filtros puros para proveedores y fichas técnicas
 │   ├── catalog.py              # hydrate_quote/ldm, catalog_maps, parse_*_items, quote_type_key/code, migrate_catalog_fields
 │   ├── catalog_search.py       # tokenize, match_item, filter_catalog, list_categories (búsqueda por tokens AND + categoría)
 │   ├── consistency.py          # compute_consistency, compare_items por catalog_item_id (margen 30%/0%)
 │   ├── csv_import.py           # Parser CSV para importar exportaciones LISP como LDM
+│   ├── ldm_sync.py             # Sincronización parcial de LDM desde bundles
 │   ├── validators.py           # validate_project_form, validate_quote_form, validate_ldm_form
 │   ├── pdfs.py                 # build_quote_pdf, build_ldm_pdf (fpdf2); logo desde Drive o .codex_tmp
 │   ├── drive.py                # load/save_config, folder_name, scan_drive_folder, find_delivery_files
@@ -75,7 +78,7 @@ ProjectTracker/
 │       ├── __init__.py         # (vacío)
 │       ├── projects.py         # Blueprint projects_bp — proyectos, tareas, entregas, ajustes, shutdown
 │       ├── quotes.py           # Blueprint quotes_bp — cotizaciones CRUD + PDF + Excel
-│       ├── materials.py        # Blueprint materials_bp — LDMs CRUD + PDF + API costo
+│       ├── materials.py        # Blueprint materials_bp — LDMs CRUD + PDF/CSV + sync bundles + API costo
 │       └── admin.py            # Blueprint admin_bp — catálogo, proveedores, fichas, equipo
 │
 ├── data/                       # Persistencia JSON (creada automáticamente)
@@ -122,11 +125,14 @@ ProjectTracker/
     ├── test_comparison_rules.py       # unittest: reglas activas, conversión COT/LDM, tolerancia
     ├── test_comparison_ignored.py     # unittest: artículos ignorados no generan issues pero conservan costo
     ├── test_admin_bundles_routes.py   # unittest: rutas Admin bundles y reglas
+    ├── test_admin_filters.py          # unittest: filtros administrativos y smoke de rutas proveedores/fichas
     ├── test_admin_forms.py            # unittest: validación inline y preservación de formularios administrativos
-    ├── test_project_view.py           # unittest: contexto de project_detail (tareas, fichas, márgenes)
+    ├── test_project_view.py           # unittest: contexto de project_detail, filas LDM y CSVs importables
     ├── test_deletions.py              # unittest: cascadas al eliminar proyecto y limpieza de referencias catálogo
     ├── test_form_models.py            # unittest: view-models de cotización y LDM desde formularios inválidos
-    └── test_project_detail_bundle_ui.py  # unittest: render de la sección técnica de bundles en project_detail
+    ├── test_project_detail_bundle_ui.py  # unittest: render de la sección técnica de bundles en project_detail
+    ├── test_materials_csv_export.py      # unittest: exportación CSV de LDM existente
+    └── test_ldm_sync.py                  # unittest: sincronización parcial LDM desde bundles
 ```
 
 ---
@@ -235,9 +241,10 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | Cotizaciones | Hidratación desde catálogo (por ID o por nombre) | `catalog.py:hydrate_quote` |
 | Cotizaciones | Secciones opcionales con encabezado y subtotal por sección en formulario, vista y PDF | `validators.py` + `catalog.py` + `pdfs.py` |
 | Cotizaciones | Nota base de proyecto en portada del PDF según tipo: preliminar sin nota, general con último DWG, extraordinaria con nota manual | `routes/quotes.py` + `drive.py:latest_dwg_stem` + `pdfs.py` |
-| LDMs | CRUD, PDF, set costo manual | `routes/materials.py` |
+| LDMs | CRUD, PDF, CSV, set costo manual | `routes/materials.py` |
 | LDMs | Importación CSV de plano → nueva LDM con revisión previa, vínculo `csv_origen` y bloqueo de reimportación del mismo CSV. Auto-vinculación de `catalog_item_id` por nombre exacto (case-insensitive) al importar. Preview muestra badge verde por artículo vinculado y hint ámbar por artículo sin vincular. | `routes/materials.py:import_ldm_csv` + `csv_import.py` |
 | LDMs | API JSON para actualizar costo (`/api/ldm/<id>/costo`) | `routes/materials.py:api_ldm_set_costo` |
+| COT/LDM | Sincronización parcial desde bundles: agrega a una LDM existente sólo materiales faltantes o cantidades insuficientes calculadas desde la COT activa; respeta reglas COT/LDM, no sobrescribe renglones existentes ni precios capturados | `ldm_sync.py` + `routes/materials.py:sync_ldm_bundles` |
 | Catálogo | CRUD + búsqueda por tokens AND (sin acentos) + filtro por categoría + API JSON (`/api/catalogo`, `/api/catalogo/categorias`) | `routes/admin.py` + `catalog_search.py` |
 | Catálogo | Bulk delete vía API (`/api/catalogo/bulk-delete`) | `routes/admin.py` |
 | Catálogo | Alta rápida desde formulario de COT/LDM (acepta categoría) | `routes/admin.py:api_catalogo_add` |
@@ -246,8 +253,8 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | Consistencia | Reporte automatizado COT vs LDM por proyecto: cotización General más reciente vs suma de costos LDM, agregación por `catalog_item_id`, margen %, status (ok/warning/critical) con umbrales 30%/0% | `consistency.py` |
 | Consistencia | KPI clickeable en cada card del dashboard con margen % y badge de estado | `dashboard.html` |
 | Consistencia | Tab dedicado en detalle de proyecto con totales, badges de issues y tabla por artículo (qty COT vs LDM, precio venta vs costo promedio ponderado, margen unitario, etiquetas missing_in_ldm/missing_in_cot/qty_mismatch/below_cost) | `project_detail.html` |
-| Proveedores | CRUD + búsqueda | `routes/admin.py` |
-| Fichas | CRUD global + vinculación a proyectos | `routes/admin.py` |
+| Proveedores | CRUD + búsqueda libre sin acentos + filtro por categoría | `routes/admin.py` + `admin_filters.py` |
+| Fichas | CRUD global + vinculación a proyectos + filtros por texto/tipo/vinculación | `routes/admin.py` + `admin_filters.py` |
 | Equipo | CRUD miembros | `routes/admin.py` |
 | Ajustes | Rutas Drive (projects y fichas) | `routes/projects.py:settings` |
 | Documentos | CSVs de plano en pestaña Documentos — columna LDM lista archivos `{clave}-v{N}-i{N}-{fecha}.csv` con nombre, fecha, tamaño y botón Descargar; aviso vacío cuando no hay archivos | `routes/projects.py` + `project_detail.html` |
@@ -305,6 +312,8 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | POST | `/projects/<id>/ldm/<lid>/delete` | `delete_ldm` | Eliminar LDM |
 | POST | `/projects/<id>/ldm/<lid>/set_cot` | `set_ldm_cot` | Guardar # cotización proveedor |
 | GET | `/projects/<id>/ldm/<lid>/pdf` | `ldm_pdf` | Generar PDF LDM en Drive |
+| GET | `/projects/<id>/ldm/<lid>/csv` | `ldm_csv` | Descargar CSV de una LDM existente |
+| POST | `/projects/<id>/ldm/<lid>/sync-bundles` | `sync_ldm_bundles` | Completar faltantes técnicos desde bundles |
 | POST | `/api/ldm/<lid>/costo` | `api_ldm_set_costo` | API JSON: actualizar costo LDM |
 
 ### Blueprint `admin_bp`
@@ -614,6 +623,28 @@ Reglas de portada PDF:
 | 2026-05-03 | Versión bumped v24.1 → v25.0 (feature: auditoría visual de consistencia técnica COT/LDM por bundles con vistas material/bundle, alertas diferenciadas y acciones sugeridas). |
 | 2026-05-03 | Confirmaciones destructivas estandarizadas: modal Bootstrap `#modalConfirmDelete` reutilizable en toda la app con título, detalle de impacto y botones Cancelar/Eliminar. Funciones globales `confirmDelete()` y `submitFormWithConfirm()` en `base.html`. Cotización: tipo, fecha, partidas, total. LDM: proveedor, artículos, costo. Entrega: versión, tipo, archivos + nota "ZIP no se borra". Ficha: tipo/marca/modelo + alerta de proyectos vinculados. Proveedor: categoría, contacto, email. Miembro de equipo: rol, email. Purge catálogo: lista de artículos afectados. Catálogo individual: nuevo endpoint `GET /api/catalogo/<id>/impact` que devuelve referencias activas en cotizaciones/LDMs ANTES de eliminar. Catálogo masivo: modal con conteo y advertencia de desconexión. |
 | 2026-05-03 | Versión bumped v25.0 → v25.1 (patch: confirmaciones destructivas estandarizadas con modal de impacto). |
+| 2026-05-06 | LDMs: nueva exportación CSV directa desde la pestaña Materiales para cada lista existente. Endpoint `GET /projects/<id>/ldm/<lid>/csv`, descarga `LDM-....csv` con `description`, `unit`, `qty`, `catalog_item_id`, proveedor, fecha y número de lista; botón **CSV** junto a PDF. |
+| 2026-05-06 | Sincronización parcial COT ↔ bundle ↔ LDM: nuevo módulo puro `tracker/ldm_sync.py` que calcula faltantes técnicos desde la COT activa y bundles, respeta reglas COT/LDM para convertir a artículo/unidad de compra y genera renglones `origen='bundle_sync'` sin sobrescribir renglones existentes ni precios capturados. |
+| 2026-05-06 | Materiales: nuevo POST `/projects/<id>/ldm/<lid>/sync-bundles` y botón **Completar** por LDM. La acción agrega sólo faltantes o cantidades insuficientes detectadas por la consistencia técnica; si no hay diferencias muestra flash informativo. |
+| 2026-05-06 | Tests: nuevos `tests/test_materials_csv_export.py` y `tests/test_ldm_sync.py`; `tests/test_project_detail_bundle_ui.py` cubre los botones CSV y Completar. |
+| 2026-05-06 | Versión bumped v25.1 → v26.0 (feature: exportación CSV de LDM existente + sincronización parcial de LDM desde bundles). |
+| 2026-05-06 | Limpieza residual de rutas/templates (mejora 4): `project_view.py` ahora preprocesa `importable_csvs` y `ldm_rows` para la pestaña Materiales; `project_detail.html` deja de filtrar CSVs y contar artículos eliminados desde Jinja. |
+| 2026-05-06 | Arquitectura: eliminado `tracker/projects.py`, copia residual no registrada en `create_app()`; las rutas vigentes siguen en `tracker/routes/projects.py`. |
+| 2026-05-06 | Tests: `tests/test_project_view.py` cubre los nuevos view-models de Materiales (`ldm_rows`, catálogo eliminado y CSVs importables). |
+| 2026-05-06 | Versión bumped v26.0 → v26.1 (patch: limpieza residual de rutas/templates, primer corte de la mejora 4). |
+| 2026-05-06 | Bug fix auditoría de catálogo eliminado: `/audit/deleted-catalog` ahora carga LDMs desde `materiales` en lugar de una llave inexistente `ldms` y deja de depender de `DATA_DIR` en `routes/quotes.py`. |
+| 2026-05-06 | Auditoría de catálogo eliminado: los renglones LDM reportan precios desde `precio_cot`/`total_cot` cuando no existen `price`/`total`, preservando compatibilidad con cotizaciones. |
+| 2026-05-06 | Tests: nuevo `tests/test_audit_deleted_catalog_route.py` cubre el render de `/audit/deleted-catalog` con LDMs que tienen catálogo eliminado. |
+| 2026-05-06 | Versión bumped v26.1 → v26.2 (patch: fix Internal Server Error en auditoría de catálogo eliminado). |
+| 2026-05-06 | Mejora 5 filtros (primer corte): nuevo `tracker/admin_filters.py` con filtros puros para proveedores y fichas técnicas, búsqueda por tokens sin acentos y listas únicas de categorías. |
+| 2026-05-06 | Proveedores: `/proveedores` ahora combina búsqueda libre (nombre, contacto, email, teléfono, notas) con filtro exacto por categoría y muestra conteo visible vs. total. |
+| 2026-05-06 | Fichas técnicas: `/fichas` ahora combina búsqueda por texto con tipo de equipo y estado de vinculación (`con-proyecto`/`sin-proyecto`), manteniendo la lista global más usable. |
+| 2026-05-06 | Tests: nuevo `tests/test_admin_filters.py` cubre helpers puros y smoke de rutas filtradas para proveedores/fichas. |
+| 2026-05-06 | Versión bumped v26.2 → v27.0 (feature: filtros administrativos combinables en proveedores y fichas técnicas). |
+| 2026-05-06 | Mejora 3 limpieza residual completa: `tracker/project_view.py` prepara `task_rows`, `quote_rows`, clases de archivos Drive y `consistency_view` para que `project_detail.html` no calcule conteos, estados ni matching técnico crítico en Jinja. |
+| 2026-05-06 | Consistencia en detalle de proyecto: filas comerciales y técnicas ahora llegan con clases, iconos, etiquetas, acciones sugeridas, texto de búsqueda y componentes de bundle ya asociados desde Python. |
+| 2026-05-06 | Tests: `tests/test_project_view.py` amplía cobertura para filas de alcances, cotizaciones, clases Drive y view-model de consistencia; `tests/test_project_detail_bundle_ui.py` se ajusta al nuevo `consistency_view`. |
+| 2026-05-06 | Versión bumped v27.0 → v27.1 (patch: limpieza residual completa de rutas/templates — mejora 3 del roadmap). |
 
 ---
 
@@ -621,12 +652,10 @@ Reglas de portada PDF:
 
 **Alta prioridad:**
 - Probar bundles reales en proyectos existentes y ajustar reglas de equivalencia COT/LDM.
-- Estandarizar confirmaciones destructivas (eliminar cotización, LDM, entrega, ficha, proveedor, miembro de equipo, artículo de catálogo con referencias).
-- Evaluar si conviene sincronización parcial COT ↔ bundle ↔ LDM (diseño pendiente).
+- Evaluar siguiente fase de sincronización: auto-fill al crear una LDM nueva y/o asistentes por proveedor sin mezclar partidas entre proveedores.
 
 **Media prioridad (ver `ROADMAP_MEJORAS.md`):**
-- Limpieza residual de lógica en templates → view-models o servicios.
-- Mejorar filtros y búsqueda en cotizaciones, LDMs, documentos, proveedores y fichas.
+- Continuar filtros y búsqueda en cotizaciones, LDMs y documentos.
 
 **Baja prioridad:**
 - Mejoras de UX general (navegación, mensajes flash, carga, móvil).

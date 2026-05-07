@@ -480,7 +480,7 @@ def audit_deleted_catalog():
     from ..deletions import audit_deleted_catalog_items
 
     quotes = load("quotes")
-    ldms = load("ldms") if os.path.exists(os.path.join(DATA_DIR, "ldms.json")) else []
+    ldms = load("materiales")
 
     quote_audit = audit_deleted_catalog_items(quotes, "quote")
     ldm_audit = audit_deleted_catalog_items(ldms, "ldm")

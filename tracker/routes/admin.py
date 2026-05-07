@@ -8,6 +8,7 @@ from ..bundles import (
     get_active_bundle_version,
     normalize_bundle,
 )
+from ..admin_filters import filter_fichas, filter_proveedores, list_field_values
 from ..catalog_search import filter_catalog, list_categories
 from ..comparison_ignored import SCOPE_BOTH, SCOPE_COMMERCIAL, SCOPE_TECHNICAL, normalize_ignored_item
 from ..comparison_rules import (
@@ -107,37 +108,33 @@ def _render_catalogo(items=None, q="", categoria="", form_state=None, field_erro
     )
 
 
-def _render_proveedores(proveedores_data=None, q="", form_state=None, field_errors=None, open_modal=None):
-    query = (q or "").lower()
-    if proveedores_data is None:
-        proveedores_data = load("proveedores")
-        if query:
-            proveedores_data = [
-                item
-                for item in proveedores_data
-                if query in item["nombre"].lower()
-                or query in item.get("categoria", "").lower()
-                or query in item.get("contacto", "").lower()
-            ]
+def _render_proveedores(proveedores_data=None, q="", categoria="", form_state=None, field_errors=None, open_modal=None):
+    full_proveedores = proveedores_data if proveedores_data is not None else load("proveedores")
+    visible = filter_proveedores(full_proveedores, q=q, categoria=categoria)
     return render_template(
         "proveedores.html",
-        proveedores=proveedores_data,
-        q=query,
+        proveedores=visible,
+        q=q or "",
+        categoria=categoria or "",
+        categorias=list_field_values(full_proveedores, "categoria"),
+        total_count=len(full_proveedores),
         form_state=form_state or _proveedor_form(),
         field_errors=field_errors or {},
         open_modal=open_modal,
     )
 
 
-def _render_fichas(form_state=None, field_errors=None, open_modal=None, filter_tipo=""):
-    fichas_data = load("fichas")
-    if filter_tipo:
-        fichas_data = [item for item in fichas_data if item["tipo"] == filter_tipo]
+def _render_fichas(form_state=None, field_errors=None, open_modal=None, filter_tipo="", q="", filter_vinculo=""):
+    full_fichas = load("fichas")
+    fichas_data = filter_fichas(full_fichas, q=q, tipo=filter_tipo, vinculo=filter_vinculo)
     projects_by_id = {project["id"]: project for project in load("projects")}
     return render_template(
         "fichas.html",
         fichas=fichas_data,
+        total_count=len(full_fichas),
+        q=q or "",
         filter_tipo=filter_tipo,
+        filter_vinculo=filter_vinculo,
         projects_by_id=projects_by_id,
         tipos_ficha=TIPOS_FICHA,
         form_state=form_state or _ficha_form(),
@@ -730,7 +727,10 @@ def proveedores():
         save("proveedores", proveedores_data)
         flash(f"Proveedor '{form_state['nombre']}' registrado.", "success")
         return redirect(url_for("proveedores"))
-    return _render_proveedores(q=request.args.get("q", ""))
+    return _render_proveedores(
+        q=request.args.get("q", ""),
+        categoria=request.args.get("categoria", ""),
+    )
 
 
 @bp.route("/proveedores/<prov_id>/edit", methods=["POST"], endpoint="edit_proveedor")
@@ -795,7 +795,11 @@ def fichas():
         flash(f"Ficha {tipo}-{marca}-{modelo} registrada.", "success")
         return redirect(url_for("fichas"))
     filter_tipo = request.args.get("tipo", "")
-    return _render_fichas(filter_tipo=filter_tipo)
+    return _render_fichas(
+        filter_tipo=filter_tipo,
+        q=request.args.get("q", ""),
+        filter_vinculo=request.args.get("vinculo", ""),
+    )
 
 
 @bp.route("/fichas/<ficha_id>/link/<project_id>", methods=["POST"], endpoint="link_ficha")

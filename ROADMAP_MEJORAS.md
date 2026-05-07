@@ -31,6 +31,11 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 - [x] Integración Drive mejorada: `scan_drive_folder` con tipos de error diferenciados, detección de `missing_base`, fix de bug de caché, creación automática de carpeta desde UI, alertas de archivos faltantes y validación de rutas en Ajustes. Implementado en v24.1.
 - [x] Auditoría visual de consistencia COT/LDM con bundles (ítem 1): tabla de materiales esperados vs. LDM real con vistas "Por material" y "Por bundle"; alertas diferenciadas para bundles sin versión activa, componentes sin regla de comparación y componentes inválidos; panel de acciones sugeridas técnicas con prioridad; columna de acción sugerida por fila. Implementado en v25.0.
 - [x] Confirmaciones destructivas estandarizadas (ítem 2): modal Bootstrap reutilizable `#modalConfirmDelete` con detalle de impacto antes de ejecutar. Cotización (tipo/fecha/partidas/total), LDM (proveedor/artículos/costo), entrega (versión/tipo/archivos + nota ZIP), ficha técnica (tipo/marca/modelo + proyectos vinculados), proveedor (categoría/contacto), miembro de equipo (rol/email), purge catálogo (lista de artículos), catálogo individual con fetch previo de referencias. Implementado en v25.1.
+- [x] Exportación CSV explícita de LDM existente: botón **CSV** por lista en la pestaña Materiales, endpoint de descarga y prueba de ruta. Implementado en v26.0.
+- [x] Sincronización parcial COT ↔ bundle ↔ LDM: botón **Completar** por LDM existente para agregar sólo faltantes técnicos calculados desde la COT activa y bundles, respetando reglas COT/LDM, sin sobrescribir renglones ni precios existentes. Implementado en v26.0.
+- [x] Mejora 4 — Limpieza residual de rutas/templates (primer corte): la pestaña Materiales ahora recibe `importable_csvs` y `ldm_rows` desde `project_view.py`, con conteos de artículos y catálogo eliminado fuera de Jinja; se retiró `tracker/projects.py`, copia residual no registrada. Implementado en v26.1.
+- [x] Mejora 5 — Filtros y búsqueda adicionales (primer corte): proveedores ahora filtra por búsqueda libre y categoría; fichas técnicas filtra por texto, tipo y vinculación a proyectos, con lógica pura testeada en `admin_filters.py`. Implementado en v27.0.
+- [x] Mejora 3 — Limpieza residual completa de rutas/templates: `project_view.py` prepara filas de alcances, cotizaciones, Drive y consistencia; `project_detail.html` deja de hacer conteos, matching técnico, mapas de estado y clases de UI críticas en Jinja. Implementado en v27.1.
 
 ---
 
@@ -38,51 +43,41 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 
 ### Alta prioridad
 
-#### 1. Evaluación de sincronización parcial COT ↔ bundle ↔ LDM (diseño pendiente)
+#### 1. Probar bundles reales y ajustar reglas de equivalencia COT/LDM
 
-Pregunta de diseño derivada de la mejora de auditoría visual (v25.0): ¿conviene permitir que el sistema auto-rellene cantidades en la LDM a partir de la expansión del bundle, o que propague cambios de cantidad COT a los multiplicadores del bundle?
+Validar la sincronización parcial con proyectos existentes:
+- Revisar que las cantidades agregadas por **Completar** coincidan con compras reales por proveedor.
+- Ajustar reglas con conversión y redondeo cuando el material se compra en unidad distinta (tramo, rollo, paquete).
+- Detectar si se requiere agrupar sugerencias por proveedor o disciplina antes de crear/actualizar LDMs.
 
-Casos a evaluar:
-- Auto-fill de LDM desde expansión de bundle al crear o actualizar una LDM.
-- Propagación de cambios de cantidad en COT a cantidades esperadas sin requerir re-configurar el bundle.
-- Sincronización parcial (sólo materiales faltantes, sin sobrescribir existentes).
+#### 2. Siguiente fase de sincronización asistida
 
-Decisión requerida antes de implementar: esta es una pregunta de arquitectura de datos, no sólo de UI.
-
----
-
-### Media prioridad
-
-#### 4. Limpieza residual de rutas/templates
-
-- Revisar si aún existe lógica crítica en templates.
-- Mover cálculos repetidos a view-models o servicios.
-- Mantener rutas enfocadas en HTTP y no en lógica de negocio.
-- Seguir aumentando cobertura de tests cuando se extraiga lógica.
+Evaluar después de pruebas reales:
+- Auto-fill de LDM desde expansión de bundle al crear una LDM nueva.
+- Asistente de selección de faltantes por proveedor/disciplina antes de agregar.
+- Propagación visual de cambios de cantidad COT a faltantes sugeridos, sin modificar bundles base.
 
 ---
 
 ### Baja prioridad
 
-#### 5. Filtros y búsqueda adicionales
+#### 3. Filtros y búsqueda restantes
 
-- Mejorar filtros en vistas con muchos datos.
-- Agregar búsqueda más específica en:
+- Extender el patrón de filtros combinables ya aplicado en proveedores y fichas técnicas a:
   - cotizaciones,
   - LDMs,
-  - documentos,
-  - proveedores,
-  - fichas técnicas.
+  - documentos.
 - Evaluar filtros por proyecto, proveedor, categoría, fecha y estado.
+- Revisar si conviene extraer view-models para listas globales antes de agregar más filtros.
 
-#### 6. Mejoras de UX general
+#### 4. Mejoras de UX general
 
 - Pulir navegación entre tabs.
 - Mejorar mensajes flash.
 - Agregar indicadores de carga en acciones lentas.
 - Mejorar experiencia móvil en tablas y modales.
 
-#### 7. Exportaciones y reportes
+#### 5. Exportaciones y reportes
 
 - Revisar formato de Excel generado.
 - Evaluar exportación de reportes de consistencia.
@@ -95,8 +90,8 @@ Decisión requerida antes de implementar: esta es una pregunta de arquitectura d
 
 Orden sugerido de trabajo:
 
-1. **Sincronización parcial COT ↔ bundle ↔ LDM** — decidir si el sistema debe poder auto-rellenar o propagar cantidades (ítem 1, pregunta de diseño pendiente).
-2. **Probar bundles reales** en proyectos existentes y ajustar reglas de equivalencia COT/LDM con datos de producción.
+1. **Probar bundles reales** en proyectos existentes y ajustar reglas de equivalencia COT/LDM con datos de producción.
+2. **Siguiente fase de sincronización asistida** — decidir si conviene auto-fill al crear LDM nueva o asistente por proveedor/disciplina.
 
 
 ---

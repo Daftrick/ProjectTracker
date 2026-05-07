@@ -142,8 +142,8 @@ def audit_deleted_catalog_items(records, record_type="quote"):
                     "deleted_item": item["deleted_catalog_item"],
                     "preserved": is_preserved,
                     "qty": item.get("qty", 0),
-                    "price": item.get("price", 0),
-                    "total": item.get("total", 0)
+                    "price": item.get("price", item.get("precio_cot", 0)),
+                    "total": item.get("total", item.get("total_cot", 0))
                 })
 
         if deleted_items:
