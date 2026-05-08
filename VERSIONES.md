@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v27.1 — 06-May-2026
+## Versión actual: v27.2 — 08-May-2026
 
 ---
 
@@ -443,6 +443,10 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
+| 2026-05-08 | Cotizaciones: se retoma el flujo de secciones en el editor; al reabrir una cotización se reconstruyen encabezados repetidos cuando la misma sección aparece en bloques separados por partidas sin sección |
+| 2026-05-08 | Cotizaciones: ordenar una sección desde el formulario mueve el bloque completo (encabezado + partidas) y preserva la sección de cada partida al guardar, manteniendo reflejo consistente en vista previa y PDF sin salto de página forzado por sección |
+| 2026-05-08 | Tests: nuevo `tests/test_quote_sections.py` cubre agrupación contigua de secciones y presencia de los helpers de template para reconstrucción/ordenamiento |
+| 2026-05-08 | Versión bumped v27.1 → v27.2 (patch: secciones de cotización capturables y ordenables de forma estable) |
 | 2026-05-03 | Sistema completo de auditoría de catálogo eliminado: función `audit_deleted_catalog_items()` para analizar cotizaciones y LDMs con referencias obsoletas |
 | 2026-05-03 | Gestión visual de catálogo eliminado: badges con fecha de eliminación, indicadores visuales en filas problemáticas, estados diferenciados (sin resolver/preservado/normal) |
 | 2026-05-03 | Flujo de tres acciones para catálogo eliminado: preservar histórica (conservar referencia), reconectar a nuevo artículo, purgar definitivamente |

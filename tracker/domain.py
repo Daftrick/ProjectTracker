@@ -2,7 +2,7 @@ from datetime import date, datetime
 
 from .storage import load
 
-APP_VERSION = "v27.1"
+APP_VERSION = "v27.2"
 
 ALCANCES = [
     {"id": "iluminacion", "nombre": "IE - Iluminación", "source": "externa", "dep_label": "Diseño de iluminación (otra área)", "blocked_by": []},

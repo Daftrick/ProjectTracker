@@ -476,6 +476,7 @@
                   </div>
                 </td>
               </tr>
+              {% set section_ns.current = item_section %}
               {% endfor %}
             {% endif %}
           </tbody>
@@ -870,6 +871,36 @@
       }
     });
   }
+
+  function sectionBlockRows(sectionRow) {
+    const rows = [sectionRow];
+    let next = sectionRow.nextElementSibling;
+    while (next && !next.classList.contains("quote-section-row")) {
+      rows.push(next);
+      next = next.nextElementSibling;
+    }
+    return rows;
+  }
+
+  function nextAfterSectionBlock(sectionRow) {
+    let next = sectionRow.nextElementSibling;
+    while (next && !next.classList.contains("quote-section-row")) {
+      next = next.nextElementSibling;
+    }
+    return next;
+  }
+
+  function draggableRowsFor(row) {
+    return row.classList.contains("quote-section-row") ? sectionBlockRows(row) : [row];
+  }
+
+  function insertRowsBefore(tbody, rows, anchor) {
+    rows.forEach(row => {
+      if (anchor && rows.includes(anchor)) return;
+      if (anchor) tbody.insertBefore(row, anchor);
+      else tbody.appendChild(row);
+    });
+  }
   function calcRow(el){
     const r=el.closest("tr");
     const q=parseFloat(r.querySelector(".qty").value)||0;
@@ -1191,6 +1222,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     const tbody = document.getElementById("itemsBody");
     let draggingRow = null;
+    let draggingRows = [];
     let dragStarted = false;
     let dragPointerOffset = 0;
 
@@ -1261,12 +1293,16 @@
       });
       document.body.classList.remove("quote-dragging");
       draggingRow = null;
+      draggingRows = [];
       dragStarted = false;
       dragPointerOffset = 0;
     }
 
     function findTargetRow(clientY) {
-      const rows = [...tbody.querySelectorAll(".quote-draggable")].filter(r => r !== draggingRow);
+      let rows = [...tbody.querySelectorAll(".quote-draggable")].filter(r => !draggingRows.includes(r));
+      if (draggingRows.length > 1) {
+        rows = rows.filter((r, index) => r.classList.contains("quote-section-row") || index === 0);
+      }
       for (const row of rows) {
         const rect = row.getBoundingClientRect();
         if (clientY < rect.top + rect.height / 2) {
@@ -1277,6 +1313,15 @@
       return lastRow ? { row: lastRow, insertAfter: true } : null;
     }
 
+    function anchorForDropTarget(target) {
+      if (!target) return null;
+      if (!target.insertAfter) return target.row;
+      if (draggingRows.length > 1 && target.row.classList.contains("quote-section-row")) {
+        return nextAfterSectionBlock(target.row);
+      }
+      return target.row.nextElementSibling;
+    }
+
     tbody.addEventListener("mousedown", e => {
       const handle = e.target.closest(".drag-handle");
       if (!handle) return;
@@ -1284,6 +1329,7 @@
       if (!row) return;
       e.preventDefault();
       draggingRow = row;
+      draggingRows = draggableRowsFor(row);
       dragPointerOffset = e.clientY - row.getBoundingClientRect().top;
       document.body.classList.add("quote-dragging");
     });
@@ -1292,16 +1338,12 @@
       if (!draggingRow) return;
       e.preventDefault();
       dragStarted = true;
-      draggingRow.classList.add("dragging");
+      draggingRows.forEach(row => row.classList.add("dragging"));
       tbody.querySelectorAll(".quote-draggable.drop-target").forEach(r => r.classList.remove("drop-target"));
       const target = findTargetRow(e.clientY);
       if (!target) return;
       target.row.classList.add("drop-target");
-      if (target.insertAfter) {
-        tbody.insertBefore(draggingRow, target.row.nextElementSibling);
-      } else {
-        tbody.insertBefore(draggingRow, target.row);
-      }
+      insertRowsBefore(tbody, draggingRows, anchorForDropTarget(target));
     });
 
     document.addEventListener("mouseup", () => {
