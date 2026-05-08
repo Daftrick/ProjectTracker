@@ -59,7 +59,8 @@ materiales de compra para LDM, aunque los articulos no sean los mismos.
 
 ### Huecos principales
 
-- La app aun no tiene un flujo completo de importacion de CSV COT desde UI.
+- La app ya tiene un primer flujo de importacion de CSV COT desde UI: carga archivo,
+  parser, vista previa editable y guardado como cotizacion.
 - Falta una matriz formal de mapeo bloque/atributo → concepto COT → bundle → materiales LDM.
 - Falta leer bloques adicionales para salidas de iluminacion, contactos y HVAC.
 - Faltan bundles reales completos para todos los conceptos comerciales recurrentes.
@@ -163,19 +164,19 @@ Criterio de aceptacion:
 
 Objetivo: que ProjectTracker pueda crear una cotizacion desde CSV LISP.
 
-- [ ] Crear parser `tracker/quote_csv_import.py`.
-- [ ] Aceptar `description,unit,qty,price`.
-- [ ] Aceptar encabezados en ingles y variantes razonables en espanol.
-- [ ] Aceptar `price` faltante y tratarlo como `0.00`.
-- [ ] Leer metadatos `#proyecto_clave`, `#quote_type`, `#fecha`, `#source`, `#drawing`.
-- [ ] Vincular filas al catalogo por nombre normalizado.
-- [ ] Crear cotizacion General o Extraordinaria segun metadata/UI.
-- [ ] Mostrar vista previa antes de guardar:
+- [x] Crear parser `tracker/quote_csv_import.py`.
+- [x] Aceptar `description,unit,qty,price`.
+- [x] Aceptar encabezados en ingles y variantes razonables en espanol.
+- [x] Aceptar `price` faltante y tratarlo como `0.00`.
+- [x] Leer metadatos `#proyecto_clave`, `#quote_type`, `#fecha`, `#source`, `#drawing`.
+- [x] Vincular filas al catalogo por nombre normalizado.
+- [x] Crear cotizacion General o Extraordinaria segun metadata/UI.
+- [x] Mostrar vista previa antes de guardar:
   - filas vinculadas al catalogo,
   - filas sin catalogo,
   - totales,
   - advertencias de duplicados.
-- [ ] Agregar pruebas unitarias de parser y ruta.
+- [x] Agregar pruebas unitarias de parser y ruta.
 
 Criterio de aceptacion:
 
@@ -455,4 +456,3 @@ python -m unittest discover -s tests
 - **Regla COT/LDM:** Conversion de unidad/cantidad entre venta y compra.
 - **Comparativo simple:** Tabla temporal para validar equivalencias antes de configurar bundles completos.
 - **Catalogo:** Fuente comun de articulos; debe mantener nombres exactos y unidades consistentes.
-

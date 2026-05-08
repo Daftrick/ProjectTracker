@@ -1,0 +1,66 @@
+import io
+import unittest
+from unittest.mock import patch
+
+
+PROJECT = {
+    "id": "P1",
+    "clave": "OM001",
+    "name": "Proyecto CSV",
+    "client": "Cliente Uno",
+    "version": "V1",
+}
+
+
+class QuoteCsvImportRouteTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        from app import app
+
+        app.config["TESTING"] = True
+        cls.client = app.test_client()
+
+    def _fake_load(self, key):
+        data = {
+            "projects": [PROJECT],
+            "quotes": [],
+            "catalogo": [
+                {
+                    "id": "CAT1",
+                    "nombre": "Metro Lineal de Tuberia Conduit 1",
+                    "descripcion": "Omniious | Incluye instalacion",
+                    "unidad": "ml",
+                }
+            ],
+        }
+        return data.get(key, [])
+
+    def test_import_quote_csv_renders_editable_preview(self):
+        csv_body = (
+            "description,unit,qty,price\n"
+            "#proyecto_clave,OM001,,\n"
+            "#quote_type,General,,\n"
+            "#fecha,2026-05-08,,\n"
+            "Metro Lineal de Tuberia Conduit 1,ml,12.5,150\n"
+        )
+        data = {
+            "quote_csv": (io.BytesIO(csv_body.encode("utf-8")), "OM001-V1-I1-COT-20260508.csv")
+        }
+
+        with patch("tracker.routes.quotes.load", side_effect=self._fake_load):
+            response = self.client.post(
+                "/projects/P1/quote/import",
+                data=data,
+                content_type="multipart/form-data",
+            )
+
+        body = response.data.decode("utf-8")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("Vista previa de importación CSV", body)
+        self.assertIn("COT-OM001-G01-20260508", body)
+        self.assertIn("Metro Lineal de Tuberia Conduit 1", body)
+        self.assertIn('action="/projects/P1/quote/new"', body)
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -3,56 +3,56 @@
     "mtime": 1777447653.018,
     "hash": "2a8478a68b38d293caf3c3bd6dfb47e1"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\graphify_detect.py": {
-    "mtime": 1777770790.369,
-    "hash": "577383e1e184e553e68d6c3d9c6cc5bf"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\graphify_ast.py": {
-    "mtime": 1777770819.084,
-    "hash": "7b0cbc65b3bd5d8c016686b90917a705"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\graphify_cache.py": {
-    "mtime": 1777770819.083,
-    "hash": "e35fcc0e66dde53f9de9662ca808f9d7"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\save_chunks.py": {
-    "mtime": 1777770932.263,
-    "hash": "b6202dd40fe090bd5650f4aa01553281"
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\merge_extractions.py": {
+    "mtime": 1777770959.392,
+    "hash": "dc869e9f582bbdb5aaf266e935f28dcd"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\save_all_chunks.py": {
-    "mtime": 1777770951.432,
+    "mtime": 1777770947.654,
     "hash": "2a272769f226e4791531dc5dedb764e0"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\merge_extractions.py": {
-    "mtime": 1777770965.275,
-    "hash": "dc869e9f582bbdb5aaf266e935f28dcd"
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\save_chunks.py": {
+    "mtime": 1777770926.855,
+    "hash": "b6202dd40fe090bd5650f4aa01553281"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\graphify_cache.py": {
+    "mtime": 1777770827.283,
+    "hash": "e35fcc0e66dde53f9de9662ca808f9d7"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\graphify_ast.py": {
+    "mtime": 1777770824.439,
+    "hash": "7b0cbc65b3bd5d8c016686b90917a705"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\graphify_detect.py": {
+    "mtime": 1777770782.107,
+    "hash": "577383e1e184e553e68d6c3d9c6cc5bf"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\storage.py": {
+    "mtime": 1777764778.909,
+    "hash": "14a71dbb2c11d8d4d37251e5e869d684"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\domain.py": {
+    "mtime": 1778218484.237,
+    "hash": "1a48d4713e223d1091b7c7d7c25b9e8b"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\catalog.py": {
     "mtime": 1777419138.807,
     "hash": "249839f10d69dbb5af46eb759e728223"
   },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\drive.py": {
+    "mtime": 1777796246.507,
+    "hash": "c219d8fcf1de4dd9f444fc3fc4e8291e"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\pdfs.py": {
+    "mtime": 1777794392.868,
+    "hash": "20f18d399cf5eb1b2e40008ccd865fbc"
+  },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\__init__.py": {
     "mtime": 1777343607.296,
     "hash": "1b03cd64964470f5595471f5ac8e57f4"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\storage.py": {
-    "mtime": 1777764500.0,
-    "hash": "14a71dbb2c11d8d4d37251e5e869d684"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\pdfs.py": {
-    "mtime": 1777794386.133,
-    "hash": "20f18d399cf5eb1b2e40008ccd865fbc"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\drive.py": {
-    "mtime": 1777796237.777,
-    "hash": "c219d8fcf1de4dd9f444fc3fc4e8291e"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\domain.py": {
-    "mtime": 1778218477.558,
-    "hash": "1a48d4713e223d1091b7c7d7c25b9e8b"
-  },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\services.py": {
-    "mtime": 1777221852.715,
+    "mtime": 1777221858.207,
     "hash": "8bf3ea260476adc21240ee9550488e10"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\validators.py": {
@@ -60,71 +60,75 @@
     "hash": "6a390c5d4bc9e64ed5737165222c03ec"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\csv_import.py": {
-    "mtime": 1777766843.146,
+    "mtime": 1777766854.005,
     "hash": "d3b6616a61b22181f985edf7e63b8374"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\deletions.py": {
-    "mtime": 1778098140.63,
-    "hash": "ab8d2b3d59a8ac239f92e7eb598a2aca"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\form_models.py": {
     "mtime": 1777419452.423,
     "hash": "3090f2d7b3acf0f78d8f030728f8e892"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\project_view.py": {
-    "mtime": 1778105083.694,
+    "mtime": 1778105089.028,
     "hash": "758d1963017e8ae7ec1d6a488e020024"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\consistency.py": {
+    "mtime": 1777811854.52,
+    "hash": "eee9783f126ded4bb6a47b9b6a070d54"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\catalog_search.py": {
     "mtime": 1777344046.627,
     "hash": "af3e248cb30a4a4d4765fa5b00a71ae2"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\consistency.py": {
-    "mtime": 1777811844.164,
-    "hash": "eee9783f126ded4bb6a47b9b6a070d54"
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\deletions.py": {
+    "mtime": 1778098146.512,
+    "hash": "ab8d2b3d59a8ac239f92e7eb598a2aca"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\bundles.py": {
-    "mtime": 1777811814.201,
+    "mtime": 1777811824.513,
     "hash": "ac7aa79edf485d87b25a0b34fea4174e"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\comparison_rules.py": {
-    "mtime": 1777754370.0,
-    "hash": "bfab37ba33450482c05e3c47e829a947"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\comparison_ignored.py": {
     "mtime": 1777764510.0,
     "hash": "9c36fc7e18534955e5759b1d0d38c42a"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\ldm_sync.py": {
-    "mtime": 1778088551.263,
-    "hash": "c11fb59df44560937d8140e93f755758"
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\comparison_rules.py": {
+    "mtime": 1777764778.938,
+    "hash": "bfab37ba33450482c05e3c47e829a947"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\admin_filters.py": {
-    "mtime": 1778103702.351,
+    "mtime": 1778103702.348,
     "hash": "b780a1cbe96ba21c0af78486f7777fa8"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\routes\\materials.py": {
-    "mtime": 1778088568.576,
-    "hash": "a21f03d47cdffd0eb2f553b55b88ec2d"
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\ldm_sync.py": {
+    "mtime": 1778088551.261,
+    "hash": "c11fb59df44560937d8140e93f755758"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\routes\\admin.py": {
-    "mtime": 1778103718.52,
-    "hash": "d84e00d65e8a7124c9dd69f8c68f9829"
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\quote_csv_import.py": {
+    "mtime": 1778271805.791,
+    "hash": "7c350187bfd78957243a0d97eb5f4253"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\routes\\projects.py": {
-    "mtime": 1777796275.158,
+    "mtime": 1777796285.948,
     "hash": "18cab2b4bf6ef4aeb6497f587cdb3166"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\routes\\quotes.py": {
-    "mtime": 1778098135.822,
-    "hash": "ae5bb8c09cda6dbe7428ccb3f25733bd"
+    "mtime": 1778271913.758,
+    "hash": "ac9cbd706a6444f0ec44c2764a0b9065"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\routes\\materials.py": {
+    "mtime": 1778088573.23,
+    "hash": "a21f03d47cdffd0eb2f553b55b88ec2d"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\routes\\admin.py": {
+    "mtime": 1778103723.99,
+    "hash": "d84e00d65e8a7124c9dd69f8c68f9829"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tracker\\routes\\__init__.py": {
-    "mtime": 1777049849.436,
+    "mtime": 1777049849.44,
     "hash": "f4fcef9741182574c2276222f659e452"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_services.py": {
-    "mtime": 1777221933.669,
+    "mtime": 1777221939.003,
     "hash": "70229a385036e80d88ad7c173f85920d"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_validators.py": {
@@ -136,8 +140,16 @@
     "hash": "0402d98c6e8d596a7a153d712f2572f2"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_csv_import.py": {
-    "mtime": 1777766866.256,
+    "mtime": 1777766876.999,
     "hash": "237389452a44c82071fad0b67a7c907d"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_consistency.py": {
+    "mtime": 1777764779.009,
+    "hash": "e3b412d81fd501f90007689cf8aa01d1"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_catalog_search.py": {
+    "mtime": 1777343938.587,
+    "hash": "634244a13707deb6777c3e1306d2293d"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_form_models.py": {
     "mtime": 1777341615.485,
@@ -148,96 +160,164 @@
     "hash": "b0709024cd5882f765f8f77dd59699d4"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_project_view.py": {
-    "mtime": 1778105107.139,
+    "mtime": 1778105112.507,
     "hash": "e303349c3e16ca208c8770b61b1c945b"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_admin_forms.py": {
     "mtime": 1777339510.557,
     "hash": "34887d1130670df4a1fd1ba7cfc43e85"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_catalog_search.py": {
-    "mtime": 1777343938.587,
-    "hash": "634244a13707deb6777c3e1306d2293d"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_consistency.py": {
-    "mtime": 1777764650.0,
-    "hash": "e3b412d81fd501f90007689cf8aa01d1"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_bundles.py": {
-    "mtime": 1777754370.0,
-    "hash": "b7c155134a79ef7d3332cae196573129"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_comparison_rules.py": {
-    "mtime": 1777754370.0,
-    "hash": "ff54886d87d5ba103b253d0246665c30"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_admin_bundles_routes.py": {
-    "mtime": 1777754473.0,
-    "hash": "04b9049f3486871d79eb6f0c6fdf1bf1"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_project_detail_bundle_ui.py": {
-    "mtime": 1778104968.286,
-    "hash": "b3b4333e6acea31bd5ca8219aeb58050"
-  },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_comparison_ignored.py": {
     "mtime": 1777764640.0,
     "hash": "d9ef3c59603c158b8f6c313b45a7d32c"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_materials_csv_export.py": {
-    "mtime": 1778088241.467,
-    "hash": "b2eb6373550a36c6b10f273fd071e995"
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_admin_bundles_routes.py": {
+    "mtime": 1777764778.996,
+    "hash": "04b9049f3486871d79eb6f0c6fdf1bf1"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_ldm_sync.py": {
-    "mtime": 1778088612.403,
-    "hash": "747a3c9076bad4f56006e038907b5405"
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_bundles.py": {
+    "mtime": 1777764778.867,
+    "hash": "b7c155134a79ef7d3332cae196573129"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_audit_deleted_catalog_route.py": {
-    "mtime": 1778098152.303,
-    "hash": "dcea2e37716d49ab4a2afd4a63dab5ed"
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_comparison_rules.py": {
+    "mtime": 1777764778.931,
+    "hash": "ff54886d87d5ba103b253d0246665c30"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_admin_filters.py": {
-    "mtime": 1778103787.38,
-    "hash": "771bde2ef9179ad9a6e20cfb5f9df3be"
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_project_detail_bundle_ui.py": {
+    "mtime": 1778104973.71,
+    "hash": "b3b4333e6acea31bd5ca8219aeb58050"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_quote_sections.py": {
-    "mtime": 1778218477.551,
+    "mtime": 1778218477.549,
     "hash": "78f7b552934f2ad6fc77a43f189d8f4d"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_admin_filters.py": {
+    "mtime": 1778103787.378,
+    "hash": "771bde2ef9179ad9a6e20cfb5f9df3be"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_audit_deleted_catalog_route.py": {
+    "mtime": 1778098152.301,
+    "hash": "dcea2e37716d49ab4a2afd4a63dab5ed"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_ldm_sync.py": {
+    "mtime": 1778088612.4,
+    "hash": "747a3c9076bad4f56006e038907b5405"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_materials_csv_export.py": {
+    "mtime": 1778088241.465,
+    "hash": "b2eb6373550a36c6b10f273fd071e995"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_quote_csv_import.py": {
+    "mtime": 1778271878.468,
+    "hash": "8ceb9bc7d37979f7ec5c556016200578"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\tests\\test_quote_csv_import_route.py": {
+    "mtime": 1778271878.485,
+    "hash": "4adb647ee1b4f3a8229f940980f26acc"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\requirements.txt": {
     "mtime": 1777413361.62,
     "hash": "282276e9445683bc8dcd95b5f8931183"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\REFERENCIA_ESTRUCTURAS_CSV.txt": {
-    "mtime": 1776921783.91,
+    "mtime": 1776921789.635,
     "hash": "6aff1f7848b225765a061a98442b84ad"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\logica_cuantificaciones.txt": {
-    "mtime": 1777183519.453,
+    "mtime": 1777183530.765,
     "hash": "acd3a9b345e3eccfe16023ee8d180152"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\ROADMAP_MEJORAS.md": {
-    "mtime": 1778105156.674,
+    "mtime": 1778105162.065,
     "hash": "ce8c2c4a5f52a5f139cfde1aa311c058"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\CLAUDE.md": {
-    "mtime": 1777799455.178,
-    "hash": "cfae1810881af37eb738d28c73470ccb"
-  },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\VERSIONES.md": {
-    "mtime": 1778218477.569,
+    "mtime": 1778218484.215,
     "hash": "bd586dfa4b56f56dbeab5ec599781f45"
   },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\CLAUDE.md": {
+    "mtime": 1777799460.137,
+    "hash": "cfae1810881af37eb738d28c73470ccb"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\ROADMAP_INTEGRACION_LISP_CSV_APP.md": {
+    "mtime": 1778271940.501,
+    "hash": "567fd1e02c40c2022af69bf614224454"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\quote_project_form.html": {
+    "mtime": 1778271913.772,
+    "hash": "f3a5138571f1e7a6a4aa1f0fa252bdb0"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\quote_form.html": {
+    "mtime": 1776871924.026,
+    "hash": "584378efff040af18cb3328964854cc2"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\catalogo.html": {
+    "mtime": 1777813007.0,
+    "hash": "73016d19414aef89408c41f86cf3f34d"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\proveedores.html": {
+    "mtime": 1778103743.129,
+    "hash": "a9f96770ba600a707ad2e266c82c04d0"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\quote_project_detail.html": {
+    "mtime": 1777419812.842,
+    "hash": "70af671ab1603ea09b6d83279808bae2"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\project_detail.html": {
+    "mtime": 1778271851.575,
+    "hash": "d04386c762c584518070ea201b7a11eb"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\ldm_form.html": {
+    "mtime": 1777767047.429,
+    "hash": "baf961b0ba51cdb54b237bdcac19cfcc"
+  },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\base.html": {
-    "mtime": 1777812836.607,
+    "mtime": 1777812846.895,
     "hash": "ab055c91ddb33a89b734624349847641"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\dashboard.html": {
     "mtime": 1777345363.176,
     "hash": "044096048e7da066171abd9a78444b50"
   },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\project_new.html": {
+    "mtime": 1777337364.254,
+    "hash": "eccdebbc2db3aefb7e3e07af5c5526ad"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\settings.html": {
+    "mtime": 1777796334.089,
+    "hash": "b010e7d97e6e32d42c21dda770964c55"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\fichas.html": {
+    "mtime": 1778103764.989,
+    "hash": "bb5d879db4c7f281348612deea64d418"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\tasks.html": {
+    "mtime": 1776532495.973,
+    "hash": "5b9ac5276d43bebe7db8719ccdc29bf3"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\quote_detail.html": {
+    "mtime": 1776532495.948,
+    "hash": "ef08947f6128ce0b2a2bf47c8e4c3e28"
+  },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\delivery_preview.html": {
     "mtime": 1776542076.933,
     "hash": "092f692552ec6e69fb5c7525c16daefc"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\team.html": {
+    "mtime": 1777812967.327,
+    "hash": "8280732842a205cb259e2ab51ca23aa1"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\quotes.html": {
+    "mtime": 1776532495.979,
+    "hash": "d4439c878efa6c62910bbd838ec37d9c"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\task_edit.html": {
+    "mtime": 1776532495.962,
+    "hash": "8a35f563db8dc39a25838db6992ec53e"
+  },
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\drive_scan.html": {
+    "mtime": 1776542111.905,
+    "hash": "3084595fc5a4a0957fbe618d9d76c8f5"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\documents.html": {
     "mtime": 1776532495.951,
@@ -247,80 +327,16 @@
     "mtime": 1776532495.969,
     "hash": "f530215253e7fa46af5f0c37c95ae049"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\drive_scan.html": {
-    "mtime": 1776542111.905,
-    "hash": "3084595fc5a4a0957fbe618d9d76c8f5"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\fichas.html": {
-    "mtime": 1778103759.551,
-    "hash": "bb5d879db4c7f281348612deea64d418"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\project_detail.html": {
-    "mtime": 1778105094.489,
-    "hash": "a427107408af7173fa048a95953767c2"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\project_new.html": {
-    "mtime": 1777337364.254,
-    "hash": "eccdebbc2db3aefb7e3e07af5c5526ad"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\quotes.html": {
-    "mtime": 1776532495.979,
-    "hash": "d4439c878efa6c62910bbd838ec37d9c"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\quote_detail.html": {
-    "mtime": 1776532495.948,
-    "hash": "ef08947f6128ce0b2a2bf47c8e4c3e28"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\quote_form.html": {
-    "mtime": 1776871917.25,
-    "hash": "584378efff040af18cb3328964854cc2"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\quote_project_detail.html": {
-    "mtime": 1777419812.842,
-    "hash": "70af671ab1603ea09b6d83279808bae2"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\quote_project_form.html": {
-    "mtime": 1778218477.546,
-    "hash": "867132dd0a243ce31cf678b18c39dfa3"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\settings.html": {
-    "mtime": 1777796323.236,
-    "hash": "b010e7d97e6e32d42c21dda770964c55"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\tasks.html": {
-    "mtime": 1776532495.973,
-    "hash": "5b9ac5276d43bebe7db8719ccdc29bf3"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\task_edit.html": {
-    "mtime": 1776532495.962,
-    "hash": "8a35f563db8dc39a25838db6992ec53e"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\team.html": {
-    "mtime": 1777812961.592,
-    "hash": "8280732842a205cb259e2ab51ca23aa1"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\catalogo.html": {
-    "mtime": 1777812997.008,
-    "hash": "73016d19414aef89408c41f86cf3f34d"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\ldm_form.html": {
-    "mtime": 1777767038.685,
-    "hash": "baf961b0ba51cdb54b237bdcac19cfcc"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\proveedores.html": {
-    "mtime": 1778103737.679,
-    "hash": "a9f96770ba600a707ad2e266c82c04d0"
-  },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\bundles.html": {
-    "mtime": 1777754447.0,
-    "hash": "7f01ba2659948ac6de893126c3a72577"
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\audit_deleted_catalog.html": {
+    "mtime": 1777795346.588,
+    "hash": "1587fddefd650fb9938bc09f43e5536c"
   },
   "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\comparison_rules.html": {
-    "mtime": 1777764591.0,
+    "mtime": 1777764780.275,
     "hash": "cf14cae8f593d8573910a9d77cdeeaed"
   },
-  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\audit_deleted_catalog.html": {
-    "mtime": 1777795341.557,
-    "hash": "1587fddefd650fb9938bc09f43e5536c"
+  "H:\\My Drive\\Omniious\\Claude Code\\ProjectTracker\\templates\\bundles.html": {
+    "mtime": 1777764780.24,
+    "hash": "7f01ba2659948ac6de893126c3a72577"
   }
 }

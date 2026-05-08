@@ -179,7 +179,26 @@
 {% endblock %}
 {% block content %}
 {% set fe = field_errors|default({}) %}
-<form method="post" id="quoteForm">
+<form method="post" id="quoteForm" action="{{ form_action|default('', true) }}">
+{% if quote and quote.get('csv_origen') %}
+<input type="hidden" name="csv_origen" value="{{ quote.get('csv_origen') }}">
+{% for key, value in quote.get('csv_metadata', {}).items() %}
+<input type="hidden" name="csv_metadata_key[]" value="{{ key }}">
+<input type="hidden" name="csv_metadata_value[]" value="{{ value }}">
+{% endfor %}
+{% endif %}
+{% if quote and quote.get('is_import_preview') %}
+<div class="alert alert-info d-flex align-items-start gap-2">
+  <i class="bi bi-filetype-csv mt-1"></i>
+  <div>
+    <div class="fw-semibold">Vista previa de importación CSV</div>
+    <div class="small text-muted">
+      Revisa las partidas, precios y vínculos de catálogo antes de crear la cotización.
+      {% if quote.get('csv_origen') %}<span class="font-monospace">{{ quote.get('csv_origen') }}</span>{% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}
 
 <!-- ── Barra de resumen fija ── -->
 <div class="quote-bar">
