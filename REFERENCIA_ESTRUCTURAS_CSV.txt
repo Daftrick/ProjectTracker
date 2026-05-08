@@ -257,6 +257,75 @@ NOTAS:
 
 
 ================================================================================
+MÓDULO 4 — TAKEOFF / HECHOS TECNICOS DESDE AUTOCAD
+================================================================================
+
+DESCRIPCIÓN
+-----------
+CSV tecnico generado por LISP para describir hechos observados en AutoCAD.
+No es COT ni LDM: es la fuente neutral que la app debe interpretar con
+catalogo, bundles, reglas COT/LDM y tolerancias.
+
+Principio:
+  - AutoCAD/LISP extrae: salidas, dispositivos, longitudes, atributos, layers,
+    cedulas, bloques y contexto.
+  - ProjectTracker compara: COT vs LDM, COT expandida por bundles vs LDM real,
+    faltantes, excedentes, compra minima y tolerancias.
+
+FORMATO CSV TAKEOFF
+-------------------
+Nombre objetivo:
+  {CLAVE}-V{VERSION}-I{CONSECUTIVO}-TAKEOFF-{YYYYMMDD}.csv
+
+Metadatos al inicio:
+  #csv_type,takeoff
+  #proyecto_clave,CLAVE
+  #version,N
+  #consecutivo,N
+  #fecha,YYYYMMDD
+  #source,lisp_cedularec
+  #drawing,DWGNAME
+
+Columnas:
+  record_type,source_id,family,measurement_kind,description_hint,unit,qty,run_length_m,block_name,block_class,layer,cedula,conduit_type,diameter,cable_count,phase,ground,support_group,drawing
+
+Ejemplo:
+  record_type,source_id,family,measurement_kind,description_hint,unit,qty,run_length_m,block_name,block_class,layer,cedula,conduit_type,diameter,cable_count,phase,ground,support_group,drawing
+  takeoff,CEDULAREC:1A2B:conduit,conduit,length,"Tuberia Pared Delgada | 27 [mm] (1\")",m,18.42,18.42,CEDULAREC,CEDULAREC,IE-TUBERIA,2.8.10.P07,Pared Delgada,"27 [mm] (1\")",2,"12 AWG Cobre","12d AWG",,IE-OM001-V2.dwg
+  takeoff,CEDULAREC:1A2B:wire_phase,wire,phase_length,"12 AWG Cobre",m,36.84,18.42,CEDULAREC,CEDULAREC,IE-TUBERIA,2.8.10.P07,Pared Delgada,"27 [mm] (1\")",2,"12 AWG Cobre","12d AWG",,IE-OM001-V2.dwg
+
+Campos:
+  record_type       Siempre "takeoff".
+  source_id         Identificador rastreable del origen CAD. En CEDULAREC:
+                    BLOCKCLASS:HANDLE:fact.
+  family            Familia tecnica: conduit, wire; futuro: device, outlet,
+                    equipment.
+  measurement_kind  Tipo de medicion: length, phase_length, ground_length;
+                    futuro: count, device_count, outlet_count.
+  description_hint  Texto legible para preview/debug. La app no debe depender
+                    exclusivamente de este texto para reglas.
+  unit, qty         Unidad y cantidad observada o derivada directamente del
+                    hecho medido.
+  run_length_m      Longitud base de la ruta cuando aplique.
+  block_name        Nombre efectivo de bloque.
+  block_class       CEDULAREC, SUBIRBAJAR u otra familia futura.
+  layer             Layer del objeto fuente.
+  cedula            Codigo N.F.T.X original si existe.
+  conduit_type      Tipo de tuberia decodificado.
+  diameter          Diametro decodificado.
+  cable_count       Numero de conductores de fase en la cedula.
+  phase, ground     Calibres decodificados.
+  support_group     Grupo de soporte si aplica.
+  drawing           Nombre del DWG.
+
+NOTAS:
+  - Este CSV NO contiene comparaciones COT/LDM.
+  - Este CSV NO debe duplicar bundles, reglas ni tolerancias de ProjectTracker.
+  - Los comparativos generados en AutoCAD son diagnosticos locales, no entidad
+    importable ni fuente oficial.
+
+
+================================================================================
 RUTAS DE API EXISTENTES PARA IMPORTACIÓN
 ================================================================================
 

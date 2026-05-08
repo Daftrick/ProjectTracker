@@ -30,9 +30,10 @@ materiales de compra para LDM, aunque los articulos no sean los mismos.
    - Deben incluir contratos simples y repetibles.
    - La app debe mostrar origen, fecha, proyecto, proveedor/tipo y diferencias detectadas.
 
-5. **Primero comparaciones simples; despues automatizacion.**
-   - Antes de leer mas familias de bloques, validar conversiones basicas y diferencias COT/LDM.
-   - La sincronizacion automatica debe llegar despues de que las reglas sean confiables.
+5. **Las comparaciones oficiales viven en la app.**
+   - LISP extrae hechos del dibujo: salidas, dispositivos, longitudes, atributos, layers y contexto.
+   - ProjectTracker interpreta esos hechos con catalogo, bundles, reglas COT/LDM y tolerancias.
+   - Cualquier comparativo generado en AutoCAD queda como diagnostico local, no como fuente oficial.
 
 ---
 
@@ -54,8 +55,9 @@ materiales de compra para LDM, aunque los articulos no sean los mismos.
 - Tabla/CSV LDM con cableado, tuberia y soporteria/accesorios.
 - Exportacion ProjectTracker LDM con contrato `description,unit,qty`.
 - Primera salida COT para tuberia por metro lineal.
-- Tabla comparativa simple COT/LDM para tuberia.
+- Tabla comparativa simple COT/LDM para tuberia como diagnostico local.
 - Exportacion COT inicial con contrato `description,unit,qty,price`.
+- Exportacion TAKEOFF/facts con contrato tecnico general para que la app interprete COT/LDM.
 
 ### Huecos principales
 
@@ -122,9 +124,40 @@ Criterios:
 - La app calcula `total`, subtotal, IVA y total final.
 - La app asigna `quote_number`, cliente, proyecto y fecha final.
 
+### CSV TAKEOFF / facts
+
+Uso: hechos tecnicos observados en AutoCAD para que la app genere o valide COT/LDM
+con bundles, reglas y tolerancias.
+
+Columnas:
+
+```csv
+record_type,source_id,family,measurement_kind,description_hint,unit,qty,run_length_m,block_name,block_class,layer,cedula,conduit_type,diameter,cable_count,phase,ground,support_group,drawing
+```
+
+Metadatos sugeridos:
+
+```csv
+#csv_type,takeoff
+#proyecto_clave,CLAVE
+#version,N
+#consecutivo,N
+#fecha,YYYYMMDD
+#source,lisp_cedularec
+#drawing,DWGNAME
+```
+
+Criterios:
+
+- No contiene comparaciones COT/LDM.
+- No contiene reglas comerciales, redondeos de compra ni tolerancias.
+- `source_id` debe permitir rastrear el origen CAD; en CEDULAREC se usa `BLOCKCLASS:HANDLE:fact`.
+- `family` inicial: `conduit`, `wire`; despues `device`, `outlet`, `equipment` cuando se lean bloques no-CEDULAREC.
+- `measurement_kind` inicial: `length`, `phase_length`, `ground_length`; despues `count`, `device_count`, etc.
+
 ### CSV Comparativo Simple
 
-Uso: diagnostico temporal antes de que todo viva en bundles/reglas.
+Uso: diagnostico local temporal. No es fuente oficial de comparacion.
 
 Columnas sugeridas:
 
@@ -134,8 +167,9 @@ cot_description,cot_unit,cot_qty,ldm_description,ldm_unit,ldm_qty,factor,delta
 
 Criterios:
 
-- No necesariamente se importa como entidad final.
-- Sirve para revisar conversiones y detectar diferencias antes de configurar bundles.
+- No se importa como entidad final.
+- No debe duplicar reglas/bundles de ProjectTracker.
+- Sirve solo para revisar visualmente en AutoCAD durante transicion.
 
 ---
 
@@ -145,11 +179,12 @@ Criterios:
 
 Objetivo: dejar cerrada la base de intercambio LISP/App.
 
-- [ ] Actualizar `REFERENCIA_ESTRUCTURAS_CSV.txt` con contratos finales COT, LDM y comparativo.
+- [x] Actualizar `REFERENCIA_ESTRUCTURAS_CSV.txt` con contratos LDM, COT, TAKEOFF y comparativo diagnostico.
 - [ ] Definir convencion de nombres de archivos:
   - LDM: `{CLAVE}-V{VERSION}-I{CONSECUTIVO}-{YYYYMMDD}.csv`
   - COT: `{CLAVE}-V{VERSION}-I{CONSECUTIVO}-COT-{YYYYMMDD}.csv`
-  - Comparativo: `{CLAVE}-V{VERSION}-I{CONSECUTIVO}-CMP-{YYYYMMDD}.csv`
+  - TAKEOFF: `{CLAVE}-V{VERSION}-I{CONSECUTIVO}-TAKEOFF-{YYYYMMDD}.csv`
+  - Comparativo diagnostico: `{CLAVE}-V{VERSION}-I{CONSECUTIVO}-CMP-{YYYYMMDD}.csv`
 - [ ] Definir metadatos aceptados por tipo de CSV.
 - [ ] Documentar columnas obligatorias, opcionales y tolerancias.
 - [ ] Definir como se resuelve proyecto cuando el CSV solo trae `proyecto_clave`.
@@ -189,8 +224,8 @@ Criterio de aceptacion:
 Objetivo: madurar la primera familia comercial ya iniciada.
 
 - [ ] Validar en AutoCAD `CEDULARECEXPORTCOT` con planos reales.
-- [ ] Validar `CEDULARECCOMPARATABLE` con varios diametros y tipos de tuberia.
-- [ ] Agregar exportacion CSV del comparativo simple si aporta valor operativo.
+- [ ] Validar `CEDULARECEXPORTTAKEOFF` con varios diametros y tipos de tuberia.
+- [ ] Mantener `CEDULARECCOMPARATABLE` solo como diagnostico local si aporta valor operativo.
 - [ ] Confirmar nombres comerciales contra catalogo:
   - `Metro Lineal de Tuberia Conduit ...`
   - variantes PD, PG, PVC, PAD, flexible galvanizada, licuatite.
@@ -199,7 +234,7 @@ Objetivo: madurar la primera familia comercial ya iniciada.
 
 Criterio de aceptacion:
 
-- Para un conjunto de cedulas, la suma COT en metros lineales y la LDM en piezas/tramos se explican con una diferencia visible y tolerable.
+- Para un conjunto de cedulas, TAKEOFF describe los hechos tecnicos suficientes para que la app explique COT, LDM esperada y diferencias.
 
 ---
 

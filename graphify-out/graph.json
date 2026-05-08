@@ -11673,9 +11673,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_py",
-      "target": "tracker_catalog_py",
-      "confidence_score": 1.0
+      "target": "tracker_catalog_py"
     },
     {
       "relation": "imports_from",
@@ -20295,9 +20295,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L31",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_py",
-      "target": "tracker_quote_csv_import_clean",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_clean"
     },
     {
       "relation": "contains",
@@ -20305,9 +20305,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L35",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_py",
-      "target": "tracker_quote_csv_import_header_key",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_header_key"
     },
     {
       "relation": "contains",
@@ -20315,9 +20315,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_py",
-      "target": "tracker_quote_csv_import_read_sample",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_read_sample"
     },
     {
       "relation": "contains",
@@ -20325,9 +20325,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L44",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_py",
-      "target": "tracker_quote_csv_import_detect_dialect",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_detect_dialect"
     },
     {
       "relation": "contains",
@@ -20335,9 +20335,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_py",
-      "target": "tracker_quote_csv_import_parse_float",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_parse_float"
     },
     {
       "relation": "contains",
@@ -20345,9 +20345,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L67",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_py",
-      "target": "tracker_quote_csv_import_metadata_value",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_metadata_value"
     },
     {
       "relation": "contains",
@@ -20355,9 +20355,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L72",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_py",
-      "target": "tracker_quote_csv_import_build_catalog_index",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_build_catalog_index"
     },
     {
       "relation": "contains",
@@ -20365,9 +20365,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L81",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_py",
-      "target": "tracker_quote_csv_import_match_catalog",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_match_catalog"
     },
     {
       "relation": "contains",
@@ -20375,9 +20375,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L85",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_py",
-      "target": "tracker_quote_csv_import_column_index",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_column_index"
     },
     {
       "relation": "contains",
@@ -20385,9 +20385,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L92",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_py",
-      "target": "tracker_quote_csv_import_row_value",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_row_value"
     },
     {
       "relation": "contains",
@@ -20395,9 +20395,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L98",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_py",
-      "target": "tracker_quote_csv_import_find_header_row",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_find_header_row"
     },
     {
       "relation": "contains",
@@ -20405,9 +20405,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L110",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_py",
-      "target": "tracker_quote_csv_import_parse_quote_csv",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_parse_quote_csv"
     },
     {
       "relation": "imports_from",
@@ -20416,9 +20416,9 @@
       "source_file": "tracker\\routes\\quotes.py",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_routes_quotes_py",
-      "target": "tracker_quote_csv_import_py",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_py"
     },
     {
       "relation": "calls",
@@ -20427,9 +20427,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_header_key",
-      "target": "tracker_quote_csv_import_clean",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_clean"
     },
     {
       "relation": "calls",
@@ -20438,9 +20438,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_parse_float",
-      "target": "tracker_quote_csv_import_clean",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_clean"
     },
     {
       "relation": "calls",
@@ -20449,9 +20449,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L68",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_metadata_value",
-      "target": "tracker_quote_csv_import_clean",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_clean"
     },
     {
       "relation": "calls",
@@ -20460,9 +20460,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L95",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_row_value",
-      "target": "tracker_quote_csv_import_clean",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_clean"
     },
     {
       "relation": "calls",
@@ -20471,9 +20471,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L100",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_find_header_row",
-      "target": "tracker_quote_csv_import_clean",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_clean"
     },
     {
       "relation": "calls",
@@ -20482,9 +20482,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L143",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_parse_quote_csv",
-      "target": "tracker_quote_csv_import_clean",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_clean"
     },
     {
       "relation": "calls",
@@ -20493,9 +20493,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L87",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_column_index",
-      "target": "tracker_quote_csv_import_header_key",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_header_key"
     },
     {
       "relation": "calls",
@@ -20504,9 +20504,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L126",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_parse_quote_csv",
-      "target": "tracker_quote_csv_import_header_key",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_header_key"
     },
     {
       "relation": "calls",
@@ -20515,9 +20515,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_detect_dialect",
-      "target": "tracker_quote_csv_import_read_sample",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_read_sample"
     },
     {
       "relation": "calls",
@@ -20526,9 +20526,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L112",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_parse_quote_csv",
-      "target": "tracker_quote_csv_import_detect_dialect",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_detect_dialect"
     },
     {
       "relation": "calls",
@@ -20537,9 +20537,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L152",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_parse_quote_csv",
-      "target": "tracker_quote_csv_import_parse_float",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_parse_float"
     },
     {
       "relation": "calls",
@@ -20548,9 +20548,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L104",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_find_header_row",
-      "target": "tracker_quote_csv_import_metadata_value",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_metadata_value"
     },
     {
       "relation": "calls",
@@ -20559,9 +20559,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L147",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_parse_quote_csv",
-      "target": "tracker_quote_csv_import_metadata_value",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_metadata_value"
     },
     {
       "relation": "calls",
@@ -20570,9 +20570,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L113",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_parse_quote_csv",
-      "target": "tracker_quote_csv_import_build_catalog_index",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_build_catalog_index"
     },
     {
       "relation": "calls",
@@ -20581,9 +20581,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L164",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_parse_quote_csv",
-      "target": "tracker_quote_csv_import_match_catalog",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_match_catalog"
     },
     {
       "relation": "calls",
@@ -20592,9 +20592,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L127",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_parse_quote_csv",
-      "target": "tracker_quote_csv_import_column_index",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_column_index"
     },
     {
       "relation": "calls",
@@ -20603,9 +20603,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L150",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_parse_quote_csv",
-      "target": "tracker_quote_csv_import_row_value",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_row_value"
     },
     {
       "relation": "calls",
@@ -20614,9 +20614,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L122",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_parse_quote_csv",
-      "target": "tracker_quote_csv_import_find_header_row",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_find_header_row"
     },
     {
       "relation": "rationale_for",
@@ -20624,9 +20624,9 @@
       "source_file": "tracker\\quote_csv_import.py",
       "source_location": "L111",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_quote_csv_import_rationale_111",
-      "target": "tracker_quote_csv_import_parse_quote_csv",
-      "confidence_score": 1.0
+      "target": "tracker_quote_csv_import_parse_quote_csv"
     },
     {
       "relation": "calls",
@@ -20941,9 +20941,9 @@
       "source_file": "tracker\\routes\\quotes.py",
       "source_location": "L29",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_routes_quotes_py",
-      "target": "routes_quotes_find_project",
-      "confidence_score": 1.0
+      "target": "routes_quotes_find_project"
     },
     {
       "relation": "contains",
@@ -20951,9 +20951,9 @@
       "source_file": "tracker\\routes\\quotes.py",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_routes_quotes_py",
-      "target": "routes_quotes_quote_preview_from_csv",
-      "confidence_score": 1.0
+      "target": "routes_quotes_quote_preview_from_csv"
     },
     {
       "relation": "contains",
@@ -20971,9 +20971,9 @@
       "source_file": "tracker\\routes\\quotes.py",
       "source_location": "L129",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tracker_routes_quotes_py",
-      "target": "routes_quotes_import_quote_csv",
-      "confidence_score": 1.0
+      "target": "routes_quotes_import_quote_csv"
     },
     {
       "relation": "contains",
@@ -21103,9 +21103,9 @@
       "source_file": "tracker\\routes\\quotes.py",
       "source_location": "L175",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "routes_quotes_import_quote_csv",
-      "target": "routes_quotes_render_quote_form",
-      "confidence_score": 1.0
+      "target": "routes_quotes_render_quote_form"
     },
     {
       "relation": "calls",
@@ -21125,9 +21125,9 @@
       "source_file": "tracker\\routes\\quotes.py",
       "source_location": "L72",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "routes_quotes_new_quote",
-      "target": "routes_quotes_find_project",
-      "confidence_score": 1.0
+      "target": "routes_quotes_find_project"
     },
     {
       "relation": "calls",
@@ -21136,9 +21136,9 @@
       "source_file": "tracker\\routes\\quotes.py",
       "source_location": "L130",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "routes_quotes_import_quote_csv",
-      "target": "routes_quotes_find_project",
-      "confidence_score": 1.0
+      "target": "routes_quotes_find_project"
     },
     {
       "relation": "calls",
@@ -21147,9 +21147,9 @@
       "source_file": "tracker\\routes\\quotes.py",
       "source_location": "L174",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "routes_quotes_import_quote_csv",
-      "target": "routes_quotes_quote_preview_from_csv",
-      "confidence_score": 1.0
+      "target": "routes_quotes_quote_preview_from_csv"
     },
     {
       "relation": "calls",
@@ -21168,9 +21168,9 @@
       "source_file": "tracker\\routes\\quotes.py",
       "source_location": "L300",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "routes_quotes_rationale_300",
-      "target": "routes_quotes_quote_excel",
-      "confidence_score": 1.0
+      "target": "routes_quotes_quote_excel"
     },
     {
       "relation": "rationale_for",
@@ -21188,9 +21188,9 @@
       "source_file": "tracker\\routes\\quotes.py",
       "source_location": "L344",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "routes_quotes_rationale_344",
-      "target": "routes_quotes_build_quote_workbook",
-      "confidence_score": 1.0
+      "target": "routes_quotes_build_quote_workbook"
     },
     {
       "relation": "rationale_for",
@@ -21208,9 +21208,9 @@
       "source_file": "tracker\\routes\\quotes.py",
       "source_location": "L482",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "routes_quotes_rationale_482",
-      "target": "routes_quotes_restore_deleted_item",
-      "confidence_score": 1.0
+      "target": "routes_quotes_restore_deleted_item"
     },
     {
       "relation": "rationale_for",
@@ -21228,9 +21228,9 @@
       "source_file": "tracker\\routes\\quotes.py",
       "source_location": "L515",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "routes_quotes_rationale_515",
-      "target": "routes_quotes_preserve_deleted_item",
-      "confidence_score": 1.0
+      "target": "routes_quotes_preserve_deleted_item"
     },
     {
       "relation": "rationale_for",
@@ -21248,9 +21248,9 @@
       "source_file": "tracker\\routes\\quotes.py",
       "source_location": "L543",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "routes_quotes_rationale_543",
-      "target": "routes_quotes_purge_deleted_item",
-      "confidence_score": 1.0
+      "target": "routes_quotes_purge_deleted_item"
     },
     {
       "relation": "rationale_for",
@@ -21268,9 +21268,9 @@
       "source_file": "tracker\\routes\\quotes.py",
       "source_location": "L588",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "routes_quotes_rationale_588",
-      "target": "routes_quotes_audit_deleted_catalog",
-      "confidence_score": 1.0
+      "target": "routes_quotes_audit_deleted_catalog"
     },
     {
       "relation": "rationale_for",
@@ -25816,9 +25816,9 @@
       "source_file": "tests\\test_quote_csv_import.py",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_quote_csv_import_py",
-      "target": "tests_test_quote_csv_import_quotecsvimporttest",
-      "confidence_score": 1.0
+      "target": "tests_test_quote_csv_import_quotecsvimporttest"
     },
     {
       "relation": "method",
@@ -25826,9 +25826,9 @@
       "source_file": "tests\\test_quote_csv_import.py",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_quote_csv_import_quotecsvimporttest",
-      "target": "tests_test_quote_csv_import_quotecsvimporttest_test_parse_quote_csv_reads_items_metadata_and_links_catalog",
-      "confidence_score": 1.0
+      "target": "tests_test_quote_csv_import_quotecsvimporttest_test_parse_quote_csv_reads_items_metadata_and_links_catalog"
     },
     {
       "relation": "method",
@@ -25836,9 +25836,9 @@
       "source_file": "tests\\test_quote_csv_import.py",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_quote_csv_import_quotecsvimporttest",
-      "target": "tests_test_quote_csv_import_quotecsvimporttest_test_parse_quote_csv_accepts_spanish_headers_semicolon_and_missing_price",
-      "confidence_score": 1.0
+      "target": "tests_test_quote_csv_import_quotecsvimporttest_test_parse_quote_csv_accepts_spanish_headers_semicolon_and_missing_price"
     },
     {
       "relation": "method",
@@ -25846,9 +25846,9 @@
       "source_file": "tests\\test_quote_csv_import.py",
       "source_location": "L50",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_quote_csv_import_quotecsvimporttest",
-      "target": "tests_test_quote_csv_import_quotecsvimporttest_test_parse_quote_csv_accepts_metadata_before_header",
-      "confidence_score": 1.0
+      "target": "tests_test_quote_csv_import_quotecsvimporttest_test_parse_quote_csv_accepts_metadata_before_header"
     },
     {
       "relation": "method",
@@ -25856,9 +25856,9 @@
       "source_file": "tests\\test_quote_csv_import.py",
       "source_location": "L61",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_quote_csv_import_quotecsvimporttest",
-      "target": "tests_test_quote_csv_import_quotecsvimporttest_test_parse_quote_csv_reports_missing_required_headers",
-      "confidence_score": 1.0
+      "target": "tests_test_quote_csv_import_quotecsvimporttest_test_parse_quote_csv_reports_missing_required_headers"
     },
     {
       "relation": "contains",
@@ -25866,9 +25866,9 @@
       "source_file": "tests\\test_quote_csv_import_route.py",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_quote_csv_import_route_py",
-      "target": "tests_test_quote_csv_import_route_quotecsvimportroutetest",
-      "confidence_score": 1.0
+      "target": "tests_test_quote_csv_import_route_quotecsvimportroutetest"
     },
     {
       "relation": "contains",
@@ -25876,9 +25876,9 @@
       "source_file": "tests\\test_quote_csv_import_route.py",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_quote_csv_import_route_py",
-      "target": "tests_test_quote_csv_import_route_setupclass",
-      "confidence_score": 1.0
+      "target": "tests_test_quote_csv_import_route_setupclass"
     },
     {
       "relation": "method",
@@ -25886,9 +25886,9 @@
       "source_file": "tests\\test_quote_csv_import_route.py",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_quote_csv_import_route_quotecsvimportroutetest",
-      "target": "tests_test_quote_csv_import_route_quotecsvimportroutetest_fake_load",
-      "confidence_score": 1.0
+      "target": "tests_test_quote_csv_import_route_quotecsvimportroutetest_fake_load"
     },
     {
       "relation": "method",
@@ -25896,9 +25896,9 @@
       "source_file": "tests\\test_quote_csv_import_route.py",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_quote_csv_import_route_quotecsvimportroutetest",
-      "target": "tests_test_quote_csv_import_route_quotecsvimportroutetest_test_import_quote_csv_renders_editable_preview",
-      "confidence_score": 1.0
+      "target": "tests_test_quote_csv_import_route_quotecsvimportroutetest_test_import_quote_csv_renders_editable_preview"
     },
     {
       "relation": "contains",
