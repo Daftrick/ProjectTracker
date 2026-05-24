@@ -10904,9 +10904,9 @@
       "source_file": "tests/test_bundles.py",
       "source_location": "L53",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tests_test_bundles_expandquotebundlestest",
-      "target": "tests_test_bundles_expandquotebundlestest_test_seeded_circuit_bundles_expand_catalog_materials",
-      "confidence_score": 1.0
+      "target": "tests_test_bundles_expandquotebundlestest_test_seeded_circuit_bundles_expand_catalog_materials"
     },
     {
       "relation": "contains",
