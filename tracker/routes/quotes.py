@@ -7,26 +7,69 @@ from ..deletions import purge_deleted_catalog_items_from_record
 from ..drive import active_drive_paths, folder_name, latest_dwg_stem, load_config
 from ..form_models import quote_default_numbers, quote_from_form
 from ..pdfs import build_quote_pdf
+from ..quote_csv_import import parse_quote_csv
 from ..storage import load, new_id, save, today
 from ..validators import validate_quote_form
 
 bp = Blueprint("quotes_bp", __name__)
 
 
-def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None):
+def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None, form_action=None):
     return render_template(
         "quote_project_form.html",
         project=project,
         quote=quote,
         today=today(),
         field_errors=field_errors or {},
+        form_action=form_action,
         **quote_default_numbers(project, quotes, quote_id=quote_id),
+    )
+
+
+def _find_project(project_id):
+    return next((item for item in load("projects") if item["id"] == project_id), None)
+
+
+def _quote_preview_from_csv(project, parsed, filename, quotes):
+    metadata = parsed.get("metadata", {})
+    quote_type = quote_type_key(metadata.get("quote_type") or metadata.get("tipo") or "General")
+    date_str = metadata.get("fecha") or metadata.get("date") or today()
+    subtotal = round(sum(safe_float(item.get("total", 0)) for item in parsed.get("items", [])), 2)
+    tax_rate = 16.0
+    notes_parts = [f"Importada desde CSV: {filename}"]
+    if metadata.get("source"):
+        notes_parts.append(f"Origen: {metadata['source']}")
+    if metadata.get("drawing"):
+        notes_parts.append(f"Dibujo: {metadata['drawing']}")
+    return hydrate_quote(
+        {
+            "is_import_preview": True,
+            "project_id": project["id"],
+            "quote_number": next_quote_number(project, quotes, quote_type, date_str),
+            "quote_type": quote_type,
+            "version": metadata.get("version") or project.get("version", ""),
+            "client": project.get("client", ""),
+            "project_name": project.get("name", ""),
+            "date": date_str,
+            "valid_until": "",
+            "items": parsed.get("items", []),
+            "subtotal": subtotal,
+            "tax_rate": tax_rate,
+            "tax": round(subtotal * tax_rate / 100, 2),
+            "total": round(subtotal + subtotal * tax_rate / 100, 2),
+            "currency": metadata.get("currency") or "MXN",
+            "notes": "\n".join(notes_parts),
+            "project_basis_note": "",
+            "csv_origen": filename,
+            "csv_metadata": metadata,
+        },
+        *catalog_maps(),
     )
 
 
 @bp.route("/projects/<project_id>/quote/new", methods=["GET", "POST"], endpoint="new_quote")
 def new_quote(project_id):
-    project = next((item for item in load("projects") if item["id"] == project_id), None)
+    project = _find_project(project_id)
     if not project:
         return redirect(url_for("dashboard"))
     quotes = load("quotes")
@@ -64,11 +107,77 @@ def new_quote(project_id):
             "project_basis_note": validation["project_basis_note"] if quote_type == "Extraordinaria" else "",
             "created_at": today(),
         }
+        csv_origen = request.form.get("csv_origen", "").strip()
+        if csv_origen:
+            quote["csv_origen"] = csv_origen
+            quote["csv_sources"] = [csv_origen]
+            metadata_keys = request.form.getlist("csv_metadata_key[]")
+            metadata_values = request.form.getlist("csv_metadata_value[]")
+            quote["csv_metadata"] = {
+                key.strip(): metadata_values[index].strip()
+                for index, key in enumerate(metadata_keys)
+                if key.strip() and index < len(metadata_values) and metadata_values[index].strip()
+            }
         quotes.append(quote)
         save("quotes", quotes)
         flash(f"Cotización {quote['quote_number']} creada.", "success")
         return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=quote["id"]))
     return _render_quote_form(project, None, quotes)
+
+
+@bp.route("/projects/<project_id>/quote/import", methods=["POST"], endpoint="import_quote_csv")
+def import_quote_csv(project_id):
+    project = _find_project(project_id)
+    if not project:
+        return redirect(url_for("dashboard"))
+    if project.get("closed_at"):
+        flash("El proyecto esta cerrado. Reabrelo para importar una cotizacion.", "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+    uploaded = request.files.get("quote_csv")
+    if not uploaded or not uploaded.filename:
+        flash("Selecciona un CSV COT para importar.", "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+    clean_name = os.path.basename(uploaded.filename)
+    if not clean_name.lower().endswith(".csv"):
+        flash("El archivo debe ser CSV.", "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+    import tempfile
+
+    temp_path = None
+    try:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".csv") as handle:
+            temp_path = handle.name
+            uploaded.save(handle)
+        parsed = parse_quote_csv(temp_path, catalog=load("catalogo"))
+    finally:
+        if temp_path and os.path.exists(temp_path):
+            os.unlink(temp_path)
+
+    if parsed["errors"]:
+        for error in parsed["errors"]:
+            flash(error, "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+    metadata = parsed.get("metadata", {})
+    if metadata.get("proyecto_clave") and metadata["proyecto_clave"] != project.get("clave"):
+        flash("La clave de proyecto indicada en el CSV no coincide con este proyecto.", "warning")
+    missing_catalog = [item for item in parsed["items"] if not item.get("catalog_item_id")]
+    if missing_catalog:
+        flash(f"{len(missing_catalog)} partida(s) no tienen coincidencia exacta en catalogo.", "warning")
+    for warning in parsed.get("warnings", []):
+        flash(warning, "warning")
+
+    quotes = load("quotes")
+    preview = _quote_preview_from_csv(project, parsed, clean_name, quotes)
+    return _render_quote_form(
+        project,
+        preview,
+        quotes,
+        form_action=url_for("quotes_bp.new_quote", project_id=project_id),
+    )
 
 
 @bp.route("/projects/<project_id>/quote/<quote_id>/edit", methods=["GET", "POST"], endpoint="edit_quote")

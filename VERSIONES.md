@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v27.2 — 08-May-2026
+## Versión actual: v28.2 — 23-May-2026
 
 ---
 
@@ -132,7 +132,8 @@ ProjectTracker/
     ├── test_form_models.py            # unittest: view-models de cotización y LDM desde formularios inválidos
     ├── test_project_detail_bundle_ui.py  # unittest: render de la sección técnica de bundles en project_detail
     ├── test_materials_csv_export.py      # unittest: exportación CSV de LDM existente
-    └── test_ldm_sync.py                  # unittest: sincronización parcial LDM desde bundles
+    ├── test_ldm_sync.py                  # unittest: sincronización parcial LDM desde bundles
+    └── test_tube_fixtures.py             # unittest: fixtures CSV LDM y COT para tubería (13+2 LDM, 11+3 COT)
 ```
 
 ---
@@ -447,6 +448,19 @@ Reglas de portada PDF:
 | 2026-05-08 | Cotizaciones: ordenar una sección desde el formulario mueve el bloque completo (encabezado + partidas) y preserva la sección de cada partida al guardar, manteniendo reflejo consistente en vista previa y PDF sin salto de página forzado por sección |
 | 2026-05-08 | Tests: nuevo `tests/test_quote_sections.py` cubre agrupación contigua de secciones y presencia de los helpers de template para reconstrucción/ordenamiento |
 | 2026-05-08 | Versión bumped v27.1 → v27.2 (patch: secciones de cotización capturables y ordenables de forma estable) |
+| 2026-05-23 | **LISP — COT simbología: rediseño completo** (`Lisp/CedulaRecTables.lsp`). `crt-cot-sym-collect-from-ss` ahora genera descripciones 100 % fijas del catálogo; elimina helpers `crt-cot-desc-*`. Lógica: SMB01/VAR/PZ/CONTACTO dedicado/APAGADOR dedicado → clave fija `SALLUM` + `INSTLUM`; SMB02 TAG∈A → `APA`, TAG∈C → `CTK`; SMB03 no-LED → `SALLUM`+`INSTLUM`, SMB03 LED → `SALLUM`+`INSTLED` (ML por LONGITUD). Claves fijas evitan acumulación duplicada entre bloques del mismo tipo. |
+| 2026-05-23 | **LISP — cable COT**: `crt-cable-commercial-description` simplificada para delegar en `crt-cable-description`; `crt-cb-make-commercial-rows` exporta unidad `"m"` (antes `"ML"`). Resultado: 29/29 descripciones de cable COT coinciden exactamente con el catálogo LDM, habilitando auto-vinculación en importación. |
+| 2026-05-23 | **Catálogo (`data/catalogo.json`)**: 494 artículos totales (472 → 494). Eliminados 7 cables desnudo fuera de alcance (calibres 2 AWG–4/0 AWG de aluminio ≥6 AWG y desnudo >14 AWG); agregados 5 cables desnudo (14–6 AWG) con IDs SHA1. Unidad corregida: `C61F3E26` (Metálico Flexible 35mm) pza→ml. +10 entradas de tubería de sesiones anteriores. +14 entradas de accesorios (PAD/Flexible 35mm/41mm/63mm: junta, conector, copa, reducción, tapón). |
+| 2026-05-23 | **Tests** (`tests/test_tube_fixtures.py`): nuevo archivo con 29 tests para tubería LDM y COT. LDM: 13 tests individuales por tipo/diámetro + 2 de integración (mixto, metadatos). COT: 11 tests individuales + 3 de integración (metadatos, mixto, redondeo). Usa `csv.writer` para escape correcto de `"` en símbolos de pulgada como `(1")`. 153/153 tests pasan. |
+| 2026-05-23 | Versión bumped v27.2 → v28.0 (feature: COT simbología con catálogo fijo, fix cable COT, limpieza catálogo desnudo/accesorios, fixtures de tubería) |
+| 2026-05-23 | **COT import / catálogo**: `catalog_name_key` ahora normaliza acentos y separadores (`|`, paréntesis, corchetes, comillas y signos) para que el auto-link sea tolerante a variantes del CSV LISP sin perder coincidencia exacta por palabras. |
+| 2026-05-23 | **Catálogo simbología COT**: agregados conceptos fijos `SALLUM`, `INSTLUM`, `INSTLED`, `CTK`, `APA` para linkeo automático de SMB01, SMB02, SMB03 LED y SMB03 no-LED al importar COT. Catálogo total: 499 artículos. |
+| 2026-05-23 | **Tests** (`tests/test_quote_csv_import.py`): fixtures COT de simbología para SMB01, SMB02, SMB03-LED y SMB03 no-LED; cubren linkeo automático de `SALLUM`, `INSTLUM`, `INSTLED`, `CTK`, `APA` y normalización de acentos/separadores. |
+| 2026-05-23 | Versión bumped v28.0 → v28.1 (patch: auto-vinculación robusta de simbología COT) |
+| 2026-05-23 | **Verificaciones roadmap**: `CEDULARECEXPORTTAKEOFF` queda retirado del flujo activo; el redondeo operativo queda pendiente hasta cerrar bundles/reglas reales; nombres COT confirmados para SMB01/SMB02/SMB03/VAR/PZ/CONTACTO/APAGADOR, pendientes sólo especiales y HVAC. |
+| 2026-05-23 | **Bundles reales iniciales** (`data/bundles.json`): sembrados bundles activos para `Desarrollo de Circuito Eléctrico` sin tubería de Iluminación, Contactos y HVAC usando cantidades explícitas de catálogo: THHW-LS 12/10/8 AWG y desnudo 12 AWG. |
+| 2026-05-23 | **Tests** (`tests/test_bundles.py`): se valida que los bundles sembrados expanden una COT a materiales LDM esperados y agregan correctamente el conductor desnudo compartido. |
+| 2026-05-23 | Versión bumped v28.1 → v28.2 (patch: bundles reales iniciales para circuitos sin tubería) |
 | 2026-05-03 | Sistema completo de auditoría de catálogo eliminado: función `audit_deleted_catalog_items()` para analizar cotizaciones y LDMs con referencias obsoletas |
 | 2026-05-03 | Gestión visual de catálogo eliminado: badges con fecha de eliminación, indicadores visuales en filas problemáticas, estados diferenciados (sin resolver/preservado/normal) |
 | 2026-05-03 | Flujo de tres acciones para catálogo eliminado: preservar histórica (conservar referencia), reconectar a nuevo artículo, purgar definitivamente |
@@ -655,8 +669,9 @@ Reglas de portada PDF:
 ## Pendientes / En desarrollo
 
 **Alta prioridad:**
+- Validar `CEDULARECEXPORTCOT` con planos reales en AutoCAD (Fase 2 del ROADMAP_INTEGRACION_LISP_CSV_APP).
 - Probar bundles reales en proyectos existentes y ajustar reglas de equivalencia COT/LDM.
-- Evaluar siguiente fase de sincronización: auto-fill al crear una LDM nueva y/o asistentes por proveedor sin mezclar partidas entre proveedores.
+- Completar bundles de salidas: las COT de salidas incluyen metros de cable, tubería y accesorios para LDM; falta definir cantidades/componentes por familia.
 
 **Media prioridad (ver `ROADMAP_MEJORAS.md`):**
 - Continuar filtros y búsqueda en cotizaciones, LDMs y documentos.

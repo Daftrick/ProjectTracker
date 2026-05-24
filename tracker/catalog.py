@@ -1,3 +1,6 @@
+import re
+import unicodedata
+
 from flask import request
 
 from .storage import load, save, today
@@ -47,7 +50,9 @@ def quote_type_code(value):
 
 
 def catalog_name_key(text):
-    return " ".join(sanitize_pdf_text(text).lower().split())
+    normalized = unicodedata.normalize("NFKD", sanitize_pdf_text(text).casefold())
+    ascii_text = "".join(char for char in normalized if not unicodedata.combining(char))
+    return " ".join(re.sub(r"[^a-z0-9]+", " ", ascii_text).split())
 
 
 def catalog_description_lookup():

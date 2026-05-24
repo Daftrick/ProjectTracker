@@ -33,9 +33,19 @@ def _parse_float(value, row_number, errors):
         return 0.0
 
 
+_ENCODING_ERROR = (
+    "El CSV tiene codificación no compatible (posiblemente ANSI/cp1252). "
+    "Verifica que AutoCAD pudo escribir el archivo en UTF-8. "
+    "Si el problema persiste, abre el CSV en un editor de texto y guárdalo como UTF-8."
+)
+
+
 def _read_sample(path):
-    with open(path, "r", encoding="utf-8-sig", newline="") as handle:
-        return handle.read(4096)
+    try:
+        with open(path, "r", encoding="utf-8-sig", newline="") as handle:
+            return handle.read(4096)
+    except UnicodeDecodeError:
+        return None
 
 
 def _detect_dialect(path):
@@ -79,47 +89,50 @@ def parse_ldm_csv(path, catalog=None):
     metadata = {}
     errors = []
 
-    with open(path, "r", encoding="utf-8-sig", newline="") as handle:
-        reader = csv.DictReader(handle, dialect=dialect)
-        if not reader.fieldnames:
-            return {"items": [], "metadata": {}, "errors": ["El CSV no tiene encabezados."]}
+    try:
+        with open(path, "r", encoding="utf-8-sig", newline="") as handle:
+            reader = csv.DictReader(handle, dialect=dialect)
+            if not reader.fieldnames:
+                return {"items": [], "metadata": {}, "errors": ["El CSV no tiene encabezados."]}
 
-        headers = {_header_key(name) for name in reader.fieldnames}
-        if not headers.intersection(LDM_DESCRIPTION_COLUMNS):
-            errors.append("El CSV debe incluir una columna description o descripcion.")
-        if not headers.intersection(LDM_QTY_COLUMNS):
-            errors.append("El CSV debe incluir una columna qty o cantidad.")
-        if errors:
-            return {"items": [], "metadata": {}, "errors": errors}
+            headers = {_header_key(name) for name in reader.fieldnames}
+            if not headers.intersection(LDM_DESCRIPTION_COLUMNS):
+                errors.append("El CSV debe incluir una columna description o descripcion.")
+            if not headers.intersection(LDM_QTY_COLUMNS):
+                errors.append("El CSV debe incluir una columna qty o cantidad.")
+            if errors:
+                return {"items": [], "metadata": {}, "errors": errors}
 
-        for row_number, row in enumerate(reader, start=2):
-            description = _first_value(row, LDM_DESCRIPTION_COLUMNS)
-            unit = _first_value(row, LDM_UNIT_COLUMNS) or "pza"
-            qty_raw = _first_value(row, LDM_QTY_COLUMNS)
-            if not any(_clean(value) for value in row.values()):
-                continue
-            if description.startswith("#"):
-                key = description.lstrip("#").strip().lower()
-                values = [_clean(value) for value in row.values()]
-                metadata[key] = next((value for value in values[1:] if value), "")
-                continue
-            if not description:
-                errors.append(f"Fila {row_number}: descripción es requerida.")
-                continue
-            qty = _parse_float(qty_raw, row_number, errors)
-            if qty <= 0:
-                errors.append(f"Fila {row_number}: cantidad debe ser mayor a 0.")
-            items.append({
-                "description": description,
-                "unit": unit,
-                "qty": qty,
-                "precio_cot": 0.0,
-                "total_cot": 0.0,
-                "qty_csv": qty,
-                "qty_editada": False,
-                "origen": "csv",
-                "catalog_item_id": _match_catalog(description, catalog_index),
-            })
+            for row_number, row in enumerate(reader, start=2):
+                description = _first_value(row, LDM_DESCRIPTION_COLUMNS)
+                unit = _first_value(row, LDM_UNIT_COLUMNS) or "pza"
+                qty_raw = _first_value(row, LDM_QTY_COLUMNS)
+                if not any(_clean(value) for value in row.values()):
+                    continue
+                if description.startswith("#"):
+                    key = description.lstrip("#").strip().lower()
+                    values = [_clean(value) for value in row.values()]
+                    metadata[key] = next((value for value in values[1:] if value), "")
+                    continue
+                if not description:
+                    errors.append(f"Fila {row_number}: descripción es requerida.")
+                    continue
+                qty = _parse_float(qty_raw, row_number, errors)
+                if qty <= 0:
+                    errors.append(f"Fila {row_number}: cantidad debe ser mayor a 0.")
+                items.append({
+                    "description": description,
+                    "unit": unit,
+                    "qty": qty,
+                    "precio_cot": 0.0,
+                    "total_cot": 0.0,
+                    "qty_csv": qty,
+                    "qty_editada": False,
+                    "origen": "csv",
+                    "catalog_item_id": _match_catalog(description, catalog_index),
+                })
+    except UnicodeDecodeError:
+        return {"items": [], "metadata": {}, "errors": [_ENCODING_ERROR]}
 
     if not items and not errors:
         errors.append("El CSV no contiene artículos para importar.")

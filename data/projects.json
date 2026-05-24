@@ -75,7 +75,6 @@
       "iluminacion",
       "contactos",
       "hvac",
-      "emergencia",
       "cuadro_cargas",
       "diagrama_unifilar",
       "cotizacion"
@@ -99,5 +98,20 @@
     "folder_num": "005",
     "closed_at": null,
     "created_at": "2026-04-30"
+  },
+  {
+    "id": "CC59E153",
+    "name": "Arcos Bosques",
+    "clave": "ArcosBosques",
+    "client": "Cliente Privado",
+    "version": "V1",
+    "fecha": "260519",
+    "alcances": [
+      "cotizacion"
+    ],
+    "notes": "Proyecto de Remodelación de Plaza Comercial",
+    "folder_num": "006",
+    "closed_at": null,
+    "created_at": "2026-05-19"
   }
 ]

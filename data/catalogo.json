@@ -162,15 +162,6 @@
     "categoria": ""
   },
   {
-    "id": "7B7F4147",
-    "nombre": "Cable de Cobre | Desnudo | Calibre 10 AWG",
-    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "m",
-    "precio": 0.0,
-    "created_at": "2026-04-20",
-    "categoria": ""
-  },
-  {
     "id": "DE9EF199",
     "nombre": "Zapata Terminal Ponchable | Calibre 10 AWG",
     "descripcion": "Burndy | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
@@ -931,51 +922,6 @@
     "nombre": "Abrazadera Tipo Uña | 103 [mm] (4\")",
     "descripcion": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
     "unidad": "pza",
-    "precio": 0.0,
-    "created_at": "2026-04-22",
-    "categoria": ""
-  },
-  {
-    "id": "EBB67A73",
-    "nombre": "Cable de Cobre | Desnudo | Calibre 18 AWG",
-    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "m",
-    "precio": 0.0,
-    "created_at": "2026-04-21",
-    "categoria": ""
-  },
-  {
-    "id": "94F9F3D2",
-    "nombre": "Cable de Cobre | Desnudo | Calibre 14 AWG",
-    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "m",
-    "precio": 0.0,
-    "created_at": "2026-04-21",
-    "categoria": ""
-  },
-  {
-    "id": "41C2A601",
-    "nombre": "Cable de Cobre | Desnudo | Calibre 12 AWG",
-    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "m",
-    "precio": 0.0,
-    "created_at": "2026-04-22",
-    "categoria": ""
-  },
-  {
-    "id": "C53A7E82",
-    "nombre": "Cable de Cobre | Desnudo | Calibre 8 AWG",
-    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "m",
-    "precio": 0.0,
-    "created_at": "2026-04-22",
-    "categoria": ""
-  },
-  {
-    "id": "CB63E0F6",
-    "nombre": "Cable de Cobre | Desnudo | Calibre 6 AWG",
-    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
     "categoria": ""
@@ -3222,15 +3168,6 @@
     "categoria": ""
   },
   {
-    "id": "DB240F97",
-    "nombre": "Cable de Cobre | Desnudo | Calibre 16 AWG",
-    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "m",
-    "precio": 0.0,
-    "created_at": "2026-04-21",
-    "categoria": ""
-  },
-  {
     "id": "405C472A",
     "nombre": "Cable de Cobre | THHW-LS | Calibre 16 AWG",
     "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
@@ -4066,5 +4003,491 @@
     "precio": 100.0,
     "categoria": "Mano de Obra",
     "created_at": "2026-04-30"
+  },
+  {
+    "id": "68F0D390",
+    "nombre": "Soporte Caddy TSGB16 | 11 a 18\"",
+    "descripcion": "Caddy | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 135.1,
+    "categoria": "",
+    "created_at": "2026-05-18"
+  },
+  {
+    "id": "4F73D293",
+    "nombre": "Salida Eléctrica para Cámara de Seguridad en Muro o Plafón",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-19"
+  },
+  {
+    "id": "8D6668BE",
+    "nombre": "Salida Eléctrica para Audio en Muro, Piso o Plafón",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-19"
+  },
+  {
+    "id": "76A1B25A",
+    "nombre": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-19"
+  },
+  {
+    "id": "F91F586D",
+    "nombre": "Salida Eléctrica para Botonera en Muro",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-19"
+  },
+  {
+    "id": "86F13521",
+    "nombre": "Salida Eléctrica para Detección Contra Incendio",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-19"
+  },
+  {
+    "id": "CCDD4939",
+    "nombre": "Perfil Unicanal Liso | 4x4 [cm] | Tramo de 3 [m]",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-19"
+  },
+  {
+    "id": "C61F3E26",
+    "nombre": "Metro Lineal de Tubería Conduit Metálico Flexible | 35 [mm] (1 1/4\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "ml",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-19"
+  },
+  {
+    "id": "193C2A83",
+    "nombre": "Tubo Conduit Metálico Flexible | 35 [mm] (1 1/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-19"
+  },
+  {
+    "id": "F3773E8E",
+    "nombre": "Transformador Radial Trifásico | Tipo Pedestal | Delta - Estrella | 23 [KV] - 220/127 [V]",
+    "descripcion": "Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-22"
+  },
+  {
+    "id": "E2278041",
+    "nombre": "Codo Portafusible | Clase 25 [KV] | 200 [A] | Fusible Largo",
+    "descripcion": "Chardon | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-22"
+  },
+  {
+    "id": "EDCA6C13",
+    "nombre": "Tapón Aislado OCC | Clase 25 [KV] | 200 [A]",
+    "descripcion": "Chardon | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-22"
+  },
+  {
+    "id": "0ADF9E4C",
+    "nombre": "Fusible Largo Para Codo Portafusible | Clase 25 [KV] | 6 [A]",
+    "descripcion": "Chardon | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-22"
+  },
+  {
+    "id": "EBEE2D2A",
+    "nombre": "Adaptador de Tierra | Clase 25 [KV]",
+    "descripcion": "Chardon | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-22"
+  },
+  {
+    "id": "2E2060D5",
+    "nombre": "Boquilla Tipo Inserto | Clase 25 [KV] | 200 [A]",
+    "descripcion": "Chardon | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-22"
+  },
+  {
+    "id": "07546CE6",
+    "nombre": "Cable de Cobre | XLPE | Calibre 1/0 AWG",
+    "descripcion": "Condumex | Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "m",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-22"
+  },
+  {
+    "id": "8FF3CBD2",
+    "nombre": "Cable de Aluminio | XHHW-LS | MC4 | Calibre 4/0 AWG",
+    "descripcion": "Condumex | Incluye Sumnistro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-22"
+  },
+  {
+    "id": "6DF469AF",
+    "nombre": "Cable de Aluminio | XHHW-LS | MC4 | Calibre 1/0 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-22"
+  },
+  {
+    "id": "D5585156",
+    "nombre": "Cable de Aluminio | XHHW-LS | MC4 | Calibre 2 AWG",
+    "descripcion": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-22"
+  },
+  {
+    "id": "CD547D4A",
+    "nombre": "Tablero I-Line | LA400M81B | 8 Espacios | 400 [A] | 600 [V] | Interruptor Principal",
+    "descripcion": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-05-22"
+  },
+  {
+    "id": "3E6A5776",
+    "nombre": "Metro Lineal de Tubería Conduit Galvanizado Pared Gruesa | 63 [mm] (2 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "ml",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "846D8E87",
+    "nombre": "Metro Lineal de Tubería Conduit PVC SP | 63 [mm] (2 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "ml",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "490E6DE2",
+    "nombre": "Metro Lineal de Tubería Conduit PAD Flexible Corrugado | 35 [mm] (1 1/4\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "ml",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "99092AF2",
+    "nombre": "Metro Lineal de Tubería Conduit PAD Flexible Corrugado | 41 [mm] (1 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "ml",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "A0CB20A9",
+    "nombre": "Metro Lineal de Tubería Conduit PAD Flexible Corrugado | 63 [mm] (2 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "ml",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "03BEA0E3",
+    "nombre": "Metro Lineal de Tubería Conduit Metálico Flexible | 41 [mm] (1 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "ml",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "35B36A01",
+    "nombre": "Metro Lineal de Tubería Conduit Metálico Flexible | 63 [mm] (2 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "ml",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "5529E709",
+    "nombre": "Metro Lineal de Tubería Conduit Flexible Licuatite | 35 [mm] (1 1/4\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "ml",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "4392C851",
+    "nombre": "Metro Lineal de Tubería Conduit Flexible Licuatite | 41 [mm] (1 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "ml",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "CE2F93DF",
+    "nombre": "Metro Lineal de Tubería Conduit Flexible Licuatite | 63 [mm] (2 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "ml",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "686902D4",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 14 AWG",
+    "descripcion": "Omniious | Incluye instalacion",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "2325432B",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 12 AWG",
+    "descripcion": "Omniious | Incluye instalacion",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "B9E8B721",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 10 AWG",
+    "descripcion": "Omniious | Incluye instalacion",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "F6A7AA34",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 8 AWG",
+    "descripcion": "Omniious | Incluye instalacion",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "5FED1838",
+    "nombre": "Cable de Cobre | Desnudo | Calibre 6 AWG",
+    "descripcion": "Omniious | Incluye instalacion",
+    "unidad": "m",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "BF9F8686",
+    "nombre": "Conector Universal PAD | 35 [mm] (1 1/4\")",
+    "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "434BDB46",
+    "nombre": "Conector Recto Metálico para Tubo Conduit Flexible | 35 [mm] (1 1/4\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "BB983E3F",
+    "nombre": "Conector Universal PAD | 41 [mm] (1 1/2\")",
+    "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "BD632F64",
+    "nombre": "Conector Recto Metálico para Tubo Conduit Flexible | 41 [mm] (1 1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "A803BBD7",
+    "nombre": "Monitor Metálico Galvanizado Pared Gruesa | 63 [mm] (2 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "A71668E8",
+    "nombre": "Monitor PVC SP | 63 [mm] (2 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "4384EC2A",
+    "nombre": "Conector Metálico Galvanizado Pared Gruesa | 63 [mm] (2 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "D0664059",
+    "nombre": "Conector Conduit PVC SP | 63 [mm] (2 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "B473466C",
+    "nombre": "Conector Universal PAD | 63 [mm] (2 1/2\")",
+    "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "2FCC44C7",
+    "nombre": "Conector Recto Metálico para Tubo Conduit Flexible | 63 [mm] (2 1/2\")",
+    "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "A4A77BF0",
+    "nombre": "Cople Metálico Galvanizado Pared Gruesa con Tornillo | 63 [mm] (2 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "3ECFBBAE",
+    "nombre": "Cople PVC SP | 63 [mm] (2 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "F063B1A1",
+    "nombre": "Codo Conduit Galvanizado Pared Gruesa | 63 [mm] (2 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "4F080570",
+    "nombre": "Codo Conduit PVC SP | 63 [mm] (2 1/2\")",
+    "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": ""
+  },
+  {
+    "id": "SALLUM",
+    "nombre": "Salida Eléctrica para Luminaria",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": "Simbología COT"
+  },
+  {
+    "id": "INSTLUM",
+    "nombre": "Instalación de Luminaria",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": "Simbología COT"
+  },
+  {
+    "id": "INSTLED",
+    "nombre": "Instalación de Metro Lineal de Tira LED",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "ml",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": "Simbología COT"
+  },
+  {
+    "id": "CTK",
+    "nombre": "Salida Eléctrica para Contacto",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": "Simbología COT"
+  },
+  {
+    "id": "APA",
+    "nombre": "Salida Eléctrica para Apagador",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "created_at": "2026-05-23",
+    "categoria": "Simbología COT"
   }
 ]

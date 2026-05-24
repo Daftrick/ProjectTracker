@@ -30,17 +30,26 @@ materiales de compra para LDM, aunque los articulos no sean los mismos.
    - Deben incluir contratos simples y repetibles.
    - La app debe mostrar origen, fecha, proyecto, proveedor/tipo y diferencias detectadas.
 
-5. **Primero comparaciones simples; despues automatizacion.**
-   - Antes de leer mas familias de bloques, validar conversiones basicas y diferencias COT/LDM.
-   - La sincronizacion automatica debe llegar despues de que las reglas sean confiables.
+5. **Las comparaciones oficiales viven en la app.**
+   - LISP extrae hechos del dibujo: salidas, dispositivos, longitudes, atributos, layers y contexto.
+   - ProjectTracker interpreta esos hechos con catalogo, bundles, reglas COT/LDM y tolerancias.
+   - Cualquier comparativo generado en AutoCAD queda como diagnostico local, no como fuente oficial.
 
 ---
 
 ## Estado actual
+<!-- Última revisión: 2026-05-23 — verificado contra código fuente -->
 
 ### Ya disponible en ProjectTracker
 
-- Importacion LDM desde CSV detectado en carpeta de proyecto.
+- **Importacion LDM desde CSV** — ruta `GET/POST /projects/<id>/ldm/import/<filename>` operativa.
+  - Detecta CSVs en carpeta Drive del proyecto con patrón `{CLAVE}-v{VER}-i{CONSEC}-{YYYYMMDD}.csv` (case-insensitive).
+  - Llama a `parse_ldm_csv` con catálogo; muestra preview editable con proveedor/fecha pre-poblados desde metadatos `#`.
+  - Detecta reimportaciones duplicadas por nombre de archivo.
+- **Importacion COT desde CSV** — ruta `POST /projects/<id>/quote/import` operativa.
+  - Acepta upload directo desde browser (multipart); usa `tempfile` y lo borra después de parsear.
+  - Llama a `parse_quote_csv`; muestra preview con campo `price` editable (acepta `price` vacío sin error).
+  - Advierte partidas duplicadas y sin catálogo sin bloquear la importación.
 - Exportacion CSV de LDM existente.
 - Catalogo con articulos comerciales y tecnicos.
 - Bundles versionados: articulo COT → componentes tecnicos esperados.
@@ -54,16 +63,29 @@ materiales de compra para LDM, aunque los articulos no sean los mismos.
 - Tabla/CSV LDM con cableado, tuberia y soporteria/accesorios.
 - Exportacion ProjectTracker LDM con contrato `description,unit,qty`.
 - Primera salida COT para tuberia por metro lineal.
-- Tabla comparativa simple COT/LDM para tuberia.
+- Tabla comparativa simple COT/LDM para tuberia como diagnostico local.
 - Exportacion COT inicial con contrato `description,unit,qty,price`.
+- Separador decimal garantizado con punto: `omm-repl-coma-punto` en Utils.lsp normaliza
+  cualquier coma decimal antes de escribir al CSV (la app también tiene su propio `replace(",",".")`
+  como segunda capa de protección).
+- **COT simbología completa** (`crt-cot-sym-collect-from-ss`): genera conceptos comerciales con
+  descripciones fijas del catálogo. SMB01/VAR/PZ → `Salida Eléctrica para Luminaria` + `Instalación de Luminaria`;
+  SMB02 TAG∈A → `Salida Eléctrica para Apagador`, TAG∈C → `Salida Eléctrica para Contacto`;
+  SMB03 LED → `Salida Eléctrica para Luminaria` + `Instalación de Metro Lineal de Tira LED` (ML);
+  SMB03 no-LED → igual que SMB01. Bloques CONTACTO/APAGADOR dedicados mapeados a la misma clave fija.
+- **Nombres de cable COT** idénticos al catálogo LDM (unidad `m`); auto-vinculación en importación.
+- **Catálogo** (494 artículos): cables desnudo 14–6 AWG, tubería conduit todos los tipos/diámetros,
+  accesorios PAD/Flexible 35/41/63 mm, corrección de unidad Metálico Flexible 35mm.
+- `CEDULARECEXPORTTAKEOFF` queda fuera del flujo activo: el CSV TAKEOFF fue eliminado y no debe usarse como criterio de aceptación.
 
 ### Huecos principales
 
-- La app aun no tiene un flujo completo de importacion de CSV COT desde UI.
 - Falta una matriz formal de mapeo bloque/atributo → concepto COT → bundle → materiales LDM.
 - Falta leer bloques adicionales para salidas de iluminacion, contactos y HVAC.
 - Faltan bundles reales completos para todos los conceptos comerciales recurrentes.
 - Falta una validacion automatica de CSVs LISP antes de importarlos.
+- El LISP aun no incluye metadatos `#proyecto_clave`, `#proveedor`, etc. en el CSV LDM;
+  agregarlos permitiria que la app pre-pueble proyecto/proveedor en el preview.
 
 ---
 
@@ -121,9 +143,19 @@ Criterios:
 - La app calcula `total`, subtotal, IVA y total final.
 - La app asigna `quote_number`, cliente, proyecto y fecha final.
 
+### CSV TAKEOFF / facts — retirado
+
+Estado: retirado del flujo activo. El CSV TAKEOFF fue eliminado; no debe usarse como
+contrato vigente ni como requisito para cerrar la integración LISP/App.
+
+Criterio actual:
+
+- La explicación COT → LDM vive en ProjectTracker mediante catálogo, bundles y reglas COT/LDM.
+- AutoCAD/LISP sólo debe emitir COT/LDM y, si aporta valor operativo, comparativos diagnósticos temporales.
+
 ### CSV Comparativo Simple
 
-Uso: diagnostico temporal antes de que todo viva en bundles/reglas.
+Uso: diagnostico local temporal. No es fuente oficial de comparacion.
 
 Columnas sugeridas:
 
@@ -133,8 +165,9 @@ cot_description,cot_unit,cot_qty,ldm_description,ldm_unit,ldm_qty,factor,delta
 
 Criterios:
 
-- No necesariamente se importa como entidad final.
-- Sirve para revisar conversiones y detectar diferencias antes de configurar bundles.
+- No se importa como entidad final.
+- No debe duplicar reglas/bundles de ProjectTracker.
+- Sirve solo para revisar visualmente en AutoCAD durante transicion.
 
 ---
 
@@ -144,13 +177,13 @@ Criterios:
 
 Objetivo: dejar cerrada la base de intercambio LISP/App.
 
-- [ ] Actualizar `REFERENCIA_ESTRUCTURAS_CSV.txt` con contratos finales COT, LDM y comparativo.
-- [ ] Definir convencion de nombres de archivos:
+- [x] Actualizar `REFERENCIA_ESTRUCTURAS_CSV.txt` con contratos LDM, COT y comparativo diagnostico.
+- [x] Definir convencion de nombres de archivos (compatible con detección automática de la app, case-insensitive):
   - LDM: `{CLAVE}-V{VERSION}-I{CONSECUTIVO}-{YYYYMMDD}.csv`
   - COT: `{CLAVE}-V{VERSION}-I{CONSECUTIVO}-COT-{YYYYMMDD}.csv`
-  - Comparativo: `{CLAVE}-V{VERSION}-I{CONSECUTIVO}-CMP-{YYYYMMDD}.csv`
-- [ ] Definir metadatos aceptados por tipo de CSV.
-- [ ] Documentar columnas obligatorias, opcionales y tolerancias.
+  - Comparativo diagnostico: `{CLAVE}-V{VERSION}-I{CONSECUTIVO}-CMP-{YYYYMMDD}.csv`
+- [x] Definir metadatos aceptados por tipo de CSV (ver REFERENCIA_ESTRUCTURAS_CSV.txt).
+- [x] Documentar columnas obligatorias, opcionales y tolerancias.
 - [ ] Definir como se resuelve proyecto cuando el CSV solo trae `proyecto_clave`.
 
 Criterio de aceptacion:
@@ -163,19 +196,19 @@ Criterio de aceptacion:
 
 Objetivo: que ProjectTracker pueda crear una cotizacion desde CSV LISP.
 
-- [ ] Crear parser `tracker/quote_csv_import.py`.
-- [ ] Aceptar `description,unit,qty,price`.
-- [ ] Aceptar encabezados en ingles y variantes razonables en espanol.
-- [ ] Aceptar `price` faltante y tratarlo como `0.00`.
-- [ ] Leer metadatos `#proyecto_clave`, `#quote_type`, `#fecha`, `#source`, `#drawing`.
-- [ ] Vincular filas al catalogo por nombre normalizado.
-- [ ] Crear cotizacion General o Extraordinaria segun metadata/UI.
-- [ ] Mostrar vista previa antes de guardar:
+- [x] Crear parser `tracker/quote_csv_import.py`.
+- [x] Aceptar `description,unit,qty,price`.
+- [x] Aceptar encabezados en ingles y variantes razonables en espanol.
+- [x] Aceptar `price` faltante y tratarlo como `0.00`.
+- [x] Leer metadatos `#proyecto_clave`, `#quote_type`, `#fecha`, `#source`, `#drawing`.
+- [x] Vincular filas al catalogo por nombre normalizado.
+- [x] Crear cotizacion General o Extraordinaria segun metadata/UI.
+- [x] Mostrar vista previa antes de guardar:
   - filas vinculadas al catalogo,
   - filas sin catalogo,
   - totales,
   - advertencias de duplicados.
-- [ ] Agregar pruebas unitarias de parser y ruta.
+- [x] Agregar pruebas unitarias de parser y ruta.
 
 Criterio de aceptacion:
 
@@ -183,22 +216,24 @@ Criterio de aceptacion:
 
 ---
 
-### Fase 2 — LISP: salida COT estable por tuberia
+### Fase 2 — LISP: salida COT estable por tuberia y simbología
 
-Objetivo: madurar la primera familia comercial ya iniciada.
+Objetivo: madurar las familias comerciales de tubería, cable y simbología.
 
 - [ ] Validar en AutoCAD `CEDULARECEXPORTCOT` con planos reales.
-- [ ] Validar `CEDULARECCOMPARATABLE` con varios diametros y tipos de tuberia.
-- [ ] Agregar exportacion CSV del comparativo simple si aporta valor operativo.
-- [ ] Confirmar nombres comerciales contra catalogo:
-  - `Metro Lineal de Tuberia Conduit ...`
-  - variantes PD, PG, PVC, PAD, flexible galvanizada, licuatite.
-- [ ] Definir si la COT tuberia debe incluir solo metro lineal o tambien partidas de instalacion adicionales.
-- [ ] Revisar redondeo: COT conserva metros reales; LDM compra piezas/tramos.
+- [x] Retirar `CEDULARECEXPORTTAKEOFF` del flujo activo; el CSV fue eliminado y no sirve como contrato vigente. ✅ 2026-05-23
+- [ ] Mantener `CEDULARECCOMPARATABLE` solo como diagnostico local si aporta valor operativo.
+- [x] Confirmar nombres comerciales de tubería contra catalogo (todas las variantes PD, PG, PVC, PAD, flexible galvanizada, licuatite). ✅ 2026-05-23
+- [x] Confirmar nombres de cable COT contra catálogo; `crt-cable-commercial-description` delegada a `crt-cable-description`, unidad `m`. ✅ 2026-05-23
+- [x] Catálogo actualizado con tubería, accesorios, desnudo 14–6 AWG (494 artículos). ✅ 2026-05-23
+- [x] COT simbología (`crt-cot-sym-collect-from-ss`) con descripciones fijas del catálogo para luminarias, apagadores, contactos y tiras LED. ✅ 2026-05-23
+- [x] Fixtures tests tubería LDM/COT (29 tests, 153/153 total pasan). ✅ 2026-05-23
+- [ ] Revisar redondeo operativo cuando existan bundles/reglas reales: COT conserva metros reales; LDM compra piezas/tramos/rollos/paquetes.
+- [x] Definir alcance COT de salidas: incluye metros de cable, tubería y accesorios para LDM; la generación correcta queda pendiente de bundles. ✅ 2026-05-23
 
 Criterio de aceptacion:
 
-- Para un conjunto de cedulas, la suma COT en metros lineales y la LDM en piezas/tramos se explican con una diferencia visible y tolerable.
+- Para un conjunto de cedulas, `CEDULARECEXPORTCOT` genera COT importable y ProjectTracker explica COT → LDM esperada mediante bundles y reglas.
 
 ---
 
@@ -206,7 +241,8 @@ Criterio de aceptacion:
 
 Objetivo: decidir como se leeran salidas de iluminacion, contactos y HVAC.
 
-- [ ] Inventariar bloques reales del DWG:
+- [x] Confirmar nombres ya soportados por `CEDULARECEXPORTCOT`: SMB01, SMB02, SMB03, VAR, PZ, CONTACTO y APAGADOR. ✅ 2026-05-23
+- [ ] Inventariar bloques reales pendientes del DWG:
   - nombre efectivo,
   - atributos,
   - layer,
@@ -214,8 +250,7 @@ Objetivo: decidir como se leeran salidas de iluminacion, contactos y HVAC.
   - cantidad esperada.
 - [ ] Crear matriz `bloque/atributos/layer → concepto COT`.
 - [ ] Definir familias iniciales:
-  - Salida Electrica para Luminaria.
-  - Salida Electrica para Contacto.
+  - Especiales de salidas/dispositivos.
   - Salida Electrica para Equipo de HVAC.
   - Contacto Duplex / Decora / GFCI / USB cuando aplique.
   - Desarrollo de Circuito Electrico para Iluminacion/Contactos/HVAC.
@@ -258,7 +293,7 @@ Objetivo: que la app pueda explicar tecnicamente cada partida COT.
 - [ ] Crear bundles para salida de luminaria.
 - [ ] Crear bundles para salida de contacto.
 - [ ] Crear bundles para salida HVAC.
-- [ ] Crear bundles para desarrollo de circuito sin tuberia, si aplica.
+- [x] Crear bundles iniciales para desarrollo de circuito sin tubería: iluminación, contactos y HVAC, con componentes tomados de la descripción del catálogo. ✅ 2026-05-23
 - [ ] Validar componentes:
   - tuberia,
   - cable,
@@ -397,37 +432,38 @@ Criterio de aceptacion:
 
 ## Orden recomendado de ejecucion
 
-1. Cerrar Fase 0 con contratos definitivos.
-2. Implementar Fase 1 para importar COT CSV en la app.
-3. Probar Fase 2 en AutoCAD con tuberia real.
-4. Levantar matriz de bloques reales para Fase 3.
-5. Implementar lector extensible de salidas en Fase 4.
-6. Crear bundles reales de Fase 5 y reglas de Fase 6.
-7. Pulir UI de importacion/revision en Fases 7 y 8.
-8. Automatizar sincronizacion asistida en Fase 9.
-9. Consolidar pruebas y fixtures en Fase 10.
+1. Mantener pendiente la validación de `CEDULARECEXPORTCOT` con planos reales.
+2. Cerrar matriz pendiente sólo para bloques especiales y HVAC.
+3. Crear bundles reales de salidas y tubería/accesorios.
+4. Ajustar reglas COT/LDM y redondeos con esos bundles reales.
+5. Pulir UI de importacion/revision en Fases 7 y 8.
+6. Automatizar sincronizacion asistida en Fase 9.
+7. Consolidar pruebas y fixtures en Fase 10.
 
 ---
 
 ## Primer entregable recomendado
 
-**Importador COT CSV en ProjectTracker.**
+~~**Importador COT CSV en ProjectTracker.**~~ ✅ **Completado** (2026-05-23)
 
-Razon: el LISP ya puede emitir un primer CSV COT para tuberia, pero la app aun
-necesita un flujo claro para convertir ese CSV en una cotizacion real. Sin ese
-paso, no hay forma practica de validar bundles y comparaciones contra la COT
-activa del proyecto.
+Las rutas de importación LDM (`/projects/<id>/ldm/import/<filename>`) y COT
+(`/projects/<id>/quote/import`) están implementadas y operativas. Los parsers
+`csv_import.py` y `quote_csv_import.py` están integrados y cubiertos con tests.
 
-Archivos probables:
+**Siguiente entregable recomendado: completar bundles reales de salidas.**
 
-- `tracker/quote_csv_import.py`
-- `tracker/routes/quotes.py`
-- `tracker/project_view.py`
-- `templates/project_detail.html`
-- `tests/test_quote_csv_import.py`
-- `tests/test_quote_csv_import_route.py`
+La validación de AutoCAD queda pendiente. El siguiente avance dentro de ProjectTracker
+es definir los componentes LDM de las COT de salidas: metros de cable, tubería y
+accesorios incluidos por salida. Después se ajusta el redondeo operativo de tubería
+y accesorios con reglas COT/LDM reales.
 
-Comandos de verificacion esperados:
+Archivos involucrados:
+
+- `data/bundles.json` — bundles activos por artículo COT.
+- `data/comparison_rules.json` — reglas de conversión y redondeo cuando la LDM compre en tramo/rollo/paquete.
+- `tests/test_bundles.py` y `tests/test_ldm_sync.py` — regresión de expansión COT → LDM.
+
+Comandos de verificacion:
 
 ```bash
 python -m compileall app.py tracker tests
@@ -443,7 +479,7 @@ python -m unittest discover -s tests
 - Definir como tratar excedentes por compra minima para que no parezcan errores.
 - Definir si el comparativo CSV queda como herramienta temporal o se importa como evidencia.
 - Definir si cada familia electrica tendra proveedor/disciplina por default.
-- Confirmar en AutoCAD los nombres efectivos reales de bloques de iluminacion, contactos y HVAC.
+- Confirmar en AutoCAD los nombres efectivos reales de bloques especiales y HVAC.
 
 ---
 
@@ -455,4 +491,3 @@ python -m unittest discover -s tests
 - **Regla COT/LDM:** Conversion de unidad/cantidad entre venta y compra.
 - **Comparativo simple:** Tabla temporal para validar equivalencias antes de configurar bundles completos.
 - **Catalogo:** Fuente comun de articulos; debe mantener nombres exactos y unidades consistentes.
-

@@ -1,4 +1,6 @@
 import unittest
+import json
+from pathlib import Path
 
 from tracker import bundles as b
 
@@ -47,6 +49,25 @@ class ExpandQuoteBundlesTest(unittest.TestCase):
         result = b.expand_quote_bundles(quote, [], {})
         self.assertEqual(len(result["unmapped_quote_items"]), 1)
         self.assertEqual(result["items"], {})
+
+    def test_seeded_circuit_bundles_expand_catalog_materials(self):
+        root = Path(__file__).resolve().parents[1]
+        bundles = json.loads((root / "data" / "bundles.json").read_text(encoding="utf-8"))
+        quote = {
+            "items": [
+                {"catalog_item_id": "6CA7BF58", "description": "Circuito iluminación", "qty": 1},
+                {"catalog_item_id": "5C329F0A", "description": "Circuito contactos", "qty": 1},
+                {"catalog_item_id": "374DD97B", "description": "Circuito HVAC", "qty": 1},
+            ]
+        }
+
+        result = b.expand_quote_bundles(quote, bundles, {})
+
+        self.assertEqual(result["items"]["18C5C03E"]["qty"], 40)
+        self.assertEqual(result["items"]["047C8246"]["qty"], 40)
+        self.assertEqual(result["items"]["EFF4FECF"]["qty"], 40)
+        self.assertEqual(result["items"]["2325432B"]["qty"], 50)
+        self.assertEqual(result["unmapped_quote_items"], [])
 
 
 if __name__ == "__main__":

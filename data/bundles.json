@@ -1,1 +1,98 @@
-[]
+[
+  {
+    "id": "BND-CIRC-ILUM-20M",
+    "catalog_item_id": "6CA7BF58",
+    "name": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
+    "active_version": 1,
+    "created_at": "2026-05-23",
+    "updated_at": "2026-05-23",
+    "versions": [
+      {
+        "version": 1,
+        "label": "Base catálogo 20 m sin tubería",
+        "status": "active",
+        "notes": "Componentes derivados de la descripción del artículo COT: 40 m THHW-LS 12 AWG + 20 m desnudo 12 AWG por lote.",
+        "components": [
+          {
+            "catalog_item_id": "18C5C03E",
+            "qty": 40,
+            "waste_pct": 0,
+            "comparison_rule_id": "",
+            "notes": "Cable de fase/neutro incluido en lote de 20 m."
+          },
+          {
+            "catalog_item_id": "2325432B",
+            "qty": 20,
+            "waste_pct": 0,
+            "comparison_rule_id": "",
+            "notes": "Conductor desnudo incluido en lote de 20 m."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "BND-CIRC-CONT-20M",
+    "catalog_item_id": "5C329F0A",
+    "name": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
+    "active_version": 1,
+    "created_at": "2026-05-23",
+    "updated_at": "2026-05-23",
+    "versions": [
+      {
+        "version": 1,
+        "label": "Base catálogo 20 m sin tubería",
+        "status": "active",
+        "notes": "Componentes derivados de la descripción del artículo COT: 40 m THHW-LS 10 AWG + 20 m desnudo 12 AWG por lote.",
+        "components": [
+          {
+            "catalog_item_id": "047C8246",
+            "qty": 40,
+            "waste_pct": 0,
+            "comparison_rule_id": "",
+            "notes": "Cable de fase/neutro incluido en lote de 20 m."
+          },
+          {
+            "catalog_item_id": "2325432B",
+            "qty": 20,
+            "waste_pct": 0,
+            "comparison_rule_id": "",
+            "notes": "Conductor desnudo incluido en lote de 20 m."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "BND-CIRC-HVAC-20M",
+    "catalog_item_id": "374DD97B",
+    "name": "Desarrollo de Circuito Eléctrico para HVAC | 20 [m] | Sin Tubería",
+    "active_version": 1,
+    "created_at": "2026-05-23",
+    "updated_at": "2026-05-23",
+    "versions": [
+      {
+        "version": 1,
+        "label": "Base catálogo 20 m sin tubería",
+        "status": "active",
+        "notes": "Componentes derivados de la descripción del artículo COT: 40 m THHW-LS 8 AWG + 10 m desnudo 12 AWG por lote.",
+        "components": [
+          {
+            "catalog_item_id": "EFF4FECF",
+            "qty": 40,
+            "waste_pct": 0,
+            "comparison_rule_id": "",
+            "notes": "Cable de fase/neutro incluido en lote de 20 m."
+          },
+          {
+            "catalog_item_id": "2325432B",
+            "qty": 10,
+            "waste_pct": 0,
+            "comparison_rule_id": "",
+            "notes": "Conductor desnudo incluido en lote de 20 m."
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -36,6 +36,7 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 - [x] Mejora 4 — Limpieza residual de rutas/templates (primer corte): la pestaña Materiales ahora recibe `importable_csvs` y `ldm_rows` desde `project_view.py`, con conteos de artículos y catálogo eliminado fuera de Jinja; se retiró `tracker/projects.py`, copia residual no registrada. Implementado en v26.1.
 - [x] Mejora 5 — Filtros y búsqueda adicionales (primer corte): proveedores ahora filtra por búsqueda libre y categoría; fichas técnicas filtra por texto, tipo y vinculación a proyectos, con lógica pura testeada en `admin_filters.py`. Implementado en v27.0.
 - [x] Mejora 3 — Limpieza residual completa de rutas/templates: `project_view.py` prepara filas de alcances, cotizaciones, Drive y consistencia; `project_detail.html` deja de hacer conteos, matching técnico, mapas de estado y clases de UI críticas en Jinja. Implementado en v27.1.
+- [x] Bundles reales iniciales: desarrollo de circuito sin tubería para iluminación, contactos y HVAC, derivados de cantidades explícitas en catálogo. Implementado en v28.2.
 
 ---
 
@@ -46,6 +47,8 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 #### 1. Probar bundles reales y ajustar reglas de equivalencia COT/LDM
 
 Validar la sincronización parcial con proyectos existentes:
+- Completar bundles de salidas: las COT de salidas incluyen metros de cable, tubería y accesorios para LDM.
+- Definir cómo los metros de tubería generan accesorios faltantes después de descontar lo incluido en salidas.
 - Revisar que las cantidades agregadas por **Completar** coincidan con compras reales por proveedor.
 - Ajustar reglas con conversión y redondeo cuando el material se compra en unidad distinta (tramo, rollo, paquete).
 - Detectar si se requiere agrupar sugerencias por proveedor o disciplina antes de crear/actualizar LDMs.
@@ -90,8 +93,9 @@ Evaluar después de pruebas reales:
 
 Orden sugerido de trabajo:
 
-1. **Probar bundles reales** en proyectos existentes y ajustar reglas de equivalencia COT/LDM con datos de producción.
-2. **Siguiente fase de sincronización asistida** — decidir si conviene auto-fill al crear LDM nueva o asistente por proveedor/disciplina.
+1. **Completar bundles de salidas** con componentes y cantidades reales de cable, tubería y accesorios.
+2. **Probar bundles reales** en proyectos existentes y ajustar reglas de equivalencia COT/LDM con datos de producción.
+3. **Siguiente fase de sincronización asistida** — decidir si conviene auto-fill al crear LDM nueva o asistente por proveedor/disciplina.
 
 
 ---

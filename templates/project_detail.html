@@ -787,9 +787,20 @@
       Cotizaciones del proyecto <strong>{{ project.clave }}</strong>
     </span>
     {% if not project.closed_at %}
-    <a href="{{ url_for('new_quote', project_id=project.id) }}" class="btn btn-primary btn-sm">
-      <i class="bi bi-plus-lg me-1"></i>Nueva cotización
-    </a>
+    <div class="d-flex align-items-center gap-2 flex-wrap justify-content-end">
+      <form method="post" action="{{ url_for('quotes_bp.import_quote_csv', project_id=project.id) }}"
+            enctype="multipart/form-data" class="d-flex align-items-center gap-1">
+        <input type="file" name="quote_csv" accept=".csv,text/csv"
+               class="form-control form-control-sm" style="max-width:220px"
+               title="CSV COT desde LISP">
+        <button type="submit" class="btn btn-outline-success btn-sm" title="Importar COT desde CSV">
+          <i class="bi bi-filetype-csv me-1"></i>Importar CSV
+        </button>
+      </form>
+      <a href="{{ url_for('new_quote', project_id=project.id) }}" class="btn btn-primary btn-sm">
+        <i class="bi bi-plus-lg me-1"></i>Nueva cotización
+      </a>
+    </div>
     {% endif %}
   </div>
   {% if quotes %}

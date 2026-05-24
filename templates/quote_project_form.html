@@ -175,11 +175,40 @@
     background: #182238 !important;
     box-shadow: inset 0 -1px 0 rgba(255,255,255,.08), 0 4px 10px rgba(0,0,0,.18);
   }
+  /* ── Sincronización de precio ────────────────────────────────────────── */
+  @keyframes priceSyncPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(106, 184, 136, 0.7); background: rgba(106, 184, 136, .14); }
+    60%  { box-shadow: 0 0 0 5px rgba(106, 184, 136, 0); background: rgba(106, 184, 136, .04); }
+    100% { box-shadow: 0 0 0 0 rgba(106, 184, 136, 0); background: transparent; }
+  }
+  .price-sync-pulse {
+    animation: priceSyncPulse .9s ease-out forwards;
+    border-radius: 6px;
+  }
 </style>
 {% endblock %}
 {% block content %}
 {% set fe = field_errors|default({}) %}
-<form method="post" id="quoteForm">
+<form method="post" id="quoteForm" action="{{ form_action|default('', true) }}">
+{% if quote and quote.get('csv_origen') %}
+<input type="hidden" name="csv_origen" value="{{ quote.get('csv_origen') }}">
+{% for key, value in quote.get('csv_metadata', {}).items() %}
+<input type="hidden" name="csv_metadata_key[]" value="{{ key }}">
+<input type="hidden" name="csv_metadata_value[]" value="{{ value }}">
+{% endfor %}
+{% endif %}
+{% if quote and quote.get('is_import_preview') %}
+<div class="alert alert-info d-flex align-items-start gap-2">
+  <i class="bi bi-filetype-csv mt-1"></i>
+  <div>
+    <div class="fw-semibold">Vista previa de importación CSV</div>
+    <div class="small text-muted">
+      Revisa las partidas, precios y vínculos de catálogo antes de crear la cotización.
+      {% if quote.get('csv_origen') %}<span class="font-monospace">{{ quote.get('csv_origen') }}</span>{% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}
 
 <!-- ── Barra de resumen fija ── -->
 <div class="quote-bar">
@@ -318,14 +347,14 @@
           <div class="d-flex align-items-center gap-2 flex-wrap">
             <span class="form-label-sm">Sección destino:</span>
             <select id="bulkSectionSelect" class="form-select form-select-sm"
-                    title="Sección a la que mover o copiar las partidas seleccionadas"></select>
+                    title="Sección a la que mover las partidas seleccionadas"></select>
             <button type="button" class="btn btn-sm btn-outline-primary" onclick="moveSelectedToSection()"
                     title="Mover las partidas seleccionadas a la sección destino">
               <i class="bi bi-arrow-right-circle me-1"></i>Mover
             </button>
-            <button type="button" class="btn btn-sm btn-outline-info" onclick="copySelectedToSection()"
-                    title="Duplicar las partidas seleccionadas en la sección destino">
-              <i class="bi bi-files me-1"></i>Copiar
+            <button type="button" class="btn btn-sm btn-outline-info" onclick="openCopyToMultiModal()"
+                    title="Copiar las partidas seleccionadas a una o más secciones">
+              <i class="bi bi-files me-1"></i>Copiar a secciones…
             </button>
             <button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteSelectedRows()"
                     title="Eliminar las partidas seleccionadas">
@@ -541,6 +570,36 @@
     </div>
   </div>
 </div>
+<!-- Modal: Copiar partidas a múltiples secciones -->
+<div class="modal fade" id="copyToMultiModal" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="bi bi-files me-2 text-info"></i>Copiar a secciones
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted" style="font-size:.85rem" id="copyMultiDesc">
+          Selecciona una o más secciones destino:
+        </p>
+        <div id="copyMultiSectionList" class="d-flex flex-column gap-1"></div>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-sm btn-link text-muted p-0"
+                onclick="toggleAllCopyMulti()">Marcar/desmarcar todas</button>
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-sm btn-info text-white" onclick="executeCopyToMulti()">
+            <i class="bi bi-files me-1"></i>Copiar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 {% block extra_js %}
 <script>
@@ -815,34 +874,87 @@
     });
   }
 
-  function copySelectedToSection() {
-    const selected = getSelectedItemRows();
-    if (!selected.length) return;
-    const select = document.getElementById('bulkSectionSelect');
-    const sectionIdx = parseInt(select.value);
-    if (isNaN(sectionIdx)) return;
-
+  /** Copia las partidas seleccionadas a una sección específica (por índice). */
+  function _copyRowsToSectionIdx(selected, sectionIdx) {
     const tbody = document.getElementById('itemsBody');
     const anchor = getInsertionAnchor(sectionIdx);
-
     selected.forEach(row => {
       const clone = row.cloneNode(true);
       copyInputValues(row, clone);
-      // Limpiar estados que no deben heredarse en la copia
       clone.classList.remove('drop-target', 'dragging', 'row-selected');
       const cb = clone.querySelector('.item-select');
       if (cb) cb.checked = false;
-      // Cerrar cualquier dropdown de autocomplete clonado
       const dd = clone.querySelector('.ac-dropdown');
       if (dd) { dd.classList.remove('ac-open'); dd.innerHTML = ''; }
+      // Re-enlazar oninput para el nuevo clon
+      clone.querySelectorAll('.item-select').forEach(el => {
+        el.addEventListener('change', updateSelectionUI);
+      });
       if (anchor) tbody.insertBefore(clone, anchor);
       else tbody.appendChild(clone);
     });
+  }
+
+  // ── Copiar a múltiples secciones ────────────────────────────────────────────
+  function openCopyToMultiModal() {
+    const selected = getSelectedItemRows();
+    if (!selected.length) return;
+    const sections = getSectionList();
+    const listEl = document.getElementById('copyMultiSectionList');
+    const desc   = document.getElementById('copyMultiDesc');
+
+    desc.textContent = selected.length === 1
+      ? 'Selecciona una o más secciones a las que copiar la partida:'
+      : `Selecciona una o más secciones a las que copiar las ${selected.length} partidas:`;
+
+    listEl.innerHTML = sections.map((s, idx) => `
+      <label class="d-flex align-items-center gap-2 py-1 px-2 rounded"
+             style="cursor:pointer;transition:background .12s"
+             onmouseover="this.style.background='rgba(255,255,255,.05)'"
+             onmouseout="this.style.background=''">
+        <input type="checkbox" class="form-check-input copy-multi-cb" value="${idx}"
+               style="cursor:pointer">
+        <span style="font-size:.88rem">${escHtml(s.name)}</span>
+      </label>`).join('');
+
+    bootstrap.Modal.getOrCreateInstance(document.getElementById('copyToMultiModal')).show();
+  }
+
+  function toggleAllCopyMulti() {
+    const cbs = document.querySelectorAll('#copyMultiSectionList .copy-multi-cb');
+    const allChecked = [...cbs].every(cb => cb.checked);
+    cbs.forEach(cb => { cb.checked = !allChecked; });
+  }
+
+  function executeCopyToMulti() {
+    const selected = getSelectedItemRows();
+    const checkedIdxs = [...document.querySelectorAll('#copyMultiSectionList .copy-multi-cb:checked')]
+      .map(cb => parseInt(cb.value));
+
+    if (!checkedIdxs.length) {
+      alert('Selecciona al menos una sección destino.');
+      return;
+    }
+
+    checkedIdxs.forEach(idx => _copyRowsToSectionIdx(selected, idx));
 
     syncItemSections();
     updateTotals();
     clearSelection();
     if (typeof applyPartidaFilter === 'function') applyPartidaFilter();
+    bootstrap.Modal.getInstance(document.getElementById('copyToMultiModal')).hide();
+
+    const total = selected.length * checkedIdxs.length;
+    // Feedback visual breve en la barra fija
+    const bar = document.querySelector('.quote-bar .totals');
+    if (bar) {
+      const msg = document.createElement('span');
+      msg.className = 'text-info';
+      msg.style.fontSize = '.8rem';
+      msg.textContent = `✓ ${total} partida${total !== 1 ? 's' : ''} copiada${total !== 1 ? 's' : ''} a ${checkedIdxs.length} sección${checkedIdxs.length !== 1 ? 'es' : ''}`;
+      bar.appendChild(msg);
+      setTimeout(() => msg.remove(), 3000);
+    }
   }
 
   function deleteSelectedRows() {
@@ -907,6 +1019,53 @@
     const p=parseFloat(r.querySelector(".price").value)||0;
     r.querySelector(".tot").value=(q*p).toFixed(2);
     updateTotals();
+  }
+
+  // ── Sincronización automática de precio entre artículos iguales ────────────
+  //
+  // Cuando el usuario edita el precio de una partida que tiene catalog_item_id,
+  // se actualiza automáticamente el precio (y el total) de TODAS las demás
+  // partidas con el mismo catalog_item_id en la cotización.
+  // Se muestra un indicador inline para que el cambio sea visible.
+
+  let _priceSyncEnabled = true;   // se puede desactivar temporalmente
+
+  function _getCatalogId(row) {
+    return row.querySelector('[name="item_catalog_id[]"]')?.value?.trim() || '';
+  }
+
+  function syncPriceAcrossItems(sourceRow, newPrice) {
+    if (!_priceSyncEnabled) return;
+    const catalogId = _getCatalogId(sourceRow);
+    if (!catalogId) return;   // sin vínculo a catálogo → sin sincronización
+
+    const allRows = [...document.querySelectorAll('#itemsBody .quote-row')];
+    const sibling = allRows.filter(r => r !== sourceRow && _getCatalogId(r) === catalogId);
+    if (!sibling.length) return;
+
+    sibling.forEach(r => {
+      const priceInput = r.querySelector('.price');
+      if (!priceInput) return;
+      priceInput.value = newPrice;
+      calcRow(priceInput);
+      // Pulso visual para que el usuario vea el cambio
+      priceInput.closest('.input-group')?.classList.add('price-sync-pulse');
+      setTimeout(() => priceInput.closest('.input-group')?.classList.remove('price-sync-pulse'), 900);
+    });
+
+    // Indicador de cuántos artículos se actualizaron
+    _showPriceSyncBadge(sourceRow, sibling.length);
+  }
+
+  function _showPriceSyncBadge(row, count) {
+    // Eliminar badge previo si existía
+    row.querySelector('.price-sync-badge')?.remove();
+    const badge = document.createElement('div');
+    badge.className = 'price-sync-badge';
+    badge.style.cssText = 'font-size:.7rem;color:#6ab888;margin-top:2px;white-space:nowrap;';
+    badge.innerHTML = `<i class="bi bi-arrow-repeat"></i> ${count} artículo${count !== 1 ? 's' : ''} actualizado${count !== 1 ? 's' : ''}`;
+    row.querySelector('.price')?.closest('td')?.appendChild(badge);
+    setTimeout(() => badge.remove(), 2800);
   }
   function updateTotals(){
     let s=0;
@@ -1231,8 +1390,14 @@
       if (e.target.classList.contains("ac-input")) {
         clearCatalogLink(e.target.closest("tr"), true);
         _acSearch(e.target);
-      } else if (e.target.name === "item_unit[]" || e.target.name === "item_price[]") {
+      } else if (e.target.name === "item_unit[]") {
         clearCatalogLink(e.target.closest("tr"));
+      } else if (e.target.name === "item_price[]") {
+        // Sincronizar precio con artículos iguales (mismo catalog_item_id)
+        const row = e.target.closest("tr");
+        const newPrice = e.target.value;
+        syncPriceAcrossItems(row, newPrice);
+        // NO se limpia el catalog link al editar precio: el artículo sigue vinculado
       } else if (e.target.classList.contains("section-title-input")) {
         // Refrescar el dropdown de la barra masiva si el usuario renombra una sección
         if (typeof refreshBulkSectionSelect === "function") refreshBulkSectionSelect();

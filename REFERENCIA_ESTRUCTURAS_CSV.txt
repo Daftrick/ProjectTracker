@@ -1,7 +1,7 @@
 ================================================================================
   PROJECT TRACKER — REFERENCIA DE ESTRUCTURAS DE DATOS Y FORMATO CSV
   Para integración con exportación LISP desde AutoCAD
-  Última actualización: 2026-04-22
+  Última actualización: 2026-05-23 (verificado contra código fuente)
 ================================================================================
 
 PROPÓSITO DE ESTE DOCUMENTO
@@ -257,6 +257,24 @@ NOTAS:
 
 
 ================================================================================
+MÓDULO 4 — TAKEOFF / HECHOS TECNICOS DESDE AUTOCAD (RETIRADO)
+================================================================================
+
+DESCRIPCIÓN
+-----------
+El CSV TAKEOFF fue eliminado del flujo activo y no debe usarse como contrato
+vigente. ProjectTracker debe explicar COT -> LDM con catalogo, bundles y reglas
+COT/LDM. AutoCAD/LISP conserva COT, LDM y comparativos diagnosticos temporales
+cuando aporten valor operativo.
+
+NOTAS:
+  - No generar nuevos archivos `{CLAVE}-V{VERSION}-I{CONSECUTIVO}-TAKEOFF-{YYYYMMDD}.csv`.
+  - No usar TAKEOFF como criterio de aceptacion para integracion LISP/App.
+  - Los comparativos generados en AutoCAD siguen siendo diagnosticos locales,
+    no entidad importable ni fuente oficial.
+
+
+================================================================================
 RUTAS DE API EXISTENTES PARA IMPORTACIÓN
 ================================================================================
 
@@ -279,10 +297,23 @@ Actualmente la app tiene estas rutas de API usables desde scripts externos:
     Body JSON: {"subtotal_cot": 1234.56}
     Uso: actualizar costo de proveedor en una LDM sin abrir el formulario
 
-RUTAS PENDIENTES DE IMPLEMENTAR (para soporte CSV completo):
-  POST /api/import/catalogo    — importar CSV al catálogo
-  POST /api/import/ldm         — importar CSV como nueva LDM en un proyecto
-  POST /api/import/cotizacion  — importar CSV como nueva cotización en un proyecto
+RUTAS IMPLEMENTADAS Y OPERATIVAS (verificado 2026-05-23):
+  GET/POST /projects/<project_id>/ldm/import/<filename>
+    — Importa un CSV LDM desde la carpeta de Drive del proyecto.
+    — El CSV debe existir en disco; la app lo detecta automáticamente en el tab Documentos.
+    — Muestra preview editable con proveedor/fecha pre-poblados si el CSV incluye metadatos #.
+    — Detecta reimportaciones duplicadas por nombre de archivo.
+    — Parser: tracker/csv_import.py :: parse_ldm_csv()
+
+  POST /projects/<project_id>/quote/import
+    — Importa un CSV COT via upload directo (multipart/form-data) desde el browser.
+    — No requiere que el archivo esté en Drive; el usuario lo sube desde cualquier carpeta.
+    — Acepta campo price vacío (lo trata como 0.0 para captura manual posterior).
+    — Advierte duplicados y partidas sin catálogo sin bloquear la importación.
+    — Parser: tracker/quote_csv_import.py :: parse_quote_csv()
+
+RUTAS AÚN PENDIENTES:
+  POST /api/import/catalogo    — importar CSV al catálogo (no implementada)
 
 
 ================================================================================
@@ -311,6 +342,28 @@ Campos del ítem   nombre        description            description
                   precio        precio_cot             price
                                 total_cot              total
 
+
+================================================================================
+COMPATIBILIDAD NAMING LISP ↔ APP (verificado 2026-05-23)
+================================================================================
+
+El LISP genera nombres con mayúsculas (V, I):
+  {CLAVE}-V{VER}-I{CONSEC}-{YYYYMMDD}.csv         ← LDM
+  {CLAVE}-V{VER}-I{CONSEC}-COT-{YYYYMMDD}.csv     ← COT
+
+La app detecta con este regex (drive.py :: parse_csv_plano_filename):
+  ^{CLAVE}-v\d+  (pre-filtro en scan)
+  ^{CLAVE}-v(?P<version>\d+)-i(?P<consecutive>\d+)-(?P<date>\d{8})\.csv$  (parser completo)
+
+Ambos usan re.IGNORECASE → V e I en mayúsculas son aceptados sin problema.
+
+CONDICIÓN PARA IMPORTACIÓN LDM:
+  El CSV debe guardarse en la carpeta de Drive del proyecto (IE-{num}-{clave})
+  para que la app lo detecte y muestre el link de importación en el tab Documentos.
+  El LISP usa getfiled() para que el usuario elija dónde guardar — debe elegir esa carpeta.
+
+IMPORTACIÓN COT:
+  No requiere carpeta específica. El usuario sube el archivo directamente desde la UI.
 
 ================================================================================
 WORKFLOW TÍPICO LISP → APP

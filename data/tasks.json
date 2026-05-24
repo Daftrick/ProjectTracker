@@ -317,7 +317,7 @@
     "title": "IE - HVAC",
     "source": "externa",
     "external_dep": "Proyecto HVAC - Arteck",
-    "status": "Pendiente",
+    "status": "En progreso",
     "parent_task_id": null,
     "notes": "",
     "history": [
@@ -332,6 +332,12 @@
         "to": "Pendiente",
         "date": "2026-04-19",
         "note": "Canalizaciones y Cableado"
+      },
+      {
+        "from": "Pendiente",
+        "to": "En progreso",
+        "date": "2026-05-08",
+        "note": "Cambio: Pendiente → En progreso"
       }
     ],
     "created_at": "2026-04-19",
@@ -444,7 +450,7 @@
     "title": "IE - Iluminación",
     "source": "externa",
     "external_dep": "Diseño de iluminación (otra área)",
-    "status": "Observaciones",
+    "status": "Aprobado",
     "parent_task_id": null,
     "notes": "",
     "history": [
@@ -471,6 +477,12 @@
         "to": "Observaciones",
         "date": "2026-04-26",
         "note": "Observaciones Junta - 18 de Abril"
+      },
+      {
+        "from": "Observaciones",
+        "to": "Aprobado",
+        "date": "2026-05-08",
+        "note": "Cambio: Observaciones → Aprobado"
       }
     ],
     "created_at": "2026-04-19"
@@ -482,7 +494,7 @@
     "title": "IE - Contactos",
     "source": "propia",
     "external_dep": null,
-    "status": "Observaciones",
+    "status": "Aprobado",
     "parent_task_id": null,
     "notes": "",
     "history": [
@@ -509,6 +521,12 @@
         "to": "Observaciones",
         "date": "2026-04-26",
         "note": "Observaciones de Junta - 18 de Abril"
+      },
+      {
+        "from": "Observaciones",
+        "to": "Aprobado",
+        "date": "2026-05-08",
+        "note": "Cambio: Observaciones → Aprobado"
       }
     ],
     "created_at": "2026-04-19"
@@ -613,7 +631,7 @@
     "title": "IE - Iluminación",
     "source": "externa",
     "external_dep": "Diseño de Iluminación - Nimbe - 16 de Abril",
-    "status": "Revisión",
+    "status": "Aprobado",
     "parent_task_id": null,
     "notes": "",
     "history": [
@@ -640,6 +658,12 @@
         "to": "Revisión",
         "date": "2026-05-06",
         "note": "Cambio: Observaciones → Revisión"
+      },
+      {
+        "from": "Revisión",
+        "to": "Aprobado",
+        "date": "2026-05-08",
+        "note": "Cambio: Revisión → Aprobado"
       }
     ],
     "created_at": "2026-04-19",
@@ -652,7 +676,7 @@
     "title": "IE - Contactos",
     "source": "propia",
     "external_dep": null,
-    "status": "Revisión",
+    "status": "Aprobado",
     "parent_task_id": null,
     "notes": "",
     "history": [
@@ -679,6 +703,12 @@
         "to": "Revisión",
         "date": "2026-05-06",
         "note": "Cambio: Observaciones → Revisión"
+      },
+      {
+        "from": "Revisión",
+        "to": "Aprobado",
+        "date": "2026-05-08",
+        "note": "Cambio: Revisión → Aprobado"
       }
     ],
     "created_at": "2026-04-19"
@@ -690,7 +720,7 @@
     "title": "IE - HVAC",
     "source": "externa",
     "external_dep": "Diseño de HVAC - 16 de abril",
-    "status": "Revisión",
+    "status": "Aprobado",
     "parent_task_id": null,
     "notes": "",
     "history": [
@@ -717,27 +747,12 @@
         "to": "Revisión",
         "date": "2026-05-06",
         "note": "Cambio: Pendiente → Revisión"
-      }
-    ],
-    "created_at": "2026-04-19",
-    "info_status": "Pendiente"
-  },
-  {
-    "id": "E99A906B",
-    "project_id": "4A25C802",
-    "alcance": "emergencia",
-    "title": "Sistema de Emergencia",
-    "source": "externa",
-    "external_dep": "Solicitar Alcances con León Sevilla",
-    "status": "Pendiente",
-    "parent_task_id": null,
-    "notes": "",
-    "history": [
+      },
       {
-        "from": null,
-        "to": "Pendiente",
-        "date": "2026-04-19",
-        "note": "Creado con el proyecto"
+        "from": "Revisión",
+        "to": "Aprobado",
+        "date": "2026-05-08",
+        "note": "Cambio: Revisión → Aprobado"
       }
     ],
     "created_at": "2026-04-19",
@@ -750,7 +765,7 @@
     "title": "Cuadro de Cargas",
     "source": "propia",
     "external_dep": null,
-    "status": "Pendiente",
+    "status": "Aprobado",
     "parent_task_id": null,
     "notes": "",
     "history": [
@@ -759,6 +774,12 @@
         "to": "Pendiente",
         "date": "2026-04-19",
         "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Aprobado",
+        "date": "2026-05-08",
+        "note": "Cambio: Pendiente → Aprobado"
       }
     ],
     "created_at": "2026-04-19"
@@ -770,7 +791,7 @@
     "title": "Diagrama Unifilar",
     "source": "propia",
     "external_dep": null,
-    "status": "Pendiente",
+    "status": "Aprobado",
     "parent_task_id": null,
     "notes": "",
     "history": [
@@ -779,6 +800,12 @@
         "to": "Pendiente",
         "date": "2026-04-19",
         "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Aprobado",
+        "date": "2026-05-08",
+        "note": "Cambio: Pendiente → Aprobado"
       }
     ],
     "created_at": "2026-04-19"
@@ -790,7 +817,7 @@
     "title": "Cotización",
     "source": "propia",
     "external_dep": null,
-    "status": "Pendiente",
+    "status": "En progreso",
     "parent_task_id": null,
     "notes": "",
     "history": [
@@ -799,6 +826,12 @@
         "to": "Pendiente",
         "date": "2026-04-19",
         "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "En progreso",
+        "date": "2026-05-08",
+        "note": "Cambio: Pendiente → En progreso"
       }
     ],
     "created_at": "2026-04-19"
@@ -810,7 +843,7 @@
     "title": "Obs. #1 — IE - Contactos",
     "source": "propia",
     "external_dep": null,
-    "status": "Pendiente",
+    "status": "Aprobado",
     "parent_task_id": "B0A749E3",
     "notes": "Generar Nuevo Plano de Trayectorias y Canalizaciones.\r\nVerificar Alturas, Ubicaciones y Circuitos de Contactos.",
     "history": [
@@ -819,6 +852,12 @@
         "to": "Pendiente",
         "date": "2026-04-25",
         "note": "Subtarea observación #1"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Aprobado",
+        "date": "2026-05-08",
+        "note": "Checklist completado"
       }
     ],
     "created_at": "2026-04-25",
@@ -826,14 +865,14 @@
       {
         "id": "BD5F1E1F",
         "text": "Generar Nuevo Plano de Trayectorias y Canalizaciones",
-        "done": false,
-        "done_at": null
+        "done": true,
+        "done_at": "2026-05-08"
       },
       {
         "id": "1AA918D2",
         "text": "Verificar Alturas, Ubicaciones y Circuitos de Contactos",
-        "done": false,
-        "done_at": null
+        "done": true,
+        "done_at": "2026-05-08"
       }
     ]
   },
@@ -948,27 +987,27 @@
     "title": "Obs. #1 — IE - Iluminación",
     "source": "propia",
     "external_dep": null,
-    "status": "Pendiente",
+    "status": "Aprobado",
     "parent_task_id": "AE9571D2",
     "notes": "Observaciones Junta - 18 de Abril",
     "checklist": [
       {
         "id": "1B0DA32C",
         "text": "Revisar Control de Iluminación",
-        "done": false,
-        "done_at": null
+        "done": true,
+        "done_at": "2026-05-08"
       },
       {
         "id": "F439F9B6",
         "text": "Revisar Ubicaciones",
-        "done": false,
-        "done_at": null
+        "done": true,
+        "done_at": "2026-05-08"
       },
       {
         "id": "6B21FCD9",
         "text": "Revisar Sembrado",
-        "done": false,
-        "done_at": null
+        "done": true,
+        "done_at": "2026-05-08"
       }
     ],
     "history": [
@@ -977,6 +1016,12 @@
         "to": "Pendiente",
         "date": "2026-04-26",
         "note": "Subtarea observación #1"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Aprobado",
+        "date": "2026-05-08",
+        "note": "Checklist completado"
       }
     ],
     "created_at": "2026-04-26"
@@ -1000,5 +1045,25 @@
       }
     ],
     "created_at": "2026-04-30"
+  },
+  {
+    "id": "D0E58688",
+    "project_id": "CC59E153",
+    "alcance": "cotizacion",
+    "title": "Cotización",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-05-19",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-05-19"
   }
 ]

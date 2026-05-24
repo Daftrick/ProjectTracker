@@ -95,5 +95,21 @@ class LdmCsvImportTest(unittest.TestCase):
         self.assertEqual(result["items"][0]["catalog_item_id"], "")
 
 
+
+    def test_parse_ldm_csv_returns_error_on_ansi_encoding(self):
+        """CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error
+        legible en lugar de lanzar UnicodeDecodeError al servidor."""
+        with tempfile.TemporaryDirectory() as root:
+            path = os.path.join(root, "OM001-v2-i1-20260426.csv")
+            # Simular fallback ANSI: cp1252 con acento 0xED (í)
+            with open(path, "wb") as handle:
+                handle.write(b"description,unit,qty\r\nTuber\xeda | 27mm,pza,10\r\n")
+
+            result = parse_ldm_csv(path)
+
+        self.assertEqual(result["items"], [])
+        self.assertEqual(len(result["errors"]), 1)
+        self.assertIn("codificación no compatible", result["errors"][0])
+
 if __name__ == "__main__":
     unittest.main()
