@@ -759,7 +759,7 @@
     "ldm_number": "LDM-CasaLeonides-RSF-01",
     "seq": 1,
     "proveedor": "Enrique López",
-    "fecha": "2026-05-22",
+    "fecha": "2026-05-25",
     "items": [
       {
         "catalog_item_id": "E2278041",
@@ -917,7 +917,7 @@
         "catalog_item_id": "F91F586D",
         "description": "Salida Eléctrica para Botonera en Muro",
         "unit": "pza",
-        "qty": 1.0,
+        "qty": 20.0,
         "precio_cot": 0.0,
         "total_cot": 0.0
       },
@@ -925,7 +925,7 @@
         "catalog_item_id": "8D6668BE",
         "description": "Salida Eléctrica para Audio en Muro, Piso o Plafón",
         "unit": "pza",
-        "qty": 1.0,
+        "qty": 18.0,
         "precio_cot": 0.0,
         "total_cot": 0.0
       },
@@ -933,7 +933,7 @@
         "catalog_item_id": "76A1B25A",
         "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
         "unit": "pza",
-        "qty": 1.0,
+        "qty": 30.0,
         "precio_cot": 0.0,
         "total_cot": 0.0
       },
@@ -941,7 +941,7 @@
         "catalog_item_id": "4F73D293",
         "description": "Salida Eléctrica para Cámara de Seguridad en Muro o Plafón",
         "unit": "pza",
-        "qty": 1.0,
+        "qty": 5.0,
         "precio_cot": 0.0,
         "total_cot": 0.0
       },
@@ -973,7 +973,7 @@
         "catalog_item_id": "5F18CAD9",
         "description": "Metro Lineal de Tubería Conduit PAD Flexible Corrugado | 78 [mm] (3\")",
         "unit": "ml",
-        "qty": 1.0,
+        "qty": 150.0,
         "precio_cot": 0.0,
         "total_cot": 0.0
       },
@@ -981,14 +981,30 @@
         "catalog_item_id": "A42CD3EB",
         "description": "Metro Lineal de Tubería Conduit PAD Flexible Corrugado | 53 [mm] (2\")",
         "unit": "ml",
-        "qty": 1.0,
+        "qty": 200.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "CBE98F76",
+        "description": "Metro Lineal de Tubería Conduit PAD Flexible Corrugado | 27 [mm] (1\")",
+        "unit": "ml",
+        "qty": 400.0,
+        "precio_cot": 0.0,
+        "total_cot": 0.0
+      },
+      {
+        "catalog_item_id": "35D0AB4E",
+        "description": "Metro Lineal de Tubería Conduit PAD Flexible Corrugado | 21 [mm] (3/4\")",
+        "unit": "ml",
+        "qty": 500.0,
         "precio_cot": 0.0,
         "total_cot": 0.0
       }
     ],
     "subtotal_cot": 0.0,
     "cot_proveedor": null,
-    "notes": "",
+    "notes": "Proyecto Reserva Santa Fe. Proyecto de Instalaciones Eléctricas - 25/05/2026",
     "created_at": "2026-05-22"
   }
 ]

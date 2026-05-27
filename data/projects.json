@@ -113,5 +113,55 @@
     "folder_num": "006",
     "closed_at": null,
     "created_at": "2026-05-19"
+  },
+  {
+    "id": "43A4F936",
+    "name": "ATTIE Alex Instalación Eléctrica",
+    "clave": "ATTIE",
+    "client": "Cliente Privado",
+    "version": "V1",
+    "fecha": "260526",
+    "alcances": [
+      "cotizacion"
+    ],
+    "notes": "Proyecto de Contra Especificación Eléctrica",
+    "folder_num": "007",
+    "closed_at": null,
+    "created_at": "2026-05-25"
+  },
+  {
+    "id": "C3B1A649",
+    "name": "CM2 - RD175 - A. Velez",
+    "clave": "CM2-Velez",
+    "client": "CM2",
+    "version": "V1",
+    "fecha": "260526",
+    "alcances": [
+      "iluminacion",
+      "contactos",
+      "hvac",
+      "cuadro_cargas",
+      "diagrama_unifilar",
+      "cotizacion"
+    ],
+    "notes": "Proyecto Eléctrico A. Vélez - Ruben Dario 175 - Piso 15.",
+    "folder_num": "008",
+    "closed_at": null,
+    "created_at": "2026-05-25"
+  },
+  {
+    "id": "A95BFA9F",
+    "name": "Pico Love - Oficinas",
+    "clave": "PicoLove",
+    "client": "Cliente Privado",
+    "version": "V1",
+    "fecha": "260526",
+    "alcances": [
+      "cotizacion"
+    ],
+    "notes": "Pico Love - Oficinas. Cotización de Obra Instalaciones Eléctricas.",
+    "folder_num": "009",
+    "closed_at": null,
+    "created_at": "2026-05-25"
   }
 ]

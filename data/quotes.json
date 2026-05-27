@@ -5436,5 +5436,782 @@
     "notes": "",
     "project_basis_note": "",
     "created_at": "2026-05-14"
+  },
+  {
+    "id": "3FF995B4",
+    "project_id": "8CC7C53F",
+    "quote_number": "COT-Cero5Cien-0402-G02-20260524",
+    "quote_type": "General",
+    "version": "V1",
+    "client": "Niz+Chauvet",
+    "project_name": "Cero5Cien - Depto. O402",
+    "date": "2026-05-24",
+    "valid_until": "",
+    "items": [
+      {
+        "catalog_item_id": "3EF4F34C",
+        "description": "Tubo Conduit Galvanizado Pared Delgada | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 60.0,
+        "price": 258.3,
+        "total": 15498.0,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "9CF3C72B",
+        "description": "Tubo Conduit Galvanizado Pared Delgada | 35 [mm] (1 1/4\")",
+        "unit": "pza",
+        "qty": 70.0,
+        "price": 345.9,
+        "total": 24213.0,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "94B273C0",
+        "description": "Monitor Metálico Galvanizado Pared Delgada | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 100.0,
+        "price": 15.15,
+        "total": 1515.0,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "191D7987",
+        "description": "Monitor Metálico Galvanizado Pared Delgada | 35 [mm] (1 1/4\")",
+        "unit": "pza",
+        "qty": 100.0,
+        "price": 30.75,
+        "total": 3075.0,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "9AC13BC2",
+        "description": "Perfil Unicanal Perforado | 4x2 [cm] | Tramo de 3 [m]",
+        "unit": "pza",
+        "qty": 42.0,
+        "price": 90.15,
+        "total": 3786.3,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "5880609C",
+        "description": "Tuerca Hexagonal | 3/8\"",
+        "unit": "pza",
+        "qty": 500.0,
+        "price": 15.3,
+        "total": 7650.0,
+        "catalog_description": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "AC40DA48",
+        "description": "Varilla Roscada | 3/8\" | Tramo de 3 [m]",
+        "unit": "pza",
+        "qty": 140.0,
+        "price": 145.45,
+        "total": 20363.0,
+        "catalog_description": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "60CA5FEE",
+        "description": "Taquete Expansivo Zamac | 3/8\"",
+        "unit": "pza",
+        "qty": 400.0,
+        "price": 7.63,
+        "total": 3052.0,
+        "catalog_description": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "79921E56",
+        "description": "Rondana | 3/8\"",
+        "unit": "pza",
+        "qty": 400.0,
+        "price": 5.46,
+        "total": 2184.0,
+        "catalog_description": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "5880609C",
+        "description": "Tuerca Hexagonal | 3/8\"",
+        "unit": "pza",
+        "qty": 400.0,
+        "price": 15.3,
+        "total": 6120.0,
+        "catalog_description": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "7FB42249",
+        "description": "Registro Eléctrico Galvanizado | 30x30x13 [cm]",
+        "unit": "pza",
+        "qty": 16.0,
+        "price": 2770.55,
+        "total": 44328.8,
+        "catalog_description": "Himel | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "573F7605",
+        "description": "Registro Eléctrico Galvanizado | 56x56x13 [cm]",
+        "unit": "pza",
+        "qty": 4.0,
+        "price": 5255.85,
+        "total": 21023.4,
+        "catalog_description": "Himel | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "CF8E020E",
+        "description": "Abrazadera para Unicanal | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 150.0,
+        "price": 16.6,
+        "total": 2490.0,
+        "catalog_description": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "6B4F82DD",
+        "description": "Abrazadera para Unicanal | 35 [mm] (1 1/4\")",
+        "unit": "pza",
+        "qty": 200.0,
+        "price": 20.5,
+        "total": 4100.0,
+        "catalog_description": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      }
+    ],
+    "subtotal": 159398.5,
+    "tax_rate": 16.0,
+    "tax": 25503.76,
+    "total": 184902.26,
+    "currency": "MXN",
+    "notes": "Importada desde CSV: Cotizacion_Preliminar_O402.csv",
+    "project_basis_note": "",
+    "created_at": "2026-05-24",
+    "csv_origen": "Cotizacion_Preliminar_O402.csv",
+    "csv_sources": [
+      "Cotizacion_Preliminar_O402.csv"
+    ],
+    "csv_metadata": {
+      "quote_number": "O402-PRELIM",
+      "version": "V1",
+      "client": "Niz + Chauvet Arquitectos",
+      "project": "Cero5Cien - Depto. O402",
+      "project_id": "8CC7C53F",
+      "date": "2026-05-24",
+      "currency": "MXN",
+      "notes": "Cotizacion preliminar generada desde catalogo"
+    }
+  },
+  {
+    "id": "8DE7E706",
+    "project_id": "8CC7C53F",
+    "quote_number": "COT-Cero5Cien-0402-G03-20260525",
+    "quote_type": "General",
+    "version": "v2",
+    "client": "Niz+Chauvet",
+    "project_name": "Cero5Cien - Depto. O402",
+    "date": "2026-05-25",
+    "valid_until": "2026-06-01",
+    "items": [
+      {
+        "catalog_item_id": "92218A02",
+        "description": "Tubo Conduit Galvanizado Pared Delgada | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 75.0,
+        "price": 108.42,
+        "total": 8131.5,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "C82014A6",
+        "description": "Monitor Metálico Galvanizado Pared Delgada | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 150.0,
+        "price": 3.6,
+        "total": 540.0,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "E2D36AC3",
+        "description": "Cople Metálico Galvanizado Pared Delgada con Tornillo | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 75.0,
+        "price": 9.17,
+        "total": 687.75,
+        "catalog_description": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "1D5577C3",
+        "description": "Conector Metálico Galvanizado Pared Delgada | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 150.0,
+        "price": 10.38,
+        "total": 1557.0,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "E32BE145",
+        "description": "Abrazadera para Unicanal | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 110.0,
+        "price": 9.87,
+        "total": 1085.7,
+        "catalog_description": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "D5D4E2AA",
+        "description": "Tubo Conduit Galvanizado Pared Delgada | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 150.0,
+        "price": 144.67,
+        "total": 21700.5,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "DBA5C185",
+        "description": "Monitor Metálico Galvanizado Pared Delgada | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 300.0,
+        "price": 5.74,
+        "total": 1722.0,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "C1E67F16",
+        "description": "Cople Metálico Galvanizado Pared Delgada con Tornillo | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 150.0,
+        "price": 12.38,
+        "total": 1857.0,
+        "catalog_description": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "DE626994",
+        "description": "Conector Metálico Galvanizado Pared Delgada | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 300.0,
+        "price": 12.38,
+        "total": 3714.0,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "C116C004",
+        "description": "Abrazadera para Unicanal | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 225.0,
+        "price": 12.38,
+        "total": 2785.5,
+        "catalog_description": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "3EF4F34C",
+        "description": "Tubo Conduit Galvanizado Pared Delgada | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 57.0,
+        "price": 258.3,
+        "total": 14723.1,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "94B273C0",
+        "description": "Monitor Metálico Galvanizado Pared Delgada | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 100.0,
+        "price": 9.82,
+        "total": 982.0,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "BD9EA6E4",
+        "description": "Cople Metálico Galvanizado Pared Delgada con Tornillo | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 50.0,
+        "price": 18.37,
+        "total": 918.5,
+        "catalog_description": "Raco | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "5A31DD1C",
+        "description": "Conector Metálico Galvanizado Pared Delgada | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 100.0,
+        "price": 23.31,
+        "total": 2331.0,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "CF8E020E",
+        "description": "Abrazadera para Unicanal | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 150.0,
+        "price": 16.24,
+        "total": 2436.0,
+        "catalog_description": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "66F75365",
+        "description": "Tubo Conduit Metálico Flexible | 16 [mm] (1/2\")",
+        "unit": "m",
+        "qty": 150.0,
+        "price": 30.31,
+        "total": 4546.5,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "A16F4B2C",
+        "description": "Conector Recto Metálico para Tubo Conduit Flexible | 16 [mm] (1/2\")",
+        "unit": "pza",
+        "qty": 75.0,
+        "price": 16.07,
+        "total": 1205.25,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "97EEB372",
+        "description": "Tubo Conduit Metálico Flexible | 21 [mm] (3/4\")",
+        "unit": "m",
+        "qty": 460.0,
+        "price": 34.21,
+        "total": 15736.6,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "C38D6E4F",
+        "description": "Conector Recto Metálico para Tubo Conduit Flexible | 21 [mm] (3/4\")",
+        "unit": "pza",
+        "qty": 230.0,
+        "price": 25.01,
+        "total": 5752.3,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "B497844E",
+        "description": "Tubo Conduit Metálico Flexible | 27 [mm] (1\")",
+        "unit": "m",
+        "qty": 200.0,
+        "price": 47.71,
+        "total": 9542.0,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "E5AF8061",
+        "description": "Conector Recto Metálico para Tubo Conduit Flexible | 27 [mm] (1\")",
+        "unit": "pza",
+        "qty": 100.0,
+        "price": 40.8,
+        "total": 4080.0,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "D0ECADEF",
+        "description": "Caja Cuadrada Galvanizada | 3/4\"",
+        "unit": "pza",
+        "qty": 200.0,
+        "price": 44.07,
+        "total": 8814.0,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "AC40DA48",
+        "description": "Varilla Roscada | 3/8\" | Tramo de 3 [m]",
+        "unit": "pza",
+        "qty": 50.0,
+        "price": 81.34,
+        "total": 4067.0,
+        "catalog_description": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "9AC13BC2",
+        "description": "Perfil Unicanal Perforado | 4x2 [cm] | Tramo de 3 [m]",
+        "unit": "pza",
+        "qty": 50.0,
+        "price": 167.85,
+        "total": 8392.5,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "60CA5FEE",
+        "description": "Taquete Expansivo Zamac | 3/8\"",
+        "unit": "pza",
+        "qty": 600.0,
+        "price": 18.14,
+        "total": 10884.0,
+        "catalog_description": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "5880609C",
+        "description": "Tuerca Hexagonal | 3/8\"",
+        "unit": "pza",
+        "qty": 600.0,
+        "price": 1.2,
+        "total": 720.0,
+        "catalog_description": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "79921E56",
+        "description": "Rondana | 3/8\"",
+        "unit": "pza",
+        "qty": 600.0,
+        "price": 1.0,
+        "total": 600.0,
+        "catalog_description": "Anclo | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "68F0D390",
+        "description": "Soporte Caddy TSGB16 | 11 a 18\"",
+        "unit": "pza",
+        "qty": 250.0,
+        "price": 135.1,
+        "total": 33775.0,
+        "catalog_description": "Caddy | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "18C5C03E",
+        "description": "Cable de Cobre | THHW-LS | Calibre 12 AWG",
+        "unit": "m",
+        "qty": 1000.0,
+        "price": 35.85,
+        "total": 35850.0,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "047C8246",
+        "description": "Cable de Cobre | THHW-LS | Calibre 10 AWG",
+        "unit": "m",
+        "qty": 1000.0,
+        "price": 55.85,
+        "total": 55850.0,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": ""
+      },
+      {
+        "catalog_item_id": "2325432B",
+        "description": "Cable de Cobre | Desnudo | Calibre 12 AWG",
+        "unit": "m",
+        "qty": 500.0,
+        "price": 25.95,
+        "total": 12975.0,
+        "catalog_description": "Omniious | Incluye instalacion",
+        "section": ""
+      }
+    ],
+    "subtotal": 277961.7,
+    "tax_rate": 16.0,
+    "tax": 44473.87,
+    "total": 322435.57,
+    "currency": "MXN",
+    "notes": "Segunda Solicitud de Material. Cero5Cien - Depto. O402",
+    "project_basis_note": "",
+    "created_at": "2026-05-24"
+  },
+  {
+    "id": "F681A795",
+    "project_id": "43A4F936",
+    "quote_number": "COT-ATTIE-G01-20260525",
+    "quote_type": "General",
+    "version": "V1",
+    "client": "Cliente Privado",
+    "project_name": "ATTIE Alex Instalación Eléctrica",
+    "date": "2026-05-25",
+    "valid_until": "2026-06-01",
+    "items": [
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 257.0,
+        "price": 950.0,
+        "total": 244150.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 192.0,
+        "price": 235.0,
+        "total": 45120.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "INSTLED",
+        "description": "Instalación de Metro Lineal de Tira LED",
+        "unit": "ml",
+        "qty": 137.0,
+        "price": 185.0,
+        "total": 25345.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador en Muro",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 850.0,
+        "total": 12750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 135.0,
+        "price": 1100.0,
+        "total": 148500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "DF89D08C",
+        "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 21.0,
+        "price": 2750.0,
+        "total": 57750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "C8D6402B",
+        "description": "Salida Eléctrica para Termostato en Muro",
+        "unit": "pza",
+        "qty": 6.0,
+        "price": 650.0,
+        "total": 3900.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "F91F586D",
+        "description": "Salida Eléctrica para Botonera en Muro",
+        "unit": "pza",
+        "qty": 23.0,
+        "price": 850.0,
+        "total": 19550.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "76A1B25A",
+        "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 110.0,
+        "price": 1150.0,
+        "total": 126500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "86F13521",
+        "description": "Salida Eléctrica para Detección Contra Incendio",
+        "unit": "pza",
+        "qty": 17.0,
+        "price": 850.0,
+        "total": 14450.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "4F73D293",
+        "description": "Salida Eléctrica para Cámara de Seguridad en Muro o Plafón",
+        "unit": "pza",
+        "qty": 10.0,
+        "price": 850.0,
+        "total": 8500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "8D6668BE",
+        "description": "Salida Eléctrica para Audio en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 22.0,
+        "price": 850.0,
+        "total": 18700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "81F2CB4E",
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 16 [mm] (1/2\")",
+        "unit": "ml",
+        "qty": 60.0,
+        "price": 240.25,
+        "total": 14415.0,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "8F45B371",
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 21 [mm] (3/4\")",
+        "unit": "ml",
+        "qty": 629.0,
+        "price": 290.25,
+        "total": 182567.25,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "3754E826",
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 35 [mm] (1 1/4\")",
+        "unit": "ml",
+        "qty": 33.0,
+        "price": 680.25,
+        "total": 22448.25,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "DEF379B0",
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 41 [mm] (1 1/2\")",
+        "unit": "ml",
+        "qty": 81.0,
+        "price": 780.85,
+        "total": 63248.85,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "9C32D7FA",
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 53 [mm] (2\")",
+        "unit": "ml",
+        "qty": 21.0,
+        "price": 1040.9,
+        "total": 21858.9,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "B8207F51",
+        "description": "Metro Lineal de Tubería Conduit Flexible Licuatite | 53 [mm] (2\")",
+        "unit": "ml",
+        "qty": 3.0,
+        "price": 1845.45,
+        "total": 5536.35,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "2325432B",
+        "description": "Cable de Cobre | Desnudo | Calibre 12 AWG",
+        "unit": "m",
+        "qty": 267.0,
+        "price": 35.85,
+        "total": 9571.95,
+        "catalog_description": "Omniious | Incluye instalacion",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "B9E8B721",
+        "description": "Cable de Cobre | Desnudo | Calibre 10 AWG",
+        "unit": "m",
+        "qty": 32.0,
+        "price": 55.85,
+        "total": 1787.2,
+        "catalog_description": "Omniious | Incluye instalacion",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "F6A7AA34",
+        "description": "Cable de Cobre | Desnudo | Calibre 8 AWG",
+        "unit": "m",
+        "qty": 7.0,
+        "price": 85.4,
+        "total": 597.8,
+        "catalog_description": "Omniious | Incluye instalacion",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "06776B34",
+        "description": "Cable de Cobre | THHW-LS | Calibre 18 AWG",
+        "unit": "m",
+        "qty": 446.0,
+        "price": 12.4,
+        "total": 5530.4,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "047C8246",
+        "description": "Cable de Cobre | THHW-LS | Calibre 10 AWG",
+        "unit": "m",
+        "qty": 1131.0,
+        "price": 35.95,
+        "total": 40659.45,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "B6CAD20E",
+        "description": "Cable de Aluminio | THHW-LS | Calibre 6 AWG",
+        "unit": "m",
+        "qty": 27.0,
+        "price": 90.35,
+        "total": 2439.45,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "EFF4FECF",
+        "description": "Cable de Cobre | THHW-LS | Calibre 8 AWG",
+        "unit": "m",
+        "qty": 127.0,
+        "price": 55.65,
+        "total": 7067.55,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      }
+    ],
+    "subtotal": 1102943.4,
+    "tax_rate": 16.0,
+    "tax": 176470.94,
+    "total": 1279414.34,
+    "currency": "MXN",
+    "notes": "",
+    "project_basis_note": "",
+    "created_at": "2026-05-25"
   }
 ]

@@ -1191,7 +1191,7 @@
     "id": "66F75365",
     "nombre": "Tubo Conduit Metálico Flexible | 16 [mm] (1/2\")",
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -1209,7 +1209,7 @@
     "id": "8368CF40",
     "nombre": "Tubo Conduit PAD Flexible Corrugado | 16 [mm] (1/2\")",
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -1236,7 +1236,7 @@
     "id": "7DDAF764",
     "nombre": "Tubo Conduit Flexible Licuatite | 16 [mm] (1/2\")",
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -1326,7 +1326,7 @@
     "id": "97EEB372",
     "nombre": "Tubo Conduit Metálico Flexible | 21 [mm] (3/4\")",
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -1344,7 +1344,7 @@
     "id": "87DCBE2D",
     "nombre": "Tubo Conduit PAD Flexible Corrugado | 21 [mm] (3/4\")",
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -1371,7 +1371,7 @@
     "id": "DFAE2224",
     "nombre": "Tubo Conduit Flexible Licuatite | 21 [mm] (3/4\")",
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -1461,7 +1461,7 @@
     "id": "B497844E",
     "nombre": "Tubo Conduit Metálico Flexible | 27 [mm] (1\")",
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -1479,7 +1479,7 @@
     "id": "28206AAE",
     "nombre": "Tubo Conduit PAD Flexible Corrugado | 27 [mm] (1\")",
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -1506,7 +1506,7 @@
     "id": "43CD1EC4",
     "nombre": "Tubo Conduit Flexible Licuatite | 27 [mm] (1\")",
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -1776,7 +1776,7 @@
     "id": "07055CBB",
     "nombre": "Tubo Conduit Metálico Flexible | 53 [mm] (2\")",
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -1794,7 +1794,7 @@
     "id": "9B73B1D9",
     "nombre": "Tubo Conduit PAD Flexible Corrugado | 53 [mm] (2\")",
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -1821,7 +1821,7 @@
     "id": "ED1EF9F9",
     "nombre": "Tubo Conduit Flexible Licuatite | 53 [mm] (2\")",
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -1911,7 +1911,7 @@
     "id": "7C99B319",
     "nombre": "Tubo Conduit Metálico Flexible | 78 [mm] (3\")",
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -1929,7 +1929,7 @@
     "id": "1CAAFE55",
     "nombre": "Tubo Conduit PAD Flexible Corrugado | 78 [mm] (3\")",
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -1956,7 +1956,7 @@
     "id": "46A12E0C",
     "nombre": "Tubo Conduit Flexible Licuatite | 78 [mm] (3\")",
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -2046,7 +2046,7 @@
     "id": "C058643C",
     "nombre": "Tubo Conduit Metálico Flexible | 103 [mm] (4\")",
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -2064,7 +2064,7 @@
     "id": "E535F629",
     "nombre": "Tubo Conduit PAD Flexible Corrugado | 103 [mm] (4\")",
     "descripcion": "Poliflex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -2091,7 +2091,7 @@
     "id": "4B2343BB",
     "nombre": "Tubo Conduit Flexible Licuatite | 103 [mm] (4\")",
     "descripcion": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
     "categoria": ""
@@ -4080,7 +4080,7 @@
     "id": "193C2A83",
     "nombre": "Tubo Conduit Metálico Flexible | 35 [mm] (1 1/4\")",
     "descripcion": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
-    "unidad": "pza",
+    "unidad": "m",
     "precio": 0.0,
     "categoria": "",
     "created_at": "2026-05-19"
@@ -4446,46 +4446,10 @@
     "categoria": ""
   },
   {
-    "id": "SALLUM",
-    "nombre": "Salida Eléctrica para Luminaria",
-    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
-    "unidad": "pza",
-    "precio": 0.0,
-    "created_at": "2026-05-23",
-    "categoria": "Simbología COT"
-  },
-  {
-    "id": "INSTLUM",
-    "nombre": "Instalación de Luminaria",
-    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
-    "unidad": "pza",
-    "precio": 0.0,
-    "created_at": "2026-05-23",
-    "categoria": "Simbología COT"
-  },
-  {
     "id": "INSTLED",
     "nombre": "Instalación de Metro Lineal de Tira LED",
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "ml",
-    "precio": 0.0,
-    "created_at": "2026-05-23",
-    "categoria": "Simbología COT"
-  },
-  {
-    "id": "CTK",
-    "nombre": "Salida Eléctrica para Contacto",
-    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
-    "unidad": "pza",
-    "precio": 0.0,
-    "created_at": "2026-05-23",
-    "categoria": "Simbología COT"
-  },
-  {
-    "id": "APA",
-    "nombre": "Salida Eléctrica para Apagador",
-    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
-    "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-05-23",
     "categoria": "Simbología COT"

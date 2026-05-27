@@ -817,7 +817,7 @@
     "title": "Cotización",
     "source": "propia",
     "external_dep": null,
-    "status": "En progreso",
+    "status": "Aprobado",
     "parent_task_id": null,
     "notes": "",
     "history": [
@@ -832,6 +832,12 @@
         "to": "En progreso",
         "date": "2026-05-08",
         "note": "Cambio: Pendiente → En progreso"
+      },
+      {
+        "from": "En progreso",
+        "to": "Aprobado",
+        "date": "2026-05-25",
+        "note": "Cambio: En progreso → Aprobado"
       }
     ],
     "created_at": "2026-04-19"
@@ -1065,5 +1071,165 @@
       }
     ],
     "created_at": "2026-05-19"
+  },
+  {
+    "id": "221609F0",
+    "project_id": "43A4F936",
+    "alcance": "cotizacion",
+    "title": "Cotización",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-05-25",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-05-25"
+  },
+  {
+    "id": "C4CB77AC",
+    "project_id": "C3B1A649",
+    "alcance": "iluminacion",
+    "title": "IE - Iluminación",
+    "source": "externa",
+    "external_dep": "Diseño de iluminación (otra área)",
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-05-25",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-05-25"
+  },
+  {
+    "id": "9C661C01",
+    "project_id": "C3B1A649",
+    "alcance": "contactos",
+    "title": "IE - Contactos",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-05-25",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-05-25"
+  },
+  {
+    "id": "8F63102C",
+    "project_id": "C3B1A649",
+    "alcance": "hvac",
+    "title": "IE - HVAC",
+    "source": "externa",
+    "external_dep": "Proyecto HVAC (otra área)",
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-05-25",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-05-25"
+  },
+  {
+    "id": "4DD799DA",
+    "project_id": "C3B1A649",
+    "alcance": "cuadro_cargas",
+    "title": "Cuadro de Cargas",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-05-25",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-05-25"
+  },
+  {
+    "id": "40E90D28",
+    "project_id": "C3B1A649",
+    "alcance": "diagrama_unifilar",
+    "title": "Diagrama Unifilar",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-05-25",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-05-25"
+  },
+  {
+    "id": "6677F77D",
+    "project_id": "C3B1A649",
+    "alcance": "cotizacion",
+    "title": "Cotización",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-05-25",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-05-25"
+  },
+  {
+    "id": "E5FDC56D",
+    "project_id": "A95BFA9F",
+    "alcance": "cotizacion",
+    "title": "Cotización",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-05-25",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-05-25"
   }
 ]

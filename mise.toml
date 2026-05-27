@@ -1,0 +1,35 @@
+[env]
+PYTHONUTF8 = "1"
+PYTHONDONTWRITEBYTECODE = "1"
+
+[tasks.syntax]
+description = "Parse Python files without writing bytecode."
+run = "python tools/check_syntax.py"
+sources = ["app.py", "tracker/**/*.py", "tests/**/*.py", "tools/**/*.py"]
+
+[tasks.test]
+description = "Run the ProjectTracker unittest suite."
+run = "python -m unittest discover -s tests"
+sources = ["app.py", "tracker/**/*.py", "tests/**/*.py", "data/*.json"]
+
+[tasks.graph-update]
+description = "Refresh the local Graphify knowledge graph after code changes."
+run = "graphify update ."
+sources = [
+  "app.py",
+  "tracker/**/*.py",
+  "tools/**/*.py",
+  "templates/**/*.html",
+  "tests/**/*.py",
+  "*.md",
+]
+outputs = ["graphify-out/graph.json", "graphify-out/GRAPH_REPORT.md"]
+
+[tasks.graph-check]
+description = "Check whether Graphify thinks the graph needs a semantic refresh."
+run = "graphify check-update ."
+sources = ["graphify-out/graph.json", "graphify-out/GRAPH_REPORT.md"]
+
+[tasks.organize]
+description = "Check syntax, test, and refresh Graphify for a normal maintenance pass."
+depends = ["syntax", "test", "graph-update"]
