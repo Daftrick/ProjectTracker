@@ -2,9 +2,10 @@ import csv
 import io
 import os
 import re
+import uuid
 from datetime import date, datetime
 
-from flask import Blueprint, Response, flash, jsonify, redirect, render_template, request, url_for
+from flask import Blueprint, Response, flash, jsonify, redirect, render_template, request, session, url_for
 
 from ..catalog import catalog_maps, catalog_name_key, hydrate_ldm, hydrate_ldm_item, safe_float
 from ..consistency import pick_active_quote
@@ -465,12 +466,68 @@ import tempfile as _tempfile
 from ..pdf_ldm_import import extract_items_from_pdf
 
 
+def _pdf_import_session_key(project_id):
+    return f"pdf_import_{project_id}"
+
+
+def _pdf_import_dir():
+    path = os.path.join(_tempfile.gettempdir(), "projecttracker_pdf_imports")
+    os.makedirs(path, exist_ok=True)
+    return path
+
+
+def _pdf_import_path(token):
+    safe_token = re.sub(r"[^a-f0-9]", "", str(token or "").lower())
+    if not safe_token:
+        return None
+    return os.path.join(_pdf_import_dir(), f"{safe_token}.json")
+
+
+def _clear_pdf_import(project_id):
+    entry = session.pop(_pdf_import_session_key(project_id), None)
+    token = entry.get("token") if isinstance(entry, dict) else None
+    path = _pdf_import_path(token)
+    if path and os.path.isfile(path):
+        os.unlink(path)
+
+
+def _store_pdf_import(project_id, payload):
+    _clear_pdf_import(project_id)
+    token = uuid.uuid4().hex
+    path = _pdf_import_path(token)
+    with open(path, "w", encoding="utf-8") as handle:
+        _json.dump(payload, handle, ensure_ascii=False)
+    session[_pdf_import_session_key(project_id)] = {"token": token}
+
+
+def _load_pdf_import(project_id):
+    entry = session.get(_pdf_import_session_key(project_id))
+    if not entry:
+        return None
+    if isinstance(entry, dict) and "items" in entry:
+        return entry
+    token = entry.get("token") if isinstance(entry, dict) else None
+    path = _pdf_import_path(token)
+    if not path or not os.path.isfile(path):
+        _clear_pdf_import(project_id)
+        return None
+    with open(path, "r", encoding="utf-8") as handle:
+        return _json.load(handle)
+
+
+def _redirect_closed_pdf_import(project_id):
+    flash("El proyecto está cerrado. Reábrelo para importar una LDM.", "warning")
+    return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+
+
 @bp.route("/projects/<project_id>/ldm/import-pdf", methods=["POST"], endpoint="import_ldm_pdf_upload")
 def import_ldm_pdf_upload(project_id):
     """Recibe el PDF, extrae ítems y redirige a la vista de mapeo."""
     project = _find_project(project_id)
     if not project:
         return redirect(url_for("dashboard"))
+    if project.get("closed_at"):
+        return _redirect_closed_pdf_import(project_id)
 
     pdf_file = request.files.get("pdf_file")
     if not pdf_file or not pdf_file.filename:
@@ -486,8 +543,11 @@ def import_ldm_pdf_upload(project_id):
         pdf_file.save(tmp.name)
         tmp_path = tmp.name
 
-    result = extract_items_from_pdf(tmp_path)
-    os.unlink(tmp_path)
+    try:
+        result = extract_items_from_pdf(tmp_path)
+    finally:
+        if os.path.exists(tmp_path):
+            os.unlink(tmp_path)
 
     if result.get("error"):
         flash(f"Error al leer el PDF: {result['error']}", "danger")
@@ -501,15 +561,13 @@ def import_ldm_pdf_upload(project_id):
         )
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
 
-    # Guardar en sesión Flask (los ítems son pequeños — caben en cookie cifrada)
-    from flask import session
-    session[f"pdf_import_{project_id}"] = {
+    _store_pdf_import(project_id, {
         "items": result["items"],
         "method": result["method"],
         "page_count": result["page_count"],
         "filename": pdf_file.filename,
         "meta": result.get("meta", {}),
-    }
+    })
 
     flash(
         f"{len(result['items'])} ítem(s) detectado(s) con método '{result['method']}'. "
@@ -522,12 +580,14 @@ def import_ldm_pdf_upload(project_id):
 @bp.route("/projects/<project_id>/ldm/import-pdf/map", methods=["GET"], endpoint="import_ldm_pdf_map")
 def import_ldm_pdf_map(project_id):
     """Muestra la vista de mapeo ítem-PDF → catálogo."""
-    from flask import session
     project = _find_project(project_id)
     if not project:
         return redirect(url_for("dashboard"))
+    if project.get("closed_at"):
+        _clear_pdf_import(project_id)
+        return _redirect_closed_pdf_import(project_id)
 
-    session_data = session.get(f"pdf_import_{project_id}")
+    session_data = _load_pdf_import(project_id)
     if not session_data:
         flash("Sesión de importación expirada. Sube el PDF de nuevo.", "warning")
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
@@ -548,12 +608,14 @@ def import_ldm_pdf_map(project_id):
 @bp.route("/projects/<project_id>/ldm/import-pdf/create", methods=["POST"], endpoint="import_ldm_pdf_create")
 def import_ldm_pdf_create(project_id):
     """Recibe el mapeo del usuario y crea la LDM."""
-    from flask import session
     project = _find_project(project_id)
     if not project:
         return redirect(url_for("dashboard"))
+    if project.get("closed_at"):
+        _clear_pdf_import(project_id)
+        return _redirect_closed_pdf_import(project_id)
 
-    session_data = session.get(f"pdf_import_{project_id}")
+    session_data = _load_pdf_import(project_id)
     if not session_data:
         flash("Sesión de importación expirada. Sube el PDF de nuevo.", "warning")
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
@@ -648,8 +710,7 @@ def import_ldm_pdf_create(project_id):
     all_ldms.append(ldm)
     save("materiales", all_ldms)
 
-    # Limpiar sesión
-    session.pop(f"pdf_import_{project_id}", None)
+    _clear_pdf_import(project_id)
 
     flash(
         f"LDM {ldm['ldm_number']} creada con {len(built_items)} artículo(s) desde PDF. "
