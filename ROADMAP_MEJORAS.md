@@ -45,6 +45,8 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 - [x] Importación PDF de proveedor a LDM con pre-fill de metadatos: extractor Procables detecta cot_number, fecha y proveedor; el formulario de mapeo los pre-puebla automáticamente. Implementado en v30.0.
 - [x] ZIP de entrega mejorado: incluye PDFs LDM (`LDM-*.pdf`), ordena archivos por fecha de modificación (no alfabético), checkbox independiente para LDM PDFs en entrega parcial. Implementado en v30.0.
 - [x] Detección de CSV COT desde Drive: `{CLAVE}-v*-i*-COT-*.csv` detectados en carpeta Drive con estado (pendiente/importado/desactualizado); dropdown en tab Cotización importa directo sin subir archivo; upload manual conservado como opción secundaria. Implementado en v30.0.
+- [x] Filtros en detalle de proyecto para cotizaciones y LDMs: búsqueda local por texto/estado en el tab Cotización y filtro de LDMs en Materiales. Implementado en v30.0.
+- [x] Sincronización asistida inicial al crear LDM nueva: botón "Sugerir desde bundles" precarga faltantes derivados de la COT activa y conserva origen/metadatos de sincronización al guardar. Implementado en v30.0.
 
 ---
 
@@ -55,7 +57,7 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 #### 1. Probar bundles reales y ajustar componentes directos COT → LDM
 
 Validar la sincronización parcial con proyectos existentes:
-- Completar bundles de salidas: las COT de salidas deben expandir a metros de cable, tubería y accesorios para LDM.
+- Ampliar bundles de salidas: los 3 bundles iniciales ya expanden circuitos sin tubería; falta cubrir tubería, accesorios y compras mínimas por familia.
 - Definir cómo los metros de tubería generan accesorios faltantes después de descontar lo incluido en salidas.
 - Revisar que las cantidades agregadas por sincronización coincidan con compras reales por proveedor.
 - Si se requieren conversiones o redondeos, agregarlos como campos propios del componente de bundle, no como tabla separada de reglas.
@@ -63,9 +65,10 @@ Validar la sincronización parcial con proyectos existentes:
 
 #### 2. Siguiente fase de sincronización asistida
 
-Evaluar después de pruebas reales:
-- Auto-fill de LDM desde expansión de bundle al crear una LDM nueva.
+Primera versión ya implementada: una LDM nueva puede precargarse desde bundles con origen/metadatos de sincronización. Falta endurecer el flujo operativo:
 - Asistente de selección de faltantes por proveedor/disciplina antes de agregar.
+- Proponer faltantes en una LDM existente sin sobrescribir captura existente.
+- Mostrar diff antes de agregar filas.
 - Propagación visual de cambios de cantidad COT a faltantes sugeridos, sin modificar bundles base.
 
 ---
@@ -74,10 +77,8 @@ Evaluar después de pruebas reales:
 
 #### 3. Filtros y búsqueda restantes
 
-- Extender el patrón de filtros combinables ya aplicado en proveedores y fichas técnicas a:
-  - cotizaciones,
-  - LDMs,
-  - documentos.
+- El detalle de proyecto ya tiene filtros para cotizaciones y LDMs.
+- Extender el patrón de filtros combinables a documentos y, si se reactivan, listas globales.
 - Evaluar filtros por proyecto, proveedor, categoría, fecha y estado.
 - Revisar si conviene extraer view-models para listas globales antes de agregar más filtros.
 
@@ -102,10 +103,10 @@ Evaluar después de pruebas reales:
 
 Orden sugerido de trabajo:
 
-1. **Completar bundles de salidas** con componentes y cantidades reales de cable, tubería y accesorios (3 bundles vacíos en `data/bundles.json`).
+1. **Ampliar bundles de salidas** con componentes y cantidades reales de tubería, accesorios y compras mínimas; los 3 bundles iniciales ya tienen componentes base para circuitos sin tubería.
 2. **Probar bundles reales** en proyectos existentes y ajustar componentes directos COT → LDM con datos de producción.
-3. **Siguiente fase de sincronización asistida** — decidir si conviene auto-fill al crear LDM nueva o asistente por proveedor/disciplina.
-4. **Filtros en tab Cotizaciones y LDMs** (baja prioridad, patrón ya implementado en proveedores y fichas).
+3. **Siguiente fase de sincronización asistida** — convertir el auto-fill inicial en asistente con diff, selección parcial y agrupación por proveedor/disciplina.
+4. **Filtros restantes** — documentos y listas globales si vuelven a ser necesarias.
 
 
 ---

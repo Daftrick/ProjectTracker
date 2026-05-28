@@ -108,18 +108,16 @@ ProjectTracker/
 │   ├── fichas.html             # CRUD fichas técnicas globales
 │   ├── team.html               # CRUD equipo
 │   ├── settings.html           # Rutas de Drive
-│   ├── drive_scan.html         # (parcial) explorador carpeta Drive
-│   ├── delivery_preview.html   # Vista previa entrega ZIP
-│   ├── tasks.html              # (legacy/auxiliar)
-│   ├── task_edit.html          # Edición tarea individual
-│   ├── doc_edit.html           # Edición documento
-│   ├── documents.html          # Lista documentos
-│   └── quotes.html             # Lista cotizaciones global
+│   ├── audit_deleted_catalog.html # Auditoría de referencias a catálogo eliminado
+│   └── bundles.html            # Admin de bundles directos COT → LDM
 │
 └── tests/
     ├── test_services.py        # unittest: crear proyecto, sync alcances, bloqueos, subtareas obs
     ├── test_drive.py           # unittest: escaneo Drive, CSVs de plano y archivos ignorados
     ├── test_csv_import.py      # unittest: parser CSV para LDM
+    ├── test_quote_csv_import.py       # unittest: parser CSV para COT desde LISP
+    ├── test_quote_csv_import_route.py # unittest: importación COT desde upload/Drive
+    ├── test_quote_sections.py         # unittest: secciones contiguas y ordenables en cotizaciones
     ├── test_validators.py      # unittest: formularios vacíos, filas vacías, números inválidos
     ├── test_catalog_search.py         # unittest: tokens AND, categoría, list_categories, smoke /api/catalogo
     ├── test_consistency.py            # unittest: resumen visual simple COT vs LDM, margen y avisos básicos
@@ -127,6 +125,7 @@ ProjectTracker/
     ├── test_admin_bundles_routes.py   # unittest: rutas Admin bundles directos
     ├── test_admin_filters.py          # unittest: filtros administrativos y smoke de rutas proveedores/fichas
     ├── test_admin_forms.py            # unittest: validación inline y preservación de formularios administrativos
+    ├── test_audit_deleted_catalog_route.py # unittest: auditoría de referencias a catálogo eliminado
     ├── test_project_view.py           # unittest: contexto de project_detail, filas LDM y CSVs importables
     ├── test_deletions.py              # unittest: cascadas al eliminar proyecto y limpieza de referencias catálogo
     ├── test_form_models.py            # unittest: view-models de cotización y LDM desde formularios inválidos
@@ -450,7 +449,8 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
-| 2026-05-28 | **v30.0 — Detección CSV COT desde Drive + aprobación de cotizaciones + ZIP de entrega mejorado**: dropdown "Importar CSV Drive" en tab Cotización detecta archivos `{CLAVE}-v*-i*-COT-*.csv` en carpeta Drive con estado (pendiente/importado/desactualizado); ruta `/quote/import-drive/<filename>` lee directo sin subir; upload manual se conserva como opción secundaria. Approval status de cotizaciones: una base activa por proyecto, Extraordinarias toggle independiente, migración idempotente en startup. LDM PDF simplificado: solo nombre y marca. ZIP de entrega incluye LDM PDFs y ordena archivos por fecha de modificación. 165 tests. |
+| 2026-05-28 | **Documentación v30.0**: se actualizan árboles reales de `templates/` y `tests/`, conteo de suite a 167 tests, pendientes de bundles directos y estado parcial de sincronización asistida/filtros en los roadmaps. |
+| 2026-05-28 | **v30.0 — Detección CSV COT desde Drive + aprobación de cotizaciones + ZIP de entrega mejorado**: dropdown "Importar CSV Drive" en tab Cotización detecta archivos `{CLAVE}-v*-i*-COT-*.csv` en carpeta Drive con estado (pendiente/importado/desactualizado); ruta `/quote/import-drive/<filename>` lee directo sin subir; upload manual se conserva como opción secundaria. Approval status de cotizaciones: una base activa por proyecto, Extraordinarias toggle independiente, migración idempotente en startup. LDM PDF simplificado: solo nombre y marca. ZIP de entrega incluye LDM PDFs y ordena archivos por fecha de modificación. 167 tests. |
 | 2026-05-28 | Versión bumped v29.0 → v30.0 (features: CSV COT Drive + quote approval + ZIP LDM + meta pre-fill PDF import) |
 | 2026-05-28 | **Importación PDF de proveedor a LDM**: desde Materiales se puede subir PDF, revisar extracción, mapear artículos al catálogo y crear una LDM. El extractor específico de Procables identifica partidas y metadatos cuando están disponibles. |
 | 2026-05-28 | **Robustez PDF LDM**: `pdfplumber>=0.11.0` queda declarado en dependencias; la extracción se guarda temporalmente del lado servidor y la sesión conserva sólo un token; proyectos cerrados bloquean upload, mapeo y creación. |
@@ -685,11 +685,11 @@ Reglas de portada PDF:
 
 **Alta prioridad:**
 - Validar `CEDULARECEXPORTCOT` con planos reales en AutoCAD (Fase 2 del ROADMAP_INTEGRACION_LISP_CSV_APP).
-- Probar bundles reales en proyectos existentes y ajustar componentes directos COT → LDM.
-- Completar bundles de salidas: las COT de salidas incluyen metros de cable, tubería y accesorios para LDM; falta definir cantidades/componentes por familia.
+- Probar los bundles reales iniciales en proyectos existentes y ajustar componentes directos COT → LDM con datos de compra.
+- Ampliar bundles de salidas: las COT de salidas ya tienen un primer corte para circuitos sin tubería; falta definir tubería, accesorios, compras mínimas y componentes por familia.
 
 **Media prioridad (ver `ROADMAP_MEJORAS.md`):**
-- Continuar filtros y búsqueda en cotizaciones, LDMs y documentos.
+- Completar filtros pendientes en documentos/listas globales; en el detalle de proyecto ya hay filtros para cotizaciones y LDMs.
 
 **Baja prioridad:**
 - Mejoras de UX general (navegación, mensajes flash, carga, móvil).

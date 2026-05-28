@@ -393,12 +393,14 @@ Estado: completado en ProjectTracker el 2026-05-28. La vista muestra base financ
 
 Objetivo: ayudar a corregir LDMs sin destruir captura existente.
 
-- [ ] Proponer faltantes desde bundles al crear una LDM nueva.
+- [x] Proponer faltantes desde bundles al crear una LDM nueva. ✅ 2026-05-28
 - [ ] Proponer faltantes en una LDM existente por proveedor/disciplina.
-- [ ] Nunca sobrescribir precios proveedor ya capturados.
+- [x] Nunca sobrescribir precios proveedor ya capturados en la propuesta inicial; las filas sugeridas se precargan como renglones nuevos. ✅ 2026-05-28
 - [ ] Mostrar diff antes de agregar filas.
 - [ ] Permitir seleccionar subset de faltantes.
-- [ ] Registrar origen de filas agregadas automaticamente.
+- [x] Registrar origen de filas agregadas automaticamente (`origen` y metadatos `sync_expected_*`). ✅ 2026-05-28
+
+Estado: parcial. Ya existe el flujo de LDM nueva con sugerencias desde bundles directos; falta convertirlo en asistente para LDM existente con diff, selección parcial y agrupación por proveedor/disciplina.
 
 Criterio de aceptacion:
 
@@ -412,18 +414,19 @@ Objetivo: cerrar el circuito con confianza.
 
 - [ ] Fixtures CSV LDM reales.
 - [ ] Fixtures CSV COT reales.
-- [ ] Pruebas para parsers COT/LDM.
-- [ ] Pruebas para vinculacion con catalogo.
-- [ ] Pruebas para bundles directos, conversiones de componente y resumen visual COT/LDM.
+- [x] Pruebas para parsers COT/LDM.
+- [x] Pruebas para vinculacion con catalogo.
+- [x] Pruebas para bundles directos y resumen visual COT/LDM.
+- [ ] Pruebas para conversiones/redondeos de componente cuando existan esos campos propios de bundle.
 - [ ] Pruebas para duplicados y reimportaciones.
 - [ ] Checklist manual AutoCAD:
   - cargar LISP,
   - seleccionar bloques,
   - generar LDM,
   - generar COT,
-  - generar comparativo,
   - importar en app,
-  - revisar consistencia.
+  - revisar resumen visual COT vs LDM,
+  - revisar sugerencias desde bundles.
 
 Criterio de aceptacion:
 
@@ -437,8 +440,8 @@ Criterio de aceptacion:
 2. Cerrar matriz pendiente sólo para bloques especiales y HVAC.
 3. Crear bundles reales de salidas y tubería/accesorios.
 4. Ajustar componentes de bundle, conversiones y redondeos con esos bundles reales.
-5. Pulir UI de importacion/revision en Fases 7 y 8.
-6. Automatizar sincronizacion asistida en Fase 9.
+5. Pulir UI de importacion en Fase 7.
+6. Completar sincronizacion asistida en Fase 9 con diff, selección parcial y agrupación por proveedor/disciplina.
 7. Consolidar pruebas y fixtures en Fase 10.
 
 ---
