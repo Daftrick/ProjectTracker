@@ -298,11 +298,15 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | Método | Path | Función | Descripción |
 |---|---|---|---|
 | GET/POST | `/projects/<id>/quote/new` | `new_quote` | Nueva cotización |
+| POST | `/projects/<id>/quote/import` | `import_quote_csv` | Importar COT desde CSV subido manualmente |
+| GET | `/projects/<id>/quote/import-drive/<path:filename>` | `import_quote_csv_drive` | Importar COT desde CSV detectado en Drive |
 | GET/POST | `/projects/<id>/quote/<qid>/edit` | `edit_quote` | Editar cotización |
 | GET | `/projects/<id>/quote/<qid>/view` | `view_quote` | Vista de sólo lectura |
 | POST | `/projects/<id>/quote/<qid>/delete` | `delete_quote` | Eliminar cotización |
+| POST | `/projects/<id>/quote/<qid>/approve` | `approve_quote` | Aprobar cotización base o activar/desactivar extra |
 | GET | `/projects/<id>/quote/<qid>/pdf` | `quote_pdf` | Generar PDF en Drive |
 | GET | `/projects/<id>/quote/<qid>/excel` | `quote_excel` | Descargar Excel (.xlsx) |
+| GET | `/audit/deleted-catalog` | `audit_deleted_catalog` | Auditoría de referencias a catálogo eliminado |
 
 ### Blueprint `materials_bp`
 
@@ -332,6 +336,14 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | GET | `/api/catalogo` | `api_catalogo` | Buscar artículos (JSON, max 50, tokens AND + filtro `categoria`) |
 | GET | `/api/catalogo/categorias` | `api_catalogo_categorias` | Lista única de categorías existentes (JSON) |
 | POST | `/api/catalogo/add` | `api_catalogo_add` | Agregar artículo vía JSON (acepta `categoria`) |
+| GET | `/api/catalogo/<id>/impact` | `api_catalogo_impact` | Referencias activas antes de eliminar catálogo |
+| GET/POST | `/bundles` | `bundles` | CRUD principal de bundles directos |
+| POST | `/bundles/<id>/update` | `update_bundle` | Editar bundle |
+| POST | `/bundles/<id>/delete` | `delete_bundle` | Eliminar bundle |
+| POST | `/bundles/<id>/versions/add` | `add_bundle_version_route` | Crear versión de bundle |
+| POST | `/bundles/<id>/versions/<n>/update` | `update_bundle_version` | Editar versión de bundle |
+| POST | `/bundles/<id>/versions/<n>/activate` | `activate_bundle_version_route` | Activar versión de bundle |
+| POST | `/bundles/<id>/versions/<n>/delete` | `delete_bundle_version_route` | Eliminar versión de bundle |
 | GET/POST | `/proveedores` | `proveedores` | CRUD proveedores |
 | POST | `/proveedores/<id>/edit` | `edit_proveedor` | Editar proveedor |
 | POST | `/proveedores/<id>/delete` | `delete_proveedor` | Eliminar proveedor |
@@ -363,13 +375,8 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | `fichas.html` | `GET/POST /fichas` |
 | `team.html` | `GET/POST /team` |
 | `settings.html` | `GET/POST /settings` |
-| `drive_scan.html` | Parcial/incluido en `project_detail.html` |
-| `delivery_preview.html` | Vista previa entrega |
-| `quotes.html` | Lista global de cotizaciones |
-| `tasks.html` | Vista auxiliar de tareas |
-| `task_edit.html` | Edición de tarea individual |
-| `documents.html` | Lista de documentos |
-| `doc_edit.html` | Edición de documento |
+| `audit_deleted_catalog.html` | `GET /audit/deleted-catalog` |
+| `bundles.html` | `GET/POST /bundles` y rutas de versiones de bundles |
 
 ---
 
@@ -449,8 +456,8 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
-| 2026-05-28 | **Documentación v30.0**: se actualizan árboles reales de `templates/` y `tests/`, conteo de suite a 167 tests, pendientes de bundles directos y estado parcial de sincronización asistida/filtros en los roadmaps. |
-| 2026-05-28 | **v30.0 — Detección CSV COT desde Drive + aprobación de cotizaciones + ZIP de entrega mejorado**: dropdown "Importar CSV Drive" en tab Cotización detecta archivos `{CLAVE}-v*-i*-COT-*.csv` en carpeta Drive con estado (pendiente/importado/desactualizado); ruta `/quote/import-drive/<filename>` lee directo sin subir; upload manual se conserva como opción secundaria. Approval status de cotizaciones: una base activa por proyecto, Extraordinarias toggle independiente, migración idempotente en startup. LDM PDF simplificado: solo nombre y marca. ZIP de entrega incluye LDM PDFs y ordena archivos por fecha de modificación. 167 tests. |
+| 2026-05-28 | **Documentación v30.0**: se actualizan árboles reales de `templates/` y `tests/`, tabla de rutas vigentes, conteo de suite a 167 tests, pendientes de bundles directos y estado parcial de sincronización asistida/filtros en los roadmaps. |
+| 2026-05-28 | **v30.0 — Detección CSV COT desde Drive + aprobación de cotizaciones + ZIP de entrega mejorado**: dropdown "Importar CSV Drive" en tab Cotización detecta archivos `{CLAVE}-v*-i*-COT-*.csv` en carpeta Drive con estado (pendiente/importado/desactualizado); ruta `/projects/<id>/quote/import-drive/<path:filename>` lee directo sin subir; upload manual se conserva como opción secundaria. Approval status de cotizaciones: una base activa por proyecto, Extraordinarias toggle independiente, migración idempotente en startup. LDM PDF simplificado: solo nombre y marca. ZIP de entrega incluye LDM PDFs y ordena archivos por fecha de modificación. 167 tests. |
 | 2026-05-28 | Versión bumped v29.0 → v30.0 (features: CSV COT Drive + quote approval + ZIP LDM + meta pre-fill PDF import) |
 | 2026-05-28 | **Importación PDF de proveedor a LDM**: desde Materiales se puede subir PDF, revisar extracción, mapear artículos al catálogo y crear una LDM. El extractor específico de Procables identifica partidas y metadatos cuando están disponibles. |
 | 2026-05-28 | **Robustez PDF LDM**: `pdfplumber>=0.11.0` queda declarado en dependencias; la extracción se guarda temporalmente del lado servidor y la sesión conserva sólo un token; proyectos cerrados bloquean upload, mapeo y creación. |
