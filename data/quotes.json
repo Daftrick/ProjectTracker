@@ -2057,16 +2057,6 @@
     "valid_until": "2026-06-01",
     "items": [
       {
-        "catalog_item_id": "F91F586D",
-        "description": "Salida Eléctrica para Botonera en Muro",
-        "unit": "pza",
-        "qty": 1.0,
-        "price": 1000.0,
-        "total": 1000.0,
-        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
-        "section": ""
-      },
-      {
         "catalog_item_id": "DF89D08C",
         "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
         "unit": "pza",
@@ -2247,7 +2237,7 @@
         "section": "ÁREAS GENERALES"
       },
       {
-        "catalog_item_id": "",
+        "catalog_item_id": "06776B34",
         "description": "Cable de Cobre | THHW-LS | Calibre 18 AWG",
         "unit": "m",
         "qty": 1700.0,
@@ -3977,10 +3967,10 @@
         "section": "CUARTO DE MÁQUINAS"
       }
     ],
-    "subtotal": 2137637.55,
+    "subtotal": 2136637.55,
     "tax_rate": 16.0,
-    "tax": 342022.01,
-    "total": 2479659.56,
+    "tax": 341862.01,
+    "total": 2478499.56,
     "currency": "MXN",
     "notes": "",
     "project_basis_note": "",

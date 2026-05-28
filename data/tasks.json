@@ -485,7 +485,8 @@
         "note": "Cambio: Observaciones → Aprobado"
       }
     ],
-    "created_at": "2026-04-19"
+    "created_at": "2026-04-19",
+    "info_status": "Entregado"
   },
   {
     "id": "B0A749E3",
@@ -538,7 +539,7 @@
     "title": "IE - HVAC",
     "source": "externa",
     "external_dep": "Solicitar Plano de Sistema de HVAC con Niz + Chauvet",
-    "status": "Pendiente",
+    "status": "En progreso",
     "parent_task_id": null,
     "notes": "",
     "history": [
@@ -553,10 +554,16 @@
         "to": "Pendiente",
         "date": "2026-04-21",
         "note": "Cambio: Pendiente → Pendiente"
+      },
+      {
+        "from": "Pendiente",
+        "to": "En progreso",
+        "date": "2026-05-27",
+        "note": "Cambio: Pendiente → En progreso"
       }
     ],
     "created_at": "2026-04-19",
-    "info_status": "Pendiente"
+    "info_status": "Entregado"
   },
   {
     "id": "A5A2CAE9",
