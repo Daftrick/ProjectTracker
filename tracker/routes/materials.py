@@ -13,7 +13,7 @@ from ..csv_import import parse_ldm_csv
 from ..deletions import purge_deleted_catalog_items_from_record
 from ..drive import active_drive_paths, folder_name, load_config, parse_csv_plano_filename
 from ..form_models import ldm_from_form
-from ..ldm_sync import append_missing_bundle_items_to_ldm
+from ..ldm_sync import append_missing_bundle_items_to_ldm, missing_ldm_items_from_bundles
 from ..pdfs import build_ldm_pdf
 from ..storage import load, new_id, save, today
 from ..validators import validate_ldm_form
@@ -161,6 +161,43 @@ def _render_ldm_form(project, ldm, field_errors=None):
     )
 
 
+def _bundle_suggestion_ldm(project_id, project):
+    catalog_by_id, catalog_by_name = catalog_maps()
+    project_quotes = [
+        quote
+        for quote in load("quotes")
+        if quote.get("project_id") == project_id
+    ]
+    active_quote = pick_active_quote(project_quotes)
+    if not active_quote:
+        return None, "No hay cotización base activa para sugerir materiales."
+
+    project_ldms = [
+        hydrate_ldm(item, catalog_by_id, catalog_by_name)
+        for item in load("materiales")
+        if item.get("project_id") == project_id
+    ]
+    suggestions = missing_ldm_items_from_bundles(
+        active_quote,
+        project_ldms,
+        load("bundles"),
+        catalog_by_id=catalog_by_id,
+    )
+    if not suggestions:
+        return None, "No hay faltantes técnicos por sugerir desde bundles."
+
+    return {
+        "is_bundle_suggestion": True,
+        "ldm_number": "Sugerida desde bundles",
+        "proveedor": "",
+        "fecha": today(),
+        "notes": f"Sugerida desde {active_quote.get('quote_number') or 'cotización activa'}",
+        "items": suggestions,
+        "bundle_suggestion_count": len(suggestions),
+        "source_quote_number": active_quote.get("quote_number", ""),
+    }, None
+
+
 @bp.route("/projects/<project_id>/ldm/new", methods=["GET", "POST"], endpoint="new_ldm")
 def new_ldm(project_id):
     project = _find_project(project_id)
@@ -195,6 +232,13 @@ def new_ldm(project_id):
         save("materiales", all_ldms)
         flash(f"Lista {ldm['ldm_number']} creada.", "success")
         return redirect(url_for("materials_bp.edit_ldm", project_id=project_id, ldm_id=ldm["id"]))
+    if request.args.get("from_bundles") == "1":
+        suggestion_ldm, message = _bundle_suggestion_ldm(project_id, project)
+        if not suggestion_ldm:
+            flash(message, "info")
+            return _render_ldm_form(project, None)
+        flash(f"Se precargaron {suggestion_ldm['bundle_suggestion_count']} material(es) sugeridos desde bundles.", "info")
+        return _render_ldm_form(project, suggestion_ldm)
     return _render_ldm_form(project, None)
 
 

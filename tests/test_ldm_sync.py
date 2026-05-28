@@ -94,6 +94,67 @@ class MaterialsSyncRouteTest(unittest.TestCase):
         self.assertEqual(len(saved["materiales"][0]["items"]), 2)
         self.assertEqual(saved["materiales"][0]["items"][1]["origen"], "bundle_sync")
 
+    def test_new_ldm_can_prefill_bundle_suggestions(self):
+        def fake_load(key):
+            data = {
+                "projects": [PROJECT],
+                "materiales": [LDM],
+                "quotes": [QUOTE],
+                "bundles": BUNDLES,
+                "proveedores": [],
+            }
+            return data.get(key, [])
+
+        with patch("tracker.routes.materials.load", side_effect=fake_load), \
+             patch("tracker.routes.materials.catalog_maps", return_value=(CATALOG, {})):
+            response = self.client.get("/projects/P1/ldm/new?from_bundles=1")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Tubo por metro", response.data)
+        self.assertIn(b"Sugerido desde bundles", response.data)
+        self.assertIn(b'value="4.0"', response.data)
+
+    def test_new_ldm_preserves_bundle_suggestion_origin_on_create(self):
+        saved = {}
+        materiales = []
+
+        def fake_load(key):
+            data = {
+                "projects": [PROJECT],
+                "materiales": materiales,
+                "proveedores": [],
+            }
+            return data.get(key, [])
+
+        def fake_save(key, value):
+            saved[key] = value
+
+        form = {
+            "proveedor": "Proveedor Demo",
+            "fecha": "2026-05-28",
+            "item_desc[]": ["Tubo por metro"],
+            "item_unit[]": ["ml"],
+            "item_qty[]": ["4"],
+            "item_catalog_id[]": ["TUBO-ML"],
+            "item_origen[]": ["bundle_sync"],
+            "item_sync_expected_catalog_item_id[]": ["TUBO-ML"],
+            "item_sync_expected_qty[]": ["4"],
+            "item_sync_issue[]": ["qty_shortage"],
+        }
+
+        with patch("tracker.routes.materials.load", side_effect=fake_load), \
+             patch("tracker.routes.materials.save", side_effect=fake_save), \
+             patch("tracker.routes.materials.new_id", return_value="LDM2"), \
+             patch("tracker.validators.catalog_maps", return_value=(CATALOG, {})):
+            response = self.client.post("/projects/P1/ldm/new", data=form)
+
+        self.assertEqual(response.status_code, 302)
+        item = saved["materiales"][0]["items"][0]
+        self.assertEqual(item["origen"], "bundle_sync")
+        self.assertEqual(item["sync_expected_catalog_item_id"], "TUBO-ML")
+        self.assertEqual(item["sync_expected_qty"], 4)
+        self.assertEqual(item["sync_issue"], "qty_shortage")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -36,6 +36,15 @@ def _csv_importable_files(scan):
     ]
 
 
+def _csv_cot_importable_files(scan):
+    """CSVs COT en Drive que aún no están vinculados a una cotización."""
+    return [
+        csv_file
+        for csv_file in (scan or {}).get("csv_cot", [])
+        if not csv_file.get("linked_quote")
+    ]
+
+
 def _deleted_catalog_items(record):
     return [
         item
@@ -253,7 +262,7 @@ def build_project_detail_context(project):
     drive_paths = active_drive_paths(cfg)
     drive_folder = folder_name(project)
     scan = build_drive_scan_view(
-        scan_drive_folder(drive_folder, drive_paths["projects"], ldms, clave=project["clave"])
+        scan_drive_folder(drive_folder, drive_paths["projects"], ldms, clave=project["clave"], quotes=quotes)
     )
     available = find_delivery_files(
         drive_folder,
@@ -330,6 +339,7 @@ def build_project_detail_context(project):
         "deliveries": deliveries,
         "scan": scan,
         "importable_csvs": _csv_importable_files(scan),
+        "importable_cot_csvs": _csv_cot_importable_files(scan),
         "available": available,
         "quotes": quotes,
         "quote_rows": build_quote_row_views(quotes),

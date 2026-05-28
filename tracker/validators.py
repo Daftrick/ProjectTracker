@@ -318,6 +318,10 @@ def _parse_ldm_items(form, errors):
     qtys = form.getlist("item_qty[]")
     prices = form.getlist("item_precio_cot[]")
     catalog_ids = form.getlist("item_catalog_id[]")
+    origins = form.getlist("item_origen[]")
+    sync_expected_catalog_ids = form.getlist("item_sync_expected_catalog_item_id[]")
+    sync_expected_qtys = form.getlist("item_sync_expected_qty[]")
+    sync_issues = form.getlist("item_sync_issue[]")
     deleted_ids = form.getlist("item_deleted_catalog_id[]")
     deleted_names = form.getlist("item_deleted_catalog_nombre[]")
     deleted_descriptions = form.getlist("item_deleted_catalog_descripcion[]")
@@ -378,6 +382,20 @@ def _parse_ldm_items(form, errors):
             "precio_cot": hydrated.get("precio_cot", 0.0),
             "total_cot": hydrated.get("total_cot", 0.0),
         }
+        origin = _clean(origins[index]) if index < len(origins) else ""
+        if origin:
+            parsed_item["origen"] = origin
+        sync_expected_catalog_id = _clean(sync_expected_catalog_ids[index]) if index < len(sync_expected_catalog_ids) else ""
+        if sync_expected_catalog_id:
+            parsed_item["sync_expected_catalog_item_id"] = sync_expected_catalog_id
+            parsed_item["sync_expected_qty"] = _parse_float(
+                sync_expected_qtys[index] if index < len(sync_expected_qtys) else "",
+                "cantidad esperada",
+                errors,
+                row=row,
+                default=0,
+            )
+            parsed_item["sync_issue"] = _clean(sync_issues[index]) if index < len(sync_issues) else ""
         if hydrated.get("deleted_catalog_item"):
             parsed_item["deleted_catalog_item"] = hydrated["deleted_catalog_item"]
         items.append(parsed_item)

@@ -625,3 +625,64 @@ def audit_deleted_catalog():
     }
 
     return render_template("audit_deleted_catalog.html", audit=combined_audit)
+
+
+@bp.route("/projects/<project_id>/quote/import-drive/<path:filename>", methods=["GET"], endpoint="import_quote_csv_drive")
+def import_quote_csv_drive(project_id, filename):
+    """Lee un CSV COT directamente desde la carpeta Drive del proyecto y muestra preview."""
+    project = _find_project(project_id)
+    if not project:
+        return redirect(url_for("dashboard"))
+    if project.get("closed_at"):
+        flash("El proyecto está cerrado. Reábrelo para importar una cotización.", "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+    # Resolver ruta en Drive
+    cfg = load_config()
+    drive_paths = active_drive_paths(cfg)
+    projects_root = drive_paths["projects"]
+    if not projects_root:
+        flash("Ruta de proyectos Drive no configurada. Ve a Ajustes.", "danger")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+    from ..drive import folder_name as drive_folder_name
+    project_folder = os.path.join(projects_root, drive_folder_name(project))
+    clean_name = os.path.basename(filename)
+    csv_path = os.path.abspath(os.path.join(project_folder, clean_name))
+
+    # Seguridad: el archivo debe estar dentro de la carpeta del proyecto
+    if not csv_path.startswith(os.path.abspath(project_folder) + os.sep):
+        flash("Ruta de archivo inválida.", "danger")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+    if not os.path.isfile(csv_path):
+        flash(f"CSV no encontrado en Drive: {clean_name}", "danger")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+    parsed = parse_quote_csv(csv_path, catalog=load("catalogo"))
+
+    if parsed["errors"]:
+        for error in parsed["errors"]:
+            flash(error, "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+    metadata = parsed.get("metadata", {})
+    if metadata.get("proyecto_clave") and metadata["proyecto_clave"] != project.get("clave"):
+        flash("La clave de proyecto del CSV no coincide con este proyecto.", "warning")
+
+    missing_catalog = [item for item in parsed["items"] if not item.get("catalog_item_id")]
+    if missing_catalog:
+        flash(f"{len(missing_catalog)} partida(s) sin coincidencia exacta en catálogo.", "warning")
+    for warning in parsed.get("warnings", []):
+        flash(warning, "warning")
+
+    quotes = load("quotes")
+    preview = _quote_preview_from_csv(project, parsed, clean_name, quotes)
+    # Marcar el archivo Drive de origen para vincularlo al guardar
+    preview["csv_filename"] = clean_name
+    return _render_quote_form(
+        project,
+        preview,
+        quotes,
+        form_action=url_for("quotes_bp.new_quote", project_id=project_id),
+    )

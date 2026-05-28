@@ -2,7 +2,7 @@
 
 Este documento concentra el plan de trabajo para conectar las cuantificaciones
 generadas desde AutoCAD/LISP con ProjectTracker mediante CSVs, catalogo,
-cotizaciones, LDMs, bundles y comparaciones COT/LDM.
+cotizaciones, LDMs, bundles y revision COT/LDM.
 
 El objetivo no es solo importar filas: el flujo debe permitir que una misma
 cuantificacion tecnica produzca conceptos comerciales para cotizacion y
@@ -21,9 +21,9 @@ materiales de compra para LDM, aunque los articulos no sean los mismos.
    - El LISP debe exportar `description` con nombres exactos del catalogo cuando el articulo exista.
    - La app debe intentar vincular por `catalog_item_id` cuando pueda y por nombre normalizado como respaldo.
 
-3. **La equivalencia vive en bundles y reglas.**
+3. **La equivalencia vive en bundles directos.**
    - Un articulo COT puede expandirse a varios componentes LDM mediante bundles.
-   - Una regla COT/LDM convierte unidades cuando compra y venta no usan la misma unidad.
+   - Si compra y venta no usan la misma unidad, la conversion debe quedar como campo del componente de bundle, no como tabla separada de reglas.
    - Ejemplo: COT = metro lineal de tuberia; LDM = tubos por pieza, abrazaderas, pijas, soportes, coples, conectores.
 
 4. **Los CSVs deben ser auditables.**
@@ -32,13 +32,13 @@ materiales de compra para LDM, aunque los articulos no sean los mismos.
 
 5. **Las comparaciones oficiales viven en la app.**
    - LISP extrae hechos del dibujo: salidas, dispositivos, longitudes, atributos, layers y contexto.
-   - ProjectTracker interpreta esos hechos con catalogo, bundles, reglas COT/LDM y tolerancias.
+   - ProjectTracker interpreta esos hechos con catalogo, bundles directos y tolerancias simples cuando existan.
    - Cualquier comparativo generado en AutoCAD queda como diagnostico local, no como fuente oficial.
 
 ---
 
 ## Estado actual
-<!-- Última revisión: 2026-05-23 — verificado contra código fuente -->
+<!-- Última revisión: 2026-05-28 v30.0 — verificado contra código fuente -->
 
 ### Ya disponible en ProjectTracker
 
@@ -46,16 +46,21 @@ materiales de compra para LDM, aunque los articulos no sean los mismos.
   - Detecta CSVs en carpeta Drive del proyecto con patrón `{CLAVE}-v{VER}-i{CONSEC}-{YYYYMMDD}.csv` (case-insensitive).
   - Llama a `parse_ldm_csv` con catálogo; muestra preview editable con proveedor/fecha pre-poblados desde metadatos `#`.
   - Detecta reimportaciones duplicadas por nombre de archivo.
-- **Importacion COT desde CSV** — ruta `POST /projects/<id>/quote/import` operativa.
+- **Importacion COT desde CSV** — ruta `POST /projects/<id>/quote/import` (upload manual) y `GET /projects/<id>/quote/import-drive/<filename>` (desde Drive) operativas.
+  - CSV COT detectados automáticamente en carpeta Drive con patrón `{CLAVE}-v*-i*-COT-*.csv`.
+  - Dropdown en tab Cotización muestra estado por archivo (pendiente/importado/desactualizado).
   - Acepta upload directo desde browser (multipart); usa `tempfile` y lo borra después de parsear.
   - Llama a `parse_quote_csv`; muestra preview con campo `price` editable (acepta `price` vacío sin error).
   - Advierte partidas duplicadas y sin catálogo sin bloquear la importación.
+- **Importacion PDF de proveedor a LDM** — rutas `POST /projects/<id>/ldm/import-pdf`, `GET /projects/<id>/ldm/import-pdf/map` y `POST /projects/<id>/ldm/import-pdf/create` operativas.
+  - Usa extractor PDF con `pdfplumber`; Procables detecta partidas, proveedor, fecha y numero de cotizacion cuando el formato coincide.
+  - Guarda la extraccion temporalmente del lado servidor y usa token en sesion para evitar cookies grandes.
 - Exportacion CSV de LDM existente.
 - Catalogo con articulos comerciales y tecnicos.
 - Bundles versionados: articulo COT → componentes tecnicos esperados.
-- Reglas de comparacion COT/LDM para convertir unidades.
-- Vista de consistencia comercial y tecnica en detalle de proyecto.
-- Sincronizacion parcial para completar faltantes tecnicos en una LDM existente.
+- Reglas COT/LDM retiradas del flujo operativo; los datos historicos pueden permanecer inactivos.
+- Vista de consistencia visual simple COT vs LDM en detalle de proyecto.
+- Sincronizacion parcial para completar faltantes tecnicos en una LDM existente usando bundles directos.
 
 ### Ya disponible en `CedulaRecTables.lsp`
 
@@ -83,6 +88,7 @@ materiales de compra para LDM, aunque los articulos no sean los mismos.
 - Falta una matriz formal de mapeo bloque/atributo → concepto COT → bundle → materiales LDM.
 - Falta leer bloques adicionales para salidas de iluminacion, contactos y HVAC.
 - Faltan bundles reales completos para todos los conceptos comerciales recurrentes.
+- Falta definir si conversiones/redondeos se agregan como campos propios del componente de bundle.
 - Falta una validacion automatica de CSVs LISP antes de importarlos.
 - El LISP aun no incluye metadatos `#proyecto_clave`, `#proveedor`, etc. en el CSV LDM;
   agregarlos permitiria que la app pre-pueble proyecto/proveedor en el preview.
@@ -150,7 +156,7 @@ contrato vigente ni como requisito para cerrar la integración LISP/App.
 
 Criterio actual:
 
-- La explicación COT → LDM vive en ProjectTracker mediante catálogo, bundles y reglas COT/LDM.
+- La explicación COT → LDM vive en ProjectTracker mediante catálogo y bundles directos.
 - AutoCAD/LISP sólo debe emitir COT/LDM y, si aporta valor operativo, comparativos diagnósticos temporales.
 
 ### CSV Comparativo Simple
@@ -166,7 +172,7 @@ cot_description,cot_unit,cot_qty,ldm_description,ldm_unit,ldm_qty,factor,delta
 Criterios:
 
 - No se importa como entidad final.
-- No debe duplicar reglas/bundles de ProjectTracker.
+- No debe duplicar bundles ni criterios de expansion de ProjectTracker.
 - Sirve solo para revisar visualmente en AutoCAD durante transicion.
 
 ---
@@ -228,12 +234,12 @@ Objetivo: madurar las familias comerciales de tubería, cable y simbología.
 - [x] Catálogo actualizado con tubería, accesorios, desnudo 14–6 AWG (494 artículos). ✅ 2026-05-23
 - [x] COT simbología (`crt-cot-sym-collect-from-ss`) con descripciones fijas del catálogo para luminarias, apagadores, contactos y tiras LED. ✅ 2026-05-23
 - [x] Fixtures tests tubería LDM/COT (29 tests, 153/153 total pasan). ✅ 2026-05-23
-- [ ] Revisar redondeo operativo cuando existan bundles/reglas reales: COT conserva metros reales; LDM compra piezas/tramos/rollos/paquetes.
+- [ ] Revisar redondeo operativo cuando existan bundles directos reales: COT conserva metros reales; LDM compra piezas/tramos/rollos/paquetes.
 - [x] Definir alcance COT de salidas: incluye metros de cable, tubería y accesorios para LDM; la generación correcta queda pendiente de bundles. ✅ 2026-05-23
 
 Criterio de aceptacion:
 
-- Para un conjunto de cedulas, `CEDULARECEXPORTCOT` genera COT importable y ProjectTracker explica COT → LDM esperada mediante bundles y reglas.
+- Para un conjunto de cedulas, `CEDULARECEXPORTCOT` genera COT importable y ProjectTracker explica COT → LDM esperada mediante bundles directos.
 
 ---
 
@@ -313,14 +319,14 @@ Criterio de aceptacion:
 
 ---
 
-### Fase 6 — Reglas COT/LDM y tolerancias
+### Fase 6 — Conversiones de bundle y tolerancias
 
 Objetivo: resolver diferencias de unidad y compra.
 
-- [ ] Regla metro lineal COT ↔ pieza/tramo LDM para tuberia rigida.
-- [ ] Regla metro lineal COT ↔ rollo/tramo LDM para flexible/PAD.
-- [ ] Reglas para cable por metro, con redondeo por familia.
-- [ ] Reglas para soporteria cuando se compra por pieza, tramo o paquete.
+- [ ] Campos de conversion metro lineal COT ↔ pieza/tramo LDM para tuberia rigida dentro del componente de bundle.
+- [ ] Campos de conversion metro lineal COT ↔ rollo/tramo LDM para flexible/PAD dentro del componente de bundle.
+- [ ] Redondeo de cable por metro, por familia, como atributo propio del componente.
+- [ ] Redondeo de soporteria cuando se compra por pieza, tramo o paquete.
 - [ ] Tolerancias por familia:
   - tuberia,
   - cableado,
@@ -328,12 +334,12 @@ Objetivo: resolver diferencias de unidad y compra.
   - soporteria.
 - [ ] Decidir donde se redondea:
   - LISP para compra practica,
-  - app para comparacion tecnica,
+  - app para sincronizacion y revision visual,
   - ambos, solo si queda documentado.
 
 Criterio de aceptacion:
 
-- La vista de consistencia tecnica diferencia correctamente faltante real, excedente por compra minima y diferencia aceptable.
+- La sincronizacion y la revision visual diferencian faltante real, excedente por compra minima y diferencia aceptable sin reactivar una tabla separada de reglas.
 
 ---
 
@@ -341,11 +347,9 @@ Criterio de aceptacion:
 
 Objetivo: que la operacion sea usable dentro del proyecto.
 
-- [ ] Detectar CSVs COT y LDM en carpeta Drive del proyecto.
-- [ ] Mostrar acciones separadas:
-  - Importar COT desde CSV.
-  - Importar LDM desde CSV.
-  - Ver comparativo CSV.
+- [x] Detectar CSVs COT (`{CLAVE}-v*-i*-COT-*.csv`) en carpeta Drive del proyecto con estado (pendiente/importado/desactualizado). ✅ 2026-05-28
+- [x] Mostrar acciones separadas en UI: dropdown "Importar CSV Drive" en tab Cotización + dropdown "Importar CSV" en tab Materiales. ✅ 2026-05-28
+- [x] Importar COT desde Drive sin subir archivo (ruta directa). ✅ 2026-05-28
 - [ ] Vista previa antes de importar:
   - tipo de CSV detectado,
   - metadatos,
@@ -362,29 +366,24 @@ Criterio de aceptacion:
 
 ---
 
-### Fase 8 — Comparacion operativa COT ↔ LDM
+### Fase 8 — Revision visual COT ↔ LDM
 
-Objetivo: convertir las comparaciones en una herramienta de revision diaria.
+Objetivo: mantener una revision diaria entendible sin reactivar diagnosticos tecnicos complejos.
 
 - [ ] Mostrar comparacion comercial:
   - COT vendida vs LDM costeada.
-- [ ] Mostrar comparacion tecnica:
-  - COT expandida por bundles vs LDM real.
-- [ ] Separar diferencias por causa:
-  - sin bundle,
-  - sin regla,
-  - sin catalogo,
-  - faltante,
-  - excedente,
-  - tolerancia aceptada,
-  - compra minima.
-- [ ] Agregar accion sugerida por fila.
-- [ ] Permitir ignorar articulos no atribuibles al cliente por alcance.
-- [ ] Exportar reporte de comparacion si se requiere para revision interna.
+- [ ] Mostrar cobertura basica:
+  - cotizacion base activa,
+  - extras activas,
+  - LDMs consideradas,
+  - renglones sin catalogo,
+  - margen absoluto y porcentaje.
+- [ ] Agregar avisos simples cuando falte cotizacion base, LDM o catalogo.
+- [ ] Exportar resumen visual si se requiere para revision interna.
 
 Criterio de aceptacion:
 
-- Un proyecto importado desde LISP puede revisarse y corregirse desde una sola vista de consistencia.
+- Un proyecto importado desde LISP puede revisarse desde una sola vista simple de COT vs LDM.
 
 ---
 
@@ -392,8 +391,8 @@ Criterio de aceptacion:
 
 Objetivo: ayudar a corregir LDMs sin destruir captura existente.
 
-- [ ] Completar faltantes desde bundles al crear una LDM nueva.
-- [ ] Completar faltantes en una LDM existente por proveedor/disciplina.
+- [ ] Proponer faltantes desde bundles al crear una LDM nueva.
+- [ ] Proponer faltantes en una LDM existente por proveedor/disciplina.
 - [ ] Nunca sobrescribir precios proveedor ya capturados.
 - [ ] Mostrar diff antes de agregar filas.
 - [ ] Permitir seleccionar subset de faltantes.
@@ -413,7 +412,7 @@ Objetivo: cerrar el circuito con confianza.
 - [ ] Fixtures CSV COT reales.
 - [ ] Pruebas para parsers COT/LDM.
 - [ ] Pruebas para vinculacion con catalogo.
-- [ ] Pruebas para bundles y reglas de comparacion.
+- [ ] Pruebas para bundles directos, conversiones de componente y resumen visual COT/LDM.
 - [ ] Pruebas para duplicados y reimportaciones.
 - [ ] Checklist manual AutoCAD:
   - cargar LISP,
@@ -435,7 +434,7 @@ Criterio de aceptacion:
 1. Mantener pendiente la validación de `CEDULARECEXPORTCOT` con planos reales.
 2. Cerrar matriz pendiente sólo para bloques especiales y HVAC.
 3. Crear bundles reales de salidas y tubería/accesorios.
-4. Ajustar reglas COT/LDM y redondeos con esos bundles reales.
+4. Ajustar componentes de bundle, conversiones y redondeos con esos bundles reales.
 5. Pulir UI de importacion/revision en Fases 7 y 8.
 6. Automatizar sincronizacion asistida en Fase 9.
 7. Consolidar pruebas y fixtures en Fase 10.
@@ -455,12 +454,12 @@ Las rutas de importación LDM (`/projects/<id>/ldm/import/<filename>`) y COT
 La validación de AutoCAD queda pendiente. El siguiente avance dentro de ProjectTracker
 es definir los componentes LDM de las COT de salidas: metros de cable, tubería y
 accesorios incluidos por salida. Después se ajusta el redondeo operativo de tubería
-y accesorios con reglas COT/LDM reales.
+y accesorios con campos de conversion/redondeo en componentes de bundle si hacen falta.
 
 Archivos involucrados:
 
 - `data/bundles.json` — bundles activos por artículo COT.
-- `data/comparison_rules.json` — reglas de conversión y redondeo cuando la LDM compre en tramo/rollo/paquete.
+- `data/comparison_rules.json` — histórico inactivo; no debe usarse para nuevos flujos.
 - `tests/test_bundles.py` y `tests/test_ldm_sync.py` — regresión de expansión COT → LDM.
 
 Comandos de verificacion:

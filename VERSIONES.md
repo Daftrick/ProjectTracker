@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v28.2 — 23-May-2026
+## Versión actual: v30.0 — 28-May-2026
 
 ---
 
@@ -28,7 +28,7 @@ Regla: al subir versión mayor, el decimal se reinicia a 0.
 |---|---|
 | Lenguaje | Python 3.14 (`C:\Users\daftr\AppData\Local\Python\pythoncore-3.14-64\python.exe`) |
 | Framework | Flask ≥ 3.0.0 |
-| PDF | fpdf2 ≥ 2.7.9 |
+| PDF | fpdf2 ≥ 2.7.9; pdfplumber ≥ 0.11.0 |
 | Excel | openpyxl ≥ 3.1.0 |
 | Puerto | **8080** (default) — override con `PROJECT_TRACKER_PORT=N` |
 | Debug | `FLASK_DEBUG=1` activa auto-reload |
@@ -54,7 +54,7 @@ ProjectTracker/
 ├── DEBUG.bat                   # Lanzador con ventana visible para depuración
 ├── REINICIAR.command           # Reinicio macOS
 ├── REINICIAR.bat               # Reinicia el servidor
-├── requirements.txt            # flask>=3.0.0, fpdf2>=2.7.9, openpyxl>=3.1.0
+├── requirements.txt            # flask>=3.0.0, fpdf2>=2.7.9, openpyxl>=3.1.0, pdfplumber>=0.11.0
 ├── ROADMAP_MEJORAS.md          # Backlog de mejoras acordadas
 ├── VERSIONES.md                # ← Este archivo (fuente de verdad)
 │
@@ -67,9 +67,10 @@ ProjectTracker/
 │   ├── admin_filters.py        # Filtros puros para proveedores y fichas técnicas
 │   ├── catalog.py              # hydrate_quote/ldm, catalog_maps, parse_*_items, quote_type_key/code, migrate_catalog_fields
 │   ├── catalog_search.py       # tokenize, match_item, filter_catalog, list_categories (búsqueda por tokens AND + categoría)
-│   ├── consistency.py          # compute_consistency, compare_items por catalog_item_id (margen 30%/0%)
+│   ├── consistency.py          # Resumen visual COT vs LDM: cotización activa, costos, margen y cobertura básica
 │   ├── csv_import.py           # Parser CSV para importar exportaciones LISP como LDM
-│   ├── ldm_sync.py             # Sincronización parcial de LDM desde bundles
+│   ├── pdf_ldm_import.py       # Extractor PDF de proveedor para crear LDM con mapeo a catálogo
+│   ├── ldm_sync.py             # Sincronización parcial de LDM desde bundles directos
 │   ├── validators.py           # validate_project_form, validate_quote_form, validate_ldm_form
 │   ├── pdfs.py                 # build_quote_pdf, build_ldm_pdf (fpdf2); logo desde Drive o .codex_tmp
 │   ├── drive.py                # load/save_config, folder_name, scan_drive_folder, find_delivery_files
@@ -78,7 +79,7 @@ ProjectTracker/
 │       ├── __init__.py         # (vacío)
 │       ├── projects.py         # Blueprint projects_bp — proyectos, tareas, entregas, ajustes, shutdown
 │       ├── quotes.py           # Blueprint quotes_bp — cotizaciones CRUD + PDF + Excel
-│       ├── materials.py        # Blueprint materials_bp — LDMs CRUD + PDF/CSV + sync bundles + API costo
+│       ├── materials.py        # Blueprint materials_bp — LDMs CRUD + PDF/CSV/PDF proveedor + sync bundles + API costo
 │       └── admin.py            # Blueprint admin_bp — catálogo, proveedores, fichas, equipo
 │
 ├── data/                       # Persistencia JSON (creada automáticamente)
@@ -93,7 +94,7 @@ ProjectTracker/
 │   ├── team.json
 │   └── config.json             # drive_projects_path, drive_fichas_path
 │
-├── templates/                  # Jinja2 (17 templates)
+├── templates/                  # Jinja2
 │   ├── base.html               # Layout principal con nav, flash messages, Bootstrap
 │   ├── dashboard.html          # Lista proyectos activos/completados/cerrados
 │   ├── project_new.html        # Formulario alta proyecto
@@ -101,6 +102,7 @@ ProjectTracker/
 │   ├── quote_project_form.html # Alta/edición cotización (tabs P/G/E)
 │   ├── quote_project_detail.html # Vista detalle cotización
 │   ├── ldm_form.html           # Alta/edición LDM
+│   ├── ldm_pdf_import.html     # Preview/mapeo de PDF proveedor a LDM
 │   ├── catalogo.html           # CRUD catálogo maestro
 │   ├── proveedores.html        # CRUD proveedores
 │   ├── fichas.html             # CRUD fichas técnicas globales
@@ -120,19 +122,18 @@ ProjectTracker/
     ├── test_csv_import.py      # unittest: parser CSV para LDM
     ├── test_validators.py      # unittest: formularios vacíos, filas vacías, números inválidos
     ├── test_catalog_search.py         # unittest: tokens AND, categoría, list_categories, smoke /api/catalogo
-    ├── test_consistency.py            # unittest: agregaciones, umbrales 30%/0%, issues por artículo, bundles, reglas, ignorados
+    ├── test_consistency.py            # unittest: resumen visual simple COT vs LDM, margen y avisos básicos
     ├── test_bundles.py                # unittest: normalización, versiones, expansión de bundles
-    ├── test_comparison_rules.py       # unittest: reglas activas, conversión COT/LDM, tolerancia
-    ├── test_comparison_ignored.py     # unittest: artículos ignorados no generan issues pero conservan costo
-    ├── test_admin_bundles_routes.py   # unittest: rutas Admin bundles y reglas
+    ├── test_admin_bundles_routes.py   # unittest: rutas Admin bundles directos
     ├── test_admin_filters.py          # unittest: filtros administrativos y smoke de rutas proveedores/fichas
     ├── test_admin_forms.py            # unittest: validación inline y preservación de formularios administrativos
     ├── test_project_view.py           # unittest: contexto de project_detail, filas LDM y CSVs importables
     ├── test_deletions.py              # unittest: cascadas al eliminar proyecto y limpieza de referencias catálogo
     ├── test_form_models.py            # unittest: view-models de cotización y LDM desde formularios inválidos
-    ├── test_project_detail_bundle_ui.py  # unittest: render de la sección técnica de bundles en project_detail
+    ├── test_project_detail_bundle_ui.py  # unittest: render del resumen COT vs LDM simplificado
     ├── test_materials_csv_export.py      # unittest: exportación CSV de LDM existente
     ├── test_ldm_sync.py                  # unittest: sincronización parcial LDM desde bundles
+    ├── test_ldm_pdf_import_routes.py     # unittest: importación PDF proveedor, token temporal y proyectos cerrados
     └── test_tube_fixtures.py             # unittest: fixtures CSV LDM y COT para tubería (13+2 LDM, 11+3 COT)
 ```
 
@@ -244,16 +245,17 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | Cotizaciones | Nota base de proyecto en portada del PDF según tipo: preliminar sin nota, general con último DWG, extraordinaria con nota manual | `routes/quotes.py` + `drive.py:latest_dwg_stem` + `pdfs.py` |
 | LDMs | CRUD, PDF, CSV, set costo manual | `routes/materials.py` |
 | LDMs | Importación CSV de plano → nueva LDM con revisión previa, vínculo `csv_origen` y bloqueo de reimportación del mismo CSV. Auto-vinculación de `catalog_item_id` por nombre exacto (case-insensitive) al importar. Preview muestra badge verde por artículo vinculado y hint ámbar por artículo sin vincular. | `routes/materials.py:import_ldm_csv` + `csv_import.py` |
+| LDMs | Importación PDF de proveedor → preview/mapeo a catálogo y creación de LDM. Procables detecta proveedor, fecha y número de cotización cuando están disponibles. | `routes/materials.py:import_ldm_pdf_*` + `pdf_ldm_import.py` + `ldm_pdf_import.html` |
 | LDMs | API JSON para actualizar costo (`/api/ldm/<id>/costo`) | `routes/materials.py:api_ldm_set_costo` |
-| COT/LDM | Sincronización parcial desde bundles: agrega a una LDM existente sólo materiales faltantes o cantidades insuficientes calculadas desde la COT activa; respeta reglas COT/LDM, no sobrescribe renglones existentes ni precios capturados | `ldm_sync.py` + `routes/materials.py:sync_ldm_bundles` |
+| COT/LDM | Sincronización parcial desde bundles directos: agrega a una LDM existente sólo materiales faltantes o cantidades insuficientes calculadas desde la COT activa por `catalog_item_id`; no sobrescribe renglones existentes ni precios capturados | `ldm_sync.py` + `routes/materials.py:sync_ldm_bundles` |
 | Catálogo | CRUD + búsqueda por tokens AND (sin acentos) + filtro por categoría + API JSON (`/api/catalogo`, `/api/catalogo/categorias`) | `routes/admin.py` + `catalog_search.py` |
 | Catálogo | Bulk delete vía API (`/api/catalogo/bulk-delete`) | `routes/admin.py` |
 | Catálogo | Alta rápida desde formulario de COT/LDM (acepta categoría) | `routes/admin.py:api_catalogo_add` |
 | Catálogo | Migración suave que agrega campo `categoria=''` a artículos existentes al arranque | `catalog.py:migrate_catalog_fields` |
 | COT/LDM | Filtro inline de partidas capturadas: caja con tokens AND, busca en descripción/unidad/sección, oculta filas no machean sin afectar el submit | `quote_project_form.html` + `ldm_form.html` |
-| Consistencia | Reporte automatizado COT vs LDM por proyecto: cotización General más reciente vs suma de costos LDM, agregación por `catalog_item_id`, margen %, status (ok/warning/critical) con umbrales 30%/0% | `consistency.py` |
-| Consistencia | KPI clickeable en cada card del dashboard con margen % y badge de estado | `dashboard.html` |
-| Consistencia | Tab dedicado en detalle de proyecto con totales, badges de issues y tabla por artículo (qty COT vs LDM, precio venta vs costo promedio ponderado, margen unitario, etiquetas missing_in_ldm/missing_in_cot/qty_mismatch/below_cost) | `project_detail.html` |
+| Consistencia | Resumen visual simple COT vs LDM por proyecto: cotización base activa, extras activas, costo total LDM, margen absoluto/porcentaje y cobertura básica de datos | `consistency.py` |
+| Consistencia | KPI en dashboard con margen % y badge de estado visual | `dashboard.html` |
+| Consistencia | Sección en detalle de proyecto con totales y avisos informativos; sin tabla técnica por bundles ni diagnósticos por artículo | `project_detail.html` |
 | Proveedores | CRUD + búsqueda libre sin acentos + filtro por categoría | `routes/admin.py` + `admin_filters.py` |
 | Fichas | CRUD global + vinculación a proyectos + filtros por texto/tipo/vinculación | `routes/admin.py` + `admin_filters.py` |
 | Equipo | CRUD miembros | `routes/admin.py` |
@@ -309,12 +311,15 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 |---|---|---|---|
 | GET/POST | `/projects/<id>/ldm/new` | `new_ldm` | Nueva lista de materiales |
 | GET/POST | `/projects/<id>/ldm/import/<filename>` | `import_ldm_csv` | Importar CSV de plano como nueva LDM |
+| POST | `/projects/<id>/ldm/import-pdf` | `import_ldm_pdf_upload` | Subir PDF de proveedor para crear LDM |
+| GET | `/projects/<id>/ldm/import-pdf/map` | `import_ldm_pdf_map` | Revisar y mapear artículos extraídos del PDF |
+| POST | `/projects/<id>/ldm/import-pdf/create` | `import_ldm_pdf_create` | Crear LDM desde el mapeo del PDF |
 | GET/POST | `/projects/<id>/ldm/<lid>/edit` | `edit_ldm` | Editar LDM |
 | POST | `/projects/<id>/ldm/<lid>/delete` | `delete_ldm` | Eliminar LDM |
 | POST | `/projects/<id>/ldm/<lid>/set_cot` | `set_ldm_cot` | Guardar # cotización proveedor |
 | GET | `/projects/<id>/ldm/<lid>/pdf` | `ldm_pdf` | Generar PDF LDM en Drive |
 | GET | `/projects/<id>/ldm/<lid>/csv` | `ldm_csv` | Descargar CSV de una LDM existente |
-| POST | `/projects/<id>/ldm/<lid>/sync-bundles` | `sync_ldm_bundles` | Completar faltantes técnicos desde bundles |
+| POST | `/projects/<id>/ldm/<lid>/sync-bundles` | `sync_ldm_bundles` | Sincronizar faltantes técnicos desde bundles directos |
 | POST | `/api/ldm/<lid>/costo` | `api_ldm_set_costo` | API JSON: actualizar costo LDM |
 
 ### Blueprint `admin_bp`
@@ -353,6 +358,7 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | `quote_project_form.html` | `GET/POST /projects/<id>/quote/new` y `.../edit` |
 | `quote_project_detail.html` | `GET /projects/<id>/quote/<qid>/view` |
 | `ldm_form.html` | `GET/POST /projects/<id>/ldm/new`, `.../ldm/import/<filename>` y `.../edit` |
+| `ldm_pdf_import.html` | `GET /projects/<id>/ldm/import-pdf/map` |
 | `catalogo.html` | `GET/POST /catalogo` |
 | `proveedores.html` | `GET/POST /proveedores` |
 | `fichas.html` | `GET/POST /fichas` |
@@ -444,6 +450,15 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
+| 2026-05-28 | **v30.0 — Detección CSV COT desde Drive + aprobación de cotizaciones + ZIP de entrega mejorado**: dropdown "Importar CSV Drive" en tab Cotización detecta archivos `{CLAVE}-v*-i*-COT-*.csv` en carpeta Drive con estado (pendiente/importado/desactualizado); ruta `/quote/import-drive/<filename>` lee directo sin subir; upload manual se conserva como opción secundaria. Approval status de cotizaciones: una base activa por proyecto, Extraordinarias toggle independiente, migración idempotente en startup. LDM PDF simplificado: solo nombre y marca. ZIP de entrega incluye LDM PDFs y ordena archivos por fecha de modificación. 165 tests. |
+| 2026-05-28 | Versión bumped v29.0 → v30.0 (features: CSV COT Drive + quote approval + ZIP LDM + meta pre-fill PDF import) |
+| 2026-05-28 | **Importación PDF de proveedor a LDM**: desde Materiales se puede subir PDF, revisar extracción, mapear artículos al catálogo y crear una LDM. El extractor específico de Procables identifica partidas y metadatos cuando están disponibles. |
+| 2026-05-28 | **Robustez PDF LDM**: `pdfplumber>=0.11.0` queda declarado en dependencias; la extracción se guarda temporalmente del lado servidor y la sesión conserva sólo un token; proyectos cerrados bloquean upload, mapeo y creación. |
+| 2026-05-28 | **COT/LDM simplificado**: Reglas COT/LDM salen del flujo operativo visible; se retiran administración, navegación y comparación técnica. Los JSON históricos pueden permanecer inactivos sin migración destructiva. |
+| 2026-05-28 | **Bundles directos**: los componentes de bundle dejan de depender de `comparison_rule_id`; la sincronización COT → LDM compara faltantes directamente por `catalog_item_id`. |
+| 2026-05-28 | **Detalle de proyecto**: la antigua consistencia técnica se reemplaza por un resumen visual COT vs LDM con cotización activa, extras, costo LDM, margen y avisos básicos. |
+| 2026-05-28 | **Tests**: se agregan pruebas de importación PDF a LDM y se retiran expectativas de reglas COT/LDM operativas. Suite verificada: 154 tests. |
+| 2026-05-28 | Versión bumped v28.2 → v29.0 (feature: importación PDF proveedor + COT/LDM simplificado con bundles directos) |
 | 2026-05-08 | Cotizaciones: se retoma el flujo de secciones en el editor; al reabrir una cotización se reconstruyen encabezados repetidos cuando la misma sección aparece en bloques separados por partidas sin sección |
 | 2026-05-08 | Cotizaciones: ordenar una sección desde el formulario mueve el bloque completo (encabezado + partidas) y preserva la sección de cada partida al guardar, manteniendo reflejo consistente en vista previa y PDF sin salto de página forzado por sección |
 | 2026-05-08 | Tests: nuevo `tests/test_quote_sections.py` cubre agrupación contigua de secciones y presencia de los helpers de template para reconstrucción/ordenamiento |
@@ -670,7 +685,7 @@ Reglas de portada PDF:
 
 **Alta prioridad:**
 - Validar `CEDULARECEXPORTCOT` con planos reales en AutoCAD (Fase 2 del ROADMAP_INTEGRACION_LISP_CSV_APP).
-- Probar bundles reales en proyectos existentes y ajustar reglas de equivalencia COT/LDM.
+- Probar bundles reales en proyectos existentes y ajustar componentes directos COT → LDM.
 - Completar bundles de salidas: las COT de salidas incluyen metros de cable, tubería y accesorios para LDM; falta definir cantidades/componentes por familia.
 
 **Media prioridad (ver `ROADMAP_MEJORAS.md`):**

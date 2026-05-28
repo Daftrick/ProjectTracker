@@ -13,7 +13,8 @@ IGNORED_SCAN_EXTENSIONS = {".bak", ".dwl", ".dwl2"}
 
 # Compiled regex patterns for performance
 PATTERNS = {
-    'csv_plano': None,  # Will be compiled with clave
+    'csv_plano': None,  # Will be compiled per-clave
+    'csv_cot': None,    # Will be compiled per-clave
     'xref': re.compile(r'^XREF', re.IGNORECASE),
     'ldm': re.compile(r'^LDM-', re.IGNORECASE),
     'cot': re.compile(r'^(COT-|CPROV-)', re.IGNORECASE),
@@ -456,6 +457,86 @@ def decorate_csv_plano(files, ldms=None, clave=None):
     return decorated
 
 
+
+def parse_csv_cot_filename(filename, clave=None):
+    """Parsea nombre de archivo CSV COT: {CLAVE}-v{VER}-i{CONSEC}-COT-{YYYYMMDD}.csv"""
+    clave_pattern = re.escape(clave) if clave else r"(?P<clave>[A-Za-z0-9_-]+)"
+    pattern = re.compile(
+        rf"^(?P<project>{clave_pattern})-v(?P<version>\d+)-i(?P<consecutive>\d+)-COT-(?P<date>\d{{8}})\.csv$",
+        re.IGNORECASE,
+    )
+    match = pattern.match(filename or "")
+    if not match:
+        return None
+    date_token = match.group("date")
+    try:
+        date_label = datetime.datetime.strptime(date_token, "%Y%m%d").strftime("%d/%m/%Y")
+    except ValueError:
+        date_label = date_token
+    return {
+        "project": match.group("project"),
+        "version": int(match.group("version")),
+        "consecutive": int(match.group("consecutive")),
+        "date": date_token,
+        "date_label": date_label,
+    }
+
+
+def csv_cot_version_key(filename, clave=None):
+    parsed = parse_csv_cot_filename(filename, clave)
+    if not parsed:
+        return (-1, -1, 0)
+    return (parsed["version"], parsed["consecutive"], int(parsed["date"]))
+
+
+def _quote_csv_sources(quotes, clave=None):
+    """Devuelve un dict de nombres de archivo CSV ya importados como cotización."""
+    sources = {}
+    for q in quotes or []:
+        name = os.path.basename(str(q.get("csv_filename") or q.get("csv_origen") or "").strip())
+        if name:
+            sources[name.lower()] = {
+                "name": name,
+                "quote_number": q.get("quote_number", ""),
+                "key": csv_cot_version_key(name, clave),
+            }
+    return sources
+
+
+def decorate_csv_cot(files, quotes=None, clave=None):
+    """Decora archivos CSV COT con estado: importado/pendiente/desactualizado."""
+    linked = _quote_csv_sources(quotes, clave)
+    latest_key = max((csv_cot_version_key(f["name"], clave) for f in files), default=(-1, -1, 0))
+    latest_linked_key = max((info["key"] for info in linked.values()), default=None)
+    decorated = []
+    for item in sorted(files, key=lambda f: csv_cot_version_key(f["name"], clave)):
+        name = item["name"]
+        parsed = parse_csv_cot_filename(name, clave)
+        link = linked.get(name.lower())
+        if link and csv_cot_version_key(name, clave) < latest_key:
+            status, status_label, badge_class = "desactualizado", "Desactualizado", "bg-warning text-dark"
+            hint = "Hay un CSV COT más reciente en la carpeta."
+        elif link:
+            status, status_label, badge_class = "importado", "Importado", "bg-success"
+            hint = f"Vinculado a {link['quote_number']}" if link.get("quote_number") else "Vinculado a cotización."
+        elif latest_linked_key and csv_cot_version_key(name, clave) > latest_linked_key:
+            status, status_label, badge_class = "pendiente", "Actualización", "bg-info text-dark"
+            hint = "CSV COT nuevo posterior a la cotización importada."
+        else:
+            status, status_label, badge_class = "pendiente", "Pendiente", "bg-secondary"
+            hint = "CSV disponible para importar como cotización."
+        decorated.append({
+            **item,
+            "parsed": parsed,
+            "status": status,
+            "status_label": status_label,
+            "badge_class": badge_class,
+            "hint": hint,
+            "linked_quote": link.get("quote_number") if link else "",
+            "is_latest": csv_cot_version_key(name, clave) == latest_key,
+        })
+    return decorated
+
 def provider_quote_status(filename, ldms):
     normalized_name = normalize_ascii(filename).lower()
     provider_tokens = set()
@@ -511,10 +592,13 @@ def create_project_folder(folder_nm, projects_root):
         return False, f"No se pudo crear la carpeta: {exc}"
 
 
-def scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None):
+def scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None, quotes=None):
     # Compile dynamic patterns per-clave (reset cuando cambia la clave)
     if clave:
         PATTERNS['csv_plano'] = re.compile(rf"^{re.escape(clave)}-v\d", re.IGNORECASE)
+        PATTERNS['csv_cot'] = re.compile(
+            rf"^{re.escape(clave)}-v\d+-i\d+-COT-\d{{8}}\.csv$", re.IGNORECASE
+        )
 
     # Create hash for LDMs to detect changes
     ldms_hash = hash(json.dumps(ldms or [], sort_keys=True, default=str))
@@ -540,6 +624,7 @@ def scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None):
         "work_files": [],
         "other_files": [],
         "csv_plano": [],
+        "csv_cot": [],
         "missing_base": [],
         "error": None,
         "error_type": None,   # "unconfigured" | "root_missing" | "folder_missing"
@@ -570,6 +655,7 @@ def scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None):
     work_files = []
     other_files = []
     csv_plano_files = []
+    csv_cot_files = []
 
     # Use compiled patterns
     csv_pattern = PATTERNS['csv_plano'] if clave else None
@@ -585,6 +671,16 @@ def scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None):
     for file_info in file_infos:
         item = file_info["name"]
         path = file_info["path"]
+
+        # Detect CSV COT files (before CSV plano, more specific pattern)
+        cot_csv_pattern = PATTERNS['csv_cot']
+        if item.lower().endswith(".csv") and cot_csv_pattern and cot_csv_pattern.match(item):
+            csv_cot_files.append({
+                "name": item,
+                "size_str": _format_size(file_info["size"]),
+                "mtime_str": _format_mtime(file_info["mtime"]),
+            })
+            continue
 
         # Detect CSV plano files before other categories
         if item.lower().endswith(".csv") and csv_pattern and csv_pattern.match(item):
@@ -622,6 +718,7 @@ def scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None):
     result["work_files"] = decorate_latest(work_files)
     result["other_files"] = decorate_plain(other_files)
     result["csv_plano"] = decorate_csv_plano(csv_plano_files, ldms, clave)
+    result["csv_cot"] = decorate_csv_cot(csv_cot_files, quotes, clave)
     result["deliverable"] = sorted(ie_files + mem_files + cot_files)
     result["working"] = sorted(work_files)
     result["ldm"] = sorted(ldm_files)

@@ -111,3 +111,71 @@ class DriveCsvStatusTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CsvCotFilenameTest(unittest.TestCase):
+    """Tests para parse_csv_cot_filename y decorate_csv_cot."""
+
+    def setUp(self):
+        from tracker.drive import parse_csv_cot_filename, csv_cot_version_key, decorate_csv_cot
+        self.parse = parse_csv_cot_filename
+        self.version_key = csv_cot_version_key
+        self.decorate = decorate_csv_cot
+
+    def test_parses_valid_cot_csv(self):
+        result = self.parse("OM001-v2-i1-COT-20260527.csv", "OM001")
+        self.assertIsNotNone(result)
+        self.assertEqual(result["project"], "OM001")
+        self.assertEqual(result["version"], 2)
+        self.assertEqual(result["consecutive"], 1)
+        self.assertEqual(result["date"], "20260527")
+        self.assertEqual(result["date_label"], "27/05/2026")
+
+    def test_rejects_ldm_csv(self):
+        result = self.parse("OM001-v2-i1-20260527.csv", "OM001")
+        self.assertIsNone(result)
+
+    def test_case_insensitive(self):
+        result = self.parse("OM001-V2-I1-cot-20260527.CSV", "OM001")
+        self.assertIsNotNone(result)
+        self.assertEqual(result["version"], 2)
+
+    def test_rejects_wrong_clave(self):
+        result = self.parse("OTRO-v1-i1-COT-20260101.csv", "OM001")
+        self.assertIsNone(result)
+
+    def test_version_key_ordering(self):
+        k1 = self.version_key("OM001-v1-i1-COT-20260101.csv", "OM001")
+        k2 = self.version_key("OM001-v2-i1-COT-20260101.csv", "OM001")
+        k3 = self.version_key("OM001-v2-i2-COT-20260101.csv", "OM001")
+        self.assertLess(k1, k2)
+        self.assertLess(k2, k3)
+
+    def test_version_key_invalid_returns_sentinel(self):
+        k = self.version_key("not-a-cot-csv.csv", "OM001")
+        self.assertEqual(k, (-1, -1, 0))
+
+    def test_decorate_marks_pending_unlinked(self):
+        files = [{"name": "OM001-v1-i1-COT-20260101.csv", "size_str": "1 KB", "mtime_str": ""}]
+        result = self.decorate(files, quotes=[], clave="OM001")
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["status"], "pendiente")
+        self.assertEqual(result[0]["linked_quote"], "")
+
+    def test_decorate_marks_importado_when_linked(self):
+        files = [{"name": "OM001-v1-i1-COT-20260101.csv", "size_str": "1 KB", "mtime_str": ""}]
+        quotes = [{"quote_number": "COT-OM001-G01-260101", "csv_origen": "OM001-v1-i1-COT-20260101.csv"}]
+        result = self.decorate(files, quotes=quotes, clave="OM001")
+        self.assertEqual(result[0]["status"], "importado")
+        self.assertEqual(result[0]["linked_quote"], "COT-OM001-G01-260101")
+
+    def test_decorate_marks_desactualizado_when_newer_exists(self):
+        files = [
+            {"name": "OM001-v1-i1-COT-20260101.csv", "size_str": "1 KB", "mtime_str": ""},
+            {"name": "OM001-v2-i1-COT-20260527.csv", "size_str": "1 KB", "mtime_str": ""},
+        ]
+        quotes = [{"quote_number": "COT-OM001-G01-260101", "csv_origen": "OM001-v1-i1-COT-20260101.csv"}]
+        result = self.decorate(files, quotes=quotes, clave="OM001")
+        by_name = {f["name"]: f for f in result}
+        self.assertEqual(by_name["OM001-v1-i1-COT-20260101.csv"]["status"], "desactualizado")
+        self.assertEqual(by_name["OM001-v2-i1-COT-20260527.csv"]["status"], "pendiente")

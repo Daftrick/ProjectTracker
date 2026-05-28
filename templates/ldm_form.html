@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% set import_preview = ldm and ldm.is_import_preview %}
+{% set bundle_suggestion = ldm and ldm.is_bundle_suggestion %}
 {% set existing_ldm = ldm and ldm.id and not import_preview %}
 {% block title %}{% if import_preview %}Importar CSV{% elif existing_ldm %}Editar{% else %}Nueva{% endif %} Lista de Materiales – {{ project.name }}{% endblock %}
 {% block page_title %}
@@ -76,6 +77,14 @@
     background: rgba(50,160,100,.18);
     color: #6ecf96;
     border: 1px solid rgba(50,160,100,.35);
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
+  .bundle-suggestion-badge {
+    font-size: .68rem;
+    background: rgba(80,140,210,.18);
+    color: #8db7e8;
+    border: 1px solid rgba(80,140,210,.35);
     border-radius: 4px;
     padding: 1px 6px;
   }
@@ -163,6 +172,14 @@
 
   <!-- Columna principal -->
   <div class="col-12">
+    {% if not existing_ldm and not import_preview %}
+    <div class="d-flex justify-content-end mb-2">
+      <a class="btn btn-sm btn-outline-primary"
+         href="{{ url_for('materials_bp.new_ldm', project_id=project.id, from_bundles=1) }}">
+        <i class="bi bi-magic me-1"></i>Sugerir desde bundles
+      </a>
+    </div>
+    {% endif %}
 
     <!-- Datos generales -->
     <div class="card mb-3">
@@ -191,6 +208,14 @@
           {% endif %}
         </div>
         {% endif %}
+        {% endif %}
+        {% if bundle_suggestion %}
+        <div class="alert alert-info py-2 mb-3" style="font-size:.85rem">
+          <i class="bi bi-magic me-1"></i>
+          Se precargaron <strong>{{ ldm.bundle_suggestion_count }}</strong> material(es) faltante(s)
+          desde bundles{% if ldm.source_quote_number %} para <strong class="font-monospace">{{ ldm.source_quote_number }}</strong>{% endif %}.
+          Revisa proveedor, cantidades y artículos antes de crear la LDM.
+        </div>
         {% endif %}
         <div class="row g-3">
           <div class="col-md-6">
@@ -291,6 +316,10 @@
               {% set deleted_catalog = item.deleted_catalog_item or {} %}
               <tr class="ldm-row {% if item.catalog_deleted %}deleted-catalog-row{% endif %}">
                 <td class="drag-cell">
+                  <input type="hidden" name="item_origen[]" value="{{ item.origen or '' }}">
+                  <input type="hidden" name="item_sync_expected_catalog_item_id[]" value="{{ item.sync_expected_catalog_item_id or '' }}">
+                  <input type="hidden" name="item_sync_expected_qty[]" value="{{ item.sync_expected_qty or '' }}">
+                  <input type="hidden" name="item_sync_issue[]" value="{{ item.sync_issue or '' }}">
                   <input type="hidden" name="item_deleted_catalog_id[]" value="{{ deleted_catalog.id or '' }}">
                   <input type="hidden" name="item_deleted_catalog_nombre[]" value="{{ deleted_catalog.nombre or '' }}">
                   <input type="hidden" name="item_deleted_catalog_descripcion[]" value="{{ deleted_catalog.descripcion or '' }}">
@@ -323,6 +352,12 @@
                     <div class="mt-1">
                       <span style="font-size:.68rem;color:#a07030">
                         <i class="bi bi-search"></i> Busca en catálogo
+                      </span>
+                    </div>
+                    {% elif item.origen == 'bundle_sync' %}
+                    <div class="mt-1">
+                      <span class="bundle-suggestion-badge">
+                        <i class="bi bi-magic"></i> Sugerido desde bundles
                       </span>
                     </div>
                     {% endif %}
@@ -438,6 +473,10 @@
     tr.className = "ldm-row";
     tr.innerHTML = `
       <td class="drag-cell">
+        <input type="hidden" name="item_origen[]" value="">
+        <input type="hidden" name="item_sync_expected_catalog_item_id[]" value="">
+        <input type="hidden" name="item_sync_expected_qty[]" value="">
+        <input type="hidden" name="item_sync_issue[]" value="">
         <input type="hidden" name="item_deleted_catalog_id[]" value="">
         <input type="hidden" name="item_deleted_catalog_nombre[]" value="">
         <input type="hidden" name="item_deleted_catalog_descripcion[]" value="">
