@@ -1,7 +1,8 @@
 from datetime import date
 
 from .catalog import catalog_maps, hydrate_ldm, hydrate_quote
-from .consistency import compute_consistency
+from .catalog import APPROVAL_ACTIVE, QUOTE_TYPE_EXTRAORDINARIA, is_base_quote_type, quote_type_key
+from .consistency import compute_consistency, pick_active_quote
 from .domain import check_blocked, get_progress
 from .drive import active_drive_paths, find_delivery_files, folder_name, load_config, scan_drive_folder
 from .storage import load, today
@@ -157,16 +158,42 @@ def build_ldm_row_views(ldms):
 
 
 def build_quote_row_views(quotes):
+    from .catalog import (
+        APPROVAL_ACTIVE, APPROVAL_DRAFT, APPROVAL_OBSOLETE,
+        is_base_quote_type, quote_type_key, QUOTE_TYPE_EXTRAORDINARIA,
+    )
     rows = []
     for quote in quotes or []:
         items = quote.get("items", []) or []
         deleted_catalog_items = _deleted_catalog_items(quote)
+        approval = quote.get("approval_status", APPROVAL_DRAFT)
+        is_extra = not is_base_quote_type(quote.get("quote_type"))
+
+        # Badge visual
+        if approval == APPROVAL_ACTIVE:
+            approval_badge = "success"
+            approval_label = "Aprobada" if not is_extra else "Activa"
+            approval_icon  = "check-circle"
+        elif approval == APPROVAL_OBSOLETE:
+            approval_badge = "secondary"
+            approval_label = "Obsoleta" if not is_extra else "Inactiva"
+            approval_icon  = "slash-circle"
+        else:  # draft
+            approval_badge = "warning"
+            approval_label = "Borrador"
+            approval_icon  = "pencil-square"
+
         rows.append({
             "quote": quote,
             "items": items,
             "item_count": len(items),
             "deleted_catalog_items": deleted_catalog_items,
             "deleted_catalog_count": len(deleted_catalog_items),
+            "approval": approval,
+            "approval_badge": approval_badge,
+            "approval_label": approval_label,
+            "approval_icon": approval_icon,
+            "is_extra": is_extra,
         })
     return rows
 
@@ -473,8 +500,22 @@ def build_project_detail_context(project):
         linked_fichas,
     )
 
-    # Totales globales (incluyen todas las cotizaciones e IVA) para el header del proyecto.
-    total_cotizado = round(sum(quote.get("total", 0) for quote in quotes), 2)
+    # Totales para el header del proyecto.
+    # Se suma: la cotización base aprobada (General/Preliminar con approval_status='active')
+    # más todas las Extraordinarias con approval_status='active'.
+    # Fallback: si ninguna tiene estado explícito se comporta igual que antes (suma todo).
+    _active_base = pick_active_quote(quotes)
+    _active_extras = [
+        q for q in quotes
+        if not is_base_quote_type(q.get("quote_type"))
+        and q.get("approval_status", APPROVAL_ACTIVE) == APPROVAL_ACTIVE
+    ]
+    if _active_base is not None:
+        total_cotizado = round(
+            _active_base.get("total", 0) + sum(q.get("total", 0) for q in _active_extras), 2
+        )
+    else:
+        total_cotizado = round(sum(q.get("total", 0) for q in _active_extras), 2)
     costo_proveedor = round(sum(ldm.get("subtotal_cot", 0) for ldm in ldms), 2)
     margen = round(total_cotizado - costo_proveedor, 2)
 
@@ -542,6 +583,8 @@ def build_project_detail_context(project):
         "folder_name": drive_folder,
         "file_ie": _latest_scan_name(ie_dwg_files, _ie_fallback),
         "file_xref": _latest_scan_name(xref_dwg_files, _xref_fallback),
+        "active_base_quote": _active_base,
+        "active_extras_count": len(_active_extras),
         "total_cotizado": total_cotizado,
         "costo_proveedor": costo_proveedor,
         "margen": margen,

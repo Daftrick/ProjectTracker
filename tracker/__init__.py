@@ -2,14 +2,14 @@ import os
 
 from flask import Flask
 
-from .catalog import migrate_catalog_fields
+from .catalog import migrate_catalog_fields, migrate_quote_approval
 from .domain import APP_VERSION, ALCANCES, ALCANCES_BY_ID, INFO_EXT_EXCLUDED, TASK_STATUSES, TIPOS_FICHA, currency, fdate
 from .drive import migrate_folder_numbers, migrate_task_names, migrate_task_statuses
 from .routes.admin import bp as admin_bp
 from .routes.materials import bp as materials_bp
 from .routes.projects import bp as projects_bp
 from .routes.quotes import bp as quotes_bp
-from .storage import BASE_DIR, DATA_DIR
+from .storage import BASE_DIR, DATA_DIR, load, save
 
 
 def create_app():
@@ -21,6 +21,7 @@ def create_app():
     migrate_task_names()
     migrate_folder_numbers()
     migrate_catalog_fields()
+    _migrate_quote_approval()
 
     app.add_template_filter(fdate, "fdate")
     app.add_template_filter(currency, "currency")
@@ -42,6 +43,13 @@ def create_app():
     app.register_blueprint(admin_bp)
     _register_legacy_endpoint_aliases(app)
     return app
+
+
+def _migrate_quote_approval():
+    """Migración idempotente: asigna approval_status a cotizaciones existentes."""
+    quotes = load("quotes")
+    if migrate_quote_approval(quotes):
+        save("quotes", quotes)
 
 
 def _register_legacy_endpoint_aliases(app):

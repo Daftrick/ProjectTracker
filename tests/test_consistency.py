@@ -85,11 +85,27 @@ class PickActiveQuoteTest(unittest.TestCase):
         active = cn.pick_active_quote([q1, q2, q3])
         self.assertEqual(active["id"], "B")
 
-    def test_falls_back_to_any_when_no_general(self):
+    def test_falls_back_to_preliminar_when_no_general(self):
+        """Sin General, usa la Preliminar más reciente. Las Extraordinarias no son base."""
         q1 = _quote("A", "Preliminar", "2026-01-01", [])
         q2 = _quote("B", "Extraordinaria", "2026-04-01", [])
         active = cn.pick_active_quote([q1, q2])
-        self.assertEqual(active["id"], "B")
+        self.assertEqual(active["id"], "A")
+
+    def test_respects_approval_status_active(self):
+        """Con approval_status explícito, elige la marcada como active aunque no sea la más reciente."""
+        q1 = _quote("A", "General", "2026-01-01", [])
+        q1["approval_status"] = "active"
+        q2 = _quote("B", "General", "2026-06-01", [])
+        q2["approval_status"] = "obsolete"
+        active = cn.pick_active_quote([q1, q2])
+        self.assertEqual(active["id"], "A")
+
+    def test_extraordinaria_never_selected_as_base(self):
+        """Extraordinaria no puede ser cotización base aunque sea la única del proyecto."""
+        q1 = _quote("A", "Extraordinaria", "2026-06-01", [])
+        active = cn.pick_active_quote([q1])
+        self.assertIsNone(active)
 
     def test_no_quotes(self):
         self.assertIsNone(cn.pick_active_quote([]))

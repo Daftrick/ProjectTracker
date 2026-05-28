@@ -25,7 +25,8 @@
     "currency": "MXN",
     "notes": "",
     "created_at": "2026-04-19",
-    "quote_type": "General"
+    "quote_type": "General",
+    "approval_status": "active"
   },
   {
     "id": "D1E6CA99",
@@ -332,7 +333,8 @@
     "total": 2452957.56,
     "currency": "MXN",
     "notes": "",
-    "created_at": "2026-04-23"
+    "created_at": "2026-04-23",
+    "approval_status": "obsolete"
   },
   {
     "id": "3D859973",
@@ -2043,7 +2045,8 @@
     "currency": "MXN",
     "notes": "",
     "project_basis_note": "",
-    "created_at": "2026-04-30"
+    "created_at": "2026-04-30",
+    "approval_status": "active"
   },
   {
     "id": "66F4CB5E",
@@ -3974,7 +3977,8 @@
     "currency": "MXN",
     "notes": "",
     "project_basis_note": "",
-    "created_at": "2026-05-12"
+    "created_at": "2026-05-12",
+    "approval_status": "obsolete"
   },
   {
     "id": "4FF84C66",
@@ -5425,7 +5429,8 @@
     "currency": "MXN",
     "notes": "",
     "project_basis_note": "",
-    "created_at": "2026-05-14"
+    "created_at": "2026-05-14",
+    "approval_status": "active"
   },
   {
     "id": "3FF995B4",
@@ -5600,7 +5605,8 @@
       "date": "2026-05-24",
       "currency": "MXN",
       "notes": "Cotizacion preliminar generada desde catalogo"
-    }
+    },
+    "approval_status": "obsolete"
   },
   {
     "id": "8DE7E706",
@@ -5931,7 +5937,8 @@
     "currency": "MXN",
     "notes": "Segunda Solicitud de Material. Cero5Cien - Depto. O402",
     "project_basis_note": "",
-    "created_at": "2026-05-24"
+    "created_at": "2026-05-24",
+    "approval_status": "active"
   },
   {
     "id": "F681A795",
@@ -6202,6 +6209,7 @@
     "currency": "MXN",
     "notes": "",
     "project_basis_note": "",
-    "created_at": "2026-05-25"
+    "created_at": "2026-05-25",
+    "approval_status": "active"
   }
 ]

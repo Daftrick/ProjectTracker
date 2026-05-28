@@ -49,6 +49,81 @@ def quote_type_code(value):
     return QUOTE_TYPE_CODES[quote_type_key(value)]
 
 
+# ── Estados de aprobación de cotizaciones ─────────────────────────────────────
+APPROVAL_DRAFT    = "draft"      # recién creada, sin decisión
+APPROVAL_ACTIVE   = "active"     # aprobada / en uso
+APPROVAL_OBSOLETE = "obsolete"   # reemplazada por otra versión
+
+
+def is_base_quote_type(qtype):
+    """Generales y Preliminares compiten entre sí; Extraordinarias son independientes."""
+    return quote_type_key(qtype) in (QUOTE_TYPE_GENERAL, QUOTE_TYPE_PRELIMINAR)
+
+
+def migrate_quote_approval(quotes):
+    """Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.
+
+    Reglas:
+    - Extraordinarias sin estado → active (siempre se suman por defecto).
+    - Para cada proyecto, entre las cotizaciones General/Preliminar sin estado:
+        · La más reciente → active.
+        · El resto → obsolete.
+    - Cotizaciones que ya tienen approval_status → no se tocan.
+    """
+    changed = False
+    by_project: dict[str, list[dict]] = {}
+    for q in quotes:
+        if "approval_status" not in q:
+            by_project.setdefault(q.get("project_id", ""), []).append(q)
+
+    for pid, unset in by_project.items():
+        # Extraordinarias → active de forma independiente
+        for q in unset:
+            if not is_base_quote_type(q.get("quote_type")):
+                q["approval_status"] = APPROVAL_ACTIVE
+                changed = True
+
+        # General/Preliminar del proyecto: la más reciente → active, resto → obsolete
+        base = [q for q in unset if is_base_quote_type(q.get("quote_type"))]
+        if base:
+            newest = max(base, key=lambda q: (q.get("date") or "", q.get("created_at") or ""))
+            for q in base:
+                q["approval_status"] = APPROVAL_ACTIVE if q is newest else APPROVAL_OBSOLETE
+                changed = True
+
+    return changed
+
+
+def approve_quote(target_id, quotes):
+    """Marca la cotización target_id como active.
+
+    Si es General/Preliminar, pasa las demás del mismo proyecto a obsolete.
+    Si es Extraordinaria, sólo la activa/desactiva (toggle).
+    Devuelve True si algo cambió.
+    """
+    target = next((q for q in quotes if q.get("id") == target_id), None)
+    if target is None:
+        return False
+
+    qtype = quote_type_key(target.get("quote_type"))
+    project_id = target.get("project_id")
+
+    if qtype == QUOTE_TYPE_EXTRAORDINARIA:
+        # Toggle: active ↔ obsolete
+        current = target.get("approval_status", APPROVAL_DRAFT)
+        target["approval_status"] = APPROVAL_OBSOLETE if current == APPROVAL_ACTIVE else APPROVAL_ACTIVE
+    else:
+        # Aprobar base: marcar la seleccionada como active, el resto del proyecto como obsolete
+        for q in quotes:
+            if q.get("project_id") != project_id:
+                continue
+            if not is_base_quote_type(q.get("quote_type")):
+                continue
+            q["approval_status"] = APPROVAL_ACTIVE if q.get("id") == target_id else APPROVAL_OBSOLETE
+
+    return True
+
+
 def catalog_name_key(text):
     normalized = unicodedata.normalize("NFKD", sanitize_pdf_text(text).casefold())
     ascii_text = "".join(char for char in normalized if not unicodedata.combining(char))

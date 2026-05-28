@@ -2,7 +2,7 @@ import os
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 
-from ..catalog import catalog_maps, hydrate_quote, next_quote_number, quote_type_key, safe_float
+from ..catalog import approve_quote, catalog_maps, hydrate_quote, next_quote_number, quote_type_key, safe_float
 from ..deletions import purge_deleted_catalog_items_from_record
 from ..drive import active_drive_paths, folder_name, latest_dwg_stem, load_config
 from ..form_models import quote_default_numbers, quote_from_form
@@ -238,6 +238,24 @@ def view_quote(project_id, quote_id):
 def delete_quote(project_id, quote_id):
     save("quotes", [item for item in load("quotes") if item["id"] != quote_id])
     flash("Cotización eliminada.", "warning")
+    return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+
+@bp.route("/projects/<project_id>/quote/<quote_id>/approve", methods=["POST"], endpoint="approve_quote")
+def approve_quote_route(project_id, quote_id):
+    """Aprueba/activa una cotización.
+
+    - General/Preliminar: marca la seleccionada como 'active' y las demás del
+      mismo proyecto (mismos tipos) como 'obsolete'.
+    - Extraordinaria: toggle active ↔ obsolete independiente.
+    """
+    quotes = load("quotes")
+    changed = approve_quote(quote_id, quotes)
+    if changed:
+        save("quotes", quotes)
+        flash("Estado de cotización actualizado.", "success")
+    else:
+        flash("Cotización no encontrada.", "danger")
     return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
 
 

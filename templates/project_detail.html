@@ -157,6 +157,22 @@
       <!-- Margen financiero -->
       <div class="col-md-3">
         <div class="margen-box" style="font-size:.82rem">
+          {% if active_base_quote %}
+          <div class="mb-1 pb-1 border-bottom" style="font-size:.7rem">
+            <i class="bi bi-check-circle text-success me-1"></i>
+            <span class="text-muted">Base:</span>
+            <span class="fw-semibold ms-1">{{ active_base_quote.quote_number }}</span>
+            {% if active_extras_count %}
+              <span class="text-muted ms-1">+{{ active_extras_count }} ext.</span>
+            {% endif %}
+          </div>
+          {% elif not quotes %}
+          {% else %}
+          <div class="mb-1 pb-1 border-bottom" style="font-size:.7rem">
+            <i class="bi bi-exclamation-triangle text-warning me-1"></i>
+            <span class="text-warning">Sin cotización aprobada</span>
+          </div>
+          {% endif %}
           <div class="d-flex justify-content-between mb-1">
             <span class="text-muted">Cotizado cliente</span>
             <span class="fw-semibold text-success">{{ total_cotizado | currency }}</span>
@@ -808,7 +824,7 @@
     <div class="card-body p-0">
       <table class="table mb-0">
         <thead><tr>
-          <th>Número</th><th>Tipo</th><th>Fecha</th><th class="text-end">Subtotal</th>
+          <th>Número</th><th>Tipo</th><th>Estado</th><th>Fecha</th><th class="text-end">Subtotal</th>
           <th class="text-end">IVA</th><th class="text-end">Total</th><th class="text-end">Acciones</th>
         </tr></thead>
         <tbody>
@@ -830,6 +846,12 @@
               <span class="badge bg-light text-dark border" style="font-size:.72rem">General</span>
             {% endif %}
           </td>
+          <td>
+            <span class="badge bg-{{ row.approval_badge }}{% if row.approval_badge == 'warning' %} text-dark{% endif %}"
+                  style="font-size:.72rem">
+              <i class="bi bi-{{ row.approval_icon }} me-1"></i>{{ row.approval_label }}
+            </span>
+          </td>
           <td><small class="text-muted">{{ q.date | fdate }}</small></td>
           <td class="text-end">{{ q.subtotal | currency }}</td>
           <td class="text-end text-muted">{{ q.tax | currency }}</td>
@@ -842,6 +864,28 @@
             <a href="{{ url_for('quotes_bp.quote_excel', project_id=project.id, quote_id=q.id) }}"
                class="btn btn-sm btn-outline-success me-1 action-btn" title="Descargar Excel"><i class="bi bi-file-earmark-spreadsheet"></i><span class="action-label">Excel</span></a>
             {% if not project.closed_at %}
+            <form method="post"
+                  action="{{ url_for('quotes_bp.approve_quote', project_id=project.id, quote_id=q.id) }}"
+                  class="d-inline">
+              {% if row.approval == 'active' and not row.is_extra %}
+                {# Cotización base ya aprobada: no se puede desaprobar sin elegir otra #}
+                <button type="button" class="btn btn-sm btn-success me-1 action-btn" disabled title="Cotización aprobada">
+                  <i class="bi bi-check-circle"></i><span class="action-label">Aprobada</span>
+                </button>
+              {% elif row.is_extra and row.approval == 'active' %}
+                <button type="submit" class="btn btn-sm btn-success me-1 action-btn" title="Desactivar extraordinaria">
+                  <i class="bi bi-toggle-on"></i><span class="action-label">Activa</span>
+                </button>
+              {% elif row.is_extra %}
+                <button type="submit" class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Activar extraordinaria">
+                  <i class="bi bi-toggle-off"></i><span class="action-label">Activar</span>
+                </button>
+              {% else %}
+                <button type="submit" class="btn btn-sm btn-outline-primary me-1 action-btn" title="Aprobar esta cotización como base del proyecto">
+                  <i class="bi bi-check-circle"></i><span class="action-label">Aprobar</span>
+                </button>
+              {% endif %}
+            </form>
             <a href="{{ url_for('edit_quote', project_id=project.id, quote_id=q.id) }}"
                class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Editar"><i class="bi bi-pencil"></i><span class="action-label">Editar</span></a>
             {% if row.deleted_catalog_count %}

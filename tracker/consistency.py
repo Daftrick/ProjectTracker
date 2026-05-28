@@ -24,7 +24,7 @@ from __future__ import annotations
 
 from typing import Iterable
 
-from .catalog import quote_type_key
+from .catalog import quote_type_key, APPROVAL_ACTIVE, APPROVAL_DRAFT, is_base_quote_type, QUOTE_TYPE_EXTRAORDINARIA
 from .bundles import expand_quote_bundles
 from .comparison_rules import aggregate_ldm_for_expected_items, compare_expected_vs_actual, active_rules as _get_active_rules
 from .comparison_ignored import (
@@ -74,13 +74,30 @@ def classify_margin(margin_pct: float | None) -> str:
 
 
 def pick_active_quote(project_quotes: Iterable[dict]) -> dict | None:
-    """La cotización General más reciente; si no hay, la más reciente de cualquier tipo."""
+    """Devuelve la cotización General/Preliminar activa del proyecto.
+
+    Orden de preferencia:
+    1. Cotización base (General o Preliminar) con approval_status='active'.
+    2. Si ninguna tiene estado explícito, la General más reciente (legado).
+    3. Si no hay General, la más reciente de cualquier tipo base.
+    """
     quotes = [q for q in project_quotes if q]
     if not quotes:
         return None
-    generals = [q for q in quotes if quote_type_key(q.get("quote_type")) == "General"]
-    pool = generals or quotes
-    return max(pool, key=lambda q: (q.get("date") or "", q.get("created_at") or ""))
+
+    base_quotes = [q for q in quotes if is_base_quote_type(q.get("quote_type"))]
+    if not base_quotes:
+        return None  # Sólo Extraordinarias → no hay cotización base
+
+    # Preferir la marcada explícitamente como active
+    explicitly_active = [q for q in base_quotes if q.get("approval_status") == APPROVAL_ACTIVE]
+    if explicitly_active:
+        return max(explicitly_active, key=lambda q: (q.get("date") or "", q.get("created_at") or ""))
+
+    # Fallback legado: General más reciente (proyectos sin approval_status aún)
+    generals = [q for q in base_quotes if quote_type_key(q.get("quote_type")) == "General"]
+    fallback_pool = generals or base_quotes
+    return max(fallback_pool, key=lambda q: (q.get("date") or "", q.get("created_at") or ""))
 
 
 def aggregate_quote_items(quote: dict | None) -> tuple[dict, dict]:
