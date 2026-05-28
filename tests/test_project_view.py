@@ -195,6 +195,21 @@ class ProjectViewTest(unittest.TestCase):
         self.assertEqual(view["badge_icon"], "exclamation-triangle-fill")
         self.assertTrue(view["has_unlinked_rows"])
 
+    def test_build_consistency_view_prepares_visual_review_helpers(self):
+        view = build_consistency_view({
+            "status": "ok",
+            "coverage": {
+                "quote_catalog_coverage_pct": 100,
+                "ldm_catalog_coverage_pct": 50,
+            },
+            "visual_warnings": [{"title": "Sin LDM", "level": "warning"}],
+        })
+
+        self.assertEqual(view["quote_coverage_color"], "success")
+        self.assertEqual(view["ldm_coverage_color"], "warning")
+        self.assertTrue(view["has_visual_warnings"])
+        self.assertEqual(view["visual_warnings"][0]["title"], "Sin LDM")
+
 
 if __name__ == "__main__":
     unittest.main()

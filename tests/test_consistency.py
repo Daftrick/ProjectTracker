@@ -213,6 +213,11 @@ class ComputeConsistencyTest(unittest.TestCase):
         self.assertEqual(report["summary"]["quote_items_total"], 2)
         self.assertEqual(report["summary"]["ldm_items_total"], 2)
         self.assertEqual(report["items"], [])
+        self.assertEqual(report["coverage"]["quote_catalog_coverage_pct"], 100.0)
+        self.assertEqual(report["coverage"]["ldm_catalog_coverage_pct"], 100.0)
+        self.assertTrue(report["coverage"]["has_financial_basis"])
+        self.assertEqual(report["visual_quote_rows"][0]["role"], "Base")
+        self.assertEqual(report["visual_ldm_rows"][0]["ldm_number"], "LDM-L1")
 
     def test_warning_threshold(self):
         # Margen exactamente 20%
@@ -221,6 +226,7 @@ class ComputeConsistencyTest(unittest.TestCase):
         report = cn.compute_consistency(PROJECT, [quote], [ldm], catalog_by_id={})
         self.assertEqual(report["margin_pct"], 20.0)
         self.assertEqual(report["status"], "warning")
+        self.assertIn("Margen bajo", [warning["title"] for warning in report["visual_warnings"]])
 
     def test_critical_when_ldm_exceeds_cot(self):
         quote = _quote("Q1", "General", "2026-04-01", [_q_item("CAT-1", 1, 50)])  # 50
@@ -236,6 +242,9 @@ class ComputeConsistencyTest(unittest.TestCase):
         self.assertIsNone(report["active_quote"])
         self.assertEqual(report["summary"]["quote_items_total"], 0)
         self.assertEqual(report["summary"]["ldm_items_total"], 0)
+        self.assertIsNone(report["coverage"]["quote_catalog_coverage_pct"])
+        self.assertIsNone(report["coverage"]["ldm_catalog_coverage_pct"])
+        self.assertFalse(report["coverage"]["has_financial_basis"])
 
     def test_no_general_quote_uses_fallback(self):
         prelim = _quote("Q1", "Preliminar", "2026-04-01", [_q_item("CAT-1", 2, 50)])
@@ -250,6 +259,18 @@ class ComputeConsistencyTest(unittest.TestCase):
         own = _quote("Q1", "General", "2026-04-01", [_q_item("CAT-1", 1, 10)])
         report = cn.compute_consistency(PROJECT, [other, own], [], catalog_by_id={})
         self.assertEqual(report["quote_subtotal"], 10)
+
+    def test_visual_warnings_include_missing_data_and_unlinked_rows(self):
+        quote = _quote("Q1", "General", "2026-04-01", [
+            _q_item("", 1, 100, description="Manual"),
+        ])
+        report = cn.compute_consistency(PROJECT, [quote], [], catalog_by_id={})
+
+        titles = [warning["title"] for warning in report["visual_warnings"]]
+        self.assertIn("Sin LDM", titles)
+        self.assertIn("COT sin catálogo", titles)
+        self.assertEqual(report["coverage"]["quote_catalog_coverage_pct"], 0.0)
+        self.assertEqual(report["visual_quote_rows"][0]["unlinked_count"], 1)
 
     def test_active_extras_are_included_in_visual_total(self):
         base = _quote("Q1", "General", "2026-05-02", [_q_item("CAT-1", 1, 100)])

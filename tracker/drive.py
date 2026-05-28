@@ -50,9 +50,9 @@ class DriveCache:
         except (OSError, FileNotFoundError):
             return None
 
-    def _make_key(self, folder, clave, ldms_hash):
+    def _make_key(self, folder, clave, ldms_hash, quotes_hash=0):
         """Create cache key from folder path and parameters"""
-        return (folder, clave or "", ldms_hash)
+        return (folder, clave or "", ldms_hash, quotes_hash)
 
     def is_valid(self, key):
         """Check if cached result is still valid"""
@@ -70,16 +70,16 @@ class DriveCache:
         mtime_now = self._get_folder_mtime(folder)
         return mtime_then == mtime_now
 
-    def get(self, folder, clave, ldms_hash):
+    def get(self, folder, clave, ldms_hash, quotes_hash=0):
         """Get cached result if valid"""
-        key = self._make_key(folder, clave, ldms_hash)
+        key = self._make_key(folder, clave, ldms_hash, quotes_hash)
         if self.is_valid(key):
             return self.cache[key][0]
         return None
 
-    def put(self, folder, clave, ldms_hash, result):
+    def put(self, folder, clave, ldms_hash, result, quotes_hash=0):
         """Store result in cache"""
-        key = self._make_key(folder, clave, ldms_hash)
+        key = self._make_key(folder, clave, ldms_hash, quotes_hash)
         mtime_now = self._get_folder_mtime(folder)
         self.cache[key] = (result, mtime_now, time.time())
 
@@ -602,11 +602,16 @@ def scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None, quotes=No
 
     # Create hash for LDMs to detect changes
     ldms_hash = hash(json.dumps(ldms or [], sort_keys=True, default=str))
+    quotes_hash = hash(json.dumps(
+        [{"id": q.get("id"), "csv_filename": q.get("csv_filename"), "csv_origen": q.get("csv_origen"), "quote_number": q.get("quote_number")}
+         for q in (quotes or [])],
+        sort_keys=True, default=str
+    ))
 
     folder = os.path.join(projects_root, folder_nm) if projects_root else ""
 
     # Check cache first (keyed por carpeta específica del proyecto)
-    cached_result = _drive_cache.get(folder, clave, ldms_hash)
+    cached_result = _drive_cache.get(folder, clave, ldms_hash, quotes_hash)
     if cached_result:
         return cached_result
 
@@ -740,7 +745,7 @@ def scan_drive_folder(folder_nm, projects_root, ldms=None, clave=None, quotes=No
     result["missing_base"] = missing_base
 
     # Cache the result (keyed por carpeta específica del proyecto)
-    _drive_cache.put(folder, clave, ldms_hash, result)
+    _drive_cache.put(folder, clave, ldms_hash, result, quotes_hash)
 
     return result
 

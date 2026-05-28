@@ -198,15 +198,30 @@ def build_task_row_views(main_tasks, subtasks):
 def build_consistency_view(consistency):
     cn = consistency or {}
     status = cn.get("status", "no_data")
+    coverage = cn.get("coverage") or {}
+    quote_coverage = coverage.get("quote_catalog_coverage_pct")
+    ldm_coverage = coverage.get("ldm_catalog_coverage_pct")
     return {
         "raw": cn,
         "badge_color": _status_color(status),
         "badge_icon": _status_icon(status),
+        "visual_warnings": cn.get("visual_warnings") or [],
+        "has_visual_warnings": bool(cn.get("visual_warnings")),
+        "quote_coverage_color": _coverage_color(quote_coverage),
+        "ldm_coverage_color": _coverage_color(ldm_coverage),
         "has_unlinked_rows": bool(
             (cn.get("quote_unlinked") or {}).get("count")
             or (cn.get("ldm_unlinked") or {}).get("count")
         ),
     }
+
+
+def _coverage_color(value):
+    if value is None:
+        return "secondary"
+    if value < 80:
+        return "warning"
+    return "success"
 
 
 def build_project_detail_context(project):

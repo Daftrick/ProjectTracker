@@ -843,6 +843,21 @@
     {% endif %}
   </div>
   {% if quotes %}
+  {# ── Filtros cotizaciones ── #}
+  <div class="d-flex align-items-center gap-2 flex-wrap mb-2" id="quoteFilterBar">
+    <small class="text-muted me-1">Tipo:</small>
+    <button class="btn btn-sm btn-outline-secondary quote-filter-chip active" data-filter-type="all">Todas</button>
+    <button class="btn btn-sm btn-outline-secondary quote-filter-chip" data-filter-type="General">General</button>
+    <button class="btn btn-sm btn-outline-secondary quote-filter-chip" data-filter-type="Preliminar">Preliminar</button>
+    <button class="btn btn-sm btn-outline-warning quote-filter-chip" data-filter-type="Extraordinaria">Extraordinaria</button>
+    <span class="text-muted mx-1">|</span>
+    <small class="text-muted me-1">Estado:</small>
+    <button class="btn btn-sm btn-outline-secondary quote-filter-chip active" data-filter-status="all">Todos</button>
+    <button class="btn btn-sm btn-outline-success quote-filter-chip" data-filter-status="active">Activa</button>
+    <button class="btn btn-sm btn-outline-secondary quote-filter-chip" data-filter-status="draft">Borrador</button>
+    <button class="btn btn-sm btn-outline-danger quote-filter-chip" data-filter-status="obsolete">Obsoleta</button>
+    <span class="ms-auto text-muted" id="quoteFilterCount" style="font-size:.8rem"></span>
+  </div>
   <div class="card">
     <div class="card-body p-0">
       <table class="table mb-0">
@@ -850,10 +865,10 @@
           <th>Número</th><th>Tipo</th><th>Estado</th><th>Fecha</th><th class="text-end">Subtotal</th>
           <th class="text-end">IVA</th><th class="text-end">Total</th><th class="text-end">Acciones</th>
         </tr></thead>
-        <tbody>
+        <tbody id="quoteFilterBody">
         {% for row in quote_rows %}
         {% set q = row.quote %}
-        <tr>
+        <tr data-qtype="{{ q.get('quote_type','General') }}" data-qstatus="{{ q.get('approval_status','draft') }}">
           <td>
             <span class="fw-semibold font-monospace">{{ q.quote_number }}</span>
             {% if row.deleted_catalog_count %}
@@ -941,6 +956,9 @@
       </table>
     </div>
   </div>
+  <div class="text-center py-2 text-muted d-none" id="quoteEmptyFilter" style="font-size:.85rem">
+    <i class="bi bi-funnel me-1"></i>Ninguna cotización coincide con los filtros activos.
+  </div>
   {% else %}
     <div class="text-center py-4 text-muted">
       <i class="bi bi-receipt fs-2 d-block mb-2"></i>Sin cotizaciones. Crea la primera.
@@ -961,9 +979,14 @@
         <i class="bi bi-shield-check me-1"></i>
         Resumen COT vs LDM — {{ project.clave }}
       </span>
-      <span class="badge bg-{{ bs_color }}{% if bs_color == 'warning' %} text-dark{% endif %}">
-        <i class="bi bi-{{ bs_icon }} me-1"></i>{{ cn.status_label }}
-      </span>
+      <div class="d-flex align-items-center gap-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.print()">
+          <i class="bi bi-printer me-1"></i>Imprimir resumen
+        </button>
+        <span class="badge bg-{{ bs_color }}{% if bs_color == 'warning' %} text-dark{% endif %}">
+          <i class="bi bi-{{ bs_icon }} me-1"></i>{{ cn.status_label }}
+        </span>
+      </div>
     </div>
     <div class="card-body">
       {% if cn.active_quote %}
@@ -1037,10 +1060,123 @@
         </div>
       </div>
 
-      {% if cv.has_unlinked_rows %}
-      <div class="alert alert-secondary py-2 mt-3 mb-0" style="font-size:.82rem">
-        <i class="bi bi-link-45deg me-1"></i>
-        Hay renglones sin vínculo a catálogo. Se muestran como cobertura visual, sin diagnóstico automático.
+      <div class="row g-2 mt-3">
+        <div class="col-md-6">
+          <div class="margen-box p-3 h-100" style="font-size:.82rem">
+            <div class="fw-semibold mb-2"><i class="bi bi-check2-circle me-1"></i>Cobertura de catálogo</div>
+            <div class="mb-2">
+              <div class="d-flex justify-content-between mb-1">
+                <span class="text-muted">COT vinculada</span>
+                <span>
+                  {% if cn.coverage.quote_catalog_coverage_pct is not none %}
+                    {{ cn.coverage.quote_catalog_coverage_pct }}%
+                  {% else %}
+                    Sin renglones
+                  {% endif %}
+                </span>
+              </div>
+              <div class="progress" style="height:6px">
+                <div class="progress-bar bg-{{ cv.quote_coverage_color }}"
+                     style="width:{% if cn.coverage.quote_catalog_coverage_pct is not none %}{{ cn.coverage.quote_catalog_coverage_pct }}{% else %}0{% endif %}%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="d-flex justify-content-between mb-1">
+                <span class="text-muted">LDM vinculada</span>
+                <span>
+                  {% if cn.coverage.ldm_catalog_coverage_pct is not none %}
+                    {{ cn.coverage.ldm_catalog_coverage_pct }}%
+                  {% else %}
+                    Sin renglones
+                  {% endif %}
+                </span>
+              </div>
+              <div class="progress" style="height:6px">
+                <div class="progress-bar bg-{{ cv.ldm_coverage_color }}"
+                     style="width:{% if cn.coverage.ldm_catalog_coverage_pct is not none %}{{ cn.coverage.ldm_catalog_coverage_pct }}{% else %}0{% endif %}%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="margen-box p-3 h-100" style="font-size:.82rem">
+            <div class="fw-semibold mb-2"><i class="bi bi-clipboard-data me-1"></i>Base financiera</div>
+            <div class="d-flex justify-content-between">
+              <span class="text-muted">COT base activa</span>
+              <span class="{% if cn.active_quote %}text-success{% else %}text-warning{% endif %}">
+                {% if cn.active_quote %}Disponible{% else %}Falta{% endif %}
+              </span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span class="text-muted">LDM considerada</span>
+              <span class="{% if cn.summary.ldm_count %}text-success{% else %}text-warning{% endif %}">
+                {% if cn.summary.ldm_count %}{{ cn.summary.ldm_count }} lista(s){% else %}Falta{% endif %}
+              </span>
+            </div>
+            <div class="d-flex justify-content-between mt-1">
+              <span class="text-muted">Margen calculable</span>
+              <span class="{% if cn.margin_pct is not none %}text-success{% else %}text-warning{% endif %}">
+                {% if cn.margin_pct is not none %}Sí{% else %}No{% endif %}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-2 mt-3">
+        <div class="col-md-6">
+          <div class="margen-box p-3 h-100" style="font-size:.82rem">
+            <div class="fw-semibold mb-2"><i class="bi bi-receipt-cutoff me-1"></i>Cotizaciones usadas</div>
+            {% if cn.visual_quote_rows %}
+              {% for row in cn.visual_quote_rows %}
+              <div class="d-flex justify-content-between align-items-start gap-2 py-1 {% if not loop.last %}border-bottom{% endif %}">
+                <div>
+                  <span class="badge bg-{% if row.role == 'Base' %}primary{% else %}success{% endif %} me-1">{{ row.role }}</span>
+                  <span class="font-monospace">{{ row.quote_number }}</span>
+                  <small class="text-muted d-block">{{ row.quote_type }} · {{ row.item_count }} renglón(es){% if row.unlinked_count %} · {{ row.unlinked_count }} sin catálogo{% endif %}</small>
+                </div>
+                <div class="text-end">
+                  <div>{{ row.subtotal | currency }}</div>
+                  <small class="text-muted">{{ row.date | fdate }}</small>
+                </div>
+              </div>
+              {% endfor %}
+            {% else %}
+              <div class="text-muted">No hay cotizaciones activas usadas en el resumen.</div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="margen-box p-3 h-100" style="font-size:.82rem">
+            <div class="fw-semibold mb-2"><i class="bi bi-card-list me-1"></i>LDM consideradas</div>
+            {% if cn.visual_ldm_rows %}
+              {% for row in cn.visual_ldm_rows %}
+              <div class="d-flex justify-content-between align-items-start gap-2 py-1 {% if not loop.last %}border-bottom{% endif %}">
+                <div>
+                  <span class="font-monospace text-warning">{{ row.ldm_number }}</span>
+                  <small class="text-muted d-block">{{ row.proveedor or 'Sin proveedor' }} · {{ row.item_count }} renglón(es){% if row.unlinked_count %} · {{ row.unlinked_count }} sin catálogo{% endif %}</small>
+                </div>
+                <div class="text-end">
+                  <div>{{ row.subtotal_cot | currency }}</div>
+                  <small class="text-muted">{{ row.fecha | fdate }}</small>
+                </div>
+              </div>
+              {% endfor %}
+            {% else %}
+              <div class="text-muted">No hay LDM registradas para el proyecto.</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      {% if cv.has_visual_warnings %}
+      <div class="mt-3">
+        {% for warning in cv.visual_warnings %}
+        <div class="alert alert-{{ warning.level }} py-2 mb-2" style="font-size:.82rem">
+          <i class="bi bi-{{ warning.icon }} me-1"></i>
+          <strong>{{ warning.title }}.</strong> {{ warning.text }}
+        </div>
+        {% endfor %}
       </div>
       {% endif %}
     </div>
@@ -1095,6 +1231,15 @@
   {% if ldms %}
   <div class="card">
     <div class="card-body p-0">
+      {# ── Filtro texto LDMs ── #}
+      <div class="d-flex align-items-center gap-2 px-3 pt-3 pb-2 border-bottom">
+        <i class="bi bi-search text-muted" style="font-size:.9rem"></i>
+        <input type="search" id="ldmFilterInput" class="form-control form-control-sm"
+               placeholder="Filtrar por proveedor, lista, cot…" style="max-width:280px">
+        <span class="text-muted ms-1" id="ldmFilterCount" style="font-size:.8rem"></span>
+        <button class="btn btn-sm btn-link text-muted p-0 ms-1 d-none" id="ldmFilterClear"
+                title="Limpiar filtro">✕</button>
+      </div>
       <table class="table mb-0">
         <thead class="table-light">
           <tr>
@@ -1107,9 +1252,9 @@
             <th class="text-end">Acciones</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="ldmFilterBody">
         {% for row in ldm_rows %}
-        <tr>
+        <tr data-ldm-text="{{ [row.ldm.ldm_number, row.ldm.proveedor or '', row.ldm.cot_proveedor or ''] | join(' ') | lower }}">
           <td>
             <span class="fw-semibold font-monospace text-warning">{{ row.ldm.ldm_number }}</span>
             {% if row.deleted_catalog_count %}
@@ -1744,7 +1889,95 @@
       }
     });
 
-    // blur → guardar; Escape → cancelar; Enter → guardar
+  
+  // ── Filtros tab Cotizaciones ─────────────────────────────────────────────
+  (function() {
+    function _qNorm(t) {
+      return String(t || "").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
+    }
+    let activeType = "all", activeStatus = "all";
+
+    function applyQuoteFilter() {
+      const body    = document.getElementById("quoteFilterBody");
+      const counter = document.getElementById("quoteFilterCount");
+      const empty   = document.getElementById("quoteEmptyFilter");
+      if (!body) return;
+      const rows = [...body.querySelectorAll("tr[data-qtype]")];
+      let visible = 0;
+      rows.forEach(row => {
+        const typeOk   = activeType   === "all" || _qNorm(row.dataset.qtype)   === _qNorm(activeType);
+        const statusOk = activeStatus === "all" || _qNorm(row.dataset.qstatus) === _qNorm(activeStatus);
+        const show = typeOk && statusOk;
+        row.style.display = show ? "" : "none";
+        if (show) visible++;
+      });
+      const total = rows.length;
+      const filtered = activeType !== "all" || activeStatus !== "all";
+      if (counter) counter.textContent = filtered ? `${visible} de ${total}` : `${total} cotización${total === 1 ? "" : "es"}`;
+      if (empty) empty.classList.toggle("d-none", visible > 0);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".quote-filter-chip[data-filter-type]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".quote-filter-chip[data-filter-type]").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          activeType = btn.dataset.filterType;
+          applyQuoteFilter();
+        });
+      });
+      document.querySelectorAll(".quote-filter-chip[data-filter-status]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".quote-filter-chip[data-filter-status]").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          activeStatus = btn.dataset.filterStatus;
+          applyQuoteFilter();
+        });
+      });
+      applyQuoteFilter();
+    });
+  })();
+
+  // ── Filtro tab LDMs ──────────────────────────────────────────────────────
+  (function() {
+    function _ldmNorm(t) {
+      return String(t || "").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function applyLdmFilter() {
+      const input   = document.getElementById("ldmFilterInput");
+      const counter = document.getElementById("ldmFilterCount");
+      const clearBtn= document.getElementById("ldmFilterClear");
+      const body    = document.getElementById("ldmFilterBody");
+      if (!input || !body) return;
+      const tokens = _ldmNorm(input.value).split(/\s+/).filter(Boolean);
+      const rows = [...body.querySelectorAll("tr[data-ldm-text]")];
+      let visible = 0;
+      rows.forEach(row => {
+        const hay = _ldmNorm(row.dataset.ldmText);
+        const match = !tokens.length || tokens.every(t => hay.includes(t));
+        row.style.display = match ? "" : "none";
+        if (match) visible++;
+      });
+      const total = rows.length;
+      if (counter) counter.textContent = tokens.length ? `${visible} de ${total}` : "";
+      if (clearBtn) clearBtn.classList.toggle("d-none", !tokens.length);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const input   = document.getElementById("ldmFilterInput");
+      const clearBtn= document.getElementById("ldmFilterClear");
+      if (!input) return;
+      input.addEventListener("input", applyLdmFilter);
+      clearBtn?.addEventListener("click", () => {
+        input.value = "";
+        applyLdmFilter();
+        input.focus();
+      });
+      applyLdmFilter();
+    });
+  })();
+  // blur → guardar; Escape → cancelar; Enter → guardar
     document.addEventListener("focusout", e => {
       if (e.target.classList.contains("ldm-costo-input")) {
         const cell = e.target.closest(".ldm-costo-cell");

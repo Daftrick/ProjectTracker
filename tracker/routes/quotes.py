@@ -645,8 +645,7 @@ def import_quote_csv_drive(project_id, filename):
         flash("Ruta de proyectos Drive no configurada. Ve a Ajustes.", "danger")
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
 
-    from ..drive import folder_name as drive_folder_name
-    project_folder = os.path.join(projects_root, drive_folder_name(project))
+    project_folder = os.path.join(projects_root, folder_name(project))
     clean_name = os.path.basename(filename)
     csv_path = os.path.abspath(os.path.join(project_folder, clean_name))
 

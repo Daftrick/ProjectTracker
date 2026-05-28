@@ -370,20 +370,22 @@ Criterio de aceptacion:
 
 Objetivo: mantener una revision diaria entendible sin reactivar diagnosticos tecnicos complejos.
 
-- [ ] Mostrar comparacion comercial:
+- [x] Mostrar comparacion comercial:
   - COT vendida vs LDM costeada.
-- [ ] Mostrar cobertura basica:
+- [x] Mostrar cobertura basica:
   - cotizacion base activa,
   - extras activas,
   - LDMs consideradas,
   - renglones sin catalogo,
   - margen absoluto y porcentaje.
-- [ ] Agregar avisos simples cuando falte cotizacion base, LDM o catalogo.
-- [ ] Exportar resumen visual si se requiere para revision interna.
+- [x] Agregar avisos simples cuando falte cotizacion base, LDM o catalogo.
+- [x] Exportar resumen visual si se requiere para revision interna. Resuelto como impresion del resumen visual desde navegador.
 
 Criterio de aceptacion:
 
 - Un proyecto importado desde LISP puede revisarse desde una sola vista simple de COT vs LDM.
+
+Estado: completado en ProjectTracker el 2026-05-28. La vista muestra base financiera, cobertura de catalogo, cotizaciones/LDM consideradas y avisos informativos sin reactivar comparacion tecnica por articulo.
 
 ---
 

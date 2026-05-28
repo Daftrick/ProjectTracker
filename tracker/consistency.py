@@ -295,6 +295,105 @@ def _synthetic_quote(quotes: Iterable[dict]) -> dict | None:
     return {"items": items} if items else None
 
 
+def _catalog_coverage_pct(total_items: int, unlinked_count: int) -> float | None:
+    if total_items <= 0:
+        return None
+    linked = max(total_items - int(unlinked_count or 0), 0)
+    return _round(linked / total_items * 100, 1)
+
+
+def _quote_visual_row(quote: dict, role: str) -> dict:
+    items = quote.get("items", []) or []
+    unlinked_count = sum(1 for item in items if not str(item.get("catalog_item_id", "") or "").strip())
+    return {
+        "id": quote.get("id", ""),
+        "role": role,
+        "quote_number": quote.get("quote_number", ""),
+        "quote_type": quote.get("quote_type", ""),
+        "date": quote.get("date", ""),
+        "subtotal": _round(_safe_float(quote.get("subtotal"))),
+        "item_count": len(items),
+        "unlinked_count": unlinked_count,
+    }
+
+
+def _ldm_visual_row(ldm: dict) -> dict:
+    items = ldm.get("items", []) or []
+    unlinked_count = sum(1 for item in items if not str(item.get("catalog_item_id", "") or "").strip())
+    return {
+        "id": ldm.get("id", ""),
+        "ldm_number": ldm.get("ldm_number", ""),
+        "proveedor": ldm.get("proveedor", ""),
+        "fecha": ldm.get("fecha", ""),
+        "subtotal_cot": _round(_safe_float(ldm.get("subtotal_cot"))),
+        "item_count": len(items),
+        "unlinked_count": unlinked_count,
+    }
+
+
+def _visual_warnings(
+    *,
+    active_quote: dict | None,
+    project_ldms: list[dict],
+    quote_unlinked: dict,
+    ldm_unlinked: dict,
+    quote_subtotal: float,
+    ldm_subtotal: float,
+    margin_pct: float | None,
+) -> list[dict]:
+    warnings = []
+    if not active_quote:
+        warnings.append({
+            "level": "warning",
+            "icon": "exclamation-triangle",
+            "title": "Sin COT base activa",
+            "text": "El resumen no tiene una cotización base General o Preliminar activa.",
+        })
+    if not project_ldms:
+        warnings.append({
+            "level": "warning",
+            "icon": "card-list",
+            "title": "Sin LDM",
+            "text": "No hay listas de materiales consideradas para costo proveedor.",
+        })
+    if quote_subtotal <= 0 and ldm_subtotal > 0:
+        warnings.append({
+            "level": "warning",
+            "icon": "receipt",
+            "title": "Costo sin venta base",
+            "text": "Hay costo LDM, pero no hay subtotal COT para calcular margen porcentual.",
+        })
+    if (quote_unlinked or {}).get("count"):
+        warnings.append({
+            "level": "secondary",
+            "icon": "link-45deg",
+            "title": "COT sin catálogo",
+            "text": f"{quote_unlinked.get('count', 0)} renglón(es) COT no tienen vínculo a catálogo.",
+        })
+    if (ldm_unlinked or {}).get("count"):
+        warnings.append({
+            "level": "secondary",
+            "icon": "link-45deg",
+            "title": "LDM sin catálogo",
+            "text": f"{ldm_unlinked.get('count', 0)} renglón(es) LDM no tienen vínculo a catálogo.",
+        })
+    if margin_pct is not None and margin_pct < 0:
+        warnings.append({
+            "level": "danger",
+            "icon": "exclamation-octagon",
+            "title": "Margen negativo",
+            "text": "El costo LDM supera el total COT considerado.",
+        })
+    elif margin_pct is not None and margin_pct < MARGIN_OK_PCT:
+        warnings.append({
+            "level": "warning",
+            "icon": "exclamation-triangle",
+            "title": "Margen bajo",
+            "text": f"El margen está por debajo del objetivo visual de {MARGIN_OK_PCT:g}%.",
+        })
+    return warnings
+
+
 def compute_consistency(
     project: dict,
     quotes: Iterable[dict],
@@ -330,6 +429,21 @@ def compute_consistency(
     ldm_unlinked_total = _round(_safe_float(ldm_unlinked.get("total")))
     quote_items_total = sum(len(q.get("items", []) or []) for q in visual_quotes)
     ldm_items_total = sum(len(m.get("items", []) or []) for m in project_ldms)
+    quote_catalog_coverage_pct = _catalog_coverage_pct(quote_items_total, quote_unlinked.get("count", 0))
+    ldm_catalog_coverage_pct = _catalog_coverage_pct(ldm_items_total, ldm_unlinked.get("count", 0))
+    visual_quote_rows = (
+        [_quote_visual_row(active_quote, "Base")] if active_quote else []
+    ) + [_quote_visual_row(quote, "Extra") for quote in active_extras]
+    visual_ldm_rows = [_ldm_visual_row(ldm) for ldm in project_ldms]
+    visual_warnings = _visual_warnings(
+        active_quote=active_quote,
+        project_ldms=project_ldms,
+        quote_unlinked=quote_unlinked,
+        ldm_unlinked=ldm_unlinked,
+        quote_subtotal=quote_subtotal,
+        ldm_subtotal=ldm_subtotal,
+        margin_pct=margin_pct,
+    )
 
     has_general = any(
         quote_type_key(q.get("quote_type")) == "General" for q in project_quotes
@@ -367,6 +481,14 @@ def compute_consistency(
         "ldm_linked_total": ldm_linked_total,
         "quote_unlinked_total": quote_unlinked_total,
         "ldm_unlinked_total": ldm_unlinked_total,
+        "visual_quote_rows": visual_quote_rows,
+        "visual_ldm_rows": visual_ldm_rows,
+        "visual_warnings": visual_warnings,
+        "coverage": {
+            "quote_catalog_coverage_pct": quote_catalog_coverage_pct,
+            "ldm_catalog_coverage_pct": ldm_catalog_coverage_pct,
+            "has_financial_basis": bool(active_quote and project_ldms),
+        },
         "suggested_actions": [],
         "quote_unlinked": quote_unlinked,
         "ldm_unlinked": ldm_unlinked,
