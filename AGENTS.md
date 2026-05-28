@@ -20,6 +20,27 @@ Rules:
 - If push/authentication fails, report the exact state and the command the user
   must run from an authenticated terminal.
 
+## mise
+
+This project uses `mise.toml` to pin agent-friendly environment variables and
+the normal maintenance tasks.
+
+Rules:
+- After Git synchronization, run `mise install` on a fresh machine or whenever
+  `mise.toml` changes.
+- If mise asks whether to trust the config, inspect `mise.toml` first; trust it
+  only when it contains the expected project env vars and task definitions.
+- Prefer mise tasks over spelling commands by hand:
+  - `mise run syntax` for Python syntax checks.
+  - `mise run test` for the unittest suite.
+  - `mise run graph-update` after code or graph-relevant documentation changes.
+  - `mise run organize` for a normal closeout pass that runs syntax, tests, and
+    Graphify refresh.
+- When running ad hoc Python or Graphify commands, prefer `mise exec -- <cmd>`
+  so `PYTHONUTF8` and `PYTHONDONTWRITEBYTECODE` stay consistent.
+- If mise is unavailable, fall back to the explicit command from `mise.toml` and
+  report that the mise wrapper was not used.
+
 ## graphify
 
 This project has a graphify knowledge graph at graphify-out/.
