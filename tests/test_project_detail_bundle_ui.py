@@ -1,17 +1,19 @@
-"""Smoke tests for the bundle technical consistency UI in project_detail.html."""
+"""Smoke tests for simplified project detail COT/LDM UI."""
 
 from pathlib import Path
 import unittest
 
 
 class ProjectDetailBundleUITest(unittest.TestCase):
-    def test_template_contains_bundle_technical_consistency_section(self):
+    def test_template_contains_simple_cot_ldm_summary(self):
         template = Path("templates/project_detail.html").read_text(encoding="utf-8")
-        self.assertIn("Consistencia técnica por bundles", template)
-        self.assertIn("technicalConsistencyTable", template)
-        self.assertIn("technicalConsistencyFilter", template)
-        self.assertIn("cv.technical", template)
-        self.assertIn("Materiales evaluados", template)
+        self.assertIn("Resumen COT vs LDM", template)
+        self.assertIn("COT base", template)
+        self.assertIn("Extras activas", template)
+        self.assertIn("Costo LDM", template)
+        self.assertNotIn("technicalConsistencyTable", template)
+        self.assertNotIn("technicalConsistencyFilter", template)
+        self.assertNotIn("Consistencia técnica por bundles", template)
 
     def test_materials_tab_exposes_csv_export_for_existing_ldms(self):
         template = Path("templates/project_detail.html").read_text(encoding="utf-8")
@@ -19,11 +21,11 @@ class ProjectDetailBundleUITest(unittest.TestCase):
         self.assertIn("Exportar CSV de esta lista", template)
         self.assertIn("bi-filetype-csv", template)
 
-    def test_materials_tab_exposes_partial_bundle_sync(self):
+    def test_materials_tab_hides_partial_bundle_sync(self):
         template = Path("templates/project_detail.html").read_text(encoding="utf-8")
-        self.assertIn("url_for('sync_ldm_bundles'", template)
-        self.assertIn("Agregar faltantes desde bundles", template)
-        self.assertIn("Completar LDM", template)
+        self.assertNotIn("url_for('sync_ldm_bundles'", template)
+        self.assertNotIn("Agregar faltantes desde bundles", template)
+        self.assertNotIn("Completar LDM", template)
 
 
 if __name__ == "__main__":

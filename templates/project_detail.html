@@ -228,11 +228,6 @@
   <li class="nav-item">
     <a class="nav-link" data-bs-toggle="tab" href="#tab-consistencia" id="tab-consistencia-link">
       <i class="bi bi-shield-check me-1"></i>Consistencia
-      {% if consistency_view.tab_severity == 'critical' %}
-        <span class="badge bg-danger ms-1" style="font-size:.62rem">!</span>
-      {% elif consistency_view.tab_severity == 'warning' %}
-        <span class="badge bg-warning text-dark ms-1" style="font-size:.62rem">⚠</span>
-      {% endif %}
     </a>
   </li>
   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-materiales" id="tab-materiales-link"><i class="bi bi-card-list me-1"></i>Materiales</a></li>
@@ -925,523 +920,103 @@
   {% endif %}
 </div>
 
-<!-- ── TAB CONSISTENCIA COT vs LDM ── -->
+<!-- ── TAB RESUMEN COT vs LDM ── -->
 <div class="tab-pane fade" id="tab-consistencia">
   {% set cn = consistency %}
   {% set cv = consistency_view %}
   {% set bs_color = cv.badge_color %}
   {% set bs_icon = cv.badge_icon %}
 
-  <!-- Encabezado: estado + KPIs -->
   <div class="card mb-3">
     <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
       <span class="fw-semibold" style="font-size:.875rem">
         <i class="bi bi-shield-check me-1"></i>
-        Consistencia COT vs LDM — {{ project.clave }}
+        Resumen COT vs LDM — {{ project.clave }}
       </span>
       <span class="badge bg-{{ bs_color }}{% if bs_color == 'warning' %} text-dark{% endif %}">
         <i class="bi bi-{{ bs_icon }} me-1"></i>{{ cn.status_label }}
       </span>
     </div>
     <div class="card-body">
-      {% if not cn.has_general_quote and cn.active_quote %}
+      {% if cn.active_quote %}
       <div class="alert alert-info py-2 mb-3" style="font-size:.85rem">
         <i class="bi bi-info-circle me-1"></i>
-        Este proyecto no tiene cotización <strong>General</strong>. Se está usando
-        <strong>{{ cn.active_quote.quote_number }}</strong> ({{ cn.active_quote.quote_type }}) como base de comparación.
+        Base visual:
+        <strong>{{ cn.active_quote.quote_number }}</strong>
+        ({{ cn.active_quote.quote_type }})
+        {% if cn.active_extras_count %}
+          con {{ cn.active_extras_count }} extraordinaria(s) activa(s).
+        {% endif %}
       </div>
-      {% elif not cn.active_quote %}
+      {% else %}
       <div class="alert alert-warning py-2 mb-3" style="font-size:.85rem">
         <i class="bi bi-exclamation-triangle me-1"></i>
-        Sin cotizaciones registradas en el proyecto. Captura una cotización General para comparar contra LDM.
+        Sin cotización base activa. El resumen sólo puede mostrar costos LDM y extraordinarias activas.
       </div>
       {% endif %}
 
       <div class="row g-3">
         <div class="col-md-3">
           <div class="margen-box p-3" style="font-size:.85rem">
-            <div class="text-muted mb-1">Subtotal cotizado</div>
-            <div class="fw-bold text-success" style="font-size:1.05rem">{{ cn.quote_subtotal | currency }}</div>
+            <div class="text-muted mb-1">COT base</div>
+            <div class="fw-bold text-success" style="font-size:1.05rem">{{ cn.quote_base_subtotal | currency }}</div>
             {% if cn.active_quote %}<small class="text-muted d-block mt-1">{{ cn.active_quote.quote_number }}</small>{% endif %}
           </div>
         </div>
         <div class="col-md-3">
           <div class="margen-box p-3" style="font-size:.85rem">
-            <div class="text-muted mb-1">Costo proveedor (LDMs)</div>
-            <div class="fw-bold text-warning" style="font-size:1.05rem">{{ cn.ldm_subtotal | currency }}</div>
-            <small class="text-muted d-block mt-1">{{ ldms|length }} lista(s)</small>
+            <div class="text-muted mb-1">Extras activas</div>
+            <div class="fw-bold text-success" style="font-size:1.05rem">{{ cn.quote_extras_subtotal | currency }}</div>
+            <small class="text-muted d-block mt-1">{{ cn.active_extras_count }} cotización(es)</small>
           </div>
         </div>
         <div class="col-md-3">
           <div class="margen-box p-3" style="font-size:.85rem">
-            <div class="text-muted mb-1">Margen absoluto</div>
-            <div class="fw-bold {% if cn.margin_abs >= 0 %}text-success{% else %}text-danger{% endif %}" style="font-size:1.05rem">
+            <div class="text-muted mb-1">Costo LDM</div>
+            <div class="fw-bold text-warning" style="font-size:1.05rem">{{ cn.ldm_subtotal | currency }}</div>
+            <small class="text-muted d-block mt-1">{{ cn.summary.ldm_count }} lista(s)</small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="margen-box p-3" style="font-size:.85rem">
+            <div class="text-muted mb-1">Margen</div>
+            <div class="fw-bold text-{{ bs_color }}{% if bs_color == 'warning' %} text-warning{% endif %}" style="font-size:1.05rem">
               {{ cn.margin_abs | currency }}
             </div>
-            <small class="text-muted d-block mt-1">Cotizado − costo</small>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="margen-box p-3" style="font-size:.85rem">
-            <div class="text-muted mb-1">Margen %</div>
-            <div class="fw-bold text-{{ bs_color }}{% if bs_color == 'warning' %} text-warning{% endif %}" style="font-size:1.05rem">
-              {% if cn.margin_pct is not none %}{{ cn.margin_pct }}%{% else %}—{% endif %}
-            </div>
-            <small class="text-muted d-block mt-1">≥30% ok · 0–30% revisar · &lt;0% crítico</small>
+            <small class="text-muted d-block mt-1">{% if cn.margin_pct is not none %}{{ cn.margin_pct }}%{% else %}Sin porcentaje{% endif %}</small>
           </div>
         </div>
       </div>
-
-      {% if cn.summary.items_total > 0 %}
-      <div class="row g-2 mt-3">
-        <div class="col">
-          <div class="d-flex flex-wrap gap-2">
-            <span class="badge bg-light text-dark border"><i class="bi bi-list-ul me-1"></i>{{ cn.summary.items_total }} artículo(s)</span>
-            {% if cn.summary.items_critical %}<span class="badge bg-danger"><i class="bi bi-x-octagon me-1"></i>{{ cn.summary.items_critical }} crítico(s)</span>{% endif %}
-            {% if cn.summary.items_warning %}<span class="badge bg-warning text-dark"><i class="bi bi-exclamation-triangle me-1"></i>{{ cn.summary.items_warning }} con observaciones</span>{% endif %}
-            {% if cn.summary.missing_in_ldm %}<span class="badge bg-danger">{{ cn.summary.missing_in_ldm }} en COT sin LDM</span>{% endif %}
-            {% if cn.summary.missing_in_cot %}<span class="badge bg-secondary">{{ cn.summary.missing_in_cot }} en LDM sin COT</span>{% endif %}
-            {% if cn.summary.qty_mismatch %}<span class="badge bg-warning text-dark">{{ cn.summary.qty_mismatch }} con cantidades ≠</span>{% endif %}
-            {% if cn.summary.below_cost %}<span class="badge bg-danger">{{ cn.summary.below_cost }} debajo de costo</span>{% endif %}
-            {% if cn.summary.low_margin %}<span class="badge bg-warning text-dark">{{ cn.summary.low_margin }} con margen bajo</span>{% endif %}
-          </div>
-        </div>
-      </div>
-      {% endif %}
 
       <div class="row g-2 mt-3">
         <div class="col-md-6">
           <div class="margen-box p-3 h-100" style="font-size:.82rem">
-            <div class="fw-semibold mb-2"><i class="bi bi-link-45deg me-1"></i>Cobertura por catálogo</div>
-            <div class="d-flex justify-content-between"><span class="text-muted">COT ligado a catálogo</span><span>{{ cn.quote_linked_total | currency }}</span></div>
-            <div class="d-flex justify-content-between"><span class="text-muted">COT sin catálogo</span><span class="{% if cn.quote_unlinked.count %}text-warning{% else %}text-muted{% endif %}">{{ cn.quote_unlinked.count }} renglón(es) · {{ cn.quote_unlinked_total | currency }}</span></div>
-            <div class="d-flex justify-content-between mt-1"><span class="text-muted">LDM ligado a catálogo</span><span>{{ cn.ldm_linked_total | currency }}</span></div>
-            <div class="d-flex justify-content-between"><span class="text-muted">LDM sin catálogo</span><span class="{% if cn.ldm_unlinked.count %}text-warning{% else %}text-muted{% endif %}">{{ cn.ldm_unlinked.count }} renglón(es) · {{ cn.ldm_unlinked_total | currency }}</span></div>
+            <div class="fw-semibold mb-2"><i class="bi bi-receipt me-1"></i>Cotizaciones</div>
+            <div class="d-flex justify-content-between"><span class="text-muted">Registradas</span><span>{{ cn.summary.quote_count }}</span></div>
+            <div class="d-flex justify-content-between"><span class="text-muted">Usadas en resumen</span><span>{{ cn.summary.active_quote_count }}</span></div>
+            <div class="d-flex justify-content-between mt-1"><span class="text-muted">Renglones COT</span><span>{{ cn.summary.quote_items_total }}</span></div>
+            <div class="d-flex justify-content-between"><span class="text-muted">COT sin catálogo</span><span class="{% if cn.quote_unlinked.count %}text-warning{% else %}text-muted{% endif %}">{{ cn.quote_unlinked.count }} renglón(es)</span></div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="margen-box p-3 h-100" style="font-size:.82rem">
-            <div class="fw-semibold mb-2"><i class="bi bi-clipboard-check me-1"></i>Acciones sugeridas</div>
-            {% if cv.suggested_actions %}
-              <div class="d-flex flex-column gap-1">
-              {% for action in cv.suggested_actions %}
-                <div class="d-flex gap-2 align-items-start">
-                  <span class="badge bg-{{ action.color }}{% if action.color == 'warning' %} text-dark{% endif %}" style="font-size:.65rem">{{ action.count }}</span>
-                  <span><strong>{{ action.label }}:</strong> {{ action.text }}</span>
-                </div>
-              {% endfor %}
-              </div>
-            {% else %}
-              <span class="text-muted">Sin acciones pendientes.</span>
-            {% endif %}
+            <div class="fw-semibold mb-2"><i class="bi bi-card-list me-1"></i>Listas de materiales</div>
+            <div class="d-flex justify-content-between"><span class="text-muted">LDM registradas</span><span>{{ cn.summary.ldm_count }}</span></div>
+            <div class="d-flex justify-content-between"><span class="text-muted">Renglones LDM</span><span>{{ cn.summary.ldm_items_total }}</span></div>
+            <div class="d-flex justify-content-between mt-1"><span class="text-muted">LDM ligada a catálogo</span><span>{{ cn.ldm_linked_total | currency }}</span></div>
+            <div class="d-flex justify-content-between"><span class="text-muted">LDM sin catálogo</span><span class="{% if cn.ldm_unlinked.count %}text-warning{% else %}text-muted{% endif %}">{{ cn.ldm_unlinked.count }} renglón(es)</span></div>
           </div>
         </div>
       </div>
 
-      {% set ignored_quote = cv.ignored_quote %}
-      {% set ignored_ldm = cv.ignored_ldm %}
-      {% if ignored_quote.count|default(0) or ignored_ldm.count|default(0) %}
-      <div class="alert alert-dark border py-2 mt-3 mb-0" style="font-size:.82rem">
-        <i class="bi bi-eye-slash me-1"></i>
-        <strong>Artículos ignorados:</strong> {{ ignored_quote.count|default(0) }} en COT ({{ ignored_quote.total|default(0) | currency }}) y
-        {{ ignored_ldm.count|default(0) }} en LDM ({{ ignored_ldm.total|default(0) | currency }}).
-        Se consideran en el costo total del proyecto, pero no generan diferencias atribuibles al cliente.
-      </div>
-      {% endif %}
-
-      {% if cn.quote_unlinked.count or cn.ldm_unlinked.count %}
+      {% if cv.has_unlinked_rows %}
       <div class="alert alert-secondary py-2 mt-3 mb-0" style="font-size:.82rem">
         <i class="bi bi-link-45deg me-1"></i>
-        Hay renglones sin vínculo a catálogo. No entran al cruce por artículo hasta que se liguen al catálogo.
+        Hay renglones sin vínculo a catálogo. Se muestran como cobertura visual, sin diagnóstico automático.
       </div>
       {% endif %}
     </div>
   </div>
-
-
-  <!-- Consistencia técnica por bundles -->
-  {% set tech = cv.technical %}
-  {% set tech_summary = tech.summary %}
-  {% set tech_ldm_unlinked = tech.ldm_unlinked %}
-  {% set tech_bundle_quote_items = tech.bundle_quote_items %}
-  {% set tech_unmapped_quote_items = tech.unmapped_quote_items %}
-  {% set tech_bundles_no_version = tech.bundles_no_active_version %}
-  {% set tech_components_no_rule = tech.components_no_rule %}
-  {% set tech_suggested_actions = tech.technical_suggested_actions %}
-  {% set tech_other_invalid = tech.other_invalid_components %}
-  <div class="card mb-3">
-    <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-      <span class="fw-semibold" style="font-size:.875rem">
-        <i class="bi bi-diagram-3 me-1"></i>
-        Consistencia técnica por bundles
-      </span>
-      <div class="d-flex align-items-center gap-2 flex-wrap">
-        {% if tech_bundle_quote_items %}
-          <span class="badge bg-light text-dark border">{{ tech_bundle_quote_items|length }} partida(s) COT con bundle</span>
-        {% endif %}
-        {% if tech_bundles_no_version %}
-          <span class="badge bg-danger">
-            <i class="bi bi-exclamation-octagon me-1"></i>{{ tech_bundles_no_version|length }} bundle(s) sin versión activa
-          </span>
-        {% endif %}
-        <span class="badge bg-{{ tech.color }}{% if tech.color == 'warning' %} text-dark{% endif %}">
-          <i class="bi bi-{{ tech.icon }} me-1"></i>
-          {{ tech.status_label }}
-        </span>
-      </div>
-    </div>
-    <div class="card-body">
-      <div class="row g-3 mb-3">
-        <div class="col-md-3">
-          <div class="margen-box p-3 h-100" style="font-size:.85rem">
-            <div class="text-muted mb-1">Materiales evaluados</div>
-            <div class="fw-bold" style="font-size:1.05rem">{{ tech_summary.items_total|default(0) }}</div>
-            <small class="text-muted">Componentes esperados vs LDM convertida</small>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="margen-box p-3 h-100" style="font-size:.85rem">
-            <div class="text-muted mb-1">Críticos</div>
-            <div class="fw-bold text-danger" style="font-size:1.05rem">{{ tech_summary.items_critical|default(0) }}</div>
-            <small class="text-muted">Faltantes o cantidades insuficientes</small>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="margen-box p-3 h-100" style="font-size:.85rem">
-            <div class="text-muted mb-1">Observaciones</div>
-            <div class="fw-bold text-warning" style="font-size:1.05rem">{{ tech_summary.items_warning|default(0) }}</div>
-            <small class="text-muted">Excedentes o extras en LDM</small>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="margen-box p-3 h-100" style="font-size:.85rem">
-            <div class="text-muted mb-1">Bundles sin versión activa</div>
-            <div class="fw-bold {% if tech_bundles_no_version %}text-danger{% else %}text-muted{% endif %}" style="font-size:1.05rem">
-              {{ tech_bundles_no_version|length }}
-            </div>
-            <small class="text-muted">LDM sin catálogo: {{ tech_ldm_unlinked.count|default(0) }}</small>
-          </div>
-        </div>
-      </div>
-
-      {% if tech_bundles_no_version %}
-      <div class="alert alert-danger py-2 mb-2" style="font-size:.82rem">
-        <i class="bi bi-exclamation-octagon me-1"></i>
-        <strong>{{ tech_bundles_no_version|length }} bundle(s) sin versión activa.</strong>
-        La COT tiene partidas con bundle configurado pero sin versión activa; esas partidas no generan materiales esperados.
-        <a href="{{ url_for('bundles') }}" class="alert-link ms-2">Configurar bundles →</a>
-      </div>
-      {% endif %}
-
-      {% if tech_components_no_rule %}
-      <div class="alert alert-warning py-2 mb-2" style="font-size:.82rem">
-        <i class="bi bi-exclamation-triangle me-1"></i>
-        <strong>{{ tech_components_no_rule|length }} componente(s) con regla de comparación referenciada pero no encontrada.</strong>
-        La comparación de esos materiales puede ser imprecisa.
-        <a href="{{ url_for('comparison_rules') }}" class="alert-link ms-2">Administrar reglas →</a>
-      </div>
-      {% endif %}
-
-      {% if tech_other_invalid %}
-      <div class="alert alert-danger py-2 mb-2" style="font-size:.82rem">
-        <i class="bi bi-exclamation-octagon me-1"></i>
-        {{ tech_other_invalid|length }} componente(s) de bundle sin artículo de catálogo válido.
-        <a href="{{ url_for('bundles') }}" class="alert-link ms-2">Corregir bundle →</a>
-      </div>
-      {% endif %}
-
-      {% if tech_unmapped_quote_items %}
-      <div class="alert alert-secondary py-2 mb-2" style="font-size:.82rem">
-        <i class="bi bi-info-circle me-1"></i>
-        {{ tech_unmapped_quote_items|length }} partida(s) de la COT activa sin bundle configurado — sólo aparecen en la consistencia comercial.
-      </div>
-      {% endif %}
-
-      {% set tech_ignored_expected = tech.ignored_expected|default({'count':0,'qty':0,'rows':[]}) %}
-      {% set tech_ignored_actual = tech.ignored_actual|default({'count':0,'qty':0,'rows':[]}) %}
-      {% if tech_ignored_expected.count|default(0) or tech_ignored_actual.count|default(0) %}
-      <div class="alert alert-dark border py-2 mb-3" style="font-size:.82rem">
-        <i class="bi bi-eye-slash me-1"></i>
-        Comparación técnica ignora {{ tech_ignored_expected.count|default(0) }} material(es) esperados y
-        {{ tech_ignored_actual.count|default(0) }} material(es) reales configurados como no atribuibles.
-      </div>
-      {% endif %}
-
-      {% if tech_suggested_actions %}
-      <div class="margen-box p-3 mb-3" style="font-size:.82rem">
-        <div class="fw-semibold mb-2"><i class="bi bi-clipboard-check me-1"></i>Acciones sugeridas</div>
-        <div class="d-flex flex-column gap-1">
-          {% for action in tech_suggested_actions %}
-            <div class="d-flex gap-2 align-items-start">
-              <span class="badge bg-{{ action.color }}{% if action.color == 'warning' %} text-dark{% endif %}" style="font-size:.65rem">{{ action.count }}</span>
-              <span><strong>{{ action.label }}:</strong> {{ action.text }}</span>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-      {% endif %}
-
-      {% if tech_summary.items_total|default(0) > 0 %}
-      <div class="d-flex flex-wrap gap-2 mb-3">
-        {% if tech_summary.missing_in_ldm|default(0) %}<span class="badge bg-danger">{{ tech_summary.missing_in_ldm }} material(es) faltante(s)</span>{% endif %}
-        {% if tech_summary.qty_shortage|default(0) %}<span class="badge bg-danger">{{ tech_summary.qty_shortage }} con cantidad insuficiente</span>{% endif %}
-        {% if tech_summary.extra_in_ldm|default(0) %}<span class="badge bg-warning text-dark">{{ tech_summary.extra_in_ldm }} extra(s) en LDM</span>{% endif %}
-        {% if tech_summary.qty_excess|default(0) %}<span class="badge bg-warning text-dark">{{ tech_summary.qty_excess }} con excedente</span>{% endif %}
-        {% if tech_summary.items_ok|default(0) %}<span class="badge bg-success">{{ tech_summary.items_ok }} OK</span>{% endif %}
-      </div>
-      {% endif %}
-
-      {% if tech.rows %}
-      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
-        <div>
-          <ul class="nav nav-pills" style="font-size:.8rem">
-            <li class="nav-item">
-              <button type="button" class="nav-link active py-1 px-3" id="techTabMaterial" onclick="switchTechView('material')">
-                <i class="bi bi-table me-1"></i>Por material
-              </button>
-            </li>
-            {% if tech_bundle_quote_items %}
-            <li class="nav-item">
-              <button type="button" class="nav-link py-1 px-3" id="techTabBundle" onclick="switchTechView('bundle')">
-                <i class="bi bi-diagram-3 me-1"></i>Por bundle
-              </button>
-            </li>
-            {% endif %}
-          </ul>
-        </div>
-        <input id="technicalConsistencyFilter" type="search" class="form-control form-control-sm" style="width:260px" placeholder="Filtrar material / origen / regla">
-      </div>
-
-      <div id="techViewMaterial">
-        <p class="text-muted mb-2" style="font-size:.82rem">La LDM se normaliza con reglas COT/LDM cuando el material se compra en otra unidad, por ejemplo pza/tramo → ml.</p>
-        <div class="table-responsive">
-          <table class="table mb-0" style="font-size:.84rem" id="technicalConsistencyTable">
-            <thead class="table-light">
-              <tr>
-                <th style="width:3%"></th>
-                <th>Material esperado</th>
-                <th class="text-center" style="width:6%">Unidad</th>
-                <th class="text-end" style="width:9%">Esperado</th>
-                <th class="text-end" style="width:9%">LDM equiv.</th>
-                <th class="text-end" style="width:9%">Diferencia</th>
-                <th style="width:13%">Estado</th>
-                <th style="width:18%">Origen / trazabilidad</th>
-                <th style="width:17%">Acción sugerida</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for rv in tech.rows %}
-              <tr class="technical-consistency-row {{ rv.row_class }}"
-                  data-search="{{ rv.search_text }}">
-                <td class="text-center"><i class="bi bi-{{ rv.icon }} text-{{ rv.color }}"></i></td>
-                <td>
-                  <div class="fw-semibold">{{ rv.row.nombre|default('Sin nombre') }}</div>
-                  <small class="text-muted font-monospace">{{ rv.row.catalog_item_id|default('') }}</small>
-                </td>
-                <td class="text-center"><span class="badge bg-light text-dark border">{{ rv.row.unidad|default('—', true) }}</span></td>
-                <td class="text-end font-monospace">{{ '%.4g'|format(rv.row.expected_qty|default(0, true)|float) }}</td>
-                <td class="text-end font-monospace">{{ '%.4g'|format(rv.row.actual_qty|default(0, true)|float) }}</td>
-                <td class="text-end font-monospace fw-semibold {% if rv.diff_qty < 0 %}text-danger{% elif rv.diff_qty > 0 %}text-warning{% else %}text-success{% endif %}">
-                  {% if rv.diff_qty != 0 %}{{ '%+.4g'|format(rv.diff_qty) }}{% else %}—{% endif %}
-                </td>
-                <td>
-                  <span class="badge bg-{{ rv.issue_color }}{% if rv.issue_color == 'warning' %} text-dark{% endif %}" style="font-size:.68rem">{{ rv.issue_label }}</span>
-                  <small class="d-block text-muted mt-1">Tol. {{ rv.row.tolerance_pct|default(0, true) }}%</small>
-                  {% if rv.row.comparison_rule_id|default('') %}<small class="d-block font-monospace text-muted">Regla: {{ rv.row.comparison_rule_id }}</small>{% endif %}
-                </td>
-                <td>
-                  {% if rv.sources_expected_preview %}
-                    <div class="mb-1"><small class="text-muted fw-semibold">Desde COT</small></div>
-                    {% for src in rv.sources_expected_preview %}
-                      <small class="d-block text-muted">
-                        {{ src.bundle_name|default('Bundle') }}{% if src.bundle_version|default('') %} v{{ src.bundle_version }}{% endif %} · {{ '%.4g'|format(src.quote_qty|default(0, true)|float) }} × {{ '%.4g'|format(src.component_qty|default(0, true)|float) }}
-                      </small>
-                    {% endfor %}
-                    {% if rv.sources_expected_more_count %}<small class="text-muted">+{{ rv.sources_expected_more_count }} más</small>{% endif %}
-                  {% endif %}
-                  {% if rv.sources_actual_preview %}
-                    <div class="mt-1 mb-1"><small class="text-muted fw-semibold">LDM real</small></div>
-                    {% for src in rv.sources_actual_preview %}
-                      <small class="d-block text-muted">
-                        <span class="font-monospace">{{ src.ldm_number|default('LDM', true) }}</span> · {{ '%.4g'|format(src.qty_original|default(0, true)|float) }} → {{ '%.4g'|format(src.qty_converted|default(0, true)|float) }}{% if src.rule_name|default('') %} <span class="text-info">({{ src.rule_name }})</span>{% endif %}
-                      </small>
-                    {% endfor %}
-                    {% if rv.sources_actual_more_count %}<small class="text-muted">+{{ rv.sources_actual_more_count }} LDM más</small>{% endif %}
-                  {% endif %}
-                </td>
-                <td>
-                  {% if rv.action %}
-                    <small class="text-muted"><i class="bi bi-arrow-right-circle me-1"></i>{{ rv.action }}</small>
-                  {% else %}
-                    <small class="text-success"><i class="bi bi-check-circle me-1"></i>Sin acción requerida.</small>
-                  {% endif %}
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {% if tech_bundle_quote_items %}
-      <div id="techViewBundle" style="display:none">
-        <p class="text-muted mb-3" style="font-size:.82rem"><i class="bi bi-info-circle me-1"></i>La cantidad LDM equivalente es el total del proyecto; no está desglosada por bundle.</p>
-        {% for bq in tech_bundle_quote_items %}
-          <div class="card mb-3 border-secondary">
-            <div class="card-header bg-light d-flex justify-content-between align-items-center py-2" style="font-size:.84rem">
-              <span>
-                <i class="bi bi-box-seam me-1 text-primary"></i>
-                <strong>{{ bq.description|default(bq.catalog_item_id) }}</strong>
-                <span class="badge bg-secondary ms-2" style="font-size:.68rem">v{{ bq.bundle_version|default('?') }}</span>
-              </span>
-              <span class="text-muted">COT: <strong>{{ '%.4g'|format(bq.qty|default(0)|float) }}</strong> unidades</span>
-            </div>
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table class="table table-sm mb-0" style="font-size:.83rem">
-                  <thead class="table-light">
-                    <tr>
-                      <th style="width:3%"></th>
-                      <th>Componente</th>
-                      <th class="text-center" style="width:6%">Unidad</th>
-                      <th class="text-end" style="width:10%">Factor bundle</th>
-                      <th class="text-end" style="width:11%">Esperado <small class="fw-normal text-muted d-block">esta partida</small></th>
-                      <th class="text-end" style="width:11%">LDM equiv. <small class="fw-normal text-muted d-block">total proyecto</small></th>
-                      <th class="text-end" style="width:10%">Δ total</th>
-                      <th style="width:12%">Estado</th>
-                      <th>Acción sugerida</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for comp in bq.components %}
-                      <tr class="{{ comp.row_class }}">
-                        <td class="text-center"><i class="bi bi-{{ comp.icon }} text-{{ comp.color }}"></i></td>
-                        <td>
-                          <div class="fw-semibold">{{ comp.matching.row.nombre|default(comp.component.component_catalog_item_id) }}</div>
-                          <small class="text-muted font-monospace">{{ comp.component.component_catalog_item_id }}</small>
-                          {% if comp.component.comparison_rule_id|default('') %}<small class="d-block text-muted">Regla: {{ comp.component.comparison_rule_id }}</small>{% endif %}
-                          {% if comp.component.notes|default('') %}<small class="d-block text-muted fst-italic">{{ comp.component.notes }}</small>{% endif %}
-                        </td>
-                        <td class="text-center"><span class="badge bg-light text-dark border">{{ comp.matching.row.unidad|default('—', true) }}</span></td>
-                        <td class="text-end font-monospace text-muted">
-                          {{ '%.4g'|format(comp.component.component_qty|default(0)|float) }}
-                          {% if comp.component.waste_pct|default(0)|float > 0 %}<small class="d-block text-warning">+{{ comp.component.waste_pct }}% merma</small>{% endif %}
-                        </td>
-                        <td class="text-end font-monospace fw-semibold">{{ '%.4g'|format(comp.expected_qty) }}</td>
-                        <td class="text-end font-monospace">{% if comp.actual_qty %}{{ '%.4g'|format(comp.actual_qty) }}{% else %}<span class="text-danger">—</span>{% endif %}</td>
-                        <td class="text-end font-monospace fw-semibold {% if comp.diff_qty < 0 %}text-danger{% elif comp.diff_qty > 0 %}text-warning{% else %}text-success{% endif %}">
-                          {% if comp.diff_qty != 0 %}{{ '%+.4g'|format(comp.diff_qty) }}{% else %}—{% endif %}
-                        </td>
-                        <td>
-                          <span class="badge bg-{{ comp.issue_color }}{% if comp.issue_color == 'warning' %} text-dark{% endif %}" style="font-size:.68rem">{{ comp.issue_label }}</span>
-                        </td>
-                        <td>
-                          {% if comp.action %}
-                            <small class="text-muted"><i class="bi bi-arrow-right-circle me-1"></i>{{ comp.action }}</small>
-                          {% else %}
-                            <small class="text-success"><i class="bi bi-check-circle me-1"></i>OK</small>
-                          {% endif %}
-                        </td>
-                      </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-      {% endif %}
-
-      {% else %}
-        <div class="text-center py-4 text-muted">
-          <i class="bi bi-diagram-3 fs-2 d-block mb-2"></i>
-          Sin comparación técnica todavía.
-          <div class="mt-2"><small>Crea bundles y reglas COT/LDM para que la COT se expanda a materiales esperados.</small></div>
-        </div>
-      {% endif %}
-    </div>
-  </div>
-
-  <!-- Tabla detallada por artículo -->
-  {% if cn['items'] %}
-  <div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-      <span class="fw-semibold" style="font-size:.875rem">Detalle por artículo de catálogo</span>
-      <div class="d-flex gap-2 align-items-center">
-        <small class="text-muted">Ordenado por severidad</small>
-        <input id="consistencyFilter" type="search" class="form-control form-control-sm" style="width:220px" placeholder="Filtrar artículo / issue">
-      </div>
-    </div>
-    <div class="card-body p-0">
-      <div class="table-responsive">
-        <table class="table mb-0" style="font-size:.85rem" id="consistencyTable">
-          <thead class="table-light">
-            <tr>
-              <th style="width:4%"></th>
-              <th>Artículo</th>
-              <th class="text-center" style="width:7%">Unidad</th>
-              <th class="text-end" style="width:8%">Qty COT</th>
-              <th class="text-end" style="width:8%">Qty LDM</th>
-              <th class="text-end" style="width:8%">Δ Qty</th>
-              <th class="text-end" style="width:10%">Precio</th>
-              <th class="text-end" style="width:10%">Costo</th>
-              <th class="text-end" style="width:10%">Margen unit.</th>
-              <th style="width:21%">Diagnóstico / acción</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for rv in cv.commercial_rows %}
-            <tr class="consistency-row {{ rv.row_class }}"
-                data-search="{{ rv.search_text }}">
-              <td class="text-center"><i class="bi bi-{{ rv.icon }} text-{{ rv.color }}"></i></td>
-              <td>
-                <div class="fw-semibold">{{ rv.row.get('nombre', 'Sin nombre') }}</div>
-                {% if rv.row.get('categoria') %}<small class="text-muted">{{ rv.row.get('categoria') }}</small>{% endif %}
-                {% if rv.ldm_numbers %}<small class="text-muted d-block font-monospace" style="font-size:.7rem">{{ rv.ldm_numbers | join(', ') }}</small>{% endif %}
-              </td>
-              <td class="text-center"><span class="badge bg-light text-dark border">{{ rv.row.get('unidad') or '—' }}</span></td>
-              <td class="text-end font-monospace">{% if rv.qty_cot %}{{ '%.2f'|format(rv.qty_cot) }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
-              <td class="text-end font-monospace">{% if rv.qty_ldm %}{{ '%.2f'|format(rv.qty_ldm) }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
-              <td class="text-end font-monospace {% if rv.qty_delta > 0 %}text-warning{% elif rv.qty_delta < 0 %}text-info{% else %}text-muted{% endif %}">
-                {% if rv.qty_delta %}{{ '%+.2f'|format(rv.qty_delta) }}{% else %}0.00{% endif %}
-              </td>
-              <td class="text-end font-monospace">{% if rv.price_cot %}{{ rv.price_cot | currency }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
-              <td class="text-end font-monospace">{% if rv.cost_avg %}{{ rv.cost_avg | currency }}{% else %}<span class="text-muted">—</span>{% endif %}</td>
-              <td class="text-end font-monospace fw-semibold {% if rv.margin_unit is not none and rv.margin_unit < 0 %}text-danger{% elif rv.margin_unit_pct is not none and rv.margin_unit_pct < 30 %}text-warning{% elif rv.margin_unit is not none and rv.margin_unit > 0 %}text-success{% else %}text-muted{% endif %}">
-                {% if rv.margin_unit is not none %}
-                  {{ rv.margin_unit | currency }}
-                  {% if rv.margin_unit_pct is not none %}<small class="d-block text-muted">{{ rv.margin_unit_pct }}%</small>{% endif %}
-                {% else %}—{% endif %}
-              </td>
-              <td>
-                {% if rv.issue_details %}
-                  <div class="d-flex flex-wrap gap-1 mb-1">
-                  {% for detail in rv.issue_details %}
-                    <span class="badge bg-{{ detail.color }}{% if detail.color == 'warning' %} text-dark{% endif %}" style="font-size:.65rem">{{ detail.label }}</span>
-                  {% endfor %}
-                  </div>
-                  {% if rv.primary_action_text %}
-                  <small class="d-block text-muted"><strong>Acción:</strong> {{ rv.primary_action_text }}</small>
-                  {% endif %}
-                {% else %}
-                  <small class="text-muted">OK</small>
-                {% endif %}
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  {% else %}
-  <div class="text-center py-4 text-muted">
-    <i class="bi bi-link-45deg fs-2 d-block mb-2"></i>
-    No hay artículos comunes entre COT y LDM ligados al catálogo.
-    <div class="mt-2"><small>Liga renglones al catálogo en cotización y materiales para verlos aquí.</small></div>
-  </div>
-  {% endif %}
 </div>
 
 <!-- ── TAB LISTAS DE MATERIALES ── -->
@@ -1470,6 +1045,17 @@
           {% endfor %}
         </ul>
       </div>
+      <!-- Upload PDF proveedor -->
+      <form method="post"
+            action="{{ url_for('materials_bp.import_ldm_pdf_upload', project_id=project.id) }}"
+            enctype="multipart/form-data"
+            class="d-flex align-items-center gap-1">
+        <label class="btn btn-outline-danger btn-sm mb-0" title="Importar PDF de cotización del proveedor">
+          <i class="bi bi-filetype-pdf me-1"></i>Importar PDF
+          <input type="file" name="pdf_file" accept=".pdf" style="display:none"
+                 onchange="this.form.submit()">
+        </label>
+      </form>
       <a href="{{ url_for('new_ldm', project_id=project.id) }}"
          class="btn btn-warning btn-sm text-dark">
         <i class="bi bi-plus-lg me-1"></i>Nueva lista
@@ -1554,18 +1140,6 @@
               <i class="bi bi-filetype-csv"></i><span class="action-label">CSV</span>
             </a>
             {% if not project.closed_at %}
-            <form method="post"
-                  action="{{ url_for('sync_ldm_bundles', project_id=project.id, ldm_id=row.ldm.id) }}"
-                  class="d-inline">
-              <button type="button" class="btn btn-sm btn-outline-primary me-1 action-btn"
-                      title="Agregar faltantes desde bundles"
-                      data-confirm-title='Completar {{ row.ldm.ldm_number | e }} desde bundles'
-                      data-confirm-body='<p class="mb-1">Se agregarán sólo materiales técnicos faltantes o cantidades insuficientes calculadas desde la COT activa y bundles configurados.</p><p class="small text-muted mb-0">No se sobrescriben renglones existentes ni precios capturados.</p>'
-                      data-confirm-text="Completar LDM"
-                      onclick="submitFormWithConfirm(this)">
-                <i class="bi bi-diagram-3"></i><span class="action-label">Completar</span>
-              </button>
-            </form>
             <a href="{{ url_for('edit_ldm', project_id=project.id, ldm_id=row.ldm.id) }}"
                class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Editar">
               <i class="bi bi-pencil"></i><span class="action-label">Editar</span>
@@ -2054,44 +1628,6 @@
     document.getElementById("setCotForm").action       =
       "/projects/{{ project.id }}/ldm/" + ldmId + "/set_cot";
   }
-
-  // Filtro local de tabla Consistencia COT vs LDM
-  (function () {
-    const input = document.getElementById("consistencyFilter");
-    if (!input) return;
-    input.addEventListener("input", function () {
-      const terms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
-      document.querySelectorAll("#consistencyTable .consistency-row").forEach(row => {
-        const haystack = (row.dataset.search || row.textContent || "").toLowerCase();
-        row.style.display = terms.every(term => haystack.includes(term)) ? "" : "none";
-      });
-    });
-  })();
-
-  // Alternar vistas "por material" / "por bundle" en consistencia técnica
-  function switchTechView(view) {
-    var matEl = document.getElementById('techViewMaterial');
-    var bndEl = document.getElementById('techViewBundle');
-    var tabMat = document.getElementById('techTabMaterial');
-    var tabBnd = document.getElementById('techTabBundle');
-    if (matEl) matEl.style.display = view === 'material' ? '' : 'none';
-    if (bndEl) bndEl.style.display = view === 'bundle' ? '' : 'none';
-    if (tabMat) tabMat.classList.toggle('active', view === 'material');
-    if (tabBnd) tabBnd.classList.toggle('active', view === 'bundle');
-  }
-
-  // Filtro local de tabla Consistencia técnica por bundles
-  (function () {
-    const input = document.getElementById("technicalConsistencyFilter");
-    if (!input) return;
-    input.addEventListener("input", function () {
-      const terms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
-      document.querySelectorAll("#technicalConsistencyTable .technical-consistency-row").forEach(row => {
-        const haystack = (row.dataset.search || row.textContent || "").toLowerCase();
-        row.style.display = terms.every(term => haystack.includes(term)) ? "" : "none";
-      });
-    });
-  })();
 
   // ── Edición inline: columna "Costo cotizado" ──────────────────────────────
   (function () {

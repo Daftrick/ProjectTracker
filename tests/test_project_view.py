@@ -44,8 +44,6 @@ class ProjectViewTest(unittest.TestCase):
             ],
             "team": [{"id": "M1", "name": "Ana"}],
             "bundles": [],
-            "comparison_rules": [],
-            "comparison_ignored_items": [],
         }
 
         def fake_load(key):
@@ -189,70 +187,13 @@ class ProjectViewTest(unittest.TestCase):
     def test_build_consistency_view_prepares_template_rows(self):
         view = build_consistency_view({
             "status": "warning",
-            "items": [{
-                "catalog_item_id": "CAT1",
-                "nombre": "Cable THW",
-                "categoria": "Cable",
-                "status": "warning",
-                "issues": ["low_margin"],
-                "ldm_numbers": ["LDM-01"],
-                "qty_delta": 2,
-                "issue_details": [{"issue": "low_margin", "label": "Margen bajo"}],
-                "primary_action": {"text": "Revisar precio."},
-            }],
-            "ignored": {
-                "commercial_quote": {"count": 1, "total": 50, "rows": []},
-            },
-            "suggested_actions": [{"status": "warning", "count": 1, "label": "Revisar", "text": "Validar margen."}],
-            "bundle_consistency": {
-                "status": "critical",
-                "summary": {"items_total": 1},
-                "technical_suggested_actions": [{"status": "critical", "count": 1, "label": "Faltante", "text": "Agregar."}],
-                "rows": [{
-                    "catalog_item_id": "MAT1",
-                    "nombre": "Conduit",
-                    "unidad": "ml",
-                    "status": "critical",
-                    "issue": "missing_in_ldm",
-                    "diff_qty": -10,
-                    "sources_expected": [
-                        {"bundle_name": "Contacto", "ldm_number": "ignored"},
-                        {"bundle_name": "Contacto extra"},
-                        {"bundle_name": "Contacto spare"},
-                    ],
-                }],
-                "bundle_rows": [{
-                    "bundle_catalog_item_id": "CAT1",
-                    "component_catalog_item_id": "MAT1",
-                    "component_qty": 3,
-                    "expected_qty": 10,
-                }],
-                "bundle_quote_items": [{
-                    "catalog_item_id": "CAT1",
-                    "description": "Salida contacto",
-                    "qty": 1,
-                }],
-                "invalid_components": [
-                    {"reason": "bundle_without_active_version"},
-                    {"reason": "missing_catalog_item"},
-                ],
-            },
+            "quote_unlinked": {"count": 1, "total": 50},
+            "ldm_unlinked": {"count": 0, "total": 0},
         })
 
-        self.assertEqual(view["tab_severity"], "critical")
-        self.assertEqual(view["ignored_quote"]["count"], 1)
-        self.assertEqual(view["commercial_rows"][0]["color"], "warning")
-        self.assertEqual(view["commercial_rows"][0]["issue_details"][0]["color"], "warning")
-        self.assertEqual(view["commercial_rows"][0]["primary_action_text"], "Revisar precio.")
-        self.assertEqual(view["suggested_actions"][0]["color"], "warning")
-
-        tech_row = view["technical"]["rows"][0]
-        self.assertEqual(tech_row["issue_label"], "Faltante en LDM")
-        self.assertEqual(tech_row["sources_expected_more_count"], 1)
-        self.assertIn("Contacto", tech_row["search_text"])
-        self.assertEqual(view["technical"]["bundle_quote_items"][0]["components"][0]["action"], "Agregar material en la LDM del proyecto.")
-        self.assertEqual(view["technical"]["technical_suggested_actions"][0]["color"], "danger")
-        self.assertEqual(len(view["technical"]["other_invalid_components"]), 1)
+        self.assertEqual(view["badge_color"], "warning")
+        self.assertEqual(view["badge_icon"], "exclamation-triangle-fill")
+        self.assertTrue(view["has_unlinked_rows"])
 
 
 if __name__ == "__main__":

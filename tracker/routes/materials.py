@@ -370,9 +370,7 @@ def sync_ldm_bundles(project_id, ldm_id):
         active_quote,
         project_ldms,
         load("bundles"),
-        load("comparison_rules"),
         catalog_by_id=catalog_by_id,
-        comparison_ignored_items=load("comparison_ignored_items"),
     )
     if not additions:
         flash("No hay faltantes técnicos por sincronizar desde bundles.", "info")
@@ -457,3 +455,205 @@ def ldm_pdf(project_id, ldm_id):
     except Exception as exc:
         flash(f"Error al generar PDF: {exc}", "danger")
     return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+
+
+# ── Importación de LDM desde PDF de proveedor ────────────────────────────────
+
+import json as _json
+import tempfile as _tempfile
+
+from ..pdf_ldm_import import extract_items_from_pdf
+
+
+@bp.route("/projects/<project_id>/ldm/import-pdf", methods=["POST"], endpoint="import_ldm_pdf_upload")
+def import_ldm_pdf_upload(project_id):
+    """Recibe el PDF, extrae ítems y redirige a la vista de mapeo."""
+    project = _find_project(project_id)
+    if not project:
+        return redirect(url_for("dashboard"))
+
+    pdf_file = request.files.get("pdf_file")
+    if not pdf_file or not pdf_file.filename:
+        flash("Selecciona un archivo PDF.", "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+
+    if not pdf_file.filename.lower().endswith(".pdf"):
+        flash("El archivo debe ser un PDF.", "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+
+    # Guardar temporalmente para que pdfplumber pueda leerlo
+    with _tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+        pdf_file.save(tmp.name)
+        tmp_path = tmp.name
+
+    result = extract_items_from_pdf(tmp_path)
+    os.unlink(tmp_path)
+
+    if result.get("error"):
+        flash(f"Error al leer el PDF: {result['error']}", "danger")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+
+    if not result["items"]:
+        flash(
+            f"No se encontraron ítems en el PDF ({result['page_count']} página(s)). "
+            "Verifica que sea una lista de materiales con tabla o texto estructurado.",
+            "warning",
+        )
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+
+    # Guardar en sesión Flask (los ítems son pequeños — caben en cookie cifrada)
+    from flask import session
+    session[f"pdf_import_{project_id}"] = {
+        "items": result["items"],
+        "method": result["method"],
+        "page_count": result["page_count"],
+        "filename": pdf_file.filename,
+        "meta": result.get("meta", {}),
+    }
+
+    flash(
+        f"{len(result['items'])} ítem(s) detectado(s) con método '{result['method']}'. "
+        "Revisa y asigna cada uno a un artículo del catálogo.",
+        "info",
+    )
+    return redirect(url_for("materials_bp.import_ldm_pdf_map", project_id=project_id))
+
+
+@bp.route("/projects/<project_id>/ldm/import-pdf/map", methods=["GET"], endpoint="import_ldm_pdf_map")
+def import_ldm_pdf_map(project_id):
+    """Muestra la vista de mapeo ítem-PDF → catálogo."""
+    from flask import session
+    project = _find_project(project_id)
+    if not project:
+        return redirect(url_for("dashboard"))
+
+    session_data = session.get(f"pdf_import_{project_id}")
+    if not session_data:
+        flash("Sesión de importación expirada. Sube el PDF de nuevo.", "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+
+    catalog_by_id, catalog_by_name = catalog_maps()
+    catalog_list = sorted(load("catalogo"), key=lambda c: c.get("nombre", "").lower())
+
+    return render_template(
+        "ldm_pdf_import.html",
+        project=project,
+        session_data=session_data,
+        catalog_list=catalog_list,
+        proveedores=load("proveedores"),
+        today=today(),
+    )
+
+
+@bp.route("/projects/<project_id>/ldm/import-pdf/create", methods=["POST"], endpoint="import_ldm_pdf_create")
+def import_ldm_pdf_create(project_id):
+    """Recibe el mapeo del usuario y crea la LDM."""
+    from flask import session
+    project = _find_project(project_id)
+    if not project:
+        return redirect(url_for("dashboard"))
+
+    session_data = session.get(f"pdf_import_{project_id}")
+    if not session_data:
+        flash("Sesión de importación expirada. Sube el PDF de nuevo.", "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+
+    form = request.form
+    proveedor = form.get("proveedor", "").strip()
+    cot_proveedor = form.get("cot_proveedor", "").strip()
+    fecha = form.get("fecha", "").strip() or today()
+    notes = form.get("notes", "").strip()
+
+    if not proveedor:
+        flash("Indica el nombre del proveedor.", "warning")
+        return redirect(url_for("materials_bp.import_ldm_pdf_map", project_id=project_id))
+
+    catalog_by_id, _ = catalog_maps()
+    raw_items = session_data["items"]
+    built_items = []
+
+    for i, raw in enumerate(raw_items):
+        catalog_item_id = form.get(f"catalog_id_{i}", "").strip()
+        if catalog_item_id == "__ignore__" or not catalog_item_id:
+            continue
+
+        # Si es un ID nuevo que el usuario quiere agregar al catálogo
+        if catalog_item_id == "__new__":
+            new_nombre = form.get(f"new_nombre_{i}", "").strip()
+            new_unidad = form.get(f"new_unidad_{i}", "pza").strip() or "pza"
+            if not new_nombre:
+                continue
+            new_cat_item = {
+                "id": new_id(),
+                "nombre": new_nombre,
+                "descripcion": "",
+                "unidad": new_unidad,
+                "precio": 0.0,
+                "created_at": today(),
+                "categoria": "",
+            }
+            catalogo = load("catalogo")
+            catalogo.append(new_cat_item)
+            save("catalogo", catalogo)
+            catalog_item_id = new_cat_item["id"]
+            catalog_by_id[catalog_item_id] = new_cat_item
+
+        cat = catalog_by_id.get(catalog_item_id)
+        description = cat["nombre"] if cat else raw.get("description", "")
+
+        qty_raw = form.get(f"qty_{i}", str(raw.get("qty", 1.0)))
+        unit_raw = form.get(f"unit_{i}", raw.get("unit", "pza"))
+        price_raw = form.get(f"precio_{i}", str(raw.get("precio_unit", 0.0)))
+
+        try:
+            qty = float(qty_raw.replace(",", ".")) if qty_raw else raw.get("qty", 1.0)
+        except ValueError:
+            qty = raw.get("qty", 1.0)
+        try:
+            price = float(price_raw.replace(",", ".")) if price_raw else raw.get("precio_unit", 0.0)
+        except ValueError:
+            price = raw.get("precio_unit", 0.0)
+        unit = unit_raw or cat.get("unidad", "pza") if cat else unit_raw or "pza"
+        total = round(qty * price, 2)
+
+        built_items.append({
+            "catalog_item_id": catalog_item_id,
+            "description": description,
+            "unit": unit,
+            "qty": qty,
+            "precio_cot": price,
+            "total_cot": total,
+        })
+
+    if not built_items:
+        flash("No se seleccionó ningún artículo del catálogo. Asigna al menos uno.", "warning")
+        return redirect(url_for("materials_bp.import_ldm_pdf_map", project_id=project_id))
+
+    subtotal = round(sum(it["total_cot"] for it in built_items), 2)
+    all_ldms = load("materiales")
+    seq = len([m for m in all_ldms if m["project_id"] == project_id]) + 1
+    ldm = {
+        "id": new_id(),
+        "project_id": project_id,
+        "ldm_number": f"LDM-{project['clave']}-{seq:02d}",
+        "seq": seq,
+        "proveedor": proveedor,
+        "fecha": fecha,
+        "items": built_items,
+        "subtotal_cot": subtotal,
+        "cot_proveedor": cot_proveedor,
+        "notes": notes,
+        "created_at": today(),
+    }
+    all_ldms.append(ldm)
+    save("materiales", all_ldms)
+
+    # Limpiar sesión
+    session.pop(f"pdf_import_{project_id}", None)
+
+    flash(
+        f"LDM {ldm['ldm_number']} creada con {len(built_items)} artículo(s) desde PDF. "
+        "Revisa y ajusta si es necesario.",
+        "success",
+    )
+    return redirect(url_for("materials_bp.edit_ldm", project_id=project_id, ldm_id=ldm["id"]))

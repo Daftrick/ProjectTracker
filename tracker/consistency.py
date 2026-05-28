@@ -1,39 +1,15 @@
-"""Consistencia entre cotización (COT) y listas de materiales (LDM).
+"""Resumen visual entre cotización (COT) y listas de materiales (LDM).
 
-Compara, por proyecto, los artículos cotizados al cliente contra los
-artículos costeados con proveedores. Funciones puras (sin I/O) que pueden
-combinarse para vistas: dashboard, detalle de proyecto, banners en formularios.
-
-Reglas de comparación:
-    - Cotización activa = la cotización General más reciente del proyecto.
-      Si no hay General, se usa la más reciente de cualquier tipo (la UI
-      indicará explícitamente que no hubo General).
-    - Costo proveedor = suma de subtotales de todas las LDMs del proyecto.
-    - Comparación por artículo: se agrega por `catalog_item_id`. Los items
-      sin enlace al catálogo se contabilizan en `unlinked_*` para alertar.
-    - Margen % = (cotizado - costo) / cotizado * 100. Si cotizado == 0 → None.
-
-Umbrales de estado (mantener en una sola constante para futura configurabilidad):
-    margen >= MARGIN_OK_PCT   (30%)  → "ok"        (consistente)
-    0   <= margen <  30%             → "warning"   (revisar)
-    margen <  0%                     → "critical"  (LDM > COT)
-    sin datos suficientes            → "no_data"
+El detalle de proyecto sólo muestra indicadores financieros y cobertura básica.
+Las comparaciones operativas por artículo, bundles y reglas COT/LDM quedan fuera
+de la experiencia visible por ahora.
 """
 
 from __future__ import annotations
 
 from typing import Iterable
 
-from .catalog import quote_type_key, APPROVAL_ACTIVE, APPROVAL_DRAFT, is_base_quote_type, QUOTE_TYPE_EXTRAORDINARIA
-from .bundles import expand_quote_bundles
-from .comparison_rules import aggregate_ldm_for_expected_items, compare_expected_vs_actual, active_rules as _get_active_rules
-from .comparison_ignored import (
-    SCOPE_COMMERCIAL,
-    SCOPE_TECHNICAL,
-    ignored_catalog_ids,
-    split_ignored_linked,
-    summarize_ignored,
-)
+from .catalog import APPROVAL_ACTIVE, is_base_quote_type, quote_type_key
 
 MARGIN_OK_PCT = 30.0
 QTY_TOLERANCE = 0.01  # diferencias menores se consideran iguales (redondeos)
@@ -303,32 +279,43 @@ def _summarize_rows(rows: list[dict]) -> dict:
     return summary
 
 
+def _active_extra_quotes(project_quotes: Iterable[dict]) -> list[dict]:
+    return [
+        quote
+        for quote in project_quotes
+        if not is_base_quote_type(quote.get("quote_type"))
+        and quote.get("approval_status", APPROVAL_ACTIVE) == APPROVAL_ACTIVE
+    ]
+
+
+def _synthetic_quote(quotes: Iterable[dict]) -> dict | None:
+    items = []
+    for quote in quotes or []:
+        items.extend(quote.get("items", []) or [])
+    return {"items": items} if items else None
+
+
 def compute_consistency(
     project: dict,
     quotes: Iterable[dict],
     ldms: Iterable[dict],
     catalog_by_id: dict | None = None,
-    bundles: Iterable[dict] | None = None,
-    comparison_rules: Iterable[dict] | None = None,
-    comparison_ignored_items: Iterable[dict] | None = None,
 ) -> dict:
-    """Reporte completo de consistencia para un proyecto.
-
-    Retorna un diccionario listo para inyectar en plantillas.
-    """
+    """Resumen financiero simple para inyectar en plantillas."""
     project_id = project.get("id")
     project_quotes = [q for q in quotes if q.get("project_id") == project_id]
     project_ldms = [m for m in ldms if m.get("project_id") == project_id]
 
     active_quote = pick_active_quote(project_quotes)
-    quote_linked, quote_unlinked = aggregate_quote_items(active_quote)
+    active_extras = _active_extra_quotes(project_quotes)
+    visual_quotes = ([active_quote] if active_quote else []) + active_extras
+
+    quote_linked, quote_unlinked = aggregate_quote_items(_synthetic_quote(visual_quotes))
     ldm_linked, ldm_unlinked = aggregate_ldm_items(project_ldms)
 
-    ignored_commercial_ids = ignored_catalog_ids(comparison_ignored_items or [], scope=SCOPE_COMMERCIAL)
-    quote_linked, quote_ignored_linked = split_ignored_linked(quote_linked, ignored_commercial_ids)
-    ldm_linked, ldm_ignored_linked = split_ignored_linked(ldm_linked, ignored_commercial_ids)
-
-    quote_subtotal = _round(_safe_float((active_quote or {}).get("subtotal")))
+    quote_base_subtotal = _round(_safe_float((active_quote or {}).get("subtotal")))
+    quote_extras_subtotal = _round(sum(_safe_float(q.get("subtotal")) for q in active_extras))
+    quote_subtotal = _round(quote_base_subtotal + quote_extras_subtotal)
     ldm_subtotal = _round(sum(_safe_float(m.get("subtotal_cot")) for m in project_ldms))
     margin_abs = _round(quote_subtotal - ldm_subtotal)
     if quote_subtotal > 0:
@@ -341,92 +328,8 @@ def compute_consistency(
     ldm_linked_total = _round(sum(_safe_float(item.get("total_cot")) for item in ldm_linked.values()))
     quote_unlinked_total = _round(_safe_float(quote_unlinked.get("total")))
     ldm_unlinked_total = _round(_safe_float(ldm_unlinked.get("total")))
-
-    rows = compare_items(quote_linked, ldm_linked, catalog_by_id or {})
-    summary = _summarize_rows(rows)
-    suggested_actions = []
-    action_defs = [
-        ("missing_in_ldm", STATUS_CRITICAL, "Faltantes en LDM", "Agregar materiales faltantes, crear bundle o marcar artículo como ignorado."),
-        ("missing_in_cot", STATUS_WARNING, "Extras en LDM", "Atribuir a COT/bundle o marcar como costo no atribuible al cliente."),
-        ("qty_mismatch", STATUS_WARNING, "Cantidades diferentes", "Revisar cantidades, unidades y reglas COT/LDM."),
-        ("below_cost", STATUS_CRITICAL, "Venta bajo costo", "Corregir precio de venta o costo de proveedor."),
-        ("low_margin", STATUS_WARNING, "Margen bajo", "Revisar margen unitario."),
-    ]
-    for key, action_status, label, text in action_defs:
-        count = summary.get(key, 0)
-        if count:
-            suggested_actions.append({"key": key, "status": action_status, "label": label, "text": text, "count": count})
-
-    # Consistencia técnica por bundles: la COT se expande a materiales
-    # esperados y la LDM se normaliza con reglas de comparación (por ejemplo
-    # tubería cotizada en ml vs comprada por pieza/tramo).
-    bundle_expansion = expand_quote_bundles(active_quote, bundles or [], catalog_by_id or {})
-    technical_actual = aggregate_ldm_for_expected_items(project_ldms, comparison_rules or [], catalog_by_id or {})
-    ignored_technical_ids = ignored_catalog_ids(comparison_ignored_items or [], scope=SCOPE_TECHNICAL)
-    technical_expected_items, technical_expected_ignored = split_ignored_linked(bundle_expansion["items"], ignored_technical_ids)
-    technical_actual_items, technical_actual_ignored = split_ignored_linked(technical_actual["items"], ignored_technical_ids)
-    technical_compare = compare_expected_vs_actual(
-        technical_expected_items,
-        technical_actual_items,
-        comparison_rules or [],
-        catalog_by_id or {},
-    )
-    bundles_no_active_version = [
-        c for c in bundle_expansion["invalid_components"]
-        if c.get("reason") == "bundle_without_active_version"
-    ]
-
-    _active_rule_ids = {r["id"] for r in _get_active_rules(comparison_rules or [])}
-    components_no_rule = [
-        row for row in bundle_expansion["bundle_rows"]
-        if row.get("comparison_rule_id") and row["comparison_rule_id"] not in _active_rule_ids
-    ]
-
-    technical_suggested_actions: list[dict] = []
-    _tech_action_defs = [
-        ("missing_in_ldm", STATUS_CRITICAL, "Faltantes en LDM", "Agregar el material en la LDM del proyecto o corregir el bundle."),
-        ("qty_shortage", STATUS_CRITICAL, "Cantidad insuficiente en LDM", "Aumentar la cantidad en LDM o ajustar la regla de conversión COT/LDM."),
-        ("extra_in_ldm", STATUS_WARNING, "Extras en LDM", "Verificar si el material pertenece a este proyecto; si no, marcar como ignorado técnico."),
-        ("qty_excess", STATUS_WARNING, "Excedente de cantidad en LDM", "Revisar la regla de conversión o ajustar el factor en el bundle."),
-    ]
-    for key, action_status, label, text in _tech_action_defs:
-        count = technical_compare["summary"].get(key, 0)
-        if count:
-            technical_suggested_actions.append({"key": key, "status": action_status, "label": label, "text": text, "count": count})
-    if bundles_no_active_version:
-        technical_suggested_actions.append({
-            "key": "no_active_version",
-            "status": STATUS_CRITICAL,
-            "label": "Bundles sin versión activa",
-            "text": "Activar una versión en Catálogo → Bundles para que la COT se expanda correctamente.",
-            "count": len(bundles_no_active_version),
-        })
-    if components_no_rule:
-        technical_suggested_actions.append({
-            "key": "no_comparison_rule",
-            "status": STATUS_WARNING,
-            "label": "Componentes sin regla de comparación",
-            "text": "Crear las reglas COT/LDM faltantes en Admin → Reglas de comparación.",
-            "count": len(components_no_rule),
-        })
-
-    bundle_consistency = {
-        "status": technical_compare["status"],
-        "rows": technical_compare["rows"],
-        "summary": technical_compare["summary"],
-        "expected": technical_expected_items,
-        "actual": technical_actual_items,
-        "ignored_expected": summarize_ignored(technical_expected_ignored, catalog_by_id or {}, total_key="total"),
-        "ignored_actual": summarize_ignored(technical_actual_ignored, catalog_by_id or {}, total_key="total_cot"),
-        "ldm_unlinked": technical_actual["unlinked"],
-        "bundle_quote_items": bundle_expansion["bundle_quote_items"],
-        "bundle_rows": bundle_expansion["bundle_rows"],
-        "unmapped_quote_items": bundle_expansion["unmapped_quote_items"],
-        "invalid_components": bundle_expansion["invalid_components"],
-        "bundles_no_active_version": bundles_no_active_version,
-        "components_no_rule": components_no_rule,
-        "technical_suggested_actions": technical_suggested_actions,
-    }
+    quote_items_total = sum(len(q.get("items", []) or []) for q in visual_quotes)
+    ldm_items_total = sum(len(m.get("items", []) or []) for m in project_ldms)
 
     has_general = any(
         quote_type_key(q.get("quote_type")) == "General" for q in project_quotes
@@ -435,26 +338,38 @@ def compute_consistency(
     return {
         "active_quote": active_quote,
         "active_quote_is_general": bool(active_quote) and quote_type_key(active_quote.get("quote_type")) == "General",
+        "active_extras": active_extras,
+        "active_extras_count": len(active_extras),
         "has_general_quote": has_general,
+        "quote_base_subtotal": quote_base_subtotal,
+        "quote_extras_subtotal": quote_extras_subtotal,
         "quote_subtotal": quote_subtotal,
         "ldm_subtotal": ldm_subtotal,
         "margin_abs": margin_abs,
         "margin_pct": margin_pct,
         "status": status,
         "status_label": STATUS_LABELS[status],
-        "items": rows,
-        "summary": summary,
+        "items": [],
+        "summary": {
+            "quote_count": len(project_quotes),
+            "active_quote_count": len(visual_quotes),
+            "active_extras_count": len(active_extras),
+            "ldm_count": len(project_ldms),
+            "quote_items_total": quote_items_total,
+            "ldm_items_total": ldm_items_total,
+            "quote_linked_count": len(quote_linked),
+            "ldm_linked_count": len(ldm_linked),
+            "quote_unlinked_count": quote_unlinked.get("count", 0),
+            "ldm_unlinked_count": ldm_unlinked.get("count", 0),
+            "items_total": 0,
+        },
         "quote_linked_total": quote_linked_total,
         "ldm_linked_total": ldm_linked_total,
         "quote_unlinked_total": quote_unlinked_total,
         "ldm_unlinked_total": ldm_unlinked_total,
-        "suggested_actions": suggested_actions,
+        "suggested_actions": [],
         "quote_unlinked": quote_unlinked,
         "ldm_unlinked": ldm_unlinked,
-        "ignored": {
-            "commercial_quote": summarize_ignored(quote_ignored_linked, catalog_by_id or {}, total_key="total"),
-            "commercial_ldm": summarize_ignored(ldm_ignored_linked, catalog_by_id or {}, total_key="total_cot"),
-            "catalog_ids": sorted(ignored_commercial_ids | ignored_technical_ids),
-        },
-        "bundle_consistency": bundle_consistency,
+        "ignored": {},
+        "bundle_consistency": {},
     }

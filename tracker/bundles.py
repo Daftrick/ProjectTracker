@@ -63,7 +63,6 @@ def normalize_component(component: dict) -> dict:
     current["catalog_item_id"] = _clean(current.get("catalog_item_id"))
     current["qty"] = _safe_float(current.get("qty"))
     current["waste_pct"] = _safe_float(current.get("waste_pct"))
-    current["comparison_rule_id"] = _clean(current.get("comparison_rule_id"))
     current["notes"] = _clean(current.get("notes"))
     return current
 
@@ -245,7 +244,6 @@ def expand_quote_bundles(quote: dict | None, bundles: Iterable[dict], catalog_by
                 "waste_pct": waste_pct,
                 "expected_qty": _round(expected_qty),
                 "notes": comp.get("notes", ""),
-                "comparison_rule_id": comp["comparison_rule_id"],
             }
             bucket["sources"].append(source)
             bundle_rows.append({"component_catalog_item_id": comp_cid, **source})

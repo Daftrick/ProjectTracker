@@ -275,10 +275,6 @@
        data-label="Bundles">
       <i class="bi bi-boxes"></i><span class="nav-label"> Bundles</span>
     </a>
-    <a href="{{ url_for('comparison_rules') }}" class="nav-link {% if request.endpoint in ('comparison_rules','admin_bp.comparison_rules','edit_comparison_rule','admin_bp.edit_comparison_rule') %}active{% endif %}"
-       data-label="Reglas COT/LDM">
-      <i class="bi bi-arrow-left-right"></i><span class="nav-label"> Reglas COT/LDM</span>
-    </a>
     <a href="{{ url_for('proveedores') }}" class="nav-link {% if request.endpoint in ('proveedores','edit_proveedor') %}active{% endif %}"
        data-label="Proveedores">
       <i class="bi bi-truck"></i><span class="nav-label"> Proveedores</span>

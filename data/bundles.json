@@ -17,14 +17,12 @@
             "catalog_item_id": "18C5C03E",
             "qty": 40.0,
             "waste_pct": 0.0,
-            "comparison_rule_id": "",
             "notes": "Cable de fase/neutro incluido en lote de 20 m."
           },
           {
             "catalog_item_id": "2325432B",
             "qty": 20.0,
             "waste_pct": 0.0,
-            "comparison_rule_id": "",
             "notes": "Conductor desnudo incluido en lote de 20 m."
           }
         ]
@@ -49,14 +47,12 @@
             "catalog_item_id": "047C8246",
             "qty": 40,
             "waste_pct": 0,
-            "comparison_rule_id": "",
             "notes": "Cable de fase/neutro incluido en lote de 20 m."
           },
           {
             "catalog_item_id": "2325432B",
             "qty": 20,
             "waste_pct": 0,
-            "comparison_rule_id": "",
             "notes": "Conductor desnudo incluido en lote de 20 m."
           }
         ]
@@ -81,14 +77,12 @@
             "catalog_item_id": "EFF4FECF",
             "qty": 40.0,
             "waste_pct": 0.0,
-            "comparison_rule_id": "",
             "notes": "Cable de fase/neutro incluido en lote de 20 m."
           },
           {
             "catalog_item_id": "2325432B",
             "qty": 10.0,
             "waste_pct": 0.0,
-            "comparison_rule_id": "",
             "notes": "Conductor desnudo incluido en lote de 20 m."
           }
         ]

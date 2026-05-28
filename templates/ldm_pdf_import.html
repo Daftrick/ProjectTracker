@@ -1,0 +1,393 @@
+{% extends "base.html" %}
+{% block title %}Importar PDF de Proveedor — {{ project.clave }}{% endblock %}
+{% block page_title %}
+  <i class="bi bi-filetype-pdf me-2 text-danger"></i>
+  Importar PDF de Proveedor — {{ project.clave }}
+{% endblock %}
+{% block topbar_actions %}
+  <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-materiales"
+     class="btn btn-sm btn-outline-secondary">
+    <i class="bi bi-arrow-left me-1"></i>Cancelar
+  </a>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+  .map-table th { font-size: .78rem; }
+  .raw-text { font-size: .75rem; color: #7b8494; font-style: italic; }
+  .ac-wrapper { position: relative; }
+  .ac-dropdown {
+    display: none; position: absolute; top: calc(100% + 2px); left: 0;
+    width: max(100%, 320px); background: #111827;
+    border: 1px solid rgba(255,255,255,.18); border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.5); z-index: 1060;
+    max-height: 240px; overflow-y: auto;
+  }
+  .ac-dropdown.ac-open { display: block; }
+  .ac-item {
+    padding: 7px 12px; cursor: pointer; font-size: .85rem;
+    border-bottom: 1px solid rgba(255,255,255,.07); color: #a8b2c0; transition: background .1s;
+  }
+  .ac-item:last-child { border-bottom: none; }
+  .ac-item:hover, .ac-item.ac-hover { background: rgba(90,130,200,.15); color: #c0cad6; }
+  .ac-add { color: #6ab888; font-size: .85rem; }
+  .ac-add:hover, .ac-add.ac-hover { background: rgba(50,130,80,.15); color: #80c89a; }
+  .new-item-fields { display: none; background: rgba(50,130,80,.07);
+                     border: 1px solid rgba(50,130,80,.25); border-radius:6px; padding: 8px 10px; }
+  .row-ignored td { opacity: .4; }
+  .status-linked   { color: #6ecf96; font-size: .72rem; }
+  .status-new      { color: #c2a855; font-size: .72rem; }
+  .status-ignored  { color: #7b8494; font-size: .72rem; }
+  .ldm-bar {
+    position: fixed; bottom: 0; left: var(--sbw, 240px); right: 0;
+    background: #0f1525; border-top: 1px solid rgba(255,255,255,.18);
+    padding: 10px 28px; box-shadow: 0 -2px 14px rgba(0,0,0,.5);
+    z-index: 500; display: flex; align-items: center;
+    justify-content: space-between; gap: 16px;
+  }
+  #main .content { padding-bottom: 80px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<form method="post" action="{{ url_for('materials_bp.import_ldm_pdf_create', project_id=project.id) }}"
+      id="mapForm">
+
+  {# ── Header: proveedor + cot + fecha ── #}
+  <div class="card mb-4">
+    <div class="card-header fw-semibold" style="font-size:.875rem">
+      <i class="bi bi-info-circle me-1"></i>
+      Datos de la lista — detectados en
+      <span class="badge bg-secondary ms-1">{{ session_data.filename }}</span>
+      <span class="badge bg-light text-dark border ms-1">{{ session_data.page_count }} pág.</span>
+      <span class="badge {% if session_data.method == 'procables' %}bg-primary{% elif session_data.method == 'table' %}bg-success{% else %}bg-warning text-dark{% endif %} ms-1">
+        {% if session_data.method == 'procables' %}Procables{% elif session_data.method == 'table' %}Tabla{% elif session_data.method == 'text' %}Texto{% else %}Manual{% endif %}
+      </span>
+    </div>
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Proveedor <span class="text-danger">*</span></label>
+          <input list="prov-list" name="proveedor" class="form-control" required
+                 placeholder="Nombre del proveedor"
+                 value="{{ session_data.meta.proveedor or '' }}">
+          <datalist id="prov-list">
+            {% for p in proveedores %}
+            <option value="{{ p.nombre }}">
+            {% endfor %}
+          </datalist>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">N° cotización proveedor</label>
+          <input name="cot_proveedor" class="form-control" placeholder="Ej: COT-2026-001"
+                 value="{{ session_data.meta.cot_number or '' }}">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Fecha</label>
+          <input name="fecha" type="date" class="form-control"
+                 value="{{ session_data.meta.fecha or today }}">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Notas</label>
+          <input name="notes" class="form-control" placeholder="Opcional">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# ── Tabla de mapeo ── #}
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span class="fw-semibold" style="font-size:.875rem">
+        <i class="bi bi-table me-1"></i>
+        {{ session_data.items | length }} ítem(s) detectado(s) — asigna cada uno al catálogo
+      </span>
+      <div class="d-flex gap-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setAllIgnored(false)">
+          <i class="bi bi-check-all me-1"></i>Incluir todos
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="setAllIgnored(true)">
+          <i class="bi bi-x-lg me-1"></i>Ignorar todos
+        </button>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <table class="table mb-0 map-table">
+        <thead>
+          <tr>
+            <th style="width:3%">#</th>
+            <th style="width:33%">Texto del PDF</th>
+            <th style="width:28%">Artículo del catálogo</th>
+            <th style="width:9%">Cant.</th>
+            <th style="width:9%">Unidad</th>
+            <th style="width:10%">Precio unit.</th>
+            <th style="width:8%">Acción</th>
+          </tr>
+        </thead>
+        <tbody id="mapBody">
+          {% for item in session_data.items %}
+          {% set i = loop.index0 %}
+          <tr class="map-row" id="row-{{ i }}">
+            <td class="text-muted" style="font-size:.8rem">{{ loop.index }}</td>
+            <td>
+              <div class="fw-semibold" style="font-size:.85rem">{{ item.description }}</div>
+              <div class="raw-text">{{ item.raw_line[:120] }}{% if item.raw_line|length > 120 %}…{% endif %}</div>
+            </td>
+            <td>
+              {# Selector de catálogo con autocomplete #}
+              <input type="hidden" name="catalog_id_{{ i }}" id="cat_id_{{ i }}" value="">
+              <div class="ac-wrapper mb-1">
+                <input type="text" class="form-control form-control-sm ac-input"
+                       id="cat_text_{{ i }}"
+                       data-row="{{ i }}"
+                       placeholder="Buscar en catálogo…"
+                       autocomplete="off"
+                       value="{{ item.description }}">
+                <div class="ac-dropdown" role="listbox"></div>
+              </div>
+              <div id="status_{{ i }}" class="status-ignored">
+                <i class="bi bi-dash-circle me-1"></i>Sin asignar — se ignorará
+              </div>
+              {# Campos para artículo nuevo #}
+              <div class="new-item-fields mt-1" id="new_fields_{{ i }}">
+                <div class="mb-1">
+                  <input type="text" name="new_nombre_{{ i }}" class="form-control form-control-sm"
+                         placeholder="Nombre en catálogo" value="{{ item.description }}">
+                </div>
+                <div>
+                  <input type="text" name="new_unidad_{{ i }}" class="form-control form-control-sm"
+                         placeholder="Unidad (pza, ml, kg…)" style="width:120px">
+                </div>
+              </div>
+            </td>
+            <td>
+              <input type="number" name="qty_{{ i }}" class="form-control form-control-sm"
+                     value="{{ '%.2f' | format(item.qty) }}" step="0.01" min="0">
+            </td>
+            <td>
+              <input type="text" name="unit_{{ i }}" class="form-control form-control-sm"
+                     value="{{ item.unit }}" id="unit_{{ i }}">
+            </td>
+            <td>
+              <input type="number" name="precio_{{ i }}" class="form-control form-control-sm"
+                     value="{{ '%.2f' | format(item.precio_unit) }}" step="0.01" min="0"
+                     id="price_{{ i }}">
+            </td>
+            <td class="text-center">
+              <button type="button" class="btn btn-sm btn-outline-secondary ignore-btn"
+                      data-row="{{ i }}" title="Ignorar este ítem" onclick="toggleIgnore({{ i }})">
+                <i class="bi bi-eye-slash"></i>
+              </button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {# ── Barra fija inferior ── #}
+  <div class="ldm-bar">
+    <div>
+      <span id="summary-linked" class="me-3" style="font-size:.85rem; color:#6ecf96">
+        <i class="bi bi-check-circle me-1"></i><span id="cnt-linked">0</span> asignados
+      </span>
+      <span id="summary-ignored" style="font-size:.85rem; color:#7b8494">
+        <i class="bi bi-dash-circle me-1"></i><span id="cnt-ignored">0</span> ignorados
+      </span>
+    </div>
+    <div class="d-flex gap-2 align-items-center">
+      <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-materiales"
+         class="btn btn-outline-secondary btn-sm">Cancelar</a>
+      <button type="submit" class="btn btn-warning btn-sm text-dark fw-semibold">
+        <i class="bi bi-plus-lg me-1"></i>Crear LDM
+      </button>
+    </div>
+  </div>
+
+</form>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// ── Datos del catálogo (desde servidor) ──────────────────────────────────────
+const CATALOG_LIST = {{ catalog_list | tojson }};
+const TOTAL_ROWS = {{ session_data.items | length }};
+
+// Estado por fila: 'unset' | 'linked' | 'new' | 'ignored'
+const rowState = {};
+for (let i = 0; i < TOTAL_ROWS; i++) rowState[i] = 'unset';
+
+function escHtml(s) {
+  return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+// ── Autocomplete ─────────────────────────────────────────────────────────────
+let _acTimer = null;
+
+function _acSearch(input) {
+  clearTimeout(_acTimer);
+  const val = input.value.trim().toLowerCase();
+  const dropdown = input.closest(".ac-wrapper").querySelector(".ac-dropdown");
+  if (!val) { _acClose(dropdown); return; }
+  _acTimer = setTimeout(() => {
+    const results = CATALOG_LIST.filter(c =>
+      c.nombre.toLowerCase().includes(val) ||
+      (c.descripcion||"").toLowerCase().includes(val)
+    ).slice(0, 12);
+    _acRender(dropdown, input, results, val);
+  }, 180);
+}
+
+function _acRender(dropdown, input, items, query) {
+  const rowIdx = parseInt(input.dataset.row);
+  dropdown.innerHTML = "";
+
+  items.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "ac-item";
+    div.innerHTML =
+      `<div class="fw-semibold text-truncate">${escHtml(item.nombre)}</div>` +
+      `<div class="text-muted" style="font-size:.75rem">${escHtml(item.unidad)}` +
+      (item.descripcion ? ` · ${escHtml(item.descripcion.substring(0,50))}` : "") + `</div>`;
+    div.addEventListener("mousedown", e => {
+      e.preventDefault();
+      selectCatalogItem(rowIdx, item);
+      _acClose(dropdown);
+    });
+    dropdown.appendChild(div);
+  });
+
+  // Separador + Agregar nuevo
+  if (dropdown.children.length) {
+    const sep = document.createElement("div");
+    sep.className = "ac-divider";
+    dropdown.appendChild(sep);
+  }
+  const addDiv = document.createElement("div");
+  addDiv.className = "ac-item ac-add";
+  addDiv.innerHTML = `<i class="bi bi-plus-circle me-1"></i>Agregar "<strong>${escHtml(input.value.trim())}</strong>" como nuevo artículo`;
+  addDiv.addEventListener("mousedown", e => {
+    e.preventDefault();
+    selectNewItem(rowIdx, input.value.trim());
+    _acClose(dropdown);
+  });
+  dropdown.appendChild(addDiv);
+
+  dropdown.classList.add("ac-open");
+}
+
+function _acClose(dropdown) {
+  if (dropdown) dropdown.classList.remove("ac-open");
+}
+
+// ── Selección de artículo ────────────────────────────────────────────────────
+function selectCatalogItem(i, item) {
+  document.getElementById(`cat_id_${i}`).value = item.id;
+  document.getElementById(`cat_text_${i}`).value = item.nombre;
+  document.getElementById(`unit_${i}`).value = item.unidad || "pza";
+  document.getElementById(`new_fields_${i}`).style.display = "none";
+  setRowState(i, 'linked');
+}
+
+function selectNewItem(i, nombre) {
+  document.getElementById(`cat_id_${i}`).value = "__new__";
+  document.getElementById(`cat_text_${i}`).value = nombre;
+  document.querySelector(`[name="new_nombre_${i}"]`).value = nombre;
+  document.getElementById(`new_fields_${i}`).style.display = "block";
+  setRowState(i, 'new');
+}
+
+function toggleIgnore(i) {
+  if (rowState[i] === 'ignored') {
+    document.getElementById(`cat_id_${i}`).value = "";
+    setRowState(i, 'unset');
+  } else {
+    document.getElementById(`cat_id_${i}`).value = "__ignore__";
+    setRowState(i, 'ignored');
+  }
+}
+
+function setAllIgnored(ignore) {
+  for (let i = 0; i < TOTAL_ROWS; i++) {
+    if (ignore) {
+      document.getElementById(`cat_id_${i}`).value = "__ignore__";
+      setRowState(i, 'ignored');
+    } else {
+      if (rowState[i] === 'ignored') {
+        document.getElementById(`cat_id_${i}`).value = "";
+        setRowState(i, 'unset');
+      }
+    }
+  }
+}
+
+function setRowState(i, state) {
+  rowState[i] = state;
+  const row = document.getElementById(`row-${i}`);
+  const status = document.getElementById(`status_${i}`);
+  const btn = row.querySelector(".ignore-btn");
+
+  row.classList.toggle("row-ignored", state === 'ignored');
+  document.getElementById(`new_fields_${i}`).style.display = state === 'new' ? "block" : "none";
+
+  if (state === 'linked') {
+    status.className = "status-linked";
+    status.innerHTML = `<i class="bi bi-check-circle me-1"></i>Asignado al catálogo`;
+    btn.innerHTML = `<i class="bi bi-eye-slash"></i>`;
+    btn.title = "Ignorar este ítem";
+  } else if (state === 'new') {
+    status.className = "status-new";
+    status.innerHTML = `<i class="bi bi-plus-circle me-1"></i>Se agregará al catálogo`;
+    btn.innerHTML = `<i class="bi bi-eye-slash"></i>`;
+    btn.title = "Ignorar este ítem";
+  } else if (state === 'ignored') {
+    status.className = "status-ignored";
+    status.innerHTML = `<i class="bi bi-dash-circle me-1"></i>Ignorado`;
+    btn.innerHTML = `<i class="bi bi-eye"></i>`;
+    btn.title = "Incluir este ítem";
+  } else {
+    status.className = "status-ignored";
+    status.innerHTML = `<i class="bi bi-dash-circle me-1"></i>Sin asignar — se ignorará`;
+    btn.innerHTML = `<i class="bi bi-eye-slash"></i>`;
+    btn.title = "Ignorar este ítem";
+  }
+  updateSummary();
+}
+
+function updateSummary() {
+  const linked = Object.values(rowState).filter(s => s === 'linked' || s === 'new').length;
+  const ignored = Object.values(rowState).filter(s => s === 'ignored' || s === 'unset').length;
+  document.getElementById("cnt-linked").textContent = linked;
+  document.getElementById("cnt-ignored").textContent = ignored;
+}
+
+// ── Event delegation para inputs de búsqueda ────────────────────────────────
+document.addEventListener("input", e => {
+  if (e.target.classList.contains("ac-input")) _acSearch(e.target);
+});
+document.addEventListener("blur", e => {
+  if (e.target.classList.contains("ac-input")) {
+    setTimeout(() => {
+      const dd = e.target.closest(".ac-wrapper")?.querySelector(".ac-dropdown");
+      _acClose(dd);
+    }, 200);
+  }
+}, true);
+document.addEventListener("keydown", e => {
+  if (e.target.classList.contains("ac-input")) {
+    const dd = e.target.closest(".ac-wrapper")?.querySelector(".ac-dropdown");
+    if (e.key === "Escape") { _acClose(dd); }
+    if (e.key === "Enter") { e.preventDefault(); }
+  }
+});
+// Cerrar dropdowns al hacer clic fuera
+document.addEventListener("click", e => {
+  if (!e.target.closest(".ac-wrapper"))
+    document.querySelectorAll(".ac-dropdown.ac-open").forEach(_acClose);
+});
+
+// Inicializar contadores
+updateSummary();
+</script>
+{% endblock %}

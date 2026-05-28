@@ -62,11 +62,11 @@
           <div class="progress-bar bg-success" style="width:{{ p.pct }}%"></div>
         </div>
 
-        <!-- Consistencia COT vs LDM -->
+        <!-- Resumen COT vs LDM -->
         {% set cn = p.consistency %}
         <a href="{{ url_for('project_detail', project_id=p.id) }}#tab-consistencia"
            class="consistency-kpi status-{{ cn.status }} text-decoration-none"
-           title="Ver detalle de consistencia COT vs LDM">
+           title="Ver resumen COT vs LDM">
           <div>
             <div class="lbl">
               <i class="bi bi-shield-check me-1"></i>COT vs LDM

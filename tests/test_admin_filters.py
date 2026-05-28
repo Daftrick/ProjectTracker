@@ -127,8 +127,6 @@ class AdminFilterRouteTest(unittest.TestCase):
             "projects": [{"id": "PR1", "clave": "OM001"}],
             "catalogo": [],
             "bundles": [],
-            "comparison_rules": [],
-            "comparison_ignored_items": [],
             "team": [],
             "quotes": [],
             "materiales": [],

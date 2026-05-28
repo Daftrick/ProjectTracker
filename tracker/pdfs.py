@@ -1206,16 +1206,11 @@ def build_ldm_pdf(project, ldm, output_path):
         brand_text, detail_text = split_secondary_render(secondary, cols[1] - 4)
         brand_lines = pdf.multi_cell(cols[1] - 4, 3.7, brand_text, align="L",
                                      dry_run=True, output="LINES") if brand_text else []
-        detail_lines = pdf.multi_cell(cols[1] - 4, 3.7, detail_text, align="L",
-                                      dry_run=True, output="LINES") if detail_text else []
         title_h = 5.0 * len(title_lines)
         brand_h = 3.7 * len(brand_lines)
-        detail_h = 3.7 * len(detail_lines)
         text_h = 1.6 + title_h
         if brand_lines:
             text_h += 0.7 + brand_h
-        if detail_lines:
-            text_h += 0.3 + detail_h
         row_h = max(14, text_h + 1.8)
         ensure_space(row_h, with_table_header=True)
         row_y = pdf.get_y()
@@ -1239,11 +1234,6 @@ def build_ldm_pdf(project, ldm, output_path):
             pdf.set_font("DejaVu", "", 7.5)
             pdf.set_text_color(*NAVY_2)
             pdf.multi_cell(cols[1] - 4, 3.7, brand_text, align="L")
-        if detail_text:
-            pdf.set_xy(desc_x, pdf.get_y() + 0.3)
-            pdf.set_font("DejaVu", "", 7.5)
-            pdf.set_text_color(*MUTED)
-            pdf.multi_cell(cols[1] - 4, 3.7, detail_text, align="L")
         x += cols[1]
 
         # Unidad

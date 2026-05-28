@@ -10,7 +10,6 @@ PROJECT = {"id": "P1", "clave": "OM001", "name": "Proyecto demo"}
 CATALOG = {
     "COT-OUTLET": {"id": "COT-OUTLET", "nombre": "Salida contacto", "unidad": "pza"},
     "TUBO-ML": {"id": "TUBO-ML", "nombre": "Tubo por metro", "unidad": "ml"},
-    "TUBO-PZA": {"id": "TUBO-PZA", "nombre": "Tubo tramo 3m", "unidad": "pza"},
 }
 QUOTE = {
     "id": "Q1",
@@ -33,23 +32,12 @@ BUNDLES = [{
         "components": [{"catalog_item_id": "TUBO-ML", "qty": 1.5}],
     }],
 }]
-RULES = [{
-    "id": "R1",
-    "name": "Tubo ml a tramo",
-    "cot_catalog_item_id": "TUBO-ML",
-    "ldm_catalog_item_id": "TUBO-PZA",
-    "factor": 3,
-    "direction": "ldm_to_cot",
-    "rounding": "ceil",
-    "tolerance_pct": 0,
-    "active": True,
-}]
 LDM = {
     "id": "L1",
     "project_id": "P1",
     "ldm_number": "LDM-OM001-01",
     "items": [
-        {"catalog_item_id": "TUBO-PZA", "description": "Tubo tramo 3m", "unit": "pza", "qty": 1},
+        {"catalog_item_id": "TUBO-ML", "description": "Tubo por metro", "unit": "ml", "qty": 2},
     ],
     "subtotal_cot": 0,
 }
@@ -57,16 +45,16 @@ LDM = {
 
 class LdmSyncTest(unittest.TestCase):
     def test_builds_only_missing_bundle_materials_without_overwriting(self):
-        additions = missing_ldm_items_from_bundles(QUOTE, [LDM], BUNDLES, RULES, CATALOG)
+        additions = missing_ldm_items_from_bundles(QUOTE, [LDM], BUNDLES, CATALOG)
 
         self.assertEqual(len(additions), 1)
-        self.assertEqual(additions[0]["catalog_item_id"], "TUBO-PZA")
-        self.assertEqual(additions[0]["qty"], 1)
+        self.assertEqual(additions[0]["catalog_item_id"], "TUBO-ML")
+        self.assertEqual(additions[0]["qty"], 4)
         self.assertEqual(additions[0]["origen"], "bundle_sync")
         self.assertEqual(additions[0]["sync_expected_catalog_item_id"], "TUBO-ML")
 
     def test_appends_missing_items_to_copy(self):
-        updated, additions = append_missing_bundle_items_to_ldm(LDM, QUOTE, [LDM], BUNDLES, RULES, CATALOG)
+        updated, additions = append_missing_bundle_items_to_ldm(LDM, QUOTE, [LDM], BUNDLES, CATALOG)
 
         self.assertEqual(len(additions), 1)
         self.assertEqual(len(updated["items"]), 2)
@@ -90,8 +78,6 @@ class MaterialsSyncRouteTest(unittest.TestCase):
                 "materiales": materiales,
                 "quotes": [QUOTE],
                 "bundles": BUNDLES,
-                "comparison_rules": RULES,
-                "comparison_ignored_items": [],
             }
             return data.get(key, [])
 

@@ -29,25 +29,14 @@
   </option>
 {%- endmacro %}
 
-{% macro rule_option(rule, selected='') -%}
-  <option value="{{ rule.id }}" {% if rule.id == selected %}selected{% endif %}>
-    {{ rule.name or rule.id }}
-  </option>
-{%- endmacro %}
-
 {% block content %}
 <div class="alert alert-info py-2" style="font-size:.86rem">
   <i class="bi bi-info-circle me-1"></i>
-  Un bundle permite cotizar un artículo comercial como una sola partida y compararlo técnicamente contra varios insumos de LDM.
-  Cada bundle tiene versiones; sólo una versión activa participa en la consistencia.
+  Un bundle permite documentar los insumos que componen un artículo comercial. Cada bundle conserva versiones para control interno.
 </div>
 
 <div class="card mb-4">
   <div class="card-body py-2 d-flex flex-wrap gap-2 align-items-center">
-    <span class="text-muted small">Atajos:</span>
-    <a href="{{ url_for('comparison_rules') }}" class="btn btn-sm btn-outline-primary">
-      <i class="bi bi-arrow-left-right me-1"></i>Reglas COT/LDM
-    </a>
     <span class="small-muted">Bundles registrados: {{ bundles|length }}</span>
   </div>
 </div>
@@ -151,11 +140,10 @@
               <table class="table table-sm component-table mb-2" data-component-table>
                 <thead>
                   <tr>
-                    <th style="width:34%">Componente LDM esperado</th>
+                    <th style="width:44%">Componente LDM esperado</th>
                     <th style="width:10%" class="text-end">Cant.</th>
                     <th style="width:9%" class="text-end">Merma %</th>
-                    <th style="width:23%">Regla COT/LDM</th>
-                    <th style="width:19%">Notas</th>
+                    <th style="width:32%">Notas</th>
                     <th style="width:5%"></th>
                   </tr>
                 </thead>
@@ -170,12 +158,6 @@
                     </td>
                     <td><input name="component_qty[]" type="number" step="0.0001" class="form-control form-control-sm text-end" value="{{ component.qty }}"></td>
                     <td><input name="component_waste_pct[]" type="number" step="0.01" class="form-control form-control-sm text-end" value="{{ component.waste_pct }}"></td>
-                    <td>
-                      <select name="component_comparison_rule_id[]" class="form-select form-select-sm">
-                        <option value="">Sin regla específica</option>
-                        {% for rule in comparison_rules %}{{ rule_option(rule, component.comparison_rule_id) }}{% endfor %}
-                      </select>
-                    </td>
                     <td><input name="component_notes[]" class="form-control form-control-sm" value="{{ component.notes }}"></td>
                     <td class="text-end"><button type="button" class="btn btn-sm btn-outline-danger" onclick="removeComponentRow(this)"><i class="bi bi-x"></i></button></td>
                   </tr>
@@ -227,7 +209,7 @@
         </div>
         <div class="table-responsive">
           <table class="table table-sm component-table" data-component-table>
-            <thead><tr><th>Componente</th><th class="text-end">Cant.</th><th class="text-end">Merma %</th><th>Regla</th><th>Notas</th><th></th></tr></thead>
+            <thead><tr><th>Componente</th><th class="text-end">Cant.</th><th class="text-end">Merma %</th><th>Notas</th><th></th></tr></thead>
             <tbody></tbody>
           </table>
         </div>
@@ -253,12 +235,6 @@
     </td>
     <td><input name="component_qty[]" type="number" step="0.0001" class="form-control form-control-sm text-end" value="1"></td>
     <td><input name="component_waste_pct[]" type="number" step="0.01" class="form-control form-control-sm text-end" value="0"></td>
-    <td>
-      <select name="component_comparison_rule_id[]" class="form-select form-select-sm">
-        <option value="">Sin regla específica</option>
-        {% for rule in comparison_rules %}<option value="{{ rule.id }}">{{ rule.name or rule.id }}</option>{% endfor %}
-      </select>
-    </td>
     <td><input name="component_notes[]" class="form-control form-control-sm"></td>
     <td class="text-end"><button type="button" class="btn btn-sm btn-outline-danger" onclick="removeComponentRow(this)"><i class="bi bi-x"></i></button></td>
   </tr>

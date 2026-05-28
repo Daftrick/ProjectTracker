@@ -210,7 +210,9 @@ class ComputeConsistencyTest(unittest.TestCase):
         self.assertEqual(report["status"], "ok")
         self.assertTrue(report["has_general_quote"])
         self.assertTrue(report["active_quote_is_general"])
-        self.assertEqual(report["summary"]["items_total"], 2)
+        self.assertEqual(report["summary"]["quote_items_total"], 2)
+        self.assertEqual(report["summary"]["ldm_items_total"], 2)
+        self.assertEqual(report["items"], [])
 
     def test_warning_threshold(self):
         # Margen exactamente 20%
@@ -232,7 +234,8 @@ class ComputeConsistencyTest(unittest.TestCase):
         self.assertEqual(report["status"], "no_data")
         self.assertIsNone(report["margin_pct"])
         self.assertIsNone(report["active_quote"])
-        self.assertEqual(report["summary"]["items_total"], 0)
+        self.assertEqual(report["summary"]["quote_items_total"], 0)
+        self.assertEqual(report["summary"]["ldm_items_total"], 0)
 
     def test_no_general_quote_uses_fallback(self):
         prelim = _quote("Q1", "Preliminar", "2026-04-01", [_q_item("CAT-1", 2, 50)])
@@ -248,106 +251,20 @@ class ComputeConsistencyTest(unittest.TestCase):
         report = cn.compute_consistency(PROJECT, [other, own], [], catalog_by_id={})
         self.assertEqual(report["quote_subtotal"], 10)
 
+    def test_active_extras_are_included_in_visual_total(self):
+        base = _quote("Q1", "General", "2026-05-02", [_q_item("CAT-1", 1, 100)])
+        extra = _quote("Q2", "Extraordinaria", "2026-05-03", [_q_item("CAT-2", 1, 50)])
+        extra["approval_status"] = "active"
+        inactive_extra = _quote("Q3", "Extraordinaria", "2026-05-04", [_q_item("CAT-3", 1, 999)])
+        inactive_extra["approval_status"] = "obsolete"
 
-class BundleConsistencyIntegrationTest(unittest.TestCase):
-    def test_compute_consistency_includes_bundle_technical_report(self):
-        quote = _quote("Q1", "General", "2026-05-02", [
-            _q_item("COT-OUTLET", 10, 100, description="Salida contacto"),
-        ])
-        ldms = [_ldm("L1", [
-            _l_item("TUBO-PZA", 4, 0, description="Tubo por pieza"),
-            _l_item("CABLE-10", 60, 0, description="Cable 10"),
-        ])]
-        bundles = [{
-            "id": "B1",
-            "catalog_item_id": "COT-OUTLET",
-            "name": "Salida contacto",
-            "active_version": 1,
-            "versions": [{
-                "version": 1,
-                "status": "active",
-                "components": [
-                    {"catalog_item_id": "TUBO-ML", "qty": 1.2},
-                    {"catalog_item_id": "CABLE-10", "qty": 6},
-                ],
-            }],
-        }]
-        rules = [{
-            "id": "R-TUBO",
-            "cot_catalog_item_id": "TUBO-ML",
-            "ldm_catalog_item_id": "TUBO-PZA",
-            "factor": 3,
-            "direction": "ldm_to_cot",
-            "tolerance_pct": 0,
-        }]
-        result = cn.compute_consistency(
-            PROJECT,
-            [quote],
-            ldms,
-            {
-                "TUBO-ML": {"nombre": "Tubo ml", "unidad": "ml"},
-                "CABLE-10": {"nombre": "Cable 10", "unidad": "m"},
-            },
-            bundles=bundles,
-            comparison_rules=rules,
-        )
-        technical = result["bundle_consistency"]
-        self.assertEqual(technical["status"], "ok")
-        rows = {row["catalog_item_id"]: row for row in technical["rows"]}
-        self.assertEqual(rows["TUBO-ML"]["expected_qty"], 12)
-        self.assertEqual(rows["TUBO-ML"]["actual_qty"], 12)
-        self.assertEqual(rows["CABLE-10"]["expected_qty"], 60)
-        self.assertEqual(rows["CABLE-10"]["actual_qty"], 60)
+        report = cn.compute_consistency(PROJECT, [base, extra, inactive_extra], [], catalog_by_id={})
 
-
-class IgnoredItemsConsistencyTest(unittest.TestCase):
-    def test_ignored_ldm_item_keeps_project_cost_but_not_comparison_issue(self):
-        quote = _quote("Q1", "General", "2026-05-02", [
-            _q_item("CAT-1", 1, 100),
-        ])
-        ldm = _ldm("L1", [
-            _l_item("CAT-1", 1, 40),
-            _l_item("INDIRECT", 5, 10, description="Consumible indirecto"),
-        ])
-        report = cn.compute_consistency(
-            PROJECT,
-            [quote],
-            [ldm],
-            catalog_by_id={"INDIRECT": {"nombre": "Consumible indirecto", "unidad": "pza"}},
-            comparison_ignored_items=[{"catalog_item_id": "INDIRECT", "scope": "commercial", "active": True}],
-        )
-        self.assertEqual(report["ldm_subtotal"], 90)
-        self.assertEqual([row["catalog_item_id"] for row in report["items"]], ["CAT-1"])
-        self.assertEqual(report["ignored"]["commercial_ldm"]["count"], 1)
-        self.assertEqual(report["ignored"]["commercial_ldm"]["total"], 50)
-
-    def test_ignored_technical_item_not_compared_in_bundle_report(self):
-        quote = _quote("Q1", "General", "2026-05-02", [_q_item("BUNDLE", 2, 100)])
-        bundles = [{
-            "id": "B1",
-            "catalog_item_id": "BUNDLE",
-            "active_version": 1,
-            "versions": [{
-                "version": 1,
-                "status": "active",
-                "components": [
-                    {"catalog_item_id": "MAT", "qty": 1},
-                    {"catalog_item_id": "INDIRECT", "qty": 1},
-                ],
-            }],
-        }]
-        report = cn.compute_consistency(
-            PROJECT,
-            [quote],
-            [],
-            catalog_by_id={},
-            bundles=bundles,
-            comparison_ignored_items=[{"catalog_item_id": "INDIRECT", "scope": "technical", "active": True}],
-        )
-        rows = {row["catalog_item_id"]: row for row in report["bundle_consistency"]["rows"]}
-        self.assertIn("MAT", rows)
-        self.assertNotIn("INDIRECT", rows)
-        self.assertEqual(report["bundle_consistency"]["ignored_expected"]["count"], 1)
+        self.assertEqual(report["quote_base_subtotal"], 100)
+        self.assertEqual(report["quote_extras_subtotal"], 50)
+        self.assertEqual(report["quote_subtotal"], 150)
+        self.assertEqual(report["active_extras_count"], 1)
+        self.assertEqual(report["summary"]["active_quote_count"], 2)
 
 
 if __name__ == "__main__":
