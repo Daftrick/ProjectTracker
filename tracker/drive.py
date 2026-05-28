@@ -716,23 +716,48 @@ def batch_scan_drive_folders(folder_names, projects_root, ldms_dict=None, max_wo
 
 
 def find_delivery_files(folder_nm, clave, version, fecha, projects_root, fichas_root, linked_fichas):
-    found = {"ie_dwg": None, "ie_pdf": None, "mem_pdf": None, "cot_pdf": None, "fichas": [], "missing": []}
+    found = {"ie_dwg": None, "ie_pdf": None, "mem_pdf": None, "cot_pdf": None,
+             "ldm_pdfs": [], "fichas": [], "missing": []}
     folder = os.path.join(projects_root, folder_nm) if projects_root else None
 
     def best_match(search_folder, prefix, ext):
+        """Devuelve el archivo más reciente (por nombre) con el prefijo y extensión dados."""
         if not search_folder or not os.path.isdir(search_folder):
             return None
         exact = f"{prefix}{clave}-{version}-{fecha}{ext}"
         if os.path.isfile(os.path.join(search_folder, exact)):
             return exact
-        candidates = [item for item in os.listdir(search_folder) if item.startswith(prefix) and item.endswith(ext)]
-        return sorted(candidates)[-1] if candidates else None
+        candidates = [
+            item for item in os.listdir(search_folder)
+            if item.upper().startswith(prefix.upper()) and item.lower().endswith(ext.lower())
+        ]
+        # Ordenar por fecha de modificación descendente para elegir el más reciente
+        candidates.sort(
+            key=lambda n: os.path.getmtime(os.path.join(search_folder, n)),
+            reverse=True,
+        )
+        return candidates[0] if candidates else None
+
+    def all_matches(search_folder, prefix, ext):
+        """Devuelve todos los archivos con el prefijo y extensión dados, ordenados por más reciente primero."""
+        if not search_folder or not os.path.isdir(search_folder):
+            return []
+        candidates = [
+            item for item in os.listdir(search_folder)
+            if item.upper().startswith(prefix.upper()) and item.lower().endswith(ext.lower())
+        ]
+        candidates.sort(
+            key=lambda n: os.path.getmtime(os.path.join(search_folder, n)),
+            reverse=True,
+        )
+        return candidates
 
     if folder:
         found["ie_dwg"] = best_match(folder, "IE-", ".dwg")
         found["ie_pdf"] = best_match(folder, "IE-", ".pdf")
         found["mem_pdf"] = best_match(folder, "MEM-", ".pdf")
         found["cot_pdf"] = best_match(folder, "COT-", ".pdf")
+        found["ldm_pdfs"] = all_matches(folder, "LDM-", ".pdf")
         if not found["ie_dwg"]:
             found["missing"].append("IE-*.dwg")
         if not found["ie_pdf"]:

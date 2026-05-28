@@ -390,9 +390,11 @@ def create_delivery(project_id):
     if delivery_type == "parcial":
         selected_keys = [key for key in file_keys if request.form.get(f"inc_{key}")]
         include_fichas = bool(request.form.get("inc_fichas"))
+        include_ldm_pdfs = bool(request.form.get("inc_ldm_pdfs"))
     else:
         selected_keys = file_keys
         include_fichas = True
+        include_ldm_pdfs = True
     today_token = date.today().strftime("%y%m%d")
     zip_name = f"Entrega-{project['clave']}-{project.get('version', 'V1')}-{today_token}.zip"
     project_folder = os.path.join(projects_root, drive_folder) if projects_root else None
@@ -411,6 +413,12 @@ def create_delivery(project_id):
                 if os.path.isfile(source):
                     handle.write(source, filename)
                     files_included.append(filename)
+            if include_ldm_pdfs:
+                for ldm_name in available.get("ldm_pdfs", []):
+                    source = os.path.join(project_folder, ldm_name)
+                    if os.path.isfile(source):
+                        handle.write(source, ldm_name)
+                        files_included.append(ldm_name)
             if include_fichas:
                 for ficha in available.get("fichas", []):
                     handle.write(ficha["path"], os.path.join("Fichas", ficha["name"]))

@@ -709,13 +709,19 @@
                     <code style="font-size:.8rem">{{ available.cot_pdf }}</code>
                   </label>
                   {% endif %}
+                  {% if available.ldm_pdfs %}
+                  <label class="parcial-label px-3 py-2 d-flex align-items-center gap-2">
+                    <input type="checkbox" name="inc_ldm_pdfs" checked class="form-check-input m-0">
+                    <span style="font-size:.82rem"><i class="bi bi-file-text me-1"></i>LDM PDF ({{ available.ldm_pdfs|length }})</span>
+                  </label>
+                  {% endif %}
                   {% if available.fichas %}
                   <label class="parcial-label px-3 py-2 d-flex align-items-center gap-2">
                     <input type="checkbox" name="inc_fichas" checked class="form-check-input m-0">
                     <span style="font-size:.82rem"><i class="bi bi-journal-bookmark me-1"></i>Fichas ({{ available.fichas|length }})</span>
                   </label>
                   {% endif %}
-                  {% if not available.ie_dwg and not available.ie_pdf and not available.mem_pdf and not available.cot_pdf and not available.fichas %}
+                  {% if not available.ie_dwg and not available.ie_pdf and not available.mem_pdf and not available.cot_pdf and not available.ldm_pdfs and not available.fichas %}
                   <small class="text-muted">No se encontraron archivos entregables en Drive.</small>
                   {% endif %}
                 </div>
