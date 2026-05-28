@@ -490,6 +490,28 @@ def build_project_detail_context(project):
         comparison_ignored_items=load("comparison_ignored_items"),
     )
 
+    # Nombres reales de los archivos DWG más recientes en Drive.
+    # Se prefiere el archivo marcado como highlight (última versión detectada por
+    # decorate_latest) para mostrar el nombre exacto en las tarjetas del header.
+    # Si Drive no está disponible o no hay archivos, se cae al nombre canónico
+    # construido con los metadatos del proyecto.
+    def _latest_scan_name(scan_files, fallback):
+        """Devuelve el nombre del archivo con highlight=True, o el fallback."""
+        for f in scan_files or []:
+            if f.get("highlight"):
+                return f["name"]
+        # Si sólo hay un archivo (sin versión parseable), usarlo igual
+        if len(scan_files or []) == 1:
+            return scan_files[0]["name"]
+        return fallback
+
+    _ie_fallback = f"IE-{project['clave']}-{project['version']}-{project['fecha']}.dwg"
+    _xref_fallback = f"XREF-{project['clave']}-{project['version']}-{project['fecha']}.dwg"
+
+    # Filtramos sólo DWGs para las tarjetas (excluye PDFs del grupo IE)
+    ie_dwg_files = [f for f in scan.get("ie_files", []) if f["name"].lower().endswith(".dwg")]
+    xref_dwg_files = [f for f in scan.get("work_files", []) if f["name"].lower().endswith(".dwg")]
+
     return {
         "project": project,
         "main_tasks": main_tasks,
@@ -518,8 +540,8 @@ def build_project_detail_context(project):
         "today": today(),
         "today_short": date.today().strftime("%y%m%d"),
         "folder_name": drive_folder,
-        "file_ie": f"IE-{project['clave']}-{project['version']}-{project['fecha']}",
-        "file_xref": f"XREF-{project['clave']}-{project['version']}-{project['fecha']}",
+        "file_ie": _latest_scan_name(ie_dwg_files, _ie_fallback),
+        "file_xref": _latest_scan_name(xref_dwg_files, _xref_fallback),
         "total_cotizado": total_cotizado,
         "costo_proveedor": costo_proveedor,
         "margen": margen,
