@@ -4444,14 +4444,5 @@
     "precio": 0.0,
     "created_at": "2026-05-23",
     "categoria": ""
-  },
-  {
-    "id": "INSTLED",
-    "nombre": "Instalación de Metro Lineal de Tira LED",
-    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
-    "unidad": "ml",
-    "precio": 0.0,
-    "created_at": "2026-05-23",
-    "categoria": "Simbología COT"
   }
 ]

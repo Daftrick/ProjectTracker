@@ -3978,7 +3978,7 @@
     "notes": "",
     "project_basis_note": "",
     "created_at": "2026-05-12",
-    "approval_status": "obsolete"
+    "approval_status": "active"
   },
   {
     "id": "4FF84C66",
@@ -5938,7 +5938,7 @@
     "notes": "Segunda Solicitud de Material. Cero5Cien - Depto. O402",
     "project_basis_note": "",
     "created_at": "2026-05-24",
-    "approval_status": "active"
+    "approval_status": "obsolete"
   },
   {
     "id": "F681A795",
@@ -5972,14 +5972,22 @@
         "section": "ÁREAS GENERALES"
       },
       {
-        "catalog_item_id": "INSTLED",
+        "catalog_item_id": "",
         "description": "Instalación de Metro Lineal de Tira LED",
         "unit": "ml",
         "qty": 137.0,
         "price": 185.0,
         "total": 25345.0,
         "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
-        "section": "ÁREAS GENERALES"
+        "section": "ÁREAS GENERALES",
+        "deleted_catalog_item": {
+          "id": "INSTLED",
+          "nombre": "Instalación de Metro Lineal de Tira LED",
+          "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+          "unidad": "ml",
+          "precio": 0.0,
+          "deleted_at": "2026-05-28"
+        }
       },
       {
         "catalog_item_id": "4C172E56",
@@ -6210,6 +6218,78 @@
     "notes": "",
     "project_basis_note": "",
     "created_at": "2026-05-25",
+    "approval_status": "active"
+  },
+  {
+    "id": "F8940BCE",
+    "project_id": "E663C153",
+    "quote_number": "COT-CasaLeonides-RSF-G01-20260528",
+    "quote_type": "General",
+    "version": "",
+    "client": "Arteck",
+    "project_name": "Reserva Santa Fé - Casa Leonides",
+    "date": "2026-05-28",
+    "valid_until": "",
+    "items": [
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 572.0,
+        "price": 0.0,
+        "total": 0.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "INSTALACIÓN ELÉCTRICA - ILUMINACIÓN"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 495.0,
+        "price": 0.0,
+        "total": 0.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "INSTALACIÓN ELÉCTRICA - ILUMINACIÓN"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 0.0,
+        "total": 0.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "INSTALACIÓN ELÉCTRICA - ILUMINACIÓN"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 0.0,
+        "total": 0.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "INSTALACIÓN ELÉCTRICA - CONTACTOS"
+      },
+      {
+        "catalog_item_id": "F91F586D",
+        "description": "Salida Eléctrica para Botonera en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 0.0,
+        "total": 0.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "INSTALACIÓN ELÉCTRICA - CONTACTOS"
+      }
+    ],
+    "subtotal": 0.0,
+    "tax_rate": 16.0,
+    "tax": 0.0,
+    "total": 0.0,
+    "currency": "MXN",
+    "notes": "",
+    "project_basis_note": "",
+    "created_at": "2026-05-28",
     "approval_status": "active"
   }
 ]

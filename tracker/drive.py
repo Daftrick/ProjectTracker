@@ -66,7 +66,7 @@ class DriveCache:
             return False
 
         # Check if folder has changed
-        folder, _, _ = key
+        folder, *_ = key
         mtime_now = self._get_folder_mtime(folder)
         return mtime_then == mtime_now
 

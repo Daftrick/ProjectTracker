@@ -89,6 +89,13 @@
     color: #fff;
     box-shadow: none;
   }
+  .quote-section-active td {
+    background: #1a2d45 !important;
+    border-left: 3px solid #4d8fd4 !important;
+  }
+  .quote-section-active .section-title-input {
+    color: #7eb3f5 !important;
+  }
   .drag-cell {
     width: 64px;
     text-align: center;
@@ -604,6 +611,14 @@
 {% block extra_js %}
 <script>
   // ── Row management ─────────────────────────────────────────────────────────
+  let activeSectionRow = null;
+
+  function setActiveSection(tr) {
+    activeSectionRow?.classList.remove('quote-section-active');
+    activeSectionRow = tr || null;
+    activeSectionRow?.classList.add('quote-section-active');
+  }
+
   function makeRowHTML(desc, desc2, unit, qty, price, total, catalogId) {
     return `
       <td class="drag-cell">
@@ -693,7 +708,16 @@
     tr.className = "quote-row quote-draggable";
     const tot = ((qty||1) * (price||0)).toFixed(2);
     tr.innerHTML = makeRowHTML(desc, desc2, unit, qty, price, tot, catalogId);
-    document.getElementById("itemsBody").appendChild(tr);
+    const tbody = document.getElementById("itemsBody");
+    if (activeSectionRow) {
+      let anchor = activeSectionRow.nextElementSibling;
+      while (anchor && !anchor.classList.contains('quote-section-row')) {
+        anchor = anchor.nextElementSibling;
+      }
+      tbody.insertBefore(tr, anchor);
+    } else {
+      tbody.appendChild(tr);
+    }
     syncItemSections();
     updateTotals();
     if (typeof updateSelectionUI === "function") updateSelectionUI();
@@ -703,6 +727,7 @@
     tr.className = "quote-section-row quote-draggable";
     tr.innerHTML = makeSectionRowHTML(title || "Nueva sección");
     document.getElementById("itemsBody").appendChild(tr);
+    setActiveSection(tr);
     const input = tr.querySelector(".section-title-input");
     input.focus();
     input.select();
@@ -710,7 +735,9 @@
     if (typeof refreshBulkSectionSelect === "function") refreshBulkSectionSelect();
   }
   function removeAnyRow(btn) {
-    btn.closest("tr").remove();
+    const tr = btn.closest("tr");
+    if (tr === activeSectionRow) setActiveSection(null);
+    tr.remove();
     syncItemSections();
     updateTotals();
     updateSelectionUI();
@@ -1384,6 +1411,14 @@
     let draggingRows = [];
     let dragStarted = false;
     let dragPointerOffset = 0;
+
+    // Clic en sección → activar (toggle si ya estaba activa)
+    tbody.addEventListener("click", e => {
+      const sectionRow = e.target.closest('.quote-section-row');
+      if (!sectionRow) return;
+      if (e.target.closest('.btn')) return; // no activar si se clic en botón eliminar
+      setActiveSection(sectionRow === activeSectionRow ? null : sectionRow);
+    });
 
     // Input → lanzar búsqueda
     tbody.addEventListener("input", e => {
