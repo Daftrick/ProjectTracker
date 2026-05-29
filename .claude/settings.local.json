@@ -22,7 +22,14 @@
       "Read(//mnt/**)",
       "Bash(ls /mnt/)",
       "Bash(python3 /tmp/write_graph.py)",
-      "Bash(Get-ChildItem -Recurse -Include \"*.py\")"
+      "Bash(Get-ChildItem -Recurse -Include \"*.py\")",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Bash(python -c \"import json; data=json.load\\(open\\('data/quotes.json','r',encoding='utf-8'\\)\\); print\\(f'OK: {len\\(data\\)} quotes'\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(cat app.py)",
+      "Bash(cat run.py)",
+      "Bash(cat wsgi.py)"
     ]
   }
 }
