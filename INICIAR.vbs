@@ -12,7 +12,7 @@ If WScript.Arguments.Count > 0 Then
 End If
 
 ' Cambiar directorio de trabajo al de la app
-WshShell.CurrentDirectory = "H:\My Drive\Omniious\Claude Code\ProjectTracker"
+WshShell.CurrentDirectory = "C:\Users\daftr\My Drive\Omniious\Claude Code\ProjectTracker"
 
 ' Si la app ya esta corriendo, no abrir otra pestana ni crear otra instancia.
 If IsPortListening(APP_PORT) Then
