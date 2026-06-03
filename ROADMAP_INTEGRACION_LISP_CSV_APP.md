@@ -38,20 +38,21 @@ materiales de compra para LDM, aunque los articulos no sean los mismos.
 ---
 
 ## Estado actual
-<!-- Última revisión: 2026-05-28 v30.0 — verificado contra código fuente -->
+<!-- Última revisión: 2026-06-03 v31.0 — verificado contra código fuente -->
 
 ### Ya disponible en ProjectTracker
 
 - **Importacion LDM desde CSV** — ruta `GET/POST /projects/<id>/ldm/import/<filename>` operativa.
   - Detecta CSVs en carpeta Drive del proyecto con patrón `{CLAVE}-v{VER}-i{CONSEC}-{YYYYMMDD}.csv` (case-insensitive).
   - Llama a `parse_ldm_csv` con catálogo; muestra preview editable con proveedor/fecha pre-poblados desde metadatos `#`.
+  - Antes del preview bloquea filas sin coincidencia de catálogo o con unidad distinta a `catalogo.unidad`.
   - Detecta reimportaciones duplicadas por nombre de archivo.
 - **Importacion COT desde CSV** — ruta `POST /projects/<id>/quote/import` (upload manual) y `GET /projects/<id>/quote/import-drive/<filename>` (desde Drive) operativas.
   - CSV COT detectados automáticamente en carpeta Drive con patrón `{CLAVE}-v*-i*-COT-*.csv`.
   - Dropdown en tab Cotización muestra estado por archivo (pendiente/importado/desactualizado).
   - Acepta upload directo desde browser (multipart); usa `tempfile` y lo borra después de parsear.
   - Llama a `parse_quote_csv`; muestra preview con campo `price` editable (acepta `price` vacío sin error).
-  - Advierte partidas duplicadas y sin catálogo sin bloquear la importación.
+  - Advierte partidas duplicadas; las partidas sin catálogo o con unidad incompatible bloquean la importación antes del preview.
 - **Importacion PDF de proveedor a LDM** — rutas `POST /projects/<id>/ldm/import-pdf`, `GET /projects/<id>/ldm/import-pdf/map` y `POST /projects/<id>/ldm/import-pdf/create` operativas.
   - Usa extractor PDF con `pdfplumber`; Procables detecta partidas, proveedor, fecha y numero de cotizacion cuando el formato coincide.
   - Guarda la extraccion temporalmente del lado servidor y usa token en sesion para evitar cookies grandes.
@@ -89,7 +90,6 @@ materiales de compra para LDM, aunque los articulos no sean los mismos.
 - Falta leer bloques adicionales para salidas de iluminacion, contactos y HVAC.
 - Faltan bundles reales completos para todos los conceptos comerciales recurrentes.
 - Falta definir si conversiones/redondeos se agregan como campos propios del componente de bundle.
-- Falta una validacion automatica de CSVs LISP antes de importarlos.
 - El LISP aun no incluye metadatos `#proyecto_clave`, `#proveedor`, etc. en el CSV LDM;
   agregarlos permitiria que la app pre-pueble proyecto/proveedor en el preview.
 
@@ -121,7 +121,7 @@ Criterios:
 
 - No incluir `precio_cot` ni `total_cot`.
 - La app captura o importa despues el costo proveedor.
-- Cada fila debe intentar coincidir con catalogo.
+- Cada fila debe coincidir con catálogo antes de importar: `description` contra `catalogo.nombre` normalizado y `unit` contra `catalogo.unidad`.
 
 ### CSV COT
 
@@ -148,6 +148,7 @@ Criterios:
 - `price` puede salir en `0.00` para captura manual.
 - La app calcula `total`, subtotal, IVA y total final.
 - La app asigna `quote_number`, cliente, proyecto y fecha final.
+- Cada fila debe coincidir con catálogo antes de importar: `description` contra `catalogo.nombre` normalizado y `unit` contra `catalogo.unidad`.
 
 ### CSV TAKEOFF / facts — retirado
 
@@ -208,10 +209,11 @@ Objetivo: que ProjectTracker pueda crear una cotizacion desde CSV LISP.
 - [x] Aceptar `price` faltante y tratarlo como `0.00`.
 - [x] Leer metadatos `#proyecto_clave`, `#quote_type`, `#fecha`, `#source`, `#drawing`.
 - [x] Vincular filas al catalogo por nombre normalizado.
+- [x] Bloquear CSV COT antes del preview si una partida no coincide con catálogo o si la unidad no coincide. ✅ 2026-06-03
 - [x] Crear cotizacion General o Extraordinaria segun metadata/UI.
 - [x] Mostrar vista previa antes de guardar:
   - filas vinculadas al catalogo,
-  - filas sin catalogo,
+  - filas ya validadas contra catalogo,
   - totales,
   - advertencias de duplicados.
 - [x] Agregar pruebas unitarias de parser y ruta.
@@ -350,12 +352,12 @@ Objetivo: que la operacion sea usable dentro del proyecto.
 - [x] Detectar CSVs COT (`{CLAVE}-v*-i*-COT-*.csv`) en carpeta Drive del proyecto con estado (pendiente/importado/desactualizado). ✅ 2026-05-28
 - [x] Mostrar acciones separadas en UI: dropdown "Importar CSV Drive" en tab Cotización + dropdown "Importar CSV" en tab Materiales. ✅ 2026-05-28
 - [x] Importar COT desde Drive sin subir archivo (ruta directa). ✅ 2026-05-28
-- [ ] Vista previa antes de importar:
+- [x] Vista previa antes de importar con bloqueo previo de catálogo/unidad:
   - tipo de CSV detectado,
   - metadatos,
   - filas,
   - catalogo vinculado,
-  - advertencias.
+  - advertencias de duplicados. ✅ 2026-06-03
 - [ ] Evitar duplicados por `source`, `drawing`, `fecha`, `consecutivo`.
 - [ ] Permitir reimportar como nueva version, no sobrescribir sin confirmacion.
 - [ ] Mostrar resumen despues de importar.
@@ -416,6 +418,7 @@ Objetivo: cerrar el circuito con confianza.
 - [ ] Fixtures CSV COT reales.
 - [x] Pruebas para parsers COT/LDM.
 - [x] Pruebas para vinculacion con catalogo.
+- [x] Pruebas para validacion estricta de catálogo/unidad en LDM y COT. ✅ 2026-06-03
 - [x] Pruebas para bundles directos y resumen visual COT/LDM.
 - [ ] Pruebas para conversiones/redondeos de componente cuando existan esos campos propios de bundle.
 - [ ] Pruebas para duplicados y reimportaciones.

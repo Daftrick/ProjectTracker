@@ -1,5 +1,7 @@
 import csv
 
+from .catalog import catalog_name_key
+
 
 LDM_DESCRIPTION_COLUMNS = ("description", "descripcion", "descripción", "nombre", "item", "articulo", "artículo")
 LDM_UNIT_COLUMNS = ("unit", "unidad", "u")
@@ -59,18 +61,18 @@ def _detect_dialect(path):
 
 
 def _build_catalog_index(catalog):
-    """Return {nombre.lower(): id} for O(1) lookup during CSV parsing."""
+    """Return {catalog_name_key(nombre): id} for O(1) lookup during CSV parsing."""
     index = {}
     for item in (catalog or []):
-        nombre = _clean(item.get("nombre", ""))
-        if nombre:
-            index[nombre.lower()] = item["id"]
+        key = catalog_name_key(item.get("nombre", ""))
+        if key and key not in index:
+            index[key] = item["id"]
     return index
 
 
 def _match_catalog(description, index):
-    """Return catalog id if description matches a catalog nombre (case-insensitive)."""
-    return index.get(description.lower(), "")
+    """Return catalog id if description matches a catalog nombre after normalization."""
+    return index.get(catalog_name_key(description), "")
 
 
 def parse_ldm_csv(path, catalog=None):
@@ -124,6 +126,7 @@ def parse_ldm_csv(path, catalog=None):
                     "description": description,
                     "unit": unit,
                     "qty": qty,
+                    "csv_row_number": row_number,
                     "precio_cot": 0.0,
                     "total_cot": 0.0,
                     "qty_csv": qty,

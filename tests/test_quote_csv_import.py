@@ -45,6 +45,7 @@ class QuoteCsvImportTest(unittest.TestCase):
         self.assertEqual(result["items"][0]["qty"], 12.5)
         self.assertEqual(result["items"][0]["price"], 150.0)
         self.assertEqual(result["items"][0]["total"], 1875.0)
+        self.assertEqual(result["items"][0]["csv_row_number"], 5)
 
     def test_parse_quote_csv_accepts_spanish_headers_semicolon_and_missing_price(self):
         with tempfile.TemporaryDirectory() as root:

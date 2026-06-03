@@ -24,6 +24,7 @@ class LdmCsvImportTest(unittest.TestCase):
         self.assertEqual(result["metadata"]["fecha"], "2026-04-26")
         self.assertEqual(result["items"][0]["description"], "Tubo Conduit")
         self.assertEqual(result["items"][0]["qty"], 70)
+        self.assertEqual(result["items"][0]["csv_row_number"], 4)
         self.assertEqual(result["items"][0]["origen"], "csv")
 
     def test_parse_ldm_csv_accepts_spanish_headers_and_semicolon(self):
@@ -83,6 +84,17 @@ class LdmCsvImportTest(unittest.TestCase):
             result = parse_ldm_csv(path, catalog=catalog)
 
         self.assertEqual(result["items"][0]["catalog_item_id"], "ABCD1234")
+
+    def test_parse_ldm_csv_catalog_match_uses_catalog_name_key(self):
+        catalog = [{"id": "NORM1234", "nombre": 'Tubería | 27 [mm] (1")'}]
+        with tempfile.TemporaryDirectory() as root:
+            path = os.path.join(root, "OM001-v2-i1-20260426.csv")
+            with open(path, "w", encoding="utf-8") as handle:
+                handle.write("description,unit,qty\nTuberia 27 mm 1,pza,10\n")
+
+            result = parse_ldm_csv(path, catalog=catalog)
+
+        self.assertEqual(result["items"][0]["catalog_item_id"], "NORM1234")
 
     def test_parse_ldm_csv_without_catalog_sets_empty_catalog_item_id(self):
         with tempfile.TemporaryDirectory() as root:

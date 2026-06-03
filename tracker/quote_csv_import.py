@@ -182,6 +182,7 @@ def parse_quote_csv(path, catalog=None):
             "qty": qty,
             "price": price,
             "total": round(qty * price, 2),
+            "csv_row_number": row_number,
             "catalog_item_id": catalog_item.get("id", "") if catalog_item else "",
             "catalog_description": catalog_item.get("descripcion", "") if catalog_item else "",
             "section": section,

@@ -3,6 +3,7 @@ import os
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 from ..catalog import approve_quote, catalog_maps, hydrate_quote, next_quote_number, quote_type_key, safe_float
+from ..csv_catalog_validation import validate_csv_catalog_items
 from ..deletions import purge_deleted_catalog_items_from_record
 from ..drive import active_drive_paths, folder_name, latest_dwg_stem, load_config
 from ..form_models import quote_default_numbers, quote_from_form
@@ -28,6 +29,18 @@ def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None,
 
 def _find_project(project_id):
     return next((item for item in load("projects") if item["id"] == project_id), None)
+
+
+def _flash_csv_catalog_errors(validation, label="CSV COT"):
+    errors = validation.get("errors", [])
+    flash(
+        f"{label} no se puede importar: {len(errors)} partida(s) no pasan validación contra catálogo.",
+        "danger",
+    )
+    for error in errors[:10]:
+        flash(error, "warning")
+    if len(errors) > 10:
+        flash(f"Se omitieron {len(errors) - 10} error(es) adicional(es).", "warning")
 
 
 def _quote_preview_from_csv(project, parsed, filename, quotes):
@@ -151,7 +164,8 @@ def import_quote_csv(project_id):
         with tempfile.NamedTemporaryFile(delete=False, suffix=".csv") as handle:
             temp_path = handle.name
             uploaded.save(handle)
-        parsed = parse_quote_csv(temp_path, catalog=load("catalogo"))
+        catalog = load("catalogo")
+        parsed = parse_quote_csv(temp_path, catalog=catalog)
     finally:
         if temp_path and os.path.exists(temp_path):
             os.unlink(temp_path)
@@ -159,6 +173,11 @@ def import_quote_csv(project_id):
     if parsed["errors"]:
         for error in parsed["errors"]:
             flash(error, "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+    catalog_validation = validate_csv_catalog_items(parsed["items"], catalog, kind="COT")
+    if not catalog_validation["ok"]:
+        _flash_csv_catalog_errors(catalog_validation, "CSV COT")
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
 
     metadata = parsed.get("metadata", {})
@@ -658,11 +677,17 @@ def import_quote_csv_drive(project_id, filename):
         flash(f"CSV no encontrado en Drive: {clean_name}", "danger")
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
 
-    parsed = parse_quote_csv(csv_path, catalog=load("catalogo"))
+    catalog = load("catalogo")
+    parsed = parse_quote_csv(csv_path, catalog=catalog)
 
     if parsed["errors"]:
         for error in parsed["errors"]:
             flash(error, "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+    catalog_validation = validate_csv_catalog_items(parsed["items"], catalog, kind="COT")
+    if not catalog_validation["ok"]:
+        _flash_csv_catalog_errors(catalog_validation, "CSV COT")
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
 
     metadata = parsed.get("metadata", {})

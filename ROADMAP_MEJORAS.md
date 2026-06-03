@@ -47,6 +47,7 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 - [x] Detección de CSV COT desde Drive: `{CLAVE}-v*-i*-COT-*.csv` detectados en carpeta Drive con estado (pendiente/importado/desactualizado); dropdown en tab Cotización importa directo sin subir archivo; upload manual conservado como opción secundaria. Implementado en v30.0.
 - [x] Filtros en detalle de proyecto para cotizaciones y LDMs: búsqueda local por texto/estado en el tab Cotización y filtro de LDMs en Materiales. Implementado en v30.0.
 - [x] Sincronización asistida inicial al crear LDM nueva: botón "Sugerir desde bundles" precarga faltantes derivados de la COT activa y conserva origen/metadatos de sincronización al guardar. Implementado en v30.0.
+- [x] Validador CSV contra catálogo: importaciones LDM y COT bloquean antes del preview si `description` no coincide con `catalogo.nombre` normalizado o si `unit` no coincide con `catalogo.unidad`; errores incluyen fila de origen. Implementado en v31.0.
 
 ---
 
@@ -106,7 +107,8 @@ Orden sugerido de trabajo:
 1. **Ampliar bundles de salidas** con componentes y cantidades reales de tubería, accesorios y compras mínimas; los 3 bundles iniciales ya tienen componentes base para circuitos sin tubería.
 2. **Probar bundles reales** en proyectos existentes y ajustar componentes directos COT → LDM con datos de producción.
 3. **Siguiente fase de sincronización asistida** — convertir el auto-fill inicial en asistente con diff, selección parcial y agrupación por proveedor/disciplina.
-4. **Filtros restantes** — documentos y listas globales si vuelven a ser necesarias.
+4. **Mejorar corrección de CSVs rechazados** — mostrar una vista dedicada con sugerencias de catálogo cercanas y export de reporte de errores, si los flashes quedan cortos para operación diaria.
+5. **Filtros restantes** — documentos y listas globales si vuelven a ser necesarias.
 
 
 ---

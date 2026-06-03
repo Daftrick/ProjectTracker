@@ -9,6 +9,7 @@ from flask import Blueprint, Response, flash, jsonify, redirect, render_template
 
 from ..catalog import catalog_maps, catalog_name_key, hydrate_ldm, hydrate_ldm_item, safe_float
 from ..consistency import pick_active_quote
+from ..csv_catalog_validation import validate_csv_catalog_items
 from ..csv_import import parse_ldm_csv
 from ..deletions import purge_deleted_catalog_items_from_record
 from ..drive import active_drive_paths, folder_name, load_config, parse_csv_plano_filename
@@ -27,6 +28,18 @@ def _clean_form_text(value):
 
 def _find_project(project_id):
     return next((item for item in load("projects") if item["id"] == project_id), None)
+
+
+def _flash_csv_catalog_errors(validation, label="CSV"):
+    errors = validation.get("errors", [])
+    flash(
+        f"{label} no se puede importar: {len(errors)} partida(s) no pasan validación contra catálogo.",
+        "danger",
+    )
+    for error in errors[:10]:
+        flash(error, "warning")
+    if len(errors) > 10:
+        flash(f"Se omitieron {len(errors) - 10} error(es) adicional(es).", "warning")
 
 
 def _project_drive_folder(project):
@@ -261,10 +274,16 @@ def import_ldm_csv(project_id, filename):
         flash(f"{clean_name} ya está vinculado a {existing.get('ldm_number', 'una LDM')}.", "warning")
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
 
-    parsed = parse_ldm_csv(csv_path, catalog=load("catalogo"))
+    catalog = load("catalogo")
+    parsed = parse_ldm_csv(csv_path, catalog=catalog)
     if parsed["errors"]:
         for error in parsed["errors"]:
             flash(error, "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-documentos")
+
+    catalog_validation = validate_csv_catalog_items(parsed["items"], catalog, kind="LDM")
+    if not catalog_validation["ok"]:
+        _flash_csv_catalog_errors(catalog_validation, "LDM CSV")
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-documentos")
 
     if request.method == "POST":
