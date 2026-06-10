@@ -1,95 +1,5 @@
 [
   {
-    "id": "BND-CIRC-ILUM-20M",
-    "catalog_item_id": "6CA7BF58",
-    "name": "Desarrollo de Circuito Eléctrico para Iluminación | 20 [m] | Sin Tubería",
-    "active_version": 1,
-    "created_at": "2026-05-23",
-    "updated_at": "2026-05-27",
-    "versions": [
-      {
-        "version": 1,
-        "label": "Base catálogo 20 m sin tubería",
-        "status": "active",
-        "notes": "Componentes derivados de la descripción del artículo COT: 40 m THHW-LS 12 AWG + 20 m desnudo 12 AWG por lote.",
-        "components": [
-          {
-            "catalog_item_id": "18C5C03E",
-            "qty": 40.0,
-            "waste_pct": 0.0,
-            "notes": "Cable de fase/neutro incluido en lote de 20 m."
-          },
-          {
-            "catalog_item_id": "2325432B",
-            "qty": 20.0,
-            "waste_pct": 0.0,
-            "notes": "Conductor desnudo incluido en lote de 20 m."
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "BND-CIRC-CONT-20M",
-    "catalog_item_id": "5C329F0A",
-    "name": "Desarrollo de Circuito Eléctrico para Contactos | 20 [m] | Sin Tubería",
-    "active_version": 1,
-    "created_at": "2026-05-23",
-    "updated_at": "2026-05-23",
-    "versions": [
-      {
-        "version": 1,
-        "label": "Base catálogo 20 m sin tubería",
-        "status": "active",
-        "notes": "Componentes derivados de la descripción del artículo COT: 40 m THHW-LS 10 AWG + 20 m desnudo 12 AWG por lote.",
-        "components": [
-          {
-            "catalog_item_id": "047C8246",
-            "qty": 40,
-            "waste_pct": 0,
-            "notes": "Cable de fase/neutro incluido en lote de 20 m."
-          },
-          {
-            "catalog_item_id": "2325432B",
-            "qty": 20,
-            "waste_pct": 0,
-            "notes": "Conductor desnudo incluido en lote de 20 m."
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "BND-CIRC-HVAC-20M",
-    "catalog_item_id": "374DD97B",
-    "name": "Desarrollo de Circuito Eléctrico para HVAC | 20 [m] | Sin Tubería",
-    "active_version": 1,
-    "created_at": "2026-05-23",
-    "updated_at": "2026-05-27",
-    "versions": [
-      {
-        "version": 1,
-        "label": "Base catálogo 20 m sin tubería",
-        "status": "active",
-        "notes": "Componentes derivados de la descripción del artículo COT: 40 m THHW-LS 8 AWG + 10 m desnudo 12 AWG por lote.",
-        "components": [
-          {
-            "catalog_item_id": "EFF4FECF",
-            "qty": 40.0,
-            "waste_pct": 0.0,
-            "notes": "Cable de fase/neutro incluido en lote de 20 m."
-          },
-          {
-            "catalog_item_id": "2325432B",
-            "qty": 10.0,
-            "waste_pct": 0.0,
-            "notes": "Conductor desnudo incluido en lote de 20 m."
-          }
-        ]
-      }
-    ]
-  },
-  {
     "id": "917E276F",
     "catalog_item_id": "81F2CB4E",
     "name": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 16 [mm] (1/2\")",
@@ -181,19 +91,19 @@
           },
           {
             "catalog_item_id": "E32BE145",
-            "qty": 1.0,
+            "qty": 2.0,
             "waste_pct": 0.0,
             "notes": ""
           },
           {
             "catalog_item_id": "18C5C03E",
-            "qty": 6.0,
+            "qty": 8.0,
             "waste_pct": 0.0,
             "notes": ""
           },
           {
             "catalog_item_id": "2325432B",
-            "qty": 3.0,
+            "qty": 4.0,
             "waste_pct": 0.0,
             "notes": ""
           },
@@ -217,25 +127,37 @@
           },
           {
             "catalog_item_id": "AC40DA48",
-            "qty": 0.3333,
+            "qty": 0.6666,
             "waste_pct": 0.0,
             "notes": ""
           },
           {
             "catalog_item_id": "9AC13BC2",
-            "qty": 0.1666,
+            "qty": 0.3333,
             "waste_pct": 0.0,
             "notes": ""
           },
           {
             "catalog_item_id": "5880609C",
-            "qty": 2.0,
+            "qty": 4.0,
             "waste_pct": 0.0,
             "notes": ""
           },
           {
             "catalog_item_id": "79921E56",
-            "qty": 2.0,
+            "qty": 4.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "D0ECADEF",
+            "qty": 1.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "60CA5FEE",
+            "qty": 4.0,
             "waste_pct": 0.0,
             "notes": ""
           }
@@ -243,6 +165,6 @@
       }
     ],
     "created_at": "2026-06-08",
-    "updated_at": "2026-06-08"
+    "updated_at": "2026-06-10"
   }
 ]
