@@ -6,7 +6,7 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-19",
-    "categoria": ""
+    "categoria": "Salida"
   },
   {
     "id": "3EF4F34C",
@@ -474,16 +474,16 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "Salida"
   },
   {
     "id": "4C172E56",
-    "nombre": "Salida Eléctrica para Apagador en Muro",
+    "nombre": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "Salida"
   },
   {
     "id": "C8D6402B",
@@ -492,7 +492,7 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "Salida"
   },
   {
     "id": "E06E3F5D",
@@ -3561,7 +3561,7 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "Salida"
   },
   {
     "id": "56A13CED",
@@ -3983,7 +3983,7 @@
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 250.0,
-    "categoria": "Mano de Obra",
+    "categoria": "",
     "created_at": "2026-04-30"
   },
   {
@@ -4019,7 +4019,7 @@
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "categoria": "",
+    "categoria": "Salida",
     "created_at": "2026-05-19"
   },
   {
@@ -4028,7 +4028,7 @@
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "categoria": "",
+    "categoria": "Salida",
     "created_at": "2026-05-19"
   },
   {
@@ -4037,7 +4037,7 @@
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "categoria": "",
+    "categoria": "Salida",
     "created_at": "2026-05-19"
   },
   {
@@ -4046,16 +4046,16 @@
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "categoria": "",
+    "categoria": "Salida",
     "created_at": "2026-05-19"
   },
   {
     "id": "86F13521",
-    "nombre": "Salida Eléctrica para Detección Contra Incendio",
+    "nombre": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
     "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "categoria": "",
+    "categoria": "Salida",
     "created_at": "2026-05-19"
   },
   {
@@ -4448,19 +4448,19 @@
   {
     "id": "7D9EAAA6",
     "nombre": "Salida Eléctrica para Extractor en Muro o Plafón",
-    "descripcion": "Omniious | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "categoria": "",
+    "categoria": "Salida",
     "created_at": "2026-05-28"
   },
   {
     "id": "5EBFBD22",
     "nombre": "Salida Eléctrica para Desconectador de Cuchillas en Muro o Plafón",
-    "descripcion": "Omniious | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
     "unidad": "pza",
     "precio": 0.0,
-    "categoria": "",
+    "categoria": "Salida",
     "created_at": "2026-05-28"
   },
   {
@@ -4471,5 +4471,23 @@
     "precio": 0.0,
     "categoria": "",
     "created_at": "2026-06-01"
+  },
+  {
+    "id": "A8ED13E4",
+    "nombre": "Salida Eléctrica para Persiana en Muro o Plafón",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "Salida",
+    "created_at": "2026-06-03"
+  },
+  {
+    "id": "69AA6DE5",
+    "nombre": "Salida Eléctrica para Control de Accesos en Muro o Plafón",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "Salida",
+    "created_at": "2026-06-03"
   }
 ]

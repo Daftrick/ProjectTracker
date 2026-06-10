@@ -88,5 +88,161 @@
         ]
       }
     ]
+  },
+  {
+    "id": "917E276F",
+    "catalog_item_id": "81F2CB4E",
+    "name": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 16 [mm] (1/2\")",
+    "active_version": 1,
+    "versions": [
+      {
+        "version": 1,
+        "label": "Versión 1",
+        "status": "active",
+        "notes": "",
+        "components": [
+          {
+            "catalog_item_id": "92218A02",
+            "qty": 0.3333,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "E32BE145",
+            "qty": 1.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "1D5577C3",
+            "qty": 2.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "E2D36AC3",
+            "qty": 1.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "C82014A6",
+            "qty": 2.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "AC40DA48",
+            "qty": 0.3333,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "9AC13BC2",
+            "qty": 0.1666,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "5880609C",
+            "qty": 2.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "79921E56",
+            "qty": 2.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          }
+        ]
+      }
+    ],
+    "created_at": "2026-06-08",
+    "updated_at": "2026-06-08"
+  },
+  {
+    "id": "B59B71BE",
+    "catalog_item_id": "42075597",
+    "name": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+    "active_version": 1,
+    "versions": [
+      {
+        "version": 1,
+        "label": "Versión 1",
+        "status": "active",
+        "notes": "",
+        "components": [
+          {
+            "catalog_item_id": "92218A02",
+            "qty": 1.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "E32BE145",
+            "qty": 1.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "18C5C03E",
+            "qty": 6.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "2325432B",
+            "qty": 3.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "1D5577C3",
+            "qty": 2.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "E2D36AC3",
+            "qty": 1.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "C82014A6",
+            "qty": 2.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "AC40DA48",
+            "qty": 0.3333,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "9AC13BC2",
+            "qty": 0.1666,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "5880609C",
+            "qty": 2.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          },
+          {
+            "catalog_item_id": "79921E56",
+            "qty": 2.0,
+            "waste_pct": 0.0,
+            "notes": ""
+          }
+        ]
+      }
+    ],
+    "created_at": "2026-06-08",
+    "updated_at": "2026-06-08"
   }
 ]

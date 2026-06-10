@@ -5943,13 +5943,13 @@
   {
     "id": "F681A795",
     "project_id": "43A4F936",
-    "quote_number": "COT-ATTIE-G01-20260525",
+    "quote_number": "COT-ATTIE-G01-20260605",
     "quote_type": "General",
-    "version": "V1",
+    "version": "V2",
     "client": "Cliente Privado",
     "project_name": "ATTIE Alex Instalación Eléctrica",
-    "date": "2026-05-25",
-    "valid_until": "2026-06-01",
+    "date": "2026-06-05",
+    "valid_until": "2026-06-12",
     "items": [
       {
         "catalog_item_id": "42075597",
@@ -5972,26 +5972,18 @@
         "section": "ÁREAS GENERALES"
       },
       {
-        "catalog_item_id": "",
-        "description": "Instalación de Metro Lineal de Tira LED",
-        "unit": "ml",
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
         "qty": 137.0,
-        "price": 185.0,
-        "total": 25345.0,
+        "price": 195.0,
+        "total": 26715.0,
         "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
-        "section": "ÁREAS GENERALES",
-        "deleted_catalog_item": {
-          "id": "INSTLED",
-          "nombre": "Instalación de Metro Lineal de Tira LED",
-          "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
-          "unidad": "ml",
-          "precio": 0.0,
-          "deleted_at": "2026-05-28"
-        }
+        "section": "ÁREAS GENERALES"
       },
       {
         "catalog_item_id": "4C172E56",
-        "description": "Salida Eléctrica para Apagador en Muro",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
         "unit": "pza",
         "qty": 15.0,
         "price": 850.0,
@@ -6003,9 +5995,9 @@
         "catalog_item_id": "1F183CFD",
         "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
         "unit": "pza",
-        "qty": 135.0,
+        "qty": 115.0,
         "price": 1100.0,
-        "total": 148500.0,
+        "total": 126500.0,
         "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
         "section": "ÁREAS GENERALES"
       },
@@ -6013,9 +6005,19 @@
         "catalog_item_id": "DF89D08C",
         "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
         "unit": "pza",
-        "qty": 21.0,
-        "price": 2750.0,
-        "total": 57750.0,
+        "qty": 16.0,
+        "price": 2850.0,
+        "total": 45600.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "5EBFBD22",
+        "description": "Salida Eléctrica para Desconectador de Cuchillas en Muro o Plafón",
+        "unit": "pza",
+        "qty": 16.0,
+        "price": 1850.02,
+        "total": 29600.32,
         "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
         "section": "ÁREAS GENERALES"
       },
@@ -6051,7 +6053,7 @@
       },
       {
         "catalog_item_id": "86F13521",
-        "description": "Salida Eléctrica para Detección Contra Incendio",
+        "description": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
         "unit": "pza",
         "qty": 17.0,
         "price": 850.0,
@@ -6063,9 +6065,9 @@
         "catalog_item_id": "4F73D293",
         "description": "Salida Eléctrica para Cámara de Seguridad en Muro o Plafón",
         "unit": "pza",
-        "qty": 10.0,
+        "qty": 9.0,
         "price": 850.0,
-        "total": 8500.0,
+        "total": 7650.0,
         "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
         "section": "ÁREAS GENERALES"
       },
@@ -6076,6 +6078,16 @@
         "qty": 22.0,
         "price": 850.0,
         "total": 18700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "A8ED13E4",
+        "description": "Salida Eléctrica para Persiana en Muro o Plafón",
+        "unit": "pza",
+        "qty": 12.0,
+        "price": 750.0,
+        "total": 9000.0,
         "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
         "section": "ÁREAS GENERALES"
       },
@@ -6208,12 +6220,112 @@
         "total": 7067.55,
         "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
         "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "1454409F",
+        "description": "Tablero Eléctrico | NQ | NQ424AB225 | 42 Espacios | Trifásico | 3F - 4H | 225 [A] | 120/240 [V] | Interruptor Principal",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 25845.85,
+        "total": 25845.85,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "03462886",
+        "description": "Tablero Eléctrico | NQ | NQ184AB100 | 18 Espacios | Trifásico | 3F - 4H | 100 [A] | 120/240 [V] | Interruptor Principal",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 19640.25,
+        "total": 19640.25,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "73618927",
+        "description": "Interruptor Termomagnético QO115 | 1 Polo | 15 [A] | 120 [V]",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 215.3,
+        "total": 1722.4,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "15514DE1",
+        "description": "Interruptor Termomagnético QO120 | 1 Polo | 20 [A] | 120 [V]",
+        "unit": "pza",
+        "qty": 31.0,
+        "price": 215.3,
+        "total": 6674.3,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "6B776A1B",
+        "description": "Interruptor Termomagnético QO130 | 1 Polo | 30 [A] | 120 [V]",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 215.3,
+        "total": 215.3,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "8AA69AB5",
+        "description": "Interruptor Termomagnético QO215 | 2 Polos | 15 [A] | 240 [V]",
+        "unit": "pza",
+        "qty": 7.0,
+        "price": 845.55,
+        "total": 5918.85,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "56C24ED0",
+        "description": "Interruptor Termomagnético QO220 | 2 Polos | 20 [A] | 240 [V]",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 845.55,
+        "total": 845.55,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "24EE097B",
+        "description": "Interruptor Termomagnético QO320 | 3 Polos | 20 [A] | 240 [V]",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 2450.5,
+        "total": 2450.5,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "D90135E7",
+        "description": "Interruptor Termomagnético QO370 | 3 Polos | 70 [A] | 240 [V]",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 2450.5,
+        "total": 4901.0,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "9706813C",
+        "description": "Interruptor Termomagnético HDL36150 | 3 Polos | 150 [A] | 240 - 600 [V]",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 18670.3,
+        "total": 18670.3,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
       }
     ],
-    "subtotal": 1102943.4,
+    "subtotal": 1194798.02,
     "tax_rate": 16.0,
-    "tax": 176470.94,
-    "total": 1279414.34,
+    "tax": 191167.68,
+    "total": 1385965.7,
     "currency": "MXN",
     "notes": "",
     "project_basis_note": "",
@@ -6640,6 +6752,1738 @@
     "notes": "",
     "project_basis_note": "",
     "created_at": "2026-05-28",
+    "approval_status": "active"
+  },
+  {
+    "id": "B118E10A",
+    "project_id": "A95BFA9F",
+    "quote_number": "COT-PicoLove-G01-20260603",
+    "quote_type": "General",
+    "version": "V1",
+    "client": "Cliente Privado",
+    "project_name": "Pico Love - Oficinas",
+    "date": "2026-06-03",
+    "valid_until": "2026-06-10",
+    "items": [
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 950.0,
+        "total": 1900.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SITE"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 285.0,
+        "total": 570.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SITE"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 4.0,
+        "price": 1250.0,
+        "total": 5000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SITE"
+      },
+      {
+        "catalog_item_id": "69AA6DE5",
+        "description": "Salida Eléctrica para Control de Accesos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 850.0,
+        "total": 2550.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SITE"
+      },
+      {
+        "catalog_item_id": "76A1B25A",
+        "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 950.0,
+        "total": 950.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SITE"
+      },
+      {
+        "catalog_item_id": "F91F586D",
+        "description": "Salida Eléctrica para Botonera en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 700.0,
+        "total": 700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SITE"
+      },
+      {
+        "catalog_item_id": "86F13521",
+        "description": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 600.0,
+        "total": 600.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SITE"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 950.0,
+        "total": 7600.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 285.0,
+        "total": 4275.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 195.0,
+        "total": 195.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "4F73D293",
+        "description": "Salida Eléctrica para Cámara de Seguridad en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 750.0,
+        "total": 1500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "69AA6DE5",
+        "description": "Salida Eléctrica para Control de Accesos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 850.0,
+        "total": 2550.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 650.0,
+        "total": 650.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "86F13521",
+        "description": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 600.0,
+        "total": 3000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PASILLO PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 7.0,
+        "price": 950.0,
+        "total": 6650.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PRODUCCIÓN"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 7.0,
+        "price": 285.0,
+        "total": 1995.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PRODUCCIÓN"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 7.0,
+        "price": 1250.0,
+        "total": 8750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PRODUCCIÓN"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 195.0,
+        "total": 195.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PRODUCCIÓN"
+      },
+      {
+        "catalog_item_id": "4F73D293",
+        "description": "Salida Eléctrica para Cámara de Seguridad en Muro o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 750.0,
+        "total": 750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PRODUCCIÓN"
+      },
+      {
+        "catalog_item_id": "69AA6DE5",
+        "description": "Salida Eléctrica para Control de Accesos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 850.0,
+        "total": 1700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PRODUCCIÓN"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 650.0,
+        "total": 1950.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PRODUCCIÓN"
+      },
+      {
+        "catalog_item_id": "F91F586D",
+        "description": "Salida Eléctrica para Botonera en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 700.0,
+        "total": 700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PRODUCCIÓN"
+      },
+      {
+        "catalog_item_id": "86F13521",
+        "description": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 600.0,
+        "total": 1200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PRODUCCIÓN"
+      },
+      {
+        "catalog_item_id": "76A1B25A",
+        "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 950.0,
+        "total": 950.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PRODUCCIÓN"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Salida Eléctrica para Persiana en Muro o Plafón (Con Contacto)",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 1950.0,
+        "total": 1950.0,
+        "catalog_description": "",
+        "section": "PRODUCCIÓN"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 4.0,
+        "price": 950.0,
+        "total": 3800.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAñO"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 285.0,
+        "total": 855.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAñO"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 1250.0,
+        "total": 2500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAñO"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 195.0,
+        "total": 195.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAñO"
+      },
+      {
+        "catalog_item_id": "86F13521",
+        "description": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 600.0,
+        "total": 600.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAñO"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 16.0,
+        "price": 950.0,
+        "total": 15200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CENTURION LOUNGE"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 285.0,
+        "total": 4275.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CENTURION LOUNGE"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 1250.0,
+        "total": 10000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CENTURION LOUNGE"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 195.0,
+        "total": 195.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CENTURION LOUNGE"
+      },
+      {
+        "catalog_item_id": "8D6668BE",
+        "description": "Salida Eléctrica para Audio en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 600.0,
+        "total": 3000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CENTURION LOUNGE"
+      },
+      {
+        "catalog_item_id": "69AA6DE5",
+        "description": "Salida Eléctrica para Control de Accesos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 850.0,
+        "total": 1700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CENTURION LOUNGE"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 650.0,
+        "total": 1300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CENTURION LOUNGE"
+      },
+      {
+        "catalog_item_id": "F91F586D",
+        "description": "Salida Eléctrica para Botonera en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 700.0,
+        "total": 700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CENTURION LOUNGE"
+      },
+      {
+        "catalog_item_id": "86F13521",
+        "description": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 600.0,
+        "total": 1200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CENTURION LOUNGE"
+      },
+      {
+        "catalog_item_id": "76A1B25A",
+        "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 950.0,
+        "total": 1900.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CENTURION LOUNGE"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Salida Eléctrica para Persiana en Muro o Plafón (Con Contacto)",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 1950.0,
+        "total": 9750.0,
+        "catalog_description": "",
+        "section": "CENTURION LOUNGE"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 950.0,
+        "total": 4750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PICO PRIVADO"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 4.0,
+        "price": 285.0,
+        "total": 1140.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PICO PRIVADO"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 6.0,
+        "price": 1250.0,
+        "total": 7500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PICO PRIVADO"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 195.0,
+        "total": 195.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PICO PRIVADO"
+      },
+      {
+        "catalog_item_id": "8D6668BE",
+        "description": "Salida Eléctrica para Audio en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 600.0,
+        "total": 1200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PICO PRIVADO"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 650.0,
+        "total": 1300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PICO PRIVADO"
+      },
+      {
+        "catalog_item_id": "F91F586D",
+        "description": "Salida Eléctrica para Botonera en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 700.0,
+        "total": 700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PICO PRIVADO"
+      },
+      {
+        "catalog_item_id": "86F13521",
+        "description": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 600.0,
+        "total": 1200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PICO PRIVADO"
+      },
+      {
+        "catalog_item_id": "76A1B25A",
+        "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 950.0,
+        "total": 1900.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "PICO PRIVADO"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Salida Eléctrica para Persiana en Muro o Plafón (Con Contacto)",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 1950.0,
+        "total": 5850.0,
+        "catalog_description": "",
+        "section": "PICO PRIVADO"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 950.0,
+        "total": 4750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "OFICINA"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 285.0,
+        "total": 1425.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "OFICINA"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 1250.0,
+        "total": 6250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "OFICINA"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 195.0,
+        "total": 195.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "OFICINA"
+      },
+      {
+        "catalog_item_id": "8D6668BE",
+        "description": "Salida Eléctrica para Audio en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 600.0,
+        "total": 600.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "OFICINA"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 650.0,
+        "total": 1300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "OFICINA"
+      },
+      {
+        "catalog_item_id": "F91F586D",
+        "description": "Salida Eléctrica para Botonera en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 700.0,
+        "total": 700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "OFICINA"
+      },
+      {
+        "catalog_item_id": "86F13521",
+        "description": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 600.0,
+        "total": 600.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "OFICINA"
+      },
+      {
+        "catalog_item_id": "76A1B25A",
+        "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 950.0,
+        "total": 1900.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "OFICINA"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Salida Eléctrica para Persiana en Muro o Plafón (Con Contacto)",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 1950.0,
+        "total": 3900.0,
+        "catalog_description": "",
+        "section": "OFICINA"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 10.0,
+        "price": 950.0,
+        "total": 9500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "LOUNGE"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 10.0,
+        "price": 285.0,
+        "total": 2850.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "LOUNGE"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 7.0,
+        "price": 1250.0,
+        "total": 8750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "LOUNGE"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 195.0,
+        "total": 195.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "LOUNGE"
+      },
+      {
+        "catalog_item_id": "8D6668BE",
+        "description": "Salida Eléctrica para Audio en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 600.0,
+        "total": 1200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "LOUNGE"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 650.0,
+        "total": 1300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "LOUNGE"
+      },
+      {
+        "catalog_item_id": "86F13521",
+        "description": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 600.0,
+        "total": 600.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "LOUNGE"
+      },
+      {
+        "catalog_item_id": "76A1B25A",
+        "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 950.0,
+        "total": 2850.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "LOUNGE"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Salida Eléctrica para Persiana en Muro o Plafón (Con Contacto)",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 1950.0,
+        "total": 5850.0,
+        "catalog_description": "",
+        "section": "LOUNGE"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 12.0,
+        "price": 950.0,
+        "total": 11400.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREA DE PRODUCCIÓN - WC"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 11.0,
+        "price": 285.0,
+        "total": 3135.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREA DE PRODUCCIÓN - WC"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 7.0,
+        "price": 1250.0,
+        "total": 8750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREA DE PRODUCCIÓN - WC"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 195.0,
+        "total": 195.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREA DE PRODUCCIÓN - WC"
+      },
+      {
+        "catalog_item_id": "8D6668BE",
+        "description": "Salida Eléctrica para Audio en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 600.0,
+        "total": 600.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREA DE PRODUCCIÓN - WC"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 650.0,
+        "total": 1300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREA DE PRODUCCIÓN - WC"
+      },
+      {
+        "catalog_item_id": "76A1B25A",
+        "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 950.0,
+        "total": 2850.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "ÁREA DE PRODUCCIÓN - WC"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Salida Eléctrica para Persiana en Muro o Plafón (Con Contacto)",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 1950.0,
+        "total": 3900.0,
+        "catalog_description": "",
+        "section": "ÁREA DE PRODUCCIÓN - WC"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 950.0,
+        "total": 2850.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "TALLER"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 285.0,
+        "total": 855.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "TALLER"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 4.0,
+        "price": 1250.0,
+        "total": 5000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "TALLER"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 195.0,
+        "total": 195.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "TALLER"
+      },
+      {
+        "catalog_item_id": "8D6668BE",
+        "description": "Salida Eléctrica para Audio en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 600.0,
+        "total": 600.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "TALLER"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 650.0,
+        "total": 1300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "TALLER"
+      },
+      {
+        "catalog_item_id": "F91F586D",
+        "description": "Salida Eléctrica para Botonera en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 700.0,
+        "total": 700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "TALLER"
+      },
+      {
+        "catalog_item_id": "86F13521",
+        "description": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 600.0,
+        "total": 1200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "TALLER"
+      },
+      {
+        "catalog_item_id": "76A1B25A",
+        "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 950.0,
+        "total": 2850.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "TALLER"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Salida Eléctrica para Persiana en Muro o Plafón (Con Contacto)",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 1950.0,
+        "total": 5850.0,
+        "catalog_description": "",
+        "section": "TALLER"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 950.0,
+        "total": 14250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 14.0,
+        "price": 285.0,
+        "total": 3990.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 1250.0,
+        "total": 6250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 195.0,
+        "total": 195.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS"
+      },
+      {
+        "catalog_item_id": "8D6668BE",
+        "description": "Salida Eléctrica para Audio en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 6.0,
+        "price": 600.0,
+        "total": 3600.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS"
+      },
+      {
+        "catalog_item_id": "69AA6DE5",
+        "description": "Salida Eléctrica para Control de Accesos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 850.0,
+        "total": 1700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 650.0,
+        "total": 1300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS"
+      },
+      {
+        "catalog_item_id": "F91F586D",
+        "description": "Salida Eléctrica para Botonera en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 700.0,
+        "total": 700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS"
+      },
+      {
+        "catalog_item_id": "86F13521",
+        "description": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 600.0,
+        "total": 1200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS"
+      },
+      {
+        "catalog_item_id": "76A1B25A",
+        "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 950.0,
+        "total": 1900.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Salida Eléctrica para Persiana en Muro o Plafón (Con Contacto)",
+        "unit": "pza",
+        "qty": 4.0,
+        "price": 1950.0,
+        "total": 7800.0,
+        "catalog_description": "",
+        "section": "SALA DE JUNTAS"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 80.0,
+        "price": 950.0,
+        "total": 76000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BIBLIOTECA - RECEPCIÓN"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 106.0,
+        "price": 285.0,
+        "total": 30210.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BIBLIOTECA - RECEPCIÓN"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 6.0,
+        "price": 1250.0,
+        "total": 7500.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BIBLIOTECA - RECEPCIÓN"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 195.0,
+        "total": 195.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BIBLIOTECA - RECEPCIÓN"
+      },
+      {
+        "catalog_item_id": "8D6668BE",
+        "description": "Salida Eléctrica para Audio en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 4.0,
+        "price": 600.0,
+        "total": 2400.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BIBLIOTECA - RECEPCIÓN"
+      },
+      {
+        "catalog_item_id": "4F73D293",
+        "description": "Salida Eléctrica para Cámara de Seguridad en Muro o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 750.0,
+        "total": 2250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BIBLIOTECA - RECEPCIÓN"
+      },
+      {
+        "catalog_item_id": "69AA6DE5",
+        "description": "Salida Eléctrica para Control de Accesos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 6.0,
+        "price": 850.0,
+        "total": 5100.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BIBLIOTECA - RECEPCIÓN"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 650.0,
+        "total": 1300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BIBLIOTECA - RECEPCIÓN"
+      },
+      {
+        "catalog_item_id": "F91F586D",
+        "description": "Salida Eléctrica para Botonera en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 700.0,
+        "total": 700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BIBLIOTECA - RECEPCIÓN"
+      },
+      {
+        "catalog_item_id": "86F13521",
+        "description": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 600.0,
+        "total": 1800.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BIBLIOTECA - RECEPCIÓN"
+      },
+      {
+        "catalog_item_id": "76A1B25A",
+        "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 950.0,
+        "total": 2850.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BIBLIOTECA - RECEPCIÓN"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 19.0,
+        "price": 950.0,
+        "total": 18050.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 18.0,
+        "price": 285.0,
+        "total": 5130.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 5.0,
+        "price": 1250.0,
+        "total": 6250.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 195.0,
+        "total": 195.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "8D6668BE",
+        "description": "Salida Eléctrica para Audio en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 600.0,
+        "total": 4800.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "69AA6DE5",
+        "description": "Salida Eléctrica para Control de Accesos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 850.0,
+        "total": 1700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 650.0,
+        "total": 1300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "F91F586D",
+        "description": "Salida Eléctrica para Botonera en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 700.0,
+        "total": 700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "86F13521",
+        "description": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 600.0,
+        "total": 1200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "76A1B25A",
+        "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 950.0,
+        "total": 1900.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SALA DE JUNTAS PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Salida Eléctrica para Persiana en Muro o Plafón (Con Contacto)",
+        "unit": "pza",
+        "qty": 6.0,
+        "price": 1950.0,
+        "total": 11700.0,
+        "catalog_description": "",
+        "section": "SALA DE JUNTAS PRINCIPAL"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 950.0,
+        "total": 2850.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CONTABILIDAD"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 1250.0,
+        "total": 10000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CONTABILIDAD"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 195.0,
+        "total": 195.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CONTABILIDAD"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 650.0,
+        "total": 650.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CONTABILIDAD"
+      },
+      {
+        "catalog_item_id": "86F13521",
+        "description": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 600.0,
+        "total": 600.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CONTABILIDAD"
+      },
+      {
+        "catalog_item_id": "76A1B25A",
+        "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 950.0,
+        "total": 1900.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "CONTABILIDAD"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 950.0,
+        "total": 7600.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "GRADAS ÁGORA"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 10.0,
+        "price": 285.0,
+        "total": 2850.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "GRADAS ÁGORA"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 1250.0,
+        "total": 10000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "GRADAS ÁGORA"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 195.0,
+        "total": 195.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "GRADAS ÁGORA"
+      },
+      {
+        "catalog_item_id": "8D6668BE",
+        "description": "Salida Eléctrica para Audio en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 600.0,
+        "total": 1800.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "GRADAS ÁGORA"
+      },
+      {
+        "catalog_item_id": "4F73D293",
+        "description": "Salida Eléctrica para Cámara de Seguridad en Muro o Plafón",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 750.0,
+        "total": 750.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "GRADAS ÁGORA"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 650.0,
+        "total": 1300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "GRADAS ÁGORA"
+      },
+      {
+        "catalog_item_id": "F91F586D",
+        "description": "Salida Eléctrica para Botonera en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 700.0,
+        "total": 700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "GRADAS ÁGORA"
+      },
+      {
+        "catalog_item_id": "86F13521",
+        "description": "Salida Eléctrica para Detección Contra Incendio en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 600.0,
+        "total": 1200.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "GRADAS ÁGORA"
+      },
+      {
+        "catalog_item_id": "76A1B25A",
+        "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 950.0,
+        "total": 1900.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "GRADAS ÁGORA"
+      },
+      {
+        "catalog_item_id": "",
+        "description": "Salida Eléctrica para Persiana en Muro o Plafón (Con Contacto)",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 1950.0,
+        "total": 5850.0,
+        "catalog_description": "",
+        "section": "GRADAS ÁGORA"
+      },
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 11.0,
+        "price": 950.0,
+        "total": 10450.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAR-WC"
+      },
+      {
+        "catalog_item_id": "E06E3F5D",
+        "description": "Instalación de Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 9.0,
+        "price": 285.0,
+        "total": 2565.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAR-WC"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 1250.0,
+        "total": 10000.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAR-WC"
+      },
+      {
+        "catalog_item_id": "E7D23B77",
+        "description": "Instalación de Metro Lineal de Tira LED en Muro, Piso o Plafón",
+        "unit": "m",
+        "qty": 1.0,
+        "price": 195.0,
+        "total": 195.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAR-WC"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 650.0,
+        "total": 1300.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAR-WC"
+      },
+      {
+        "catalog_item_id": "F91F586D",
+        "description": "Salida Eléctrica para Botonera en Muro",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 700.0,
+        "total": 700.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAR-WC"
+      },
+      {
+        "catalog_item_id": "76A1B25A",
+        "description": "Salida Eléctrica para Red de Voz y Datos en Muro o Plafón",
+        "unit": "pza",
+        "qty": 3.0,
+        "price": 950.0,
+        "total": 2850.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "BAR-WC"
+      },
+      {
+        "catalog_item_id": "81F2CB4E",
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 16 [mm] (1/2\")",
+        "unit": "ml",
+        "qty": 450.0,
+        "price": 240.25,
+        "total": 108112.5,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "8F45B371",
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 21 [mm] (3/4\")",
+        "unit": "ml",
+        "qty": 350.0,
+        "price": 290.25,
+        "total": 101587.5,
+        "catalog_description": "Argos | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "56A13CED",
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 27 [mm] (1\")",
+        "unit": "ml",
+        "qty": 150.0,
+        "price": 455.75,
+        "total": 68362.5,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "3754E826",
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 35 [mm] (1 1/4\")",
+        "unit": "ml",
+        "qty": 30.0,
+        "price": 680.25,
+        "total": 20407.5,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "9C32D7FA",
+        "description": "Metro Lineal de Tubería Conduit Galvanizado Pared Delgada | 53 [mm] (2\")",
+        "unit": "ml",
+        "qty": 15.0,
+        "price": 1040.95,
+        "total": 15614.25,
+        "catalog_description": "Quality | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "2325432B",
+        "description": "Cable de Cobre | Desnudo | Calibre 12 AWG",
+        "unit": "m",
+        "qty": 800.0,
+        "price": 25.95,
+        "total": 20760.0,
+        "catalog_description": "Omniious | Incluye instalacion",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "B9E8B721",
+        "description": "Cable de Cobre | Desnudo | Calibre 10 AWG",
+        "unit": "m",
+        "qty": 150.0,
+        "price": 35.95,
+        "total": 5392.5,
+        "catalog_description": "Omniious | Incluye instalacion",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "18C5C03E",
+        "description": "Cable de Cobre | THHW-LS | Calibre 12 AWG",
+        "unit": "m",
+        "qty": 1200.0,
+        "price": 35.85,
+        "total": 43020.0,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "047C8246",
+        "description": "Cable de Cobre | THHW-LS | Calibre 10 AWG",
+        "unit": "m",
+        "qty": 950.0,
+        "price": 55.85,
+        "total": 53057.5,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "EFF4FECF",
+        "description": "Cable de Cobre | THHW-LS | Calibre 8 AWG",
+        "unit": "m",
+        "qty": 150.0,
+        "price": 85.4,
+        "total": 12810.0,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "8DC8C842",
+        "description": "Cable de Cobre | THHW-LS | Calibre 6 AWG",
+        "unit": "m",
+        "qty": 25.0,
+        "price": 135.05,
+        "total": 3376.25,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "34AA2A37",
+        "description": "Cable de Cobre | THHW-LS | Calibre 4 AWG",
+        "unit": "m",
+        "qty": 25.0,
+        "price": 210.65,
+        "total": 5266.25,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "91D25844",
+        "description": "Cable de Cobre | THHW-LS | Calibre 2 AWG",
+        "unit": "m",
+        "qty": 165.0,
+        "price": 325.4,
+        "total": 53691.0,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "6893EDC3",
+        "description": "Cable de Cobre | THHW-LS | Calibre 1/0 AWG",
+        "unit": "m",
+        "qty": 200.0,
+        "price": 515.1,
+        "total": 103020.0,
+        "catalog_description": "Condumex | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "1454409F",
+        "description": "Tablero Eléctrico | NQ | NQ424AB225 | 42 Espacios | Trifásico | 3F - 4H | 225 [A] | 120/240 [V] | Interruptor Principal",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 25845.85,
+        "total": 25845.85,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "5ABE876B",
+        "description": "Tablero Eléctrico | NQ | NQ304L100 | 30 Espacios | Trifásico | 3F - 4H | 100 [A] | 120/240 [V] | Zapatas Principales",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 19640.25,
+        "total": 19640.25,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "D1084BAA",
+        "description": "Tablero Eléctrico | QO | QO312L125G | 12 Espacios | Trifásico | 3F - 4H | 125 [A] | 120/240 [V] | Zapatas Principales",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 9410.8,
+        "total": 9410.8,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "73618927",
+        "description": "Interruptor Termomagnético QO115 | 1 Polo | 15 [A] | 120 [V]",
+        "unit": "pza",
+        "qty": 9.0,
+        "price": 215.5,
+        "total": 1939.5,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "15514DE1",
+        "description": "Interruptor Termomagnético QO120 | 1 Polo | 20 [A] | 120 [V]",
+        "unit": "pza",
+        "qty": 21.0,
+        "price": 215.5,
+        "total": 4525.5,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "8AA69AB5",
+        "description": "Interruptor Termomagnético QO215 | 2 Polos | 15 [A] | 240 [V]",
+        "unit": "pza",
+        "qty": 10.0,
+        "price": 850.5,
+        "total": 8505.0,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "7D6A1B33",
+        "description": "Interruptor Termomagnético QO240 | 2 Polos | 40 [A] | 240 [V]",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 850.5,
+        "total": 850.5,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "9814B089",
+        "description": "Interruptor Termomagnético QO260 | 2 Polos | 60 [A] | 240 [V]",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 850.5,
+        "total": 850.5,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "43181664",
+        "description": "Interruptor Termomagnético QO360 | 3 Polos | 60 [A] | 240 [V]",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 2445.95,
+        "total": 2445.95,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "959BD150",
+        "description": "Interruptor Termomagnético HDL36125 | 3 Polos | 125 [A] | 240 - 600 [V]",
+        "unit": "pza",
+        "qty": 1.0,
+        "price": 15965.3,
+        "total": 15965.3,
+        "catalog_description": "Schneider Electric | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "7FB42249",
+        "description": "Registro Eléctrico Galvanizado | 30x30x13 [cm]",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 450.35,
+        "total": 3602.8,
+        "catalog_description": "Himel | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      },
+      {
+        "catalog_item_id": "573F7605",
+        "description": "Registro Eléctrico Galvanizado | 56x56x13 [cm]",
+        "unit": "pza",
+        "qty": 4.0,
+        "price": 1100.6,
+        "total": 4402.4,
+        "catalog_description": "Himel | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "section": "ÁREAS GENERALES"
+      }
+    ],
+    "subtotal": 1266957.1,
+    "tax_rate": 16.0,
+    "tax": 202713.14,
+    "total": 1469670.24,
+    "currency": "MXN",
+    "notes": "",
+    "project_basis_note": "",
+    "created_at": "2026-06-03",
     "approval_status": "active"
   }
 ]
