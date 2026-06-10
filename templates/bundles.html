@@ -156,7 +156,7 @@
                         {% for item in catalog %}{{ catalog_option(item, component.catalog_item_id) }}{% endfor %}
                       </select>
                     </td>
-                    <td><input name="component_qty[]" type="number" step="0.0001" class="form-control form-control-sm text-end" value="{{ component.qty }}"></td>
+                    <td><input name="component_qty[]" type="number" step="any" class="form-control form-control-sm text-end" value="{{ component.qty }}"></td>
                     <td><input name="component_waste_pct[]" type="number" step="0.01" class="form-control form-control-sm text-end" value="{{ component.waste_pct }}"></td>
                     <td><input name="component_notes[]" class="form-control form-control-sm" value="{{ component.notes }}"></td>
                     <td class="text-end"><button type="button" class="btn btn-sm btn-outline-danger" onclick="removeComponentRow(this)"><i class="bi bi-x"></i></button></td>
@@ -233,7 +233,7 @@
         {% for item in catalog %}<option value="{{ item.id }}">{{ item.nombre }} · {{ item.unidad }}</option>{% endfor %}
       </select>
     </td>
-    <td><input name="component_qty[]" type="number" step="0.0001" class="form-control form-control-sm text-end" value="1"></td>
+    <td><input name="component_qty[]" type="number" step="any" class="form-control form-control-sm text-end" value="1"></td>
     <td><input name="component_waste_pct[]" type="number" step="0.01" class="form-control form-control-sm text-end" value="0"></td>
     <td><input name="component_notes[]" class="form-control form-control-sm"></td>
     <td class="text-end"><button type="button" class="btn btn-sm btn-outline-danger" onclick="removeComponentRow(this)"><i class="bi bi-x"></i></button></td>

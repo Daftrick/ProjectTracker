@@ -370,7 +370,7 @@
                 <td>
                   <input type="number" name="item_qty[]"
                          class="form-control form-control-sm"
-                         value="{{ item.qty }}" step="0.01" min="0">
+                         value="{{ item.qty }}" step="1" min="0">
                 </td>
                 <td class="text-end">
                   <div class="row-tools">
@@ -498,7 +498,7 @@
       <td><input name="item_unit[]" class="form-control form-control-sm"
                  value="${esc(unit||'pza')}"></td>
       <td><input type="number" name="item_qty[]" class="form-control form-control-sm"
-                 value="${qty||1}" step="0.01" min="0"></td>
+                 value="${qty||1}" step="1" min="0"></td>
       <td class="text-end">
         <div class="row-tools">
           <button type="button" class="btn btn-sm btn-outline-secondary"

@@ -338,8 +338,7 @@ def _find_bundle(bundles, bundle_id):
 
 def _find_version(bundle, version_number):
     target = int(version_number)
-    current = normalize_bundle(bundle)
-    return next((version for version in current.get("versions", []) if int(version.get("version", 0)) == target), None)
+    return next((version for version in (bundle or {}).get("versions", []) if int(version.get("version", 0)) == target), None)
 
 
 def _render_bundles(open_bundle_id=""):

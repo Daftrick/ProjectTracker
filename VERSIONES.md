@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v31.0 — 03-Jun-2026
+## Versión actual: v31.1 — 10-Jun-2026
 
 ---
 
@@ -460,6 +460,7 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
+| 2026-06-10 | **v31.1 — Ajustes de cantidades y fix de guardado de bundles**: las flechas de los campos de cantidad en cotizaciones, LDM e importación PDF ahora incrementan/decrementan en unidades enteras (`step="1"`); los componentes de bundle aceptan cualquier valor decimal (`step="any"`). Corregido bug en `_find_version` (`tracker/routes/admin.py`) que normalizaba el bundle dos veces y guardaba copias desconectadas: editar y guardar una versión de bundle no persistía los cambios (label, notas, componentes, cantidades). 177 tests. |
 | 2026-06-03 | **v31.0 — Validador CSV contra catálogo**: LDM y COT ahora bloquean la importación antes del preview si alguna partida no tiene coincidencia exacta contra `catalogo.nombre` normalizado o si la unidad del CSV no coincide con `catalogo.unidad`. LDM usa el mismo matching normalizado que COT; ambos parsers agregan `csv_row_number` para errores accionables. Nuevos tests de helper, parsers y rutas. 177 tests. |
 | 2026-06-03 | Versión bumped v30.0 → v31.0 (feature: validación estricta CSV LDM/COT contra catálogo). |
 | 2026-05-28 | **Documentación v30.0**: se actualizan árboles reales de `templates/` y `tests/`, tabla de rutas vigentes, conteo de suite a 167 tests, pendientes de bundles directos y estado parcial de sincronización asistida/filtros en los roadmaps. |

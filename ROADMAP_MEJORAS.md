@@ -48,6 +48,7 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 - [x] Filtros en detalle de proyecto para cotizaciones y LDMs: búsqueda local por texto/estado en el tab Cotización y filtro de LDMs en Materiales. Implementado en v30.0.
 - [x] Sincronización asistida inicial al crear LDM nueva: botón "Sugerir desde bundles" precarga faltantes derivados de la COT activa y conserva origen/metadatos de sincronización al guardar. Implementado en v30.0.
 - [x] Validador CSV contra catálogo: importaciones LDM y COT bloquean antes del preview si `description` no coincide con `catalogo.nombre` normalizado o si `unit` no coincide con `catalogo.unidad`; errores incluyen fila de origen. Implementado en v31.0.
+- [x] Cantidades en flechas de cotización/LDM en unidades enteras (`step="1"`); componentes de bundle sin restricción de step (`step="any"`). Fix de bug de guardado de versiones de bundle (`_find_version` normalizaba dos veces y descartaba ediciones). Implementado en v31.1.
 
 ---
 
