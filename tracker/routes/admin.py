@@ -450,7 +450,7 @@ def add_bundle_version_route(bundle_id):
         flash("Bundle no encontrado.", "danger")
         return redirect(url_for("bundles"))
     source_version_number = int(_parse_float(request.form.get("source_version"), 0))
-    source = _find_version(bundle, source_version_number) if source_version_number else get_active_bundle_version(bundle)
+    source = _find_version(normalize_bundle(bundle), source_version_number) if source_version_number else get_active_bundle_version(bundle)
     components = [dict(component) for component in (source or {}).get("components", [])]
     make_active = bool(request.form.get("make_active"))
     updated = add_bundle_version(
