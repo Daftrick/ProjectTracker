@@ -49,6 +49,7 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 - [x] Sincronización asistida inicial al crear LDM nueva: botón "Sugerir desde bundles" precarga faltantes derivados de la COT activa y conserva origen/metadatos de sincronización al guardar. Implementado en v30.0.
 - [x] Validador CSV contra catálogo: importaciones LDM y COT bloquean antes del preview si `description` no coincide con `catalogo.nombre` normalizado o si `unit` no coincide con `catalogo.unidad`; errores incluyen fila de origen. Implementado en v31.0.
 - [x] Cantidades en flechas de cotización/LDM en unidades enteras (`step="1"`); componentes de bundle sin restricción de step (`step="any"`). Fix de bug de guardado de versiones de bundle (`_find_version` normalizaba dos veces y descartaba ediciones). Implementado en v31.1.
+- [x] Fix de "Duplicar versión" de bundle: `add_bundle_version_route` ahora normaliza el bundle antes de buscar la versión origen con `_find_version`, evitando crear versiones duplicadas vacías cuando la versión origen es legacy/incompleta. Implementado en v31.2.
 
 ---
 
