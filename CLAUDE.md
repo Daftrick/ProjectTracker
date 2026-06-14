@@ -59,13 +59,11 @@ After modifying code files in this session, run:
 graphify update .
 ```
 
-<!-- gstack: DESHABILITADO temporalmente — no instalado en este entorno (Windows).
-     Reactivar quitando estos comentarios una vez que gstack funcione (vía WSL).
-
 ## gstack
 
-Use the `/browse` skill from gstack for all web browsing. Never use
-`mcp__claude-in-chrome__*` tools.
+gstack is installed. Prefer the `/browse` skill from gstack for web browsing.
+On environments where gstack's browser is unavailable (e.g. Windows), fall back
+to the `mcp__claude-in-chrome__*` tools so browsing keeps working.
 
 Available gstack skills: /office-hours, /plan-ceo-review, /plan-eng-review,
 /plan-design-review, /design-consultation, /design-shotgun, /design-html,
@@ -74,4 +72,3 @@ Available gstack skills: /office-hours, /plan-ceo-review, /plan-eng-review,
 /setup-deploy, /setup-gbrain, /retro, /investigate, /document-release,
 /document-generate, /codex, /cso, /autoplan, /plan-devex-review,
 /devex-review, /careful, /freeze, /guard, /unfreeze, /gstack-upgrade, /learn.
--->
