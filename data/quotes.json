@@ -6335,13 +6335,13 @@
   {
     "id": "F8940BCE",
     "project_id": "E663C153",
-    "quote_number": "COT-CasaLeonides-RSF-G01-20260601",
+    "quote_number": "COT-CasaLeonides-RSF-G01-20260612",
     "quote_type": "General",
-    "version": "V1",
+    "version": "V2",
     "client": "Arteck",
     "project_name": "Reserva Santa Fé - Casa Leonides",
-    "date": "2026-06-01",
-    "valid_until": "2026-06-08",
+    "date": "2026-06-12",
+    "valid_until": "2026-06-19",
     "items": [
       {
         "catalog_item_id": "42075597",
@@ -6355,7 +6355,7 @@
       },
       {
         "catalog_item_id": "4C172E56",
-        "description": "Salida Eléctrica para Apagador en Muro",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
         "unit": "pza",
         "qty": 18.0,
         "price": 1380.15,
@@ -6414,6 +6414,16 @@
         "section": "INSTALACIÓN ELÉCTRICA"
       },
       {
+        "catalog_item_id": "3342F40E",
+        "description": "Salida Eléctrica de Fuerza en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 15.0,
+        "price": 1985.75,
+        "total": 29786.25,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "INSTALACIÓN ELÉCTRICA"
+      },
+      {
         "catalog_item_id": "DF89D08C",
         "description": "Salida Eléctrica para Equipo de HVAC en Muro, Piso o Plafón",
         "unit": "pza",
@@ -6430,7 +6440,7 @@
         "qty": 13.0,
         "price": 4105.1,
         "total": 53366.3,
-        "catalog_description": "Omniious | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
         "section": "INSTALACIÓN ELÉCTRICA"
       },
       {
@@ -6450,7 +6460,7 @@
         "qty": 5.0,
         "price": 1225.95,
         "total": 6129.75,
-        "catalog_description": "Omniious | Incluye Suministro, Instalación, Herramienta y Mano de Obra",
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
         "section": "INSTALACIÓN ELÉCTRICA"
       },
       {
@@ -6744,10 +6754,10 @@
         "section": "ALIMENTADORES ELÉCTRICOS Y SUBESTACIÓN"
       }
     ],
-    "subtotal": 3664123.9,
+    "subtotal": 3693910.15,
     "tax_rate": 16.0,
-    "tax": 586259.82,
-    "total": 4250383.72,
+    "tax": 591025.62,
+    "total": 4284935.77,
     "currency": "MXN",
     "notes": "",
     "project_basis_note": "",
@@ -8485,5 +8495,56 @@
     "project_basis_note": "",
     "created_at": "2026-06-03",
     "approval_status": "active"
+  },
+  {
+    "id": "1638ACDD",
+    "project_id": "AF769AD6",
+    "quote_number": "COT-P.SecretoLT21-BosqueReal-G01-20260612",
+    "quote_type": "General",
+    "version": "V1",
+    "client": "Arteck",
+    "project_name": "Privada del Secreto LT 21 - Bosque Real",
+    "date": "2026-06-12",
+    "valid_until": "2026-06-19",
+    "items": [
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 8.0,
+        "price": 0.0,
+        "total": 0.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SÓTANO"
+      },
+      {
+        "catalog_item_id": "1F183CFD",
+        "description": "Salida Eléctrica para Contacto en Muro, Piso o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 0.0,
+        "total": 0.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SÓTANO"
+      },
+      {
+        "catalog_item_id": "4C172E56",
+        "description": "Salida Eléctrica para Apagador / Sensor en Muro o Plafón",
+        "unit": "pza",
+        "qty": 2.0,
+        "price": 0.0,
+        "total": 0.0,
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "section": "SÓTANO"
+      }
+    ],
+    "subtotal": 0.0,
+    "tax_rate": 16.0,
+    "tax": 0.0,
+    "total": 0.0,
+    "currency": "MXN",
+    "notes": "",
+    "project_basis_note": "",
+    "created_at": "2026-06-12"
   }
 ]

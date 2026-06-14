@@ -163,5 +163,20 @@
     "folder_num": "009",
     "closed_at": null,
     "created_at": "2026-05-25"
+  },
+  {
+    "id": "AF769AD6",
+    "name": "Privada del Secreto LT 21 - Bosque Real",
+    "clave": "P.SecretoLT21-BosqueReal",
+    "client": "Arteck",
+    "version": "V1",
+    "fecha": "260612",
+    "alcances": [
+      "cotizacion"
+    ],
+    "notes": "",
+    "folder_num": "010",
+    "closed_at": null,
+    "created_at": "2026-06-12"
   }
 ]

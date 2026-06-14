@@ -1238,5 +1238,25 @@
       }
     ],
     "created_at": "2026-05-25"
+  },
+  {
+    "id": "78FB5CAD",
+    "project_id": "AF769AD6",
+    "alcance": "cotizacion",
+    "title": "Cotización",
+    "source": "propia",
+    "external_dep": null,
+    "status": "Pendiente",
+    "parent_task_id": null,
+    "notes": "",
+    "history": [
+      {
+        "from": null,
+        "to": "Pendiente",
+        "date": "2026-06-12",
+        "note": "Creado con el proyecto"
+      }
+    ],
+    "created_at": "2026-06-12"
   }
 ]

@@ -4489,5 +4489,14 @@
     "precio": 0.0,
     "categoria": "Salida",
     "created_at": "2026-06-03"
+  },
+  {
+    "id": "3342F40E",
+    "nombre": "Salida Eléctrica de Fuerza en Muro, Piso o Plafón",
+    "descripcion": "Omniious | Incluye Herramienta y Mano de Obra",
+    "unidad": "pza",
+    "precio": 0.0,
+    "categoria": "",
+    "created_at": "2026-06-12"
   }
 ]
