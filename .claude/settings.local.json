@@ -29,7 +29,8 @@
       "Bash(python -c ' *)",
       "Bash(cat app.py)",
       "Bash(cat run.py)",
-      "Bash(cat wsgi.py)"
+      "Bash(cat wsgi.py)",
+      "Bash(pkill -f \"gstack/browse\")"
     ]
   }
 }
