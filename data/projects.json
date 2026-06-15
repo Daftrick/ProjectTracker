@@ -20,7 +20,9 @@
     "notes": "Proyecto de Eléctrico de Prueba.",
     "folder_num": "001",
     "closed_at": null,
-    "created_at": "2026-04-19"
+    "created_at": "2026-04-19",
+    "deadline": null,
+    "updated_at": "2026-04-19"
   },
   {
     "id": "E663C153",
@@ -42,7 +44,9 @@
     "notes": "Desarrollo Inmobiliario Reserva Santa Fe, Calle Jilguero, Lote 1011 & 1013, Santa María Atarasquillo Sección Cieneguillas, C.P. 52044, Estado de México.",
     "folder_num": "002",
     "closed_at": null,
-    "created_at": "2026-04-19"
+    "created_at": "2026-04-19",
+    "deadline": null,
+    "updated_at": "2026-04-19"
   },
   {
     "id": "8CC7C53F",
@@ -62,7 +66,9 @@
     "notes": "Av. Loma de la Palma 18, Lomas de Vista Hermosa, Cuajimalpa de Morelos, C.P. 05100, Ciudad de México, CDMX",
     "folder_num": "003",
     "closed_at": null,
-    "created_at": "2026-04-19"
+    "created_at": "2026-04-19",
+    "deadline": null,
+    "updated_at": "2026-04-19"
   },
   {
     "id": "4A25C802",
@@ -82,7 +88,9 @@
     "notes": "Corporativo Palmas Uno, Blvd. Palmas Hills 1-MZ 002, Valle de las Palmas, C.P. 52787, Naucalpan de Juárez, Estado de México.",
     "folder_num": "004",
     "closed_at": null,
-    "created_at": "2026-04-19"
+    "created_at": "2026-04-19",
+    "deadline": null,
+    "updated_at": "2026-04-19"
   },
   {
     "id": "BCBDACF2",
@@ -97,7 +105,9 @@
     "notes": "Cotización de Remodelación de Instalaciones Eléctricas de Iluminación y Contactos",
     "folder_num": "005",
     "closed_at": null,
-    "created_at": "2026-04-30"
+    "created_at": "2026-04-30",
+    "deadline": null,
+    "updated_at": "2026-04-30"
   },
   {
     "id": "CC59E153",
@@ -112,7 +122,9 @@
     "notes": "Proyecto de Remodelación de Plaza Comercial",
     "folder_num": "006",
     "closed_at": null,
-    "created_at": "2026-05-19"
+    "created_at": "2026-05-19",
+    "deadline": null,
+    "updated_at": "2026-05-19"
   },
   {
     "id": "43A4F936",
@@ -127,7 +139,9 @@
     "notes": "Proyecto de Contra Especificación Eléctrica",
     "folder_num": "007",
     "closed_at": null,
-    "created_at": "2026-05-25"
+    "created_at": "2026-05-25",
+    "deadline": null,
+    "updated_at": "2026-05-25"
   },
   {
     "id": "C3B1A649",
@@ -147,7 +161,9 @@
     "notes": "Proyecto Eléctrico A. Vélez - Ruben Dario 175 - Piso 15.",
     "folder_num": "008",
     "closed_at": null,
-    "created_at": "2026-05-25"
+    "created_at": "2026-05-25",
+    "deadline": null,
+    "updated_at": "2026-05-25"
   },
   {
     "id": "A95BFA9F",
@@ -162,7 +178,9 @@
     "notes": "Pico Love - Oficinas. Cotización de Obra Instalaciones Eléctricas.",
     "folder_num": "009",
     "closed_at": null,
-    "created_at": "2026-05-25"
+    "created_at": "2026-05-25",
+    "deadline": null,
+    "updated_at": "2026-05-25"
   },
   {
     "id": "AF769AD6",
@@ -177,6 +195,8 @@
     "notes": "",
     "folder_num": "010",
     "closed_at": null,
-    "created_at": "2026-06-12"
+    "created_at": "2026-06-12",
+    "deadline": null,
+    "updated_at": "2026-06-12"
   }
 ]
