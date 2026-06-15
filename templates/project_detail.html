@@ -1660,6 +1660,11 @@
             <div class="col-12">
               <div class="file-name-badge" id="editPreview">{{ file_ie }}</div>
             </div>
+            <div class="col-md-6">
+              <label class="form-label">Deadline</label>
+              <input type="date" name="deadline" class="form-control"
+                     value="{{ project.deadline or '' }}">
+            </div>
             <div class="col-12">
               <label class="form-label">Notas</label>
               <textarea name="notes" class="form-control" rows="2">{{ project.notes }}</textarea>

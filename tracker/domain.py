@@ -65,3 +65,40 @@ def currency(v):
 
 def today_short():
     return date.today().strftime("%y%m%d")
+
+
+def project_semaphore(project, today_str):
+    """Returns 'verde', 'amarillo', 'rojo', or 'gris' based on deadline and inactivity."""
+    deadline = project.get("deadline")
+    updated_at = project.get("updated_at")
+
+    try:
+        today_date = date.fromisoformat(today_str)
+    except Exception:
+        return "gris"
+
+    days_inactive = None
+    if updated_at:
+        try:
+            days_inactive = (today_date - date.fromisoformat(updated_at)).days
+        except Exception:
+            pass
+
+    days_to_deadline = None
+    if deadline:
+        try:
+            days_to_deadline = (date.fromisoformat(deadline) - today_date).days
+        except Exception:
+            pass
+
+    if days_to_deadline is not None and days_to_deadline <= 3:
+        return "rojo"
+    if days_inactive is not None and days_inactive >= 7:
+        return "rojo"
+    if days_to_deadline is not None and days_to_deadline <= 7:
+        return "amarillo"
+    if days_inactive is not None and days_inactive >= 3:
+        return "amarillo"
+    if days_to_deadline is not None and days_inactive is not None and days_inactive < 3:
+        return "verde"
+    return "gris"

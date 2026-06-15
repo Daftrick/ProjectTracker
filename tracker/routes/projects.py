@@ -9,7 +9,7 @@ from flask import Blueprint, abort, flash, redirect, render_template, request, s
 from ..catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from ..consistency import compute_consistency
 from ..deletions import delete_project_data
-from ..domain import ALCANCES, get_progress
+from ..domain import ALCANCES, get_progress, project_semaphore
 from ..drive import active_drive_paths, create_project_folder, current_platform_key, find_delivery_files, folder_name, load_config, save_config, scan_drive_folder
 from ..project_view import build_project_detail_context
 from ..services import (
@@ -71,6 +71,7 @@ def dashboard():
             hydrated_ldms,
             catalog_by_id,
         )
+        project["semaphore"] = project_semaphore(project, today())
 
     active = [project for project in projects if not project.get("closed_at") and project.get("status") != "Completado"]
     completed = [project for project in projects if not project.get("closed_at") and project.get("status") == "Completado"]
@@ -98,6 +99,8 @@ def new_project():
         project, tasks = create_project_with_tasks(
             projects, load("tasks"), validation["fields"], validation["alcances"]
         )
+        project["deadline"] = request.form.get("deadline", "").strip() or None
+        project["updated_at"] = today()
         projects.append(project)
         save("projects", projects)
         save("tasks", tasks)
@@ -147,6 +150,8 @@ def update_project(project_id):
         project["version"] = request.form.get("version", project["version"]).strip()
         project["fecha"] = request.form.get("fecha", project["fecha"]).strip()
         project["notes"] = request.form.get("notes", "").strip()
+        project["deadline"] = request.form.get("deadline", "").strip() or None
+        project["updated_at"] = today()
         save("projects", projects)
         flash("Proyecto actualizado.", "success")
     return redirect(url_for("project_detail", project_id=project_id))
@@ -354,6 +359,7 @@ def update_project_alcances(project_id):
         return redirect(url_for("dashboard"))
     new_alcances = request.form.getlist("alcances")
     result = sync_project_alcances(project, load("tasks"), new_alcances)
+    project["updated_at"] = today()
     save("projects", projects)
     save("tasks", result["tasks"])
     if result["added"] or result["removed"]:

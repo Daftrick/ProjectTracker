@@ -29,6 +29,13 @@
   .bdg-warning  { background: rgba(220,170,80,.18);  color: #d8b164; }
   .bdg-critical { background: rgba(220,90,90,.20);   color: #e08585; }
   .bdg-no_data  { background: rgba(255,255,255,.05); color: #6b7280; }
+
+  /* Semáforo de proyectos */
+  .semaforo { display:inline-block; width:10px; height:10px; border-radius:50%; flex-shrink:0; margin-top:3px; }
+  .semaforo-verde    { background:#22c55e; box-shadow:0 0 5px rgba(34,197,94,.5); }
+  .semaforo-amarillo { background:#eab308; box-shadow:0 0 5px rgba(234,179,8,.5); }
+  .semaforo-rojo     { background:#ef4444; box-shadow:0 0 5px rgba(239,68,68,.5); }
+  .semaforo-gris     { background:#4b5563; }
 </style>
 {% endblock %}
 
@@ -42,12 +49,16 @@
     <div class="card h-100">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-start mb-2">
-          <div>
+          <div class="d-flex align-items-start gap-2">
+            <span class="semaforo semaforo-{{ p.semaphore }}"
+                  title="{% if p.semaphore == 'verde' %}Al día{% elif p.semaphore == 'amarillo' %}Atención{% elif p.semaphore == 'rojo' %}Urgente{% else %}Sin deadline{% endif %}"></span>
+            <div>
             <h6 class="mb-0 fw-bold">{{ p.name }}</h6>
             <small class="text-muted font-monospace">{{ p.clave }}</small>
             {% if p.folder_num %}
             <span class="badge bg-secondary ms-1" style="font-size:.65rem">IE-{{ p.folder_num }}</span>
             {% endif %}
+            </div>
           </div>
           <span class="badge ps-{{ p.status | replace(' ', '-') }}">{{ p.status }}</span>
         </div>
