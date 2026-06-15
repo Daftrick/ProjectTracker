@@ -359,6 +359,10 @@
                     title="Mover las partidas seleccionadas a la sección destino">
               <i class="bi bi-arrow-right-circle me-1"></i>Mover
             </button>
+            <button type="button" class="btn btn-sm btn-outline-success" onclick="copySelectedToSection()"
+                    title="Copiar las partidas seleccionadas a la sección destino">
+              <i class="bi bi-copy me-1"></i>Copiar
+            </button>
             <button type="button" class="btn btn-sm btn-outline-info" onclick="openCopyToMultiModal()"
                     title="Copiar las partidas seleccionadas a una o más secciones">
               <i class="bi bi-files me-1"></i>Copiar a secciones…
@@ -922,6 +926,33 @@
     });
   }
 
+  function showBulkCopyFeedback(total, sectionCount) {
+    const bar = document.querySelector('.quote-bar .totals');
+    if (!bar) return;
+    const msg = document.createElement('span');
+    msg.className = 'text-info';
+    msg.style.fontSize = '.8rem';
+    msg.textContent = `✓ ${total} partida${total !== 1 ? 's' : ''} copiada${total !== 1 ? 's' : ''} a ${sectionCount} sección${sectionCount !== 1 ? 'es' : ''}`;
+    bar.appendChild(msg);
+    setTimeout(() => msg.remove(), 3000);
+  }
+
+  function copySelectedToSection() {
+    const selected = getSelectedItemRows();
+    if (!selected.length) return;
+    const select = document.getElementById('bulkSectionSelect');
+    const sectionIdx = parseInt(select.value);
+    if (isNaN(sectionIdx)) return;
+
+    _copyRowsToSectionIdx(selected, sectionIdx);
+
+    syncItemSections();
+    updateTotals();
+    clearSelection();
+    if (typeof applyPartidaFilter === 'function') applyPartidaFilter();
+    showBulkCopyFeedback(selected.length, 1);
+  }
+
   // ── Copiar a múltiples secciones ────────────────────────────────────────────
   function openCopyToMultiModal() {
     const selected = getSelectedItemRows();
@@ -972,16 +1003,7 @@
     bootstrap.Modal.getInstance(document.getElementById('copyToMultiModal')).hide();
 
     const total = selected.length * checkedIdxs.length;
-    // Feedback visual breve en la barra fija
-    const bar = document.querySelector('.quote-bar .totals');
-    if (bar) {
-      const msg = document.createElement('span');
-      msg.className = 'text-info';
-      msg.style.fontSize = '.8rem';
-      msg.textContent = `✓ ${total} partida${total !== 1 ? 's' : ''} copiada${total !== 1 ? 's' : ''} a ${checkedIdxs.length} sección${checkedIdxs.length !== 1 ? 'es' : ''}`;
-      bar.appendChild(msg);
-      setTimeout(() => msg.remove(), 3000);
-    }
+    showBulkCopyFeedback(total, checkedIdxs.length);
   }
 
   function deleteSelectedRows() {
