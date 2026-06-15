@@ -50,6 +50,11 @@ def quote_from_form(form, fallback_quote=None):
         raw_section = sections[index] if index < len(sections) else ""
         if kind == "section":
             current_section = raw_section.strip()
+            if current_section:
+                items.append({
+                    "kind": "section",
+                    "section": current_section,
+                })
             continue
         section = raw_section.strip() or current_section
         qty = qtys[index] if index < len(qtys) else "1"

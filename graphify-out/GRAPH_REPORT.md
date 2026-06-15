@@ -1,12 +1,12 @@
 # Graph Report - ProjectTracker  (2026-06-15)
 
 ## Corpus Check
-- 58 files · ~88,284 words
+- 58 files · ~88,568 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1180 nodes · 3036 edges · 41 communities detected
-- Extraction: 81% EXTRACTED · 19% INFERRED · 0% AMBIGUOUS · INFERRED: 570 edges (avg confidence: 0.8)
+- 1200 nodes · 3067 edges · 40 communities detected
+- Extraction: 81% EXTRACTED · 19% INFERRED · 0% AMBIGUOUS · INFERRED: 577 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
@@ -48,15 +48,14 @@
 - [[_COMMUNITY_Community 35|Community 35]]
 - [[_COMMUNITY_Community 36|Community 36]]
 - [[_COMMUNITY_Community 37|Community 37]]
-- [[_COMMUNITY_Community 38|Community 38]]
-- [[_COMMUNITY_Community 40|Community 40]]
-- [[_COMMUNITY_Community 56|Community 56]]
+- [[_COMMUNITY_Community 39|Community 39]]
+- [[_COMMUNITY_Community 55|Community 55]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `load()` - 117 edges
 2. `save()` - 80 edges
 3. `today()` - 43 edges
-4. `compute_consistency()` - 29 edges
+4. `compute_consistency()` - 30 edges
 5. `build_project_detail_context()` - 28 edges
 6. `catalog_maps()` - 26 edges
 7. `parse_quote_csv()` - 26 edges
@@ -85,79 +84,79 @@
 
 ### Community 0 - "Community 0"
 Cohesion: 0.05
-Nodes (87): ldm_pdf(), _project_drive_folder(), create_drive_folder(), Crea la carpeta Drive del proyecto si aún no existe., Crea la carpeta Drive del proyecto si aún no existe., serve_project_file(), quote_excel(), quote_pdf() (+79 more)
+Nodes (80): ldm_pdf(), _project_drive_folder(), create_delivery(), serve_project_file(), quote_pdf(), DriveCsvStatusTest, active_drive_paths(), batch_scan_drive_folders() (+72 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.09
-Nodes (93): activate_bundle_version_route(), add_bundle_version_route(), add_comparison_ignored(), api_catalogo(), api_catalogo_add(), api_catalogo_categorias(), api_catalogo_impact(), bulk_delete_catalogo() (+85 more)
+Cohesion: 0.05
+Nodes (76): approve_quote_route(), audit_deleted_catalog(), _build_quote_workbook(), delete_quote(), edit_quote(), _find_project(), _flash_csv_catalog_errors(), import_quote_csv() (+68 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.05
-Nodes (71): dashboard(), approve_quote_route(), _build_quote_workbook(), delete_quote(), edit_quote(), _find_project(), _flash_csv_catalog_errors(), import_quote_csv() (+63 more)
+Cohesion: 0.1
+Nodes (78): activate_bundle_version_route(), add_bundle_version_route(), add_comparison_ignored(), api_catalogo(), api_catalogo_add(), api_catalogo_categorias(), api_catalogo_impact(), bulk_delete_catalogo() (+70 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.04
 Nodes (66): Inyeccion app_version via Context Processor, Status Badges CSS bs-* ps-* src-*, Bootstrap Icons 1.11.3 CDN, Bootstrap 5.3.2 CDN, JS confirmDelete y submitFormWithConfirm, Flash Messages Display, Base Layout Template base.html, Modal Confirmacion Destructiva #modalConfirmDelete (+58 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.09
-Nodes (50): active_ignored_items(), _clean(), ignored_catalog_ids(), ignored_catalog_map(), normalize_ignored_item(), Artículos ignorados en comparación COT/LDM.  Los artículos ignorados siguen form, Normaliza una regla de artículo ignorado., Devuelve reglas activas aplicables al scope solicitado. (+42 more)
+Cohesion: 0.08
+Nodes (55): active_ignored_items(), _clean(), ignored_catalog_ids(), ignored_catalog_map(), normalize_ignored_item(), Artículos ignorados en comparación COT/LDM.  Los artículos ignorados siguen form, Normaliza una regla de artículo ignorado., Devuelve reglas activas aplicables al scope solicitado. (+47 more)
 
 ### Community 5 - "Community 5"
+Cohesion: 0.09
+Nodes (37): _blank_project_form_state(), close_project(), create_drive_folder(), dashboard(), delete_delivery(), delete_project(), new_project(), project_detail() (+29 more)
+
+### Community 6 - "Community 6"
+Cohesion: 0.09
+Nodes (42): api_ldm_set_costo(), _attach_csv_item_metadata(), _bundle_suggestion_ldm(), _clean_form_text(), _clear_pdf_import(), _csv_already_imported(), _csv_item_lookup(), _csv_number() (+34 more)
+
+### Community 7 - "Community 7"
 Cohesion: 0.07
 Nodes (26): LdmCsvImportTest, CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error         legib, CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error         legib, LdmTubeFixturesTest, Tests parametrizados para importación CSV de tubería conduit.  Cubre los 6 tipos, Múltiples tipos de tubería en un mismo archivo LDM., Metadata #proveedor y #fecha post-header (formato real del LISP)., Escribe un CSV LDM con header estándar y filas dadas.      meta_rows: lista de t (+18 more)
 
-### Community 6 - "Community 6"
+### Community 8 - "Community 8"
 Cohesion: 0.07
 Nodes (25): QuoteCsvImportTest, QuoteSymbolFixturesTest, CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error         legib, CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error         legib, CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error         legib, CotTubeFixturesTest, Metadata #proyecto_clave y #quote_type del archivo COT LISP., Múltiples tipos y diámetros en un solo archivo COT. (+17 more)
 
-### Community 7 - "Community 7"
+### Community 9 - "Community 9"
 Cohesion: 0.08
 Nodes (48): API Endpoint /api/catalogo/add, API Endpoint /api/catalogo/bulk-delete, API Endpoint /api/catalogo, Audit Deleted Catalog Template, Base Layout Template, Bundle Entity (COT Commercial Item + LDM Components), Bundles Template, Catalog Inline AJAX Edit Pattern (+40 more)
 
-### Community 8 - "Community 8"
-Cohesion: 0.12
-Nodes (32): ProjectViewTest, check_blocked(), currency(), fdate(), get_progress(), today_short(), _as_float(), build_consistency_view() (+24 more)
+### Community 10 - "Community 10"
+Cohesion: 0.1
+Nodes (42): activate_bundle_version(), add_bundle_version(), bundle_by_catalog_item_id(), _clean(), create_bundle(), delete_bundle_version(), expand_quote_bundles(), get_active_bundle_version() (+34 more)
 
-### Community 9 - "Community 9"
+### Community 11 - "Community 11"
 Cohesion: 0.11
 Nodes (29): LdmSyncTest, MaterialsSyncRouteTest, Pruebas de sincronizacion parcial LDM desde bundles., setUpClass(), active_rules(), aggregate_ldm_for_expected_items(), apply_rounding(), _clean() (+21 more)
 
-### Community 10 - "Community 10"
+### Community 12 - "Community 12"
 Cohesion: 0.13
 Nodes (16): AggregateLdmItemsTest, AggregateQuoteItemsTest, BundleConsistencyIntegrationTest, ClassifyMarginTest, CompareItemsTest, ComputeConsistencyTest, IgnoredItemsConsistencyTest, _l_item() (+8 more)
 
-### Community 11 - "Community 11"
-Cohesion: 0.13
-Nodes (39): api_ldm_set_costo(), _attach_csv_item_metadata(), _bundle_suggestion_ldm(), _clean_form_text(), _clear_pdf_import(), _csv_already_imported(), _csv_item_lookup(), _csv_number() (+31 more)
-
-### Community 12 - "Community 12"
+### Community 13 - "Community 13"
 Cohesion: 0.07
 Nodes (39): catalog.py hydrate_quote/ldm(), CLAUDE.md Graphify Rules, consistency.py compute_consistency(), csv_import.py parse_ldm_csv(), CSV Import API Routes (Pending), Catálogo Data Structure, Cotización al Cliente (COT) Data Structure, Lista de Materiales (LDM) Data Structure (+31 more)
 
-### Community 13 - "Community 13"
-Cohesion: 0.15
-Nodes (32): activate_bundle_version(), add_bundle_version(), bundle_by_catalog_item_id(), _clean(), create_bundle(), delete_bundle_version(), expand_quote_bundles(), get_active_bundle_version() (+24 more)
-
 ### Community 14 - "Community 14"
-Cohesion: 0.08
-Nodes (26): audit_deleted_catalog(), preserve_deleted_item(), Restore a deleted catalog item by reconnecting it to a new catalog item, Mark a deleted catalog item as preserved (keep historical reference), Audit all quotes and LDMs for deleted catalog items, Restore a deleted catalog item by reconnecting it to a new catalog item, Restore a deleted catalog item by reconnecting it to a new catalog item, Mark a deleted catalog item as preserved (keep historical reference) (+18 more)
+Cohesion: 0.15
+Nodes (27): ProjectViewTest, _as_float(), build_consistency_view(), build_drive_scan_view(), build_ldm_row_views(), build_project_detail_context(), build_quote_row_views(), build_task_row_views() (+19 more)
 
 ### Community 15 - "Community 15"
 Cohesion: 0.09
 Nodes (8): ApiCatalogoTest, FilterCatalogTest, ListCategoriesTest, MatchItemTest, Pruebas para tracker.catalog_search y la API /api/catalogo., Smoke-test del endpoint JSON; no muta datos., setUpClass(), TokenizeTest
 
 ### Community 16 - "Community 16"
-Cohesion: 0.17
-Nodes (11): IdFactory, ProjectServicesTest, apply_task_status_change(), build_checklist_items(), build_edited_checklist_items(), build_scope_task(), create_project_with_tasks(), next_folder_number() (+3 more)
+Cohesion: 0.1
+Nodes (21): preserve_deleted_item(), Restore a deleted catalog item by reconnecting it to a new catalog item, Mark a deleted catalog item as preserved (keep historical reference), Restore a deleted catalog item by reconnecting it to a new catalog item, Restore a deleted catalog item by reconnecting it to a new catalog item, Mark a deleted catalog item as preserved (keep historical reference), Restore a deleted catalog item by reconnecting it to a new catalog item, Mark a deleted catalog item as preserved (keep historical reference) (+13 more)
 
 ### Community 17 - "Community 17"
-Cohesion: 0.16
-Nodes (15): AdminFilterHelpersTest, AdminFilterRouteTest, Pruebas de filtros administrativos para proveedores y fichas., setUpClass(), filter_fichas(), filter_proveedores(), _indexed(), list_field_values() (+7 more)
+Cohesion: 0.21
+Nodes (12): ValidatorsTest, _clean(), _deleted_catalog_item_at(), _is_blank(), _parse_float(), _parse_ldm_items(), _parse_quote_items(), _validate_iso_date() (+4 more)
 
 ### Community 18 - "Community 18"
-Cohesion: 0.22
-Nodes (12): ValidatorsTest, _clean(), _deleted_catalog_item_at(), _is_blank(), _parse_float(), _parse_ldm_items(), _parse_quote_items(), _validate_iso_date() (+4 more)
+Cohesion: 0.16
+Nodes (15): AdminFilterHelpersTest, AdminFilterRouteTest, Pruebas de filtros administrativos para proveedores y fichas., setUpClass(), filter_fichas(), filter_proveedores(), _indexed(), list_field_values() (+7 more)
 
 ### Community 19 - "Community 19"
 Cohesion: 0.35
@@ -209,46 +208,42 @@ Nodes (2): LdmPdfImportRoutesTest, setUpClass()
 
 ### Community 31 - "Community 31"
 Cohesion: 0.29
-Nodes (1): QuoteSectionsTest
-
-### Community 32 - "Community 32"
-Cohesion: 0.29
 Nodes (1): ConversionRulesTest
 
-### Community 33 - "Community 33"
+### Community 32 - "Community 32"
 Cohesion: 0.33
 Nodes (1): ComparisonIgnoredTest
 
-### Community 34 - "Community 34"
+### Community 33 - "Community 33"
 Cohesion: 0.4
 Nodes (1): LdmCsvImportRouteTest
 
-### Community 35 - "Community 35"
+### Community 34 - "Community 34"
 Cohesion: 0.7
 Nodes (3): iter_python_files(), main(), Parse project Python files without writing bytecode.
 
-### Community 36 - "Community 36"
+### Community 35 - "Community 35"
 Cohesion: 0.5
 Nodes (2): _is_truthy(), Reconoce '1', 'true', 'yes', 'on' (case-insensitive) como verdadero.
 
-### Community 37 - "Community 37"
+### Community 36 - "Community 36"
 Cohesion: 0.67
 Nodes (3): Flask Dependency, openpyxl Dependency, Tech Stack Declaration
 
-### Community 38 - "Community 38"
+### Community 37 - "Community 37"
 Cohesion: 0.67
 Nodes (1): fpdf2 Dependency
 
-### Community 40 - "Community 40"
+### Community 39 - "Community 39"
 Cohesion: 1.0
 Nodes (2): Data Integrity Rules (R1-R7), ProjectTracker System Rationale
 
-### Community 56 - "Community 56"
+### Community 55 - "Community 55"
 Cohesion: 1.0
 Nodes (1): Roadmap Completed Features
 
 ## Knowledge Gaps
-- **227 isolated node(s):** `Reconoce '1', 'true', 'yes', 'on' (case-insensitive) como verdadero.`, `Smoke-test del endpoint JSON; no muta datos.`, `Sin General, usa la Preliminar más reciente. Las Extraordinarias no son base.`, `Con approval_status explícito, elige la marcada como active aunque no sea la más`, `Extraordinaria no puede ser cotización base aunque sea la única del proyecto.` (+222 more)
+- **242 isolated node(s):** `Reconoce '1', 'true', 'yes', 'on' (case-insensitive) como verdadero.`, `Smoke-test del endpoint JSON; no muta datos.`, `Sin General, usa la Preliminar más reciente. Las Extraordinarias no son base.`, `Con approval_status explícito, elige la marcada como active aunque no sea la más`, `Extraordinaria no puede ser cotización base aunque sea la única del proyecto.` (+237 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **Thin community `Community 22`** (13 nodes): `CsvCotFilenameTest`, `.setUp()`, `.test_case_insensitive()`, `.test_decorate_marks_desactualizado_when_newer_exists()`, `.test_decorate_marks_importado_when_linked()`, `.test_decorate_marks_pending_unlinked()`, `.test_parses_valid_cot_csv()`, `.test_rejects_ldm_csv()`, `.test_rejects_wrong_clave()`, `.test_version_key_invalid_returns_sentinel()`, `.test_version_key_ordering()`, `test_drive.py`, `Tests para parse_csv_cot_filename y decorate_csv_cot.`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
@@ -262,32 +257,30 @@ Nodes (1): Roadmap Completed Features
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 30`** (7 nodes): `test_ldm_pdf_import_routes.py`, `LdmPdfImportRoutesTest`, `.test_create_pdf_import_is_blocked_when_project_is_closed()`, `.test_upload_pdf_is_blocked_when_project_is_closed()`, `.test_upload_stores_pdf_import_payload_outside_cookie_session()`, `test_ldm_pdf_import_routes.py`, `setUpClass()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 31`** (7 nodes): `test_quote_sections.py`, `test_quote_sections.py`, `QuoteSectionsTest`, `.test_quote_form_has_quick_copy_to_selected_section()`, `.test_quote_form_rebuilds_repeated_section_headers()`, `.test_quote_section_groups_preserve_contiguous_order()`, `test_quote_sections.py`
+- **Thin community `Community 31`** (7 nodes): `ConversionRulesTest`, `.test_aggregate_ldm_converts_to_expected_id()`, `.test_compare_expected_vs_actual_marks_shortage_and_excess()`, `.test_ldm_piece_to_cot_linear_meter()`, `.test_tolerance_accepts_small_differences()`, `test_comparison_rules.py`, `test_comparison_rules.py`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 32`** (7 nodes): `ConversionRulesTest`, `.test_aggregate_ldm_converts_to_expected_id()`, `.test_compare_expected_vs_actual_marks_shortage_and_excess()`, `.test_ldm_piece_to_cot_linear_meter()`, `.test_tolerance_accepts_small_differences()`, `test_comparison_rules.py`, `test_comparison_rules.py`
+- **Thin community `Community 32`** (6 nodes): `ComparisonIgnoredTest`, `.test_filters_by_scope_and_active()`, `.test_split_ignored_linked()`, `.test_summarize_ignored()`, `test_comparison_ignored.py`, `test_comparison_ignored.py`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 33`** (6 nodes): `ComparisonIgnoredTest`, `.test_filters_by_scope_and_active()`, `.test_split_ignored_linked()`, `.test_summarize_ignored()`, `test_comparison_ignored.py`, `test_comparison_ignored.py`
+- **Thin community `Community 33`** (5 nodes): `LdmCsvImportRouteTest`, `._fake_load()`, `.test_import_ldm_csv_blocks_missing_catalog_before_preview()`, `test_ldm_csv_import_route.py`, `setUpClass()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 34`** (5 nodes): `LdmCsvImportRouteTest`, `._fake_load()`, `.test_import_ldm_csv_blocks_missing_catalog_before_preview()`, `test_ldm_csv_import_route.py`, `setUpClass()`
+- **Thin community `Community 35`** (4 nodes): `app.py`, `app.py`, `_is_truthy()`, `Reconoce '1', 'true', 'yes', 'on' (case-insensitive) como verdadero.`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 36`** (4 nodes): `app.py`, `app.py`, `_is_truthy()`, `Reconoce '1', 'true', 'yes', 'on' (case-insensitive) como verdadero.`
+- **Thin community `Community 37`** (3 nodes): `pdfs.py build_ldm_pdf()`, `pdfs.py build_quote_pdf()`, `fpdf2 Dependency`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 38`** (3 nodes): `pdfs.py build_ldm_pdf()`, `pdfs.py build_quote_pdf()`, `fpdf2 Dependency`
+- **Thin community `Community 39`** (2 nodes): `Data Integrity Rules (R1-R7)`, `ProjectTracker System Rationale`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 40`** (2 nodes): `Data Integrity Rules (R1-R7)`, `ProjectTracker System Rationale`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 56`** (1 nodes): `Roadmap Completed Features`
+- **Thin community `Community 55`** (1 nodes): `Roadmap Completed Features`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `load()` connect `Community 1` to `Community 0`, `Community 2`, `Community 8`, `Community 11`, `Community 14`?**
+- **Why does `load()` connect `Community 2` to `Community 0`, `Community 1`, `Community 5`, `Community 6`, `Community 14`, `Community 16`?**
   _High betweenness centrality (0.111) - this node is a cross-community bridge._
-- **Why does `parse_quote_csv()` connect `Community 6` to `Community 2`?**
+- **Why does `parse_quote_csv()` connect `Community 8` to `Community 1`?**
   _High betweenness centrality (0.055) - this node is a cross-community bridge._
-- **Why does `build_project_detail_context()` connect `Community 8` to `Community 0`, `Community 1`, `Community 2`, `Community 4`?**
-  _High betweenness centrality (0.041) - this node is a cross-community bridge._
+- **Why does `parse_ldm_csv()` connect `Community 7` to `Community 6`?**
+  _High betweenness centrality (0.032) - this node is a cross-community bridge._
 - **Are the 114 inferred relationships involving `load()` (e.g. with `migrate_catalog_fields()` and `catalog_description_lookup()`) actually correct?**
   _`load()` has 114 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 77 inferred relationships involving `save()` (e.g. with `migrate_catalog_fields()` and `migrate_task_statuses()`) actually correct?**

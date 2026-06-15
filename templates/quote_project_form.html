@@ -403,8 +403,9 @@
             {% if quote and quote['items'] %}
               {% set section_ns = namespace(current='') %}
               {% for item in quote['items'] %}
+              {% set item_kind = item.get('kind', '') or item.get('item_kind', '') %}
               {% set item_section = item.section or item.category or item.group or '' %}
-              {% if item_section and item_section != section_ns.current %}
+              {% if item_section and (item_kind == 'section' or item_section != section_ns.current) %}
               <tr class="quote-section-row quote-draggable">
                 <td class="drag-cell">
                   <input type="hidden" name="item_kind[]" value="section">
@@ -437,6 +438,7 @@
               </tr>
               {% set section_ns.current = item_section %}
               {% endif %}
+              {% if item_kind != 'section' %}
               {% set deleted_catalog = item.deleted_catalog_item or {} %}
               <tr class="quote-row quote-draggable {% if item.catalog_deleted %}deleted-catalog-row{% endif %}">
                 <td class="drag-cell">
@@ -517,6 +519,7 @@
                 </td>
               </tr>
               {% set section_ns.current = item_section %}
+              {% endif %}
               {% endfor %}
             {% endif %}
           </tbody>

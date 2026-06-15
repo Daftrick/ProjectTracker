@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import Iterable
 
-from .catalog import APPROVAL_ACTIVE, is_base_quote_type, quote_type_key
+from .catalog import APPROVAL_ACTIVE, is_base_quote_type, is_quote_section_marker, quote_type_key
 
 MARGIN_OK_PCT = 30.0
 QTY_TOLERANCE = 0.01  # diferencias menores se consideran iguales (redondeos)
@@ -88,6 +88,8 @@ def aggregate_quote_items(quote: dict | None) -> tuple[dict, dict]:
     linked: dict[str, dict] = {}
     unlinked = {"count": 0, "total": 0.0}
     for item in quote.get("items", []) or []:
+        if is_quote_section_marker(item):
+            continue
         cid = str(item.get("catalog_item_id", "") or "").strip()
         qty = _safe_float(item.get("qty"))
         price = _safe_float(item.get("price"))
@@ -303,7 +305,7 @@ def _catalog_coverage_pct(total_items: int, unlinked_count: int) -> float | None
 
 
 def _quote_visual_row(quote: dict, role: str) -> dict:
-    items = quote.get("items", []) or []
+    items = [item for item in quote.get("items", []) or [] if not is_quote_section_marker(item)]
     unlinked_count = sum(1 for item in items if not str(item.get("catalog_item_id", "") or "").strip())
     return {
         "id": quote.get("id", ""),

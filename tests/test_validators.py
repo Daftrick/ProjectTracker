@@ -40,7 +40,7 @@ class ValidatorsTest(unittest.TestCase):
 
         self.assertFalse(result["ok"])
         self.assertEqual(result["items"], [])
-        self.assertEqual(result["errors"], ["Agrega al menos una partida a la cotización."])
+        self.assertEqual(result["errors"], ["Agrega al menos una partida o sección a la cotización."])
 
     def test_quote_validates_numbers_and_tax_range(self):
         result = validate_quote_form(
@@ -138,8 +138,30 @@ class ValidatorsTest(unittest.TestCase):
         )
 
         self.assertTrue(result["ok"])
-        self.assertEqual(result["items"][0]["section"], "Bodega de alcohol")
+        self.assertEqual(result["items"][0], {"kind": "section", "section": "Bodega de alcohol"})
+        self.assertEqual(result["items"][1]["section"], "Bodega de alcohol")
         self.assertEqual(result["subtotal"], 1500.0)
+
+    def test_quote_allows_section_without_items(self):
+        result = validate_quote_form(
+            MultiDict([
+                ("date", "2026-04-24"),
+                ("tax_rate", "16"),
+                ("currency", "MXN"),
+                ("item_kind[]", "section"),
+                ("item_section[]", "Areas exteriores"),
+                ("item_desc[]", ""),
+                ("item_unit[]", ""),
+                ("item_qty[]", ""),
+                ("item_price[]", ""),
+                ("item_catalog_id[]", ""),
+                ("item_desc2[]", ""),
+            ])
+        )
+
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["items"], [{"kind": "section", "section": "Areas exteriores"}])
+        self.assertEqual(result["subtotal"], 0.0)
 
     def test_ldm_requires_supplier_and_real_items(self):
         result = validate_ldm_form(

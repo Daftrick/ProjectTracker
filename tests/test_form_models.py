@@ -37,9 +37,27 @@ class FormModelsTest(unittest.TestCase):
 
         self.assertEqual(result["quote_type"], "Extraordinaria")
         self.assertEqual(result["quote_number"], "COT-OM001-E01-20260428")
-        self.assertEqual(result["items"][0]["section"], "Tableros")
-        self.assertEqual(result["items"][0]["total"], 301.0)
-        self.assertEqual(result["items"][0]["catalog_item_id"], "ABC123")
+        self.assertEqual(result["items"][0], {"kind": "section", "section": "Tableros"})
+        self.assertEqual(result["items"][1]["section"], "Tableros")
+        self.assertEqual(result["items"][1]["total"], 301.0)
+        self.assertEqual(result["items"][1]["catalog_item_id"], "ABC123")
+
+    def test_quote_from_form_preserves_section_without_items(self):
+        result = quote_from_form(
+            MultiDict([
+                ("date", "2026-04-28"),
+                ("item_kind[]", "section"),
+                ("item_section[]", "Vestibulo"),
+                ("item_desc[]", ""),
+                ("item_unit[]", ""),
+                ("item_qty[]", ""),
+                ("item_price[]", ""),
+                ("item_catalog_id[]", ""),
+                ("item_desc2[]", ""),
+            ])
+        )
+
+        self.assertEqual(result["items"], [{"kind": "section", "section": "Vestibulo"}])
 
     def test_quote_from_form_preserves_deleted_catalog_snapshot(self):
         result = quote_from_form(

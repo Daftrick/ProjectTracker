@@ -147,7 +147,7 @@ def validate_quote_form(form):
     item_error_start = len(errors)
     items, subtotal = _parse_quote_items(form, errors)
     if not items:
-        message = "Agrega al menos una partida a la cotización."
+        message = "Agrega al menos una partida o sección a la cotización."
         errors.append(message)
         field_errors.setdefault("items", message)
     elif len(errors) > item_error_start:
@@ -248,6 +248,11 @@ def _parse_quote_items(form, errors):
         raw_section = _clean(sections[index]) if index < len(sections) else ""
         if kind == "section":
             current_section = raw_section
+            if current_section:
+                items.append({
+                    "kind": "section",
+                    "section": current_section,
+                })
             continue
         row = index + 1
         section = raw_section or current_section

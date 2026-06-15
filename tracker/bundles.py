@@ -10,6 +10,8 @@ from __future__ import annotations
 
 from typing import Iterable
 
+from .catalog import is_quote_section_marker
+
 DEFAULT_BUNDLE_STATUS = "draft"
 STATUS_DRAFT = "draft"
 STATUS_ACTIVE = "active"
@@ -192,6 +194,8 @@ def expand_quote_bundles(quote: dict | None, bundles: Iterable[dict], catalog_by
     invalid_components: list[dict] = []
 
     for item in (quote or {}).get("items", []) or []:
+        if is_quote_section_marker(item):
+            continue
         item_cid = _clean(item.get("catalog_item_id"))
         quote_qty = _safe_float(item.get("qty"))
         bundle = bundle_index.get(item_cid)

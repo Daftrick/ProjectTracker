@@ -183,10 +183,18 @@ def quote_item_section(item):
     return str(item.get("section") or item.get("category") or item.get("group") or "").strip()
 
 
+def is_quote_section_marker(item):
+    return str(item.get("kind") or item.get("item_kind") or "").strip() == "section"
+
+
 def quote_section_groups(items):
     groups = []
     for item in items:
         section = quote_item_section(item)
+        if is_quote_section_marker(item):
+            if section and (not groups or groups[-1]["name"] != section):
+                groups.append({"name": section, "items": [], "subtotal": 0.0})
+            continue
         if not groups or groups[-1]["name"] != section:
             groups.append({"name": section, "items": [], "subtotal": 0.0})
         groups[-1]["items"].append(item)
@@ -196,6 +204,21 @@ def quote_section_groups(items):
 
 def hydrate_quote_item(item, catalog_by_id, catalog_by_name, infer_by_name=True):
     hydrated = dict(item)
+    if is_quote_section_marker(hydrated):
+        return {
+            "kind": "section",
+            "section": quote_item_section(hydrated),
+            "description": "",
+            "unit": "",
+            "qty": 0,
+            "price": 0,
+            "total": 0,
+            "catalog_description": "",
+            "catalog_item_id": "",
+            "catalog_linked": False,
+            "catalog_missing": False,
+            "catalog_deleted": False,
+        }
     stored_price = safe_float(hydrated.get("price", item.get("price", 0) if isinstance(item, dict) else 0))
     deleted_catalog_item = hydrated.get("deleted_catalog_item") or None
     catalog_item_id, catalog_item = resolve_catalog_binding(
@@ -237,7 +260,10 @@ def hydrate_quote(quote, catalog_by_id=None, catalog_by_name=None):
     hydrated = dict(quote)
     hydrated["items"] = [hydrate_quote_item(item, catalog_by_id, catalog_by_name) for item in quote.get("items", [])]
     tax_rate = safe_float(hydrated.get("tax_rate", 16), 16)
-    subtotal = round(sum(item.get("total", 0) for item in hydrated["items"]), 2)
+    subtotal = round(
+        sum(item.get("total", 0) for item in hydrated["items"] if not is_quote_section_marker(item)),
+        2,
+    )
     hydrated["tax_rate"] = tax_rate
     hydrated["subtotal"] = subtotal
     hydrated["tax"] = round(subtotal * tax_rate / 100, 2)
