@@ -20,6 +20,7 @@ from ..services import (
     update_observation_checklist_item,
 )
 from ..storage import load, new_id, save, today
+from ..templates_config import get_project_templates
 from ..validators import validate_project_form
 
 bp = Blueprint("projects_bp", __name__)
@@ -34,6 +35,8 @@ def _blank_project_form_state():
             "version": "V1",
             "fecha": "",
             "notes": "",
+            "template_id": "",
+            "drive_url": "",
         },
         "alcances": ["cotizacion"],
         "field_errors": {},
@@ -100,6 +103,8 @@ def new_project():
             projects, load("tasks"), validation["fields"], validation["alcances"]
         )
         project["deadline"] = request.form.get("deadline", "").strip() or None
+        project["template_id"] = request.form.get("template_id", "").strip() or ""
+        project["drive_url"] = request.form.get("drive_url", "").strip() or ""
         project["updated_at"] = today()
         projects.append(project)
         save("projects", projects)
@@ -126,7 +131,11 @@ def new_project():
         # ───────────────────────────────────────────────────────────────────
         flash(f"Proyecto '{project['name']}' creado con {len(selected)} alcance(s).", "success")
         return redirect(url_for("project_detail", project_id=project["id"]))
-    return render_template("project_new.html", form_state=_blank_project_form_state())
+    return render_template(
+        "project_new.html",
+        form_state=_blank_project_form_state(),
+        project_templates=get_project_templates(),
+    )
 
 
 @bp.route("/projects/<project_id>", endpoint="project_detail")
@@ -136,7 +145,12 @@ def project_detail(project_id):
     if not project:
         flash("Proyecto no encontrado.", "danger")
         return redirect(url_for("dashboard"))
-    return render_template("project_detail.html", **build_project_detail_context(project))
+    templates_map = {t["id"]: t for t in get_project_templates()}
+    return render_template(
+        "project_detail.html",
+        **build_project_detail_context(project),
+        templates_map=templates_map,
+    )
 
 
 @bp.route("/projects/<project_id>/update", methods=["POST"], endpoint="update_project")

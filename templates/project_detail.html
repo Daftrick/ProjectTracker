@@ -153,6 +153,23 @@
         </div>
         {% if project.client %}<small class="text-muted"><i class="bi bi-building me-1"></i>{{ project.client }}</small>{% endif %}
         {% if project.notes %}<p class="text-muted mb-0 mt-1" style="font-size:.85rem">{{ project.notes }}</p>{% endif %}
+        {% if project.drive_url %}
+        <div class="mt-2">
+          <a href="{{ project.drive_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+            <i class="bi bi-folder2-open me-1"></i>Carpeta Drive
+          </a>
+        </div>
+        {% endif %}
+        {% set tmpl = templates_map.get(project.get('template_id', '')) %}
+        {% if tmpl %}
+        <div class="mt-2">
+          <div class="d-flex flex-wrap gap-1">
+            {% for stage in tmpl.stages %}
+            <span class="badge bg-secondary">{{ stage }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
       </div>
       <!-- Margen financiero -->
       <div class="col-md-3">

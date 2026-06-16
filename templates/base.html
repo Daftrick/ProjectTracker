@@ -252,8 +252,8 @@
   <div class="brand">
     <i class="bi bi-lightning-charge-fill brand-icon"></i>
     <div class="brand-text">
-      <h5>Project Tracker</h5>
-      <small>Ingeniería Eléctrica · {{ app_version }}</small>
+      <h5>{{ company.name or "Project Tracker" }}</h5>
+      <small>{{ app_version }}</small>
     </div>
   </div>
   <nav>
@@ -287,6 +287,14 @@
     <a href="{{ url_for('settings') }}" class="nav-link {% if request.endpoint=='settings' %}active{% endif %}"
        data-label="Ajustes / Drive">
       <i class="bi bi-gear"></i><span class="nav-label"> Ajustes / Drive</span>
+    </a>
+    <a href="{{ url_for('admin_bp.empresa') }}" class="nav-link {% if request.endpoint in ('admin_bp.empresa','admin_bp.empresa_logo') %}active{% endif %}"
+       data-label="Empresa">
+      <i class="bi bi-building"></i><span class="nav-label"> Empresa</span>
+    </a>
+    <a href="{{ url_for('admin_bp.project_templates_admin') }}" class="nav-link {% if request.endpoint=='admin_bp.project_templates_admin' %}active{% endif %}"
+       data-label="Tipos de Proyecto">
+      <i class="bi bi-list-check"></i><span class="nav-label"> Tipos de Proyecto</span>
     </a>
     <a href="{{ url_for('quotes_bp.audit_deleted_catalog') }}" class="nav-link {% if request.endpoint=='quotes_bp.audit_deleted_catalog' %}active{% endif %}"
        data-label="Auditoría Catálogo">

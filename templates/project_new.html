@@ -56,6 +56,21 @@
           <label class="form-label">Notas</label>
           <textarea name="notes" class="form-control" rows="2" placeholder="Descripción general, ubicación, etc.">{{ fs.notes }}</textarea>
         </div>
+        <div class="col-md-6">
+          <label class="form-label">Tipo de proyecto</label>
+          <select name="template_id" class="form-select">
+            <option value="">— Sin plantilla —</option>
+            {% for t in project_templates %}
+            <option value="{{ t.id }}" {% if fs.template_id == t.id %}selected{% endif %}>{{ t.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Carpeta en Google Drive</label>
+          <input name="drive_url" type="url" class="form-control"
+                 placeholder="https://drive.google.com/drive/folders/..."
+                 value="{{ fs.drive_url }}">
+        </div>
       </div>
     </div>
   </div>

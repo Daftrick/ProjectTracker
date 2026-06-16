@@ -22,6 +22,21 @@ def migrate_catalog_fields():
         save("catalogo", items)
 
 
+def migrate_catalog_disciplina():
+    """Adds 'disciplina' field (default 'instalaciones') to all catalog items missing it.
+
+    Idempotent: only sets missing fields; never overwrites existing values.
+    """
+    items = load("catalogo")
+    changed = False
+    for item in items:
+        if "disciplina" not in item:
+            item["disciplina"] = "instalaciones"
+            changed = True
+    if changed:
+        save("catalogo", items)
+
+
 QUOTE_TYPE_GENERAL = "General"
 QUOTE_TYPE_PRELIMINAR = "Preliminar"
 QUOTE_TYPE_EXTRAORDINARIA = "Extraordinaria"

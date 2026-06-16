@@ -28,6 +28,14 @@
       <input name="q" class="form-control border-0 shadow-none flex-grow-1"
              placeholder="Buscar por nombre, descripción o categoría… (varias palabras AND)"
              value="{{ q }}" autofocus style="font-size:.9rem;min-width:240px">
+      <select name="disciplina" class="form-select form-select-sm w-auto"
+              onchange="this.form.submit()" title="Filtrar por disciplina">
+        <option value="">Todas las disciplinas</option>
+        <option value="instalaciones" {% if disciplina_filter == 'instalaciones' %}selected{% endif %}>Instalaciones</option>
+        <option value="arquitectura" {% if disciplina_filter == 'arquitectura' %}selected{% endif %}>Arquitectura</option>
+        <option value="estructura" {% if disciplina_filter == 'estructura' %}selected{% endif %}>Estructura</option>
+        <option value="otros" {% if disciplina_filter == 'otros' %}selected{% endif %}>Otros</option>
+      </select>
       <select name="categoria" class="form-select form-select-sm w-auto"
               onchange="this.form.submit()" title="Filtrar por categoría">
         <option value="">Todas las categorías</option>
@@ -38,7 +46,7 @@
       <button type="submit" class="btn btn-sm btn-outline-primary text-nowrap">
         <i class="bi bi-funnel me-1"></i>Filtrar
       </button>
-      {% if q or categoria %}
+      {% if q or categoria or disciplina_filter %}
       <a href="{{ url_for('catalogo') }}" class="btn btn-sm btn-outline-secondary text-nowrap">
         <i class="bi bi-x me-1"></i>Limpiar
       </a>
@@ -171,6 +179,15 @@
                    value="{{ fs.categoria or '' }}">
             <small class="text-muted">Mantén las categorías generales para reutilizarlas entre proyectos.</small>
           </div>
+          <div class="mb-3">
+            <label class="form-label">Disciplina</label>
+            <select name="disciplina" class="form-select">
+              <option value="instalaciones" {% if (fs.disciplina or 'instalaciones') == 'instalaciones' %}selected{% endif %}>Instalaciones</option>
+              <option value="arquitectura" {% if fs.disciplina == 'arquitectura' %}selected{% endif %}>Arquitectura</option>
+              <option value="estructura" {% if fs.disciplina == 'estructura' %}selected{% endif %}>Estructura</option>
+              <option value="otros" {% if fs.disciplina == 'otros' %}selected{% endif %}>Otros</option>
+            </select>
+          </div>
           <div class="row g-3">
             <div class="col-md-4">
               <label class="form-label">Unidad</label>
@@ -219,6 +236,15 @@
             <input name="categoria" id="editCategoria" class="form-control" list="categoriasList"
                    placeholder="Ej. Iluminación, Tableros, Conductores…">
           </div>
+          <div class="mb-3">
+            <label class="form-label">Disciplina</label>
+            <select name="disciplina" id="editDisciplina" class="form-select">
+              <option value="instalaciones">Instalaciones</option>
+              <option value="arquitectura">Arquitectura</option>
+              <option value="estructura">Estructura</option>
+              <option value="otros">Otros</option>
+            </select>
+          </div>
           <div class="row g-3">
             <div class="col-md-4">
               <label class="form-label">Unidad</label>
@@ -258,6 +284,7 @@ function openEdit(item) {
   document.getElementById('editNombre').value    = item.nombre;
   document.getElementById('editDesc').value      = item.descripcion || '';
   document.getElementById('editCategoria').value = item.categoria || '';
+  document.getElementById('editDisciplina').value = item.disciplina || 'instalaciones';
   document.getElementById('editUnidad').value    = item.unidad;
   document.getElementById('editPrecio').value    = item.precio;
   document.getElementById('editForm').dataset.itemId = item.id;

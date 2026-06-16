@@ -19,6 +19,8 @@ from ..storage import load, new_id, save, today
 # subir aquí sin tocar la lógica de filtrado.
 API_CATALOG_LIMIT = 50
 
+DISCIPLINAS = ["instalaciones", "arquitectura", "estructura", "otros"]
+
 bp = Blueprint("admin_bp", __name__)
 
 
@@ -43,6 +45,7 @@ def _catalog_form(form=None):
         "unidad": _clean(form.get("unidad")) or "pza",
         "precio": _clean(form.get("precio")) or "0",
         "categoria": _clean(form.get("categoria")),
+        "disciplina": _clean(form.get("disciplina")) or "instalaciones",
     }
 
 
@@ -81,15 +84,18 @@ def _team_form(form=None):
     }
 
 
-def _render_catalogo(items=None, q="", categoria="", form_state=None, field_errors=None, open_modal=None):
+def _render_catalogo(items=None, q="", categoria="", disciplina_filter="", form_state=None, field_errors=None, open_modal=None):
     full_catalog = items if items is not None else load("catalogo")
     categorias = list_categories(full_catalog)
     visible = filter_catalog(full_catalog, q=q, categoria=categoria)
+    if disciplina_filter:
+        visible = [i for i in visible if (i.get("disciplina") or "instalaciones") == disciplina_filter]
     return render_template(
         "catalogo.html",
         items=visible,
         q=q or "",
         categoria=categoria or "",
+        disciplina_filter=disciplina_filter or "",
         categorias=categorias,
         total_count=len(full_catalog),
         form_state=form_state or _catalog_form(),
@@ -165,6 +171,7 @@ def catalogo():
             "unidad": form_state["unidad"],
             "precio": price,
             "categoria": form_state["categoria"],
+            "disciplina": form_state["disciplina"],
             "created_at": today(),
         })
         save("catalogo", items)
@@ -173,6 +180,7 @@ def catalogo():
     return _render_catalogo(
         q=request.args.get("q", ""),
         categoria=request.args.get("categoria", ""),
+        disciplina_filter=request.args.get("disciplina", ""),
     )
 
 
@@ -194,6 +202,7 @@ def edit_catalogo(item_id):
         item["unidad"] = form_state["unidad"]
         item["precio"] = price
         item["categoria"] = form_state["categoria"]
+        item["disciplina"] = form_state["disciplina"]
         save("catalogo", items)
         if is_ajax:
             return jsonify({"ok": True, "item": item})
@@ -279,6 +288,7 @@ def api_catalogo_add():
         "unidad": ((data.get("unidad", "") or "pza")).strip(),
         "precio": float(data.get("precio", 0) or 0),
         "categoria": (data.get("categoria", "") or "").strip(),
+        "disciplina": (data.get("disciplina", "") or "instalaciones").strip(),
         "created_at": today(),
     }
     items.append(new_item)
@@ -660,3 +670,98 @@ def delete_member(member_id):
     save("team", [item for item in load("team") if item["id"] != member_id])
     flash("Miembro eliminado.", "warning")
     return redirect(url_for("team"))
+
+
+# ─────────────────────────────────────────────────────────────
+# Empresa — perfil de empresa y logo
+# ─────────────────────────────────────────────────────────────
+
+import os as _os
+
+from werkzeug.utils import secure_filename as _secure_filename
+
+_ALLOWED_LOGO_EXT = {"png", "jpg", "jpeg", "svg"}
+_LOGO_MAX_BYTES = 2 * 1024 * 1024  # 2 MB
+
+
+@bp.route("/empresa", methods=["GET", "POST"], endpoint="empresa")
+def empresa():
+    from ..company_config import get_company, save_company
+    errors = {}
+    if request.method == "POST":
+        current = get_company()
+        data = {
+            "name":    (request.form.get("name", "") or "").strip(),
+            "address": (request.form.get("address", "") or "").strip(),
+            "rut":     (request.form.get("rut", "") or "").strip(),
+            "logo":    current.get("logo", ""),
+        }
+        if not data["name"]:
+            errors["name"] = "El nombre de la empresa es obligatorio."
+        if not errors:
+            save_company(data)
+            flash("Perfil de empresa guardado.", "success")
+            return redirect(url_for("admin_bp.empresa"))
+    return render_template("empresa.html", company=get_company(), field_errors=errors)
+
+
+@bp.route("/empresa/logo", methods=["POST"], endpoint="empresa_logo")
+def empresa_logo():
+    from ..company_config import get_company, save_company
+    file = request.files.get("logo")
+    if not file or not file.filename:
+        flash("No se seleccionó archivo.", "warning")
+        return redirect(url_for("admin_bp.empresa"))
+    ext = file.filename.rsplit(".", 1)[-1].lower() if "." in file.filename else ""
+    if ext not in _ALLOWED_LOGO_EXT:
+        flash("Formato no permitido. Usa PNG, JPG o SVG.", "danger")
+        return redirect(url_for("admin_bp.empresa"))
+    content = file.read()
+    if len(content) > _LOGO_MAX_BYTES:
+        flash("El archivo supera 2 MB.", "danger")
+        return redirect(url_for("admin_bp.empresa"))
+    # tracker/routes/admin.py → tracker/routes → tracker → project root
+    project_root = _os.path.dirname(_os.path.dirname(_os.path.dirname(__file__)))
+    uploads_dir = _os.path.join(project_root, "static", "uploads")
+    _os.makedirs(uploads_dir, exist_ok=True)
+    filename = f"logo.{ext}"
+    with open(_os.path.join(uploads_dir, filename), "wb") as f:
+        f.write(content)
+    company = get_company()
+    company["logo"] = f"uploads/{filename}"
+    save_company(company)
+    flash("Logo actualizado.", "success")
+    return redirect(url_for("admin_bp.empresa"))
+
+
+# ─────────────────────────────────────────────────────────────
+# Tipos de proyecto (project templates)
+# ─────────────────────────────────────────────────────────────
+
+@bp.route("/project-templates", methods=["GET", "POST"], endpoint="project_templates_admin")
+def project_templates_admin():
+    from ..templates_config import get_project_templates, save_project_templates
+    templates = get_project_templates()
+    if request.method == "POST":
+        action = request.form.get("action", "")
+        if action == "add":
+            name = (request.form.get("name", "") or "").strip()
+            stages_raw = request.form.get("stages", "") or ""
+            stages = [s.strip() for s in stages_raw.split(",") if s.strip()]
+            if name and stages:
+                templates.append({
+                    "id": new_id().lower(),
+                    "name": name,
+                    "stages": stages,
+                })
+                save_project_templates(templates)
+                flash(f"Tipo de proyecto '{name}' agregado.", "success")
+            else:
+                flash("El nombre y al menos una etapa son requeridos.", "warning")
+        elif action == "delete":
+            tid = request.form.get("template_id", "")
+            templates = [t for t in templates if t["id"] != tid]
+            save_project_templates(templates)
+            flash("Tipo de proyecto eliminado.", "success")
+        return redirect(url_for("admin_bp.project_templates_admin"))
+    return render_template("project_templates.html", templates=templates)

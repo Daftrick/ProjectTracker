@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Empresa – Project Tracker{% endblock %}
+{% block page_title %}<i class="bi bi-building me-2"></i>Perfil de empresa{% endblock %}
+{% block content %}
+{% set fe = field_errors|default({}) %}
+<div style="max-width:600px">
+
+  <!-- Card 1: datos de la empresa -->
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="bi bi-pencil-square me-2 text-primary"></i>Información de la empresa
+    </div>
+    <div class="card-body">
+      <form method="post" action="{{ url_for('admin_bp.empresa') }}">
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Nombre de la empresa <span class="text-danger">*</span></label>
+          <input name="name" class="form-control{% if fe.get('name') %} is-invalid{% endif %}"
+                 value="{{ company.name }}" placeholder="Ej: Desarrolladora Palmas">
+          {% if fe.get('name') %}<div class="invalid-feedback">{{ fe.get('name') }}</div>{% endif %}
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Dirección <small class="text-muted">(opcional)</small></label>
+          <input name="address" class="form-control" value="{{ company.address }}"
+                 placeholder="Ej: Av. Insurgentes Sur 1234, CDMX">
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">RFC / RUT <small class="text-muted">(opcional)</small></label>
+          <input name="rut" class="form-control" value="{{ company.rut }}"
+                 placeholder="Ej: DEP210101ABC">
+        </div>
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-check-lg me-1"></i>Guardar información
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Card 2: logo -->
+  <div class="card">
+    <div class="card-header">
+      <i class="bi bi-image me-2 text-primary"></i>Logo de la empresa
+    </div>
+    <div class="card-body">
+      {% if company.logo %}
+      <div class="mb-3 p-3 border rounded-3 text-center" style="background:#0d1120">
+        <img src="/static/{{ company.logo }}" alt="Logo actual" style="max-height:80px;max-width:280px">
+        <div class="mt-2"><small class="text-muted">Logo actual: <code>{{ company.logo }}</code></small></div>
+      </div>
+      {% else %}
+      <div class="mb-3 p-3 border rounded-3 text-center text-muted" style="background:#0d1120;font-size:.88rem">
+        <i class="bi bi-image fs-2 d-block mb-1"></i>Sin logo cargado — el nombre de empresa aparecerá en los PDFs.
+      </div>
+      {% endif %}
+      <form method="post" action="{{ url_for('admin_bp.empresa_logo') }}" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Subir nuevo logo</label>
+          <input type="file" name="logo" class="form-control" accept=".png,.jpg,.jpeg,.svg">
+          <div class="form-text">PNG, JPG o SVG · máx. 2 MB. El archivo se guardará como <code>static/uploads/logo.{ext}</code>.</div>
+        </div>
+        <button type="submit" class="btn btn-outline-primary">
+          <i class="bi bi-upload me-1"></i>Subir logo
+        </button>
+      </form>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -73,6 +73,21 @@ def note_lines(text):
 
 
 def quote_logo_path():
+    # 1. Company logo configured via /empresa
+    try:
+        import json
+        company_file = os.path.join(BASE_DIR, "data", "company.json")
+        if os.path.isfile(company_file):
+            with open(company_file, "r", encoding="utf-8") as _f:
+                _company = json.load(_f)
+            logo_rel = (_company.get("logo") or "") if isinstance(_company, dict) else ""
+            if logo_rel:
+                logo_abs = os.path.join(BASE_DIR, "static", logo_rel)
+                if os.path.isfile(logo_abs):
+                    return logo_abs
+    except Exception:
+        pass
+    # 2. Legacy fallback paths
     candidates = [
         r"H:\My Drive\Omniious\OmnniiousLog.jpg",
         os.path.join(BASE_DIR, ".codex_tmp", "casa_leonides_pdf_assets", "page_1_img_1_Im6.jpg"),
@@ -81,6 +96,21 @@ def quote_logo_path():
         if os.path.isfile(path):
             return path
     return None
+
+
+def _company_name():
+    try:
+        import json
+        company_file = os.path.join(BASE_DIR, "data", "company.json")
+        if os.path.isfile(company_file):
+            with open(company_file, "r", encoding="utf-8") as _f:
+                _company = json.load(_f)
+            name = (_company.get("name") or "") if isinstance(_company, dict) else ""
+            if name:
+                return name
+    except Exception:
+        pass
+    return "Project Tracker"
 
 
 def quote_scope_paragraphs():
@@ -530,7 +560,7 @@ def build_quote_pdf(project, quote, output_path):
         pdf.set_text_color(255, 255, 255)
         pdf.set_xy(16, 28)
         pdf.set_font("DejaVu", "B", 18)
-        pdf.cell(0, 8, "OMNIIOUS TECHNOLOGIES")
+        pdf.cell(0, 8, _company_name())
     pdf.set_draw_color(*LINE)
     pdf.line(16, 128, 194, 128)
     pdf.set_xy(16, 138)
@@ -1142,7 +1172,7 @@ def build_ldm_pdf(project, ldm, output_path):
         pdf.set_text_color(255, 255, 255)
         pdf.set_xy(16, (BANNER_H - 8) / 2)
         pdf.set_font("DejaVu", "B", 16)
-        pdf.cell(0, 8, "OMNIIOUS TECHNOLOGIES")
+        pdf.cell(0, 8, _company_name())
 
     # Bloque de info: PROYECTO / PROVEEDOR / FECHA (3 columnas, fondo SOFT)
     info_y = BANNER_H + 8
