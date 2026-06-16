@@ -41,6 +41,24 @@
 
 {% block content %}
 
+{% if deadline_alerts %}
+<div class="alert alert-warning d-flex align-items-start gap-2 mb-4" style="border-left:4px solid #eab308;">
+  <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+  <div>
+    <strong>{{ deadline_alerts|length }} proyecto{{ 's' if deadline_alerts|length > 1 else '' }} con deadline vencido</strong>
+    <ul class="mb-0 mt-1" style="font-size:.88rem">
+      {% for a in deadline_alerts %}
+      <li>
+        <a href="{{ url_for('project_detail', project_id=a.id) }}" class="alert-link fw-semibold">{{ a.name }}</a>
+        <span class="text-muted font-monospace ms-1">{{ a.clave }}</span>
+        — vencido hace {{ a.days_overdue }} día{{ 's' if a.days_overdue != 1 else '' }}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+
 {% if active %}
 <h6 class="text-muted mb-3 fw-semibold">ACTIVOS — {{ active|length }}</h6>
 <div class="row g-3 mb-4">

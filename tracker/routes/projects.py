@@ -4,7 +4,7 @@ import time
 import zipfile
 from datetime import date
 
-from flask import Blueprint, abort, flash, redirect, render_template, request, send_from_directory, url_for
+from flask import Blueprint, abort, flash, redirect, render_template, request, send_file, send_from_directory, url_for
 
 from ..catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from ..consistency import compute_consistency
@@ -79,7 +79,22 @@ def dashboard():
     active = [project for project in projects if not project.get("closed_at") and project.get("status") != "Completado"]
     completed = [project for project in projects if not project.get("closed_at") and project.get("status") == "Completado"]
     closed = [project for project in projects if project.get("closed_at")]
-    return render_template("dashboard.html", active=active, completed=completed, closed=closed)
+    today_date = date.today()
+    deadline_alerts = []
+    for p in active:
+        if p.get("deadline"):
+            try:
+                dl = date.fromisoformat(p["deadline"])
+                if dl < today_date:
+                    deadline_alerts.append({
+                        "id": p["id"],
+                        "name": p["name"],
+                        "clave": p["clave"],
+                        "days_overdue": (today_date - dl).days,
+                    })
+            except Exception:
+                pass
+    return render_template("dashboard.html", active=active, completed=completed, closed=closed, deadline_alerts=deadline_alerts)
 
 
 @bp.route("/projects/new", methods=["GET", "POST"], endpoint="new_project")
@@ -510,6 +525,123 @@ def serve_project_file(project_id, filename):
         abort(404)
     as_attachment = request.args.get("dl") == "1"
     return send_from_directory(project_folder, filename, as_attachment=as_attachment)
+
+
+@bp.route("/projects/<project_id>/stage-status", methods=["POST"], endpoint="update_stage_status")
+def update_stage_status(project_id):
+    projects = load("projects")
+    project = next((p for p in projects if p["id"] == project_id), None)
+    if not project:
+        return redirect(url_for("dashboard"))
+    stage = request.form.get("stage", "").strip()
+    status = request.form.get("status", "pending")
+    stage_date = request.form.get("date", "").strip() or None
+    if stage:
+        stage_status = project.get("stage_status") or {}
+        stage_status[stage] = {"status": status, "date": stage_date}
+        project["stage_status"] = stage_status
+        project["updated_at"] = today()
+        save("projects", projects)
+    return redirect(url_for("project_detail", project_id=project_id) + "#tab-avance")
+
+
+@bp.route("/projects/<project_id>/docs-checklist/toggle", methods=["POST"], endpoint="toggle_doc_checklist")
+def toggle_doc_checklist(project_id):
+    projects = load("projects")
+    project = next((p for p in projects if p["id"] == project_id), None)
+    if not project:
+        return redirect(url_for("dashboard"))
+    item_id = request.form.get("item_id", "")
+    checklist = project.get("docs_checklist") or []
+    for item in checklist:
+        if item["id"] == item_id:
+            item["done"] = not item.get("done", False)
+            break
+    project["docs_checklist"] = checklist
+    project["updated_at"] = today()
+    save("projects", projects)
+    return redirect(url_for("project_detail", project_id=project_id) + "#tab-avance")
+
+
+@bp.route("/projects/<project_id>/docs-checklist/add", methods=["POST"], endpoint="add_doc_checklist")
+def add_doc_checklist(project_id):
+    projects = load("projects")
+    project = next((p for p in projects if p["id"] == project_id), None)
+    if not project:
+        return redirect(url_for("dashboard"))
+    name = request.form.get("name", "").strip()
+    if name:
+        checklist = project.get("docs_checklist") or []
+        checklist.append({"id": new_id(), "name": name, "done": False})
+        project["docs_checklist"] = checklist
+        project["updated_at"] = today()
+        save("projects", projects)
+    return redirect(url_for("project_detail", project_id=project_id) + "#tab-avance")
+
+
+@bp.route("/projects/<project_id>/docs-checklist/delete/<item_id>", methods=["POST"], endpoint="delete_doc_checklist")
+def delete_doc_checklist(project_id, item_id):
+    projects = load("projects")
+    project = next((p for p in projects if p["id"] == project_id), None)
+    if not project:
+        return redirect(url_for("dashboard"))
+    project["docs_checklist"] = [i for i in (project.get("docs_checklist") or []) if i["id"] != item_id]
+    project["updated_at"] = today()
+    save("projects", projects)
+    return redirect(url_for("project_detail", project_id=project_id) + "#tab-avance")
+
+
+@bp.route("/projects/<project_id>/stage-budget", methods=["POST"], endpoint="update_stage_budget")
+def update_stage_budget(project_id):
+    projects = load("projects")
+    project = next((p for p in projects if p["id"] == project_id), None)
+    if not project:
+        return redirect(url_for("dashboard"))
+    templates_map = {t["id"]: t for t in get_project_templates()}
+    tmpl = templates_map.get(project.get("template_id", ""))
+    if tmpl:
+        stage_budget = {}
+        for stage in tmpl["stages"]:
+            key = stage.replace(" ", "_").replace("-", "_")
+            try:
+                planned = float(request.form.get(f"planned_{key}", 0) or 0)
+            except (ValueError, TypeError):
+                planned = 0.0
+            try:
+                actual = float(request.form.get(f"actual_{key}", 0) or 0)
+            except (ValueError, TypeError):
+                actual = 0.0
+            stage_budget[stage] = {"planned": planned, "actual": actual}
+        project["stage_budget"] = stage_budget
+        project["updated_at"] = today()
+        save("projects", projects)
+        flash("Presupuesto por etapa actualizado.", "success")
+    return redirect(url_for("project_detail", project_id=project_id) + "#tab-avance")
+
+
+@bp.route("/projects/<project_id>/reporte.pdf", endpoint="project_progress_pdf")
+def project_progress_pdf(project_id):
+    import tempfile
+    projects = load("projects")
+    project = next((p for p in projects if p["id"] == project_id), None)
+    if not project:
+        abort(404)
+    from ..pdfs import build_progress_pdf
+    templates_map = {t["id"]: t for t in get_project_templates()}
+    tmpl = templates_map.get(project.get("template_id", ""))
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
+        tmp_path = f.name
+    try:
+        build_progress_pdf(project, tmpl, tmp_path)
+        return send_file(
+            tmp_path,
+            as_attachment=True,
+            download_name=f"Reporte-{project['clave']}-{today()}.pdf",
+            mimetype="application/pdf",
+        )
+    except Exception as exc:
+        flash(f"Error al generar reporte: {exc}", "danger")
+        return redirect(url_for("project_detail", project_id=project_id))
 
 
 def _settings_view_config(cfg):

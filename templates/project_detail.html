@@ -163,10 +163,22 @@
         {% set tmpl = templates_map.get(project.get('template_id', '')) %}
         {% if tmpl %}
         <div class="mt-2">
-          <div class="d-flex flex-wrap gap-1">
+          <div class="d-flex flex-wrap gap-1 align-items-center">
+            {% set _ss = project.get('stage_status') or {} %}
             {% for stage in tmpl.stages %}
-            <span class="badge bg-secondary">{{ stage }}</span>
+              {% set _st = _ss.get(stage, {}) %}
+              {% if _st.get('status') == 'done' %}
+                <span class="badge bg-success" title="{{ _st.get('date', '') }}"><i class="bi bi-check-circle me-1"></i>{{ stage }}</span>
+              {% elif _st.get('status') == 'in_progress' %}
+                <span class="badge bg-warning text-dark" title="{{ _st.get('date', '') }}"><i class="bi bi-arrow-repeat me-1"></i>{{ stage }}</span>
+              {% else %}
+                <span class="badge bg-secondary">{{ stage }}</span>
+              {% endif %}
             {% endfor %}
+            <a href="#tab-avance" data-bs-toggle="tab"
+               class="badge bg-transparent border text-muted" style="font-size:.68rem;text-decoration:none;cursor:pointer">
+              <i class="bi bi-pencil-square"></i>
+            </a>
           </div>
         </div>
         {% endif %}
@@ -249,6 +261,7 @@
   </li>
   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-materiales" id="tab-materiales-link"><i class="bi bi-card-list me-1"></i>Materiales</a></li>
   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-fichas" id="tab-fichas-link"><i class="bi bi-journal-bookmark me-1"></i>Fichas Técnicas</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-avance" id="tab-avance-link"><i class="bi bi-kanban me-1"></i>Avance</a></li>
 </ul>
 
 <div class="tab-content">
@@ -1458,6 +1471,171 @@
   </div>
 </div>
 
+
+<!-- ── TAB AVANCE ── -->
+<div class="tab-pane fade" id="tab-avance">
+  {% set tmpl_av = templates_map.get(project.get('template_id', '')) %}
+  {% set _ss_av  = project.get('stage_status') or {} %}
+  {% set _sb_av  = project.get('stage_budget')  or {} %}
+  {% set _dc_av  = project.get('docs_checklist') or [] %}
+
+  <!-- Etapas del proyecto -->
+  {% if tmpl_av %}
+  <div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span class="fw-semibold" style="font-size:.875rem"><i class="bi bi-kanban me-2 text-primary"></i>Etapas del proyecto</span>
+      {% if not project.closed_at %}
+      <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalBudget">
+        <i class="bi bi-currency-dollar me-1"></i>Editar presupuesto
+      </button>
+      {% endif %}
+    </div>
+    <div class="card-body p-0">
+      <table class="table mb-0 align-middle">
+        <thead class="table-light">
+          <tr>
+            <th style="width:28%">Etapa</th>
+            <th style="width:18%">Estado</th>
+            <th style="width:16%">Fecha</th>
+            <th style="width:16%">Planeado</th>
+            <th style="width:16%">Ejercido</th>
+            {% if not project.closed_at %}<th style="width:6%"></th>{% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for stage in tmpl_av.stages %}
+          {% set _st = _ss_av.get(stage, {}) %}
+          {% set _bd = _sb_av.get(stage, {}) %}
+          <tr>
+            <td class="fw-semibold" style="font-size:.875rem">{{ stage }}</td>
+            <td>
+              {% if _st.get('status') == 'done' %}
+                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Completado</span>
+              {% elif _st.get('status') == 'in_progress' %}
+                <span class="badge bg-warning text-dark"><i class="bi bi-arrow-repeat me-1"></i>En progreso</span>
+              {% else %}
+                <span class="badge bg-secondary">Pendiente</span>
+              {% endif %}
+            </td>
+            <td class="text-muted" style="font-size:.82rem">{{ _st.get('date') or '—' }}</td>
+            <td style="font-size:.82rem">
+              {% if _bd.get('planned') %}${{ "{:,.0f}".format(_bd.planned | float) }}{% else %}—{% endif %}
+            </td>
+            <td style="font-size:.82rem">
+              {% if _bd.get('actual') %}
+                {% set _pct = (_bd.actual | float / _bd.planned | float * 100) | int if _bd.get('planned') and _bd.planned | float > 0 else 0 %}
+                <span class="{{ 'text-danger fw-semibold' if _pct > 100 else '' }}">
+                  ${{ "{:,.0f}".format(_bd.actual | float) }}
+                </span>
+              {% else %}—{% endif %}
+            </td>
+            {% if not project.closed_at %}
+            <td class="text-end pe-2">
+              <button class="btn btn-sm btn-outline-secondary py-0 px-1"
+                      data-bs-toggle="modal" data-bs-target="#modalStageStatus"
+                      data-stage="{{ stage }}"
+                      data-status="{{ _st.get('status', 'pending') }}"
+                      data-date="{{ _st.get('date', '') }}"
+                      title="Actualizar estado">
+                <i class="bi bi-pencil" style="font-size:.72rem"></i>
+              </button>
+            </td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+        {% set _tp = namespace(v=0) %}{% set _ta = namespace(v=0) %}
+        {% for stage in tmpl_av.stages %}
+          {% set _bd = _sb_av.get(stage, {}) %}
+          {% if _bd.get('planned') %}{% set _tp.v = _tp.v + (_bd.planned | float) %}{% endif %}
+          {% if _bd.get('actual')  %}{% set _ta.v = _ta.v + (_bd.actual  | float) %}{% endif %}
+        {% endfor %}
+        {% if _tp.v or _ta.v %}
+        <tfoot class="table-light">
+          <tr>
+            <td colspan="3" class="fw-semibold text-muted" style="font-size:.8rem">Total</td>
+            <td class="fw-semibold" style="font-size:.82rem">${{ "{:,.0f}".format(_tp.v) }}</td>
+            <td class="fw-semibold {{ 'text-danger' if _ta.v > _tp.v else '' }}" style="font-size:.82rem">${{ "{:,.0f}".format(_ta.v) }}</td>
+            {% if not project.closed_at %}<td></td>{% endif %}
+          </tr>
+        </tfoot>
+        {% endif %}
+      </table>
+    </div>
+    <div class="card-footer text-end">
+      <a href="{{ url_for('project_progress_pdf', project_id=project.id) }}"
+         class="btn btn-sm btn-outline-primary">
+        <i class="bi bi-file-earmark-pdf me-1"></i>Descargar reporte PDF
+      </a>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Documentos requeridos -->
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span class="fw-semibold" style="font-size:.875rem">
+        <i class="bi bi-file-earmark-check me-2 text-primary"></i>Documentos requeridos
+        {% if _dc_av %}
+          <span class="badge bg-secondary ms-1" style="font-size:.7rem">
+            {{ _dc_av | selectattr('done') | list | length }}/{{ _dc_av | length }}
+          </span>
+        {% endif %}
+      </span>
+      {% if not tmpl_av %}
+      <a href="{{ url_for('project_progress_pdf', project_id=project.id) }}"
+         class="btn btn-sm btn-outline-primary">
+        <i class="bi bi-file-earmark-pdf me-1"></i>Reporte PDF
+      </a>
+      {% endif %}
+    </div>
+    <div class="card-body">
+      {% if _dc_av %}
+      <ul class="list-group list-group-flush mb-3">
+        {% for doc in _dc_av %}
+        <li class="list-group-item px-0 d-flex align-items-center justify-content-between gap-2">
+          <form method="post" action="{{ url_for('toggle_doc_checklist', project_id=project.id) }}"
+                class="d-flex align-items-center gap-2 flex-grow-1">
+            <input type="hidden" name="item_id" value="{{ doc.id }}">
+            <button type="submit" class="btn p-0 border-0 bg-transparent" style="width:22px;height:22px;line-height:1">
+              {% if doc.done %}
+                <i class="bi bi-check-circle-fill text-success" style="font-size:1.1rem"></i>
+              {% else %}
+                <i class="bi bi-circle text-muted" style="font-size:1.1rem"></i>
+              {% endif %}
+            </button>
+            <span class="{{ 'text-muted text-decoration-line-through' if doc.done else '' }}"
+                  style="font-size:.88rem">{{ doc.name }}</span>
+          </form>
+          {% if not project.closed_at %}
+          <form method="post"
+                action="{{ url_for('delete_doc_checklist', project_id=project.id, item_id=doc.id) }}">
+            <button type="submit" class="btn btn-sm btn-outline-danger py-0 px-1"
+                    onclick="return confirm('¿Eliminar «{{ doc.name }}»?')">
+              <i class="bi bi-x" style="font-size:.9rem"></i>
+            </button>
+          </form>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="text-muted mb-3" style="font-size:.85rem">Sin documentos registrados. Agrega el primero abajo.</p>
+      {% endif %}
+      {% if not project.closed_at %}
+      <form method="post" action="{{ url_for('add_doc_checklist', project_id=project.id) }}"
+            class="d-flex gap-2">
+        <input name="name" class="form-control form-control-sm"
+               placeholder="Ej: Planos arquitectónicos, Licencia de construcción…" required>
+        <button type="submit" class="btn btn-sm btn-primary text-nowrap">
+          <i class="bi bi-plus-lg me-1"></i>Agregar
+        </button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
 </div><!-- /tab-content -->
 
 {% endblock %}
@@ -1728,6 +1906,86 @@
     </div>
   </div>
 </div>
+
+<!-- ── Modal: Actualizar estado de etapa ── -->
+<div class="modal fade" id="modalStageStatus" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="stageStatusForm" method="post">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-kanban me-2 text-primary"></i>Actualizar etapa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p class="fw-semibold mb-3" id="stageStatusName"></p>
+          <input type="hidden" name="stage" id="stageStatusHidden">
+          <div class="mb-3">
+            <label class="form-label">Estado</label>
+            <select name="status" class="form-select" id="stageStatusSelect">
+              <option value="pending">Pendiente</option>
+              <option value="in_progress">En progreso</option>
+              <option value="done">Completado</option>
+            </select>
+          </div>
+          <div class="mb-0">
+            <label class="form-label">Fecha de cierre <span class="text-muted">(opcional)</span></label>
+            <input type="date" name="date" class="form-control" id="stageStatusDate">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal: Presupuesto por etapa ── -->
+{% set _tmpl_bgt = templates_map.get(project.get('template_id', '')) %}
+{% set _sb_bgt   = project.get('stage_budget') or {} %}
+{% if _tmpl_bgt %}
+<div class="modal fade" id="modalBudget" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="{{ url_for('update_stage_budget', project_id=project.id) }}">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-currency-dollar me-2 text-primary"></i>Presupuesto por etapa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-2 mb-1 text-muted" style="font-size:.8rem">
+            <div class="col-5">Etapa</div>
+            <div class="col-3 text-center">Planeado ($)</div>
+            <div class="col-4 text-center">Ejercido ($)</div>
+          </div>
+          {% for stage in _tmpl_bgt.stages %}
+          {% set _bk  = stage.replace(' ', '_').replace('-', '_') %}
+          {% set _bv  = _sb_bgt.get(stage, {}) %}
+          <div class="row g-2 mb-2 align-items-center">
+            <div class="col-5" style="font-size:.88rem">{{ stage }}</div>
+            <div class="col-3">
+              <input type="number" name="planned_{{ _bk }}" class="form-control form-control-sm text-end"
+                     placeholder="0" min="0" step="1"
+                     value="{{ _bv.get('planned', '') or '' }}">
+            </div>
+            <div class="col-4">
+              <input type="number" name="actual_{{ _bk }}" class="form-control form-control-sm text-end"
+                     placeholder="0" min="0" step="1"
+                     value="{{ _bv.get('actual', '') or '' }}">
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endif %}
 {% endblock %}
 
 {% block extra_js %}
@@ -1794,6 +2052,17 @@
     document.getElementById("observationNotes").value       = btn.dataset.observationNotes || "";
     document.getElementById("observationChecklist").value   = btn.dataset.observationChecklist || "";
     form.action = "/projects/{{ project.id }}/observations/" + btn.dataset.observationId + "/update";
+  });
+
+  // Modal: Actualizar estado de etapa
+  document.getElementById("modalStageStatus")?.addEventListener("show.bs.modal", function(e) {
+    const btn = e.relatedTarget;
+    document.getElementById("stageStatusName").textContent  = btn.dataset.stage;
+    document.getElementById("stageStatusHidden").value      = btn.dataset.stage;
+    document.getElementById("stageStatusSelect").value      = btn.dataset.status || "pending";
+    document.getElementById("stageStatusDate").value        = btn.dataset.date   || "";
+    document.getElementById("stageStatusForm").action       =
+      "/projects/{{ project.id }}/stage-status";
   });
 
   // Activar tab correcto si hay hash en URL

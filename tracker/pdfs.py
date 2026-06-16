@@ -1325,4 +1325,142 @@ def build_ldm_pdf(project, ldm, output_path):
             pdf.set_x(pdf.l_margin)
             pdf.multi_cell(content_width, 5, _safe_text(f"- {line}"))
 
+
+def build_progress_pdf(project, tmpl, output_path):
+    """PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos."""
+    try:
+        from fpdf import FPDF
+    except ImportError as exc:
+        raise RuntimeError("fpdf2 no instalado.") from exc
+
+    pdf = FPDF(orientation="P", unit="mm", format="A4")
+    pdf.set_auto_page_break(auto=True, margin=18)
+    pdf.set_margins(15, 14, 15)
+    pdf.add_page()
+
+    has_fonts = _register_dejavu(pdf)
+    font = "DejaVu" if has_fonts else "Helvetica"
+
+    DARK  = (30,  45,  90)
+    LIGHT = (240, 244, 252)
+    MUTED = (110, 120, 140)
+    BLACK = (20,  25,  35)
+    WHITE = (255, 255, 255)
+    GREEN = (34,  130, 80)
+
+    # ── Encabezado ────────────────────────────────────────────────────────────
+    logo = quote_logo_path()
+    company = _company_name()
+    cursor_y = 14
+    logo_w = 0
+
+    if logo:
+        try:
+            pdf.image(logo, x=15, y=cursor_y, h=14)
+            logo_w = 36
+        except Exception:
+            logo_w = 0
+
+    pdf.set_xy(15 + logo_w, cursor_y)
+    pdf.set_font(font, "B", 13)
+    pdf.set_text_color(*BLACK)
+    pdf.cell(0, 7, _safe_text(company), ln=True)
+    pdf.set_x(15 + logo_w)
+    pdf.set_font(font, "", 9)
+    pdf.set_text_color(*MUTED)
+    pdf.cell(0, 5, "Reporte de Avance de Obra", ln=True)
+    pdf.set_text_color(*BLACK)
+    pdf.ln(5)
+
+    # ── Datos del proyecto ────────────────────────────────────────────────────
+    pdf.set_font(font, "B", 11)
+    pdf.cell(0, 6, _safe_text(project.get("name", "")), ln=True)
+    pdf.set_font(font, "", 8.5)
+    pdf.set_text_color(*MUTED)
+    meta = []
+    if project.get("client"):
+        meta.append(f"Cliente: {project['client']}")
+    if project.get("clave"):
+        meta.append(f"Clave: {project['clave']} {project.get('version', '')}".strip())
+    if project.get("deadline"):
+        meta.append(f"Deadline: {format_date_long(project['deadline'])}")
+    meta.append(f"Reporte: {format_date_long(date.today().isoformat())}")
+    pdf.cell(0, 5, "   ".join(meta), ln=True)
+    pdf.set_text_color(*BLACK)
+    pdf.ln(6)
+
+    # ── Etapas ────────────────────────────────────────────────────────────────
+    if tmpl:
+        stage_status = project.get("stage_status") or {}
+        stage_budget = project.get("stage_budget") or {}
+
+        pdf.set_fill_color(*DARK)
+        pdf.set_text_color(*WHITE)
+        pdf.set_font(font, "B", 9)
+        pdf.cell(0, 7, "  Etapas del Proyecto", fill=True, ln=True)
+        pdf.set_text_color(*BLACK)
+        pdf.ln(1)
+
+        STATUS_LABELS = {"done": "Completado", "in_progress": "En progreso", "pending": "Pendiente"}
+        col = [58, 34, 34, 32, 32]
+        pdf.set_font(font, "B", 7.5)
+        pdf.set_fill_color(*LIGHT)
+        for w, h in zip(col, ["Etapa", "Estado", "Fecha", "Planeado", "Ejercido"]):
+            pdf.cell(w, 6, h, border=1, fill=True)
+        pdf.ln()
+
+        total_planned = total_actual = 0.0
+        pdf.set_font(font, "", 8)
+        for i, stage in enumerate(tmpl["stages"]):
+            row_fill = (248, 251, 255) if i % 2 == 0 else WHITE
+            pdf.set_fill_color(*row_fill)
+            st   = stage_status.get(stage, {})
+            slbl = STATUS_LABELS.get(st.get("status", "pending"), "Pendiente")
+            sdt  = format_date_long(st.get("date")) if st.get("date") else "-"
+            bdg  = stage_budget.get(stage, {})
+            pln  = float(bdg.get("planned", 0) or 0)
+            act  = float(bdg.get("actual",  0) or 0)
+            total_planned += pln
+            total_actual  += act
+            pdf.cell(col[0], 5.5, _safe_text(stage),              border=1, fill=True)
+            pdf.cell(col[1], 5.5, slbl,                            border=1, fill=True)
+            pdf.cell(col[2], 5.5, sdt,                             border=1, fill=True)
+            pdf.cell(col[3], 5.5, f"${pln:,.0f}" if pln else "-",  border=1, fill=True)
+            pdf.cell(col[4], 5.5, f"${act:,.0f}" if act else "-",  border=1, fill=True)
+            pdf.ln()
+
+        if total_planned or total_actual:
+            pdf.set_fill_color(*LIGHT)
+            pdf.set_font(font, "B", 8)
+            pdf.cell(col[0]+col[1]+col[2], 6, "Total", border=1, fill=True)
+            pdf.cell(col[3], 6, f"${total_planned:,.0f}", border=1, fill=True)
+            pdf.cell(col[4], 6, f"${total_actual:,.0f}",  border=1, fill=True)
+            pdf.ln()
+
+        pdf.ln(6)
+
+    # ── Documentos requeridos ─────────────────────────────────────────────────
+    docs = project.get("docs_checklist") or []
+    if docs:
+        pdf.set_fill_color(*DARK)
+        pdf.set_text_color(*WHITE)
+        pdf.set_font(font, "B", 9)
+        pdf.cell(0, 7, "  Documentos Requeridos", fill=True, ln=True)
+        pdf.set_text_color(*BLACK)
+        pdf.ln(2)
+
+        done_count = sum(1 for d in docs if d.get("done"))
+        pdf.set_font(font, "", 8.5)
+        for doc in docs:
+            mark = "[X]" if doc.get("done") else "[ ]"
+            pdf.set_text_color(*(GREEN if doc.get("done") else MUTED))
+            pdf.cell(0, 5.5, f"  {mark}  {_safe_text(doc.get('name', ''))}", ln=True)
+        pdf.set_text_color(*MUTED)
+        pdf.set_font(font, "I", 8)
+        pdf.ln(1)
+        pdf.cell(0, 5, f"Progreso: {done_count}/{len(docs)} documentos entregados", ln=True)
+        pdf.set_text_color(*BLACK)
+
+    pdf.output(output_path)
+
     pdf.output(output_path)
