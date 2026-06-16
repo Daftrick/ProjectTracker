@@ -6,7 +6,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-19",
-    "categoria": "Salida"
+    "categoria": "Salida",
+    "disciplina": "instalaciones"
   },
   {
     "id": "3EF4F34C",
@@ -15,7 +16,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CF8E020E",
@@ -24,7 +26,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "6080C3DF",
@@ -33,7 +36,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "94B273C0",
@@ -42,7 +46,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "BD9EA6E4",
@@ -51,7 +56,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5A31DD1C",
@@ -60,7 +66,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9CF3C72B",
@@ -69,7 +76,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "6B4F82DD",
@@ -78,7 +86,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "17074C17",
@@ -87,7 +96,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "191D7987",
@@ -96,7 +106,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "63EF677F",
@@ -105,7 +116,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "458AEC86",
@@ -114,7 +126,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9AC13BC2",
@@ -123,7 +136,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "EFA814EB",
@@ -132,7 +146,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "60CA5FEE",
@@ -141,7 +156,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5880609C",
@@ -150,7 +166,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "79921E56",
@@ -159,7 +176,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "DE9EF199",
@@ -168,7 +186,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D5D4E2AA",
@@ -177,7 +196,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7FB42249",
@@ -186,7 +206,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "573F7605",
@@ -195,7 +216,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "AC40DA48",
@@ -204,7 +226,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "60882F0F",
@@ -213,7 +236,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "35F797E1",
@@ -222,7 +246,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "08190240",
@@ -231,7 +256,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "322EF0AC",
@@ -240,7 +266,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C1E67F16",
@@ -249,7 +276,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "DE626994",
@@ -258,7 +286,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "50A2EBC0",
@@ -267,7 +296,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "DBA5C185",
@@ -276,7 +306,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "2540119E",
@@ -285,7 +316,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C116C004",
@@ -294,7 +326,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "E32BE145",
@@ -303,7 +336,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1D5577C3",
@@ -312,7 +346,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "E2D36AC3",
@@ -321,7 +356,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C82014A6",
@@ -330,7 +366,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "92218A02",
@@ -339,7 +376,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D4CA8413",
@@ -348,7 +386,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D0ECADEF",
@@ -357,7 +396,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "0AE22940",
@@ -366,7 +406,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7914927E",
@@ -375,7 +416,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C7B13638",
@@ -384,7 +426,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "17B415D8",
@@ -393,7 +436,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7132C911",
@@ -402,7 +446,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "98961499",
@@ -411,7 +456,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D2879612",
@@ -420,7 +466,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9824265A",
@@ -429,7 +476,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8A97357A",
@@ -438,7 +486,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "86E959D6",
@@ -447,7 +496,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "55946E84",
@@ -456,7 +506,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "802B4677",
@@ -465,7 +516,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-20",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1F183CFD",
@@ -474,7 +526,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": "Salida"
+    "categoria": "Salida",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4C172E56",
@@ -483,7 +536,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": "Salida"
+    "categoria": "Salida",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C8D6402B",
@@ -492,7 +546,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": "Salida"
+    "categoria": "Salida",
+    "disciplina": "instalaciones"
   },
   {
     "id": "E06E3F5D",
@@ -501,7 +556,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "E7D23B77",
@@ -510,7 +566,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "08E0125B",
@@ -519,7 +576,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "31F3EE77",
@@ -528,7 +586,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "945E2D9E",
@@ -537,7 +596,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "0AEAAC55",
@@ -546,7 +606,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "041CA82C",
@@ -555,7 +616,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "3626E718",
@@ -564,7 +626,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A0307F9A",
@@ -573,7 +636,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "047C8246",
@@ -582,7 +646,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "E76B29A8",
@@ -591,7 +656,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "33B3D724",
@@ -600,7 +666,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "97E634EE",
@@ -609,7 +676,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5BC616CB",
@@ -618,7 +686,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "3119B6E7",
@@ -627,7 +696,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "DC2E7A1A",
@@ -636,7 +706,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C8B79448",
@@ -645,7 +716,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D53207F7",
@@ -654,7 +726,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1A96C797",
@@ -663,7 +736,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8D4AFF78",
@@ -672,7 +746,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D2A82D03",
@@ -681,7 +756,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8F0B1614",
@@ -690,7 +766,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "988855E3",
@@ -699,7 +776,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C307672C",
@@ -708,7 +786,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C6CE7855",
@@ -717,7 +796,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "E023E6F1",
@@ -726,7 +806,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "35BC9322",
@@ -735,7 +816,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "EF8567CE",
@@ -744,7 +826,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A833CF9D",
@@ -753,7 +836,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "61939906",
@@ -762,7 +846,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5FAC1AC5",
@@ -771,7 +856,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "46202E0F",
@@ -780,7 +866,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "108B1E71",
@@ -789,7 +876,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9A26631F",
@@ -798,7 +886,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "65C9486F",
@@ -807,7 +896,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8A82E35B",
@@ -816,7 +906,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "053A106F",
@@ -825,7 +916,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "EFBBD73C",
@@ -834,7 +926,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "6E3A33B4",
@@ -843,7 +936,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "38721C75",
@@ -852,7 +946,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1410BDC2",
@@ -861,7 +956,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "83E104EF",
@@ -870,7 +966,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8814838A",
@@ -879,7 +976,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "659638F2",
@@ -888,7 +986,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1AD70201",
@@ -897,7 +996,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "AE62FA3E",
@@ -906,7 +1006,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A5784CF0",
@@ -915,7 +1016,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5DC4D2D2",
@@ -924,7 +1026,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4FAB2ED6",
@@ -933,7 +1036,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9E6C63DE",
@@ -942,7 +1046,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "ABCAFAD1",
@@ -951,7 +1056,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "854962B0",
@@ -960,7 +1066,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B42852C3",
@@ -969,7 +1076,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CFAD6E63",
@@ -978,7 +1086,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "06776B34",
@@ -987,7 +1096,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "E335956F",
@@ -996,7 +1106,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "18C5C03E",
@@ -1005,7 +1116,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "EFF4FECF",
@@ -1014,7 +1126,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8DC8C842",
@@ -1023,7 +1136,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "34AA2A37",
@@ -1032,7 +1146,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "91D25844",
@@ -1041,7 +1156,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "6893EDC3",
@@ -1050,7 +1166,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "95B9504F",
@@ -1059,7 +1176,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "67217B57",
@@ -1068,7 +1186,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "816111D1",
@@ -1077,7 +1196,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "01F79130",
@@ -1086,7 +1206,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B6CAD20E",
@@ -1095,7 +1216,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7C4D60A4",
@@ -1104,7 +1226,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "3229324E",
@@ -1113,7 +1236,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "56C8E50B",
@@ -1122,7 +1246,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "FDF220ED",
@@ -1131,7 +1256,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "6A489BC7",
@@ -1140,7 +1266,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "04A50B58",
@@ -1149,7 +1276,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D3B47C7D",
@@ -1158,7 +1286,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "378F0253",
@@ -1167,7 +1296,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5500EE99",
@@ -1176,7 +1306,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1C762EE1",
@@ -1185,7 +1316,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "66F75365",
@@ -1194,7 +1326,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A16F4B2C",
@@ -1203,7 +1336,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8368CF40",
@@ -1212,7 +1346,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B27C5D3E",
@@ -1221,7 +1356,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "21CA0A90",
@@ -1230,7 +1366,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7DDAF764",
@@ -1239,7 +1376,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CC3D4905",
@@ -1248,7 +1386,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B1EB0757",
@@ -1257,7 +1396,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8AAF22AE",
@@ -1266,7 +1406,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "37B1DF13",
@@ -1275,7 +1416,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7B08FE7E",
@@ -1284,7 +1426,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8DB60C90",
@@ -1293,7 +1436,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "112D3391",
@@ -1302,7 +1446,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "120AD643",
@@ -1311,7 +1456,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "0C4DD4A8",
@@ -1320,7 +1466,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "97EEB372",
@@ -1329,7 +1476,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C38D6E4F",
@@ -1338,7 +1486,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "87DCBE2D",
@@ -1347,7 +1496,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D49E7F50",
@@ -1356,7 +1506,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C4453C1F",
@@ -1365,7 +1516,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "DFAE2224",
@@ -1374,7 +1526,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "51A12AC6",
@@ -1383,7 +1536,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "75BE2B59",
@@ -1392,7 +1546,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1E4D9A9D",
@@ -1401,7 +1556,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9E4997EB",
@@ -1410,7 +1566,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "33934677",
@@ -1419,7 +1576,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C76389A4",
@@ -1428,7 +1586,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "42E7ADEB",
@@ -1437,7 +1596,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A3F7AD28",
@@ -1446,7 +1606,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "2C48B4D7",
@@ -1455,7 +1616,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B497844E",
@@ -1464,7 +1626,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "E5AF8061",
@@ -1473,7 +1636,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "28206AAE",
@@ -1482,7 +1646,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F6B09172",
@@ -1491,7 +1656,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CDA4F5FD",
@@ -1500,7 +1666,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "43CD1EC4",
@@ -1509,7 +1676,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "6F045DAE",
@@ -1518,7 +1686,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "6DFAE841",
@@ -1527,7 +1696,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "75D8D7AC",
@@ -1536,7 +1706,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8A93A2B7",
@@ -1545,7 +1716,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "571B95F5",
@@ -1554,7 +1726,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "382445DA",
@@ -1563,7 +1736,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F4FE7000",
@@ -1572,7 +1746,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "45A9845E",
@@ -1581,7 +1756,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D7DE6384",
@@ -1590,7 +1766,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "ECCFA62E",
@@ -1599,7 +1776,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "57FF3AF7",
@@ -1608,7 +1786,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "05BEB8F8",
@@ -1617,7 +1796,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "05D05AE0",
@@ -1626,7 +1806,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7EF3D33C",
@@ -1635,7 +1816,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "2E8738AD",
@@ -1644,7 +1826,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "12E1C4B4",
@@ -1653,7 +1836,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CDB02F11",
@@ -1662,7 +1846,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8556757D",
@@ -1671,7 +1856,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CD3B9CBA",
@@ -1680,7 +1866,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8ECBBA73",
@@ -1689,7 +1876,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C4D56BC2",
@@ -1698,7 +1886,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9246B11F",
@@ -1707,7 +1896,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F8E29D25",
@@ -1716,7 +1906,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9AE816E9",
@@ -1725,7 +1916,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1E62162D",
@@ -1734,7 +1926,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5DBDB618",
@@ -1743,7 +1936,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "92570F01",
@@ -1752,7 +1946,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "DDEE5B91",
@@ -1761,7 +1956,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F1239EB0",
@@ -1770,7 +1966,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "07055CBB",
@@ -1779,7 +1976,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A7C1D283",
@@ -1788,7 +1986,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9B73B1D9",
@@ -1797,7 +1996,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B8D2E394",
@@ -1806,7 +2006,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C46480E2",
@@ -1815,7 +2016,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "ED1EF9F9",
@@ -1824,7 +2026,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "2998492B",
@@ -1833,7 +2036,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7B152773",
@@ -1842,7 +2046,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A4109C30",
@@ -1851,7 +2056,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "0DD1750C",
@@ -1860,7 +2066,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "374C6CC3",
@@ -1869,7 +2076,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C6DAB3C9",
@@ -1878,7 +2086,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "90F651DE",
@@ -1887,7 +2096,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "2D62FDEB",
@@ -1896,7 +2106,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "732E099C",
@@ -1905,7 +2116,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7C99B319",
@@ -1914,7 +2126,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C9E3F4A5",
@@ -1923,7 +2136,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1CAAFE55",
@@ -1932,7 +2146,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "DAF405B6",
@@ -1941,7 +2156,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D3F0E6CC",
@@ -1950,7 +2166,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "46A12E0C",
@@ -1959,7 +2176,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "EE453F70",
@@ -1968,7 +2186,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4C2C63F8",
@@ -1977,7 +2196,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F7D24F17",
@@ -1986,7 +2206,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B9381C85",
@@ -1995,7 +2216,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "93EF2E83",
@@ -2004,7 +2226,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9CAB30C3",
@@ -2013,7 +2236,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "E11B23AB",
@@ -2022,7 +2246,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "EF7D2E96",
@@ -2031,7 +2256,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "2A33BE0D",
@@ -2040,7 +2266,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C058643C",
@@ -2049,7 +2276,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "EB0516C7",
@@ -2058,7 +2286,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "E535F629",
@@ -2067,7 +2296,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "FC1627D8",
@@ -2076,7 +2306,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-22",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "25C9A5F5",
@@ -2085,7 +2316,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4B2343BB",
@@ -2094,7 +2326,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C16EBD16",
@@ -2103,7 +2336,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F3641115",
@@ -2112,7 +2346,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "ED1BD558",
@@ -2121,7 +2356,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C08DA40D",
@@ -2130,7 +2366,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "DB4E8D9C",
@@ -2139,7 +2376,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "DF4B729D",
@@ -2148,7 +2386,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "2D6B3BE0",
@@ -2157,7 +2396,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4B2E24BF",
@@ -2166,7 +2406,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "73618927",
@@ -2175,7 +2416,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "15514DE1",
@@ -2184,7 +2426,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "6B776A1B",
@@ -2193,7 +2436,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "DCB8D811",
@@ -2202,7 +2446,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "028E91EA",
@@ -2211,7 +2456,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A5255B64",
@@ -2220,7 +2466,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B22F1D90",
@@ -2229,7 +2476,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1D851D14",
@@ -2238,7 +2486,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8AA69AB5",
@@ -2247,7 +2496,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "56C24ED0",
@@ -2256,7 +2506,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9690E597",
@@ -2265,7 +2516,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7D6A1B33",
@@ -2274,7 +2526,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "BD11A7C8",
@@ -2283,7 +2536,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9814B089",
@@ -2292,7 +2546,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A1C5788F",
@@ -2301,7 +2556,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A95A1CA8",
@@ -2310,7 +2566,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1251C6D9",
@@ -2319,7 +2576,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "0B610EAA",
@@ -2328,7 +2586,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4EDE8418",
@@ -2337,7 +2596,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "24EE097B",
@@ -2346,7 +2606,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "BFCD35EE",
@@ -2355,7 +2616,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4ED5C93D",
@@ -2364,7 +2626,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F84249D5",
@@ -2373,7 +2636,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "43181664",
@@ -2382,7 +2646,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D90135E7",
@@ -2391,7 +2656,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "35B41312",
@@ -2400,7 +2666,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "429C2A88",
@@ -2409,7 +2676,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4176F6DB",
@@ -2418,7 +2686,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D777434F",
@@ -2427,7 +2696,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A4181820",
@@ -2436,7 +2706,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "0961AF82",
@@ -2445,7 +2716,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "FFE4AFAF",
@@ -2454,7 +2726,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B335B39E",
@@ -2463,7 +2736,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D1084BAA",
@@ -2472,7 +2746,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "6E4D2C7F",
@@ -2481,7 +2756,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D1377897",
@@ -2490,7 +2766,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "78E6E91D",
@@ -2499,7 +2776,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "25940BBE",
@@ -2508,7 +2786,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "96AFFD5D",
@@ -2517,7 +2796,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A9201C09",
@@ -2526,7 +2806,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5ABE876B",
@@ -2535,7 +2816,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "ECBB6931",
@@ -2544,7 +2826,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "160C9285",
@@ -2553,7 +2836,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "98C681F0",
@@ -2562,7 +2846,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9EB8267A",
@@ -2571,7 +2856,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "BFA412D0",
@@ -2580,7 +2866,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F50CC862",
@@ -2589,7 +2876,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "0F21F6F2",
@@ -2598,7 +2886,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D04E1C40",
@@ -2607,7 +2896,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9E8D2868",
@@ -2616,7 +2906,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "BE0CE93E",
@@ -2625,7 +2916,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F34E1319",
@@ -2634,7 +2926,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "0BE19387",
@@ -2643,7 +2936,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "E9A3945B",
@@ -2652,7 +2946,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "44966A0E",
@@ -2661,7 +2956,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5D8598DA",
@@ -2670,7 +2966,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4A2C7045",
@@ -2679,7 +2976,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "59B5A4EC",
@@ -2688,7 +2986,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "03462886",
@@ -2697,7 +2996,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8F942358",
@@ -2706,7 +3006,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "84178E1D",
@@ -2715,7 +3016,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C66843E7",
@@ -2724,7 +3026,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "969468AA",
@@ -2733,7 +3036,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "509FBCCF",
@@ -2742,7 +3046,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A709D777",
@@ -2751,7 +3056,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9D83245A",
@@ -2760,7 +3066,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A86449AB",
@@ -2769,7 +3076,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "ED4F18F4",
@@ -2778,7 +3086,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1454409F",
@@ -2787,7 +3096,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B8F2A791",
@@ -2796,7 +3106,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "131BF8DE",
@@ -2805,7 +3116,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "BCF9637F",
@@ -2814,7 +3126,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "3A0F578D",
@@ -2823,7 +3136,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CD8646C0",
@@ -2832,7 +3146,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1E5AA889",
@@ -2841,7 +3156,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "849F5637",
@@ -2850,7 +3166,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "3A64FA3A",
@@ -2859,7 +3176,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CC5916DB",
@@ -2868,7 +3186,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F87E4D7B",
@@ -2877,7 +3196,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F737D67B",
@@ -2886,7 +3206,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1C0BB18F",
@@ -2895,7 +3216,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A6783EC7",
@@ -2904,7 +3226,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "79551A81",
@@ -2913,7 +3236,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B418B08F",
@@ -2922,7 +3246,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "FDFF1266",
@@ -2931,7 +3256,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1AB360B5",
@@ -2940,7 +3266,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "FFE6242B",
@@ -2949,7 +3276,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7D4449A1",
@@ -2958,7 +3286,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "875635EF",
@@ -2967,7 +3296,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7BF7A519",
@@ -2976,7 +3306,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5534E1A3",
@@ -2985,7 +3316,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "018C18B3",
@@ -2994,7 +3326,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B074AABC",
@@ -3003,7 +3336,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C29BE27C",
@@ -3012,7 +3346,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F4680A80",
@@ -3021,7 +3356,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "BA1D47E8",
@@ -3030,7 +3366,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7C5954F8",
@@ -3039,7 +3376,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "62CF0704",
@@ -3048,7 +3386,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "0D70BB0B",
@@ -3057,7 +3396,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D478E993",
@@ -3066,7 +3406,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "959BD150",
@@ -3075,7 +3416,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9706813C",
@@ -3084,7 +3426,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C23CD302",
@@ -3093,7 +3436,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5F70AC46",
@@ -3102,7 +3446,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B6701B97",
@@ -3111,7 +3456,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4762B398",
@@ -3120,7 +3466,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "474908C9",
@@ -3129,7 +3476,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F30FA6F3",
@@ -3138,7 +3486,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "67AF07AE",
@@ -3147,7 +3496,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "3CE3CB32",
@@ -3156,7 +3506,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "908C7B3B",
@@ -3165,7 +3516,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "405C472A",
@@ -3174,7 +3526,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "FA9A0D02",
@@ -3183,7 +3536,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "027B0499",
@@ -3192,7 +3546,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "544481E8",
@@ -3201,7 +3556,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "84FB50AB",
@@ -3210,7 +3566,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "57C882D6",
@@ -3219,7 +3576,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "0911935B",
@@ -3228,7 +3586,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "40A5B306",
@@ -3237,7 +3596,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "FD63E58B",
@@ -3246,7 +3606,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "12333D28",
@@ -3255,7 +3616,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "EBF5B3B0",
@@ -3264,7 +3626,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CEB51FAD",
@@ -3273,7 +3636,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "26D480AA",
@@ -3282,7 +3646,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "6E5A643B",
@@ -3291,7 +3656,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F0E1C590",
@@ -3300,7 +3666,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4147714B",
@@ -3309,7 +3676,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "444655BA",
@@ -3318,7 +3686,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A1473B2C",
@@ -3327,7 +3696,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "0C147816",
@@ -3336,7 +3706,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CAE7672D",
@@ -3345,7 +3716,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "33F4913C",
@@ -3354,7 +3726,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "73784D64",
@@ -3363,7 +3736,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1BF5211A",
@@ -3372,7 +3746,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "AD9D362B",
@@ -3381,7 +3756,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D61A75A9",
@@ -3390,7 +3766,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A45A9CBB",
@@ -3399,7 +3776,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "BD05E23F",
@@ -3408,7 +3786,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "0F75F09C",
@@ -3417,7 +3796,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "0DBD4733",
@@ -3426,7 +3806,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F75CDAC2",
@@ -3435,7 +3816,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4AB19072",
@@ -3444,7 +3826,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C0E04615",
@@ -3453,7 +3836,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "53E91A6E",
@@ -3462,7 +3846,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "289CCABA",
@@ -3471,7 +3856,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1E918815",
@@ -3480,7 +3866,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "AD58C45B",
@@ -3489,7 +3876,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D2C93011",
@@ -3498,7 +3886,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7B3D5C4F",
@@ -3507,7 +3896,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7D07F258",
@@ -3516,7 +3906,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CF5B0963",
@@ -3525,7 +3916,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "BF862566",
@@ -3534,7 +3926,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "72B984EF",
@@ -3543,7 +3936,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A3896EB6",
@@ -3552,7 +3946,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-21",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "DF89D08C",
@@ -3561,7 +3956,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": "Salida"
+    "categoria": "Salida",
+    "disciplina": "instalaciones"
   },
   {
     "id": "56A13CED",
@@ -3570,7 +3966,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "3754E826",
@@ -3579,7 +3976,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8F45B371",
@@ -3588,7 +3986,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "81F2CB4E",
@@ -3597,7 +3996,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "DEF379B0",
@@ -3606,7 +4006,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "9C32D7FA",
@@ -3615,7 +4016,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "854DCE76",
@@ -3624,7 +4026,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "1B294EA0",
@@ -3633,7 +4036,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8C67BE59",
@@ -3642,7 +4046,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C71B8652",
@@ -3651,7 +4056,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "E01FADCB",
@@ -3660,7 +4066,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "AB435C12",
@@ -3669,7 +4076,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "2F39CA84",
@@ -3678,7 +4086,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "2356BD1A",
@@ -3687,7 +4096,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7DA84B2E",
@@ -3696,7 +4106,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "389D75CF",
@@ -3705,7 +4116,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "35D0AB4E",
@@ -3714,7 +4126,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "274BD890",
@@ -3723,7 +4136,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F26B731A",
@@ -3732,7 +4146,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "0C59B8A1",
@@ -3741,7 +4156,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "23A6189B",
@@ -3750,7 +4166,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CBE98F76",
@@ -3759,7 +4176,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "DB1A3E9F",
@@ -3768,7 +4186,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "63FD1E4C",
@@ -3777,7 +4196,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "2BD943C8",
@@ -3786,7 +4206,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "6CD297B8",
@@ -3795,7 +4216,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "58D3CFB6",
@@ -3804,7 +4226,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C1036A59",
@@ -3813,7 +4236,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "87943ADB",
@@ -3822,7 +4246,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "2B9146D3",
@@ -3831,7 +4256,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A42CD3EB",
@@ -3840,7 +4266,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F3A4708B",
@@ -3849,7 +4276,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B8207F51",
@@ -3858,7 +4286,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CAF604DB",
@@ -3867,7 +4296,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D56418EF",
@@ -3876,7 +4306,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5F18CAD9",
@@ -3885,7 +4316,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "952E3B76",
@@ -3894,7 +4326,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "DF250E4A",
@@ -3903,7 +4336,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "486B97DE",
@@ -3912,7 +4346,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "38BD1A2E",
@@ -3921,7 +4356,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5AF43982",
@@ -3930,7 +4366,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "AE80F5CD",
@@ -3939,7 +4376,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CE216A50",
@@ -3948,7 +4386,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-04-24",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "3A3EF89A",
@@ -3957,7 +4396,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-04-26",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "6CA7BF58",
@@ -3966,7 +4406,8 @@
     "unidad": "lote",
     "precio": 1950.0,
     "categoria": "Iluminación",
-    "created_at": "2026-04-30"
+    "created_at": "2026-04-30",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5C329F0A",
@@ -3975,7 +4416,8 @@
     "unidad": "lote",
     "precio": 2750.0,
     "categoria": "Contactos",
-    "created_at": "2026-04-30"
+    "created_at": "2026-04-30",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C65CCA87",
@@ -3984,7 +4426,8 @@
     "unidad": "pza",
     "precio": 250.0,
     "categoria": "",
-    "created_at": "2026-04-30"
+    "created_at": "2026-04-30",
+    "disciplina": "instalaciones"
   },
   {
     "id": "374DD97B",
@@ -3993,7 +4436,8 @@
     "unidad": "lote",
     "precio": 4135.0,
     "categoria": "HVAC",
-    "created_at": "2026-04-30"
+    "created_at": "2026-04-30",
+    "disciplina": "instalaciones"
   },
   {
     "id": "541DE8C0",
@@ -4002,7 +4446,8 @@
     "unidad": "ml",
     "precio": 100.0,
     "categoria": "Mano de Obra",
-    "created_at": "2026-04-30"
+    "created_at": "2026-04-30",
+    "disciplina": "instalaciones"
   },
   {
     "id": "68F0D390",
@@ -4011,7 +4456,8 @@
     "unidad": "pza",
     "precio": 135.1,
     "categoria": "",
-    "created_at": "2026-05-18"
+    "created_at": "2026-05-18",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4F73D293",
@@ -4020,7 +4466,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "Salida",
-    "created_at": "2026-05-19"
+    "created_at": "2026-05-19",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8D6668BE",
@@ -4029,7 +4476,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "Salida",
-    "created_at": "2026-05-19"
+    "created_at": "2026-05-19",
+    "disciplina": "instalaciones"
   },
   {
     "id": "76A1B25A",
@@ -4038,7 +4486,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "Salida",
-    "created_at": "2026-05-19"
+    "created_at": "2026-05-19",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F91F586D",
@@ -4047,7 +4496,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "Salida",
-    "created_at": "2026-05-19"
+    "created_at": "2026-05-19",
+    "disciplina": "instalaciones"
   },
   {
     "id": "86F13521",
@@ -4056,7 +4506,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "Salida",
-    "created_at": "2026-05-19"
+    "created_at": "2026-05-19",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CCDD4939",
@@ -4065,7 +4516,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-05-19"
+    "created_at": "2026-05-19",
+    "disciplina": "instalaciones"
   },
   {
     "id": "C61F3E26",
@@ -4074,7 +4526,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-05-19"
+    "created_at": "2026-05-19",
+    "disciplina": "instalaciones"
   },
   {
     "id": "193C2A83",
@@ -4083,7 +4536,8 @@
     "unidad": "m",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-05-19"
+    "created_at": "2026-05-19",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F3773E8E",
@@ -4092,7 +4546,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-05-22"
+    "created_at": "2026-05-22",
+    "disciplina": "instalaciones"
   },
   {
     "id": "E2278041",
@@ -4101,7 +4556,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-05-22"
+    "created_at": "2026-05-22",
+    "disciplina": "instalaciones"
   },
   {
     "id": "EDCA6C13",
@@ -4110,7 +4566,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-05-22"
+    "created_at": "2026-05-22",
+    "disciplina": "instalaciones"
   },
   {
     "id": "0ADF9E4C",
@@ -4119,7 +4576,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-05-22"
+    "created_at": "2026-05-22",
+    "disciplina": "instalaciones"
   },
   {
     "id": "EBEE2D2A",
@@ -4128,7 +4586,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-05-22"
+    "created_at": "2026-05-22",
+    "disciplina": "instalaciones"
   },
   {
     "id": "2E2060D5",
@@ -4137,7 +4596,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-05-22"
+    "created_at": "2026-05-22",
+    "disciplina": "instalaciones"
   },
   {
     "id": "07546CE6",
@@ -4146,7 +4606,8 @@
     "unidad": "m",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-05-22"
+    "created_at": "2026-05-22",
+    "disciplina": "instalaciones"
   },
   {
     "id": "8FF3CBD2",
@@ -4155,7 +4616,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-05-22"
+    "created_at": "2026-05-22",
+    "disciplina": "instalaciones"
   },
   {
     "id": "6DF469AF",
@@ -4164,7 +4626,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-05-22"
+    "created_at": "2026-05-22",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D5585156",
@@ -4173,7 +4636,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-05-22"
+    "created_at": "2026-05-22",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CD547D4A",
@@ -4182,7 +4646,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-05-22"
+    "created_at": "2026-05-22",
+    "disciplina": "instalaciones"
   },
   {
     "id": "3E6A5776",
@@ -4191,7 +4656,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "846D8E87",
@@ -4200,7 +4666,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "490E6DE2",
@@ -4209,7 +4676,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "99092AF2",
@@ -4218,7 +4686,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A0CB20A9",
@@ -4227,7 +4696,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "03BEA0E3",
@@ -4236,7 +4706,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "35B36A01",
@@ -4245,7 +4716,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5529E709",
@@ -4254,7 +4726,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4392C851",
@@ -4263,7 +4736,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "CE2F93DF",
@@ -4272,7 +4746,8 @@
     "unidad": "ml",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "686902D4",
@@ -4281,7 +4756,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "2325432B",
@@ -4290,7 +4766,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B9E8B721",
@@ -4299,7 +4776,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F6A7AA34",
@@ -4308,7 +4786,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5FED1838",
@@ -4317,7 +4796,8 @@
     "unidad": "m",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "BF9F8686",
@@ -4326,7 +4806,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "434BDB46",
@@ -4335,7 +4816,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "BB983E3F",
@@ -4344,7 +4826,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "BD632F64",
@@ -4353,7 +4836,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A803BBD7",
@@ -4362,7 +4846,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A71668E8",
@@ -4371,7 +4856,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4384EC2A",
@@ -4380,7 +4866,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "D0664059",
@@ -4389,7 +4876,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "B473466C",
@@ -4398,7 +4886,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "2FCC44C7",
@@ -4407,7 +4896,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A4A77BF0",
@@ -4416,7 +4906,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "3ECFBBAE",
@@ -4425,7 +4916,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "F063B1A1",
@@ -4434,7 +4926,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "4F080570",
@@ -4443,7 +4936,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "created_at": "2026-05-23",
-    "categoria": ""
+    "categoria": "",
+    "disciplina": "instalaciones"
   },
   {
     "id": "7D9EAAA6",
@@ -4452,7 +4946,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "Salida",
-    "created_at": "2026-05-28"
+    "created_at": "2026-05-28",
+    "disciplina": "instalaciones"
   },
   {
     "id": "5EBFBD22",
@@ -4461,7 +4956,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "Salida",
-    "created_at": "2026-05-28"
+    "created_at": "2026-05-28",
+    "disciplina": "instalaciones"
   },
   {
     "id": "6F3A0DAD",
@@ -4470,7 +4966,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-06-01"
+    "created_at": "2026-06-01",
+    "disciplina": "instalaciones"
   },
   {
     "id": "A8ED13E4",
@@ -4479,7 +4976,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "Salida",
-    "created_at": "2026-06-03"
+    "created_at": "2026-06-03",
+    "disciplina": "instalaciones"
   },
   {
     "id": "69AA6DE5",
@@ -4488,7 +4986,8 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "Salida",
-    "created_at": "2026-06-03"
+    "created_at": "2026-06-03",
+    "disciplina": "instalaciones"
   },
   {
     "id": "3342F40E",
@@ -4497,6 +4996,7 @@
     "unidad": "pza",
     "precio": 0.0,
     "categoria": "",
-    "created_at": "2026-06-12"
+    "created_at": "2026-06-12",
+    "disciplina": "instalaciones"
   }
 ]

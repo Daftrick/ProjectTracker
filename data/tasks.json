@@ -1046,7 +1046,7 @@
     "title": "Cotización",
     "source": "propia",
     "external_dep": null,
-    "status": "Pendiente",
+    "status": "Aprobado",
     "parent_task_id": null,
     "notes": "",
     "history": [
@@ -1055,6 +1055,12 @@
         "to": "Pendiente",
         "date": "2026-04-30",
         "note": "Creado con el proyecto"
+      },
+      {
+        "from": "Pendiente",
+        "to": "Aprobado",
+        "date": "2026-06-15",
+        "note": "Cambio: Pendiente → Aprobado"
       }
     ],
     "created_at": "2026-04-30"
