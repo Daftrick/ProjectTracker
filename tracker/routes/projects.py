@@ -1,10 +1,11 @@
 import os
+import tempfile
 import threading
 import time
 import zipfile
 from datetime import date
 
-from flask import Blueprint, abort, flash, redirect, render_template, request, send_file, send_from_directory, url_for
+from flask import Blueprint, abort, after_this_request, flash, redirect, render_template, request, send_file, send_from_directory, url_for
 
 from ..catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from ..consistency import compute_consistency
@@ -19,11 +20,16 @@ from ..services import (
     update_observation_details,
     update_observation_checklist_item,
 )
+from ..pdfs import build_progress_pdf
 from ..storage import load, new_id, save, today
 from ..templates_config import get_project_templates
 from ..validators import validate_project_form
 
 bp = Blueprint("projects_bp", __name__)
+
+
+def _find_project(project_id):
+    return next((item for item in load("projects") if item["id"] == project_id), None)
 
 
 def _blank_project_form_state():
@@ -155,16 +161,24 @@ def new_project():
 
 @bp.route("/projects/<project_id>", endpoint="project_detail")
 def project_detail(project_id):
-    projects = load("projects")
-    project = next((item for item in projects if item["id"] == project_id), None)
+    project = _find_project(project_id)
     if not project:
         flash("Proyecto no encontrado.", "danger")
         return redirect(url_for("dashboard"))
     templates_map = {t["id"]: t for t in get_project_templates()}
+    tmpl = templates_map.get(project.get("template_id", ""))
+    stage_budget = project.get("stage_budget") or {}
+    stage_budget_totals = {"planned": 0.0, "actual": 0.0}
+    if tmpl:
+        for stage in tmpl["stages"]:
+            bd = stage_budget.get(stage, {})
+            stage_budget_totals["planned"] += float(bd.get("planned") or 0)
+            stage_budget_totals["actual"] += float(bd.get("actual") or 0)
     return render_template(
         "project_detail.html",
         **build_project_detail_context(project),
         templates_map=templates_map,
+        stage_budget_totals=stage_budget_totals,
     )
 
 
@@ -401,7 +415,7 @@ def update_project_alcances(project_id):
 
 @bp.route("/projects/<project_id>/deliveries/create", methods=["POST"], endpoint="create_delivery")
 def create_delivery(project_id):
-    project = next((item for item in load("projects") if item["id"] == project_id), None)
+    project = _find_project(project_id)
     if not project:
         return redirect(url_for("dashboard"))
     cfg = load_config()
@@ -487,7 +501,7 @@ def delete_delivery(project_id, delivery_id):
 @bp.route("/projects/<project_id>/drive/create-folder", methods=["POST"], endpoint="create_drive_folder")
 def create_drive_folder(project_id):
     """Crea la carpeta Drive del proyecto si aún no existe."""
-    project = next((item for item in load("projects") if item["id"] == project_id), None)
+    project = _find_project(project_id)
     if not project:
         return redirect(url_for("dashboard"))
     cfg = load_config()
@@ -511,7 +525,7 @@ def serve_project_file(project_id, filename):
         abort(400)
     if os.path.basename(filename) != filename:
         abort(400)
-    project = next((item for item in load("projects") if item["id"] == project_id), None)
+    project = _find_project(project_id)
     if not project:
         abort(404)
     cfg = load_config()
@@ -601,16 +615,16 @@ def update_stage_budget(project_id):
     tmpl = templates_map.get(project.get("template_id", ""))
     if tmpl:
         stage_budget = {}
+        def _safe_float(value):
+            try:
+                return float(value or 0)
+            except (ValueError, TypeError):
+                return 0.0
+
         for stage in tmpl["stages"]:
             key = stage.replace(" ", "_").replace("-", "_")
-            try:
-                planned = float(request.form.get(f"planned_{key}", 0) or 0)
-            except (ValueError, TypeError):
-                planned = 0.0
-            try:
-                actual = float(request.form.get(f"actual_{key}", 0) or 0)
-            except (ValueError, TypeError):
-                actual = 0.0
+            planned = _safe_float(request.form.get(f"planned_{key}"))
+            actual = _safe_float(request.form.get(f"actual_{key}"))
             stage_budget[stage] = {"planned": planned, "actual": actual}
         project["stage_budget"] = stage_budget
         project["updated_at"] = today()
@@ -621,16 +635,22 @@ def update_stage_budget(project_id):
 
 @bp.route("/projects/<project_id>/reporte.pdf", endpoint="project_progress_pdf")
 def project_progress_pdf(project_id):
-    import tempfile
-    projects = load("projects")
-    project = next((p for p in projects if p["id"] == project_id), None)
+    project = _find_project(project_id)
     if not project:
         abort(404)
-    from ..pdfs import build_progress_pdf
     templates_map = {t["id"]: t for t in get_project_templates()}
     tmpl = templates_map.get(project.get("template_id", ""))
     with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
         tmp_path = f.name
+
+    @after_this_request
+    def _cleanup(response):
+        try:
+            os.unlink(tmp_path)
+        except Exception:
+            pass
+        return response
+
     try:
         build_progress_pdf(project, tmpl, tmp_path)
         return send_file(

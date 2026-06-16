@@ -3,7 +3,32 @@ import re
 from datetime import date, datetime
 
 from .catalog import catalog_description_lookup, catalog_name_key, quote_section_groups, quote_type_key
-from .storage import BASE_DIR
+from .storage import BASE_DIR, today
+
+
+# ── PDF colour palette (shared across all PDF builders) ──────────────────────
+# Quote / LDM palette
+_PDF_NAVY   = (24, 39, 70)
+_PDF_NAVY_2 = (40, 63, 110)
+_PDF_INK    = (37, 44, 58)
+_PDF_MUTED  = (113, 126, 145)
+_PDF_LINE   = (215, 221, 230)
+_PDF_SOFT   = (244, 247, 251)
+_PDF_GREEN  = (34, 139, 94)
+# Progress-report palette
+_PDF_DARK   = (30,  45,  90)
+_PDF_LIGHT  = (240, 244, 252)
+_PDF_BLACK  = (20,  25,  35)
+_PDF_WHITE  = (255, 255, 255)
+_PDF_MUTED2 = (110, 120, 140)   # slightly different shade used by progress PDF
+_PDF_GREEN2 = (34,  130, 80)
+
+# ── Stage-status display labels ───────────────────────────────────────────────
+STAGE_STATUS_LABELS = {
+    "done": "Completado",
+    "in_progress": "En progreso",
+    "pending": "Pendiente",
+}
 
 
 def _safe_text(text):
@@ -72,22 +97,28 @@ def note_lines(text):
     return [_safe_text(line.strip(" -•\t")) for line in raw.split("\n") if line.strip(" -•\t")]
 
 
-def quote_logo_path():
-    # 1. Company logo configured via /empresa
+def _load_company():
+    """Return the company dict from company.json, or {} on any error."""
     try:
         import json
         company_file = os.path.join(BASE_DIR, "data", "company.json")
         if os.path.isfile(company_file):
             with open(company_file, "r", encoding="utf-8") as _f:
-                _company = json.load(_f)
-            logo_rel = (_company.get("logo") or "") if isinstance(_company, dict) else ""
-            if logo_rel:
-                logo_abs = os.path.join(BASE_DIR, "static", logo_rel)
-                if os.path.isfile(logo_abs):
-                    return logo_abs
+                data = json.load(_f)
+            return data if isinstance(data, dict) else {}
     except Exception:
         pass
-    # 2. Legacy fallback paths
+    return {}
+
+
+def quote_logo_path():
+    company = _load_company()
+    logo_rel = company.get("logo") or ""
+    if logo_rel:
+        logo_abs = os.path.join(BASE_DIR, "static", logo_rel)
+        if os.path.isfile(logo_abs):
+            return logo_abs
+    # Legacy fallback paths
     candidates = [
         r"H:\My Drive\Omniious\OmnniiousLog.jpg",
         os.path.join(BASE_DIR, ".codex_tmp", "casa_leonides_pdf_assets", "page_1_img_1_Im6.jpg"),
@@ -99,18 +130,7 @@ def quote_logo_path():
 
 
 def _company_name():
-    try:
-        import json
-        company_file = os.path.join(BASE_DIR, "data", "company.json")
-        if os.path.isfile(company_file):
-            with open(company_file, "r", encoding="utf-8") as _f:
-                _company = json.load(_f)
-            name = (_company.get("name") or "") if isinstance(_company, dict) else ""
-            if name:
-                return name
-    except Exception:
-        pass
-    return "Project Tracker"
+    return _load_company().get("name") or "Project Tracker"
 
 
 def quote_scope_paragraphs():
@@ -219,13 +239,13 @@ def build_quote_pdf(project, quote, output_path):
             self.set_text_color(*MUTED)
             self.cell(0, 5, _safe_text(f"Project Tracker - Página {self.page_no()}/{{nb}}"), align="C")
 
-    NAVY = (24, 39, 70)
-    NAVY_2 = (40, 63, 110)
-    INK = (37, 44, 58)
-    MUTED = (113, 126, 145)
-    LINE = (215, 221, 230)
-    SOFT = (244, 247, 251)
-    GREEN = (34, 139, 94)
+    NAVY   = _PDF_NAVY
+    NAVY_2 = _PDF_NAVY_2
+    INK    = _PDF_INK
+    MUTED  = _PDF_MUTED
+    LINE   = _PDF_LINE
+    SOFT   = _PDF_SOFT
+    GREEN  = _PDF_GREEN
 
     items = quote.get("items", [])
     currency = quote.get("currency") or "MXN"
@@ -876,13 +896,13 @@ def build_ldm_pdf(project, ldm, output_path):
     except ImportError as exc:
         raise RuntimeError("fpdf2 no instalado. Ejecuta: pip install fpdf2 --break-system-packages") from exc
 
-    NAVY = (24, 39, 70)
-    NAVY_2 = (40, 63, 110)
-    INK = (37, 44, 58)
-    MUTED = (113, 126, 145)
-    LINE = (215, 221, 230)
-    SOFT = (244, 247, 251)
-    GREEN = (34, 139, 94)
+    NAVY   = _PDF_NAVY
+    NAVY_2 = _PDF_NAVY_2
+    INK    = _PDF_INK
+    MUTED  = _PDF_MUTED
+    LINE   = _PDF_LINE
+    SOFT   = _PDF_SOFT
+    GREEN  = _PDF_GREEN
 
     items = ldm.get("items", [])
     project_name = _safe_text(project.get("name", ""))
@@ -1325,6 +1345,8 @@ def build_ldm_pdf(project, ldm, output_path):
             pdf.set_x(pdf.l_margin)
             pdf.multi_cell(content_width, 5, _safe_text(f"- {line}"))
 
+    pdf.output(output_path)
+
 
 def build_progress_pdf(project, tmpl, output_path):
     """PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos."""
@@ -1341,12 +1363,12 @@ def build_progress_pdf(project, tmpl, output_path):
     has_fonts = _register_dejavu(pdf)
     font = "DejaVu" if has_fonts else "Helvetica"
 
-    DARK  = (30,  45,  90)
-    LIGHT = (240, 244, 252)
-    MUTED = (110, 120, 140)
-    BLACK = (20,  25,  35)
-    WHITE = (255, 255, 255)
-    GREEN = (34,  130, 80)
+    DARK  = _PDF_DARK
+    LIGHT = _PDF_LIGHT
+    MUTED = _PDF_MUTED2
+    BLACK = _PDF_BLACK
+    WHITE = _PDF_WHITE
+    GREEN = _PDF_GREEN2
 
     # ── Encabezado ────────────────────────────────────────────────────────────
     logo = quote_logo_path()
@@ -1384,7 +1406,7 @@ def build_progress_pdf(project, tmpl, output_path):
         meta.append(f"Clave: {project['clave']} {project.get('version', '')}".strip())
     if project.get("deadline"):
         meta.append(f"Deadline: {format_date_long(project['deadline'])}")
-    meta.append(f"Reporte: {format_date_long(date.today().isoformat())}")
+    meta.append(f"Reporte: {format_date_long(today())}")
     pdf.cell(0, 5, "   ".join(meta), ln=True)
     pdf.set_text_color(*BLACK)
     pdf.ln(6)
@@ -1401,7 +1423,6 @@ def build_progress_pdf(project, tmpl, output_path):
         pdf.set_text_color(*BLACK)
         pdf.ln(1)
 
-        STATUS_LABELS = {"done": "Completado", "in_progress": "En progreso", "pending": "Pendiente"}
         col = [58, 34, 34, 32, 32]
         pdf.set_font(font, "B", 7.5)
         pdf.set_fill_color(*LIGHT)
@@ -1415,7 +1436,7 @@ def build_progress_pdf(project, tmpl, output_path):
             row_fill = (248, 251, 255) if i % 2 == 0 else WHITE
             pdf.set_fill_color(*row_fill)
             st   = stage_status.get(stage, {})
-            slbl = STATUS_LABELS.get(st.get("status", "pending"), "Pendiente")
+            slbl = STAGE_STATUS_LABELS.get(st.get("status", "pending"), "Pendiente")
             sdt  = format_date_long(st.get("date")) if st.get("date") else "-"
             bdg  = stage_budget.get(stage, {})
             pln  = float(bdg.get("planned", 0) or 0)
@@ -1460,7 +1481,5 @@ def build_progress_pdf(project, tmpl, output_path):
         pdf.ln(1)
         pdf.cell(0, 5, f"Progreso: {done_count}/{len(docs)} documentos entregados", ln=True)
         pdf.set_text_color(*BLACK)
-
-    pdf.output(output_path)
 
     pdf.output(output_path)
