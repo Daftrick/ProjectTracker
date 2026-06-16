@@ -128,6 +128,21 @@
 </style>
 {% endblock %}
 
+{#
+  render_stage_badge(st, label)
+  st    — stage_status dict for the stage, e.g. {'status': 'done', 'date': '2026-01-01'}
+  label — text shown inside the badge (stage name for header, status word for avance table)
+#}
+{% macro render_stage_badge(st, label) -%}
+  {% if st.get('status') == 'done' %}
+    <span class="badge bg-success" title="{{ st.get('date', '') }}"><i class="bi bi-check-circle me-1"></i>{{ label }}</span>
+  {% elif st.get('status') == 'in_progress' %}
+    <span class="badge bg-warning text-dark" title="{{ st.get('date', '') }}"><i class="bi bi-arrow-repeat me-1"></i>{{ label }}</span>
+  {% else %}
+    <span class="badge bg-secondary">{{ label }}</span>
+  {% endif %}
+{%- endmacro %}
+
 {% macro render_drive_filename(name, color_class='drive-code-muted') -%}
   {% set parts = name.rsplit('.', 1) %}
   {% set base = parts[0] %}
@@ -166,14 +181,7 @@
           <div class="d-flex flex-wrap gap-1 align-items-center">
             {% set _ss = project.get('stage_status') or {} %}
             {% for stage in tmpl.stages %}
-              {% set _st = _ss.get(stage, {}) %}
-              {% if _st.get('status') == 'done' %}
-                <span class="badge bg-success" title="{{ _st.get('date', '') }}"><i class="bi bi-check-circle me-1"></i>{{ stage }}</span>
-              {% elif _st.get('status') == 'in_progress' %}
-                <span class="badge bg-warning text-dark" title="{{ _st.get('date', '') }}"><i class="bi bi-arrow-repeat me-1"></i>{{ stage }}</span>
-              {% else %}
-                <span class="badge bg-secondary">{{ stage }}</span>
-              {% endif %}
+              {{ render_stage_badge(_ss.get(stage, {}), stage) }}
             {% endfor %}
             <a href="#tab-avance" data-bs-toggle="tab"
                class="badge bg-transparent border text-muted" style="font-size:.68rem;text-decoration:none;cursor:pointer">
@@ -1503,20 +1511,13 @@
           </tr>
         </thead>
         <tbody>
+          {% set _status_labels = {'done': 'Completado', 'in_progress': 'En progreso', 'pending': 'Pendiente'} %}
           {% for stage in tmpl_av.stages %}
           {% set _st = _ss_av.get(stage, {}) %}
           {% set _bd = _sb_av.get(stage, {}) %}
           <tr>
             <td class="fw-semibold" style="font-size:.875rem">{{ stage }}</td>
-            <td>
-              {% if _st.get('status') == 'done' %}
-                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Completado</span>
-              {% elif _st.get('status') == 'in_progress' %}
-                <span class="badge bg-warning text-dark"><i class="bi bi-arrow-repeat me-1"></i>En progreso</span>
-              {% else %}
-                <span class="badge bg-secondary">Pendiente</span>
-              {% endif %}
-            </td>
+            <td>{{ render_stage_badge(_st, _status_labels.get(_st.get('status', 'pending'), 'Pendiente')) }}</td>
             <td class="text-muted" style="font-size:.82rem">{{ _st.get('date') or '—' }}</td>
             <td style="font-size:.82rem">
               {% if _bd.get('planned') %}${{ "{:,.0f}".format(_bd.planned | float) }}{% else %}—{% endif %}
@@ -1544,18 +1545,12 @@
           </tr>
           {% endfor %}
         </tbody>
-        {% set _tp = namespace(v=0) %}{% set _ta = namespace(v=0) %}
-        {% for stage in tmpl_av.stages %}
-          {% set _bd = _sb_av.get(stage, {}) %}
-          {% if _bd.get('planned') %}{% set _tp.v = _tp.v + (_bd.planned | float) %}{% endif %}
-          {% if _bd.get('actual')  %}{% set _ta.v = _ta.v + (_bd.actual  | float) %}{% endif %}
-        {% endfor %}
-        {% if _tp.v or _ta.v %}
+        {% if stage_budget_totals.planned or stage_budget_totals.actual %}
         <tfoot class="table-light">
           <tr>
             <td colspan="3" class="fw-semibold text-muted" style="font-size:.8rem">Total</td>
-            <td class="fw-semibold" style="font-size:.82rem">${{ "{:,.0f}".format(_tp.v) }}</td>
-            <td class="fw-semibold {{ 'text-danger' if _ta.v > _tp.v else '' }}" style="font-size:.82rem">${{ "{:,.0f}".format(_ta.v) }}</td>
+            <td class="fw-semibold" style="font-size:.82rem">${{ "{:,.0f}".format(stage_budget_totals.planned) }}</td>
+            <td class="fw-semibold {{ 'text-danger' if stage_budget_totals.actual > stage_budget_totals.planned else '' }}" style="font-size:.82rem">${{ "{:,.0f}".format(stage_budget_totals.actual) }}</td>
             {% if not project.closed_at %}<td></td>{% endif %}
           </tr>
         </tfoot>
@@ -1942,9 +1937,8 @@
 </div>
 
 <!-- ── Modal: Presupuesto por etapa ── -->
-{% set _tmpl_bgt = templates_map.get(project.get('template_id', '')) %}
-{% set _sb_bgt   = project.get('stage_budget') or {} %}
-{% if _tmpl_bgt %}
+{% set _tmpl_modal = templates_map.get(project.get('template_id', '')) %}
+{% if _tmpl_modal %}
 <div class="modal fade" id="modalBudget" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -1959,9 +1953,10 @@
             <div class="col-3 text-center">Planeado ($)</div>
             <div class="col-4 text-center">Ejercido ($)</div>
           </div>
-          {% for stage in _tmpl_bgt.stages %}
+          {% set _sb_modal = project.get('stage_budget') or {} %}
+          {% for stage in _tmpl_modal.stages %}
           {% set _bk  = stage.replace(' ', '_').replace('-', '_') %}
-          {% set _bv  = _sb_bgt.get(stage, {}) %}
+          {% set _bv  = _sb_modal.get(stage, {}) %}
           <div class="row g-2 mb-2 align-items-center">
             <div class="col-5" style="font-size:.88rem">{{ stage }}</div>
             <div class="col-3">
