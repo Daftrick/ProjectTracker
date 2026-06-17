@@ -5,6 +5,9 @@ from app import app
 
 class AdminFormsTest(unittest.TestCase):
     def setUp(self):
+        app.config["TESTING"] = True
+        app.config["LOGIN_DISABLED"] = True
+        app.config["WTF_CSRF_ENABLED"] = False
         self.client = app.test_client()
 
     def assert_invalid_form_preserved(self, path, data, expected_text):

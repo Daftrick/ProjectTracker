@@ -1,0 +1,9 @@
+[deploy]
+startCommand = "gunicorn app:app -b 0.0.0.0:$PORT --workers 1 --threads 4"
+
+# IMPORTANT — Persistent volume:
+# The [[volumes]] key is NOT supported in railway.toml.
+# Create the volume from Railway Dashboard:
+#   Service → Settings → Volumes → Add Volume → Mount path: /app/data
+# Without the volume, Railway destroys data/*.json and data/auth.db on every deploy.
+# Configure the volume BEFORE the first production deploy.

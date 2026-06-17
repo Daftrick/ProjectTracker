@@ -1,10 +1,16 @@
 import json
 import os
+import threading
 import uuid
 from datetime import date
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
+
+# TOCTOU note: acquired per-call, not per read-modify-write cycle —
+# two threads can interleave load→modify→save (last write wins).
+# Acceptable at 2-3 users; full SQLite migration resolves this (v1.5+).
+_LOCK = threading.Lock()
 
 FILES = {
     "projects": os.path.join(DATA_DIR, "projects.json"),
@@ -25,17 +31,18 @@ FILES = {
 
 
 def load(key):
-    os.makedirs(DATA_DIR, exist_ok=True)
-    if not os.path.exists(FILES[key]):
-        return []
-    with open(FILES[key], "r", encoding="utf-8") as handle:
-        return json.load(handle)
+    with _LOCK:
+        try:
+            with open(FILES[key], "r", encoding="utf-8") as handle:
+                return json.load(handle)
+        except FileNotFoundError:
+            return []
 
 
 def save(key, data):
-    os.makedirs(DATA_DIR, exist_ok=True)
-    with open(FILES[key], "w", encoding="utf-8") as handle:
-        json.dump(data, handle, ensure_ascii=False, indent=2)
+    with _LOCK:
+        with open(FILES[key], "w", encoding="utf-8") as handle:
+            json.dump(data, handle, ensure_ascii=False, indent=2)
 
 
 def new_id():

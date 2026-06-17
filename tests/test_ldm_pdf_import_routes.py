@@ -16,6 +16,9 @@ class LdmPdfImportRoutesTest(unittest.TestCase):
     def setUpClass(cls):
         from app import app
 
+        app.config["TESTING"] = True
+        app.config["LOGIN_DISABLED"] = True
+        app.config["WTF_CSRF_ENABLED"] = False
         cls.client = app.test_client()
 
     def test_upload_stores_pdf_import_payload_outside_cookie_session(self):

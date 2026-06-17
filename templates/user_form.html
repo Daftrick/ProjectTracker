@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}{% if action == 'new' %}Nuevo usuario{% else %}Cambiar contraseña{% endif %} – Project Tracker{% endblock %}
+{% block page_title %}
+  <i class="bi bi-person me-2 text-primary"></i>
+  {% if action == 'new' %}Nuevo usuario{% else %}Cambiar contraseña{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <div class="card">
+      <div class="card-header">
+        <i class="bi bi-person-gear me-2"></i>
+        {% if action == 'new' %}Crear usuario{% else %}Restablecer contraseña{% endif %}
+      </div>
+      <div class="card-body">
+        <form method="post">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+          {% if action == 'new' %}
+          <div class="mb-3">
+            <label class="form-label">Usuario</label>
+            <input type="text" name="username" class="form-control {% if errors.username %}is-invalid{% endif %}"
+                   value="{{ form.username or '' }}" autocomplete="off" autofocus>
+            {% if errors.username %}<div class="invalid-feedback">{{ errors.username }}</div>{% endif %}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Rol</label>
+            <select name="role" class="form-select {% if errors.role %}is-invalid{% endif %}">
+              {% for r in roles %}
+              <option value="{{ r }}" {% if (form.role or 'cotizador') == r %}selected{% endif %}>
+                {{ r.capitalize() }}
+              </option>
+              {% endfor %}
+            </select>
+            {% if errors.role %}<div class="invalid-feedback">{{ errors.role }}</div>{% endif %}
+          </div>
+          {% endif %}
+
+          <div class="mb-3">
+            <label class="form-label">{% if action == 'new' %}Contraseña{% else %}Nueva contraseña{% endif %}</label>
+            <input type="password" name="password" class="form-control {% if errors.password %}is-invalid{% endif %}"
+                   autocomplete="new-password" placeholder="Mínimo 6 caracteres">
+            {% if errors.password %}<div class="invalid-feedback">{{ errors.password }}</div>{% endif %}
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Confirmar contraseña</label>
+            <input type="password" name="password2" class="form-control {% if errors.password2 %}is-invalid{% endif %}"
+                   autocomplete="new-password" placeholder="Repetir contraseña">
+            {% if errors.password2 %}<div class="invalid-feedback">{{ errors.password2 }}</div>{% endif %}
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-check-lg me-1"></i>
+              {% if action == 'new' %}Crear{% else %}Guardar{% endif %}
+            </button>
+            <a href="{{ url_for('auth_bp.users') }}" class="btn btn-outline-secondary">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

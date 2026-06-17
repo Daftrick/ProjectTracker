@@ -112,6 +112,9 @@ class ApiCatalogoTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         from app import app
+        app.config["TESTING"] = True
+        app.config["LOGIN_DISABLED"] = True
+        app.config["WTF_CSRF_ENABLED"] = False
         cls.client = app.test_client()
 
     def test_api_returns_json_list(self):

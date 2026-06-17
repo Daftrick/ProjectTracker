@@ -1,4 +1,7 @@
-from flask import Blueprint, flash, jsonify, redirect, render_template, request, url_for
+from flask import Blueprint, current_app, flash, jsonify, redirect, render_template, request, url_for
+from flask_login import current_user
+
+from ..auth import admin_required
 
 from ..bundles import (
     activate_bundle_version,
@@ -26,6 +29,16 @@ bp = Blueprint("admin_bp", __name__)
 
 def _clean(value):
     return str(value or "").strip()
+
+
+def _require_admin_post(redirect_endpoint):
+    """Returns a redirect Response if the current POST is not from an admin, else None."""
+    if current_app.config.get("LOGIN_DISABLED"):
+        return None
+    if not current_user.is_authenticated or current_user.role != "admin":
+        flash("Acceso restringido a administradores.", "danger")
+        return redirect(url_for(redirect_endpoint))
+    return None
 
 
 def _parse_price(value):
@@ -152,6 +165,9 @@ def _render_team(form_state=None, field_errors=None, open_modal=None):
 @bp.route("/catalogo", methods=["GET", "POST"], endpoint="catalogo")
 def catalogo():
     if request.method == "POST":
+        guard = _require_admin_post("catalogo")
+        if guard:
+            return guard
         form_state = _catalog_form(request.form)
         field_errors = {}
         if not form_state["nombre"]:
@@ -185,6 +201,7 @@ def catalogo():
 
 
 @bp.route("/catalogo/<item_id>/edit", methods=["POST"], endpoint="edit_catalogo")
+@admin_required
 def edit_catalogo(item_id):
     is_ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest"
     items = load("catalogo")
@@ -213,6 +230,7 @@ def edit_catalogo(item_id):
 
 
 @bp.route("/catalogo/<item_id>/delete", methods=["POST"], endpoint="delete_catalogo")
+@admin_required
 def delete_catalogo(item_id):
     is_ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest"
     result = delete_catalog_items_data({item_id}, load("catalogo"), load("quotes"), load("materiales"))
@@ -227,6 +245,7 @@ def delete_catalogo(item_id):
 
 
 @bp.route("/api/catalogo/bulk-delete", methods=["POST"], endpoint="bulk_delete_catalogo")
+@admin_required
 def bulk_delete_catalogo():
     ids = set((request.get_json(force=True) or {}).get("ids", []))
     result = delete_catalog_items_data(ids, load("catalogo"), load("quotes"), load("materiales"))
@@ -275,6 +294,7 @@ def api_catalogo_categorias():
 
 
 @bp.route("/api/catalogo/add", methods=["POST"], endpoint="api_catalogo_add")
+@admin_required
 def api_catalogo_add():
     data = request.get_json(force=True) or {}
     nombre = (data.get("nombre", "") or "").strip()
@@ -370,6 +390,9 @@ def _render_bundles(open_bundle_id=""):
 @bp.route("/bundles", methods=["GET", "POST"], endpoint="bundles")
 def bundles():
     if request.method == "POST":
+        guard = _require_admin_post("bundles")
+        if guard:
+            return guard
         catalog_item_id = _clean(request.form.get("catalog_item_id"))
         catalog_by_id = _catalog_by_id()
         item = catalog_by_id.get(catalog_item_id)
@@ -398,6 +421,7 @@ def bundles():
 
 
 @bp.route("/bundles/<bundle_id>/update", methods=["POST"], endpoint="update_bundle")
+@admin_required
 def update_bundle(bundle_id):
     items = load("bundles")
     bundle = _find_bundle(items, bundle_id)
@@ -422,6 +446,7 @@ def update_bundle(bundle_id):
 
 
 @bp.route("/bundles/<bundle_id>/delete", methods=["POST"], endpoint="delete_bundle")
+@admin_required
 def delete_bundle(bundle_id):
     before = load("bundles")
     after = [bundle for bundle in before if bundle.get("id") != bundle_id]
@@ -431,6 +456,7 @@ def delete_bundle(bundle_id):
 
 
 @bp.route("/bundles/<bundle_id>/versions/<int:version_number>/update", methods=["POST"], endpoint="update_bundle_version")
+@admin_required
 def update_bundle_version(bundle_id, version_number):
     items = load("bundles")
     bundle = _find_bundle(items, bundle_id)
@@ -453,6 +479,7 @@ def update_bundle_version(bundle_id, version_number):
 
 
 @bp.route("/bundles/<bundle_id>/versions/add", methods=["POST"], endpoint="add_bundle_version_route")
+@admin_required
 def add_bundle_version_route(bundle_id):
     items = load("bundles")
     bundle = _find_bundle(items, bundle_id)
@@ -478,6 +505,7 @@ def add_bundle_version_route(bundle_id):
 
 
 @bp.route("/bundles/<bundle_id>/versions/<int:version_number>/activate", methods=["POST"], endpoint="activate_bundle_version_route")
+@admin_required
 def activate_bundle_version_route(bundle_id, version_number):
     items = load("bundles")
     bundle = _find_bundle(items, bundle_id)
@@ -494,6 +522,7 @@ def activate_bundle_version_route(bundle_id, version_number):
 
 
 @bp.route("/bundles/<bundle_id>/versions/<int:version_number>/delete", methods=["POST"], endpoint="delete_bundle_version_route")
+@admin_required
 def delete_bundle_version_route(bundle_id, version_number):
     items = load("bundles")
     bundle = _find_bundle(items, bundle_id)
@@ -512,6 +541,9 @@ def delete_bundle_version_route(bundle_id, version_number):
 @bp.route("/proveedores", methods=["GET", "POST"], endpoint="proveedores")
 def proveedores():
     if request.method == "POST":
+        guard = _require_admin_post("proveedores")
+        if guard:
+            return guard
         form_state = _proveedor_form(request.form)
         field_errors = {}
         if not form_state["nombre"]:
@@ -541,6 +573,7 @@ def proveedores():
 
 
 @bp.route("/proveedores/<prov_id>/edit", methods=["POST"], endpoint="edit_proveedor")
+@admin_required
 def edit_proveedor(prov_id):
     proveedores_data = load("proveedores")
     proveedor = next((item for item in proveedores_data if item["id"] == prov_id), None)
@@ -561,6 +594,7 @@ def edit_proveedor(prov_id):
 
 
 @bp.route("/proveedores/<prov_id>/delete", methods=["POST"], endpoint="delete_proveedor")
+@admin_required
 def delete_proveedor(prov_id):
     save("proveedores", [item for item in load("proveedores") if item["id"] != prov_id])
     flash("Proveedor eliminado.", "warning")
@@ -570,6 +604,9 @@ def delete_proveedor(prov_id):
 @bp.route("/fichas", methods=["GET", "POST"], endpoint="fichas")
 def fichas():
     if request.method == "POST":
+        guard = _require_admin_post("fichas")
+        if guard:
+            return guard
         form_state = _ficha_form(request.form)
         field_errors = {}
         if form_state["tipo"] not in TIPOS_FICHA:
@@ -632,6 +669,7 @@ def unlink_ficha(ficha_id, project_id):
 
 
 @bp.route("/fichas/<ficha_id>/delete", methods=["POST"], endpoint="delete_ficha")
+@admin_required
 def delete_ficha(ficha_id):
     save("fichas", [item for item in load("fichas") if item["id"] != ficha_id])
     flash("Ficha eliminada.", "warning")
@@ -641,6 +679,9 @@ def delete_ficha(ficha_id):
 @bp.route("/team", methods=["GET", "POST"], endpoint="team")
 def team():
     if request.method == "POST":
+        guard = _require_admin_post("team")
+        if guard:
+            return guard
         form_state = _team_form(request.form)
         field_errors = {}
         if not form_state["name"]:
@@ -666,6 +707,7 @@ def team():
 
 
 @bp.route("/team/<member_id>/delete", methods=["POST"], endpoint="delete_member")
+@admin_required
 def delete_member(member_id):
     save("team", [item for item in load("team") if item["id"] != member_id])
     flash("Miembro eliminado.", "warning")
@@ -685,6 +727,7 @@ _LOGO_MAX_BYTES = 2 * 1024 * 1024  # 2 MB
 
 
 @bp.route("/empresa", methods=["GET", "POST"], endpoint="empresa")
+@admin_required
 def empresa():
     from ..company_config import get_company, save_company
     errors = {}
@@ -706,6 +749,7 @@ def empresa():
 
 
 @bp.route("/empresa/logo", methods=["POST"], endpoint="empresa_logo")
+@admin_required
 def empresa_logo():
     from ..company_config import get_company, save_company
     file = request.files.get("logo")
@@ -739,6 +783,7 @@ def empresa_logo():
 # ─────────────────────────────────────────────────────────────
 
 @bp.route("/project-templates", methods=["GET", "POST"], endpoint="project_templates_admin")
+@admin_required
 def project_templates_admin():
     from ..templates_config import get_project_templates, save_project_templates
     templates = get_project_templates()

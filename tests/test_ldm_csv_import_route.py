@@ -17,6 +17,8 @@ class LdmCsvImportRouteTest(unittest.TestCase):
         from app import app
 
         app.config["TESTING"] = True
+        app.config["LOGIN_DISABLED"] = True
+        app.config["WTF_CSRF_ENABLED"] = False
         cls.client = app.test_client()
 
     def _fake_load(self, key):

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Iniciar sesión – Project Tracker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700&display=swap"/>
+  <style>
+    :root { --acc: #5a82c8; }
+    [data-bs-theme="dark"] {
+      --bs-body-bg: #060a14;
+      --bs-body-color: #a8b2c0;
+      --bs-card-bg: #0f1525;
+      --bs-card-border-color: rgba(255,255,255,.18);
+    }
+    body {
+      font-family: 'Inconsolata', monospace;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; background: #060a14;
+    }
+    .login-card {
+      width: 100%; max-width: 380px;
+      background: #0f1525;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 14px;
+      padding: 36px 32px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.5);
+    }
+    .form-control {
+      background: #060a14; border-color: rgba(255,255,255,.2);
+      color: #a8b2c0; font-size: .9rem; border-radius: 8px;
+    }
+    .form-control:focus {
+      border-color: var(--acc);
+      box-shadow: 0 0 0 3px rgba(90,130,200,.18);
+      background: #060a14; color: #b8c2d0;
+    }
+    .btn-primary { background: var(--acc); border-color: var(--acc); }
+    .btn-primary:hover { background: #4a72b8; border-color: #4a72b8; }
+  </style>
+</head>
+<body>
+<div class="login-card">
+  <div class="text-center mb-4">
+    <i class="bi bi-lightning-charge-fill" style="font-size:2rem;color:#5a82c8"></i>
+    <h4 class="mt-2 mb-0" style="color:#b8c4d2;font-weight:700">Project Tracker</h4>
+    <small style="color:#636b7a">Inicia sesión para continuar</small>
+  </div>
+
+  {% if error %}
+  <div class="alert alert-danger py-2 px-3" style="font-size:.85rem;background:rgba(140,60,60,.15);border-color:rgba(150,70,70,.3);color:#b09090">
+    <i class="bi bi-exclamation-circle me-1"></i>{{ error }}
+  </div>
+  {% endif %}
+
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="mb-3">
+      <label class="form-label" style="font-size:.85rem;color:#9aa4b4">Usuario</label>
+      <input type="text" name="username" class="form-control" autocomplete="username"
+             autofocus required placeholder="usuario">
+    </div>
+    <div class="mb-4">
+      <label class="form-label" style="font-size:.85rem;color:#9aa4b4">Contraseña</label>
+      <input type="password" name="password" class="form-control" autocomplete="current-password"
+             required placeholder="••••••">
+    </div>
+    <button type="submit" class="btn btn-primary w-100">
+      <i class="bi bi-box-arrow-in-right me-1"></i>Entrar
+    </button>
+  </form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

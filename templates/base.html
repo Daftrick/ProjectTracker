@@ -246,6 +246,7 @@
     .src-propia       { background:rgba(55,120,80,.18);  color:#7aaa88; }
   </style>
   {% block extra_head %}{% endblock %}
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
 <div id="sidebar">
@@ -271,6 +272,7 @@
        data-label="Catálogo">
       <i class="bi bi-box-seam"></i><span class="nav-label"> Catálogo</span>
     </a>
+    {% if current_user.is_authenticated and current_user.role == 'admin' %}
     <a href="{{ url_for('bundles') }}" class="nav-link {% if request.endpoint in ('bundles','admin_bp.bundles','update_bundle','admin_bp.update_bundle','update_bundle_version','admin_bp.update_bundle_version') %}active{% endif %}"
        data-label="Bundles">
       <i class="bi bi-boxes"></i><span class="nav-label"> Bundles</span>
@@ -283,7 +285,9 @@
        data-label="Equipo">
       <i class="bi bi-people"></i><span class="nav-label"> Equipo</span>
     </a>
+    {% endif %}
     <div class="nav-section mt-2">Sistema</div>
+    {% if current_user.is_authenticated and current_user.role == 'admin' %}
     <a href="{{ url_for('settings') }}" class="nav-link {% if request.endpoint=='settings' %}active{% endif %}"
        data-label="Ajustes / Drive">
       <i class="bi bi-gear"></i><span class="nav-label"> Ajustes / Drive</span>
@@ -296,18 +300,37 @@
        data-label="Tipos de Proyecto">
       <i class="bi bi-list-check"></i><span class="nav-label"> Tipos de Proyecto</span>
     </a>
+    <a href="{{ url_for('auth_bp.users') }}" class="nav-link {% if request.endpoint in ('auth_bp.users','auth_bp.new_user','auth_bp.toggle_user','auth_bp.reset_password') %}active{% endif %}"
+       data-label="Usuarios">
+      <i class="bi bi-person-badge"></i><span class="nav-label"> Usuarios</span>
+    </a>
     <a href="{{ url_for('quotes_bp.audit_deleted_catalog') }}" class="nav-link {% if request.endpoint=='quotes_bp.audit_deleted_catalog' %}active{% endif %}"
        data-label="Auditoría Catálogo">
       <i class="bi bi-exclamation-triangle"></i><span class="nav-label"> Auditoría Catálogo</span>
     </a>
+    {% endif %}
   </nav>
   <div class="sfooter">
-    <span class="footer-text"><i class="bi bi-circle-fill me-1" style="color:#3a7a50;font-size:.55rem"></i>Activo</span>
-    <form method="post" action="/shutdown" onsubmit="return confirm('¿Cerrar la aplicación?')">
-      <button class="btn btn-sm" style="color:#636b7a;font-size:.72rem;padding:2px 8px;border:1px solid #2e3850">
-        <i class="bi bi-power me-1"></i>Cerrar
+    <span class="footer-text">
+      {% if current_user.is_authenticated %}
+      <i class="bi bi-person-fill me-1" style="color:#5a82c8"></i>
+      <span style="color:#8a9298">{{ current_user.username }}</span>
+      {% if current_user.role == 'admin' %}
+      <span style="color:#4a6898;font-size:.62rem;margin-left:3px">[A]</span>
+      {% endif %}
+      {% else %}
+      <i class="bi bi-circle-fill me-1" style="color:#3a7a50;font-size:.55rem"></i>Activo
+      {% endif %}
+    </span>
+    {% if current_user.is_authenticated %}
+    <form method="post" action="{{ url_for('auth_bp.logout') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button class="btn btn-sm" style="color:#636b7a;font-size:.72rem;padding:2px 8px;border:1px solid #2e3850"
+              title="Cerrar sesión">
+        <i class="bi bi-box-arrow-right me-1"></i>Salir
       </button>
     </form>
+    {% endif %}
   </div>
 </div>
 <div id="main">
@@ -424,5 +447,31 @@
   })();
 </script>
 {% block extra_js %}{% endblock %}
+<script>
+// Covers all existing templates without requiring individual changes.
+(function () {
+  var meta = document.querySelector('meta[name="csrf-token"]');
+  var token = meta ? meta.getAttribute('content') : '';
+  if (!token) return;
+
+  document.querySelectorAll('form').forEach(function (form) {
+    if ((form.getAttribute('method') || 'get').toLowerCase() !== 'post') return;
+    if (form.querySelector('input[name="csrf_token"]')) return;
+    var inp = document.createElement('input');
+    inp.type = 'hidden'; inp.name = 'csrf_token'; inp.value = token;
+    form.appendChild(inp);
+  });
+
+  var _fetch = window.fetch;
+  window.fetch = function (url, opts) {
+    opts = Object.assign({}, opts);
+    var method = (opts.method || 'GET').toUpperCase();
+    if (method !== 'GET' && method !== 'HEAD') {
+      opts.headers = Object.assign({'X-CSRFToken': token}, opts.headers || {});
+    }
+    return _fetch(url, opts);
+  };
+})();
+</script>
 </body>
 </html>

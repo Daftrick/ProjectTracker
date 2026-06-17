@@ -66,6 +66,9 @@ class MaterialsSyncRouteTest(unittest.TestCase):
     def setUpClass(cls):
         from app import app
 
+        app.config["TESTING"] = True
+        app.config["LOGIN_DISABLED"] = True
+        app.config["WTF_CSRF_ENABLED"] = False
         cls.client = app.test_client()
 
     def test_route_appends_missing_bundle_materials_to_existing_ldm(self):

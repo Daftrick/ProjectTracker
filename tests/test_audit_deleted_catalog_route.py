@@ -9,6 +9,9 @@ class AuditDeletedCatalogRouteTest(unittest.TestCase):
     def setUpClass(cls):
         from app import app
 
+        app.config["TESTING"] = True
+        app.config["LOGIN_DISABLED"] = True
+        app.config["WTF_CSRF_ENABLED"] = False
         cls.client = app.test_client()
 
     def test_audit_deleted_catalog_loads_materiales_for_ldms(self):

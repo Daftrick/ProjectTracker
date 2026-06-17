@@ -1,21 +1,40 @@
 import os
 
-from flask import Flask
+from flask import Flask, current_app, redirect, request, url_for
+from flask_login import current_user
+from flask_wtf.csrf import CSRFProtect
 
+from .auth import init_auth
 from .catalog import migrate_catalog_disciplina, migrate_catalog_fields, migrate_quote_approval
 from .company_config import get_company
 from .domain import APP_VERSION, ALCANCES, ALCANCES_BY_ID, INFO_EXT_EXCLUDED, TASK_STATUSES, TIPOS_FICHA, currency, fdate
 from .drive import migrate_folder_numbers, migrate_task_names, migrate_task_statuses
 from .routes.admin import bp as admin_bp
+from .routes.auth_routes import bp as auth_bp
 from .routes.materials import bp as materials_bp
 from .routes.projects import bp as projects_bp
 from .routes.quotes import bp as quotes_bp
 from .storage import BASE_DIR, DATA_DIR, load, save
 
+csrf = CSRFProtect()
+
+_LOGIN_EXEMPT = {"auth_bp.login", "auth_bp.logout", "static"}
+
 
 def create_app():
     app = Flask(__name__, template_folder=os.path.join(BASE_DIR, "templates"))
-    app.secret_key = "project-tracker-v2-2026"
+
+    import sys
+    secret_key = os.environ.get("SECRET_KEY", "project-tracker-v2-2026")
+    app.secret_key = secret_key
+    _in_tests = "unittest" in sys.modules or "pytest" in sys.modules
+    if not _in_tests and not app.debug and secret_key == "project-tracker-v2-2026":
+        raise RuntimeError(
+            "Set SECRET_KEY env var before deploying to production"
+        )
+
+    csrf.init_app(app)
+    init_auth(app)
 
     os.makedirs(DATA_DIR, exist_ok=True)
     migrate_task_statuses()
@@ -40,10 +59,21 @@ def create_app():
             "company": get_company(),
         }
 
+    @app.before_request
+    def _require_login():
+        if current_app.config.get("LOGIN_DISABLED"):
+            return
+        endpoint = request.endpoint or ""
+        if endpoint in _LOGIN_EXEMPT or endpoint.startswith("static"):
+            return
+        if not current_user.is_authenticated:
+            return redirect(url_for("auth_bp.login", next=request.url))
+
     app.register_blueprint(projects_bp)
     app.register_blueprint(quotes_bp)
     app.register_blueprint(materials_bp)
     app.register_blueprint(admin_bp)
+    app.register_blueprint(auth_bp)
     _register_legacy_endpoint_aliases(app)
     return app
 
