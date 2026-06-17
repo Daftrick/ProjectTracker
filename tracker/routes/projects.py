@@ -21,6 +21,7 @@ from ..services import (
     update_observation_checklist_item,
 )
 from ..pdfs import build_progress_pdf
+from ..auth import admin_required
 from ..storage import load, new_id, save, today
 from ..templates_config import get_project_templates
 from ..validators import validate_project_form
@@ -104,6 +105,7 @@ def dashboard():
 
 
 @bp.route("/projects/new", methods=["GET", "POST"], endpoint="new_project")
+@admin_required
 def new_project():
     if request.method == "POST":
         selected = request.form.getlist("alcances")

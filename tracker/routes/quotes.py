@@ -9,6 +9,7 @@ from ..drive import active_drive_paths, folder_name, latest_dwg_stem, load_confi
 from ..form_models import quote_default_numbers, quote_from_form
 from ..pdfs import build_quote_pdf
 from ..quote_csv_import import parse_quote_csv
+from ..auth import admin_required
 from ..storage import load, new_id, save, today
 from ..validators import validate_quote_form
 
@@ -261,6 +262,7 @@ def delete_quote(project_id, quote_id):
 
 
 @bp.route("/projects/<project_id>/quote/<quote_id>/approve", methods=["POST"], endpoint="approve_quote")
+@admin_required
 def approve_quote_route(project_id, quote_id):
     """Aprueba/activa una cotización.
 

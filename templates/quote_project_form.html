@@ -196,7 +196,8 @@
 {% endblock %}
 {% block content %}
 {% set fe = field_errors|default({}) %}
-<form method="post" id="quoteForm" action="{{ form_action|default('', true) }}">
+<form method="post" id="quoteForm" action="{{ form_action|default('', true) }}"
+      data-can-add-catalog="{{ 'true' if current_user.role == 'admin' else 'false' }}">
 {% if quote and quote.get('csv_origen') %}
 <input type="hidden" name="csv_origen" value="{{ quote.get('csv_origen') }}">
 {% for key, value in quote.get('csv_metadata', {}).items() %}
@@ -542,7 +543,8 @@
         <input type="text" id="catalogSearch" class="form-control mb-3"
                placeholder="Buscar por nombre o descripción…" autocomplete="off">
         <div id="catalogResults" class="list-group" style="max-height:320px;overflow-y:auto"></div>
-        <!-- Agregar nuevo al catálogo -->
+        {% if current_user.role == 'admin' %}
+        <!-- Agregar nuevo al catálogo — solo admins -->
         <div class="mt-3 border-top pt-3">
           <button type="button" class="btn btn-sm btn-outline-secondary w-100"
                   id="toggleAddForm" onclick="toggleAddForm()">
@@ -577,6 +579,7 @@
             <div id="addCatalogMsg" class="mt-2"></div>
           </div>
         </div>
+        {% endif %}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -1363,19 +1366,22 @@
       dropdown.appendChild(hr);
     }
 
-    // ── Opción "Agregar nuevo" ──
-    const addBtn = document.createElement("div");
-    addBtn.className = "ac-item ac-add d-flex align-items-center gap-2";
-    addBtn.setAttribute("role", "option");
-    addBtn.innerHTML =
-      `<i class="bi bi-plus-circle-fill flex-shrink-0"></i>` +
-      `<span>Agregar <strong>"${escHtml(query)}"</strong> como nuevo artículo</span>`;
-    addBtn.addEventListener("mousedown", e => {
-      e.preventDefault();
-      _acClose(dropdown);
-      _acOpenModalNew(row, query);
-    });
-    dropdown.appendChild(addBtn);
+    // ── Opción "Agregar nuevo" — solo para admins ──
+    const _canAddCatalog = document.getElementById("quoteForm")?.dataset.canAddCatalog === 'true';
+    if (_canAddCatalog) {
+      const addBtn = document.createElement("div");
+      addBtn.className = "ac-item ac-add d-flex align-items-center gap-2";
+      addBtn.setAttribute("role", "option");
+      addBtn.innerHTML =
+        `<i class="bi bi-plus-circle-fill flex-shrink-0"></i>` +
+        `<span>Agregar <strong>"${escHtml(query)}"</strong> como nuevo artículo</span>`;
+      addBtn.addEventListener("mousedown", e => {
+        e.preventDefault();
+        _acClose(dropdown);
+        _acOpenModalNew(row, query);
+      });
+      dropdown.appendChild(addBtn);
+    }
 
     dropdown.classList.add("ac-open");
   }
@@ -1415,17 +1421,17 @@
    *  de "agregar nuevo" pre-relleno con el texto escrito */
   function _acOpenModalNew(row, text) {
     catalogTargetRow = row;
-    // Pre-cargar búsqueda y formulario de nuevo artículo
     document.getElementById("catalogSearch").value  = text;
-    document.getElementById("newNombre").value       = text;
-    document.getElementById("newDesc").value         = "";
-    document.getElementById("newUnidad").value       = "pza";
-    document.getElementById("newPrecio").value       = "0";
-    document.getElementById("addCatalogMsg").innerHTML = "";
-    document.getElementById("addCatalogForm").classList.remove("d-none");
-    // Abrir modal
+    const addForm = document.getElementById("addCatalogForm");
+    if (addForm) {
+      document.getElementById("newNombre").value       = text;
+      document.getElementById("newDesc").value         = "";
+      document.getElementById("newUnidad").value       = "pza";
+      document.getElementById("newPrecio").value       = "0";
+      document.getElementById("addCatalogMsg").innerHTML = "";
+      addForm.classList.remove("d-none");
+    }
     bootstrap.Modal.getOrCreateInstance(document.getElementById("catalogModal")).show();
-    // Lanzar búsqueda para ver si ya existe algo similar
     setTimeout(() => fetchCatalog(text), 380);
   }
 

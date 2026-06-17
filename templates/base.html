@@ -257,7 +257,7 @@
       <small>{{ app_version }}</small>
     </div>
   </div>
-  <nav>
+  <nav role="navigation" aria-label="Menú principal">
     <div class="nav-section">Principal</div>
     <a href="{{ url_for('dashboard') }}" class="nav-link {% if request.endpoint=='dashboard' %}active{% endif %}"
        data-label="Proyectos">
@@ -286,8 +286,8 @@
       <i class="bi bi-people"></i><span class="nav-label"> Equipo</span>
     </a>
     {% endif %}
-    <div class="nav-section mt-2">Sistema</div>
     {% if current_user.is_authenticated and current_user.role == 'admin' %}
+    <div class="nav-section mt-2">Sistema</div>
     <a href="{{ url_for('settings') }}" class="nav-link {% if request.endpoint=='settings' %}active{% endif %}"
        data-label="Ajustes / Drive">
       <i class="bi bi-gear"></i><span class="nav-label"> Ajustes / Drive</span>
@@ -317,6 +317,8 @@
       <span style="color:#8a9298">{{ current_user.username }}</span>
       {% if current_user.role == 'admin' %}
       <span style="color:#4a6898;font-size:.62rem;margin-left:3px">[A]</span>
+      {% elif current_user.role == 'cotizador' %}
+      <span style="color:#3a7a50;font-size:.62rem;margin-left:3px">[C]</span>
       {% endif %}
       {% else %}
       <i class="bi bi-circle-fill me-1" style="color:#3a7a50;font-size:.55rem"></i>Activo
@@ -333,7 +335,7 @@
     {% endif %}
   </div>
 </div>
-<div id="main">
+<div id="main" role="main">
   <div class="topbar">
     <div class="topbar-left">
       <button id="sb-toggle" title="Contraer / expandir menú">
