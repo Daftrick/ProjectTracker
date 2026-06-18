@@ -14,6 +14,7 @@ from .routes.auth_routes import bp as auth_bp
 from .routes.materials import bp as materials_bp
 from .routes.projects import bp as projects_bp
 from .routes.quotes import bp as quotes_bp
+from .routes.quotes_mobile import bp as quotes_mobile_bp
 from .storage import BASE_DIR, DATA_DIR, load, save
 
 csrf = CSRFProtect()
@@ -71,6 +72,7 @@ def create_app():
 
     app.register_blueprint(projects_bp)
     app.register_blueprint(quotes_bp)
+    app.register_blueprint(quotes_mobile_bp)
     app.register_blueprint(materials_bp)
     app.register_blueprint(admin_bp)
     app.register_blueprint(auth_bp)

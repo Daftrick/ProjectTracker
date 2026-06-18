@@ -1,5 +1,6 @@
 import json
 import os
+import tempfile
 import threading
 import uuid
 from datetime import date
@@ -40,9 +41,15 @@ def load(key):
 
 
 def save(key, data):
+    path = FILES[key]
+    dir_name = os.path.dirname(path)
     with _LOCK:
-        with open(FILES[key], "w", encoding="utf-8") as handle:
-            json.dump(data, handle, ensure_ascii=False, indent=2)
+        with tempfile.NamedTemporaryFile(
+            mode="w", encoding="utf-8", dir=dir_name, delete=False, suffix=".tmp"
+        ) as tmp:
+            json.dump(data, tmp, ensure_ascii=False, indent=2)
+            tmp_path = tmp.name
+        os.replace(tmp_path, path)
 
 
 def new_id():

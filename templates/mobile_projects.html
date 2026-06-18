@@ -1,0 +1,32 @@
+{% extends "mobile_base.html" %}
+
+{% block title %}Seleccionar Proyecto{% endblock %}
+{% block header_title %}Seleccionar Proyecto{% endblock %}
+{% block header_left %}{% endblock %}
+
+{% block content %}
+<p class="text-secondary small mb-3">Elige el proyecto para el que quieres cotizar.</p>
+
+{% if projects %}
+  <div class="list-group list-group-flush">
+    {% for project in projects %}
+      {% set draft = draft_by_project.get(project.id) %}
+      <a href="{{ url_for('quotes_mobile_bp.mobile_items', project_id=project.id) }}"
+         class="list-group-item list-group-item-action d-flex align-items-center gap-2 py-3 px-0 border-bottom border-secondary">
+        <div class="flex-grow-1">
+          <div class="fw-semibold">{{ project.name }}</div>
+          <div class="text-secondary small">{{ project.client }} — {{ project.clave }}</div>
+        </div>
+        {% if draft %}
+          <span class="badge rounded-pill" style="background:var(--acc)">
+            <i class="bi bi-pencil-fill me-1"></i>{{ draft['items'] | length }} ítems
+          </span>
+        {% endif %}
+        <i class="bi bi-chevron-right text-secondary"></i>
+      </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-secondary text-center mt-4">No hay proyectos activos.</p>
+{% endif %}
+{% endblock %}
