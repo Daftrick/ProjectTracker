@@ -2,6 +2,142 @@ from .domain import ALCANCES_BY_ID, check_blocked
 from .storage import new_id, today
 
 
+# ---------------------------------------------------------------------------
+# Mobile cotizador helpers (Fase 10)
+# ---------------------------------------------------------------------------
+
+def filter_catalog_by_disciplina(catalog, disciplina=None):
+    """Return catalog items filtered by disciplina. None / 'Todos' returns all."""
+    if not disciplina or disciplina == "Todos":
+        return catalog
+    return [item for item in catalog if item.get("disciplina") == disciplina]
+
+
+def _build_mobile_item(catalog_item, qty):
+    """Build a quote item dict from a catalog item + qty (int or str)."""
+    qty_str = str(qty)
+    price_str = str(catalog_item.get("precio", 0))
+    try:
+        total = round(float(qty_str) * float(price_str), 2)
+    except (ValueError, TypeError):
+        total = 0.0
+    return {
+        "catalog_item_id": catalog_item["id"],
+        "description": catalog_item.get("nombre", ""),
+        "catalog_description": catalog_item.get("descripcion", ""),
+        "unit": catalog_item.get("unidad", "pza"),
+        "qty": qty_str,
+        "price": price_str,
+        "total": total,
+        "section": "",
+    }
+
+
+def _recalculate_totals(draft):
+    """Recompute subtotal/tax/total from draft items in-place."""
+    subtotal = round(sum(item.get("total", 0) for item in draft.get("items", [])), 2)
+    tax_rate = float(draft.get("tax_rate", 16))
+    draft["subtotal"] = subtotal
+    draft["tax"] = round(subtotal * tax_rate / 100, 2)
+    draft["total"] = round(subtotal + subtotal * tax_rate / 100, 2)
+
+
+def upsert_mobile_draft(quotes, project, catalog_by_id, item_id, qty):
+    """Add or update an item in the mobile draft for the given project.
+
+    Finds the existing draft (status='draft') for project_id, or creates one.
+    If the same catalog item is already in the draft, updates qty.
+    Returns (updated_quotes, draft).
+    """
+    project_id = project["id"]
+    updated = list(quotes)
+    draft = next(
+        (q for q in updated if q.get("project_id") == project_id and q.get("status") == "draft"),
+        None,
+    )
+
+    catalog_item = catalog_by_id.get(item_id)
+    if catalog_item is None:
+        return updated, draft
+
+    if draft is None:
+        draft = {
+            "id": new_id(),
+            "project_id": project_id,
+            "status": "draft",
+            "quote_type": "General",
+            "quote_number": "",
+            "version": project.get("version", ""),
+            "client": project.get("client", ""),
+            "project_name": project.get("name", ""),
+            "date": today(),
+            "valid_until": "",
+            "currency": "MXN",
+            "tax_rate": 16.0,
+            "items": [],
+            "subtotal": 0.0,
+            "tax": 0.0,
+            "total": 0.0,
+            "notes": "",
+            "project_basis_note": "",
+            "created_at": today(),
+        }
+        updated.append(draft)
+
+    existing = next((i for i in draft["items"] if i.get("catalog_item_id") == item_id), None)
+    if existing:
+        existing.update(_build_mobile_item(catalog_item, qty))
+    else:
+        draft["items"].append(_build_mobile_item(catalog_item, qty))
+
+    _recalculate_totals(draft)
+    return updated, draft
+
+
+def remove_item_from_draft(quotes, project_id, item_id):
+    """Remove an item by catalog_item_id from the mobile draft.
+
+    Returns (updated_quotes, draft). If no draft or item not found, returns
+    unchanged quotes and None.
+    """
+    updated = list(quotes)
+    draft = next(
+        (q for q in updated if q.get("project_id") == project_id and q.get("status") == "draft"),
+        None,
+    )
+    if draft is None:
+        return updated, None
+
+    before = len(draft["items"])
+    draft["items"] = [i for i in draft["items"] if i.get("catalog_item_id") != item_id]
+    if len(draft["items"]) != before:
+        _recalculate_totals(draft)
+
+    return updated, draft
+
+
+def finalize_mobile_draft(quotes, project, draft_id, id_factory=new_id, today_value=None):
+    """Promote a draft quote to a real quote (status removed, quote_number assigned).
+
+    Returns (updated_quotes, finalized_quote) or (quotes, None) if draft not found.
+    """
+    from .catalog import next_quote_number
+    created_at = today_value or today()
+    updated = list(quotes)
+    draft = next((q for q in updated if q.get("id") == draft_id and q.get("status") == "draft"), None)
+    if draft is None:
+        return updated, None
+
+    project_id = project["id"]
+    quote_type = draft.get("quote_type", "General")
+    date_str = draft.get("date") or created_at
+    real_quotes = [q for q in updated if q.get("project_id") == project_id and q.get("status") != "draft"]
+    draft["quote_number"] = next_quote_number(project, real_quotes, quote_type, date_str)
+    draft.pop("status", None)
+    draft["created_at"] = created_at
+    return updated, draft
+
+
 def next_folder_number(projects):
     numbers = [int(project["folder_num"]) for project in projects if project.get("folder_num", "").isdigit()]
     return (max(numbers) + 1) if numbers else 1
