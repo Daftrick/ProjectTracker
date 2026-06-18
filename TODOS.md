@@ -68,6 +68,32 @@ Requires `ntfy.sh` free account (or email alternative). Sends push notification 
 
 ---
 
+## Fase 10 — Pre-implementation blockers
+
+### [BLOCKER] Leer validate_quote_form() y quote_from_form() en quotes.py
+**Source:** eng review (2026-06-18) — Codex outside voice + review Section 1
+**Context:** El mobile blueprint necesita producir un quote object compatible con el schema existente. Los puntos de entrada clave son `validate_quote_form()`, `quote_from_form()`, `hydrate_quote()` y el renderizado de PDF en `pdfs.py`. La función `quote_from_mobile_items()` a crear en `services.py` debe entender este contrato ANTES de ser implementada — de lo contrario el PDF falla silenciosamente o el quote queda incompleto.
+**Where to start:** `tracker/routes/quotes.py` — buscar `quote_from_form` y `validate_quote_form`. Luego `tracker/pdfs.py` para entender qué campos lee el PDF.
+**Blocks:** Fase 10 Paso 3 + Paso 4 implementation.
+
+### [BLOCKER] Filtro disciplina en Paso 2 requiere helper, no solo datos
+**Source:** eng review (2026-06-18) — Codex outside voice
+**Context:** `migrate_catalog_disciplina()` ya corre al inicio y agrega el campo `disciplina` a cada ítem del catálogo. Pero el Paso 2 mobile necesita un helper que *filtre* el catálogo por disciplina. Ese helper no existe. Crear `filter_catalog_by_disciplina(catalog, disciplina)` en `services.py` como parte de Fase 10. Verificar que el helper sea reutilizable por desktop también.
+**Where to start:** `tracker/catalog.py` — ver qué helpers de filtrado ya existen.
+**Blocks:** Fase 10 Paso 2 filter pills.
+
+---
+
+## Fase 11 — Investigación pre-implementación
+
+### Investigar si current_stage es derivable de tasks existentes
+**Source:** eng review (2026-06-18) — Codex outside voice
+**Context:** El plan propone agregar `current_stage` como campo manual en projects.json. Codex señaló que este campo podría ser derivable de tasks/alcances existentes — lo que eliminaría el riesgo de estado divergente (el proyecto está en "Obra" pero las tasks dicen otra cosa). Antes de implementar Fase 11, investigar: ¿qué información de progreso ya tiene cada proyecto? ¿Alcances completados, tasks con status, deliveries? Si se puede calcular la etapa, hacerlo calculado es mejor que guardarlo.
+**Where to start:** `tracker/routes/projects.py` + `tracker/storage.py` — ver qué campos tienen los proyectos y sus tasks/alcances.
+**Trigger:** Antes de escribir código de Fase 11.
+
+---
+
 ## v2 — Features
 
 ### Self-service password change for cotizadores
