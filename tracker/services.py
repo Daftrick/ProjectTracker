@@ -15,7 +15,11 @@ def filter_catalog_by_disciplina(catalog, disciplina=None):
 
 def _build_mobile_item(catalog_item, qty):
     """Build a quote item dict from a catalog item + qty (int or str)."""
-    qty_str = str(qty)
+    try:
+        qty_float = float(qty)
+        qty_str = str(int(qty_float)) if qty_float == int(qty_float) else str(qty_float)
+    except (ValueError, TypeError):
+        qty_str = str(qty)
     price_str = str(catalog_item.get("precio", 0))
     try:
         total = round(float(qty_str) * float(price_str), 2)

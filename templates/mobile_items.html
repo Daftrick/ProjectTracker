@@ -1,0 +1,87 @@
+{% extends "mobile_base.html" %}
+
+{% block title %}Agregar Ítems{% endblock %}
+{% block header_title %}{{ project.name }}{% endblock %}
+
+{% block header_right %}
+  {% if draft and draft['items'] %}
+    <a href="{{ url_for('quotes_mobile_bp.mobile_review', project_id=project.id) }}"
+       class="btn btn-sm btn-outline-light py-1 px-2">
+      <i class="bi bi-eye me-1"></i>Ver ({{ draft['items'] | length }})
+    </a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% if draft and not request.args.get('nueva') %}
+  <div class="alert alert-primary d-flex align-items-center gap-2 py-2 mb-3" role="alert">
+    <i class="bi bi-pencil-fill flex-shrink-0"></i>
+    <div class="flex-grow-1 small">Tienes un borrador con {{ draft['items'] | length }} ítem(s).</div>
+    <a href="{{ url_for('quotes_mobile_bp.mobile_items', project_id=project.id) }}?nueva=1"
+       class="btn btn-sm btn-outline-danger py-1 px-2 text-nowrap">Nueva</a>
+  </div>
+{% endif %}
+
+<!-- Discipline pills -->
+{% if disciplinas | length > 1 %}
+<div class="d-flex gap-2 overflow-auto pb-2 mb-3" style="scrollbar-width:none;">
+  {% for d in disciplinas %}
+    <a href="{{ url_for('quotes_mobile_bp.mobile_items', project_id=project.id) }}?disciplina={{ d }}"
+       class="pill-disciplina {% if active_disciplina == d %}active{% endif %}">{{ d }}</a>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- Catalog items -->
+{% if catalog %}
+  {% for item in catalog %}
+    {% set in_draft = item.id in item_ids_in_draft %}
+    <div class="catalog-item-card {% if in_draft %}border-primary{% endif %}">
+      <div class="d-flex justify-content-between align-items-start gap-2">
+        <div class="flex-grow-1">
+          <div class="item-name">{{ item.nombre }}</div>
+          {% if item.descripcion %}
+            <div class="item-meta">{{ item.descripcion }}</div>
+          {% endif %}
+          <div class="item-meta mt-1">
+            {{ item.unidad }} · {{ item.precio | currency }}
+          </div>
+        </div>
+        <form method="post"
+              action="{{ url_for('quotes_mobile_bp.mobile_add_item', project_id=project.id) }}"
+              class="d-flex align-items-center gap-1 flex-shrink-0">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <input type="hidden" name="item_id" value="{{ item.id }}"/>
+          <input type="hidden" name="disciplina" value="{{ active_disciplina }}"/>
+          <input type="number" name="qty" value="1" min="0.01" step="0.01"
+                 class="form-control form-control-sm text-center"
+                 style="width:60px; min-height:40px;"
+                 aria-label="Cantidad"/>
+          <button type="submit"
+                  class="btn btn-sm {% if in_draft %}btn-primary{% else %}btn-outline-primary{% endif %} btn-mob px-2"
+                  style="min-height:40px; min-width:40px;">
+            {% if in_draft %}
+              <i class="bi bi-check2"></i>
+            {% else %}
+              <i class="bi bi-plus-lg"></i>
+            {% endif %}
+          </button>
+        </form>
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+  <p class="text-secondary text-center mt-4">No hay ítems para esta disciplina.</p>
+{% endif %}
+
+<!-- Floating draft badge -->
+{% if draft and draft['items'] %}
+  <a href="{{ url_for('quotes_mobile_bp.mobile_review', project_id=project.id) }}"
+     class="draft-badge">
+    <i class="bi bi-file-earmark-text me-1"></i>
+    {{ draft['items'] | length }} ítem(s) · {{ draft.total | currency }}
+  </a>
+{% endif %}
+
+{% endblock %}

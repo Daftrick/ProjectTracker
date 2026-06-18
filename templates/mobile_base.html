@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+  <title>{% block title %}Cotizador{% endblock %} — {{ company.name if company else 'ProjectTracker' }}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"/>
+  <style>
+    :root { --acc: #5a82c8; }
+    [data-bs-theme="dark"] {
+      --bs-body-bg: #060a14;
+      --bs-body-color: #a8b2c0;
+      --bs-secondary-bg: #0f1525;
+      --bs-card-bg: #0f1525;
+      --bs-card-border-color: rgba(255,255,255,.18);
+      --bs-border-color: rgba(255,255,255,.18);
+    }
+    body { font-size: 1rem; padding-bottom: 1rem; }
+    .mob-header {
+      background: #0f1525;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      padding: .75rem 1rem;
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .mob-header .back-btn {
+      color: var(--acc); text-decoration: none;
+      font-size: 1.3rem; line-height: 1;
+    }
+    .mob-header h1 { font-size: 1rem; margin: 0; flex: 1; }
+    .btn-mob {
+      min-height: 48px; font-size: 1rem;
+      padding: .75rem 1rem;
+    }
+    .pill-disciplina {
+      border-radius: 20px; padding: .35rem .9rem;
+      font-size: .85rem; white-space: nowrap;
+      border: 1px solid rgba(255,255,255,.2);
+      background: transparent; color: #a8b2c0;
+      cursor: pointer;
+    }
+    .pill-disciplina.active {
+      background: var(--acc); border-color: var(--acc); color: #fff;
+    }
+    .catalog-item-card {
+      background: #0f1525; border: 1px solid rgba(255,255,255,.12);
+      border-radius: .5rem; padding: .75rem 1rem; margin-bottom: .5rem;
+    }
+    .catalog-item-card .item-name { font-weight: 600; font-size: .95rem; }
+    .catalog-item-card .item-meta { font-size: .8rem; color: #6c757d; }
+    .draft-badge {
+      position: fixed; bottom: 1rem; right: 1rem;
+      background: var(--acc); color: #fff;
+      border-radius: 50px; padding: .5rem 1.1rem;
+      font-size: .9rem; font-weight: 600;
+      box-shadow: 0 4px 16px rgba(0,0,0,.4);
+      text-decoration: none; z-index: 200;
+    }
+    .flash-messages { padding: 0 1rem; }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <div class="mob-header">
+    {% block header_left %}
+      <a href="{{ url_for('quotes_mobile_bp.mobile_projects') }}" class="back-btn"><i class="bi bi-arrow-left"></i></a>
+    {% endblock %}
+    <h1>{% block header_title %}Cotizador{% endblock %}</h1>
+    {% block header_right %}{% endblock %}
+  </div>
+
+  <div class="flash-messages mt-2">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'danger' else 'warning' if category == 'warning' else 'success' }} alert-dismissible py-2 mb-2" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      {% endfor %}
+    {% endwith %}
+  </div>
+
+  <main class="container-fluid px-3 pt-2">
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>
