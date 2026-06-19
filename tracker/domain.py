@@ -2,7 +2,7 @@ from datetime import date, datetime
 
 from .storage import load
 
-APP_VERSION = "v32.0"
+APP_VERSION = "v33.0"
 
 ALCANCES = [
     {"id": "iluminacion", "nombre": "IE - Iluminación", "source": "externa", "dep_label": "Diseño de iluminación (otra área)", "blocked_by": []},
@@ -21,6 +21,8 @@ ALCANCES_BY_ID = {alcance["id"]: alcance for alcance in ALCANCES}
 TASK_STATUSES = ["Pendiente", "En progreso", "Revisión", "Observaciones", "Aprobado"]
 TIPOS_FICHA = ["LUM", "CONT", "INT", "THERM", "TFO", "PANEL", "CABLE", "COND", "UPS", "FV", "AC", "OTRO"]
 
+STAGES = ["Cotización", "Diseño", "Entregado", "Obra"]
+
 
 def check_blocked(task, main_tasks):
     for dep_id in ALCANCES_BY_ID.get(task.get("alcance", ""), {}).get("blocked_by", []):
@@ -28,6 +30,30 @@ def check_blocked(task, main_tasks):
         if dep and dep["status"] != "Aprobado":
             return True
     return False
+
+
+def project_stage(project, tasks):
+    """Derive the portfolio stage from existing task data + the in_obra flag.
+
+    Stages: Cotización → Diseño → Entregado → Obra
+    'Obra' is the only manually-set state (project['in_obra'] = True).
+    The rest are computed from alcance statuses to avoid divergent state.
+    """
+    if project.get("in_obra"):
+        return "Obra"
+    main_tasks = [
+        t for t in tasks
+        if t["project_id"] == project["id"] and not t.get("parent_task_id")
+    ]
+    if not main_tasks:
+        return "Cotización"
+    cot_task = next((t for t in main_tasks if t.get("alcance") == "cotizacion"), None)
+    cot_approved = cot_task is not None and cot_task["status"] == "Aprobado"
+    if not cot_approved:
+        return "Cotización"
+    if all(t["status"] == "Aprobado" for t in main_tasks):
+        return "Entregado"
+    return "Diseño"
 
 
 def get_progress(project_id, tasks=None):

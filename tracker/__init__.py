@@ -7,8 +7,8 @@ from flask_wtf.csrf import CSRFProtect
 from .auth import init_auth
 from .catalog import migrate_catalog_disciplina, migrate_catalog_fields, migrate_quote_approval
 from .company_config import get_company
-from .domain import APP_VERSION, ALCANCES, ALCANCES_BY_ID, INFO_EXT_EXCLUDED, TASK_STATUSES, TIPOS_FICHA, currency, fdate
-from .drive import migrate_folder_numbers, migrate_task_names, migrate_task_statuses
+from .domain import APP_VERSION, ALCANCES, ALCANCES_BY_ID, INFO_EXT_EXCLUDED, STAGES, TASK_STATUSES, TIPOS_FICHA, currency, fdate
+from .drive import migrate_folder_numbers, migrate_in_obra, migrate_task_names, migrate_task_statuses
 from .routes.admin import bp as admin_bp
 from .routes.auth_routes import bp as auth_bp
 from .routes.materials import bp as materials_bp
@@ -41,6 +41,7 @@ def create_app():
     migrate_task_statuses()
     migrate_task_names()
     migrate_folder_numbers()
+    migrate_in_obra()
     migrate_catalog_fields()
     migrate_catalog_disciplina()
     _migrate_quote_approval()
@@ -57,6 +58,7 @@ def create_app():
             "task_statuses": TASK_STATUSES,
             "tipos_ficha": TIPOS_FICHA,
             "info_ext_excluded": INFO_EXT_EXCLUDED,
+            "stages": STAGES,
             "company": get_company(),
         }
 

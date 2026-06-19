@@ -10,7 +10,7 @@ from flask import Blueprint, abort, after_this_request, flash, redirect, render_
 from ..catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from ..consistency import compute_consistency
 from ..deletions import delete_project_data
-from ..domain import ALCANCES, get_progress, project_semaphore
+from ..domain import ALCANCES, STAGES, get_progress, project_semaphore, project_stage
 from ..drive import active_drive_paths, create_project_folder, current_platform_key, find_delivery_files, folder_name, load_config, save_config, scan_drive_folder
 from ..project_view import build_project_detail_context
 from ..services import (
@@ -102,6 +102,34 @@ def dashboard():
             except Exception:
                 pass
     return render_template("dashboard.html", active=active, completed=completed, closed=closed, deadline_alerts=deadline_alerts)
+
+
+@bp.route("/kanban", endpoint="kanban")
+def kanban():
+    projects = load("projects")
+    tasks = load("tasks")
+    open_projects = [p for p in projects if not p.get("closed_at")]
+    for p in open_projects:
+        progress = get_progress(p["id"], tasks)
+        p.update(progress)
+        p["stage"] = project_stage(p, tasks)
+        p["semaphore"] = project_semaphore(p, today())
+    by_stage = {stage: [] for stage in STAGES}
+    for p in open_projects:
+        by_stage[p["stage"]].append(p)
+    return render_template("kanban.html", by_stage=by_stage)
+
+
+@bp.route("/projects/<project_id>/toggle_obra", methods=["POST"], endpoint="toggle_obra")
+@admin_required
+def toggle_obra(project_id):
+    projects = load("projects")
+    project = next((p for p in projects if p["id"] == project_id), None)
+    if not project or project.get("closed_at"):
+        abort(404)
+    project["in_obra"] = not project.get("in_obra", False)
+    save("projects", projects)
+    return redirect(url_for("kanban"))
 
 
 @bp.route("/projects/new", methods=["GET", "POST"], endpoint="new_project")

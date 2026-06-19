@@ -304,6 +304,17 @@ def migrate_folder_numbers():
         save("projects", projects)
 
 
+def migrate_in_obra():
+    projects = load("projects")
+    changed = False
+    for project in projects:
+        if "in_obra" not in project:
+            project["in_obra"] = False
+            changed = True
+    if changed:
+        save("projects", projects)
+
+
 def folder_name(project):
     return f"IE-{project.get('folder_num', '000')}-{project['clave']}"
 

@@ -263,6 +263,10 @@
        data-label="Proyectos">
       <i class="bi bi-grid-1x2"></i><span class="nav-label"> Proyectos</span>
     </a>
+    <a href="{{ url_for('kanban') }}" class="nav-link {% if request.endpoint=='kanban' %}active{% endif %}"
+       data-label="Portafolio">
+      <i class="bi bi-kanban"></i><span class="nav-label"> Portafolio</span>
+    </a>
     <div class="nav-section mt-2">Recursos</div>
     <a href="{{ url_for('fichas') }}" class="nav-link {% if request.endpoint=='fichas' %}active{% endif %}"
        data-label="Fichas Técnicas">

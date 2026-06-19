@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v32.0 — 19-Jun-2026
+## Versión actual: v33.0 — 19-Jun-2026
 
 ---
 
@@ -60,7 +60,7 @@ ProjectTracker/
 │
 ├── tracker/
 │   ├── __init__.py             # create_app(): registra blueprints, filtros Jinja, aliases legacy
-│   ├── domain.py               # Catálogo de alcances, statuses, fdate/currency filters, get_progress
+│   ├── domain.py               # Catálogo de alcances, STAGES, statuses, fdate/currency filters, get_progress, project_stage
 │   ├── storage.py              # load/save JSON, new_id (UUID 8 chars), today(), BASE_DIR, DATA_DIR
 │   ├── services.py             # Lógica de negocio pura: crear proyectos+tareas, sincronizar alcances, cambiar status
 │   ├── project_view.py         # View-model de project_detail: alcances, Drive, cotizaciones, LDMs y consistencia
@@ -75,7 +75,7 @@ ProjectTracker/
 │   ├── validators.py           # validate_project_form, validate_quote_form, validate_ldm_form
 │   ├── pdfs.py                 # build_quote_pdf, build_ldm_pdf (fpdf2); logo desde Drive o .codex_tmp
 │   ├── drive.py                # load/save_config, folder_name, scan_drive_folder, find_delivery_files
-│   │                           # Migraciones al arranque: migrate_task_statuses/names/folder_numbers
+│   │                           # Migraciones al arranque: migrate_task_statuses/names/folder_numbers/in_obra
 │   └── routes/
 │       ├── __init__.py         # (vacío)
 │       ├── projects.py         # Blueprint projects_bp — proyectos, tareas, entregas, ajustes, shutdown
@@ -115,7 +115,8 @@ ProjectTracker/
 │   ├── mobile_base.html        # Layout mobile-first (sin sidebar, botones ≥48px)
 │   ├── mobile_projects.html    # Paso 1: selección de proyecto
 │   ├── mobile_items.html       # Paso 2: catálogo con pills de disciplina + auto-save
-│   └── mobile_review.html      # Paso 3: revisión del borrador + generar PDF
+│   ├── mobile_review.html      # Paso 3: revisión del borrador + generar PDF
+│   └── kanban.html             # Portafolio Kanban: 4 columnas (Cotización→Diseño→Entregado→Obra)
 │
 └── tests/
     ├── test_services.py        # unittest: crear proyecto, sync alcances, bloqueos, subtareas obs
@@ -143,7 +144,8 @@ ProjectTracker/
     ├── test_ldm_sync.py                  # unittest: sincronización parcial LDM desde bundles
     ├── test_ldm_pdf_import_routes.py     # unittest: importación PDF proveedor, token temporal y proyectos cerrados
     ├── test_tube_fixtures.py             # unittest: fixtures CSV LDM y COT para tubería (13+2 LDM, 11+3 COT)
-    └── test_quotes_mobile.py             # unittest: rutas mobile /cotizar/mobile/* (18 integration tests)
+    ├── test_quotes_mobile.py             # unittest: rutas mobile /cotizar/mobile/* (18 integration tests)
+    └── test_kanban.py                    # unittest: project_stage (10 unit) + rutas kanban (4 integration)
 ```
 
 ---
@@ -153,7 +155,8 @@ ProjectTracker/
 ### Proyecto (`projects.json`)
 ```
 id, name, clave, client, version, fecha (AAMMDD), alcances[], notes,
-folder_num (NNN auto-incremental), closed_at, created_at
+folder_num (NNN auto-incremental), closed_at, created_at,
+in_obra (bool, default False — único campo de etapa manual; el resto se deriva)
 ```
 Carpeta Drive: `IE-{folder_num}-{clave}` (ej. `IE-004-OM001`)
 
@@ -274,6 +277,7 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | Observaciones | Guardar texto de observación existente vía ruta dedicada | `routes/projects.py:update_observation` |
 | Observaciones | Toggle de ítem de checklist de observación vía ruta dedicada | `routes/projects.py:toggle_checklist_item` |
 | App | Shutdown graceful vía POST `/shutdown` | `routes/projects.py:shutdown` |
+| Portafolio | Kanban `/kanban`: 4 columnas derivadas (Cotización/Diseño/Entregado/Obra) con semáforo, barra de progreso y toggle "Iniciar Obra" / "Regresar" para admin. Etapa calculada por `project_stage()` en `domain.py`; sólo `in_obra=True` se persiste. | `routes/projects.py` + `domain.py` + `kanban.html` |
 | Validación | Servidor: proyecto, cotización, LDM | `validators.py` |
 | Filtros | `fdate` (YYYY-MM-DD → DD/MM/YYYY), `currency` ($X,XXX.XX) | `domain.py` |
 
@@ -303,6 +307,8 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | POST | `/shutdown` | `shutdown` | Detener servidor |
 | POST | `/projects/<id>/observations/<obs_id>/update` | `update_observation` | Guardar texto de observación existente |
 | POST | `/projects/<id>/observations/<obs_id>/checklist/<item_id>` | `toggle_checklist_item` | Toggle ítem de checklist de observación |
+| GET | `/kanban` | `kanban` | Portafolio Kanban — 4 columnas de etapa derivada |
+| POST | `/projects/<id>/toggle_obra` | `toggle_obra` | Flip `in_obra` boolean (admin only) |
 
 ### Blueprint `quotes_bp`
 
@@ -399,6 +405,7 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | `settings.html` | `GET/POST /settings` |
 | `audit_deleted_catalog.html` | `GET /audit/deleted-catalog` |
 | `bundles.html` | `GET/POST /bundles` y rutas de versiones de bundles |
+| `kanban.html` | `GET /kanban` |
 
 ---
 
@@ -478,6 +485,7 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
+| 2026-06-19 | **v33.0 — Portafolio Kanban (Fase 11)**: nueva vista `/kanban` con 4 columnas (Cotización, Diseño, Entregado, Obra). Etapa derivada automáticamente por `project_stage()` en `domain.py` — solo `in_obra: bool` se persiste en `projects.json`; las 3 etapas previas se calculan desde alcances y statuses existentes. Migración `migrate_in_obra()` en `drive.py` agrega el campo a proyectos existentes al arrancar. Admin puede mover proyectos a/de Obra con "Iniciar Obra" / "Regresar" (POST `/projects/<id>/toggle_obra`). Cards muestran semáforo, clave, cliente y barra de progreso. Nav principal incluye enlace "Portafolio" con ícono kanban. 14 tests nuevos (`test_kanban.py`: 10 unitarios de `project_stage` + 4 de integración de rutas). 247 tests en total. |
 | 2026-06-19 | **v32.0 — Cotizador mobile-first (Fase 10)**: nuevo blueprint `quotes_mobile_bp` con flujo en 4 pasos bajo `/cotizar/mobile/`. Paso 1: selección de proyecto con indicador de borrador activo. Paso 2: catálogo con pills de disciplina (`filter_catalog_by_disciplina`), ítem re-agregado actualiza qty. Paso 3: revisión de ítems con subtotal/IVA/total, botón eliminar por ítem. Paso 4: finaliza borrador, asigna `quote_number`, descarga PDF directamente al browser. Borradores persistidos en `quotes.json` con `status='draft'` — sobreviven browser close y múltiples dispositivos. Auto-save en cada cambio. Atómico write en `storage.py` (`tempfile` + `os.replace`). Helpers puros en `services.py`: `filter_catalog_by_disciplina`, `upsert_mobile_draft`, `remove_item_from_draft`, `finalize_mobile_draft`. 40 tests nuevos (22 unitarios + 18 de integración). 233 tests en total. |
 | 2026-06-10 | **v31.2 — Fix de duplicado de versión de bundle**: en `add_bundle_version_route` (`tracker/routes/admin.py`), la búsqueda de la versión de origen al usar "Copiar v&lt;N&gt;" en el formulario "Duplicar versión" ahora normaliza el bundle (`normalize_bundle`) antes de llamar a `_find_version`. Antes, para bundles legacy/incompletos donde el campo `version` de alguna versión faltaba o no era numérico, `_find_version` podía no encontrar la versión origen y la nueva versión se creaba sin componentes (vacía) de forma silenciosa. Búsqueda dirigida de patrones similares (buscar en copia normalizada, mutar y guardar el original desconectado) en `tracker/services.py`, `tracker/catalog.py` y `tracker/drive.py`: sin otros casos encontrados. 177 tests. |
 | 2026-06-10 | **v31.1 — Ajustes de cantidades y fix de guardado de bundles**: las flechas de los campos de cantidad en cotizaciones, LDM e importación PDF ahora incrementan/decrementan en unidades enteras (`step="1"`); los componentes de bundle aceptan cualquier valor decimal (`step="any"`). Corregido bug en `_find_version` (`tracker/routes/admin.py`) que normalizaba el bundle dos veces y guardaba copias desconectadas: editar y guardar una versión de bundle no persistía los cambios (label, notas, componentes, cantidades). 177 tests. |

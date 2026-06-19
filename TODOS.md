@@ -68,16 +68,6 @@ Requires `ntfy.sh` free account (or email alternative). Sends push notification 
 
 ---
 
-## Fase 11 — Investigación pre-implementación
-
-### Investigar si current_stage es derivable de tasks existentes
-**Source:** eng review (2026-06-18) — Codex outside voice
-**Context:** El plan propone agregar `current_stage` como campo manual en projects.json. Codex señaló que este campo podría ser derivable de tasks/alcances existentes — lo que eliminaría el riesgo de estado divergente (el proyecto está en "Obra" pero las tasks dicen otra cosa). Antes de implementar Fase 11, investigar: ¿qué información de progreso ya tiene cada proyecto? ¿Alcances completados, tasks con status, deliveries? Si se puede calcular la etapa, hacerlo calculado es mejor que guardarlo.
-**Where to start:** `tracker/routes/projects.py` + `tracker/storage.py` — ver qué campos tienen los proyectos y sus tasks/alcances.
-**Trigger:** Antes de escribir código de Fase 11.
-
----
-
 ## v2 — Features
 
 ### Self-service password change for cotizadores
