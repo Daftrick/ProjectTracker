@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v31.2 — 10-Jun-2026
+## Versión actual: v32.0 — 19-Jun-2026
 
 ---
 
@@ -80,6 +80,7 @@ ProjectTracker/
 │       ├── __init__.py         # (vacío)
 │       ├── projects.py         # Blueprint projects_bp — proyectos, tareas, entregas, ajustes, shutdown
 │       ├── quotes.py           # Blueprint quotes_bp — cotizaciones CRUD + PDF + Excel
+│       ├── quotes_mobile.py    # Blueprint quotes_mobile_bp — cotizador mobile-first /cotizar/mobile/*
 │       ├── materials.py        # Blueprint materials_bp — LDMs CRUD + PDF/CSV/PDF proveedor + sync bundles + API costo
 │       └── admin.py            # Blueprint admin_bp — catálogo, proveedores, fichas, equipo
 │
@@ -110,10 +111,15 @@ ProjectTracker/
 │   ├── team.html               # CRUD equipo
 │   ├── settings.html           # Rutas de Drive
 │   ├── audit_deleted_catalog.html # Auditoría de referencias a catálogo eliminado
-│   └── bundles.html            # Admin de bundles directos COT → LDM
+│   ├── bundles.html            # Admin de bundles directos COT → LDM
+│   ├── mobile_base.html        # Layout mobile-first (sin sidebar, botones ≥48px)
+│   ├── mobile_projects.html    # Paso 1: selección de proyecto
+│   ├── mobile_items.html       # Paso 2: catálogo con pills de disciplina + auto-save
+│   └── mobile_review.html      # Paso 3: revisión del borrador + generar PDF
 │
 └── tests/
     ├── test_services.py        # unittest: crear proyecto, sync alcances, bloqueos, subtareas obs
+    ├── test_services_mobile.py # unittest: helpers mobile (filter_disciplina, upsert/remove draft, finalize)
     ├── test_drive.py           # unittest: escaneo Drive, CSVs de plano y archivos ignorados
     ├── test_csv_catalog_validation.py # unittest: validador estricto CSV vs catálogo
     ├── test_csv_import.py      # unittest: parser CSV para LDM
@@ -136,7 +142,8 @@ ProjectTracker/
     ├── test_materials_csv_export.py      # unittest: exportación CSV de LDM existente
     ├── test_ldm_sync.py                  # unittest: sincronización parcial LDM desde bundles
     ├── test_ldm_pdf_import_routes.py     # unittest: importación PDF proveedor, token temporal y proyectos cerrados
-    └── test_tube_fixtures.py             # unittest: fixtures CSV LDM y COT para tubería (13+2 LDM, 11+3 COT)
+    ├── test_tube_fixtures.py             # unittest: fixtures CSV LDM y COT para tubería (13+2 LDM, 11+3 COT)
+    └── test_quotes_mobile.py             # unittest: rutas mobile /cotizar/mobile/* (18 integration tests)
 ```
 
 ---
@@ -312,6 +319,17 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | GET | `/projects/<id>/quote/<qid>/excel` | `quote_excel` | Descargar Excel (.xlsx) |
 | GET | `/audit/deleted-catalog` | `audit_deleted_catalog` | Auditoría de referencias a catálogo eliminado |
 
+### Blueprint `quotes_mobile_bp`
+
+| Método | Path | Función | Descripción |
+|---|---|---|---|
+| GET | `/cotizar/mobile/` | `mobile_projects` | Paso 1: lista proyectos activos con indicador de borrador |
+| GET | `/cotizar/mobile/<id>/items` | `mobile_items` | Paso 2: catálogo con pills de disciplina; `?nueva=1` descarta borrador |
+| POST | `/cotizar/mobile/<id>/items` | `mobile_add_item` | Agrega/actualiza ítem en borrador (auto-save a quotes.json) |
+| POST | `/cotizar/mobile/<id>/remove_item` | `mobile_remove_item` | Elimina ítem del borrador por `catalog_item_id` |
+| GET | `/cotizar/mobile/<id>/review` | `mobile_review` | Paso 3: revisión de ítems, totales y subtotal |
+| POST | `/cotizar/mobile/<id>/generate_pdf` | `mobile_generate_pdf` | Paso 4: finaliza borrador → asigna `quote_number`, descarga PDF |
+
 ### Blueprint `materials_bp`
 
 | Método | Path | Función | Descripción |
@@ -460,6 +478,7 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
+| 2026-06-19 | **v32.0 — Cotizador mobile-first (Fase 10)**: nuevo blueprint `quotes_mobile_bp` con flujo en 4 pasos bajo `/cotizar/mobile/`. Paso 1: selección de proyecto con indicador de borrador activo. Paso 2: catálogo con pills de disciplina (`filter_catalog_by_disciplina`), ítem re-agregado actualiza qty. Paso 3: revisión de ítems con subtotal/IVA/total, botón eliminar por ítem. Paso 4: finaliza borrador, asigna `quote_number`, descarga PDF directamente al browser. Borradores persistidos en `quotes.json` con `status='draft'` — sobreviven browser close y múltiples dispositivos. Auto-save en cada cambio. Atómico write en `storage.py` (`tempfile` + `os.replace`). Helpers puros en `services.py`: `filter_catalog_by_disciplina`, `upsert_mobile_draft`, `remove_item_from_draft`, `finalize_mobile_draft`. 40 tests nuevos (22 unitarios + 18 de integración). 233 tests en total. |
 | 2026-06-10 | **v31.2 — Fix de duplicado de versión de bundle**: en `add_bundle_version_route` (`tracker/routes/admin.py`), la búsqueda de la versión de origen al usar "Copiar v&lt;N&gt;" en el formulario "Duplicar versión" ahora normaliza el bundle (`normalize_bundle`) antes de llamar a `_find_version`. Antes, para bundles legacy/incompletos donde el campo `version` de alguna versión faltaba o no era numérico, `_find_version` podía no encontrar la versión origen y la nueva versión se creaba sin componentes (vacía) de forma silenciosa. Búsqueda dirigida de patrones similares (buscar en copia normalizada, mutar y guardar el original desconectado) en `tracker/services.py`, `tracker/catalog.py` y `tracker/drive.py`: sin otros casos encontrados. 177 tests. |
 | 2026-06-10 | **v31.1 — Ajustes de cantidades y fix de guardado de bundles**: las flechas de los campos de cantidad en cotizaciones, LDM e importación PDF ahora incrementan/decrementan en unidades enteras (`step="1"`); los componentes de bundle aceptan cualquier valor decimal (`step="any"`). Corregido bug en `_find_version` (`tracker/routes/admin.py`) que normalizaba el bundle dos veces y guardaba copias desconectadas: editar y guardar una versión de bundle no persistía los cambios (label, notas, componentes, cantidades). 177 tests. |
 | 2026-06-03 | **v31.0 — Validador CSV contra catálogo**: LDM y COT ahora bloquean la importación antes del preview si alguna partida no tiene coincidencia exacta contra `catalogo.nombre` normalizado o si la unidad del CSV no coincide con `catalogo.unidad`. LDM usa el mismo matching normalizado que COT; ambos parsers agregan `csv_row_number` para errores accionables. Nuevos tests de helper, parsers y rutas. 177 tests. |
