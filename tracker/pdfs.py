@@ -243,7 +243,7 @@ def build_quote_pdf(project, quote, output_path):
             self.line(left, self.get_y() - 1.5, right, self.get_y() - 1.5)
             self.set_font(FONT, "", 8)
             self.set_text_color(*MUTED)
-            self.cell(0, 5, _safe_text(f"Project Tracker - Página {self.page_no()}/{{nb}}"), align="C")
+            self.cell(0, 5, _safe_text(f"{_company_name()}  ·  Página {self.page_no()}/{{nb}}"), align="C")
 
     NAVY   = _PDF_NAVY
     NAVY_2 = _PDF_NAVY_2
@@ -539,7 +539,7 @@ def build_quote_pdf(project, quote, output_path):
         pdf.set_xy(left_x, line_y + 2.5)
         pdf.cell(line_w, 4.5, "Cliente / Aceptación", align="C")
         pdf.set_xy(right_x, line_y + 2.5)
-        pdf.cell(line_w, 4.5, "Omniious Technologies", align="C")
+        pdf.cell(line_w, 4.5, _safe_text(_company_name()), align="C")
 
         pdf.set_font("DejaVu", "", 7.8)
         pdf.set_xy(left_x, line_y + 7.2)
@@ -588,6 +588,15 @@ def build_quote_pdf(project, quote, output_path):
         pdf.set_font("DejaVu", "B", 18)
         pdf.cell(0, 8, _company_name())
     pdf.set_draw_color(*LINE)
+    _cdata = _load_company()
+    _caddr = str(_cdata.get("address") or "").strip()
+    _crut = str(_cdata.get("rut") or "").strip()
+    _cinfo = "  ·  ".join(p for p in [_caddr, _crut] if p)
+    if _cinfo:
+        pdf.set_text_color(*MUTED)
+        pdf.set_font("DejaVu", "", 8)
+        pdf.set_xy(16, 115)
+        pdf.cell(178, 4.5, _safe_text(_cinfo), align="R")
     pdf.line(16, 128, 194, 128)
     pdf.set_xy(16, 138)
     pdf.set_text_color(*NAVY)
@@ -862,19 +871,46 @@ def build_quote_pdf(project, quote, output_path):
     pdf.set_y(22)
     pdf.set_text_color(*INK)
     pdf.set_font("DejaVu", "B", 17)
-    pdf.cell(content_width, 8, "Términos y condiciones", ln=True)
-    pdf.set_x(pdf.l_margin)
-    pdf.set_font("DejaVu", "", 9.4)
-    pdf.set_text_color(*INK)
-    pdf.ln(1)
-    for title, body in quote_terms():
+    _specs = quote.get("specs") or {}
+    _has_specs = any(str(v or "").strip() for v in _specs.values())
+    if _has_specs:
+        pdf.cell(content_width, 8, "Condiciones y especificaciones", ln=True)
         pdf.set_x(pdf.l_margin)
-        pdf.set_font("DejaVu", "B", 9.2)
-        pdf.multi_cell(content_width, 5, _safe_text(title))
+        pdf.set_font("DejaVu", "", 9.4)
+        pdf.set_text_color(*INK)
+        pdf.ln(1)
+        _SPECS_LABELS = [
+            ("condiciones_pago", "Condiciones de pago."),
+            ("exclusiones", "Exclusiones."),
+            ("validez", "Vigencia."),
+            ("forma_entrega", "Forma de entrega."),
+            ("contacto", "Contacto."),
+        ]
+        for _field, _label in _SPECS_LABELS:
+            _val = str(_specs.get(_field) or "").strip()
+            if not _val:
+                continue
+            pdf.set_x(pdf.l_margin)
+            pdf.set_font("DejaVu", "B", 9.2)
+            pdf.multi_cell(content_width, 5, _safe_text(_label))
+            pdf.set_x(pdf.l_margin)
+            pdf.set_font("DejaVu", "", 9.2)
+            pdf.multi_cell(content_width, 5, _safe_text(_val))
+            pdf.ln(1.2)
+    else:
+        pdf.cell(content_width, 8, "Términos y condiciones", ln=True)
         pdf.set_x(pdf.l_margin)
-        pdf.set_font("DejaVu", "", 9.2)
-        pdf.multi_cell(content_width, 5, _safe_text(body))
-        pdf.ln(1.2)
+        pdf.set_font("DejaVu", "", 9.4)
+        pdf.set_text_color(*INK)
+        pdf.ln(1)
+        for title, body in quote_terms():
+            pdf.set_x(pdf.l_margin)
+            pdf.set_font("DejaVu", "B", 9.2)
+            pdf.multi_cell(content_width, 5, _safe_text(title))
+            pdf.set_x(pdf.l_margin)
+            pdf.set_font("DejaVu", "", 9.2)
+            pdf.multi_cell(content_width, 5, _safe_text(body))
+            pdf.ln(1.2)
 
     notes = note_lines(quote.get("notes"))
     if notes:
@@ -957,7 +993,7 @@ def build_ldm_pdf(project, ldm, output_path):
             self.line(left, self.get_y() - 1.5, right, self.get_y() - 1.5)
             self.set_font("DejaVu", "", 8)
             self.set_text_color(*MUTED)
-            self.cell(0, 5, _safe_text(f"Project Tracker - Página {self.page_no()}/{{nb}}"), align="C")
+            self.cell(0, 5, _safe_text(f"{_company_name()}  ·  Página {self.page_no()}/{{nb}}"), align="C")
 
     pdf = LDMPDF(project_name, ldm_number, ldm_date)
     if not _register_dejavu(pdf):
