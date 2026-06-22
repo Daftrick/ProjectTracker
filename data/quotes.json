@@ -9403,5 +9403,37 @@
     "project_basis_note": "",
     "created_at": "2026-06-12",
     "approval_status": "active"
+  },
+  {
+    "id": "CE962397",
+    "project_id": "A044D4FE",
+    "quote_type": "General",
+    "quote_number": "COT-Prueba-G02-20260619",
+    "version": "V1",
+    "client": "Cliente Privado",
+    "project_name": "Prueba",
+    "date": "2026-06-19",
+    "valid_until": "",
+    "currency": "MXN",
+    "tax_rate": 16.0,
+    "items": [
+      {
+        "catalog_item_id": "42075597",
+        "description": "Salida Eléctrica para Luminaria en Muro, Piso o Plafón",
+        "catalog_description": "Omniious | Incluye Herramienta y Mano de Obra",
+        "unit": "pza",
+        "qty": "1",
+        "price": "0.0",
+        "total": 0.0,
+        "section": ""
+      }
+    ],
+    "subtotal": 0.0,
+    "tax": 0.0,
+    "total": 0.0,
+    "notes": "",
+    "project_basis_note": "",
+    "created_at": "2026-06-19",
+    "approval_status": "active"
   }
 ]
