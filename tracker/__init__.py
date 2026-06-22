@@ -20,16 +20,42 @@ from .storage import BASE_DIR, DATA_DIR, load, save
 csrf = CSRFProtect()
 
 _LOGIN_EXEMPT = {"auth_bp.login", "auth_bp.logout", "static"}
+_DEFAULT_SECRET_KEY = "project-tracker-v2-2026"
+_PRODUCTION_ENV_VARS = (
+    "PROJECT_TRACKER_ENV",
+    "FLASK_ENV",
+    "APP_ENV",
+    "ENV",
+    "RAILWAY_ENVIRONMENT_NAME",
+)
+
+
+def _is_truthy(value):
+    return str(value or "").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _is_production_environment():
+    if _is_truthy(os.environ.get("PROJECT_TRACKER_PRODUCTION")):
+        return True
+    for name in _PRODUCTION_ENV_VARS:
+        value = str(os.environ.get(name, "")).strip().lower()
+        if value in {"production", "prod"}:
+            return True
+    return False
+
+
+def _requires_configured_secret_key(secret_key):
+    return secret_key == _DEFAULT_SECRET_KEY and _is_production_environment()
 
 
 def create_app():
     app = Flask(__name__, template_folder=os.path.join(BASE_DIR, "templates"))
 
     import sys
-    secret_key = os.environ.get("SECRET_KEY", "project-tracker-v2-2026")
+    secret_key = os.environ.get("SECRET_KEY", _DEFAULT_SECRET_KEY)
     app.secret_key = secret_key
     _in_tests = "unittest" in sys.modules or "pytest" in sys.modules
-    if not _in_tests and not app.debug and secret_key == "project-tracker-v2-2026":
+    if not _in_tests and _requires_configured_secret_key(secret_key):
         raise RuntimeError(
             "Set SECRET_KEY env var before deploying to production"
         )

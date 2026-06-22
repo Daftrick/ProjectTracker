@@ -8,6 +8,7 @@ cd "$SCRIPT_DIR"
 APP_PORT="${PROJECT_TRACKER_PORT:-8080}"
 APP_URL="http://localhost:${APP_PORT}"
 OPEN_BROWSER="1"
+export PROJECT_TRACKER_ENV="${PROJECT_TRACKER_ENV:-development}"
 
 if [[ "${1:-}" == "noopen" ]]; then
   OPEN_BROWSER="0"

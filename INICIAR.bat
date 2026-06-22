@@ -5,6 +5,7 @@ cd /d "%~dp0"
 set "APP_PORT=8080"
 set "APP_URL=http://localhost:8080"
 set "OPEN_BROWSER=1"
+set "PROJECT_TRACKER_ENV=development"
 if /I "%~1"=="noopen" set "OPEN_BROWSER=0"
 
 echo =============================================
