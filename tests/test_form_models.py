@@ -82,6 +82,43 @@ class FormModelsTest(unittest.TestCase):
         self.assertEqual(result["items"][0]["deleted_catalog_item"]["id"], "CAT1")
         self.assertEqual(result["items"][0]["deleted_catalog_item"]["precio"], 100.0)
 
+    def test_quote_from_form_parses_specs(self):
+        result = quote_from_form(
+            MultiDict([
+                ("date", "2026-04-28"),
+                ("specs_condiciones_pago", "50% anticipo"),
+                ("specs_exclusiones", "Sin materiales"),
+                ("specs_validez", "30 días"),
+                ("specs_forma_entrega", "PDF"),
+                ("specs_contacto", "Ing. López"),
+                ("item_desc[]", "Interruptor"),
+                ("item_unit[]", "pza"),
+                ("item_qty[]", "1"),
+                ("item_price[]", "100"),
+                ("item_catalog_id[]", ""),
+                ("item_desc2[]", ""),
+            ])
+        )
+        self.assertEqual(result["specs"]["condiciones_pago"], "50% anticipo")
+        self.assertEqual(result["specs"]["exclusiones"], "Sin materiales")
+        self.assertEqual(result["specs"]["validez"], "30 días")
+        self.assertEqual(result["specs"]["forma_entrega"], "PDF")
+        self.assertEqual(result["specs"]["contacto"], "Ing. López")
+
+    def test_quote_from_form_specs_defaults_to_empty_strings(self):
+        result = quote_from_form(MultiDict([
+            ("date", "2026-04-28"),
+            ("item_desc[]", "X"),
+            ("item_unit[]", "pza"),
+            ("item_qty[]", "1"),
+            ("item_price[]", "1"),
+            ("item_catalog_id[]", ""),
+            ("item_desc2[]", ""),
+        ]))
+        self.assertIn("specs", result)
+        for field in ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto"):
+            self.assertEqual(result["specs"][field], "")
+
     def test_ldm_from_form_preserves_fallback_and_items(self):
         result = ldm_from_form(
             MultiDict([

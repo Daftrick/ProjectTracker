@@ -167,6 +167,10 @@ def validate_quote_form(form):
         field_key="valid_until",
     )
 
+    specs = {
+        field: _clean(form.get(f"specs_{field}")) or ""
+        for field in ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto")
+    }
     return {
         "ok": not errors,
         "errors": errors,
@@ -180,6 +184,7 @@ def validate_quote_form(form):
         "tax_rate": tax_rate,
         "notes": _clean(form.get("notes")),
         "project_basis_note": _clean(form.get("project_basis_note")),
+        "specs": specs,
         "items": items,
         "subtotal": round(subtotal, 2),
     }

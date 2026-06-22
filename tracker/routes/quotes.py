@@ -121,6 +121,7 @@ def new_quote(project_id):
             "currency": validation["currency"],
             "notes": validation["notes"],
             "project_basis_note": validation["project_basis_note"] if quote_type == "Extraordinaria" else "",
+            "specs": validation["specs"],
             "created_at": today(),
         }
         csv_origen = request.form.get("csv_origen", "").strip()
@@ -235,6 +236,7 @@ def edit_quote(project_id, quote_id):
             "currency": validation["currency"],
             "notes": validation["notes"],
             "project_basis_note": validation["project_basis_note"] if validation["quote_type"] == "Extraordinaria" else "",
+            "specs": validation["specs"],
         })
         save("quotes", quotes)
         flash("Cotización actualizada.", "success")

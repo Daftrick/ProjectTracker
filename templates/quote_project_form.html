@@ -96,6 +96,12 @@
   .quote-section-active .section-title-input {
     color: #7eb3f5 !important;
   }
+  [data-bs-toggle="collapse"] .specs-chevron {
+    transition: transform .2s;
+  }
+  [data-bs-toggle="collapse"][aria-expanded="true"] .specs-chevron {
+    transform: rotate(-180deg);
+  }
   .drag-cell {
     width: 64px;
     text-align: center;
@@ -307,9 +313,56 @@
             {% if fe.get('tax_rate') %}<div class="invalid-feedback">{{ fe.get('tax_rate') }}</div>{% endif %}
           </div>
           <div class="col-12">
-            <label class="form-label">Notas / Condiciones de pago</label>
+            <label class="form-label">Notas generales</label>
             <textarea name="notes" class="form-control" rows="2"
-                      placeholder="Forma de pago, tiempo de entrega, exclusiones...">{{ quote.notes if quote else '' }}</textarea>
+                      placeholder="Observaciones o notas adicionales para el cliente...">{{ quote.notes if quote else '' }}</textarea>
+          </div>
+          {# ── Especificaciones técnicas (collapsible) ── #}
+          {% set _specs = quote.get('specs', {}) if quote else {} %}
+          {% set _has_specs = _specs.values() | select | list | length > 0 %}
+          <div class="col-12">
+            <button type="button" class="btn btn-sm btn-outline-secondary"
+                    data-bs-toggle="collapse" data-bs-target="#specsCollapse"
+                    aria-expanded="{{ 'true' if _has_specs else 'false' }}">
+              <i class="bi bi-card-checklist me-1"></i>Especificaciones técnicas
+              <i class="bi bi-chevron-down ms-1 specs-chevron"></i>
+            </button>
+          </div>
+          <div class="col-12 collapse {% if _has_specs %}show{% endif %}" id="specsCollapse">
+            <div class="card border-0 bg-body-secondary rounded-3 p-3">
+              <div class="row g-2">
+                <div class="col-12">
+                  <label class="form-label form-label-sm fw-semibold">Condiciones de pago</label>
+                  <input name="specs_condiciones_pago" class="form-control form-control-sm"
+                         value="{{ _specs.get('condiciones_pago', '') }}"
+                         placeholder="Ej: 50% anticipo / 50% contra entrega">
+                </div>
+                <div class="col-12">
+                  <label class="form-label form-label-sm fw-semibold">Exclusiones</label>
+                  <input name="specs_exclusiones" class="form-control form-control-sm"
+                         value="{{ _specs.get('exclusiones', '') }}"
+                         placeholder="Ej: No incluye suministro de materiales">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label form-label-sm fw-semibold">Validez</label>
+                  <input name="specs_validez" class="form-control form-control-sm"
+                         value="{{ _specs.get('validez', '') }}"
+                         placeholder="Ej: 30 días naturales">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label form-label-sm fw-semibold">Forma de entrega</label>
+                  <input name="specs_forma_entrega" class="form-control form-control-sm"
+                         value="{{ _specs.get('forma_entrega', '') }}"
+                         placeholder="Ej: PDF digital">
+                </div>
+                <div class="col-12">
+                  <label class="form-label form-label-sm fw-semibold">Contacto</label>
+                  <input name="specs_contacto" class="form-control form-control-sm"
+                         value="{{ _specs.get('contacto', '') }}"
+                         placeholder="Ej: Ing. Ricardo López — info@dide.cl">
+                </div>
+              </div>
+            </div>
           </div>
           <div class="col-12 d-none" id="projectBasisNoteGroup">
             <label class="form-label">Nota base de proyecto <small class="text-muted">(extraordinaria)</small></label>
@@ -1193,7 +1246,7 @@
   window.addEventListener("DOMContentLoaded", () => {
     const tbody = document.getElementById("itemsBody");
     {% if not quote %}
-    // Pre-poblar secciones y notas desde la plantilla del tipo (solo en cotizaciones nuevas)
+    // Pre-poblar secciones, notas y specs desde la plantilla del tipo (solo en cotizaciones nuevas)
     const tipo = document.getElementById("quoteType").value;
     const tmpl = QUOTE_TEMPLATES[tipo] || {};
     const sections = tmpl.sections_default || [];
@@ -1204,6 +1257,22 @@
     const notesField = document.querySelector("textarea[name='notes']");
     if (notesField && !notesField.value && tmpl.notes_default) {
       notesField.value = tmpl.notes_default;
+    }
+    const specsDefault = tmpl.specs_default || {};
+    const specsFields = ["condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto"];
+    let hasSpecsDefault = false;
+    for (const f of specsFields) {
+      const el = document.querySelector(`input[name="specs_${f}"]`);
+      if (el && !el.value && specsDefault[f]) {
+        el.value = specsDefault[f];
+        hasSpecsDefault = true;
+      }
+    }
+    if (hasSpecsDefault) {
+      const collapse = document.getElementById("specsCollapse");
+      if (collapse && !collapse.classList.contains("show")) {
+        collapse.classList.add("show");
+      }
     }
     {% else %}
     if (tbody.children.length === 0) addRow();

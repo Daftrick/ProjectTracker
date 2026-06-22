@@ -90,6 +90,10 @@ def quote_from_form(form, fallback_quote=None):
         items.append(parsed_item)
 
     base = dict(fallback_quote or {})
+    specs = {
+        field: (form.get(f"specs_{field}") or "").strip()
+        for field in ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto")
+    }
     base.update({
         "quote_type": quote_type_key(form.get("quote_type", "Proyecto")),
         "quote_number": form.get("quote_number", "").strip(),
@@ -100,6 +104,7 @@ def quote_from_form(form, fallback_quote=None):
         "tax_rate": form.get("tax_rate", "16").strip() or "16",
         "notes": form.get("notes", "").strip(),
         "project_basis_note": form.get("project_basis_note", "").strip(),
+        "specs": specs,
         "items": items,
     })
     return base
