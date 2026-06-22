@@ -3,7 +3,11 @@
 import unittest
 from unittest.mock import patch
 
-from tracker.ldm_sync import append_missing_bundle_items_to_ldm, missing_ldm_items_from_bundles
+from tracker.ldm_sync import (
+    append_missing_bundle_items_to_ldm,
+    missing_ldm_items_from_bundles,
+    selected_missing_bundle_items,
+)
 
 
 PROJECT = {"id": "P1", "clave": "OM001", "name": "Proyecto demo"}
@@ -52,6 +56,18 @@ class LdmSyncTest(unittest.TestCase):
         self.assertEqual(additions[0]["qty"], 4)
         self.assertEqual(additions[0]["origen"], "bundle_sync")
         self.assertEqual(additions[0]["sync_expected_catalog_item_id"], "TUBO-ML")
+        self.assertEqual(additions[0]["sync_total_expected_qty"], 6)
+        self.assertEqual(additions[0]["sync_actual_qty"], 2)
+
+    def test_filters_missing_materials_by_explicit_selection(self):
+        additions = missing_ldm_items_from_bundles(QUOTE, [LDM], BUNDLES, CATALOG)
+
+        selected = selected_missing_bundle_items(additions, ["TUBO-ML"])
+        skipped = selected_missing_bundle_items(additions, ["NOPE"])
+
+        self.assertEqual(len(selected), 1)
+        self.assertEqual(selected[0]["catalog_item_id"], "TUBO-ML")
+        self.assertEqual(skipped, [])
 
     def test_appends_missing_items_to_copy(self):
         updated, additions = append_missing_bundle_items_to_ldm(LDM, QUOTE, [LDM], BUNDLES, CATALOG)
@@ -71,7 +87,58 @@ class MaterialsSyncRouteTest(unittest.TestCase):
         app.config["WTF_CSRF_ENABLED"] = False
         cls.client = app.test_client()
 
-    def test_route_appends_missing_bundle_materials_to_existing_ldm(self):
+    def test_route_previews_missing_bundle_materials_for_existing_ldm(self):
+        materiales = [dict(LDM, items=[dict(item) for item in LDM["items"]])]
+
+        def fake_load(key):
+            data = {
+                "projects": [PROJECT],
+                "materiales": materiales,
+                "quotes": [QUOTE],
+                "bundles": BUNDLES,
+                "proveedores": [],
+            }
+            return data.get(key, [])
+
+        with patch("tracker.routes.materials.load", side_effect=fake_load), \
+             patch("tracker.routes.materials.catalog_maps", return_value=(CATALOG, {})):
+            response = self.client.get("/projects/P1/ldm/L1/sync-bundles")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Diff de sincronizaci", response.data)
+        self.assertIn(b"Tubo por metro", response.data)
+        self.assertIn(b'name="selected_catalog_item_id[]"', response.data)
+
+    def test_route_appends_selected_bundle_materials_to_existing_ldm(self):
+        saved = {}
+        materiales = [dict(LDM, items=[dict(item) for item in LDM["items"]])]
+
+        def fake_load(key):
+            data = {
+                "projects": [PROJECT],
+                "materiales": materiales,
+                "quotes": [QUOTE],
+                "bundles": BUNDLES,
+            }
+            return data.get(key, [])
+
+        def fake_save(key, value):
+            saved[key] = value
+
+        with patch("tracker.routes.materials.load", side_effect=fake_load), \
+             patch("tracker.routes.materials.save", side_effect=fake_save), \
+             patch("tracker.routes.materials.catalog_maps", return_value=(CATALOG, {})):
+            response = self.client.post(
+                "/projects/P1/ldm/L1/sync-bundles",
+                data={"selected_catalog_item_id[]": ["TUBO-ML"]},
+            )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("materiales", saved)
+        self.assertEqual(len(saved["materiales"][0]["items"]), 2)
+        self.assertEqual(saved["materiales"][0]["items"][1]["origen"], "bundle_sync")
+
+    def test_route_does_not_append_unselected_bundle_materials(self):
         saved = {}
         materiales = [dict(LDM, items=[dict(item) for item in LDM["items"]])]
 
@@ -93,9 +160,7 @@ class MaterialsSyncRouteTest(unittest.TestCase):
             response = self.client.post("/projects/P1/ldm/L1/sync-bundles")
 
         self.assertEqual(response.status_code, 302)
-        self.assertIn("materiales", saved)
-        self.assertEqual(len(saved["materiales"][0]["items"]), 2)
-        self.assertEqual(saved["materiales"][0]["items"][1]["origen"], "bundle_sync")
+        self.assertNotIn("materiales", saved)
 
     def test_new_ldm_can_prefill_bundle_suggestions(self):
         def fake_load(key):

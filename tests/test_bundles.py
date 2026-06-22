@@ -70,5 +70,120 @@ class ExpandQuoteBundlesTest(unittest.TestCase):
         self.assertEqual(result["unmapped_quote_items"], [])
 
 
+class SeededBundlesTest(unittest.TestCase):
+    """Cobertura de los bundles reales en data/bundles.json."""
+
+    @classmethod
+    def setUpClass(cls):
+        root = Path(__file__).resolve().parents[1]
+        cls.bundles = json.loads((root / "data" / "bundles.json").read_text(encoding="utf-8"))
+
+    def _expand(self, catalog_item_id, qty):
+        quote = {"items": [{"catalog_item_id": catalog_item_id, "qty": qty}]}
+        return b.expand_quote_bundles(quote, self.bundles, {})
+
+    def test_tubo_conduit_16mm_expands_all_components(self):
+        result = self._expand("81F2CB4E", 10)
+        items = result["items"]
+        self.assertEqual(result["unmapped_quote_items"], [])
+        self.assertEqual(result["invalid_components"], [])
+        # tubo: 0.3333 * 10 = 3.333 rounded to 4 dp
+        self.assertAlmostEqual(items["92218A02"]["qty"], 3.333, places=3)
+        # conector y abrazadera: 1.0 y 2.0 por metro
+        self.assertAlmostEqual(items["E32BE145"]["qty"], 10.0, places=3)
+        self.assertAlmostEqual(items["1D5577C3"]["qty"], 20.0, places=3)
+        # soporte: 0.1666 * 10 = 1.666
+        self.assertAlmostEqual(items["9AC13BC2"]["qty"], 1.666, places=3)
+
+    def test_salida_luminaria_expands_all_components(self):
+        result = self._expand("42075597", 5)
+        items = result["items"]
+        self.assertEqual(result["unmapped_quote_items"], [])
+        self.assertEqual(result["invalid_components"], [])
+        # caja: 1.0 por salida
+        self.assertAlmostEqual(items["92218A02"]["qty"], 5.0, places=3)
+        # cable fase/neutro: 6.0 por salida
+        self.assertAlmostEqual(items["18C5C03E"]["qty"], 30.0, places=3)
+        # conductor desnudo: 3.0 por salida
+        self.assertAlmostEqual(items["2325432B"]["qty"], 15.0, places=3)
+        # soporte: 0.1666 * 5 = 0.833
+        self.assertAlmostEqual(items["9AC13BC2"]["qty"], 0.833, places=3)
+
+    def test_all_seeded_bundles_have_valid_active_version(self):
+        for bundle in self.bundles:
+            av = b.get_active_bundle_version(bundle)
+            self.assertIsNotNone(av, f"Bundle {bundle.get('id')} sin versión activa")
+            self.assertTrue(len(av.get("components", [])) > 0,
+                            f"Bundle {bundle.get('id')} sin componentes")
+
+    def test_no_duplicate_catalog_item_ids_in_index(self):
+        index = b.bundle_by_catalog_item_id(self.bundles)
+        self.assertEqual(len(index), len(self.bundles),
+                         "Hay catalog_item_ids duplicados en bundles.json")
+
+
+class BundleEdgeCasesTest(unittest.TestCase):
+    """Casos borde de expand_quote_bundles y versionado."""
+
+    def test_component_with_zero_qty_goes_to_invalid(self):
+        bundle = b.create_bundle("COT-X", "Test", [
+            {"catalog_item_id": "MAT-GOOD", "qty": 2},
+            {"catalog_item_id": "MAT-ZERO", "qty": 0},
+        ])
+        quote = {"items": [{"catalog_item_id": "COT-X", "qty": 3}]}
+        result = b.expand_quote_bundles(quote, [bundle], {})
+        self.assertEqual(result["items"].get("MAT-GOOD", {}).get("qty"), 6.0)
+        self.assertNotIn("MAT-ZERO", result["items"])
+        self.assertEqual(len(result["invalid_components"]), 1)
+        self.assertEqual(result["invalid_components"][0]["reason"], "invalid_component")
+
+    def test_component_with_empty_catalog_item_id_goes_to_invalid(self):
+        bundle = b.create_bundle("COT-Y", "Test", [
+            {"catalog_item_id": "", "qty": 1},
+        ])
+        quote = {"items": [{"catalog_item_id": "COT-Y", "qty": 1}]}
+        result = b.expand_quote_bundles(quote, [bundle], {})
+        self.assertEqual(result["items"], {})
+        self.assertEqual(len(result["invalid_components"]), 1)
+
+    def test_bundle_with_no_versions_goes_to_invalid(self):
+        bundle = {"id": "B-EMPTY", "catalog_item_id": "COT-Z", "active_version": 0, "versions": []}
+        quote = {"items": [{"catalog_item_id": "COT-Z", "qty": 2}]}
+        result = b.expand_quote_bundles(quote, [bundle], {})
+        self.assertEqual(result["items"], {})
+        self.assertEqual(len(result["invalid_components"]), 1)
+        self.assertEqual(result["invalid_components"][0]["reason"], "bundle_without_active_version")
+
+    def test_activate_nonexistent_version_raises(self):
+        bundle = b.create_bundle("COT-1", "Test", [])
+        with self.assertRaises(ValueError):
+            b.activate_bundle_version(bundle, 99)
+
+    def test_delete_nonexistent_version_raises(self):
+        bundle = b.create_bundle("COT-1", "Test", [])
+        bundle = b.add_bundle_version(bundle, [])
+        with self.assertRaises(ValueError):
+            b.delete_bundle_version(bundle, 99)
+
+    def test_waste_pct_applied_correctly(self):
+        bundle = b.create_bundle("COT-W", "Waste test", [
+            {"catalog_item_id": "MAT-W", "qty": 10, "waste_pct": 15},
+        ])
+        quote = {"items": [{"catalog_item_id": "COT-W", "qty": 2}]}
+        result = b.expand_quote_bundles(quote, [bundle], {})
+        # 2 * 10 * (1 + 15/100) = 23.0
+        self.assertAlmostEqual(result["items"]["MAT-W"]["qty"], 23.0, places=4)
+
+    def test_section_markers_are_skipped(self):
+        quote = {"items": [
+            {"catalog_item_id": "", "kind": "section", "description": "== Sección ==", "qty": 0},
+            {"catalog_item_id": "COT-1", "qty": 1},
+        ]}
+        bundle = b.create_bundle("COT-1", "Item", [{"catalog_item_id": "MAT-1", "qty": 2}])
+        result = b.expand_quote_bundles(quote, [bundle], {})
+        self.assertIn("MAT-1", result["items"])
+        self.assertEqual(len(result["unmapped_quote_items"]) + len(result["bundle_quote_items"]), 1)
+
+
 if __name__ == "__main__":
     unittest.main()

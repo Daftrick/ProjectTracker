@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% set import_preview = ldm and ldm.is_import_preview %}
 {% set bundle_suggestion = ldm and ldm.is_bundle_suggestion %}
-{% set existing_ldm = ldm and ldm.id and not import_preview %}
-{% block title %}{% if import_preview %}Importar CSV{% elif existing_ldm %}Editar{% else %}Nueva{% endif %} Lista de Materiales – {{ project.name }}{% endblock %}
+{% set sync_preview = ldm and ldm.is_sync_preview %}
+{% set existing_ldm = ldm and ldm.id and not import_preview and not sync_preview %}
+{% block title %}{% if import_preview %}Importar CSV{% elif sync_preview %}Revisar faltantes{% elif existing_ldm %}Editar{% else %}Nueva{% endif %} Lista de Materiales – {{ project.name }}{% endblock %}
 {% block page_title %}
   <i class="bi bi-card-list me-2 text-warning"></i>
-  {% if import_preview %}Importar CSV a LDM — {{ project.clave }}{% elif existing_ldm %}Editar {{ ldm.ldm_number }}{% else %}Nueva lista de materiales — {{ project.clave }}{% endif %}
+  {% if import_preview %}Importar CSV a LDM — {{ project.clave }}{% elif sync_preview %}Revisar faltantes para {{ ldm.ldm_number }}{% elif existing_ldm %}Editar {{ ldm.ldm_number }}{% else %}Nueva lista de materiales — {{ project.clave }}{% endif %}
 {% endblock %}
 {% block topbar_actions %}
   <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-materiales"
@@ -140,6 +141,89 @@
 
 {% block content %}
 {% set fe = field_errors|default({}) %}
+{% if sync_preview %}
+<form method="post" id="ldmSyncForm">
+  <div class="ldm-bar">
+    <div class="meta">
+      <div class="meta-item">
+        <span class="meta-label">Proyecto </span>
+        <span class="meta-val">{{ project.clave }}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Lista </span>
+        <span class="meta-val text-warning">{{ ldm.ldm_number }}</span>
+      </div>
+      <div class="meta-item text-muted" style="font-size:.78rem">
+        <i class="bi bi-magic me-1"></i>{{ ldm.sync_suggestion_count }} faltante(s) desde bundles
+      </div>
+    </div>
+    <div class="d-flex gap-2 align-items-center">
+      <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-materiales"
+         class="btn btn-outline-secondary btn-sm">Cancelar</a>
+      <button type="submit" class="btn btn-warning btn-sm px-4 text-dark">
+        <i class="bi bi-plus-lg me-1"></i>Agregar seleccionados
+      </button>
+    </div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span><i class="bi bi-magic me-1 text-primary"></i>Diff de sincronización asistida</span>
+      {% if ldm.source_quote_number %}
+      <span class="badge bg-light text-dark border font-monospace">{{ ldm.source_quote_number }}</span>
+      {% endif %}
+    </div>
+    <div class="card-body">
+      <div class="alert alert-info py-2 mb-3" style="font-size:.85rem">
+        Revisa los faltantes calculados desde la COT activa y bundles. Sólo se agregarán las filas marcadas; no se modifican renglones ni precios existentes.
+      </div>
+      <div class="table-responsive">
+        <table class="table table-sm align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th style="width:42px" class="text-center">
+                <input class="form-check-input" type="checkbox" checked
+                       onclick="document.querySelectorAll('[name=&quot;selected_catalog_item_id[]&quot;]').forEach(cb => cb.checked = this.checked)">
+              </th>
+              <th>Material</th>
+              <th>Unidad</th>
+              <th class="text-end">Esperado</th>
+              <th class="text-end">Existente</th>
+              <th class="text-end">Agregar</th>
+              <th>Motivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in ldm.sync_suggestions %}
+            <tr>
+              <td class="text-center">
+                <input class="form-check-input" type="checkbox" checked
+                       name="selected_catalog_item_id[]" value="{{ item.catalog_item_id }}">
+              </td>
+              <td>
+                <div class="fw-semibold">{{ item.description }}</div>
+                <small class="text-muted font-monospace">{{ item.catalog_item_id }}</small>
+              </td>
+              <td>{{ item.unit }}</td>
+              <td class="text-end">{{ item.sync_total_expected_qty }}</td>
+              <td class="text-end">{{ item.sync_actual_qty }}</td>
+              <td class="text-end fw-semibold text-warning">{{ item.qty }}</td>
+              <td>
+                {% if item.sync_issue == 'missing_in_ldm' %}
+                <span class="badge bg-danger-subtle text-danger border border-danger-subtle">faltante</span>
+                {% else %}
+                <span class="badge bg-warning-subtle text-warning border border-warning-subtle">cantidad corta</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</form>
+{% else %}
 <form method="post" id="ldmForm">
 
 <!-- ── Barra de acciones fija ── -->
@@ -399,6 +483,7 @@
 
 </div>
 </form>
+{% endif %}
 
 <!-- Modal: Buscar en catálogo -->
 <div class="modal fade" id="catalogModal" tabindex="-1">
@@ -466,6 +551,7 @@
 {% endblock %}
 
 {% block extra_js %}
+{% if not sync_preview %}
 <script>
   // ── Manejo de filas ────────────────────────────────────────────────────────
   function addRow(desc, unit, qty, catalogId) {
@@ -912,4 +998,5 @@
     applyPartidaFilter();
   });
 </script>
+{% endif %}
 {% endblock %}

@@ -1351,6 +1351,11 @@
               <i class="bi bi-filetype-csv"></i><span class="action-label">CSV</span>
             </a>
             {% if not project.closed_at %}
+            <a href="{{ url_for('sync_ldm_bundles', project_id=project.id, ldm_id=row.ldm.id) }}"
+               class="btn btn-sm btn-outline-primary me-1 action-btn"
+               title="Revisar faltantes desde bundles">
+              <i class="bi bi-magic"></i><span class="action-label">Revisar</span>
+            </a>
             <a href="{{ url_for('edit_ldm', project_id=project.id, ldm_id=row.ldm.id) }}"
                class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Editar">
               <i class="bi bi-pencil"></i><span class="action-label">Editar</span>

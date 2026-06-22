@@ -60,18 +60,20 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 #### 1. Probar bundles reales y ajustar componentes directos COT → LDM
 
 Validar la sincronización parcial con proyectos existentes:
-- Ampliar bundles de salidas: los 3 bundles iniciales ya expanden circuitos sin tubería; falta cubrir tubería, accesorios y compras mínimas por familia.
-- Definir cómo los metros de tubería generan accesorios faltantes después de descontar lo incluido en salidas.
-- Revisar que las cantidades agregadas por sincronización coincidan con compras reales por proveedor.
+- Cobertura de tests completada (v34.1): `917E276F` (tubería conduit galv. 16mm, 9 componentes) y `B59B71BE` (salida luminaria, 11 componentes) tienen tests de expansión con cantidades verificadas. 7 casos borde cubiertos.
+- Pendiente — Ampliar bundles de salidas: falta cubrir salida contacto, salida HVAC, tubería en otros diámetros, accesorios y compras mínimas por familia.
+- Pendiente — Definir cómo los metros de tubería generan accesorios faltantes después de descontar lo incluido en salidas.
+- Pendiente — Revisar que las cantidades agregadas por sincronización coincidan con compras reales por proveedor.
 - Si se requieren conversiones o redondeos, agregarlos como campos propios del componente de bundle, no como tabla separada de reglas.
 - Detectar si se requiere agrupar sugerencias por proveedor o disciplina antes de crear/actualizar LDMs.
 
 #### 2. Siguiente fase de sincronización asistida
 
 Primera versión ya implementada: una LDM nueva puede precargarse desde bundles con origen/metadatos de sincronización. Falta endurecer el flujo operativo:
-- Asistente de selección de faltantes por proveedor/disciplina antes de agregar.
-- Proponer faltantes en una LDM existente sin sobrescribir captura existente.
-- Mostrar diff antes de agregar filas.
+- [x] Proponer faltantes en una LDM existente sin sobrescribir captura existente. Implementado en v35.0 con preview y POST selectivo.
+- [x] Mostrar diff antes de agregar filas. Implementado en v35.0: esperado total, existente y cantidad a agregar.
+- [x] Permitir seleccionar subset de faltantes. Implementado en v35.0 con checkboxes por `catalog_item_id`.
+- Pendiente — Asistente de selección/agrupación por proveedor/disciplina antes de agregar.
 - Propagación visual de cambios de cantidad COT a faltantes sugeridos, sin modificar bundles base.
 
 ---

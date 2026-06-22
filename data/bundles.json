@@ -45,14 +45,14 @@
         "components": [
           {
             "catalog_item_id": "047C8246",
-            "qty": 40,
-            "waste_pct": 0,
+            "qty": 40.0,
+            "waste_pct": 0.0,
             "notes": "Cable de fase/neutro incluido en lote de 20 m."
           },
           {
             "catalog_item_id": "2325432B",
-            "qty": 20,
-            "waste_pct": 0,
+            "qty": 20.0,
+            "waste_pct": 0.0,
             "notes": "Conductor desnudo incluido en lote de 20 m."
           }
         ]

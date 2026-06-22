@@ -85,9 +85,23 @@ def missing_ldm_items_from_bundles(
             "origen": "bundle_sync",
             "sync_expected_catalog_item_id": expected_cid,
             "sync_expected_qty": shortage_expected_qty,
+            "sync_total_expected_qty": _round(expected_qty),
+            "sync_actual_qty": _round(actual_qty),
             "sync_issue": issue,
         })
     return missing
+
+
+def selected_missing_bundle_items(missing_items: Iterable[dict], catalog_item_ids: Iterable[str]) -> list[dict]:
+    """Filtra faltantes por seleccion explicita de catalog_item_id."""
+    selected = {_clean(item_id) for item_id in catalog_item_ids or [] if _clean(item_id)}
+    if not selected:
+        return []
+    return [
+        dict(item)
+        for item in missing_items or []
+        if _clean(item.get("catalog_item_id")) in selected
+    ]
 
 
 def append_missing_bundle_items_to_ldm(

@@ -14,7 +14,7 @@ from ..csv_import import parse_ldm_csv
 from ..deletions import purge_deleted_catalog_items_from_record
 from ..drive import active_drive_paths, folder_name, load_config, parse_csv_plano_filename
 from ..form_models import ldm_from_form
-from ..ldm_sync import append_missing_bundle_items_to_ldm, missing_ldm_items_from_bundles
+from ..ldm_sync import missing_ldm_items_from_bundles, selected_missing_bundle_items
 from ..pdfs import build_ldm_pdf
 from ..storage import load, new_id, save, today
 from ..validators import validate_ldm_form
@@ -211,6 +211,30 @@ def _bundle_suggestion_ldm(project_id, project):
     }, None
 
 
+def _bundle_sync_suggestions(project_id, all_ldms, catalog_by_id, catalog_by_name):
+    project_quotes = [
+        quote
+        for quote in load("quotes")
+        if quote.get("project_id") == project_id
+    ]
+    active_quote = pick_active_quote(project_quotes)
+    if not active_quote:
+        return [], None
+
+    project_ldms = [
+        hydrate_ldm(item, catalog_by_id, catalog_by_name)
+        for item in all_ldms
+        if item.get("project_id") == project_id
+    ]
+    suggestions = missing_ldm_items_from_bundles(
+        active_quote,
+        project_ldms,
+        load("bundles"),
+        catalog_by_id=catalog_by_id,
+    )
+    return suggestions, active_quote
+
+
 @bp.route("/projects/<project_id>/ldm/new", methods=["GET", "POST"], endpoint="new_ldm")
 def new_ldm(project_id):
     project = _find_project(project_id)
@@ -405,7 +429,7 @@ def ldm_csv(project_id, ldm_id):
     return _ldm_csv_response(project, ldm)
 
 
-@bp.route("/projects/<project_id>/ldm/<ldm_id>/sync-bundles", methods=["POST"], endpoint="sync_ldm_bundles")
+@bp.route("/projects/<project_id>/ldm/<ldm_id>/sync-bundles", methods=["GET", "POST"], endpoint="sync_ldm_bundles")
 def sync_ldm_bundles(project_id, ldm_id):
     project = _find_project(project_id)
     all_ldms = load("materiales")
@@ -418,29 +442,40 @@ def sync_ldm_bundles(project_id, ldm_id):
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
 
     catalog_by_id, catalog_by_name = catalog_maps()
-    project_quotes = [
-        quote
-        for quote in load("quotes")
-        if quote.get("project_id") == project_id
-    ]
-    active_quote = pick_active_quote(project_quotes)
-    project_ldms = [
-        hydrate_ldm(item, catalog_by_id, catalog_by_name)
-        for item in all_ldms
-        if item.get("project_id") == project_id
-    ]
-    updated_ldm, additions = append_missing_bundle_items_to_ldm(
-        ldm,
-        active_quote,
-        project_ldms,
-        load("bundles"),
-        catalog_by_id=catalog_by_id,
-    )
-    if not additions:
+    suggestions, active_quote = _bundle_sync_suggestions(project_id, all_ldms, catalog_by_id, catalog_by_name)
+    if not active_quote:
+        flash("No hay cotización base activa para sincronizar materiales.", "info")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+    if not suggestions:
         flash("No hay faltantes técnicos por sincronizar desde bundles.", "info")
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
 
-    ldm.update(updated_ldm)
+    if request.method == "GET":
+        preview_ldm = hydrate_ldm(ldm, catalog_by_id, catalog_by_name)
+        preview_ldm.update({
+            "is_sync_preview": True,
+            "sync_suggestions": suggestions,
+            "sync_suggestion_count": len(suggestions),
+            "source_quote_number": active_quote.get("quote_number", ""),
+        })
+        return render_template(
+            "ldm_form.html",
+            project=project,
+            ldm=preview_ldm,
+            proveedores=load("proveedores"),
+            today=today(),
+            field_errors={},
+        )
+
+    additions = selected_missing_bundle_items(
+        suggestions,
+        request.form.getlist("selected_catalog_item_id[]"),
+    )
+    if not additions:
+        flash("Selecciona al menos un faltante para agregar a la LDM.", "warning")
+        return redirect(url_for("materials_bp.sync_ldm_bundles", project_id=project_id, ldm_id=ldm_id))
+
+    ldm["items"] = list(ldm.get("items", []) or []) + additions
     save("materiales", all_ldms)
     flash(f"Se agregaron {len(additions)} material(es) faltante(s) a {ldm.get('ldm_number', 'la LDM')}.", "success")
     return redirect(url_for("materials_bp.edit_ldm", project_id=project_id, ldm_id=ldm_id))

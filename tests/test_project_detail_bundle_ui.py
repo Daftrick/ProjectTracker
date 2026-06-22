@@ -25,9 +25,11 @@ class ProjectDetailBundleUITest(unittest.TestCase):
         self.assertIn("Exportar CSV de esta lista", template)
         self.assertIn("bi-filetype-csv", template)
 
-    def test_materials_tab_hides_partial_bundle_sync(self):
+    def test_materials_tab_exposes_assisted_bundle_sync_review(self):
         template = Path("templates/project_detail.html").read_text(encoding="utf-8")
-        self.assertNotIn("url_for('sync_ldm_bundles'", template)
+        self.assertIn("url_for('sync_ldm_bundles'", template)
+        self.assertIn("Revisar faltantes desde bundles", template)
+        self.assertIn("bi-magic", template)
         self.assertNotIn("Agregar faltantes desde bundles", template)
         self.assertNotIn("Completar LDM", template)
 

@@ -396,13 +396,13 @@ Estado: completado en ProjectTracker el 2026-05-28. La vista muestra base financ
 Objetivo: ayudar a corregir LDMs sin destruir captura existente.
 
 - [x] Proponer faltantes desde bundles al crear una LDM nueva. ✅ 2026-05-28
-- [ ] Proponer faltantes en una LDM existente por proveedor/disciplina.
+- [x] Proponer faltantes en una LDM existente sin sobrescribir captura existente. ✅ 2026-06-21 (v35.0; agrupación por proveedor/disciplina queda pendiente)
 - [x] Nunca sobrescribir precios proveedor ya capturados en la propuesta inicial; las filas sugeridas se precargan como renglones nuevos. ✅ 2026-05-28
-- [ ] Mostrar diff antes de agregar filas.
-- [ ] Permitir seleccionar subset de faltantes.
+- [x] Mostrar diff antes de agregar filas. ✅ 2026-06-21
+- [x] Permitir seleccionar subset de faltantes. ✅ 2026-06-21
 - [x] Registrar origen de filas agregadas automaticamente (`origen` y metadatos `sync_expected_*`). ✅ 2026-05-28
 
-Estado: parcial. Ya existe el flujo de LDM nueva con sugerencias desde bundles directos; falta convertirlo en asistente para LDM existente con diff, selección parcial y agrupación por proveedor/disciplina.
+Estado: parcial avanzado. Ya existe el flujo de LDM nueva con sugerencias desde bundles directos y el asistente para LDM existente con diff y selección parcial; falta agrupar/filtrar por proveedor o disciplina antes de agregar.
 
 Criterio de aceptacion:
 
@@ -419,7 +419,7 @@ Objetivo: cerrar el circuito con confianza.
 - [x] Pruebas para parsers COT/LDM.
 - [x] Pruebas para vinculacion con catalogo.
 - [x] Pruebas para validacion estricta de catálogo/unidad en LDM y COT. ✅ 2026-06-03
-- [x] Pruebas para bundles directos y resumen visual COT/LDM.
+- [x] Pruebas para bundles directos y resumen visual COT/LDM. Extendidas en v34.1: cobertura individual de `917E276F` (tubería conduit 16mm) y `B59B71BE` (salida luminaria) + 7 casos borde (`qty=0`, `catalog_item_id` vacío, bundle sin versiones, errores de activate/delete, `waste_pct`, marcadores de sección). ✅ 2026-06-21
 - [ ] Pruebas para conversiones/redondeos de componente cuando existan esos campos propios de bundle.
 - [ ] Pruebas para duplicados y reimportaciones.
 - [ ] Checklist manual AutoCAD:
