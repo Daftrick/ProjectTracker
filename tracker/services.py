@@ -69,7 +69,7 @@ def upsert_mobile_draft(quotes, project, catalog_by_id, item_id, qty):
             "id": new_id(),
             "project_id": project_id,
             "status": "draft",
-            "quote_type": "General",
+            "quote_type": "Proyecto",
             "quote_number": "",
             "version": project.get("version", ""),
             "client": project.get("client", ""),
@@ -133,7 +133,7 @@ def finalize_mobile_draft(quotes, project, draft_id, id_factory=new_id, today_va
         return updated, None
 
     project_id = project["id"]
-    quote_type = draft.get("quote_type", "General")
+    quote_type = draft.get("quote_type", "Proyecto")
     date_str = draft.get("date") or created_at
     real_quotes = [q for q in updated if q.get("project_id") == project_id and q.get("status") != "draft"]
     draft["quote_number"] = next_quote_number(project, real_quotes, quote_type, date_str)

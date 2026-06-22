@@ -4,15 +4,20 @@ from .storage import today
 
 def quote_default_numbers(project, quotes, quote_id=None):
     other_quotes = [item for item in quotes if item.get("id") != quote_id]
-    general_quotes = [
+    proyecto_quotes = [
         item
         for item in other_quotes
-        if item["project_id"] == project["id"] and quote_type_key(item.get("quote_type")) == "General"
+        if item["project_id"] == project["id"] and quote_type_key(item.get("quote_type")) == "Proyecto"
     ]
-    preliminary_quotes = [
+    obra_quotes = [
         item
         for item in other_quotes
-        if item["project_id"] == project["id"] and quote_type_key(item.get("quote_type")) == "Preliminar"
+        if item["project_id"] == project["id"] and quote_type_key(item.get("quote_type")) == "Obra"
+    ]
+    servicio_quotes = [
+        item
+        for item in other_quotes
+        if item["project_id"] == project["id"] and quote_type_key(item.get("quote_type")) == "Servicio"
     ]
     extraordinary_quotes = [
         item
@@ -21,8 +26,9 @@ def quote_default_numbers(project, quotes, quote_id=None):
     ]
     date_token = today().replace("-", "")
     return {
-        "default_num_g": f"COT-{project['clave']}-G{len(general_quotes) + 1:02d}-{date_token}",
-        "default_num_p": f"COT-{project['clave']}-P{len(preliminary_quotes) + 1:02d}-{date_token}",
+        "default_num_pr": f"COT-{project['clave']}-P{len(proyecto_quotes) + 1:02d}-{date_token}",
+        "default_num_o": f"COT-{project['clave']}-O{len(obra_quotes) + 1:02d}-{date_token}",
+        "default_num_s": f"COT-{project['clave']}-S{len(servicio_quotes) + 1:02d}-{date_token}",
         "default_num_e": f"COT-{project['clave']}-E{len(extraordinary_quotes) + 1:02d}-{date_token}",
     }
 
@@ -85,7 +91,7 @@ def quote_from_form(form, fallback_quote=None):
 
     base = dict(fallback_quote or {})
     base.update({
-        "quote_type": quote_type_key(form.get("quote_type", "General")),
+        "quote_type": quote_type_key(form.get("quote_type", "Proyecto")),
         "quote_number": form.get("quote_number", "").strip(),
         "version": form.get("version", "").strip(),
         "date": form.get("date", "").strip(),

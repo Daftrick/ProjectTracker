@@ -253,8 +253,9 @@
           <div class="col-md-3">
             <label class="form-label">Tipo de cotización</label>
             <select name="quote_type" class="form-select" id="quoteType" onchange="updateQuoteType()">
-              <option value="General" {% if not quote or quote.get('quote_type','General')=='General' %}selected{% endif %}>General</option>
-              <option value="Preliminar" {% if quote and quote.get('quote_type')=='Preliminar' %}selected{% endif %}>Preliminar</option>
+              <option value="Proyecto" {% if not quote or quote.get('quote_type','Proyecto')=='Proyecto' %}selected{% endif %}>Proyecto</option>
+              <option value="Obra" {% if quote and quote.get('quote_type')=='Obra' %}selected{% endif %}>Obra</option>
+              <option value="Servicio" {% if quote and quote.get('quote_type')=='Servicio' %}selected{% endif %}>Servicio</option>
               <option value="Extraordinaria" {% if quote and quote.get('quote_type') in ['Extraordinaria','Extraordinario'] %}selected{% endif %}>Extraordinaria</option>
             </select>
           </div>
@@ -1135,9 +1136,10 @@
   function fmt(n){return"$"+n.toLocaleString("es-MX",{minimumFractionDigits:2,maximumFractionDigits:2});}
   // ── Numeración auto-generada ───────────────────────────────────────────────
   // Números base calculados en servidor
-  const NUM_G = "{{ default_num_g }}";
-  const NUM_P = "{{ default_num_p }}";
-  const NUM_E = "{{ default_num_e }}";
+  const NUM_PR = "{{ default_num_pr }}";
+  const NUM_O  = "{{ default_num_o }}";
+  const NUM_S  = "{{ default_num_s }}";
+  const NUM_E  = "{{ default_num_e }}";
   let userEditedNum = false;   // si el usuario tocó el campo, no se auto-actualiza
 
   function updateNum() {
@@ -1145,10 +1147,10 @@
     const tipo      = document.getElementById("quoteType").value;
     const dateInput = document.getElementById("quoteDate").value;
     const dateFmt   = dateInput ? dateInput.replace(/-/g,"") : "{{ today.replace('-','') }}";
-    const clave     = "{{ project.clave }}";
     // Reconstruir número con la fecha seleccionada (mantenemos el NN del servidor)
-    let base = NUM_G;
-    if (tipo === "Preliminar") base = NUM_P;
+    let base = NUM_PR;
+    if (tipo === "Obra") base = NUM_O;
+    if (tipo === "Servicio") base = NUM_S;
     if (tipo === "Extraordinaria") base = NUM_E;
     // Reemplazar la porción de fecha en el número (últimos 8 dígitos)
     if (dateFmt.length === 8) {

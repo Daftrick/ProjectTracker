@@ -40,18 +40,27 @@ def migrate_catalog_disciplina():
 QUOTE_TYPE_GENERAL = "General"
 QUOTE_TYPE_PRELIMINAR = "Preliminar"
 QUOTE_TYPE_EXTRAORDINARIA = "Extraordinaria"
+QUOTE_TYPE_PROYECTO = "Proyecto"
+QUOTE_TYPE_OBRA = "Obra"
+QUOTE_TYPE_SERVICIO = "Servicio"
 
 QUOTE_TYPE_ALIASES = {
     "general": QUOTE_TYPE_GENERAL,
     "preliminar": QUOTE_TYPE_PRELIMINAR,
     "extraordinaria": QUOTE_TYPE_EXTRAORDINARIA,
     "extraordinario": QUOTE_TYPE_EXTRAORDINARIA,
+    "proyecto": QUOTE_TYPE_PROYECTO,
+    "obra": QUOTE_TYPE_OBRA,
+    "servicio": QUOTE_TYPE_SERVICIO,
 }
 
 QUOTE_TYPE_CODES = {
     QUOTE_TYPE_GENERAL: "G",
     QUOTE_TYPE_PRELIMINAR: "P",
     QUOTE_TYPE_EXTRAORDINARIA: "E",
+    QUOTE_TYPE_PROYECTO: "P",
+    QUOTE_TYPE_OBRA: "O",
+    QUOTE_TYPE_SERVICIO: "S",
 }
 
 
@@ -71,8 +80,11 @@ APPROVAL_OBSOLETE = "obsolete"   # reemplazada por otra versión
 
 
 def is_base_quote_type(qtype):
-    """Generales y Preliminares compiten entre sí; Extraordinarias son independientes."""
-    return quote_type_key(qtype) in (QUOTE_TYPE_GENERAL, QUOTE_TYPE_PRELIMINAR)
+    """Tipos base compiten entre sí (una activa por proyecto); Extraordinarias son independientes."""
+    return quote_type_key(qtype) in (
+        QUOTE_TYPE_PROYECTO, QUOTE_TYPE_OBRA, QUOTE_TYPE_SERVICIO,
+        QUOTE_TYPE_GENERAL, QUOTE_TYPE_PRELIMINAR,  # backward compat
+    )
 
 
 def migrate_quote_approval(quotes):
@@ -98,7 +110,7 @@ def migrate_quote_approval(quotes):
                 q["approval_status"] = APPROVAL_ACTIVE
                 changed = True
 
-        # General/Preliminar del proyecto: la más reciente → active, resto → obsolete
+        # Tipos base del proyecto: la más reciente → active, resto → obsolete
         base = [q for q in unset if is_base_quote_type(q.get("quote_type"))]
         if base:
             newest = max(base, key=lambda q: (q.get("date") or "", q.get("created_at") or ""))
@@ -124,7 +136,7 @@ def approve_quote(target_id, quotes):
     project_id = target.get("project_id")
 
     if qtype == QUOTE_TYPE_EXTRAORDINARIA:
-        # Toggle: active ↔ obsolete
+        # Toggle independiente: active ↔ obsolete (no afecta otras cotizaciones)
         current = target.get("approval_status", APPROVAL_DRAFT)
         target["approval_status"] = APPROVAL_OBSOLETE if current == APPROVAL_ACTIVE else APPROVAL_ACTIVE
     else:

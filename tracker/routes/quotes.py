@@ -46,7 +46,7 @@ def _flash_csv_catalog_errors(validation, label="CSV COT"):
 
 def _quote_preview_from_csv(project, parsed, filename, quotes):
     metadata = parsed.get("metadata", {})
-    quote_type = quote_type_key(metadata.get("quote_type") or metadata.get("tipo") or "General")
+    quote_type = quote_type_key(metadata.get("quote_type") or metadata.get("tipo") or "Proyecto")
     date_str = metadata.get("fecha") or metadata.get("date") or today()
     subtotal = round(sum(safe_float(item.get("total", 0)) for item in parsed.get("items", [])), 2)
     tax_rate = 16.0
@@ -324,7 +324,7 @@ def quote_pdf(project_id, quote_id):
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
     pdf_name = f"{hydrated.get('quote_number', 'COT')}.pdf"
     pdf_path = os.path.join(project_folder, pdf_name)
-    if quote_type_key(hydrated.get("quote_type")) == "General":
+    if quote_type_key(hydrated.get("quote_type")) in ("General", "Proyecto"):
         hydrated["project_basis_source"] = latest_dwg_stem(project_folder)
     try:
         build_quote_pdf(project, hydrated, pdf_path)

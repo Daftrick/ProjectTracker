@@ -130,7 +130,7 @@ class UpsertMobileDraftTest(unittest.TestCase):
 
     def test_draft_defaults(self):
         _, draft = self._upsert([], "ITEM-A")
-        self.assertEqual(draft["quote_type"], "General")
+        self.assertEqual(draft["quote_type"], "Proyecto")
         self.assertEqual(draft["currency"], "MXN")
         self.assertAlmostEqual(draft["tax_rate"], 16.0)
         self.assertEqual(draft["project_name"], "Oficina Central")

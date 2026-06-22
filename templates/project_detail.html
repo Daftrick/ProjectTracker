@@ -885,8 +885,9 @@
   <div class="d-flex align-items-center gap-2 flex-wrap mb-2" id="quoteFilterBar">
     <small class="text-muted me-1">Tipo:</small>
     <button class="btn btn-sm btn-outline-secondary quote-filter-chip active" data-filter-type="all">Todas</button>
-    <button class="btn btn-sm btn-outline-secondary quote-filter-chip" data-filter-type="General">General</button>
-    <button class="btn btn-sm btn-outline-secondary quote-filter-chip" data-filter-type="Preliminar">Preliminar</button>
+    <button class="btn btn-sm btn-outline-primary quote-filter-chip" data-filter-type="Proyecto">Proyecto</button>
+    <button class="btn btn-sm btn-outline-secondary quote-filter-chip" data-filter-type="Obra">Obra</button>
+    <button class="btn btn-sm btn-outline-secondary quote-filter-chip" data-filter-type="Servicio">Servicio</button>
     <button class="btn btn-sm btn-outline-warning quote-filter-chip" data-filter-type="Extraordinaria">Extraordinaria</button>
     <span class="text-muted mx-1">|</span>
     <small class="text-muted me-1">Estado:</small>
@@ -916,10 +917,16 @@
           <td>
             {% if q.get('quote_type') in ['Extraordinaria','Extraordinario'] %}
               <span class="badge bg-warning text-dark" style="font-size:.72rem">Extraordinaria</span>
+            {% elif q.get('quote_type') == 'Obra' %}
+              <span class="badge bg-secondary" style="font-size:.72rem">Obra</span>
+            {% elif q.get('quote_type') == 'Servicio' %}
+              <span class="badge bg-info text-dark" style="font-size:.72rem">Servicio</span>
             {% elif q.get('quote_type') == 'Preliminar' %}
               <span class="badge bg-info text-dark" style="font-size:.72rem">Preliminar</span>
-            {% else %}
+            {% elif q.get('quote_type') == 'General' %}
               <span class="badge bg-light text-dark border" style="font-size:.72rem">General</span>
+            {% else %}
+              <span class="badge bg-primary" style="font-size:.72rem">{{ q.get('quote_type','Proyecto') }}</span>
             {% endif %}
           </td>
           <td>

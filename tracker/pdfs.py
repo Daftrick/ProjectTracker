@@ -155,12 +155,18 @@ def quote_terms():
 
 
 def quote_sequence_from_number(quote_number):
-    match = re.search(r"-[GPE](\d{2,})(?:-|$)", str(quote_number or ""))
+    match = re.search(r"-[GPOES](\d{2,})(?:-|$)", str(quote_number or ""))
     return match.group(1) if match else ""
 
 
 def quote_cover_copy(quote):
     quote_type = quote_type_key(quote.get("quote_type"))
+    if quote_type == "Proyecto":
+        return "Cotización de Proyecto\nInstalaciones Eléctricas", None
+    if quote_type == "Obra":
+        return "Cotización de Obra\nInstalaciones Eléctricas", None
+    if quote_type == "Servicio":
+        return "Cotización de Servicio\nInstalaciones Eléctricas", None
     if quote_type == "Preliminar":
         return "Cotización Preliminar de\nInstalaciones Eléctricas", None
     if quote_type == "Extraordinaria":
@@ -172,9 +178,9 @@ def quote_cover_copy(quote):
 
 def quote_project_basis_note(quote):
     quote_type = quote_type_key(quote.get("quote_type"))
-    if quote_type == "Preliminar":
+    if quote_type in ("Preliminar", "Obra", "Servicio"):
         return ""
-    if quote_type == "General":
+    if quote_type in ("General", "Proyecto"):
         source = quote.get("project_basis_source")
     elif quote_type == "Extraordinaria":
         source = quote.get("project_basis_note")

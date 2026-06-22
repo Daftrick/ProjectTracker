@@ -171,7 +171,7 @@ def validate_quote_form(form):
         "ok": not errors,
         "errors": errors,
         "field_errors": field_errors,
-        "quote_type": quote_type_key(form.get("quote_type", "General")),
+        "quote_type": quote_type_key(form.get("quote_type", "Proyecto")),
         "quote_number": _clean(form.get("quote_number")),
         "version": _clean(form.get("version")),
         "date": date_value,
