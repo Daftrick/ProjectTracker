@@ -1229,6 +1229,35 @@
   function updateQuoteType() {
     updateNum();
     updateProjectBasisNoteVisibility();
+    {% if not quote %}
+    // Re-apply template defaults when switching type on an empty new-quote form
+    const tipo = document.getElementById("quoteType").value;
+    const tmpl = QUOTE_TEMPLATES[tipo] || {};
+    const tbody = document.getElementById("itemsBody");
+    const notesField = document.querySelector("textarea[name='notes']");
+    const specsFields = ["condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto"];
+    const allEmpty = (
+      tbody.children.length === 0 &&
+      (!notesField || !notesField.value) &&
+      specsFields.every(f => { const el = document.querySelector(`input[name="specs_${f}"]`); return !el || !el.value; })
+    );
+    if (allEmpty) {
+      const sections = tmpl.sections_default || [];
+      for (const s of sections) addSection(s, {silent: true});
+      if (tbody.children.length === 0) addRow();
+      if (notesField && tmpl.notes_default) notesField.value = tmpl.notes_default;
+      const specsDefault = tmpl.specs_default || {};
+      let hasSpecsDefault = false;
+      for (const f of specsFields) {
+        const el = document.querySelector(`input[name="specs_${f}"]`);
+        if (el && specsDefault[f]) { el.value = specsDefault[f]; hasSpecsDefault = true; }
+      }
+      if (hasSpecsDefault) {
+        const collapse = document.getElementById("specsCollapse");
+        if (collapse && !collapse.classList.contains("show")) collapse.classList.add("show");
+      }
+    }
+    {% endif %}
   }
 
   document.getElementById("quoteNumInput").addEventListener("input", () => {

@@ -243,7 +243,7 @@ def build_quote_pdf(project, quote, output_path):
             self.line(left, self.get_y() - 1.5, right, self.get_y() - 1.5)
             self.set_font(FONT, "", 8)
             self.set_text_color(*MUTED)
-            self.cell(0, 5, _safe_text(f"{_company_name()}  ·  Página {self.page_no()}/{{nb}}"), align="C")
+            self.cell(0, 5, f"{_cached_company_name}  ·  Página {self.page_no()}/{{nb}}", align="C")
 
     NAVY   = _PDF_NAVY
     NAVY_2 = _PDF_NAVY_2
@@ -252,6 +252,9 @@ def build_quote_pdf(project, quote, output_path):
     LINE   = _PDF_LINE
     SOFT   = _PDF_SOFT
     GREEN  = _PDF_GREEN
+
+    _company_data = _load_company()
+    _cached_company_name = _safe_text(_company_data.get("name") or "Project Tracker")
 
     items = quote.get("items", [])
     currency = quote.get("currency") or "MXN"
@@ -539,7 +542,7 @@ def build_quote_pdf(project, quote, output_path):
         pdf.set_xy(left_x, line_y + 2.5)
         pdf.cell(line_w, 4.5, "Cliente / Aceptación", align="C")
         pdf.set_xy(right_x, line_y + 2.5)
-        pdf.cell(line_w, 4.5, _safe_text(_company_name()), align="C")
+        pdf.cell(line_w, 4.5, _cached_company_name, align="C")
 
         pdf.set_font("DejaVu", "", 7.8)
         pdf.set_xy(left_x, line_y + 7.2)
@@ -586,11 +589,10 @@ def build_quote_pdf(project, quote, output_path):
         pdf.set_text_color(255, 255, 255)
         pdf.set_xy(16, 28)
         pdf.set_font("DejaVu", "B", 18)
-        pdf.cell(0, 8, _company_name())
+        pdf.cell(0, 8, _cached_company_name)
     pdf.set_draw_color(*LINE)
-    _cdata = _load_company()
-    _caddr = str(_cdata.get("address") or "").strip()
-    _crut = str(_cdata.get("rut") or "").strip()
+    _caddr = str(_company_data.get("address") or "").strip()
+    _crut = str(_company_data.get("rut") or "").strip()
     _cinfo = "  ·  ".join(p for p in [_caddr, _crut] if p)
     if _cinfo:
         pdf.set_text_color(*MUTED)
@@ -946,6 +948,8 @@ def build_ldm_pdf(project, ldm, output_path):
     SOFT   = _PDF_SOFT
     GREEN  = _PDF_GREEN
 
+    _cached_company_name = _safe_text(_load_company().get("name") or "Project Tracker")
+
     items = ldm.get("items", [])
     project_name = _safe_text(project.get("name", ""))
     proveedor_name = _safe_text(ldm.get("proveedor", "") or "Proveedor")
@@ -993,7 +997,7 @@ def build_ldm_pdf(project, ldm, output_path):
             self.line(left, self.get_y() - 1.5, right, self.get_y() - 1.5)
             self.set_font("DejaVu", "", 8)
             self.set_text_color(*MUTED)
-            self.cell(0, 5, _safe_text(f"{_company_name()}  ·  Página {self.page_no()}/{{nb}}"), align="C")
+            self.cell(0, 5, f"{_cached_company_name}  ·  Página {self.page_no()}/{{nb}}", align="C")
 
     pdf = LDMPDF(project_name, ldm_number, ldm_date)
     if not _register_dejavu(pdf):
@@ -1234,7 +1238,7 @@ def build_ldm_pdf(project, ldm, output_path):
         pdf.set_text_color(255, 255, 255)
         pdf.set_xy(16, (BANNER_H - 8) / 2)
         pdf.set_font("DejaVu", "B", 16)
-        pdf.cell(0, 8, _company_name())
+        pdf.cell(0, 8, _cached_company_name)
 
     # Bloque de info: PROYECTO / PROVEEDOR / FECHA (3 columnas, fondo SOFT)
     info_y = BANNER_H + 8

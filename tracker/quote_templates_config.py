@@ -37,7 +37,7 @@ def _normalize(raw):
         sections = stored.get("sections_default")
         result[qtype] = {
             "sections_default": sections if isinstance(sections, list) else list(defaults["sections_default"]),
-            "notes_default": stored.get("notes_default") or defaults["notes_default"],
+            "notes_default": stored["notes_default"] if stored.get("notes_default") is not None else defaults["notes_default"],
             "specs_default": specs,
         }
     return result
