@@ -8,7 +8,7 @@ from ..deletions import purge_deleted_catalog_items_from_record
 from ..drive import active_drive_paths, folder_name, latest_dwg_stem, load_config
 from ..form_models import quote_default_numbers, quote_from_form
 from ..pdfs import build_quote_pdf
-from ..quote_csv_import import parse_quote_csv
+from ..quote_csv_import import parse_quote_file
 from ..auth import admin_required
 from ..storage import load, new_id, save, today
 from ..validators import validate_quote_form
@@ -157,8 +157,8 @@ def import_quote_csv(project_id):
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
 
     clean_name = os.path.basename(uploaded.filename)
-    if not clean_name.lower().endswith(".csv"):
-        flash("El archivo debe ser CSV.", "warning")
+    if not clean_name.lower().endswith((".csv", ".xlsx", ".xls")):
+        flash("El archivo debe ser CSV o Excel (.csv, .xlsx).", "warning")
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
 
     import tempfile
@@ -169,7 +169,7 @@ def import_quote_csv(project_id):
             temp_path = handle.name
             uploaded.save(handle)
         catalog = load("catalogo")
-        parsed = parse_quote_csv(temp_path, catalog=catalog)
+        parsed = parse_quote_file(temp_path, catalog=catalog)
     finally:
         if temp_path and os.path.exists(temp_path):
             os.unlink(temp_path)
@@ -684,7 +684,7 @@ def import_quote_csv_drive(project_id, filename):
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
 
     catalog = load("catalogo")
-    parsed = parse_quote_csv(csv_path, catalog=catalog)
+    parsed = parse_quote_file(csv_path, catalog=catalog)
 
     if parsed["errors"]:
         for error in parsed["errors"]:

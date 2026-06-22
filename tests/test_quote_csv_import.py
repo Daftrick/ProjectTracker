@@ -3,7 +3,7 @@ import tempfile
 import unittest
 
 from tracker.catalog import catalog_name_key
-from tracker.quote_csv_import import parse_quote_csv
+from tracker.quote_csv_import import parse_quote_csv, parse_quote_file, parse_quote_xlsx
 
 
 class QuoteCsvImportTest(unittest.TestCase):
@@ -184,6 +184,89 @@ class QuoteSymbolFixturesTest(unittest.TestCase):
             ],
             ["SALLUM", "INSTLUM"],
         )
+
+
+def _build_export_like_xlsx(path):
+    """Crea un .xlsx con el mismo layout que exporta la app (quote_excel):
+    filas informativas, encabezado de tabla con columna '#', subtítulos de
+    sección, partidas, subtotales de sección y totales finales."""
+    from openpyxl import Workbook
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Cotización"
+    ws.append(["Cotización:", "COT-Demo-G01-20260622"])
+    ws.append(["Cliente:", "Cliente Demo"])
+    ws.append(["Proyecto:", "Proyecto Demo"])
+    ws.append(["Fecha:", "2026-06-22"])
+    ws.append(["Moneda:", "MXN"])
+    ws.append([])
+    ws.append(["#", "Sección", "Nombre", "Unidad", "Cantidad", "Precio unitario", "Total"])
+    # Sección A
+    ws.append(["", "", "ÁREA A", "", "", "", ""])              # subtítulo de sección
+    ws.append([1, "ÁREA A", "Salida Eléctrica para Luminaria", "pza", 10, 100, 1000])
+    ws.append([2, "ÁREA A", "Instalación de Luminaria", "pza", 5, 50, 250])
+    ws.append(["", "", "Subtotal ÁREA A", "", "", "", 1250])    # subtotal de sección
+    # Sección B
+    ws.append(["", "", "ÁREA B", "", "", "", ""])
+    ws.append([3, "ÁREA B", "Salida Eléctrica para Contacto", "pza", 4, 25, 100])
+    ws.append(["", "", "Subtotal ÁREA B", "", "", "", 100])
+    # Totales finales
+    ws.append([])
+    ws.append(["", "", "", "", "", "Subtotal", 1350])
+    ws.append(["", "", "", "", "", "IVA (16.0%)", 216])
+    ws.append(["", "", "", "", "", "TOTAL", 1566])
+    wb.save(path)
+
+
+class QuoteXlsxImportTest(unittest.TestCase):
+    def test_parse_quote_file_reads_excel_renamed_to_csv(self):
+        """Un Excel exportado por la app (incluso con extensión .csv) debe
+        importarse: solo se toman las partidas, no las filas de resumen."""
+        with tempfile.TemporaryDirectory() as root:
+            # Extensión .csv a propósito: el tipo se detecta por contenido.
+            path = os.path.join(root, "COT-Demo-G01-20260622.csv")
+            _build_export_like_xlsx(path)
+
+            result = parse_quote_file(path, catalog=[])
+
+        self.assertEqual(result["errors"], [])
+        # Exactamente 3 partidas; subtítulos, subtotales y totales se omiten.
+        self.assertEqual(len(result["items"]), 3)
+        descriptions = [item["description"] for item in result["items"]]
+        self.assertNotIn("ÁREA A", descriptions)
+        self.assertFalse(any("Subtotal" in d for d in descriptions))
+        self.assertNotIn("TOTAL", descriptions)
+        # Datos y secciones correctos.
+        self.assertEqual(result["items"][0]["qty"], 10.0)
+        self.assertEqual(result["items"][0]["price"], 100.0)
+        self.assertEqual(result["items"][0]["total"], 1000.0)
+        self.assertEqual(result["items"][0]["section"], "ÁREA A")
+        self.assertEqual(result["items"][-1]["section"], "ÁREA B")
+        self.assertEqual(round(sum(i["total"] for i in result["items"]), 2), 1350.0)
+        # Metadatos del encabezado informativo.
+        self.assertEqual(result["metadata"].get("currency"), "MXN")
+        self.assertEqual(result["metadata"].get("fecha"), "2026-06-22")
+
+    def test_parse_quote_xlsx_links_catalog(self):
+        with tempfile.TemporaryDirectory() as root:
+            path = os.path.join(root, "cot.xlsx")
+            _build_export_like_xlsx(path)
+            result = parse_quote_xlsx(path, catalog=SYMBOL_CATALOG)
+
+        self.assertEqual(result["errors"], [])
+        ids = [item["catalog_item_id"] for item in result["items"]]
+        self.assertEqual(ids, ["SALLUM", "INSTLUM", "CTK"])
+
+    def test_old_xls_returns_clear_error(self):
+        with tempfile.TemporaryDirectory() as root:
+            path = os.path.join(root, "viejo.csv")
+            with open(path, "wb") as handle:
+                handle.write(b"\xd0\xcf\x11\xe0" + b"\x00" * 64)
+            result = parse_quote_file(path)
+
+        self.assertEqual(result["items"], [])
+        self.assertIn(".xls", result["errors"][0])
 
 
 if __name__ == "__main__":

@@ -1,4 +1,6 @@
 import csv
+import datetime
+import io
 
 from .catalog import catalog_name_key
 
@@ -6,6 +8,16 @@ _ENCODING_ERROR = (
     "El CSV tiene codificación no compatible (posiblemente ANSI/cp1252). "
     "Verifica que AutoCAD pudo escribir el archivo en UTF-8. "
     "Si el problema persiste, abre el CSV en un editor de texto y guárdalo como UTF-8."
+)
+
+_XLS_LEGACY_ERROR = (
+    "El archivo es un Excel antiguo (.xls). Ábrelo en Excel y guárdalo como "
+    ".xlsx o como CSV (UTF-8) para poder importarlo."
+)
+
+_OPENPYXL_MISSING_ERROR = (
+    "El archivo es un Excel (.xlsx) pero openpyxl no está instalado. "
+    "Reinicia la app con INICIAR.bat para instalar dependencias."
 )
 
 
@@ -195,3 +207,192 @@ def parse_quote_csv(path, catalog=None):
     if not items and not errors:
         errors.append("El CSV no contiene partidas para importar.")
     return {"items": items, "metadata": metadata, "errors": errors, "warnings": warnings}
+
+
+# ── Soporte para archivos Excel (.xlsx) ────────────────────────────────────────
+# Algunos usuarios suben la cotización exportada como Excel (a veces con la
+# extensión cambiada a .csv). Detectamos el contenido real y lo parseamos.
+
+_XLSX_METADATA_LABELS = {
+    "fecha": "fecha",
+    "moneda": "currency",
+    "cliente": "cliente",
+    "proyecto": "proyecto",
+    "cotizacion": "cotizacion",
+    "cotización": "cotizacion",
+    "version": "version",
+    "versión": "version",
+}
+
+
+def _cell_to_text(value):
+    if value is None:
+        return ""
+    if isinstance(value, datetime.datetime):
+        return value.date().isoformat()
+    if isinstance(value, datetime.date):
+        return value.isoformat()
+    if isinstance(value, float) and value.is_integer():
+        return str(int(value))
+    return str(value).strip()
+
+
+def _xlsx_rows(path):
+    """Lee la primera hoja de un .xlsx como lista de filas (listas de texto)."""
+    from openpyxl import load_workbook  # import perezoso
+
+    with open(path, "rb") as handle:
+        data = handle.read()
+    workbook = load_workbook(io.BytesIO(data), read_only=True, data_only=True)
+    try:
+        worksheet = workbook.active
+        return [[_cell_to_text(cell) for cell in row] for row in worksheet.iter_rows(values_only=True)]
+    finally:
+        workbook.close()
+
+
+def _find_table_header(rows):
+    """Localiza la fila de encabezados buscando columnas reconocibles."""
+    for index, row in enumerate(rows):
+        headers = [_header_key(value) for value in row]
+        has_description = any(header in QUOTE_DESCRIPTION_COLUMNS for header in headers)
+        has_qty = any(header in QUOTE_QTY_COLUMNS for header in headers)
+        if has_description and has_qty:
+            return index, headers
+    return None, []
+
+
+def _xlsx_metadata(rows, header_index):
+    metadata = {}
+    for row in rows[:header_index]:
+        if not any(_clean(value) for value in row):
+            continue
+        label = _header_key(row[0] if row else "").rstrip(":").strip()
+        value = _metadata_value(row)
+        if label and value:
+            metadata[_XLSX_METADATA_LABELS.get(label, label)] = value
+    return metadata
+
+
+def parse_quote_xlsx(path, catalog=None):
+    """Parsea una cotización exportada como Excel hacia datos de borrador.
+
+    Reconoce el formato de exportación de la app (filas informativas, encabezado
+    de tabla, subtítulos de sección y filas de subtotal/IVA/total) y extrae solo
+    las partidas reales (las que tienen cantidad).
+    """
+    try:
+        rows = _xlsx_rows(path)
+    except ImportError:
+        return {"items": [], "metadata": {}, "errors": [_OPENPYXL_MISSING_ERROR], "warnings": []}
+    except Exception as exc:  # archivo corrupto o no legible
+        return {
+            "items": [],
+            "metadata": {},
+            "errors": [f"No se pudo leer el Excel: {exc}"],
+            "warnings": [],
+        }
+
+    header_index, headers = _find_table_header(rows)
+    if header_index is None:
+        return {
+            "items": [],
+            "metadata": {},
+            "errors": ["El Excel no tiene una tabla con columnas reconocibles (Nombre/Descripción y Cantidad)."],
+            "warnings": [],
+        }
+
+    metadata = _xlsx_metadata(rows, header_index)
+    catalog_index = _build_catalog_index(catalog)
+    description_index = _column_index(headers, QUOTE_DESCRIPTION_COLUMNS)
+    unit_index = _column_index(headers, QUOTE_UNIT_COLUMNS)
+    qty_index = _column_index(headers, QUOTE_QTY_COLUMNS)
+    price_index = _column_index(headers, QUOTE_PRICE_COLUMNS)
+    section_index = _column_index(headers, QUOTE_SECTION_COLUMNS)
+
+    items = []
+    errors = []
+    warnings = []
+    seen = {}
+
+    for zero_based_index, row in enumerate(rows[header_index + 1:], start=header_index + 1):
+        row_number = zero_based_index + 1
+        if not any(_clean(value) for value in row):
+            continue
+
+        description = _row_value(row, description_index)
+        unit = _row_value(row, unit_index)
+        qty_raw = _row_value(row, qty_index)
+        price_raw = _row_value(row, price_index)
+        section = _row_value(row, section_index)
+
+        # Filas sin cantidad: subtítulos de sección, subtotales o totales. Se
+        # omiten, salvo que parezcan una partida real (con unidad o precio) a la
+        # que le falta la cantidad: en ese caso es un error que conviene avisar.
+        if not qty_raw:
+            if description and (unit or price_raw):
+                errors.append(f"Fila {row_number}: cantidad es requerida.")
+            continue
+
+        if not description:
+            errors.append(f"Fila {row_number}: descripcion es requerida.")
+            continue
+
+        qty = _parse_float(qty_raw, row_number, "cantidad", errors, required=True)
+        price = _parse_float(price_raw, row_number, "precio unitario", errors, default=0.0)
+        if qty <= 0:
+            errors.append(f"Fila {row_number}: cantidad debe ser mayor a 0.")
+        if price < 0:
+            errors.append(f"Fila {row_number}: precio unitario no puede ser negativo.")
+
+        unit = unit or "pza"
+        catalog_item = _match_catalog(description, catalog_index)
+        key = (catalog_name_key(description), unit.lower())
+        seen[key] = seen.get(key, 0) + 1
+        items.append({
+            "description": description,
+            "unit": unit,
+            "qty": qty,
+            "price": price,
+            "total": round(qty * price, 2),
+            "csv_row_number": row_number,
+            "catalog_item_id": catalog_item.get("id", "") if catalog_item else "",
+            "catalog_description": catalog_item.get("descripcion", "") if catalog_item else "",
+            "section": section,
+            "origen": "csv",
+        })
+
+    duplicate_count = sum(1 for count in seen.values() if count > 1)
+    if duplicate_count:
+        warnings.append(f"{duplicate_count} concepto(s) aparecen mas de una vez con la misma unidad.")
+    if not items and not errors:
+        errors.append("El Excel no contiene partidas para importar.")
+    return {"items": items, "metadata": metadata, "errors": errors, "warnings": warnings}
+
+
+def _sniff_filetype(path):
+    """Detecta el tipo real del archivo por sus bytes iniciales (no por extensión)."""
+    try:
+        with open(path, "rb") as handle:
+            head = handle.read(8)
+    except OSError:
+        return "csv"
+    if head[:4] == b"PK\x03\x04":  # ZIP -> .xlsx
+        return "xlsx"
+    if head[:4] == b"\xd0\xcf\x11\xe0":  # OLE2 -> .xls antiguo
+        return "xls"
+    return "csv"
+
+
+def parse_quote_file(path, catalog=None):
+    """Parsea una cotización desde CSV o Excel, según el contenido real del archivo.
+
+    El usuario puede subir un .csv real, un .xlsx, o incluso un Excel con la
+    extensión cambiada a .csv. Se decide por los bytes mágicos, no por el nombre.
+    """
+    kind = _sniff_filetype(path)
+    if kind == "xlsx":
+        return parse_quote_xlsx(path, catalog=catalog)
+    if kind == "xls":
+        return {"items": [], "metadata": {}, "errors": [_XLS_LEGACY_ERROR], "warnings": []}
+    return parse_quote_csv(path, catalog=catalog)
