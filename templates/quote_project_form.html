@@ -733,15 +733,17 @@
     updateTotals();
     if (typeof updateSelectionUI === "function") updateSelectionUI();
   }
-  function addSection(title) {
+  function addSection(title, {silent = false} = {}) {
     const tr = document.createElement("tr");
     tr.className = "quote-section-row quote-draggable";
     tr.innerHTML = makeSectionRowHTML(title || "Nueva sección");
     document.getElementById("itemsBody").appendChild(tr);
     setActiveSection(tr);
-    const input = tr.querySelector(".section-title-input");
-    input.focus();
-    input.select();
+    if (!silent) {
+      const input = tr.querySelector(".section-title-input");
+      input.focus();
+      input.select();
+    }
     syncItemSections();
     if (typeof refreshBulkSectionSelect === "function") refreshBulkSectionSelect();
   }
@@ -1180,14 +1182,35 @@
     userEditedNum = true;
   });
 
+  {% if quote_templates %}
+  const QUOTE_TEMPLATES = {{ quote_templates | tojson }};
+  {% else %}
+  const QUOTE_TEMPLATES = {};
+  {% endif %}
+
   document.getElementById("quoteForm").addEventListener("submit", syncItemSections);
   document.getElementById("taxRate").addEventListener("input", updateTotals);
   window.addEventListener("DOMContentLoaded", () => {
-    if (document.getElementById("itemsBody").children.length === 0) addRow();
+    const tbody = document.getElementById("itemsBody");
+    {% if not quote %}
+    // Pre-poblar secciones y notas desde la plantilla del tipo (solo en cotizaciones nuevas)
+    const tipo = document.getElementById("quoteType").value;
+    const tmpl = QUOTE_TEMPLATES[tipo] || {};
+    const sections = tmpl.sections_default || [];
+    if (tbody.children.length === 0 && sections.length > 0) {
+      for (const s of sections) addSection(s, {silent: true});
+    }
+    if (tbody.children.length === 0) addRow();
+    const notesField = document.querySelector("textarea[name='notes']");
+    if (notesField && !notesField.value && tmpl.notes_default) {
+      notesField.value = tmpl.notes_default;
+    }
+    {% else %}
+    if (tbody.children.length === 0) addRow();
+    {% endif %}
     syncItemSections();
     updateTotals();
     updateProjectBasisNoteVisibility();
-    // Solo auto-generar el número en cotizaciones nuevas
     {% if not quote %}
     updateNum();
     {% endif %}

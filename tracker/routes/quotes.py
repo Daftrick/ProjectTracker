@@ -17,6 +17,7 @@ bp = Blueprint("quotes_bp", __name__)
 
 
 def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None, form_action=None):
+    from ..quote_templates_config import get_quote_templates
     return render_template(
         "quote_project_form.html",
         project=project,
@@ -24,6 +25,7 @@ def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None,
         today=today(),
         field_errors=field_errors or {},
         form_action=form_action,
+        quote_templates=get_quote_templates(),
         **quote_default_numbers(project, quotes, quote_id=quote_id),
     )
 

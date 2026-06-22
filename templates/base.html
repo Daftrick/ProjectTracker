@@ -304,6 +304,10 @@
        data-label="Tipos de Proyecto">
       <i class="bi bi-list-check"></i><span class="nav-label"> Tipos de Proyecto</span>
     </a>
+    <a href="{{ url_for('admin_bp.quote_templates') }}" class="nav-link {% if request.endpoint=='admin_bp.quote_templates' %}active{% endif %}"
+       data-label="Plantillas Cotización">
+      <i class="bi bi-file-earmark-text"></i><span class="nav-label"> Plantillas Cotización</span>
+    </a>
     <a href="{{ url_for('auth_bp.users') }}" class="nav-link {% if request.endpoint in ('auth_bp.users','auth_bp.new_user','auth_bp.toggle_user','auth_bp.reset_password') %}active{% endif %}"
        data-label="Usuarios">
       <i class="bi bi-person-badge"></i><span class="nav-label"> Usuarios</span>

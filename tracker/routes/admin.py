@@ -810,3 +810,31 @@ def project_templates_admin():
             flash("Tipo de proyecto eliminado.", "success")
         return redirect(url_for("admin_bp.project_templates_admin"))
     return render_template("project_templates.html", templates=templates)
+
+
+# ─────────────────────────────────────────────────────────────
+# Plantillas de cotización por tipo
+# ─────────────────────────────────────────────────────────────
+
+_QUOTE_TYPES = ("Proyecto", "Obra", "Servicio")
+_SPECS_FIELDS = ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto")
+
+
+@bp.route("/quote-templates", methods=["GET", "POST"], endpoint="quote_templates")
+@admin_required
+def quote_templates():
+    from ..quote_templates_config import get_quote_templates, save_quote_templates
+    current = get_quote_templates()
+    if request.method == "POST":
+        for qtype in _QUOTE_TYPES:
+            sections_raw = request.form.get(f"{qtype}_sections", "")
+            current[qtype]["sections_default"] = [
+                s.strip() for s in sections_raw.splitlines() if s.strip()
+            ]
+            current[qtype]["notes_default"] = request.form.get(f"{qtype}_notes", "").strip()
+            for field in _SPECS_FIELDS:
+                current[qtype]["specs_default"][field] = request.form.get(f"{qtype}_{field}", "").strip()
+        save_quote_templates(current)
+        flash("Plantillas de cotización guardadas.", "success")
+        return redirect(url_for("admin_bp.quote_templates"))
+    return render_template("quote_templates.html", templates=current, quote_types=_QUOTE_TYPES, specs_fields=_SPECS_FIELDS)
