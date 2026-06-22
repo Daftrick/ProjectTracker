@@ -110,11 +110,15 @@ def migrate_quote_approval(quotes):
                 q["approval_status"] = APPROVAL_ACTIVE
                 changed = True
 
-        # Tipos base del proyecto: la más reciente → active, resto → obsolete
-        base = [q for q in unset if is_base_quote_type(q.get("quote_type"))]
-        if base:
-            newest = max(base, key=lambda q: (q.get("date") or "", q.get("created_at") or ""))
-            for q in base:
+        # Tipos base del proyecto, agrupados por tipo: la más reciente por tipo → active, resto → obsolete
+        by_type: dict[str, list[dict]] = {}
+        for q in unset:
+            if is_base_quote_type(q.get("quote_type")):
+                ct = quote_type_key(q.get("quote_type"))
+                by_type.setdefault(ct, []).append(q)
+        for ct_quotes in by_type.values():
+            newest = max(ct_quotes, key=lambda q: (q.get("date") or "", q.get("created_at") or ""))
+            for q in ct_quotes:
                 q["approval_status"] = APPROVAL_ACTIVE if q is newest else APPROVAL_OBSOLETE
                 changed = True
 
@@ -140,11 +144,12 @@ def approve_quote(target_id, quotes):
         current = target.get("approval_status", APPROVAL_DRAFT)
         target["approval_status"] = APPROVAL_OBSOLETE if current == APPROVAL_ACTIVE else APPROVAL_ACTIVE
     else:
-        # Aprobar base: marcar la seleccionada como active, el resto del proyecto como obsolete
+        # Aprobar base: marcar la seleccionada como active, las demás del MISMO tipo → obsolete
+        # Cada sub-tipo (Proyecto, Obra, Servicio, General, Preliminar) compite sólo consigo mismo
         for q in quotes:
             if q.get("project_id") != project_id:
                 continue
-            if not is_base_quote_type(q.get("quote_type")):
+            if quote_type_key(q.get("quote_type")) != qtype:
                 continue
             q["approval_status"] = APPROVAL_ACTIVE if q.get("id") == target_id else APPROVAL_OBSOLETE
 
@@ -417,12 +422,12 @@ def parse_ldm_items():
 def next_quote_number(project, all_quotes, quote_type, date_str):
     canonical_type = quote_type_key(quote_type)
     tipo_code = quote_type_code(canonical_type)
-    same_type = [
+    same_code = [
         quote
         for quote in all_quotes
-        if quote["project_id"] == project["id"] and quote_type_key(quote.get("quote_type")) == canonical_type
+        if quote["project_id"] == project["id"] and quote_type_code(quote.get("quote_type", "")) == tipo_code
     ]
-    sequence = len(same_type) + 1
+    sequence = len(same_code) + 1
     date_token = (date_str or today()).replace("-", "")
     return f"COT-{project['clave']}-{tipo_code}{sequence:02d}-{date_token}"
 

@@ -1,29 +1,14 @@
-from .catalog import quote_type_key
+from .catalog import quote_type_code, quote_type_key
 from .storage import today
 
 
 def quote_default_numbers(project, quotes, quote_id=None):
     other_quotes = [item for item in quotes if item.get("id") != quote_id]
-    proyecto_quotes = [
-        item
-        for item in other_quotes
-        if item["project_id"] == project["id"] and quote_type_key(item.get("quote_type")) == "Proyecto"
-    ]
-    obra_quotes = [
-        item
-        for item in other_quotes
-        if item["project_id"] == project["id"] and quote_type_key(item.get("quote_type")) == "Obra"
-    ]
-    servicio_quotes = [
-        item
-        for item in other_quotes
-        if item["project_id"] == project["id"] and quote_type_key(item.get("quote_type")) == "Servicio"
-    ]
-    extraordinary_quotes = [
-        item
-        for item in other_quotes
-        if item["project_id"] == project["id"] and quote_type_key(item.get("quote_type")) == "Extraordinaria"
-    ]
+    project_others = [item for item in other_quotes if item["project_id"] == project["id"]]
+    proyecto_quotes = [item for item in project_others if quote_type_code(item.get("quote_type", "")) == "P"]
+    obra_quotes = [item for item in project_others if quote_type_code(item.get("quote_type", "")) == "O"]
+    servicio_quotes = [item for item in project_others if quote_type_code(item.get("quote_type", "")) == "S"]
+    extraordinary_quotes = [item for item in project_others if quote_type_code(item.get("quote_type", "")) == "E"]
     date_token = today().replace("-", "")
     return {
         "default_num_pr": f"COT-{project['clave']}-P{len(proyecto_quotes) + 1:02d}-{date_token}",

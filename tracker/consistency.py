@@ -281,6 +281,15 @@ def _summarize_rows(rows: list[dict]) -> dict:
     return summary
 
 
+def _active_base_quotes(project_quotes: Iterable[dict]) -> list[dict]:
+    return [
+        quote
+        for quote in project_quotes
+        if is_base_quote_type(quote.get("quote_type"))
+        and quote.get("approval_status", APPROVAL_ACTIVE) == APPROVAL_ACTIVE
+    ]
+
+
 def _active_extra_quotes(project_quotes: Iterable[dict]) -> list[dict]:
     return [
         quote
@@ -349,7 +358,7 @@ def _visual_warnings(
             "level": "warning",
             "icon": "exclamation-triangle",
             "title": "Sin COT base activa",
-            "text": "El resumen no tiene una cotización base General o Preliminar activa.",
+            "text": "El resumen no tiene una cotización base activa.",
         })
     if not project_ldms:
         warnings.append({
@@ -407,14 +416,14 @@ def compute_consistency(
     project_quotes = [q for q in quotes if q.get("project_id") == project_id]
     project_ldms = [m for m in ldms if m.get("project_id") == project_id]
 
-    active_quote = pick_active_quote(project_quotes)
+    active_bases = _active_base_quotes(project_quotes)
     active_extras = _active_extra_quotes(project_quotes)
-    visual_quotes = ([active_quote] if active_quote else []) + active_extras
+    visual_quotes = active_bases + active_extras
 
     quote_linked, quote_unlinked = aggregate_quote_items(_synthetic_quote(visual_quotes))
     ldm_linked, ldm_unlinked = aggregate_ldm_items(project_ldms)
 
-    quote_base_subtotal = _round(_safe_float((active_quote or {}).get("subtotal")))
+    quote_base_subtotal = _round(sum(_safe_float(q.get("subtotal")) for q in active_bases))
     quote_extras_subtotal = _round(sum(_safe_float(q.get("subtotal")) for q in active_extras))
     quote_subtotal = _round(quote_base_subtotal + quote_extras_subtotal)
     ldm_subtotal = _round(sum(_safe_float(m.get("subtotal_cot")) for m in project_ldms))
@@ -434,11 +443,11 @@ def compute_consistency(
     quote_catalog_coverage_pct = _catalog_coverage_pct(quote_items_total, quote_unlinked.get("count", 0))
     ldm_catalog_coverage_pct = _catalog_coverage_pct(ldm_items_total, ldm_unlinked.get("count", 0))
     visual_quote_rows = (
-        [_quote_visual_row(active_quote, "Base")] if active_quote else []
+        [_quote_visual_row(q, "Base") for q in active_bases]
     ) + [_quote_visual_row(quote, "Extra") for quote in active_extras]
     visual_ldm_rows = [_ldm_visual_row(ldm) for ldm in project_ldms]
     visual_warnings = _visual_warnings(
-        active_quote=active_quote,
+        active_quote=active_bases[0] if active_bases else None,
         project_ldms=project_ldms,
         quote_unlinked=quote_unlinked,
         ldm_unlinked=ldm_unlinked,
@@ -450,10 +459,12 @@ def compute_consistency(
     has_general = any(
         quote_type_key(q.get("quote_type")) == "General" for q in project_quotes
     )
+    _aq = active_bases[0] if active_bases else None
 
     return {
-        "active_quote": active_quote,
-        "active_quote_is_general": bool(active_quote) and quote_type_key(active_quote.get("quote_type")) == "General",
+        "active_quote": _aq,
+        "active_quote_is_general": bool(_aq) and quote_type_key(_aq.get("quote_type")) == "General",
+        "active_bases": active_bases,
         "active_extras": active_extras,
         "active_extras_count": len(active_extras),
         "has_general_quote": has_general,
@@ -489,7 +500,7 @@ def compute_consistency(
         "coverage": {
             "quote_catalog_coverage_pct": quote_catalog_coverage_pct,
             "ldm_catalog_coverage_pct": ldm_catalog_coverage_pct,
-            "has_financial_basis": bool(active_quote and project_ldms),
+            "has_financial_basis": bool(active_bases and project_ldms),
         },
         "suggested_actions": [],
         "quote_unlinked": quote_unlinked,
