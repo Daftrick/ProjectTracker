@@ -12,6 +12,7 @@
     </div>
     <div class="card-body">
       <form method="post" action="{{ url_for('admin_bp.empresa') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="mb-3">
           <label class="form-label fw-semibold">Nombre de la empresa <span class="text-danger">*</span></label>
           <input name="name" class="form-control{% if fe.get('name') %} is-invalid{% endif %}"
@@ -43,7 +44,7 @@
     <div class="card-body">
       {% if company.logo %}
       <div class="mb-3 p-3 border rounded-3 text-center" style="background:#0d1120">
-        <img src="/static/{{ company.logo }}" alt="Logo actual" style="max-height:80px;max-width:280px">
+        <img src="{{ url_for('static', filename=company.logo, v=logo_version) }}" alt="Logo actual" style="max-height:80px;max-width:280px">
         <div class="mt-2"><small class="text-muted">Logo actual: <code>{{ company.logo }}</code></small></div>
       </div>
       {% else %}
@@ -52,10 +53,11 @@
       </div>
       {% endif %}
       <form method="post" action="{{ url_for('admin_bp.empresa_logo') }}" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="mb-3">
           <label class="form-label fw-semibold">Subir nuevo logo</label>
-          <input type="file" name="logo" class="form-control" accept=".png,.jpg,.jpeg,.svg">
-          <div class="form-text">PNG, JPG o SVG · máx. 2 MB. El archivo se guardará como <code>static/uploads/logo.{ext}</code>.</div>
+          <input type="file" name="logo" class="form-control" accept=".png,.jpg,.jpeg,image/png,image/jpeg">
+          <div class="form-text">PNG o JPG · máx. 2 MB. El archivo se guardará como <code>static/uploads/logo.{ext}</code>.</div>
         </div>
         <button type="submit" class="btn btn-outline-primary">
           <i class="bi bi-upload me-1"></i>Subir logo

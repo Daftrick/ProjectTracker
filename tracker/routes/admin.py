@@ -722,8 +722,40 @@ import os as _os
 
 from werkzeug.utils import secure_filename as _secure_filename
 
-_ALLOWED_LOGO_EXT = {"png", "jpg", "jpeg", "svg"}
+_ALLOWED_LOGO_EXT = {"png", "jpg", "jpeg"}
 _LOGO_MAX_BYTES = 2 * 1024 * 1024  # 2 MB
+
+
+def _logo_ext_from_filename(filename):
+    safe_filename = _secure_filename(filename or "")
+    ext = safe_filename.rsplit(".", 1)[-1].lower() if "." in safe_filename else ""
+    return "jpg" if ext == "jpeg" else ext
+
+
+def _detect_logo_ext(content):
+    if content.startswith(b"\x89PNG\r\n\x1a\n"):
+        return "png"
+    if content.startswith(b"\xff\xd8\xff"):
+        return "jpg"
+    return ""
+
+
+def _logo_upload_dir():
+    # tracker/routes/admin.py -> tracker/routes -> tracker -> project root
+    project_root = _os.path.dirname(_os.path.dirname(_os.path.dirname(__file__)))
+    return _os.path.join(project_root, "static", "uploads")
+
+
+def _company_logo_version(company):
+    logo_rel = (company or {}).get("logo") or ""
+    if not logo_rel:
+        return ""
+    project_root = _os.path.dirname(_os.path.dirname(_os.path.dirname(__file__)))
+    logo_path = _os.path.join(project_root, "static", logo_rel)
+    try:
+        return str(int(_os.path.getmtime(logo_path)))
+    except OSError:
+        return ""
 
 
 @bp.route("/empresa", methods=["GET", "POST"], endpoint="empresa")
@@ -745,7 +777,13 @@ def empresa():
             save_company(data)
             flash("Perfil de empresa guardado.", "success")
             return redirect(url_for("admin_bp.empresa"))
-    return render_template("empresa.html", company=get_company(), field_errors=errors)
+    company = get_company()
+    return render_template(
+        "empresa.html",
+        company=company,
+        field_errors=errors,
+        logo_version=_company_logo_version(company),
+    )
 
 
 @bp.route("/empresa/logo", methods=["POST"], endpoint="empresa_logo")
@@ -756,19 +794,24 @@ def empresa_logo():
     if not file or not file.filename:
         flash("No se seleccionó archivo.", "warning")
         return redirect(url_for("admin_bp.empresa"))
-    ext = file.filename.rsplit(".", 1)[-1].lower() if "." in file.filename else ""
+    ext = _logo_ext_from_filename(file.filename)
     if ext not in _ALLOWED_LOGO_EXT:
-        flash("Formato no permitido. Usa PNG, JPG o SVG.", "danger")
+        flash("Formato no permitido. Usa PNG o JPG.", "danger")
         return redirect(url_for("admin_bp.empresa"))
     content = file.read()
+    if not content:
+        flash("El archivo esta vacio.", "danger")
+        return redirect(url_for("admin_bp.empresa"))
     if len(content) > _LOGO_MAX_BYTES:
         flash("El archivo supera 2 MB.", "danger")
         return redirect(url_for("admin_bp.empresa"))
-    # tracker/routes/admin.py → tracker/routes → tracker → project root
-    project_root = _os.path.dirname(_os.path.dirname(_os.path.dirname(__file__)))
-    uploads_dir = _os.path.join(project_root, "static", "uploads")
+    detected_ext = _detect_logo_ext(content)
+    if detected_ext != ext:
+        flash("El archivo no parece ser un PNG/JPG valido.", "danger")
+        return redirect(url_for("admin_bp.empresa"))
+    uploads_dir = _logo_upload_dir()
     _os.makedirs(uploads_dir, exist_ok=True)
-    filename = f"logo.{ext}"
+    filename = f"logo.{detected_ext}"
     with open(_os.path.join(uploads_dir, filename), "wb") as f:
         f.write(content)
     company = get_company()
