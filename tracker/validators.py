@@ -326,6 +326,8 @@ def _parse_ldm_items(form, errors):
     origins = form.getlist("item_origen[]")
     sync_expected_catalog_ids = form.getlist("item_sync_expected_catalog_item_id[]")
     sync_expected_qtys = form.getlist("item_sync_expected_qty[]")
+    sync_total_expected_qtys = form.getlist("item_sync_total_expected_qty[]")
+    sync_actual_qtys = form.getlist("item_sync_actual_qty[]")
     sync_issues = form.getlist("item_sync_issue[]")
     deleted_ids = form.getlist("item_deleted_catalog_id[]")
     deleted_names = form.getlist("item_deleted_catalog_nombre[]")
@@ -401,6 +403,21 @@ def _parse_ldm_items(form, errors):
                 default=0,
             )
             parsed_item["sync_issue"] = _clean(sync_issues[index]) if index < len(sync_issues) else ""
+            _discard: list = []
+            parsed_item["sync_total_expected_qty"] = _parse_float(
+                sync_total_expected_qtys[index] if index < len(sync_total_expected_qtys) else "",
+                "cantidad total esperada",
+                _discard,
+                row=row,
+                default=0,
+            )
+            parsed_item["sync_actual_qty"] = _parse_float(
+                sync_actual_qtys[index] if index < len(sync_actual_qtys) else "",
+                "cantidad actual en LDM",
+                _discard,
+                row=row,
+                default=0,
+            )
         if hydrated.get("deleted_catalog_item"):
             parsed_item["deleted_catalog_item"] = hydrated["deleted_catalog_item"]
         items.append(parsed_item)

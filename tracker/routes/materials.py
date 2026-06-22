@@ -467,17 +467,32 @@ def sync_ldm_bundles(project_id, ldm_id):
             field_errors={},
         )
 
-    additions = selected_missing_bundle_items(
-        suggestions,
-        request.form.getlist("selected_catalog_item_id[]"),
-    )
+    selected_ids = request.form.getlist("selected_catalog_item_id[]")
+    additions = selected_missing_bundle_items(suggestions, selected_ids)
     if not additions:
-        flash("Selecciona al menos un faltante para agregar a la LDM.", "warning")
+        if selected_ids:
+            flash("Los faltantes seleccionados ya no están disponibles; los datos de cotización o bundles pueden haber cambiado.", "warning")
+        else:
+            flash("Selecciona al menos un faltante para agregar a la LDM.", "warning")
         return redirect(url_for("materials_bp.sync_ldm_bundles", project_id=project_id, ldm_id=ldm_id))
 
-    ldm["items"] = list(ldm.get("items", []) or []) + additions
+    already_synced = {
+        _clean_form_text(item.get("catalog_item_id"))
+        for item in ldm.get("items", []) or []
+        if (item.get("origen") or "") == "bundle_sync"
+    }
+    new_additions = [a for a in additions if _clean_form_text(a.get("catalog_item_id")) not in already_synced]
+    if not new_additions:
+        flash("Los faltantes seleccionados ya fueron sincronizados en esta LDM.", "info")
+        return redirect(url_for("materials_bp.edit_ldm", project_id=project_id, ldm_id=ldm_id))
+
+    ldm["items"] = list(ldm.get("items", []) or []) + new_additions
+    ldm["subtotal_cot"] = round(
+        sum(safe_float(item.get("total_cot")) for item in ldm["items"]),
+        2,
+    )
     save("materiales", all_ldms)
-    flash(f"Se agregaron {len(additions)} material(es) faltante(s) a {ldm.get('ldm_number', 'la LDM')}.", "success")
+    flash(f"Se agregaron {len(new_additions)} material(es) faltante(s) a {ldm.get('ldm_number', 'la LDM')}.", "success")
     return redirect(url_for("materials_bp.edit_ldm", project_id=project_id, ldm_id=ldm_id))
 
 

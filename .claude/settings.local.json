@@ -66,7 +66,10 @@
       "Bash(.venv/Scripts/python -m pip install flask-wtf)",
       "Bash(.venv/Scripts/python -m pip install flask-wtf flask-login openpyxl pdfplumber)",
       "Bash(.venv/Scripts/python -m unittest tests.test_bundles tests.test_ldm_sync -v)",
-      "Bash(.venv/Scripts/python -m unittest tests.test_bundles -v)"
+      "Bash(.venv/Scripts/python -m unittest tests.test_bundles -v)",
+      "Skill(code-review)",
+      "Read(//c/c/Users/daftr/My Drive \\(ricardo@omniious.com\\)/Omniious/Claude Code/ProjectTracker/tracker/**)",
+      "Read(//c/c/Users/daftr/My Drive \\(ricardo@omniious.com\\)/Omniious/Claude Code/ProjectTracker/**)"
     ]
   }
 }

@@ -2,7 +2,7 @@
 {% set import_preview = ldm and ldm.is_import_preview %}
 {% set bundle_suggestion = ldm and ldm.is_bundle_suggestion %}
 {% set sync_preview = ldm and ldm.is_sync_preview %}
-{% set existing_ldm = ldm and ldm.id and not import_preview and not sync_preview %}
+{% set existing_ldm = ldm and ldm.id and not import_preview and not sync_preview and not bundle_suggestion %}
 {% block title %}{% if import_preview %}Importar CSV{% elif sync_preview %}Revisar faltantes{% elif existing_ldm %}Editar{% else %}Nueva{% endif %} Lista de Materiales – {{ project.name }}{% endblock %}
 {% block page_title %}
   <i class="bi bi-card-list me-2 text-warning"></i>
@@ -403,6 +403,8 @@
                   <input type="hidden" name="item_origen[]" value="{{ item.origen or '' }}">
                   <input type="hidden" name="item_sync_expected_catalog_item_id[]" value="{{ item.sync_expected_catalog_item_id or '' }}">
                   <input type="hidden" name="item_sync_expected_qty[]" value="{{ item.sync_expected_qty or '' }}">
+                  <input type="hidden" name="item_sync_total_expected_qty[]" value="{{ item.sync_total_expected_qty or '' }}">
+                  <input type="hidden" name="item_sync_actual_qty[]" value="{{ item.sync_actual_qty or '' }}">
                   <input type="hidden" name="item_sync_issue[]" value="{{ item.sync_issue or '' }}">
                   <input type="hidden" name="item_deleted_catalog_id[]" value="{{ deleted_catalog.id or '' }}">
                   <input type="hidden" name="item_deleted_catalog_nombre[]" value="{{ deleted_catalog.nombre or '' }}">
@@ -562,6 +564,8 @@
         <input type="hidden" name="item_origen[]" value="">
         <input type="hidden" name="item_sync_expected_catalog_item_id[]" value="">
         <input type="hidden" name="item_sync_expected_qty[]" value="">
+        <input type="hidden" name="item_sync_total_expected_qty[]" value="">
+        <input type="hidden" name="item_sync_actual_qty[]" value="">
         <input type="hidden" name="item_sync_issue[]" value="">
         <input type="hidden" name="item_deleted_catalog_id[]" value="">
         <input type="hidden" name="item_deleted_catalog_nombre[]" value="">

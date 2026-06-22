@@ -20,3 +20,5 @@ Thumbs.db
 .graphify_*.json
 .graphify_*.txt
 .gstack/
+
+.claude/settings.local.json

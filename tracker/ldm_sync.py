@@ -74,7 +74,7 @@ def missing_ldm_items_from_bundles(
             continue
 
         catalog_item = catalog_by_id.get(expected_cid) or {}
-        issue = "missing_in_ldm" if actual_qty <= 0 else "qty_shortage"
+        issue = "missing_in_ldm" if expected_cid not in actual_items else "qty_shortage"
         missing.append({
             "catalog_item_id": expected_cid,
             "description": catalog_item.get("nombre") or expected.get("nombre") or expected_cid,
