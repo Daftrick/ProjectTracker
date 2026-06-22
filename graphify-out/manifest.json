@@ -200,8 +200,8 @@
     "hash": "ab8d2b3d59a8ac239f92e7eb598a2aca"
   },
   "C:\\Users\\daftr\\My Drive (ricardo@omniious.com)\\Omniious\\Claude Code\\ProjectTracker\\tracker\\domain.py": {
-    "mtime": 1782095753.1715066,
-    "hash": "8ab8639029a6b9ce1e280c6490a527dd"
+    "mtime": 1782105543.0973449,
+    "hash": "472fe8aa5ab6c61f798ae2bc0efb163d"
   },
   "C:\\Users\\daftr\\My Drive (ricardo@omniious.com)\\Omniious\\Claude Code\\ProjectTracker\\tracker\\drive.py": {
     "mtime": 1781880578.269,
@@ -212,8 +212,8 @@
     "hash": "f1580fe0f7bd308a5d2af0baef3a1262"
   },
   "C:\\Users\\daftr\\My Drive (ricardo@omniious.com)\\Omniious\\Claude Code\\ProjectTracker\\tracker\\ldm_sync.py": {
-    "mtime": 1782094995.2860467,
-    "hash": "f1e732773fc6fb422e5eea2c93ed381d"
+    "mtime": 1782103443.4132872,
+    "hash": "fcec820479e8ae85a674403e21909edf"
   },
   "C:\\Users\\daftr\\My Drive (ricardo@omniious.com)\\Omniious\\Claude Code\\ProjectTracker\\tracker\\pdfs.py": {
     "mtime": 1781642990.366,
@@ -244,8 +244,8 @@
     "hash": "5deea8bf4e8efe27fafe516437205689"
   },
   "C:\\Users\\daftr\\My Drive (ricardo@omniious.com)\\Omniious\\Claude Code\\ProjectTracker\\tracker\\validators.py": {
-    "mtime": 1781559201.425,
-    "hash": "610bd81650792222d26237137d9be533"
+    "mtime": 1782103465.9235022,
+    "hash": "f70a4800968909c6b31e9647b4ddbd07"
   },
   "C:\\Users\\daftr\\My Drive (ricardo@omniious.com)\\Omniious\\Claude Code\\ProjectTracker\\tracker\\__init__.py": {
     "mtime": 1781880599.12,
@@ -260,8 +260,8 @@
     "hash": "5daa34c092085cdebc774013ed0867e8"
   },
   "C:\\Users\\daftr\\My Drive (ricardo@omniious.com)\\Omniious\\Claude Code\\ProjectTracker\\tracker\\routes\\materials.py": {
-    "mtime": 1782095017.202602,
-    "hash": "e67173db53dcee445314d7976ea82ab9"
+    "mtime": 1782103554.9326005,
+    "hash": "650eb24a967379324567b45f0806da09"
   },
   "C:\\Users\\daftr\\My Drive (ricardo@omniious.com)\\Omniious\\Claude Code\\ProjectTracker\\tracker\\routes\\projects.py": {
     "mtime": 1781880612.886,
@@ -312,8 +312,8 @@
     "hash": "4f7871db2beb3908ca9558474b93e9bf"
   },
   "C:\\Users\\daftr\\My Drive (ricardo@omniious.com)\\Omniious\\Claude Code\\ProjectTracker\\VERSIONES.md": {
-    "mtime": 1782095753.2583923,
-    "hash": "2d320dc505f944a575161349528fb081"
+    "mtime": 1782105559.5770946,
+    "hash": "8b511d3fc2b893f9272d79b1322400f1"
   },
   "C:\\Users\\daftr\\My Drive (ricardo@omniious.com)\\Omniious\\Claude Code\\ProjectTracker\\templates\\audit_deleted_catalog.html": {
     "mtime": 1777795346.588,
@@ -348,8 +348,8 @@
     "hash": "f8a96f15b8a4f95b445e2eaf0bc02195"
   },
   "C:\\Users\\daftr\\My Drive (ricardo@omniious.com)\\Omniious\\Claude Code\\ProjectTracker\\templates\\ldm_form.html": {
-    "mtime": 1782095052.3374941,
-    "hash": "0d2d668e2e19a7ac24374485187732dc"
+    "mtime": 1782103492.6452641,
+    "hash": "cabee6bae0d170c2bf189e0b1d9251d9"
   },
   "C:\\Users\\daftr\\My Drive (ricardo@omniious.com)\\Omniious\\Claude Code\\ProjectTracker\\templates\\ldm_pdf_import.html": {
     "mtime": 1781106167.997,
