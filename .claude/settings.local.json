@@ -69,7 +69,16 @@
       "Bash(.venv/Scripts/python -m unittest tests.test_bundles -v)",
       "Skill(code-review)",
       "Read(//c/c/Users/daftr/My Drive \\(ricardo@omniious.com\\)/Omniious/Claude Code/ProjectTracker/tracker/**)",
-      "Read(//c/c/Users/daftr/My Drive \\(ricardo@omniious.com\\)/Omniious/Claude Code/ProjectTracker/**)"
+      "Read(//c/c/Users/daftr/My Drive \\(ricardo@omniious.com\\)/Omniious/Claude Code/ProjectTracker/**)",
+      "Read(//Users/macbook/Library/CloudStorage/**)",
+      "Read(//Users/macbook/**)",
+      "Bash(pip3 show *)",
+      "Skill(investigate)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git rm *)",
+      "Bash(git commit *)",
+      "Bash(git push *)"
     ]
   }
 }
