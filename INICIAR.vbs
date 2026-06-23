@@ -11,8 +11,10 @@ If WScript.Arguments.Count > 0 Then
     If LCase(WScript.Arguments(0)) = "noopen" Then openBrowser = False
 End If
 
-' Cambiar directorio de trabajo al de la app
-WshShell.CurrentDirectory = "C:\Users\daftr\My Drive\Omniious\Claude Code\ProjectTracker"
+' Cambiar directorio de trabajo al de la app (la carpeta donde vive este .vbs)
+Dim scriptDir
+scriptDir = CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName)
+WshShell.CurrentDirectory = scriptDir
 
 ' Si la app ya esta corriendo, no abrir otra pestana ni crear otra instancia.
 If IsPortListening(APP_PORT) Then
