@@ -716,3 +716,69 @@ def import_quote_csv_drive(project_id, filename):
         quotes,
         form_action=url_for("quotes_bp.new_quote", project_id=project_id),
     )
+
+
+@bp.route("/projects/<project_id>/quote/<quote_id>/pdf-editor", methods=["GET", "POST"], endpoint="quote_pdf_editor")
+def quote_pdf_editor(project_id, quote_id):
+    project = next((item for item in load("projects") if item["id"] == project_id), None)
+    quotes = load("quotes")
+    quote = next((item for item in quotes if item["id"] == quote_id), None)
+    if not project or not quote:
+        flash("Cotización no encontrada.", "danger")
+        return redirect(url_for("dashboard"))
+
+    if request.method == "POST":
+        specs = dict(quote.get("specs") or {})
+        for field in ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto"):
+            specs[field] = request.form.get(field, "").strip()
+        specs["alcance_custom"] = request.form.get("alcance_custom", "").strip()
+        quote["specs"] = specs
+        quote["notes"] = request.form.get("notes", "").strip()
+        basis = request.form.get("project_basis_note", "").strip()
+        if quote_type_key(quote.get("quote_type")) == "Extraordinaria":
+            quote["project_basis_note"] = basis
+        else:
+            specs["basis_note_override"] = basis
+        save("quotes", quotes)
+        flash("Cambios guardados en el editor PDF.", "success")
+        return redirect(url_for("quotes_bp.quote_pdf_editor", project_id=project_id, quote_id=quote_id))
+
+    from ..pdfs import quote_cover_copy, quote_scope_paragraphs, quote_terms
+    from ..company_config import get_company
+
+    hydrated = hydrate_quote(quote, *catalog_maps())
+    cover_title, cover_subtitle = quote_cover_copy(hydrated)
+    qt = quote_type_key(quote.get("quote_type"))
+    specs = quote.get("specs") or {}
+    if qt == "Extraordinaria":
+        basis_note_edit = quote.get("project_basis_note") or ""
+    else:
+        basis_note_edit = specs.get("basis_note_override") or ""
+
+    company = get_company()
+    logo_rel = company.get("logo") or ""
+    import os
+    from ..storage import BASE_DIR
+    logo_url = None
+    if logo_rel:
+        logo_abs = os.path.join(BASE_DIR, "static", logo_rel)
+        if os.path.isfile(logo_abs):
+            logo_url = "/static/" + logo_rel
+    company_info_parts = [p for p in [company.get("address", ""), company.get("rut", "")] if p]
+    company_info = "  ·  ".join(company_info_parts)
+
+    return render_template(
+        "quote_pdf_editor.html",
+        project=project,
+        quote=hydrated,
+        cover_title=cover_title,
+        cover_subtitle=cover_subtitle,
+        basis_note_edit=basis_note_edit,
+        specs=specs,
+        default_scope=quote_scope_paragraphs(),
+        default_terms=quote_terms(),
+        quote_type=qt,
+        company_name=company.get("name") or "Project Tracker",
+        company_info=company_info,
+        logo_url=logo_url,
+    )

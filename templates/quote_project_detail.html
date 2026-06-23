@@ -48,6 +48,7 @@
   {% endif %}
   <button onclick="window.print()" class="btn btn-sm btn-outline-secondary me-2"><i class="bi bi-printer me-1"></i>Imprimir / PDF</button>
   <a href="{{ url_for('quotes_bp.quote_excel', project_id=project.id, quote_id=quote.id) }}" class="btn btn-sm btn-outline-success me-2"><i class="bi bi-file-earmark-spreadsheet me-1"></i>Excel</a>
+  <a href="{{ url_for('quotes_bp.quote_pdf_editor', project_id=project.id, quote_id=quote.id) }}" class="btn btn-sm btn-outline-info me-2"><i class="bi bi-layout-text-window me-1"></i>Editor PDF</a>
   <a href="{{ url_for('edit_quote', project_id=project.id, quote_id=quote.id) }}" class="btn btn-sm btn-outline-primary me-2"><i class="bi bi-pencil me-1"></i>Editar</a>
   <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-quote" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Volver</a>
 {% endblock %}

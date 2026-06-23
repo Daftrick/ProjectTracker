@@ -50,6 +50,7 @@ Este archivo guarda el backlog vigente para retomar mejoras en futuras conversac
 - [x] Validador CSV contra catálogo: importaciones LDM y COT bloquean antes del preview si `description` no coincide con `catalogo.nombre` normalizado o si `unit` no coincide con `catalogo.unidad`; errores incluyen fila de origen. Implementado en v31.0.
 - [x] Cantidades en flechas de cotización/LDM en unidades enteras (`step="1"`); componentes de bundle sin restricción de step (`step="any"`). Fix de bug de guardado de versiones de bundle (`_find_version` normalizaba dos veces y descartaba ediciones). Implementado en v31.1.
 - [x] Fix de "Duplicar versión" de bundle: `add_bundle_version_route` ahora normaliza el bundle antes de buscar la versión origen con `_find_version`, evitando crear versiones duplicadas vacías cuando la versión origen es legacy/incompleta. Implementado en v31.2.
+- [x] Fase 12 — Editor PDF Asistido para Cotizaciones: sidebar con 4 paneles editables (Portada, Alcance, Condiciones, Notas) + preview HTML del PDF con actualización en tiempo real (debounce 250ms). Campos `specs.alcance_custom`, `specs.condiciones_pago/exclusiones/validez/forma_entrega/contacto` y `notes` editables sin tocar la estructura de partidas. Acceso desde el detalle de cotización con botón "Editor PDF". Implementado en v36.0.
 
 ---
 
