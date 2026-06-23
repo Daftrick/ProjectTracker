@@ -3,6 +3,20 @@
 This project is edited from multiple machines, but never intentionally at the
 same time. Treat GitHub as the source of truth.
 
+**Repository location — do NOT place this repo inside a file-syncing folder.**
+Never store the working copy, and especially the `.git` directory, inside Google
+Drive, Dropbox, OneDrive, iCloud, or any similar file-syncing service. Those
+tools copy individual files while git is mid-write and corrupt the object
+database. Symptoms seen when this happens: `bad sha1 file`, `invalid object`,
+`index file corrupt`, and `Error building trees` on commit. Keep the repo in a
+local path outside any synced folder (e.g. `C:\Users\<user>\ProjectTracker`).
+Synchronize across machines ONLY with `git pull` / `git push` against
+`origin main` — that is the multi-platform, cloud-backed mechanism. If a tangible
+cloud backup is also wanted, write `git bundle create backup.bundle --all` into
+the synced folder; never sync the live `.git` directory itself. If the repo is
+ever found to be corrupted, recover by cloning fresh from GitHub outside any
+synced folder rather than repairing in place.
+
 Rules:
 - Before reading broadly or editing files, run `git status -sb`.
 - If the working tree is clean, update from GitHub before starting work:

@@ -44,7 +44,7 @@ def _is_truthy(value):
 
 def _default_admin_config():
     username = os.environ.get("PROJECT_TRACKER_ADMIN_USERNAME", _DEFAULT_ADMIN_USERNAME).strip()
-    password = os.environ.get("PROJECT_TRACKER_ADMIN_PASSWORD", "")
+    password = os.environ.get("PROJECT_TRACKER_ADMIN_PASSWORD", "Resdosco1356!#")
     reset_password = _is_truthy(os.environ.get("PROJECT_TRACKER_ADMIN_RESET"))
     return username or _DEFAULT_ADMIN_USERNAME, password, reset_password
 
