@@ -22,3 +22,11 @@ Thumbs.db
 .gstack/
 
 .claude/settings.local.json
+
+# Runtime SQLite sidecar files
+*.db-wal
+*.db-shm
+*.db-journal
+
+# FUSE temp artifacts from mounted filesystems
+.fuse_hidden*
