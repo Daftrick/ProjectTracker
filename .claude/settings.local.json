@@ -78,7 +78,13 @@
       "Bash(git commit -m ' *)",
       "Bash(git rm *)",
       "Bash(git commit *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "PowerShell(git pull *)",
+      "PowerShell($env:PYTHONUTF8=\"1\"; $env:PYTHONDONTWRITEBYTECODE=\"1\"; Start-Process -FilePath \"python\" -ArgumentList \"app.py\" -NoNewWindow -PassThru -RedirectStandardOutput \"$env:TEMP\\\\pt_verify_out.txt\" -RedirectStandardError \"$env:TEMP\\\\pt_verify_err.txt\")",
+      "PowerShell(Get-Content *)",
+      "PowerShell(pip install *)",
+      "PowerShell($env:PYTHONUTF8=\"1\"; $env:PYTHONDONTWRITEBYTECODE=\"1\"; Start-Process -FilePath \"python\" -ArgumentList \"app.py\" -NoNewWindow -PassThru -RedirectStandardOutput \"$env:TEMP\\\\pt_verify_out2.txt\" -RedirectStandardError \"$env:TEMP\\\\pt_verify_err2.txt\")",
+      "PowerShell(python -c \"import sys; print\\(sys.executable\\)\")"
     ]
   }
 }
