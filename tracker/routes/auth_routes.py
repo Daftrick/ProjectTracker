@@ -87,6 +87,37 @@ def toggle_user(user_id):
     return redirect(url_for("auth_bp.users"))
 
 
+@bp.route("/mi-cuenta/contrasena", methods=["GET", "POST"], endpoint="change_own_password")
+@login_required
+def change_own_password():
+    errors = {}
+    if request.method == "POST":
+        current_pw = request.form.get("current_password", "")
+        password = request.form.get("password", "")
+        password2 = request.form.get("password2", "")
+        if not current_pw:
+            errors["current_password"] = "Ingresa tu contraseña actual."
+        elif not verify_credentials(current_user.username, current_pw):
+            errors["current_password"] = "Contraseña actual incorrecta."
+        if not errors:
+            if not password:
+                errors["password"] = "La contraseña nueva es obligatoria."
+            elif password != password2:
+                errors["password2"] = "Las contraseñas no coinciden."
+            elif len(password) < 6:
+                errors["password"] = "Mínimo 6 caracteres."
+        if not errors:
+            reset_user_password(current_user.id, password)
+            flash("Contraseña actualizada correctamente.", "success")
+            return redirect(url_for("dashboard"))
+    return render_template(
+        "user_form.html",
+        form={"current_password": "", "password": "", "password2": ""},
+        errors=errors,
+        action="change_own",
+    )
+
+
 @bp.route(
     "/usuarios/<int:user_id>/reset-password",
     methods=["GET", "POST"],

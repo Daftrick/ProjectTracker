@@ -333,13 +333,21 @@
       {% endif %}
     </span>
     {% if current_user.is_authenticated %}
-    <form method="post" action="{{ url_for('auth_bp.logout') }}">
-      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-      <button class="btn btn-sm" style="color:#636b7a;font-size:.72rem;padding:2px 8px;border:1px solid #2e3850"
-              title="Cerrar sesión">
-        <i class="bi bi-box-arrow-right me-1"></i>Salir
-      </button>
-    </form>
+    <div class="d-flex align-items-center gap-1 footer-text">
+      <a href="{{ url_for('auth_bp.change_own_password') }}"
+         class="btn btn-sm"
+         style="color:#636b7a;font-size:.72rem;padding:2px 6px;border:1px solid #2e3850"
+         title="Cambiar contraseña">
+        <i class="bi bi-key"></i>
+      </a>
+      <form method="post" action="{{ url_for('auth_bp.logout') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="btn btn-sm" style="color:#636b7a;font-size:.72rem;padding:2px 8px;border:1px solid #2e3850"
+                title="Cerrar sesión">
+          <i class="bi bi-box-arrow-right me-1"></i>Salir
+        </button>
+      </form>
+    </div>
     {% endif %}
   </div>
 </div>

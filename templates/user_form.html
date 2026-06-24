@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}{% if action == 'new' %}Nuevo usuario{% else %}Cambiar contraseña{% endif %} – Project Tracker{% endblock %}
+{% block title %}{% if action == 'new' %}Nuevo usuario{% elif action == 'change_own' %}Mi contraseña{% else %}Cambiar contraseña{% endif %} – Project Tracker{% endblock %}
 {% block page_title %}
   <i class="bi bi-person me-2 text-primary"></i>
-  {% if action == 'new' %}Nuevo usuario{% else %}Cambiar contraseña{% endif %}
+  {% if action == 'new' %}Nuevo usuario{% elif action == 'change_own' %}Mi contraseña{% else %}Cambiar contraseña{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -11,7 +11,7 @@
     <div class="card">
       <div class="card-header">
         <i class="bi bi-person-gear me-2"></i>
-        {% if action == 'new' %}Crear usuario{% else %}Restablecer contraseña{% endif %}
+        {% if action == 'new' %}Crear usuario{% elif action == 'change_own' %}Cambiar mi contraseña{% else %}Restablecer contraseña{% endif %}
       </div>
       <div class="card-body">
         <form method="post">
@@ -37,6 +37,15 @@
           </div>
           {% endif %}
 
+          {% if action == 'change_own' %}
+          <div class="mb-3">
+            <label class="form-label">Contraseña actual</label>
+            <input type="password" name="current_password" class="form-control {% if errors.current_password %}is-invalid{% endif %}"
+                   autocomplete="current-password" autofocus>
+            {% if errors.current_password %}<div class="invalid-feedback">{{ errors.current_password }}</div>{% endif %}
+          </div>
+          {% endif %}
+
           <div class="mb-3">
             <label class="form-label">{% if action == 'new' %}Contraseña{% else %}Nueva contraseña{% endif %}</label>
             <input type="password" name="password" class="form-control {% if errors.password %}is-invalid{% endif %}"
@@ -55,7 +64,11 @@
               <i class="bi bi-check-lg me-1"></i>
               {% if action == 'new' %}Crear{% else %}Guardar{% endif %}
             </button>
+            {% if action == 'change_own' %}
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">Cancelar</a>
+            {% else %}
             <a href="{{ url_for('auth_bp.users') }}" class="btn btn-outline-secondary">Cancelar</a>
+            {% endif %}
           </div>
         </form>
       </div>
