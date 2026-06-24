@@ -578,6 +578,10 @@ def build_quote_pdf(project, quote, output_path):
         if with_table_header:
             table_header()
 
+    _specs = quote.get("specs") or {}
+    _portada_spacing = max(8, min(88, int(str(_specs.get("portada_spacing") or "40") or "40")))
+    _spacing_delta = (_portada_spacing - 40) * 0.45
+
     pdf.add_page()
     pdf.set_fill_color(255, 255, 255)
     pdf.rect(0, 0, 210, 297, style="F")
@@ -620,7 +624,7 @@ def build_quote_pdf(project, quote, output_path):
         pdf.set_text_color(*NAVY_2)
         pdf.set_font("DejaVu", "B", 10.5)
         pdf.cell(0, 5.5, _safe_text(cover_subtitle), ln=True)
-    proposal_y = max(178, pdf.get_y() + 7)
+    proposal_y = max(168 + _spacing_delta, pdf.get_y() + 7)
     pdf.set_xy(16, proposal_y)
     pdf.set_text_color(*MUTED)
     pdf.set_font("DejaVu", "", 11)
@@ -630,7 +634,7 @@ def build_quote_pdf(project, quote, output_path):
     pdf.set_font("DejaVu", "B", 19)
     pdf.multi_cell(112, 8.5, client_name)
     summary_x = 16
-    summary_y = 221
+    summary_y = max(215, min(250, round(221 + _spacing_delta)))
     summary_w = 178
     summary_h = 53
     pdf.set_xy(summary_x, summary_y)
@@ -869,12 +873,22 @@ def build_quote_pdf(project, quote, output_path):
             pdf.cell(value_width, 6.6, money_pdf(section.get("subtotal", 0)), border="T", align="C", ln=True)
             pdf.set_font("DejaVu", "", 8.6)
 
+    _nota_precio = str(_specs.get("nota_precio") or "").strip()
+    if _nota_precio:
+        ensure_space(8)
+        pdf.ln(2)
+        pdf.set_text_color(*MUTED)
+        pdf.set_font("DejaVu", "", 8.2)
+        pdf.set_x(pdf.l_margin)
+        pdf.multi_cell(content_width, 4.5, _safe_text(_nota_precio), align="R")
+        pdf.ln(1)
+
     pdf.add_page()
     pdf.set_y(22)
     pdf.set_text_color(*INK)
     pdf.set_font("DejaVu", "B", 17)
-    _specs = quote.get("specs") or {}
-    _has_specs = any(str(v or "").strip() for v in _specs.values())
+    _CONDICION_FIELDS = ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto")
+    _has_specs = any(str(_specs.get(f) or "").strip() for f in _CONDICION_FIELDS)
     if _has_specs:
         pdf.cell(content_width, 8, "Condiciones y especificaciones", ln=True)
         pdf.set_x(pdf.l_margin)

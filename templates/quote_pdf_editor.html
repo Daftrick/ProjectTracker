@@ -45,6 +45,15 @@
                 {% else %}
                 <p class="small text-muted mb-0">La portada de cotizaciones <strong>{{ quote_type }}</strong> no incluye nota base.</p>
                 {% endif %}
+                <label class="form-label small fw-semibold mb-1 mt-3">Espaciado portada</label>
+                <select class="form-select form-select-sm" name="portada_spacing" id="edPortadaSpacing">
+                  {% set _sp = specs.get('portada_spacing') or '40' %}
+                  <option value="8"  {% if _sp == '8'  %}selected{% endif %}>Compacto</option>
+                  <option value="24" {% if _sp == '24' %}selected{% endif %}>Reducido</option>
+                  <option value="40" {% if _sp == '40' or not specs.get('portada_spacing') %}selected{% endif %}>Normal</option>
+                  <option value="64" {% if _sp == '64' %}selected{% endif %}>Amplio</option>
+                </select>
+                <div class="form-text">Espacio vertical antes de los datos del cliente.</div>
               </div>
             </div>
           </div>
@@ -134,6 +143,28 @@
             </div>
           </div>
 
+          {# ── Panel: Nota de precio ── #}
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed py-2" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#colNotaPrecio">
+                <i class="bi bi-tag me-2 text-warning"></i>
+                <span class="fw-semibold small">Nota de precio</span>
+                {% if specs.get('nota_precio') %}
+                <span class="badge bg-warning text-dark ms-2" style="font-size:9px;">activa</span>
+                {% endif %}
+              </button>
+            </h2>
+            <div id="colNotaPrecio" class="accordion-collapse collapse">
+              <div class="accordion-body pt-2">
+                <label class="form-label small fw-semibold mb-1">Nota bajo el total</label>
+                <textarea class="form-control form-control-sm" name="nota_precio" id="edNotaPrecio" rows="3"
+                          placeholder="Ej: Precios en MXN. IVA no incluido. Vigencia 15 días.">{{ specs.get('nota_precio') or '' }}</textarea>
+                <div class="form-text">Aparece debajo del TOTAL en la hoja de partidas.</div>
+              </div>
+            </div>
+          </div>
+
         </div>{# /accordion #}
       </form>
     </div>{# /overflow-auto #}
@@ -198,7 +229,7 @@
           </div>
 
           {# Client + summary box #}
-          <div style="padding:40px 16px 24px;">
+          <div id="prevPortadaCliente" style="padding:{{ specs.get('portada_spacing') or '40' }}px 16px 24px;">
             <p style="color:#717e91;font-size:11px;margin:0 0 2px;">Propuesta para</p>
             <h2 style="color:#25262c;font-size:20px;font-weight:bold;margin:0 0 16px;">
               {{ quote.client or project.client }}
@@ -325,6 +356,9 @@
               <div style="font-size:14px;font-weight:bold;color:#228b5e;">TOTAL: {{ quote.total | currency }}</div>
             </div>
           </div>
+          {% set _np = specs.get('nota_precio') or '' %}
+          <div id="prevNotaPrecio"
+               style="margin-top:6px;font-size:9px;color:#717e91;text-align:right;{{ 'display:none;' if not _np }}">{{ _np }}</div>
         </div>{# /page 2 #}
 
         {# ── PAGE 3: CONDICIONES + NOTAS ── #}
@@ -407,6 +441,26 @@
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
+  }
+
+  // ── Portada: espaciado ───────────────────────────────────────
+  var edSpacing = document.getElementById("edPortadaSpacing");
+  var prevCliente = document.getElementById("prevPortadaCliente");
+  if (edSpacing && prevCliente) {
+    edSpacing.addEventListener("change", function () {
+      prevCliente.style.paddingTop = this.value + "px";
+    });
+  }
+
+  // ── Nota de precio ────────────────────────────────────────────
+  var edNotaPrecio = document.getElementById("edNotaPrecio");
+  var prevNotaPrecio = document.getElementById("prevNotaPrecio");
+  if (edNotaPrecio && prevNotaPrecio) {
+    edNotaPrecio.addEventListener("input", debounce(function () {
+      var v = this.value.trim();
+      prevNotaPrecio.textContent = v;
+      prevNotaPrecio.style.display = v ? "" : "none";
+    }, 200));
   }
 
   // ── Portada: nota base ────────────────────────────────────────

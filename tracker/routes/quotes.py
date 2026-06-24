@@ -732,6 +732,8 @@ def quote_pdf_editor(project_id, quote_id):
         for field in ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto"):
             specs[field] = request.form.get(field, "").strip()
         specs["alcance_custom"] = request.form.get("alcance_custom", "").strip()
+        specs["nota_precio"] = request.form.get("nota_precio", "").strip()
+        specs["portada_spacing"] = request.form.get("portada_spacing", "").strip()
         quote["specs"] = specs
         quote["notes"] = request.form.get("notes", "").strip()
         basis = request.form.get("project_basis_note", "").strip()
