@@ -4,7 +4,7 @@ from io import BytesIO
 
 from flask import Blueprint, flash, redirect, render_template, request, send_file, url_for
 
-from ..catalog import approve_quote, catalog_maps, hydrate_quote, next_quote_number, quote_type_key, safe_float
+from ..catalog import aggregate_quote_items, approve_quote, catalog_maps, hydrate_quote, next_quote_number, quote_type_key, safe_float
 from ..csv_catalog_validation import validate_csv_catalog_items
 from ..deletions import purge_deleted_catalog_items_from_record
 from ..form_models import quote_default_numbers, quote_from_form
@@ -321,11 +321,12 @@ def quote_pdf(project_id, quote_id):
         return redirect(url_for("dashboard"))
     hydrated = hydrate_quote(quote, *catalog_maps())
     pdf_name = f"{hydrated.get('quote_number', 'COT')}.pdf"
+    inline = request.args.get("inline") == "1"
     try:
         pdf_bytes = build_quote_pdf(project, hydrated)
         return send_file(
             BytesIO(pdf_bytes),
-            as_attachment=True,
+            as_attachment=not inline,
             download_name=pdf_name,
             mimetype="application/pdf",
         )
@@ -607,6 +608,151 @@ def purge_deleted_item(project_id, quote_id, item_index):
         flash("No se pudo eliminar la partida.", "warning")
 
     return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=quote_id))
+
+
+@bp.route("/projects/<project_id>/quote/<quote_id>/resumen", endpoint="quote_resumen")
+def quote_resumen(project_id, quote_id):
+    project = next((item for item in load("projects") if item["id"] == project_id), None)
+    quote = next((item for item in load("quotes") if item["id"] == quote_id), None)
+    if not project or not quote or quote.get("project_id") != project_id:
+        flash("Cotización no encontrada.", "danger")
+        return redirect(url_for("dashboard"))
+    hydrated = hydrate_quote(quote, *catalog_maps())
+    agg_items = aggregate_quote_items(hydrated["items"])
+    subtotal = round(sum(safe_float(i.get("total", 0)) for i in agg_items), 2)
+    tax_rate = safe_float(hydrated.get("tax_rate", 16), 16)
+    resumen = dict(hydrated)
+    resumen["items"] = agg_items
+    resumen["subtotal"] = subtotal
+    resumen["tax"] = round(subtotal * tax_rate / 100, 2)
+    resumen["total"] = round(subtotal + resumen["tax"], 2)
+    return render_template("quote_resumen.html", project=project, quote=resumen)
+
+
+@bp.route("/projects/<project_id>/quote/<quote_id>/resumen/pdf", endpoint="quote_resumen_pdf")
+def quote_resumen_pdf(project_id, quote_id):
+    project = next((item for item in load("projects") if item["id"] == project_id), None)
+    quote = next((item for item in load("quotes") if item["id"] == quote_id), None)
+    if not project or not quote:
+        flash("Cotización no encontrada.", "danger")
+        return redirect(url_for("dashboard"))
+    hydrated = hydrate_quote(quote, *catalog_maps())
+    agg_items = aggregate_quote_items(hydrated["items"])
+    subtotal = round(sum(safe_float(i.get("total", 0)) for i in agg_items), 2)
+    tax_rate = safe_float(hydrated.get("tax_rate", 16), 16)
+    resumen = dict(hydrated)
+    resumen["items"] = agg_items
+    resumen["subtotal"] = subtotal
+    resumen["tax"] = round(subtotal * tax_rate / 100, 2)
+    resumen["total"] = round(subtotal + resumen["tax"], 2)
+    pdf_name = f"{hydrated.get('quote_number', 'COT')}-Resumen.pdf"
+    try:
+        pdf_bytes = build_quote_pdf(project, resumen)
+        return send_file(BytesIO(pdf_bytes), as_attachment=True, download_name=pdf_name, mimetype="application/pdf")
+    except Exception as exc:
+        flash(f"Error al generar PDF: {exc}", "danger")
+        return redirect(url_for("quotes_bp.quote_resumen", project_id=project_id, quote_id=quote_id))
+
+
+@bp.route("/projects/<project_id>/quote/<quote_id>/resumen/excel", endpoint="quote_resumen_excel")
+def quote_resumen_excel(project_id, quote_id):
+    try:
+        from openpyxl import Workbook
+        from openpyxl.styles import Alignment, Font
+    except ImportError as exc:
+        flash(f"openpyxl no está instalado: {exc}", "danger")
+        return redirect(url_for("quotes_bp.quote_resumen", project_id=project_id, quote_id=quote_id))
+    project = next((item for item in load("projects") if item["id"] == project_id), None)
+    quote = next((item for item in load("quotes") if item["id"] == quote_id), None)
+    if not project or not quote:
+        flash("Cotización no encontrada.", "danger")
+        return redirect(url_for("dashboard"))
+    hydrated = hydrate_quote(quote, *catalog_maps())
+    agg_items = aggregate_quote_items(hydrated["items"])
+    subtotal = round(sum(safe_float(i.get("total", 0)) for i in agg_items), 2)
+    tax_rate = safe_float(hydrated.get("tax_rate", 16), 16)
+    resumen = dict(hydrated)
+    resumen["items"] = agg_items
+    resumen["subtotal"] = subtotal
+    resumen["tax"] = round(subtotal * tax_rate / 100, 2)
+    resumen["total"] = round(subtotal + resumen["tax"], 2)
+    try:
+        wb, filename = _build_quote_workbook(project, resumen, Workbook, Alignment, Font)
+        buf = BytesIO()
+        wb.save(buf)
+        buf.seek(0)
+        base = filename.rsplit(".", 1)[0]
+        return send_file(buf, as_attachment=True, download_name=f"{base}-Resumen.xlsx",
+                         mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    except Exception as exc:
+        flash(f"Error al generar Excel: {type(exc).__name__}: {exc}", "danger")
+        return redirect(url_for("quotes_bp.quote_resumen", project_id=project_id, quote_id=quote_id))
+
+
+@bp.route("/projects/<project_id>/quote/<quote_id>/csv", endpoint="quote_csv_export")
+def quote_csv_export(project_id, quote_id):
+    from flask import Response
+    project = next((item for item in load("projects") if item["id"] == project_id), None)
+    quote = next((item for item in load("quotes") if item["id"] == quote_id), None)
+    if not project or not quote or quote.get("project_id") != project_id:
+        flash("Cotización no encontrada.", "danger")
+        return redirect(url_for("dashboard"))
+    hydrated = hydrate_quote(quote, *catalog_maps())
+    lines = []
+    lines.append(f"#proyecto_clave,{project.get('clave', '')}")
+    lines.append(f"#quote_type,{hydrated.get('quote_type', 'General')}")
+    lines.append(f"#fecha,{hydrated.get('date', '')}")
+    lines.append(f"#version,{hydrated.get('version', '')}")
+    lines.append(f"#currency,{hydrated.get('currency', 'MXN')}")
+    lines.append("description,unit,qty,price,section")
+    for item in hydrated.get("items", []):
+        if item.get("kind") == "section":
+            section_name = (item.get("section") or "").replace('"', '""')
+            lines.append(f'"","","","","{section_name}"')
+            continue
+        desc = (item.get("description") or "").replace('"', '""')
+        unit = (item.get("unit") or "").replace('"', '""')
+        qty = item.get("qty", 0)
+        price = item.get("price", 0)
+        section = (item.get("section") or "").replace('"', '""')
+        lines.append(f'"{desc}","{unit}",{qty},{price},"{section}"')
+    csv_content = "﻿" + "\n".join(lines) + "\n"
+    filename = f"{hydrated.get('quote_number', 'cotizacion')}.csv"
+    return Response(
+        csv_content,
+        mimetype="text/csv; charset=utf-8",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
+
+
+@bp.route("/projects/<project_id>/quote/<quote_id>/duplicate", methods=["POST"], endpoint="quote_duplicate")
+def quote_duplicate(project_id, quote_id):
+    project = next((item for item in load("projects") if item["id"] == project_id), None)
+    quotes = load("quotes")
+    source = next((item for item in quotes if item["id"] == quote_id and item.get("project_id") == project_id), None)
+    if not project or not source:
+        flash("Cotización no encontrada.", "danger")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+    import copy
+    new_quote = copy.deepcopy(source)
+    new_quote["id"] = new_id()
+    base_number = source.get("quote_number", "COT")
+    existing_numbers = {q.get("quote_number", "") for q in quotes}
+    candidate = f"{base_number}-Copia"
+    counter = 2
+    while candidate in existing_numbers:
+        candidate = f"{base_number}-Copia{counter}"
+        counter += 1
+    new_quote["quote_number"] = candidate
+    new_quote["approval_status"] = "draft"
+    new_quote["created_at"] = today()
+    new_quote.pop("csv_origen", None)
+    new_quote.pop("csv_sources", None)
+    new_quote.pop("csv_metadata", None)
+    quotes.append(new_quote)
+    save("quotes", quotes)
+    flash(f"Cotización duplicada como {candidate}.", "success")
+    return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=new_quote["id"]))
 
 
 @bp.route("/audit/deleted-catalog", endpoint="audit_deleted_catalog")

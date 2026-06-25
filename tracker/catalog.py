@@ -234,6 +234,27 @@ def quote_section_groups(items):
     return groups
 
 
+def aggregate_quote_items(items):
+    """Flattens sections and merges duplicate items (same catalog ID or description+unit), summing quantities."""
+    seen = {}
+    order = []
+    for item in items:
+        if item.get("kind") == "section":
+            continue
+        key = item.get("catalog_item_id") or \
+              f"{item.get('description', '').strip().lower()}|{item.get('unit', '').strip().lower()}"
+        if key in seen:
+            seen[key]["qty"] = round(seen[key]["qty"] + safe_float(item.get("qty", 0)), 6)
+            seen[key]["total"] = round(seen[key]["qty"] * safe_float(seen[key].get("price", 0)), 2)
+        else:
+            entry = dict(item)
+            entry.pop("section", None)
+            entry.pop("kind", None)
+            seen[key] = entry
+            order.append(key)
+    return [seen[k] for k in order]
+
+
 def hydrate_quote_item(item, catalog_by_id, catalog_by_name, infer_by_name=True):
     hydrated = dict(item)
     if is_quote_section_marker(hydrated):

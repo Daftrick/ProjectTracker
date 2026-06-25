@@ -604,10 +604,15 @@
           <td class="text-end text-muted">{{ q.tax | currency }}</td>
           <td class="text-end fw-bold text-success">{{ q.total | currency }} <small class="text-muted">{{ q.currency }}</small></td>
           <td class="text-end">
-            <a href="{{ url_for('view_quote', project_id=project.id, quote_id=q.id) }}"
-               class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Ver detalle"><i class="bi bi-eye"></i><span class="action-label">Ver</span></a>
+            {# Ver → PDF inline en pestaña nueva #}
+            <a href="{{ url_for('quote_pdf', project_id=project.id, quote_id=q.id) }}?inline=1"
+               target="_blank"
+               class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Ver PDF"><i class="bi bi-eye"></i><span class="action-label">Ver</span></a>
+            {# Resumen #}
+            <a href="{{ url_for('quotes_bp.quote_resumen', project_id=project.id, quote_id=q.id) }}"
+               class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Resumen sin secciones"><i class="bi bi-list-ul"></i><span class="action-label">Resumen</span></a>
             <a href="{{ url_for('quote_pdf', project_id=project.id, quote_id=q.id) }}"
-               class="btn btn-sm btn-outline-success me-1 action-btn" title="Generar PDF en Drive"><i class="bi bi-file-earmark-pdf"></i><span class="action-label">PDF</span></a>
+               class="btn btn-sm btn-outline-success me-1 action-btn" title="Descargar PDF"><i class="bi bi-file-earmark-pdf"></i><span class="action-label">PDF</span></a>
             <a href="{{ url_for('quotes_bp.quote_excel', project_id=project.id, quote_id=q.id) }}"
                class="btn btn-sm btn-outline-success me-1 action-btn" title="Descargar Excel"><i class="bi bi-file-earmark-spreadsheet"></i><span class="action-label">Excel</span></a>
             {% if not project.closed_at %}
@@ -615,7 +620,6 @@
                   action="{{ url_for('quotes_bp.approve_quote', project_id=project.id, quote_id=q.id) }}"
                   class="d-inline">
               {% if row.approval == 'active' and not row.is_extra %}
-                {# Cotización base ya aprobada: no se puede desaprobar sin elegir otra #}
                 <button type="button" class="btn btn-sm btn-success me-1 action-btn" disabled title="Cotización aprobada">
                   <i class="bi bi-check-circle"></i><span class="action-label">Aprobada</span>
                 </button>
@@ -635,28 +639,50 @@
             </form>
             <a href="{{ url_for('edit_quote', project_id=project.id, quote_id=q.id) }}"
                class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Editar"><i class="bi bi-pencil"></i><span class="action-label">Editar</span></a>
-            {% if row.deleted_catalog_count %}
-            <form method="post" action="{{ url_for('purge_quote_deleted_catalog_items', project_id=project.id, quote_id=q.id) }}"
-                  class="d-inline">
-              <button type="button" class="btn btn-sm btn-outline-danger me-1 action-btn"
-                      title="Eliminar partidas con catálogo eliminado"
-                      data-confirm-title='Purgar catálogo eliminado — {{ q.quote_number | e }}'
-                      data-confirm-body='<p class="mb-1">¿Purgar definitivamente <strong>{{ row.deleted_catalog_count }}</strong> partida(s) marcadas como catálogo eliminado de <strong>{{ q.quote_number | e }}</strong>?</p><ul class="mb-0 small">{% for item in row.deleted_catalog_items %}<li class="text-muted">{{ (item.get("description") or item.get("deleted_catalog_item", {}).get("nombre") or "—") | e }}</li>{% endfor %}</ul>'
-                      data-confirm-text="Purgar"
-                      onclick="submitFormWithConfirm(this)">
-                <i class="bi bi-eraser"></i><span class="action-label">Purgar</span>
-              </button>
-            </form>
-            {% endif %}
-            <form method="post" action="{{ url_for('delete_quote', project_id=project.id, quote_id=q.id) }}"
-                  class="d-inline">
-              <button type="button" class="btn btn-sm btn-outline-danger action-btn"
-                      data-confirm-title='Eliminar cotizaci\u00f3n {{ q.quote_number | e }}'
-                      data-confirm-body='<dl class="row small mb-0"><dt class="col-5">Tipo</dt><dd class="col-7">{{ q.get("quote_type","General") | e }}</dd><dt class="col-5">Fecha</dt><dd class="col-7">{{ q.date | fdate }}</dd><dt class="col-5">Partidas</dt><dd class="col-7">{{ row.item_count }}</dd><dt class="col-5">Total</dt><dd class="col-7 fw-bold text-success">{{ q.total | currency }} {{ q.currency | e }}</dd></dl>'
-                      onclick="submitFormWithConfirm(this)">
-                <i class="bi bi-trash"></i><span class="action-label">Eliminar</span>
-              </button>
-            </form>
+            {# Dropdown ··· para acciones menos frecuentes #}
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle action-btn"
+                      data-bs-toggle="dropdown" aria-expanded="false" title="Más acciones">···</button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="{{ url_for('quotes_bp.quote_csv_export', project_id=project.id, quote_id=q.id) }}">
+                    <i class="bi bi-filetype-csv me-2"></i>Exportar CSV
+                  </a>
+                </li>
+                <li>
+                  <form method="post" action="{{ url_for('quotes_bp.quote_duplicate', project_id=project.id, quote_id=q.id) }}" class="d-inline">
+                    <button type="submit" class="dropdown-item">
+                      <i class="bi bi-copy me-2"></i>Duplicar
+                    </button>
+                  </form>
+                </li>
+                {% if row.deleted_catalog_count %}
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <form method="post" action="{{ url_for('purge_quote_deleted_catalog_items', project_id=project.id, quote_id=q.id) }}" class="d-inline">
+                    <button type="button" class="dropdown-item text-danger"
+                            data-confirm-title='Purgar catálogo eliminado — {{ q.quote_number | e }}'
+                            data-confirm-body='<p class="mb-1">¿Purgar definitivamente <strong>{{ row.deleted_catalog_count }}</strong> partida(s) marcadas como catálogo eliminado de <strong>{{ q.quote_number | e }}</strong>?</p><ul class="mb-0 small">{% for item in row.deleted_catalog_items %}<li class="text-muted">{{ (item.get("description") or item.get("deleted_catalog_item", {}).get("nombre") or "—") | e }}</li>{% endfor %}</ul>'
+                            data-confirm-text="Purgar"
+                            onclick="submitFormWithConfirm(this)">
+                      <i class="bi bi-eraser me-2"></i>Purgar catálogo eliminado
+                    </button>
+                  </form>
+                </li>
+                {% endif %}
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <form method="post" action="{{ url_for('delete_quote', project_id=project.id, quote_id=q.id) }}" class="d-inline">
+                    <button type="button" class="dropdown-item text-danger"
+                            data-confirm-title='Eliminar cotizaci\u00f3n {{ q.quote_number | e }}'
+                            data-confirm-body='<dl class="row small mb-0"><dt class="col-5">Tipo</dt><dd class="col-7">{{ q.get("quote_type","General") | e }}</dd><dt class="col-5">Fecha</dt><dd class="col-7">{{ q.date | fdate }}</dd><dt class="col-5">Partidas</dt><dd class="col-7">{{ row.item_count }}</dd><dt class="col-5">Total</dt><dd class="col-7 fw-bold text-success">{{ q.total | currency }} {{ q.currency | e }}</dd></dl>'
+                            onclick="submitFormWithConfirm(this)">
+                      <i class="bi bi-trash me-2"></i>Eliminar
+                    </button>
+                  </form>
+                </li>
+              </ul>
+            </div>
             {% endif %}
           </td>
         </tr>
