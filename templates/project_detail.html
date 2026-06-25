@@ -900,6 +900,17 @@
     </span>
     {% if not project.closed_at %}
     <div class="d-flex gap-2">
+      <!-- Upload CSV de plano -->
+      <form method="post"
+            action="{{ url_for('materials_bp.import_ldm_csv_upload', project_id=project.id) }}"
+            enctype="multipart/form-data"
+            class="d-flex align-items-center gap-1">
+        <label class="btn btn-outline-warning btn-sm mb-0" title="Importar CSV de plano (AutoCAD)">
+          <i class="bi bi-filetype-csv me-1"></i>Importar CSV
+          <input type="file" name="ldm_csv" accept=".csv" style="display:none"
+                 onchange="this.form.submit()">
+        </label>
+      </form>
       <!-- Upload PDF proveedor -->
       <form method="post"
             action="{{ url_for('materials_bp.import_ldm_pdf_upload', project_id=project.id) }}"

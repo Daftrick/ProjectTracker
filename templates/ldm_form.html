@@ -269,6 +269,9 @@
     <div class="card mb-3">
       <div class="card-header">Datos generales</div>
       <div class="card-body">
+        {% if ldm and ldm._csv_name %}
+        <input type="hidden" name="_csv_name" value="{{ ldm._csv_name }}">
+        {% endif %}
         {% if import_preview %}
         {% set linked_count   = ldm['items'] | selectattr('catalog_item_id') | list | length %}
         {% set total_count    = ldm['items'] | length %}
