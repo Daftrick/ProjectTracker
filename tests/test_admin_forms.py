@@ -45,12 +45,6 @@ class AdminFormsTest(unittest.TestCase):
             "Ing. Eléctrico",
         )
 
-    def test_settings_invalid_path_preserves_capture(self):
-        self.assert_invalid_form_preserved(
-            "/settings",
-            {"drive_projects_path": "/ruta/que/no/existe", "drive_fichas_path": ""},
-            "/ruta/que/no/existe",
-        )
 
 
 if __name__ == "__main__":

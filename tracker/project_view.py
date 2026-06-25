@@ -4,7 +4,7 @@ from .catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from .catalog import APPROVAL_ACTIVE, is_base_quote_type
 from .consistency import compute_consistency, pick_active_quote
 from .domain import check_blocked, get_progress
-from .drive import active_drive_paths, find_delivery_files, folder_name, load_config, scan_drive_folder
+from .drive import folder_name
 from .storage import load, today
 
 
@@ -28,22 +28,6 @@ def _status_icon(status):
     return STATUS_ICON_MAP.get(status or "no_data", "info-circle")
 
 
-def _csv_importable_files(scan):
-    return [
-        csv_file
-        for csv_file in (scan or {}).get("csv_plano", [])
-        if not csv_file.get("linked_ldm")
-    ]
-
-
-def _csv_cot_importable_files(scan):
-    """CSVs COT en Drive que aún no están vinculados a una cotización."""
-    return [
-        csv_file
-        for csv_file in (scan or {}).get("csv_cot", [])
-        if not csv_file.get("linked_quote")
-    ]
-
 
 def _deleted_catalog_items(record):
     return [
@@ -58,53 +42,6 @@ def _filename_extension(name):
     return f".{parts[1].lower()}" if len(parts) > 1 else ""
 
 
-def _drive_file_view(file_info, color_class):
-    view = dict(file_info or {})
-    view["display_class"] = color_class
-    return view
-
-
-def _ie_file_color(file_info):
-    if not file_info.get("highlight"):
-        return "drive-code-muted"
-    ext = _filename_extension(file_info.get("name", ""))
-    if ext == ".pdf":
-        return "drive-code-ie-pdf"
-    if ext == ".dwg":
-        return "drive-code-ie-dwg"
-    return "drive-code-ie"
-
-
-def build_drive_scan_view(scan):
-    view = dict(scan or {})
-    view["ie_files"] = [_drive_file_view(file, _ie_file_color(file)) for file in view.get("ie_files", [])]
-    view["mem_files"] = [
-        _drive_file_view(file, "drive-code-mem" if file.get("highlight") else "drive-code-muted")
-        for file in view.get("mem_files", [])
-    ]
-    view["ldm_files"] = [_drive_file_view(file, "drive-code-ldm") for file in view.get("ldm_files", [])]
-    view["provider_quote_files"] = [
-        _drive_file_view(file, "drive-code-prov" if file.get("linked") else "drive-code-muted")
-        for file in view.get("provider_quote_files", [])
-    ]
-    view["csv_plano"] = [
-        _drive_file_view(
-            file,
-            "drive-code-cot"
-            if file.get("status") == "importado"
-            else "drive-code-prov"
-            if file.get("status") == "desactualizado"
-            else "drive-code-muted",
-        )
-        for file in view.get("csv_plano", [])
-    ]
-    view["cot_files"] = [_drive_file_view(file, "drive-code-cot") for file in view.get("cot_files", [])]
-    view["work_files"] = [
-        _drive_file_view(file, "drive-code-work" if file.get("highlight") else "drive-code-muted")
-        for file in view.get("work_files", [])
-    ]
-    view["other_files"] = [_drive_file_view(file, "drive-code-muted") for file in view.get("other_files", [])]
-    view["has_ldm_documents"] = bool(view.get("ldm_files") or view.get("provider_quote_files"))
     return view
 
 
@@ -273,21 +210,7 @@ def build_project_detail_context(project):
         and any(delivery.get("dtype") == "completa" for delivery in deliveries)
     )
 
-    cfg = load_config()
-    drive_paths = active_drive_paths(cfg)
     drive_folder = folder_name(project)
-    scan = build_drive_scan_view(
-        scan_drive_folder(drive_folder, drive_paths["projects"], ldms, clave=project["clave"], quotes=quotes)
-    )
-    available = find_delivery_files(
-        drive_folder,
-        project["clave"],
-        project.get("version", "V1"),
-        project.get("fecha", ""),
-        drive_paths["projects"],
-        drive_paths["fichas"],
-        linked_fichas,
-    )
 
     # Totales para el header del proyecto.
     # Se suma: la cotización base aprobada (General/Preliminar con approval_status='active')
@@ -317,27 +240,8 @@ def build_project_detail_context(project):
         catalog_by_id,
     )
 
-    # Nombres reales de los archivos DWG más recientes en Drive.
-    # Se prefiere el archivo marcado como highlight (última versión detectada por
-    # decorate_latest) para mostrar el nombre exacto en las tarjetas del header.
-    # Si Drive no está disponible o no hay archivos, se cae al nombre canónico
-    # construido con los metadatos del proyecto.
-    def _latest_scan_name(scan_files, fallback):
-        """Devuelve el nombre del archivo con highlight=True, o el fallback."""
-        for f in scan_files or []:
-            if f.get("highlight"):
-                return f["name"]
-        # Si sólo hay un archivo (sin versión parseable), usarlo igual
-        if len(scan_files or []) == 1:
-            return scan_files[0]["name"]
-        return fallback
-
     _ie_fallback = f"IE-{project['clave']}-{project['version']}-{project['fecha']}.dwg"
     _xref_fallback = f"XREF-{project['clave']}-{project['version']}-{project['fecha']}.dwg"
-
-    # Filtramos sólo DWGs para las tarjetas (excluye PDFs del grupo IE)
-    ie_dwg_files = [f for f in scan.get("ie_files", []) if f["name"].lower().endswith(".dwg")]
-    xref_dwg_files = [f for f in scan.get("work_files", []) if f["name"].lower().endswith(".dwg")]
 
     return {
         "project": project,
@@ -352,10 +256,6 @@ def build_project_detail_context(project):
             "linked_fichas": len(linked_fichas),
         },
         "deliveries": deliveries,
-        "scan": scan,
-        "importable_csvs": _csv_importable_files(scan),
-        "importable_cot_csvs": _csv_cot_importable_files(scan),
-        "available": available,
         "quotes": quotes,
         "quote_rows": build_quote_row_views(quotes),
         "ldms": ldms,
@@ -368,8 +268,8 @@ def build_project_detail_context(project):
         "today": today(),
         "today_short": date.today().strftime("%y%m%d"),
         "folder_name": drive_folder,
-        "file_ie": _latest_scan_name(ie_dwg_files, _ie_fallback),
-        "file_xref": _latest_scan_name(xref_dwg_files, _xref_fallback),
+        "file_ie": _ie_fallback,
+        "file_xref": _xref_fallback,
         "active_base_quote": _active_base,
         "active_extras_count": len(_active_extras),
         "total_cotizado": total_cotizado,

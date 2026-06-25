@@ -292,11 +292,7 @@
     {% endif %}
     {% if current_user.is_authenticated and current_user.role == 'admin' %}
     <div class="nav-section mt-2">Sistema</div>
-    <a href="{{ url_for('settings') }}" class="nav-link {% if request.endpoint=='settings' %}active{% endif %}"
-       data-label="Ajustes / Drive">
-      <i class="bi bi-gear"></i><span class="nav-label"> Ajustes / Drive</span>
-    </a>
-    <a href="{{ url_for('admin_bp.empresa') }}" class="nav-link {% if request.endpoint in ('admin_bp.empresa','admin_bp.empresa_logo') %}active{% endif %}"
+<a href="{{ url_for('admin_bp.empresa') }}" class="nav-link {% if request.endpoint in ('admin_bp.empresa','admin_bp.empresa_logo') %}active{% endif %}"
        data-label="Empresa">
       <i class="bi bi-building"></i><span class="nav-label"> Empresa</span>
     </a>

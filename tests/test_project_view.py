@@ -3,7 +3,6 @@ from unittest.mock import patch
 
 from tracker.project_view import (
     build_consistency_view,
-    build_drive_scan_view,
     build_ldm_row_views,
     build_project_detail_context,
     build_quote_row_views,
@@ -53,15 +52,6 @@ class ProjectViewTest(unittest.TestCase):
              patch("tracker.project_view.catalog_maps", return_value=({}, {})), \
              patch("tracker.project_view.hydrate_quote", side_effect=lambda quote, *_: quote), \
              patch("tracker.project_view.hydrate_ldm", side_effect=lambda ldm, *_: ldm), \
-             patch("tracker.project_view.load_config", return_value={"drive_projects_path": "", "drive_fichas_path": ""}), \
-             patch("tracker.project_view.scan_drive_folder", return_value={
-                 "files": [],
-                 "csv_plano": [
-                     {"name": "nuevo.csv", "linked_ldm": "", "status_label": "Listo"},
-                     {"name": "vinculado.csv", "linked_ldm": "LDM-OM001-01", "status_label": "Usado"},
-                 ],
-             }), \
-             patch("tracker.project_view.find_delivery_files", return_value={"ie_pdf": "IE.pdf"}), \
              patch("tracker.project_view.today", return_value="2026-04-28"):
             context = build_project_detail_context(project)
 
@@ -81,8 +71,6 @@ class ProjectViewTest(unittest.TestCase):
         self.assertEqual(context["total_cotizado"], 1500)
         self.assertEqual(context["costo_proveedor"], 900)
         self.assertEqual(context["margen"], 600)
-        self.assertEqual([item["name"] for item in context["importable_csvs"]], ["nuevo.csv"])
-        self.assertFalse(context["scan"]["has_ldm_documents"])
         self.assertEqual(context["ldm_rows"][0]["item_count"], 2)
         self.assertEqual(context["ldm_rows"][0]["deleted_catalog_count"], 1)
         self.assertEqual(context["folder_name"], "IE-004-OM001")
@@ -157,32 +145,6 @@ class ProjectViewTest(unittest.TestCase):
         self.assertEqual(rows[0]["deleted_catalog_items"][0]["description"], "Artículo removido")
         self.assertEqual(rows[1]["item_count"], 0)
         self.assertEqual(rows[1]["deleted_catalog_items"], [])
-
-    def test_build_drive_scan_view_precomputes_display_classes(self):
-        scan = build_drive_scan_view({
-            "ie_files": [
-                {"name": "IE-OM001.pdf", "highlight": True},
-                {"name": "IE-OM001.dwg", "highlight": True},
-                {"name": "old.txt", "highlight": False},
-            ],
-            "provider_quote_files": [{"name": "PROV.pdf", "linked": True}],
-            "csv_plano": [
-                {"name": "COT.csv", "status": "importado"},
-                {"name": "OLD.csv", "status": "desactualizado"},
-                {"name": "NEW.csv", "status": "nuevo"},
-            ],
-        })
-
-        self.assertEqual(
-            [file["display_class"] for file in scan["ie_files"]],
-            ["drive-code-ie-pdf", "drive-code-ie-dwg", "drive-code-muted"],
-        )
-        self.assertEqual(scan["provider_quote_files"][0]["display_class"], "drive-code-prov")
-        self.assertEqual(
-            [file["display_class"] for file in scan["csv_plano"]],
-            ["drive-code-cot", "drive-code-prov", "drive-code-muted"],
-        )
-        self.assertTrue(scan["has_ldm_documents"])
 
     def test_build_consistency_view_prepares_template_rows(self):
         view = build_consistency_view({

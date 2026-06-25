@@ -1,16 +1,14 @@
 import os
 import threading
 import time
-import zipfile
 from datetime import date
 
-from flask import Blueprint, abort, flash, redirect, render_template, request, send_file, send_from_directory, url_for
+from flask import Blueprint, abort, flash, redirect, render_template, request, send_file, url_for
 
 from ..catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from ..consistency import compute_consistency
 from ..deletions import delete_project_data
 from ..domain import ALCANCES, STAGES, get_progress, project_semaphore, project_stage
-from ..drive import active_drive_paths, create_project_folder, current_platform_key, find_delivery_files, folder_name, load_config, save_config, scan_drive_folder
 from ..project_view import build_project_detail_context
 from ..services import (
     apply_task_status_change,
@@ -159,26 +157,6 @@ def new_project():
         projects.append(project)
         save("projects", projects)
         save("tasks", tasks)
-        # ── Crear carpeta en Drive automáticamente ──────────────────────────
-        try:
-            cfg = load_config()
-            drive_root = active_drive_paths(cfg)["projects"]
-            if drive_root and os.path.isdir(drive_root):
-                new_folder = os.path.join(drive_root, folder_name(project))
-                if not os.path.exists(new_folder):
-                    os.makedirs(new_folder, exist_ok=True)
-                    flash(
-                        f"Carpeta creada en Drive: {folder_name(project)}",
-                        "info",
-                    )
-                else:
-                    flash(
-                        f"La carpeta {folder_name(project)} ya existía en Drive.",
-                        "info",
-                    )
-        except Exception as drive_exc:
-            flash(f"Proyecto creado, pero no se pudo crear la carpeta en Drive: {drive_exc}", "warning")
-        # ───────────────────────────────────────────────────────────────────
         flash(f"Proyecto '{project['name']}' creado con {len(selected)} alcance(s).", "success")
         return redirect(url_for("project_detail", project_id=project["id"]))
     return render_template(
@@ -376,52 +354,6 @@ def save_task_note(project_id, task_id):
     return redirect(url_for("project_detail", project_id=project_id))
 
 
-@bp.route("/settings", methods=["GET", "POST"], endpoint="settings")
-def settings():
-    cfg = load_config()
-    platform_key = current_platform_key()
-    if request.method == "POST":
-        submitted_cfg = dict(cfg)
-        projects_key = f"drive_projects_path_{platform_key}"
-        fichas_key = f"drive_fichas_path_{platform_key}"
-        submitted = {
-            "drive_projects_path": request.form.get("drive_projects_path", "").strip(),
-            "drive_fichas_path": request.form.get("drive_fichas_path", "").strip(),
-        }
-        submitted_cfg[projects_key] = submitted["drive_projects_path"]
-        submitted_cfg[fichas_key] = submitted["drive_fichas_path"]
-        if not submitted_cfg.get("drive_projects_path"):
-            submitted_cfg["drive_projects_path"] = submitted["drive_projects_path"]
-        if not submitted_cfg.get("drive_fichas_path"):
-            submitted_cfg["drive_fichas_path"] = submitted["drive_fichas_path"]
-        field_errors = {}
-        if submitted["drive_projects_path"] and not os.path.isdir(submitted["drive_projects_path"]):
-            field_errors["drive_projects_path"] = "La ruta de proyectos no existe en este equipo."
-        if submitted["drive_fichas_path"] and not os.path.isdir(submitted["drive_fichas_path"]):
-            field_errors["drive_fichas_path"] = "La ruta de fichas técnicas no existe en este equipo."
-        if field_errors:
-            for error in field_errors.values():
-                flash(error, "warning")
-            view_cfg = _settings_view_config(submitted_cfg)
-            path_status = {
-                "projects_ok": False,
-                "projects_set": bool(submitted["drive_projects_path"]),
-                "fichas_ok": False,
-                "fichas_set": bool(submitted["drive_fichas_path"]),
-            }
-            return render_template("settings.html", cfg=view_cfg, field_errors=field_errors, path_status=path_status)
-        save_config(submitted_cfg)
-        flash("Configuración guardada.", "success")
-        return redirect(url_for("settings"))
-    view_cfg = _settings_view_config(cfg)
-    path_status = {
-        "projects_ok": bool(view_cfg["drive_projects_path"]) and os.path.isdir(view_cfg["drive_projects_path"]),
-        "projects_set": bool(view_cfg["drive_projects_path"]),
-        "fichas_ok": bool(view_cfg["drive_fichas_path"]) and os.path.isdir(view_cfg["drive_fichas_path"]),
-        "fichas_set": bool(view_cfg["drive_fichas_path"]),
-    }
-    return render_template("settings.html", cfg=view_cfg, field_errors={}, path_status=path_status)
-
 
 @bp.route("/projects/<project_id>/alcances/update", methods=["POST"], endpoint="update_project_alcances")
 def update_project_alcances(project_id):
@@ -442,83 +374,6 @@ def update_project_alcances(project_id):
     return redirect(url_for("project_detail", project_id=project_id))
 
 
-@bp.route("/projects/<project_id>/deliveries/create", methods=["POST"], endpoint="create_delivery")
-def create_delivery(project_id):
-    project = _find_project(project_id)
-    if not project:
-        return redirect(url_for("dashboard"))
-    cfg = load_config()
-    drive_paths = active_drive_paths(cfg)
-    projects_root = drive_paths["projects"]
-    fichas_root = drive_paths["fichas"]
-    drive_folder = folder_name(project)
-    delivery_type = request.form.get("dtype", "completa")
-    notes = request.form.get("notes", "").strip()
-    linked = [ficha for ficha in load("fichas") if project_id in ficha.get("projects", [])]
-    available = find_delivery_files(
-        drive_folder,
-        project["clave"],
-        project.get("version", "V1"),
-        project.get("fecha", ""),
-        projects_root,
-        fichas_root,
-        linked,
-    )
-    file_keys = ["ie_dwg", "ie_pdf", "mem_pdf", "cot_pdf"]
-    if delivery_type == "parcial":
-        selected_keys = [key for key in file_keys if request.form.get(f"inc_{key}")]
-        include_fichas = bool(request.form.get("inc_fichas"))
-        include_ldm_pdfs = bool(request.form.get("inc_ldm_pdfs"))
-    else:
-        selected_keys = file_keys
-        include_fichas = True
-        include_ldm_pdfs = True
-    today_token = date.today().strftime("%y%m%d")
-    zip_name = f"Entrega-{project['clave']}-{project.get('version', 'V1')}-{today_token}.zip"
-    project_folder = os.path.join(projects_root, drive_folder) if projects_root else None
-    if not project_folder or not os.path.isdir(project_folder):
-        flash("Carpeta del proyecto no encontrada en Drive. Verifica Ajustes.", "danger")
-        return redirect(url_for("project_detail", project_id=project_id) + "#tab-docs")
-    zip_path = os.path.join(project_folder, zip_name)
-    files_included = []
-    try:
-        with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as handle:
-            for key in selected_keys:
-                filename = available.get(key)
-                if not filename:
-                    continue
-                source = os.path.join(project_folder, filename)
-                if os.path.isfile(source):
-                    handle.write(source, filename)
-                    files_included.append(filename)
-            if include_ldm_pdfs:
-                for ldm_name in available.get("ldm_pdfs", []):
-                    source = os.path.join(project_folder, ldm_name)
-                    if os.path.isfile(source):
-                        handle.write(source, ldm_name)
-                        files_included.append(ldm_name)
-            if include_fichas:
-                for ficha in available.get("fichas", []):
-                    handle.write(ficha["path"], os.path.join("Fichas", ficha["name"]))
-                    files_included.append(f"Fichas/{ficha['name']}")
-        deliveries = load("deliveries")
-        deliveries.append({
-            "id": new_id(),
-            "project_id": project_id,
-            "date": today(),
-            "version": project.get("version", "V1"),
-            "dtype": delivery_type,
-            "zip_name": zip_name,
-            "zip_path": zip_path,
-            "files_included": files_included,
-            "notes": notes,
-        })
-        save("deliveries", deliveries)
-        flash(f"Entrega generada: {zip_name}", "success")
-    except Exception as exc:
-        flash(f"Error al generar ZIP: {exc}", "danger")
-    return redirect(url_for("project_detail", project_id=project_id) + "#tab-docs")
-
 
 @bp.route("/projects/<project_id>/deliveries/<delivery_id>/delete", methods=["POST"], endpoint="delete_delivery")
 def delete_delivery(project_id, delivery_id):
@@ -526,48 +381,6 @@ def delete_delivery(project_id, delivery_id):
     flash("Registro de entrega eliminado.", "warning")
     return redirect(url_for("project_detail", project_id=project_id) + "#tab-docs")
 
-
-@bp.route("/projects/<project_id>/drive/create-folder", methods=["POST"], endpoint="create_drive_folder")
-def create_drive_folder(project_id):
-    """Crea la carpeta Drive del proyecto si aún no existe."""
-    project = _find_project(project_id)
-    if not project:
-        return redirect(url_for("dashboard"))
-    cfg = load_config()
-    drive_root = active_drive_paths(cfg)["projects"]
-    fn = folder_name(project)
-    created, error = create_project_folder(fn, drive_root)
-    if error:
-        flash(error, "danger")
-    elif created:
-        flash(f"Carpeta creada en Drive: {fn}", "success")
-    else:
-        flash(f"La carpeta {fn} ya existe en Drive.", "info")
-    return redirect(url_for("project_detail", project_id=project_id) + "#tab-drive")
-
-
-@bp.route("/projects/<project_id>/files/<path:filename>", endpoint="serve_project_file")
-def serve_project_file(project_id, filename):
-    if not filename or filename in {".", ".."}:
-        abort(400)
-    if "/" in filename or "\\" in filename:
-        abort(400)
-    if os.path.basename(filename) != filename:
-        abort(400)
-    project = _find_project(project_id)
-    if not project:
-        abort(404)
-    cfg = load_config()
-    root = active_drive_paths(cfg)["projects"]
-    drive_folder = folder_name(project)
-    project_folder = os.path.join(root, drive_folder) if root else None
-    if not project_folder or not os.path.isdir(project_folder):
-        abort(404)
-    file_path = os.path.join(project_folder, filename)
-    if not os.path.isfile(file_path):
-        abort(404)
-    as_attachment = request.args.get("dl") == "1"
-    return send_from_directory(project_folder, filename, as_attachment=as_attachment)
 
 
 @bp.route("/projects/<project_id>/stage-status", methods=["POST"], endpoint="update_stage_status")
@@ -682,15 +495,6 @@ def project_progress_pdf(project_id):
         flash(f"Error al generar reporte: {exc}", "danger")
         return redirect(url_for("project_detail", project_id=project_id))
 
-
-def _settings_view_config(cfg):
-    drive_paths = active_drive_paths(cfg)
-    view_cfg = dict(cfg)
-    view_cfg["current_platform"] = drive_paths["platform"]
-    view_cfg["current_platform_label"] = drive_paths["platform_label"]
-    view_cfg["drive_projects_path"] = drive_paths["projects"]
-    view_cfg["drive_fichas_path"] = drive_paths["fichas"]
-    return view_cfg
 
 
 @bp.route("/shutdown", methods=["POST"], endpoint="shutdown")

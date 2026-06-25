@@ -14,7 +14,7 @@ from ..consistency import pick_active_quote
 from ..csv_catalog_validation import validate_csv_catalog_items
 from ..csv_import import parse_ldm_csv
 from ..deletions import purge_deleted_catalog_items_from_record
-from ..drive import active_drive_paths, folder_name, load_config, parse_csv_plano_filename
+from ..drive import parse_csv_plano_filename
 from ..form_models import ldm_from_form
 from ..ldm_sync import missing_ldm_items_from_bundles, selected_missing_bundle_items
 from ..pdfs import build_ldm_pdf
@@ -44,28 +44,6 @@ def _flash_csv_catalog_errors(validation, label="CSV"):
         flash(f"Se omitieron {len(errors) - 10} error(es) adicional(es).", "warning")
 
 
-def _project_drive_folder(project):
-    cfg = load_config()
-    root = active_drive_paths(cfg)["projects"]
-    if not root:
-        return None
-    return os.path.join(root, folder_name(project))
-
-
-def _csv_path_for_project(project, filename):
-    clean_name = os.path.basename(_clean_form_text(filename))
-    if not clean_name.lower().endswith(".csv"):
-        return clean_name, None
-    if not parse_csv_plano_filename(clean_name, project.get("clave")):
-        return clean_name, None
-    folder = _project_drive_folder(project)
-    if not folder:
-        return clean_name, None
-    csv_path = os.path.abspath(os.path.join(folder, clean_name))
-    folder_path = os.path.abspath(folder)
-    if not csv_path.startswith(folder_path + os.sep) or not os.path.isfile(csv_path):
-        return clean_name, None
-    return clean_name, csv_path
 
 
 def _ldm_uses_csv(ldm, filename):
@@ -280,92 +258,6 @@ def new_ldm(project_id):
         return _render_ldm_form(project, suggestion_ldm)
     return _render_ldm_form(project, None)
 
-
-@bp.route("/projects/<project_id>/ldm/import/<path:filename>", methods=["GET", "POST"], endpoint="import_ldm_csv")
-def import_ldm_csv(project_id, filename):
-    project = _find_project(project_id)
-    if not project:
-        return redirect(url_for("dashboard"))
-    if project.get("closed_at"):
-        flash("El proyecto está cerrado. Reábrelo para importar una LDM.", "warning")
-        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
-
-    clean_name, csv_path = _csv_path_for_project(project, filename)
-    if not csv_path:
-        flash("CSV de plano no encontrado o con nombre inválido para este proyecto.", "danger")
-        return redirect(url_for("project_detail", project_id=project_id) + "#tab-documentos")
-
-    existing = _csv_already_imported(project_id, clean_name)
-    if existing:
-        flash(f"{clean_name} ya está vinculado a {existing.get('ldm_number', 'una LDM')}.", "warning")
-        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
-
-    catalog = load("catalogo")
-    parsed = parse_ldm_csv(csv_path, catalog=catalog)
-    if parsed["errors"]:
-        for error in parsed["errors"]:
-            flash(error, "warning")
-        return redirect(url_for("project_detail", project_id=project_id) + "#tab-documentos")
-
-    catalog_validation = validate_csv_catalog_items(parsed["items"], catalog, kind="LDM")
-    if not catalog_validation["ok"]:
-        _flash_csv_catalog_errors(catalog_validation, "LDM CSV")
-        return redirect(url_for("project_detail", project_id=project_id) + "#tab-documentos")
-
-    if request.method == "POST":
-        validation = validate_ldm_form(request.form)
-        if not validation["ok"]:
-            for error in validation["errors"]:
-                flash(error, "warning")
-            fallback = {
-                "is_import_preview": True,
-                "ldm_number": f"CSV: {clean_name}",
-                "csv_origen": clean_name,
-            }
-            return _render_ldm_form(
-                project,
-                ldm_from_form(request.form, fallback_ldm=fallback),
-                field_errors=validation["field_errors"],
-            )
-        all_ldms = load("materiales")
-        seq = len([item for item in all_ldms if item["project_id"] == project_id]) + 1
-        items = _attach_csv_item_metadata(validation["items"], parsed["items"])
-        ldm = {
-            "id": new_id(),
-            "project_id": project_id,
-            "ldm_number": f"LDM-{project['clave']}-{seq:02d}",
-            "seq": seq,
-            "proveedor": validation["proveedor"],
-            "fecha": validation["fecha"],
-            "items": items,
-            "subtotal_cot": validation["subtotal_cot"],
-            "cot_proveedor": validation["cot_proveedor"],
-            "notes": validation["notes"],
-            "csv_origen": clean_name,
-            "csv_sources": [clean_name],
-            "created_at": today(),
-        }
-        all_ldms.append(ldm)
-        save("materiales", all_ldms)
-        flash(f"Lista {ldm['ldm_number']} importada desde {clean_name}.", "success")
-        return redirect(url_for("materials_bp.edit_ldm", project_id=project_id, ldm_id=ldm["id"]))
-
-    items, missing_catalog = _hydrate_import_items(parsed["items"])
-    metadata = parsed["metadata"]
-    preview = {
-        "is_import_preview": True,
-        "ldm_number": f"CSV: {clean_name}",
-        "proveedor": metadata.get("proveedor", ""),
-        "fecha": metadata.get("fecha", today()),
-        "notes": f"Importada desde {clean_name}",
-        "items": items,
-        "csv_origen": clean_name,
-    }
-    if metadata.get("proyecto_clave") and metadata["proyecto_clave"] != project.get("clave"):
-        flash("La clave de proyecto indicada en el CSV no coincide con este proyecto.", "warning")
-    if missing_catalog:
-        flash(f"{len(missing_catalog)} artículo(s) no tienen coincidencia exacta en catálogo.", "warning")
-    return _render_ldm_form(project, preview)
 
 
 @bp.route("/projects/<project_id>/ldm/<ldm_id>/edit", methods=["GET", "POST"], endpoint="edit_ldm")
