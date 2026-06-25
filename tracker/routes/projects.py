@@ -1,11 +1,10 @@
 import os
-import tempfile
 import threading
 import time
 import zipfile
 from datetime import date
 
-from flask import Blueprint, abort, after_this_request, flash, redirect, render_template, request, send_file, send_from_directory, url_for
+from flask import Blueprint, abort, flash, redirect, render_template, request, send_file, send_from_directory, url_for
 
 from ..catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from ..consistency import compute_consistency
@@ -670,21 +669,11 @@ def project_progress_pdf(project_id):
         abort(404)
     templates_map = {t["id"]: t for t in get_project_templates()}
     tmpl = templates_map.get(project.get("template_id", ""))
-    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
-        tmp_path = f.name
-
-    @after_this_request
-    def _cleanup(response):
-        try:
-            os.unlink(tmp_path)
-        except Exception:
-            pass
-        return response
-
     try:
-        build_progress_pdf(project, tmpl, tmp_path)
+        from io import BytesIO
+        pdf_bytes = build_progress_pdf(project, tmpl)
         return send_file(
-            tmp_path,
+            BytesIO(pdf_bytes),
             as_attachment=True,
             download_name=f"Reporte-{project['clave']}-{today()}.pdf",
             mimetype="application/pdf",

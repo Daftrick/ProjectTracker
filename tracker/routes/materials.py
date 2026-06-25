@@ -5,7 +5,9 @@ import re
 import uuid
 from datetime import date, datetime
 
-from flask import Blueprint, Response, flash, jsonify, redirect, render_template, request, session, url_for
+from io import BytesIO
+
+from flask import Blueprint, Response, flash, jsonify, redirect, render_template, request, send_file, session, url_for
 
 from ..catalog import catalog_maps, catalog_name_key, hydrate_ldm, hydrate_ldm_item, safe_float
 from ..consistency import pick_active_quote
@@ -550,25 +552,22 @@ def ldm_pdf(project_id, ldm_id):
         flash("Lista no encontrada.", "danger")
         return redirect(url_for("dashboard"))
     hydrated = hydrate_ldm(ldm, *catalog_maps())
-    cfg = load_config()
-    root = active_drive_paths(cfg)["projects"]
-    drive_folder = folder_name(project)
-    project_folder = os.path.join(root, drive_folder) if root else None
-    if not project_folder or not os.path.isdir(project_folder):
-        flash("Carpeta del proyecto no encontrada en Drive. Verifica Ajustes.", "danger")
-        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
     try:
         date_token = datetime.strptime(hydrated.get("fecha", ""), "%Y-%m-%d").strftime("%y%m%d")
     except Exception:
         date_token = date.today().strftime("%y%m%d")
     pdf_name = f"LDM-{project['clave']}-{hydrated.get('seq', 1):02d}-{date_token}.pdf"
-    pdf_path = os.path.join(project_folder, pdf_name)
     try:
-        build_ldm_pdf(project, hydrated, pdf_path)
-        flash(f"PDF generado en Drive: {pdf_name}", "success")
+        pdf_bytes = build_ldm_pdf(project, hydrated)
+        return send_file(
+            BytesIO(pdf_bytes),
+            as_attachment=True,
+            download_name=pdf_name,
+            mimetype="application/pdf",
+        )
     except Exception as exc:
         flash(f"Error al generar PDF: {exc}", "danger")
-    return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
 
 
 # ── Importación de LDM desde PDF de proveedor ────────────────────────────────

@@ -199,7 +199,7 @@ def quote_catalog_description(item, catalog_lookup):
     return _safe_text(catalog_lookup.get(catalog_name_key(item.get("description", "")), ""))
 
 
-def build_quote_pdf(project, quote, output_path):
+def build_quote_pdf(project, quote, output_path=None):
     try:
         from fpdf import FPDF
     except ImportError as exc:
@@ -940,10 +940,13 @@ def build_quote_pdf(project, quote, output_path):
 
     add_signature_section()
 
-    pdf.output(output_path)
+    if output_path:
+        pdf.output(output_path)
+    else:
+        return bytes(pdf.output())
 
 
-def build_ldm_pdf(project, ldm, output_path):
+def build_ldm_pdf(project, ldm, output_path=None):
     """Genera el PDF de una Lista de Materiales con la estética del PDF de
     cotizaciones (banner negro + logo, paleta navy/ink/muted, tabla de partidas)
     pero en una version simplificada: solo encabezado con proyecto/proveedor/fecha
@@ -1405,10 +1408,13 @@ def build_ldm_pdf(project, ldm, output_path):
             pdf.set_x(pdf.l_margin)
             pdf.multi_cell(content_width, 5, _safe_text(f"- {line}"))
 
-    pdf.output(output_path)
+    if output_path:
+        pdf.output(output_path)
+    else:
+        return bytes(pdf.output())
 
 
-def build_progress_pdf(project, tmpl, output_path):
+def build_progress_pdf(project, tmpl, output_path=None):
     """PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos."""
     try:
         from fpdf import FPDF
@@ -1542,4 +1548,7 @@ def build_progress_pdf(project, tmpl, output_path):
         pdf.cell(0, 5, f"Progreso: {done_count}/{len(docs)} documentos entregados", ln=True)
         pdf.set_text_color(*BLACK)
 
-    pdf.output(output_path)
+    if output_path:
+        pdf.output(output_path)
+    else:
+        return bytes(pdf.output())

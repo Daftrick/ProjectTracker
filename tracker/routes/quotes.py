@@ -1,6 +1,8 @@
 import os
 
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from io import BytesIO
+
+from flask import Blueprint, flash, redirect, render_template, request, send_file, url_for
 
 from ..catalog import approve_quote, catalog_maps, hydrate_quote, next_quote_number, quote_type_key, safe_float
 from ..csv_catalog_validation import validate_csv_catalog_items
@@ -319,37 +321,28 @@ def quote_pdf(project_id, quote_id):
         flash("Cotización no encontrada.", "danger")
         return redirect(url_for("dashboard"))
     hydrated = hydrate_quote(quote, *catalog_maps())
-    cfg = load_config()
-    root = active_drive_paths(cfg)["projects"]
-    drive_folder = folder_name(project)
-    project_folder = os.path.join(root, drive_folder) if root else None
-    if not project_folder or not os.path.isdir(project_folder):
-        flash("Carpeta del proyecto no encontrada en Drive. Verifica Ajustes.", "danger")
-        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
     pdf_name = f"{hydrated.get('quote_number', 'COT')}.pdf"
-    pdf_path = os.path.join(project_folder, pdf_name)
-    if quote_type_key(hydrated.get("quote_type")) in ("General", "Proyecto"):
-        hydrated["project_basis_source"] = latest_dwg_stem(project_folder)
     try:
-        build_quote_pdf(project, hydrated, pdf_path)
-        flash(f"PDF generado en Drive: {pdf_name}", "success")
+        pdf_bytes = build_quote_pdf(project, hydrated)
+        return send_file(
+            BytesIO(pdf_bytes),
+            as_attachment=True,
+            download_name=pdf_name,
+            mimetype="application/pdf",
+        )
     except Exception as exc:
         flash(f"Error al generar PDF: {exc}", "danger")
-    return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
 
 
 @bp.route("/projects/<project_id>/quote/<quote_id>/excel", endpoint="quote_excel")
 def quote_excel(project_id, quote_id):
-    """Genera la cotización como Excel y la guarda en la carpeta Drive del proyecto."""
+    """Genera la cotización como Excel y la sirve como descarga directa."""
     try:
         from openpyxl import Workbook
         from openpyxl.styles import Alignment, Font
     except ImportError as exc:
-        flash(
-            "openpyxl no está instalado. Reinicia la app con INICIAR.bat "
-            f"para instalar dependencias. Detalle: {exc}",
-            "danger",
-        )
+        flash(f"openpyxl no está instalado: {exc}", "danger")
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
 
     project = next((item for item in load("projects") if item["id"] == project_id), None)
@@ -358,29 +351,20 @@ def quote_excel(project_id, quote_id):
         flash("Cotización no encontrada.", "danger")
         return redirect(url_for("dashboard"))
 
-    # Resolver carpeta Drive del proyecto (igual que quote_pdf)
-    cfg = load_config()
-    root = active_drive_paths(cfg)["projects"]
-    drive_folder = folder_name(project)
-    project_folder = os.path.join(root, drive_folder) if root else None
-    if not project_folder or not os.path.isdir(project_folder):
-        flash("Carpeta del proyecto no encontrada en Drive. Verifica Ajustes.", "danger")
-        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
-
     try:
         wb, filename = _build_quote_workbook(project, quote, Workbook, Alignment, Font)
-        excel_path = os.path.join(project_folder, filename)
-        wb.save(excel_path)
-        flash(f"Excel generado en Drive: {filename}", "success")
+        buf = BytesIO()
+        wb.save(buf)
+        buf.seek(0)
+        return send_file(
+            buf,
+            as_attachment=True,
+            download_name=filename,
+            mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
     except Exception as exc:
-        try:
-            from flask import current_app
-            current_app.logger.exception("Error generando Excel de cotización")
-        except Exception:
-            import traceback
-            traceback.print_exc()
         flash(f"Error al generar Excel: {type(exc).__name__}: {exc}", "danger")
-    return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
 
 
 def _build_quote_workbook(project, quote, Workbook, Alignment, Font):
