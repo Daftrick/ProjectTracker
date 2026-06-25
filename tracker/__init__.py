@@ -52,12 +52,12 @@ def create_app():
     app = Flask(__name__, template_folder=os.path.join(BASE_DIR, "templates"))
 
     import sys
-    secret_key = os.environ.get("SECRET_KEY", _DEFAULT_SECRET_KEY)
+    secret_key = os.environ.get("FLASK_SECRET_KEY") or os.environ.get("SECRET_KEY", _DEFAULT_SECRET_KEY)
     app.secret_key = secret_key
     _in_tests = "unittest" in sys.modules or "pytest" in sys.modules
     if not _in_tests and _requires_configured_secret_key(secret_key):
         raise RuntimeError(
-            "Set SECRET_KEY env var before deploying to production"
+            "Set FLASK_SECRET_KEY env var before deploying to production"
         )
 
     csrf.init_app(app)
