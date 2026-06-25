@@ -220,6 +220,9 @@ def new_ldm(project_id):
     project = _find_project(project_id)
     if not project:
         return redirect(url_for("dashboard"))
+    if project.get("closed_at"):
+        flash("El proyecto está cerrado. Reábrelo para crear una LDM.", "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
     if request.method == "POST":
         validation = validate_ldm_form(request.form)
         if not validation["ok"]:
@@ -278,6 +281,14 @@ def import_ldm_csv_upload(project_id):
                 flash(error, "warning")
             fallback = {"is_import_preview": True, "ldm_number": f"CSV: {csv_name}", "csv_origen": csv_name, "_csv_name": csv_name}
             return _render_ldm_form(project, ldm_from_form(request.form, fallback_ldm=fallback), field_errors=validation["field_errors"])
+        catalog = load("catalogo")
+        catalog_validation = validate_csv_catalog_items(validation["items"], catalog, kind="LDM")
+        if not catalog_validation["ok"]:
+            for error in catalog_validation.get("errors", [])[:10]:
+                flash(error, "warning")
+            flash(f"No se puede importar: {len(catalog_validation.get('errors', []))} partida(s) no pasan validación.", "danger")
+            fallback = {"is_import_preview": True, "ldm_number": f"CSV: {csv_name}", "csv_origen": csv_name, "_csv_name": csv_name}
+            return _render_ldm_form(project, ldm_from_form(request.form, fallback_ldm=fallback))
         all_ldms = load("materiales")
         seq = len([item for item in all_ldms if item["project_id"] == project_id]) + 1
         ldm = {
@@ -496,6 +507,10 @@ def sync_ldm_bundles(project_id, ldm_id):
 
 @bp.route("/projects/<project_id>/ldm/<ldm_id>/delete", methods=["POST"], endpoint="delete_ldm")
 def delete_ldm(project_id, ldm_id):
+    project = _find_project(project_id)
+    if project and project.get("closed_at"):
+        flash("El proyecto está cerrado. Reábrelo para eliminar una LDM.", "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
     save("materiales", [item for item in load("materiales") if item["id"] != ldm_id])
     flash("Lista eliminada.", "warning")
     return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")

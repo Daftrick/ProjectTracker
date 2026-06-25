@@ -1,8 +1,9 @@
+import copy
 import os
 
 from io import BytesIO
 
-from flask import Blueprint, flash, redirect, render_template, request, send_file, url_for
+from flask import Blueprint, Response, flash, redirect, render_template, request, send_file, url_for
 
 from ..catalog import aggregate_quote_items, approve_quote, catalog_maps, hydrate_quote, next_quote_number, quote_type_key, safe_float
 from ..csv_catalog_validation import validate_csv_catalog_items
@@ -316,7 +317,7 @@ def purge_quote_deleted_catalog_items(project_id, quote_id):
 def quote_pdf(project_id, quote_id):
     project = next((item for item in load("projects") if item["id"] == project_id), None)
     quote = next((item for item in load("quotes") if item["id"] == quote_id), None)
-    if not project or not quote:
+    if not project or not quote or quote.get("project_id") != project_id:
         flash("Cotización no encontrada.", "danger")
         return redirect(url_for("dashboard"))
     hydrated = hydrate_quote(quote, *catalog_maps())
@@ -633,7 +634,7 @@ def quote_resumen(project_id, quote_id):
 def quote_resumen_pdf(project_id, quote_id):
     project = next((item for item in load("projects") if item["id"] == project_id), None)
     quote = next((item for item in load("quotes") if item["id"] == quote_id), None)
-    if not project or not quote:
+    if not project or not quote or quote.get("project_id") != project_id:
         flash("Cotización no encontrada.", "danger")
         return redirect(url_for("dashboard"))
     hydrated = hydrate_quote(quote, *catalog_maps())
@@ -664,7 +665,7 @@ def quote_resumen_excel(project_id, quote_id):
         return redirect(url_for("quotes_bp.quote_resumen", project_id=project_id, quote_id=quote_id))
     project = next((item for item in load("projects") if item["id"] == project_id), None)
     quote = next((item for item in load("quotes") if item["id"] == quote_id), None)
-    if not project or not quote:
+    if not project or not quote or quote.get("project_id") != project_id:
         flash("Cotización no encontrada.", "danger")
         return redirect(url_for("dashboard"))
     hydrated = hydrate_quote(quote, *catalog_maps())
@@ -691,37 +692,41 @@ def quote_resumen_excel(project_id, quote_id):
 
 @bp.route("/projects/<project_id>/quote/<quote_id>/csv", endpoint="quote_csv_export")
 def quote_csv_export(project_id, quote_id):
-    from flask import Response
     project = next((item for item in load("projects") if item["id"] == project_id), None)
     quote = next((item for item in load("quotes") if item["id"] == quote_id), None)
     if not project or not quote or quote.get("project_id") != project_id:
         flash("Cotización no encontrada.", "danger")
         return redirect(url_for("dashboard"))
     hydrated = hydrate_quote(quote, *catalog_maps())
+
+    def _csv_escape(value):
+        return str(value or "").replace('"', '""')
+
     lines = []
-    lines.append(f"#proyecto_clave,{project.get('clave', '')}")
-    lines.append(f"#quote_type,{hydrated.get('quote_type', 'General')}")
-    lines.append(f"#fecha,{hydrated.get('date', '')}")
-    lines.append(f"#version,{hydrated.get('version', '')}")
-    lines.append(f"#currency,{hydrated.get('currency', 'MXN')}")
+    lines.append(f'#proyecto_clave,"{_csv_escape(project.get("clave", ""))}"')
+    lines.append(f'#quote_type,"{_csv_escape(hydrated.get("quote_type", "General"))}"')
+    lines.append(f'#fecha,"{_csv_escape(hydrated.get("date", ""))}"')
+    lines.append(f'#version,"{_csv_escape(hydrated.get("version", ""))}"')
+    lines.append(f'#currency,"{_csv_escape(hydrated.get("currency", "MXN"))}"')
     lines.append("description,unit,qty,price,section")
     for item in hydrated.get("items", []):
         if item.get("kind") == "section":
-            section_name = (item.get("section") or "").replace('"', '""')
-            lines.append(f'"","","","","{section_name}"')
+            lines.append(f'"","","","","{_csv_escape(item.get("section"))}"')
             continue
-        desc = (item.get("description") or "").replace('"', '""')
-        unit = (item.get("unit") or "").replace('"', '""')
-        qty = item.get("qty", 0)
-        price = item.get("price", 0)
-        section = (item.get("section") or "").replace('"', '""')
-        lines.append(f'"{desc}","{unit}",{qty},{price},"{section}"')
+        lines.append(
+            f'"{_csv_escape(item.get("description"))}",'
+            f'"{_csv_escape(item.get("unit"))}",'
+            f'{item.get("qty", 0)},'
+            f'{item.get("price", 0)},'
+            f'"{_csv_escape(item.get("section"))}"'
+        )
     csv_content = "﻿" + "\n".join(lines) + "\n"
-    filename = f"{hydrated.get('quote_number', 'cotizacion')}.csv"
+    safe_name = "".join(c for c in hydrated.get("quote_number", "cotizacion") if c not in r'"\/:<>|?*')
+    filename = f"{safe_name}.csv"
     return Response(
         csv_content,
         mimetype="text/csv; charset=utf-8",
-        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+        headers={"Content-Disposition": f"attachment; filename*=UTF-8''{filename}"},
     )
 
 
@@ -733,7 +738,6 @@ def quote_duplicate(project_id, quote_id):
     if not project or not source:
         flash("Cotización no encontrada.", "danger")
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
-    import copy
     new_quote = copy.deepcopy(source)
     new_quote["id"] = new_id()
     base_number = source.get("quote_number", "COT")
@@ -746,6 +750,7 @@ def quote_duplicate(project_id, quote_id):
     new_quote["quote_number"] = candidate
     new_quote["approval_status"] = "draft"
     new_quote["created_at"] = today()
+    new_quote["valid_until"] = ""
     new_quote.pop("csv_origen", None)
     new_quote.pop("csv_sources", None)
     new_quote.pop("csv_metadata", None)

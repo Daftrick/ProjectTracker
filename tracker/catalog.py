@@ -238,11 +238,18 @@ def aggregate_quote_items(items):
     """Flattens sections and merges duplicate items (same catalog ID or description+unit), summing quantities."""
     seen = {}
     order = []
-    for item in items:
+    for idx, item in enumerate(items):
         if item.get("kind") == "section":
             continue
-        key = item.get("catalog_item_id") or \
-              f"{item.get('description', '').strip().lower()}|{item.get('unit', '').strip().lower()}"
+        desc = item.get("description", "").strip().lower()
+        unit = item.get("unit", "").strip().lower()
+        catalog_id = item.get("catalog_item_id", "").strip()
+        if catalog_id:
+            key = catalog_id
+        elif desc or unit:
+            key = f"{desc}|{unit}"
+        else:
+            key = f"__blank_{idx}__"
         if key in seen:
             seen[key]["qty"] = round(seen[key]["qty"] + safe_float(item.get("qty", 0)), 6)
             seen[key]["total"] = round(seen[key]["qty"] * safe_float(seen[key].get("price", 0)), 2)
