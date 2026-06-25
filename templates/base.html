@@ -413,14 +413,28 @@
   (function() {
     var STORAGE_KEY = 'pt_sb_collapsed';
     var body = document.body;
+    var mq = window.matchMedia('(max-width: 899px)');
 
-    if (localStorage.getItem(STORAGE_KEY) === '1') {
-      body.classList.add('sb-collapsed');
+    function applyState() {
+      if (mq.matches) {
+        body.classList.add('sb-collapsed');
+      } else {
+        if (localStorage.getItem(STORAGE_KEY) === '1') {
+          body.classList.add('sb-collapsed');
+        } else {
+          body.classList.remove('sb-collapsed');
+        }
+      }
     }
+
+    applyState();
+    mq.addEventListener('change', applyState);
 
     document.getElementById('sb-toggle').addEventListener('click', function() {
       body.classList.toggle('sb-collapsed');
-      localStorage.setItem(STORAGE_KEY, body.classList.contains('sb-collapsed') ? '1' : '0');
+      if (!mq.matches) {
+        localStorage.setItem(STORAGE_KEY, body.classList.contains('sb-collapsed') ? '1' : '0');
+      }
     });
   })();
 
