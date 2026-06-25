@@ -2,13 +2,17 @@
 {% block title %}Usuarios – Project Tracker{% endblock %}
 {% block page_title %}<i class="bi bi-people me-2 text-primary"></i>Gestión de usuarios{% endblock %}
 {% block topbar_actions %}
+  <a href="{{ url_for('auth_bp.backup_auth_db') }}"
+     class="btn btn-outline-secondary btn-sm" title="Descargar copia de seguridad de la base de datos de usuarios">
+    <i class="bi bi-download me-1"></i>Backup
+  </a>
   <a href="{{ url_for('auth_bp.new_user') }}" class="btn btn-primary btn-sm">
     <i class="bi bi-plus-lg me-1"></i>Nuevo usuario
   </a>
 {% endblock %}
 
 {% block content %}
-<div class="card">
+<div class="card mb-4">
   <div class="card-header">
     <i class="bi bi-people me-2"></i>Usuarios del sistema
   </div>
@@ -19,6 +23,7 @@
           <th>Usuario</th>
           <th>Rol</th>
           <th>Estado</th>
+          <th>Último acceso</th>
           <th>Creado</th>
           <th></th>
         </tr>
@@ -27,13 +32,32 @@
         {% for u in users %}
         <tr>
           <td class="fw-semibold font-monospace">{{ u.username }}</td>
+
+          {# Rol editable inline (solo para otros usuarios) #}
           <td>
-            {% if u.role == 'admin' %}
-              <span class="badge" style="background:rgba(90,130,200,.2);color:#7aa0d8">Admin</span>
+            {% if u.id != current_user.id %}
+            <form method="post" action="{{ url_for('auth_bp.edit_user_role', user_id=u.id) }}"
+                  class="d-flex align-items-center gap-1">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <select name="role" class="form-select form-select-sm"
+                      style="width:auto;min-width:110px;font-size:.78rem"
+                      onchange="this.form.submit()">
+                {% for r in roles %}
+                <option value="{{ r }}" {% if u.role == r %}selected{% endif %}>
+                  {{ r.capitalize() }}
+                </option>
+                {% endfor %}
+              </select>
+            </form>
             {% else %}
-              <span class="badge" style="background:rgba(255,255,255,.07);color:#8a9298">Cotizador</span>
+              {% if u.role == 'admin' %}
+                <span class="badge" style="background:rgba(90,130,200,.2);color:#7aa0d8">Admin</span>
+              {% else %}
+                <span class="badge" style="background:rgba(255,255,255,.07);color:#8a9298">{{ u.role.capitalize() }}</span>
+              {% endif %}
             {% endif %}
           </td>
+
           <td>
             {% if u.active %}
               <span class="badge" style="background:rgba(40,90,60,.4);color:#7aaa90"><i class="bi bi-check-circle me-1"></i>Activo</span>
@@ -41,10 +65,15 @@
               <span class="badge" style="background:rgba(150,80,80,.25);color:#b09090"><i class="bi bi-x-circle me-1"></i>Inactivo</span>
             {% endif %}
           </td>
+
+          <td><small class="text-muted">{{ u.last_login or '—' }}</small></td>
           <td><small class="text-muted">{{ u.created_at or '—' }}</small></td>
+
           <td class="text-end">
             <div class="d-flex gap-2 justify-content-end">
               {% if u.id != current_user.id %}
+
+              {# Activar / Desactivar #}
               <form method="post" action="{{ url_for('auth_bp.toggle_user', user_id=u.id) }}">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 {% if u.active %}
@@ -60,7 +89,19 @@
                   </button>
                 {% endif %}
               </form>
+
+              {# Permisos (solo si no es admin) #}
+              {% if u.role != 'admin' %}
+              <button class="btn btn-sm btn-outline-info"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalPermisos-{{ u.id }}"
+                      title="Editar permisos">
+                <i class="bi bi-shield-check"></i>
+              </button>
               {% endif %}
+
+              {% endif %}{# fin if u.id != current_user.id #}
+
               <a href="{{ url_for('auth_bp.reset_password', user_id=u.id) }}"
                  class="btn btn-sm btn-outline-secondary">
                 <i class="bi bi-key me-1"></i>Contraseña
@@ -69,10 +110,91 @@
           </td>
         </tr>
         {% else %}
-        <tr><td colspan="5" class="text-center text-muted py-4">No hay usuarios registrados.</td></tr>
+        <tr><td colspan="6" class="text-center text-muted py-4">No hay usuarios registrados.</td></tr>
         {% endfor %}
       </tbody>
     </table>
+  </div>
+</div>
+
+{# ── Modales de permisos ── #}
+{% for u in users %}
+{% if u.id != current_user.id and u.role != 'admin' %}
+<div class="modal fade" id="modalPermisos-{{ u.id }}" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="bi bi-shield-check me-2"></i>Permisos — <span class="font-monospace">{{ u.username }}</span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="post" action="{{ url_for('auth_bp.edit_user_permissions', user_id=u.id) }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="modal-body">
+          <p class="text-muted small mb-3">Los administradores siempre tienen acceso total. Estos permisos aplican solo a usuarios con rol cotizador.</p>
+          <div class="row g-2">
+            {% set perm_labels = {
+              'edit_projects':  ('bi-pencil-square',   'Editar proyectos'),
+              'manage_tasks':   ('bi-list-check',      'Gestionar tareas'),
+              'upload_files':   ('bi-cloud-upload',    'Subir archivos'),
+              'download_files': ('bi-cloud-download',  'Descargar archivos'),
+              'view_quotes':    ('bi-eye',             'Ver cotizaciones'),
+              'edit_quotes':    ('bi-file-earmark-text','Editar cotizaciones'),
+            } %}
+            {% for perm in known_permissions %}
+            {% set icon, label = perm_labels.get(perm, ('bi-check', perm)) %}
+            <div class="col-6">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox"
+                       name="{{ perm }}" value="1" id="perm-{{ u.id }}-{{ perm }}"
+                       {% if u.permissions.get(perm) %}checked{% endif %}>
+                <label class="form-check-label small" for="perm-{{ u.id }}-{{ perm }}">
+                  <i class="bi {{ icon }} me-1"></i>{{ label }}
+                </label>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary btn-sm">
+            <i class="bi bi-check-lg me-1"></i>Guardar permisos
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+
+{# ── Recuperación de admin ── #}
+<div class="accordion" id="accordionRecuperacion">
+  <div class="accordion-item" style="background:transparent;border:1px solid #2e3850">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="#collapseRecuperacion"
+              style="background:transparent;color:#8a9298;font-size:.85rem">
+        <i class="bi bi-life-preserver me-2"></i>¿Perdiste acceso de administrador?
+      </button>
+    </h2>
+    <div id="collapseRecuperacion" class="accordion-collapse collapse">
+      <div class="accordion-body" style="font-size:.85rem;color:#8a9298">
+        <p class="mb-2">Si el admin quedó bloqueado, recupéralo desde Railway sin tocar la base de datos:</p>
+        <ol class="mb-2">
+          <li>En <strong>Railway Dashboard → tu proyecto → Variables</strong>, agrega:</li>
+        </ol>
+        <pre class="p-2 rounded mb-2" style="background:#0d1117;font-size:.8rem">PROJECT_TRACKER_ADMIN_PASSWORD=tu-nueva-contraseña
+PROJECT_TRACKER_ADMIN_RESET=1</pre>
+        <ol start="2" class="mb-2">
+          <li>Haz un <strong>Redeploy</strong> (o espera el próximo deploy).</li>
+          <li>Inicia sesión con el usuario <code>admin</code> y la contraseña nueva.</li>
+          <li><strong>Importante:</strong> elimina la variable <code>PROJECT_TRACKER_ADMIN_RESET</code> después, o la contraseña se sobreescribirá en cada deploy.</li>
+        </ol>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}

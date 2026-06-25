@@ -1,14 +1,22 @@
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+import json
+
+from flask import Blueprint, flash, redirect, render_template, request, send_file, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 
 from ..auth import (
+    AUTH_DB,
+    KNOWN_PERMISSIONS,
     admin_required,
     create_user,
     get_all_users,
+    record_login,
     reset_user_password,
     set_user_active,
+    set_user_permissions,
+    update_user_role,
     verify_credentials,
 )
+from ..storage import today
 
 bp = Blueprint("auth_bp", __name__)
 
@@ -26,6 +34,7 @@ def login():
         user = verify_credentials(username, password)
         if user:
             login_user(user)
+            record_login(user.id)
             next_url = request.args.get("next") or url_for("dashboard")
             return redirect(next_url)
         error = "Credenciales incorrectas o cuenta desactivada."
@@ -43,7 +52,18 @@ def logout():
 @bp.route("/usuarios", methods=["GET"], endpoint="users")
 @admin_required
 def users():
-    return render_template("users.html", users=get_all_users(), roles=ROLES)
+    raw = get_all_users()
+    for u in raw:
+        try:
+            u["permissions"] = json.loads(u.get("permissions") or "{}")
+        except (ValueError, TypeError):
+            u["permissions"] = {}
+    return render_template(
+        "users.html",
+        users=raw,
+        roles=ROLES,
+        known_permissions=KNOWN_PERMISSIONS,
+    )
 
 
 @bp.route("/usuarios/nuevo", methods=["GET", "POST"], endpoint="new_user")
@@ -85,6 +105,38 @@ def toggle_user(user_id):
     set_user_active(user_id, active_str == "1")
     flash("Estado de usuario actualizado.", "success")
     return redirect(url_for("auth_bp.users"))
+
+
+@bp.route("/usuarios/<int:user_id>/edit-role", methods=["POST"], endpoint="edit_user_role")
+@admin_required
+def edit_user_role(user_id):
+    role = request.form.get("role", "cotizador")
+    if role not in ROLES:
+        flash("Rol inválido.", "warning")
+        return redirect(url_for("auth_bp.users"))
+    update_user_role(user_id, role)
+    flash("Rol actualizado.", "success")
+    return redirect(url_for("auth_bp.users"))
+
+
+@bp.route("/usuarios/<int:user_id>/edit-permissions", methods=["POST"], endpoint="edit_user_permissions")
+@admin_required
+def edit_user_permissions(user_id):
+    perms = {p: (request.form.get(p) == "1") for p in KNOWN_PERMISSIONS}
+    set_user_permissions(user_id, perms)
+    flash("Permisos actualizados.", "success")
+    return redirect(url_for("auth_bp.users"))
+
+
+@bp.route("/admin/backup/auth-db", methods=["GET"], endpoint="backup_auth_db")
+@admin_required
+def backup_auth_db():
+    return send_file(
+        AUTH_DB,
+        as_attachment=True,
+        download_name=f"auth-backup-{today()}.db",
+        mimetype="application/octet-stream",
+    )
 
 
 @bp.route("/mi-cuenta/contrasena", methods=["GET", "POST"], endpoint="change_own_password")
