@@ -51,9 +51,9 @@ def _safe_text(text):
 
 
 def _register_dejavu(pdf):
-    """Registra las fuentes DejaVu guardadas en .codex_tmp/fonts/ del proyecto.
+    """Registra las fuentes DejaVu en tracker/fonts/.
     Devuelve False si no estan disponibles para que el caller falle con un error claro."""
-    font_dir = os.path.join(BASE_DIR, ".codex_tmp", "fonts")
+    font_dir = os.path.join(os.path.dirname(__file__), "fonts")
     regular = os.path.join(font_dir, "DejaVuSans.ttf")
     bold = os.path.join(font_dir, "DejaVuSans-Bold.ttf")
     oblique = os.path.join(font_dir, "DejaVuSans-Oblique.ttf")
