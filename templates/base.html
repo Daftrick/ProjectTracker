@@ -148,6 +148,7 @@
     .table td       { vertical-align:middle;font-size:.875rem;
                       border-bottom:1px solid rgba(255,255,255,.09); }
     .table tbody tr:last-child td { border-bottom:none; }
+    .table tbody tr:hover { box-shadow:inset 3px 0 0 var(--acc); }
     .table-light    { --bs-table-bg:#141c30!important;color:#9aa4b4!important; }
     /* Checkboxes */
     .form-check-input {
@@ -475,6 +476,14 @@
   })();
 </script>
 {% block extra_js %}{% endblock %}
+<script>
+// Prevent accidental value changes when scrolling over number inputs
+document.addEventListener('wheel', function(e) {
+  if (e.target.tagName === 'INPUT' && e.target.type === 'number') {
+    e.target.blur();
+  }
+}, { passive: true });
+</script>
 <script>
 // Covers all existing templates without requiring individual changes.
 (function () {

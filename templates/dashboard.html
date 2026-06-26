@@ -62,6 +62,12 @@
 {% endif %}
 
 {% if active %}
+{% set ns = namespace(total=0) %}
+{% for p in active %}{% set ns.total = ns.total + (p.consistency.quote_base_subtotal or 0) + (p.consistency.quote_extras_subtotal or 0) %}{% endfor %}
+<div class="d-flex gap-4 mb-3 px-1" style="font-size:.82rem">
+  <span><span class="text-muted">Proyectos activos:</span> <span class="fw-semibold">{{ active|length }}</span></span>
+  <span><span class="text-muted">Total cotizado:</span> <span class="fw-semibold text-success">{{ ns.total | currency }}</span></span>
+</div>
 <h6 class="text-muted mb-3 fw-semibold">ACTIVOS — {{ active|length }}</h6>
 <div class="row g-3 mb-4">
   {% for p in active %}

@@ -16,13 +16,14 @@
 <div class="container-fluid px-3 py-3" style="max-width:900px">
 
   {# Encabezado de la cotización #}
-  <div class="card mb-3">
+  <div class="card mb-3" style="border-left:4px solid #5a82c8">
     <div class="card-body py-2">
       <div class="row g-2 small text-muted">
         <div class="col-6 col-md-3"><strong>Cotización:</strong> {{ quote.quote_number }}</div>
         <div class="col-6 col-md-3"><strong>Tipo:</strong> {{ quote.get('quote_type','General') }}</div>
         <div class="col-6 col-md-3"><strong>Fecha:</strong> {{ quote.date | fdate }}</div>
         <div class="col-6 col-md-3"><strong>Moneda:</strong> {{ quote.currency }}</div>
+        <div class="col-6 col-md-3"><strong>Partidas:</strong> {{ quote['items']|length }}</div>
         {% if quote.client %}<div class="col-12"><strong>Cliente:</strong> {{ quote.client }}</div>{% endif %}
         {% if quote.project_name %}<div class="col-12"><strong>Proyecto:</strong> {{ quote.project_name }}</div>{% endif %}
       </div>
@@ -84,8 +85,8 @@
           <td class="text-end">{{ quote.tax | currency }} {{ quote.currency }}</td>
         </tr>
         <tr class="table-success">
-          <td class="text-end fw-bold">TOTAL</td>
-          <td class="text-end fw-bold">{{ quote.total | currency }} {{ quote.currency }}</td>
+          <td class="text-end fw-bold fs-6">TOTAL</td>
+          <td class="text-end fw-bold fs-6">{{ quote.total | currency }} {{ quote.currency }}</td>
         </tr>
       </tbody>
     </table>

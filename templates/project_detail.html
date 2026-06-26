@@ -1,8 +1,20 @@
 {% extends "base.html" %}
 {% block title %}{{ project.name }} – Project Tracker{% endblock %}
 {% block page_title %}
-  <span class="font-monospace text-primary me-2">{{ project.clave }}</span>{{ project.name }}
-  {% if project.closed_at %}<span class="badge bg-secondary ms-2">Cerrado</span>{% endif %}
+<nav aria-label="breadcrumb" style="font-size:.85rem;margin-bottom:-2px">
+  <ol class="breadcrumb mb-0">
+    <li class="breadcrumb-item">
+      <a href="{{ url_for('dashboard') }}" class="text-muted text-decoration-none">
+        <i class="bi bi-grid-1x2 me-1"></i>Proyectos
+      </a>
+    </li>
+    <li class="breadcrumb-item active">
+      <span class="font-monospace">{{ project.clave }}</span>
+      <span class="ms-1">{{ project.name }}</span>
+      {% if project.closed_at %}<span class="badge bg-secondary ms-2">Cerrado</span>{% endif %}
+    </li>
+  </ol>
+</nav>
 {% endblock %}
 {% block topbar_actions %}
   <a href="{{ url_for('dashboard') }}" class="btn btn-sm btn-outline-secondary me-2">
@@ -541,6 +553,19 @@
     {% endif %}
   </div>
   {% if quotes %}
+  {# ── Totales rápidos ── #}
+  {% set ns = namespace(aprobado=0, borradores=0) %}
+  {% for row in quote_rows %}
+    {% if row.approval == 'active' %}{% set ns.aprobado = ns.aprobado + row.quote.total %}
+    {% else %}{% set ns.borradores = ns.borradores + row.quote.total %}{% endif %}
+  {% endfor %}
+  <div class="d-flex align-items-center gap-3 mb-2 px-1" style="font-size:.82rem">
+    <span class="text-muted">Aprobada:</span>
+    <span class="fw-bold text-success">{{ ns.aprobado | currency }}</span>
+    <span class="text-muted ms-2">Borradores:</span>
+    <span class="text-muted">{{ ns.borradores | currency }}</span>
+    <span class="text-muted ms-auto">{{ quote_rows | length }} cotización(es)</span>
+  </div>
   {# ── Filtros cotizaciones ── #}
   <div class="d-flex align-items-center gap-2 flex-wrap mb-2" id="quoteFilterBar">
     <small class="text-muted me-1">Tipo:</small>
@@ -567,7 +592,7 @@
         <tbody id="quoteFilterBody">
         {% for row in quote_rows %}
         {% set q = row.quote %}
-        <tr data-qtype="{{ q.get('quote_type','General') }}" data-qstatus="{{ q.get('approval_status','draft') }}">
+        <tr id="qrow-{{ q.id }}" data-qtype="{{ q.get('quote_type','General') }}" data-qstatus="{{ q.get('approval_status','draft') }}">
           <td>
             <span class="fw-semibold font-monospace">{{ q.quote_number }}</span>
             {% if row.deleted_catalog_count %}
@@ -691,9 +716,17 @@
     <i class="bi bi-funnel me-1"></i>Ninguna cotización coincide con los filtros activos.
   </div>
   {% else %}
-    <div class="text-center py-4 text-muted">
-      <i class="bi bi-receipt fs-2 d-block mb-2"></i>Sin cotizaciones. Crea la primera.
+  <div class="text-center py-5 text-muted">
+    <i class="bi bi-receipt fs-2 d-block mb-2 opacity-50"></i>
+    Sin cotizaciones aún.
+    {% if not project.closed_at %}
+    <div class="mt-2">
+      <a href="{{ url_for('new_quote', project_id=project.id) }}" class="btn btn-sm btn-outline-primary">
+        <i class="bi bi-plus-lg me-1"></i>Crear cotización
+      </a>
     </div>
+    {% endif %}
+  </div>
   {% endif %}
 </div>
 
@@ -1088,9 +1121,16 @@
     </div>
   </div>
   {% else %}
-  <div class="text-center py-4 text-muted">
-    <i class="bi bi-card-list fs-2 d-block mb-2"></i>
-    Sin listas de materiales. Crea la primera para enviar a un proveedor.
+  <div class="text-center py-5 text-muted">
+    <i class="bi bi-card-list fs-2 d-block mb-2 opacity-50"></i>
+    Sin listas de materiales aún.
+    {% if not project.closed_at %}
+    <div class="mt-2">
+      <a href="{{ url_for('new_ldm', project_id=project.id) }}" class="btn btn-sm btn-outline-warning">
+        <i class="bi bi-plus-lg me-1"></i>Nueva lista
+      </a>
+    </div>
+    {% endif %}
   </div>
   {% endif %}
 </div>
@@ -1971,5 +2011,21 @@
       if (e.key === "Escape") { e.preventDefault(); endEdit(cell, false); }
     });
   })();
+</script>
+<script>
+(function() {
+  var hash = location.hash;
+  if (!hash || !hash.startsWith('#qrow-')) return;
+  var row = document.getElementById(hash.slice(1));
+  if (!row) return;
+  var tabEl = document.getElementById('tab-quote-link');
+  if (tabEl) bootstrap.Tab.getOrCreateInstance(tabEl).show();
+  setTimeout(function() {
+    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    row.style.transition = 'background .2s';
+    row.style.background = 'rgba(90,130,200,.2)';
+    setTimeout(function() { row.style.background = ''; }, 2000);
+  }, 300);
+})();
 </script>
 {% endblock %}
