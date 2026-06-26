@@ -2,8 +2,6 @@ import os
 
 from flask import Flask, current_app, redirect, request, url_for
 from flask_login import current_user
-from flask_wtf.csrf import CSRFProtect
-
 from .auth import init_auth
 from .catalog import migrate_catalog_disciplina, migrate_catalog_fields, migrate_quote_approval
 from .company_config import get_company
@@ -15,9 +13,8 @@ from .routes.materials import bp as materials_bp
 from .routes.projects import bp as projects_bp
 from .routes.quotes import bp as quotes_bp
 from .routes.quotes_mobile import bp as quotes_mobile_bp
+from .extensions import csrf
 from .storage import BASE_DIR, DATA_DIR, load, save
-
-csrf = CSRFProtect()
 
 _LOGIN_EXEMPT = {"auth_bp.login", "auth_bp.logout", "static"}
 _DEFAULT_SECRET_KEY = "project-tracker-v2-2026"

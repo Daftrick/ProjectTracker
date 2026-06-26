@@ -16,6 +16,7 @@ from ..auth import (
     update_user_role,
     verify_credentials,
 )
+from ..extensions import csrf
 from ..storage import today
 
 bp = Blueprint("auth_bp", __name__)
@@ -42,6 +43,7 @@ def login():
 
 
 @bp.route("/logout", methods=["POST"], endpoint="logout")
+@csrf.exempt
 @login_required
 def logout():
     logout_user()
