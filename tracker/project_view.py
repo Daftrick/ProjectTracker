@@ -4,7 +4,6 @@ from .catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from .catalog import APPROVAL_ACTIVE, is_base_quote_type
 from .consistency import compute_consistency, pick_active_quote
 from .domain import check_blocked, get_progress
-from .utils import folder_name
 from .storage import load, today
 
 
@@ -210,8 +209,6 @@ def build_project_detail_context(project):
         and any(delivery.get("dtype") == "completa" for delivery in deliveries)
     )
 
-    drive_folder = folder_name(project)
-
     # Totales para el header del proyecto.
     # Se suma: la cotización base aprobada (General/Preliminar con approval_status='active')
     # más todas las Extraordinarias con approval_status='active'.
@@ -267,7 +264,6 @@ def build_project_detail_context(project):
         "team": load("team"),
         "today": today(),
         "today_short": date.today().strftime("%y%m%d"),
-        "folder_name": drive_folder,
         "file_ie": _ie_fallback,
         "file_xref": _xref_fallback,
         "active_base_quote": _active_base,

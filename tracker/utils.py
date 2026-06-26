@@ -34,10 +34,6 @@ def parse_float(value, default=0.0):
         return default
 
 
-def folder_name(project):
-    return f"IE-{project.get('folder_num', '000')}-{project['clave']}"
-
-
 def parse_csv_plano_filename(filename, clave=None):
     clave_pattern = re.escape(clave) if clave else r"(?P<clave>[A-Za-z0-9_-]+)"
     pattern = re.compile(

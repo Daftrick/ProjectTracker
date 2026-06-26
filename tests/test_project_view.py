@@ -73,7 +73,6 @@ class ProjectViewTest(unittest.TestCase):
         self.assertEqual(context["margen"], 600)
         self.assertEqual(context["ldm_rows"][0]["item_count"], 2)
         self.assertEqual(context["ldm_rows"][0]["deleted_catalog_count"], 1)
-        self.assertEqual(context["folder_name"], "IE-004-OM001")
         self.assertEqual(context["file_ie"], "IE-OM001-V2-260428.dwg")
         self.assertEqual(context["file_xref"], "XREF-OM001-V2-260428.dwg")
 
