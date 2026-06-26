@@ -125,7 +125,7 @@
           </tr>
         </thead>
         <tbody id="mapBody">
-          {% for item in session_data.items %}
+          {% for item in session_data['items'] %}
           {% set i = loop.index0 %}
           <tr class="map-row" id="row-{{ i }}">
             <td class="text-muted" style="font-size:.8rem">{{ loop.index }}</td>
