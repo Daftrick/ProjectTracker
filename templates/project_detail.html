@@ -80,13 +80,9 @@
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    gap:6px;
-    min-width:68px;
+    gap:3px;
   }
-  .action-btn .action-label{
-    font-size:.74rem;
-    line-height:1;
-  }
+  .action-label{ display:none; }
 
   /* ── Fila expandible de detalle ── */
   .detail-row { display:none; }
@@ -563,7 +559,7 @@
   </div>
   <div class="card">
     <div class="card-body p-0">
-      <table class="table mb-0">
+      <table class="table table-sm mb-0">
         <thead><tr>
           <th>Número</th><th>Tipo</th><th>Estado</th><th>Fecha</th><th class="text-end">Subtotal</th>
           <th class="text-end">IVA</th><th class="text-end">Total</th><th class="text-end">Acciones</th>
@@ -603,42 +599,42 @@
           <td class="text-end">{{ q.subtotal | currency }}</td>
           <td class="text-end text-muted">{{ q.tax | currency }}</td>
           <td class="text-end fw-bold text-success">{{ q.total | currency }} <small class="text-muted">{{ q.currency }}</small></td>
-          <td class="text-end">
+          <td class="text-end" style="white-space:nowrap">
             {# Ver → PDF inline en pestaña nueva #}
             <a href="{{ url_for('quote_pdf', project_id=project.id, quote_id=q.id) }}?inline=1"
                target="_blank"
-               class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Ver PDF"><i class="bi bi-eye"></i><span class="action-label">Ver</span></a>
+               class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Ver PDF"><i class="bi bi-eye"></i></a>
             {# Resumen #}
             <a href="{{ url_for('quotes_bp.quote_resumen', project_id=project.id, quote_id=q.id) }}"
-               class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Resumen sin secciones"><i class="bi bi-list-ul"></i><span class="action-label">Resumen</span></a>
+               class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Resumen sin secciones"><i class="bi bi-list-ul"></i></a>
             <a href="{{ url_for('quote_pdf', project_id=project.id, quote_id=q.id) }}"
-               class="btn btn-sm btn-outline-success me-1 action-btn" title="Descargar PDF"><i class="bi bi-file-earmark-pdf"></i><span class="action-label">PDF</span></a>
+               class="btn btn-sm btn-outline-success me-1 action-btn" title="Descargar PDF"><i class="bi bi-file-earmark-pdf"></i></a>
             <a href="{{ url_for('quotes_bp.quote_excel', project_id=project.id, quote_id=q.id) }}"
-               class="btn btn-sm btn-outline-success me-1 action-btn" title="Descargar Excel"><i class="bi bi-file-earmark-spreadsheet"></i><span class="action-label">Excel</span></a>
+               class="btn btn-sm btn-outline-success me-1 action-btn" title="Descargar Excel"><i class="bi bi-file-earmark-spreadsheet"></i></a>
             {% if not project.closed_at %}
             <form method="post"
                   action="{{ url_for('quotes_bp.approve_quote', project_id=project.id, quote_id=q.id) }}"
                   class="d-inline">
               {% if row.approval == 'active' and not row.is_extra %}
                 <button type="button" class="btn btn-sm btn-success me-1 action-btn" disabled title="Cotización aprobada">
-                  <i class="bi bi-check-circle"></i><span class="action-label">Aprobada</span>
+                  <i class="bi bi-check-circle"></i>
                 </button>
               {% elif row.is_extra and row.approval == 'active' %}
                 <button type="submit" class="btn btn-sm btn-success me-1 action-btn" title="Desactivar extraordinaria">
-                  <i class="bi bi-toggle-on"></i><span class="action-label">Activa</span>
+                  <i class="bi bi-toggle-on"></i>
                 </button>
               {% elif row.is_extra %}
                 <button type="submit" class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Activar extraordinaria">
-                  <i class="bi bi-toggle-off"></i><span class="action-label">Activar</span>
+                  <i class="bi bi-toggle-off"></i>
                 </button>
               {% else %}
                 <button type="submit" class="btn btn-sm btn-outline-primary me-1 action-btn" title="Aprobar esta cotización como base del proyecto">
-                  <i class="bi bi-check-circle"></i><span class="action-label">Aprobar</span>
+                  <i class="bi bi-check-circle"></i>
                 </button>
               {% endif %}
             </form>
             <a href="{{ url_for('edit_quote', project_id=project.id, quote_id=q.id) }}"
-               class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Editar"><i class="bi bi-pencil"></i><span class="action-label">Editar</span></a>
+               class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Editar"><i class="bi bi-pencil"></i></a>
             {# Dropdown ··· para acciones menos frecuentes #}
             <div class="btn-group">
               <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle action-btn"
@@ -968,7 +964,7 @@
         <button class="btn btn-sm btn-link text-muted p-0 ms-1 d-none" id="ldmFilterClear"
                 title="Limpiar filtro">✕</button>
       </div>
-      <table class="table mb-0">
+      <table class="table table-sm mb-0">
         <thead class="table-light">
           <tr>
             <th>Lista</th>
@@ -1029,26 +1025,26 @@
             </button>
             {% endif %}
           </td>
-          <td class="text-end">
+          <td class="text-end" style="white-space:nowrap">
             <a href="{{ url_for('ldm_pdf', project_id=project.id, ldm_id=row.ldm.id) }}"
                class="btn btn-sm btn-outline-warning me-1 action-btn"
                title="Generar PDF en Drive">
-              <i class="bi bi-file-earmark-pdf"></i><span class="action-label">PDF</span>
+              <i class="bi bi-file-earmark-pdf"></i>
             </a>
             <a href="{{ url_for('ldm_csv', project_id=project.id, ldm_id=row.ldm.id) }}"
                class="btn btn-sm btn-outline-success me-1 action-btn"
                title="Exportar CSV de esta lista">
-              <i class="bi bi-filetype-csv"></i><span class="action-label">CSV</span>
+              <i class="bi bi-filetype-csv"></i>
             </a>
             {% if not project.closed_at %}
             <a href="{{ url_for('sync_ldm_bundles', project_id=project.id, ldm_id=row.ldm.id) }}"
                class="btn btn-sm btn-outline-primary me-1 action-btn"
                title="Revisar faltantes desde bundles">
-              <i class="bi bi-magic"></i><span class="action-label">Revisar</span>
+              <i class="bi bi-magic"></i>
             </a>
             <a href="{{ url_for('edit_ldm', project_id=project.id, ldm_id=row.ldm.id) }}"
                class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Editar">
-              <i class="bi bi-pencil"></i><span class="action-label">Editar</span>
+              <i class="bi bi-pencil"></i>
             </a>
             {% if row.deleted_catalog_count %}
             <form method="post"
@@ -1060,7 +1056,7 @@
                       data-confirm-body='<p class="mb-1">¿Purgar definitivamente <strong>{{ row.deleted_catalog_count }}</strong> artículo(s) marcados como catálogo eliminado de <strong>{{ row.ldm.ldm_number | e }}</strong>?</p><ul class="mb-0 small">{% for item in row.deleted_catalog_items %}{% set dc = item.deleted_catalog_item or {} %}<li class="text-muted">{{ (dc.nombre or item.description or "Artículo sin nombre") | e }}</li>{% endfor %}</ul>'
                       data-confirm-text="Purgar"
                       onclick="submitFormWithConfirm(this)">
-                <i class="bi bi-eraser"></i><span class="action-label">Purgar</span>
+                <i class="bi bi-eraser"></i>
               </button>
             </form>
             {% endif %}
@@ -1071,7 +1067,7 @@
                       data-confirm-title='Eliminar {{ row.ldm.ldm_number | e }}'
                       data-confirm-body='<dl class="row small mb-0">{% if row.ldm.proveedor %}<dt class="col-5">Proveedor</dt><dd class="col-7">{{ row.ldm.proveedor | e }}</dd>{% endif %}<dt class="col-5">Art\u00edculos</dt><dd class="col-7">{{ row.item_count }}</dd>{% if row.ldm.subtotal_cot %}<dt class="col-5">Costo</dt><dd class="col-7 fw-bold text-warning">{{ row.ldm.subtotal_cot | currency }}</dd>{% endif %}</dl>'
                       onclick="submitFormWithConfirm(this)">
-                <i class="bi bi-trash"></i><span class="action-label">Eliminar</span>
+                <i class="bi bi-trash"></i>
               </button>
             </form>
             {% endif %}
