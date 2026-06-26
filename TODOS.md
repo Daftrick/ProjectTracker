@@ -85,3 +85,27 @@ Requires `ntfy.sh` free account (or email alternative). Sends push notification 
 cloudflared access ssh-gen --hostname ssh.tracker.<tu-dominio>.com
 ```
 Then GitHub Action uses `appleboy/ssh-action` with the tunnel as ProxyCommand. More complex than the cron, but deploys in <1 min instead of <5 min.
+
+---
+
+## C.2 — Revit Schedule CSV importer
+
+**Source:** CEO plan 2026-06-25 (cotizaciones-costos-revit)
+**Status:** Diferido — aún no hay schedules de Revit configurados en producción.
+**Prerequisito:** Definir y exportar al menos un schedule de Revit con los artículos/familias del proyecto antes de implementar.
+
+### Flujo LDM (prioridad)
+- `parse_revit_schedule_csv(file)` — parser puro que lee el CSV de Revit y devuelve lista de `{description, unit, qty}`.
+- Formato típico de Revit: fila de título, fila vacía, fila de encabezados, filas de datos. Los encabezados a mapear son `Family and Type` → `description` y `Count` → `qty`. La unidad viene del catálogo o se ingresa manualmente.
+- Import inline en la pantalla de nueva LDM (similar al flujo CSV actual de AutoCAD).
+
+### Flujo COT (después del LDM)
+- Tabla de mapeo `Family and Type` → `bundle_id`, editable en admin (`/admin/revit-mappings`).
+- Al importar: las familias con mapeo → se expanden vía bundles → partidas de cotización. Las sin mapeo → se listan para asignar bundle o agregar directo.
+- UI sugerida: al importar, pantalla de revisión en dos columnas (mapeadas / sin mapear) antes de crear la cotización.
+
+### Consideraciones técnicas
+- El separador en `Family and Type` de Revit usa ` : ` (espacio-dos-puntos-espacio) entre familia y tipo. Normalizar para el matching.
+- Los schedules de Revit pueden tener filas de agrupación (e.g. `Family: Conduit`) que son encabezados de grupo, no datos — filtrar por `Count` vacío o cero.
+- Extensión natural de `tracker/csv_import.py` o nuevo `tracker/revit_import.py`.
+- Hook en `missing_ldm_items_from_bundles()` para el flujo LDM → COT inverso.
