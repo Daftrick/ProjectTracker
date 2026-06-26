@@ -199,6 +199,7 @@ def update_project(project_id):
         project["fecha"] = request.form.get("fecha", project["fecha"]).strip()
         project["notes"] = request.form.get("notes", "").strip()
         project["deadline"] = request.form.get("deadline", "").strip() or None
+        project["drive_url"] = request.form.get("drive_url", "").strip() or ""
         project["updated_at"] = today()
         save("projects", projects)
         flash("Proyecto actualizado.", "success")

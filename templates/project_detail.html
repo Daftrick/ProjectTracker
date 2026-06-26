@@ -1566,6 +1566,15 @@
               <label class="form-label">Notas</label>
               <textarea name="notes" class="form-control" rows="2">{{ project.notes }}</textarea>
             </div>
+            <div class="col-12">
+              <label class="form-label">
+                <i class="bi bi-folder2-open me-1 text-muted"></i>Carpeta Drive
+                <small class="text-muted fw-normal ms-1">(URL compartida, opcional)</small>
+              </label>
+              <input name="drive_url" class="form-control" type="url"
+                     value="{{ project.drive_url or '' }}"
+                     placeholder="https://drive.google.com/drive/folders/...">
+            </div>
           </div>
         </div>
         <div class="modal-footer">
