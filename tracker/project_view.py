@@ -4,7 +4,7 @@ from .catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from .catalog import APPROVAL_ACTIVE, is_base_quote_type
 from .consistency import compute_consistency, pick_active_quote
 from .domain import check_blocked, get_progress
-from .drive import folder_name
+from .utils import folder_name
 from .storage import load, today
 
 

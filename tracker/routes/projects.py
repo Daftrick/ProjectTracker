@@ -1,6 +1,4 @@
 import os
-import threading
-import time
 from datetime import date
 
 from flask import Blueprint, abort, flash, redirect, render_template, request, send_file, url_for
@@ -494,31 +492,3 @@ def project_progress_pdf(project_id):
     except Exception as exc:
         flash(f"Error al generar reporte: {exc}", "danger")
         return redirect(url_for("project_detail", project_id=project_id))
-
-
-
-@bp.route("/shutdown", methods=["POST"], endpoint="shutdown")
-def shutdown():
-    def stop_process():
-        time.sleep(0.4)
-        os._exit(0)
-
-    threading.Thread(target=stop_process, daemon=True).start()
-    return """<!doctype html><html><head><meta charset="utf-8">
-    <title>Cerrando…</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
-    <style>
-      body { margin:0; background:#060a14; color:#8a96ae;
-             display:flex; align-items:center; justify-content:center; height:100vh;
-             font-family:'Inconsolata',monospace; }
-      .icon { font-size:2.8rem; color:#4a5060; }
-      h5    { margin:.9rem 0 .35rem; font-size:1rem; color:#c0c8d8; font-weight:600; }
-      p     { font-size:.88rem; color:#606878; margin:0; }
-    </style>
-    </head><body>
-    <div style="text-align:center">
-      <i class="bi bi-power icon"></i>
-      <h5>Servidor detenido</h5>
-      <p>Puedes cerrar esta ventana.</p>
-    </div>
-    </body></html>"""

@@ -1,4 +1,6 @@
-"""Helpers de parseo de formularios compartidos entre validators, form_models y admin."""
+"""Helpers compartidos entre validators, form_models, admin y rutas."""
+import datetime
+import re
 
 
 def clean(value):
@@ -30,6 +32,33 @@ def parse_float(value, default=0.0):
         return float(raw)
     except ValueError:
         return default
+
+
+def folder_name(project):
+    return f"IE-{project.get('folder_num', '000')}-{project['clave']}"
+
+
+def parse_csv_plano_filename(filename, clave=None):
+    clave_pattern = re.escape(clave) if clave else r"(?P<clave>[A-Za-z0-9_-]+)"
+    pattern = re.compile(
+        rf"^(?P<project>{clave_pattern})-v(?P<version>\d+)-i(?P<consecutive>\d+)-(?P<date>\d{{8}})\.csv$",
+        re.IGNORECASE,
+    )
+    match = pattern.match(filename or "")
+    if not match:
+        return None
+    date_token = match.group("date")
+    try:
+        date_label = datetime.datetime.strptime(date_token, "%Y%m%d").strftime("%d/%m/%Y")
+    except ValueError:
+        date_label = date_token
+    return {
+        "project": match.group("project"),
+        "version": int(match.group("version")),
+        "consecutive": int(match.group("consecutive")),
+        "date": date_token,
+        "date_label": date_label,
+    }
 
 
 def deleted_catalog_item_at(ids, names, descriptions, units, prices, deleted_dates, index):

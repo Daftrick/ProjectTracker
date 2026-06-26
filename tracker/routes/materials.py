@@ -14,7 +14,7 @@ from ..consistency import pick_active_quote
 from ..csv_catalog_validation import validate_csv_catalog_items
 from ..csv_import import parse_ldm_csv
 from ..deletions import purge_deleted_catalog_items_from_record
-from ..drive import parse_csv_plano_filename
+from ..utils import parse_csv_plano_filename
 from ..form_models import ldm_from_form
 from ..ldm_sync import missing_ldm_items_from_bundles, selected_missing_bundle_items
 from ..pdfs import build_ldm_pdf
