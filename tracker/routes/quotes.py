@@ -85,6 +85,19 @@ def _quote_preview_from_csv(project, parsed, filename, quotes):
     )
 
 
+def _build_resumen(quote):
+    hydrated = hydrate_quote(quote, *catalog_maps())
+    agg_items = aggregate_quote_items(hydrated["items"])
+    subtotal = round(sum(safe_float(i.get("total", 0)) for i in agg_items), 2)
+    tax_rate = safe_float(hydrated.get("tax_rate", 16), 16)
+    resumen = dict(hydrated)
+    resumen["items"] = agg_items
+    resumen["subtotal"] = subtotal
+    resumen["tax"] = round(subtotal * tax_rate / 100, 2)
+    resumen["total"] = round(subtotal + resumen["tax"], 2)
+    return resumen
+
+
 @bp.route("/projects/<project_id>/quote/new", methods=["GET", "POST"], endpoint="new_quote")
 def new_quote(project_id):
     project = _find_project(project_id)
@@ -620,15 +633,7 @@ def quote_resumen(project_id, quote_id):
     if not project or not quote or quote.get("project_id") != project_id:
         flash("Cotización no encontrada.", "danger")
         return redirect(url_for("dashboard"))
-    hydrated = hydrate_quote(quote, *catalog_maps())
-    agg_items = aggregate_quote_items(hydrated["items"])
-    subtotal = round(sum(safe_float(i.get("total", 0)) for i in agg_items), 2)
-    tax_rate = safe_float(hydrated.get("tax_rate", 16), 16)
-    resumen = dict(hydrated)
-    resumen["items"] = agg_items
-    resumen["subtotal"] = subtotal
-    resumen["tax"] = round(subtotal * tax_rate / 100, 2)
-    resumen["total"] = round(subtotal + resumen["tax"], 2)
+    resumen = _build_resumen(quote)
     return render_template("quote_resumen.html", project=project, quote=resumen)
 
 
@@ -639,16 +644,8 @@ def quote_resumen_pdf(project_id, quote_id):
     if not project or not quote or quote.get("project_id") != project_id:
         flash("Cotización no encontrada.", "danger")
         return redirect(url_for("dashboard"))
-    hydrated = hydrate_quote(quote, *catalog_maps())
-    agg_items = aggregate_quote_items(hydrated["items"])
-    subtotal = round(sum(safe_float(i.get("total", 0)) for i in agg_items), 2)
-    tax_rate = safe_float(hydrated.get("tax_rate", 16), 16)
-    resumen = dict(hydrated)
-    resumen["items"] = agg_items
-    resumen["subtotal"] = subtotal
-    resumen["tax"] = round(subtotal * tax_rate / 100, 2)
-    resumen["total"] = round(subtotal + resumen["tax"], 2)
-    pdf_name = f"{hydrated.get('quote_number', 'COT')}-Resumen.pdf"
+    resumen = _build_resumen(quote)
+    pdf_name = f"{resumen.get('quote_number', 'COT')}-Resumen.pdf"
     try:
         pdf_bytes = build_quote_pdf(project, resumen)
         return send_file(BytesIO(pdf_bytes), as_attachment=True, download_name=pdf_name, mimetype="application/pdf")
@@ -670,15 +667,7 @@ def quote_resumen_excel(project_id, quote_id):
     if not project or not quote or quote.get("project_id") != project_id:
         flash("Cotización no encontrada.", "danger")
         return redirect(url_for("dashboard"))
-    hydrated = hydrate_quote(quote, *catalog_maps())
-    agg_items = aggregate_quote_items(hydrated["items"])
-    subtotal = round(sum(safe_float(i.get("total", 0)) for i in agg_items), 2)
-    tax_rate = safe_float(hydrated.get("tax_rate", 16), 16)
-    resumen = dict(hydrated)
-    resumen["items"] = agg_items
-    resumen["subtotal"] = subtotal
-    resumen["tax"] = round(subtotal * tax_rate / 100, 2)
-    resumen["total"] = round(subtotal + resumen["tax"], 2)
+    resumen = _build_resumen(quote)
     try:
         wb, filename = _build_quote_workbook(project, resumen, Workbook, Alignment, Font)
         buf = BytesIO()

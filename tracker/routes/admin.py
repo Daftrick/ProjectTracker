@@ -16,6 +16,7 @@ from ..catalog_search import filter_catalog, list_categories
 from ..deletions import delete_catalog_items_data
 from ..domain import TIPOS_FICHA
 from ..storage import load, new_id, save, today
+from ..utils import clean as _clean, parse_float as _parse_float
 
 # Tope de resultados para autocompletado inline en COT y LDM. Se mantiene
 # moderado para no devolver listas larguísimas; si se queda corto se puede
@@ -25,10 +26,6 @@ API_CATALOG_LIMIT = 50
 DISCIPLINAS = ["instalaciones", "arquitectura", "estructura", "otros"]
 
 bp = Blueprint("admin_bp", __name__)
-
-
-def _clean(value):
-    return str(value or "").strip()
 
 
 def _require_admin_post(redirect_endpoint):
@@ -364,16 +361,6 @@ def _catalog_sorted_by_name():
         load("catalogo"),
         key=lambda item: str(item.get("nombre", "")).casefold(),
     )
-
-
-def _parse_float(value, default=0.0):
-    raw = _clean(value).replace(",", ".")
-    if not raw:
-        return default
-    try:
-        return float(raw)
-    except ValueError:
-        return default
 
 
 def _parse_components(form):

@@ -1,5 +1,6 @@
 from .catalog import quote_type_code, quote_type_key
 from .storage import today
+from .utils import deleted_catalog_item_at as _deleted_catalog_item_at
 
 
 def quote_default_numbers(project, quotes, quote_id=None):
@@ -155,15 +156,3 @@ def _to_float(value, default=0):
         return default
 
 
-def _deleted_catalog_item_at(ids, names, descriptions, units, prices, deleted_dates, index):
-    deleted_id = ids[index].strip() if index < len(ids) else ""
-    if not deleted_id:
-        return None
-    return {
-        "id": deleted_id,
-        "nombre": names[index].strip() if index < len(names) else "",
-        "descripcion": descriptions[index].strip() if index < len(descriptions) else "",
-        "unidad": units[index].strip() if index < len(units) else "",
-        "precio": _to_float(prices[index], 0) if index < len(prices) else 0,
-        "deleted_at": deleted_dates[index].strip() if index < len(deleted_dates) else "",
-    }

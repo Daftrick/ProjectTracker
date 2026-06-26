@@ -2,32 +2,14 @@ import re
 from datetime import datetime
 
 from .catalog import catalog_maps, hydrate_ldm_item, hydrate_quote_item, quote_type_key
+from .utils import clean as _clean, deleted_catalog_item_at as _deleted_catalog_item_at, parse_form_float as _parse_float
 
 VALID_CURRENCIES = {"MXN", "USD", "EUR"}
 PROJECT_DATE_RE = re.compile(r"^\d{6}$")
 
 
-def _clean(value):
-    return str(value or "").strip()
-
-
 def _is_blank(value):
     return _clean(value) == ""
-
-
-def _parse_float(value, field_label, errors, row=None, default=0.0, field_errors=None, field_key=None):
-    raw = _clean(value)
-    if raw == "":
-        return default
-    try:
-        return float(raw.replace(",", "."))
-    except ValueError:
-        prefix = f"Fila {row}: " if row else ""
-        message = f"{prefix}{field_label} debe ser un número válido."
-        errors.append(message)
-        if field_errors is not None and field_key:
-            field_errors.setdefault(field_key, message)
-        return default
 
 
 def _validate_iso_date(value, field_label, errors, field_errors=None, field_key=None):
@@ -60,20 +42,6 @@ def _validate_optional_iso_date(value, field_label, errors, field_errors=None, f
         if field_errors is not None and field_key:
             field_errors.setdefault(field_key, message)
     return cleaned
-
-
-def _deleted_catalog_item_at(ids, names, descriptions, units, prices, deleted_dates, index):
-    deleted_id = _clean(ids[index]) if index < len(ids) else ""
-    if not deleted_id:
-        return None
-    return {
-        "id": deleted_id,
-        "nombre": _clean(names[index]) if index < len(names) else "",
-        "descripcion": _clean(descriptions[index]) if index < len(descriptions) else "",
-        "unidad": _clean(units[index]) if index < len(units) else "",
-        "precio": _parse_float(prices[index], "precio de catálogo eliminado", [], default=0) if index < len(prices) else 0,
-        "deleted_at": _clean(deleted_dates[index]) if index < len(deleted_dates) else "",
-    }
 
 
 def validate_project_form(form, selected_alcances, allowed_alcances):
