@@ -88,6 +88,31 @@ Then GitHub Action uses `appleboy/ssh-action` with the tunnel as ProxyCommand. M
 
 ---
 
+## C.3 — AutoCAD bloques SOPORTE-* + LISP colector
+
+**Source:** CEO plan 2026-06-25
+**Status:** Diferido — esquema de bloques SOPORTE-* aún en diseño.
+**Prerequisito:** Definir y crear la familia de bloques SOPORTE-* en AutoCAD antes de escribir el LISP.
+
+### Diseño recomendado de bloques
+- Nombre del bloque implica el tipo: `SOPORTE-CONDUIT-1P`, `SOPORTE-CONDUIT-2P`, `SOPORTE-BANDEJA-6IN`, etc.
+- Sin atributos de cantidad — cada inserción representa una unidad. El LISP cuenta inserciones.
+- Prefijo `SOPORTE-` garantiza que el LISP filtre solo los bloques relevantes.
+
+### LISP colector (`soporte-count.lsp`)
+- Itera todas las inserciones de bloque en el dibujo con `ssget "X" '((0 . "INSERT"))`.
+- Filtra bloques cuyo nombre empieza con `SOPORTE-` (case-insensitive).
+- Acumula conteo por nombre de bloque en una association list.
+- Escribe CSV a archivo: `nombre_bloque,cantidad` — una fila por tipo.
+- Output: `<nombre_dwg>-soportes.csv` en la misma carpeta del DWG.
+
+### Import en la app
+- Nuevo endpoint `POST /projects/<id>/import-soportes-csv` (o en nueva LDM).
+- `parse_soporte_csv(file)` mapea `nombre_bloque` → catalog item vía tabla de mapeo (misma lógica que C.2 COT).
+- Mismo pipeline que C.2 una vez que el CSV llega a la app.
+
+---
+
 ## C.2 — Revit Schedule CSV importer
 
 **Source:** CEO plan 2026-06-25 (cotizaciones-costos-revit)
