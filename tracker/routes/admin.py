@@ -1,7 +1,9 @@
-from flask import Blueprint, current_app, flash, jsonify, redirect, render_template, request, url_for
-from flask_login import current_user
+import os
 
-from ..auth import admin_required
+from flask import Blueprint, current_app, flash, jsonify, redirect, render_template, request, url_for
+from flask_login import current_user, logout_user
+
+from ..auth import admin_required, AUTH_DB, init_db
 
 from ..bundles import (
     activate_bundle_version,
@@ -15,7 +17,7 @@ from ..admin_filters import filter_fichas, filter_proveedores, list_field_values
 from ..catalog_search import filter_catalog, list_categories
 from ..deletions import delete_catalog_items_data
 from ..domain import TIPOS_FICHA
-from ..storage import load, new_id, save, today
+from ..storage import DATA_DIR, FILES, load, new_id, save, today
 from ..utils import clean as _clean, parse_float as _parse_float
 
 # Tope de resultados para autocompletado inline en COT y LDM. Se mantiene
@@ -903,3 +905,31 @@ def quote_templates():
         flash("Plantillas de cotización guardadas.", "success")
         return redirect(url_for("admin_bp.quote_templates"))
     return render_template("quote_templates.html", templates=current, quote_types=_QUOTE_TYPES, specs_fields=_SPECS_FIELDS)
+
+
+@bp.route("/reset-data", methods=["GET", "POST"], endpoint="reset_data")
+@admin_required
+def reset_data():
+    if request.method == "POST":
+        if request.form.get("confirm") != "REINICIAR":
+            flash("Confirmación incorrecta. Escribe exactamente: REINICIAR", "danger")
+            return redirect(url_for("admin_bp.reset_data"))
+        for path in FILES.values():
+            try:
+                os.remove(path)
+            except FileNotFoundError:
+                pass
+        for extra in ("config.json", "documents.json"):
+            try:
+                os.remove(os.path.join(DATA_DIR, extra))
+            except FileNotFoundError:
+                pass
+        try:
+            os.remove(AUTH_DB)
+        except FileNotFoundError:
+            pass
+        init_db()
+        logout_user()
+        flash("Aplicación reiniciada. Inicia sesión con las credenciales por defecto.", "success")
+        return redirect(url_for("auth_bp.login"))
+    return render_template("reset_data.html")

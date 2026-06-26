@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Reiniciar aplicación{% endblock %}
+{% block page_title %}<i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Reiniciar aplicación{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 py-4" style="max-width:520px">
+  <div class="card border-danger">
+    <div class="card-header bg-danger bg-opacity-10 border-danger">
+      <strong class="text-danger">Acción irreversible</strong>
+    </div>
+    <div class="card-body">
+      <p class="mb-3">Esto eliminará <strong>todos los datos</strong> de la aplicación:</p>
+      <ul class="small text-muted mb-4">
+        <li>Proyectos, tareas y entregas</li>
+        <li>Cotizaciones y listas de materiales</li>
+        <li>Catálogo, proveedores y fichas técnicas</li>
+        <li>Bundles, plantillas y configuración</li>
+        <li>Todos los usuarios (excepto el admin por defecto)</li>
+      </ul>
+      <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="mb-3">
+          <label class="form-label fw-semibold">
+            Escribe <code class="text-danger">REINICIAR</code> para confirmar:
+          </label>
+          <input type="text" name="confirm" class="form-control"
+                 placeholder="REINICIAR" autocomplete="off" autofocus>
+        </div>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-danger">
+            <i class="bi bi-trash3 me-1"></i>Reiniciar todo
+          </button>
+          <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
