@@ -1,6 +1,10 @@
 import os
 
-from flask import Blueprint, current_app, flash, jsonify, redirect, render_template, request, url_for
+import csv as _csv
+import io
+import zipfile
+
+from flask import Blueprint, current_app, flash, jsonify, redirect, render_template, request, send_file, url_for
 from flask_login import current_user, logout_user
 
 from ..auth import admin_required, AUTH_DB, init_db
@@ -905,6 +909,99 @@ def quote_templates():
         flash("Plantillas de cotización guardadas.", "success")
         return redirect(url_for("admin_bp.quote_templates"))
     return render_template("quote_templates.html", templates=current, quote_types=_QUOTE_TYPES, specs_fields=_SPECS_FIELDS)
+
+
+@bp.route("/export", methods=["GET"], endpoint="export_data")
+@admin_required
+def export_data():
+    from openpyxl import Workbook
+    from openpyxl.styles import Alignment, Font
+    from ..catalog import catalog_maps, hydrate_ldm, hydrate_quote
+    from ..pdfs import build_ldm_pdf, build_quote_pdf
+    from .quotes import _build_quote_workbook
+
+    projects  = load("projects")
+    quotes    = load("quotes")
+    ldms      = load("materiales")
+    cat_maps  = catalog_maps()
+
+    quotes_by_project = {}
+    for q in quotes:
+        quotes_by_project.setdefault(q.get("project_id"), []).append(q)
+    ldms_by_project = {}
+    for ldm in ldms:
+        ldms_by_project.setdefault(ldm.get("project_id"), []).append(ldm)
+
+    zip_buf = io.BytesIO()
+    date_tag = today()
+    prefix = f"export-{date_tag}"
+    errors = []
+
+    with zipfile.ZipFile(zip_buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        # ── 1. Raw JSON backup ──────────────────────────────────────────────
+        for key, path in FILES.items():
+            if os.path.exists(path):
+                zf.write(path, f"{prefix}/datos/{os.path.basename(path)}")
+
+        # ── 2. Cotizaciones: PDF + Excel por proyecto ───────────────────────
+        for project in projects:
+            pid   = project["id"]
+            clave = project.get("clave", pid)
+            folder = f"{prefix}/cotizaciones/{clave}/"
+            for quote in quotes_by_project.get(pid, []):
+                hydrated = hydrate_quote(quote, *cat_maps)
+                qnum = hydrated.get("quote_number", quote["id"])
+                try:
+                    pdf_bytes = build_quote_pdf(project, hydrated)
+                    zf.writestr(f"{folder}{qnum}.pdf", pdf_bytes)
+                except Exception as exc:
+                    errors.append(f"PDF {qnum}: {exc}")
+                try:
+                    wb, fname = _build_quote_workbook(project, quote, Workbook, Alignment, Font)
+                    xbuf = io.BytesIO()
+                    wb.save(xbuf)
+                    zf.writestr(f"{folder}{fname}", xbuf.getvalue())
+                except Exception as exc:
+                    errors.append(f"Excel {qnum}: {exc}")
+
+        # ── 3. LDMs: PDF + CSV por proyecto ────────────────────────────────
+        for project in projects:
+            pid   = project["id"]
+            clave = project.get("clave", pid)
+            folder = f"{prefix}/listas/{clave}/"
+            for ldm in ldms_by_project.get(pid, []):
+                hydrated = hydrate_ldm(ldm, *cat_maps)
+                lnum = hydrated.get("ldm_number", ldm["id"])
+                try:
+                    pdf_bytes = build_ldm_pdf(project, hydrated)
+                    zf.writestr(f"{folder}{lnum}.pdf", pdf_bytes)
+                except Exception as exc:
+                    errors.append(f"PDF {lnum}: {exc}")
+                try:
+                    csv_io = io.StringIO()
+                    writer = _csv.writer(csv_io)
+                    writer.writerow(["description", "unit", "qty", "catalog_item_id",
+                                     "proveedor", "fecha", "ldm_number"])
+                    for item in hydrated.get("items", []):
+                        writer.writerow([
+                            item.get("description", ""), item.get("unit", "pza"),
+                            item.get("qty", 0), item.get("catalog_item_id", ""),
+                            hydrated.get("proveedor", ""), hydrated.get("fecha", ""), lnum,
+                        ])
+                    zf.writestr(f"{folder}{lnum}.csv", "﻿" + csv_io.getvalue())
+                except Exception as exc:
+                    errors.append(f"CSV {lnum}: {exc}")
+
+        if errors:
+            zf.writestr(f"{prefix}/errores.txt", "\n".join(errors))
+
+    zip_buf.seek(0)
+    return send_file(
+        zip_buf,
+        as_attachment=True,
+        download_name=f"{prefix}.zip",
+        mimetype="application/zip",
+    )
 
 
 @bp.route("/reset-data", methods=["GET", "POST"], endpoint="reset_data")
