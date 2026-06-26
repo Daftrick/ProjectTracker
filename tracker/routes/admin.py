@@ -770,21 +770,31 @@ def _detect_logo_ext(content):
 
 
 def _logo_upload_dir():
-    # tracker/routes/admin.py -> tracker/routes -> tracker -> project root
-    project_root = _os.path.dirname(_os.path.dirname(_os.path.dirname(__file__)))
-    return _os.path.join(project_root, "static", "uploads")
+    return _os.path.join(DATA_DIR, "uploads")
 
 
 def _company_logo_version(company):
     logo_rel = (company or {}).get("logo") or ""
     if not logo_rel:
         return ""
-    project_root = _os.path.dirname(_os.path.dirname(_os.path.dirname(__file__)))
-    logo_path = _os.path.join(project_root, "static", logo_rel)
+    logo_path = _os.path.join(DATA_DIR, "uploads", _os.path.basename(logo_rel))
     try:
         return str(int(_os.path.getmtime(logo_path)))
     except OSError:
         return ""
+
+
+@bp.route("/empresa/logo-file", endpoint="empresa_logo_file")
+def empresa_logo_file():
+    from flask import send_from_directory, abort
+    from ..company_config import get_company
+    company = get_company()
+    logo_rel = company.get("logo") or ""
+    if not logo_rel:
+        abort(404)
+    filename = _os.path.basename(logo_rel)
+    uploads_dir = _os.path.join(DATA_DIR, "uploads")
+    return send_from_directory(uploads_dir, filename)
 
 
 @bp.route("/empresa", methods=["GET", "POST"], endpoint="empresa")
@@ -794,11 +804,15 @@ def empresa():
     errors = {}
     if request.method == "POST":
         current = get_company()
+        portada_color = (request.form.get("portada_color", "") or "").strip()
+        if not portada_color.startswith("#") or len(portada_color) != 7:
+            portada_color = current.get("portada_color", "#000000") or "#000000"
         data = {
-            "name":    (request.form.get("name", "") or "").strip(),
-            "address": (request.form.get("address", "") or "").strip(),
-            "rut":     (request.form.get("rut", "") or "").strip(),
-            "logo":    current.get("logo", ""),
+            "name":          (request.form.get("name", "") or "").strip(),
+            "address":       (request.form.get("address", "") or "").strip(),
+            "rut":           (request.form.get("rut", "") or "").strip(),
+            "logo":          current.get("logo", ""),
+            "portada_color": portada_color,
         }
         if not data["name"]:
             errors["name"] = "El nombre de la empresa es obligatorio."

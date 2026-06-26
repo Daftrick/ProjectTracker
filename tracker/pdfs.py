@@ -31,6 +31,17 @@ STAGE_STATUS_LABELS = {
 }
 
 
+def _hex_to_rgb(hex_color, default=(0, 0, 0)):
+    """Parse #RRGGBB hex string to (r, g, b) int tuple."""
+    try:
+        h = str(hex_color or "").lstrip("#")
+        if len(h) == 6:
+            return (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16))
+    except Exception:
+        pass
+    return default
+
+
 def _safe_text(text):
     """Convierte cualquier valor a str limpio, apto para fpdf2 con DejaVu (UTF-8).
     Solo normaliza espacios, guiones tipográficos y comillas. NO trunca ni reemplaza
@@ -115,6 +126,11 @@ def quote_logo_path():
     company = _load_company()
     logo_rel = company.get("logo") or ""
     if logo_rel:
+        # Primary: persistent volume (data/uploads/)
+        logo_abs = os.path.join(BASE_DIR, "data", "uploads", os.path.basename(logo_rel))
+        if os.path.isfile(logo_abs):
+            return logo_abs
+        # Legacy fallback: static/uploads/ (pre-migration)
         logo_abs = os.path.join(BASE_DIR, "static", logo_rel)
         if os.path.isfile(logo_abs):
             return logo_abs
@@ -582,10 +598,12 @@ def build_quote_pdf(project, quote, output_path=None):
     _portada_spacing = max(8, min(88, int(str(_specs.get("portada_spacing") or "40") or "40")))
     _spacing_delta = (_portada_spacing - 40) * 0.45
 
+    _portada_fill = _hex_to_rgb(_company_data.get("portada_color"), default=(0, 0, 0))
+
     pdf.add_page()
     pdf.set_fill_color(255, 255, 255)
     pdf.rect(0, 0, 210, 297, style="F")
-    pdf.set_fill_color(0, 0, 0)
+    pdf.set_fill_color(*_portada_fill)
     pdf.rect(0, 0, 210, 112, style="F")
     if logo_path:
         pdf.image(logo_path, x=48, y=12, w=114)
@@ -965,7 +983,8 @@ def build_ldm_pdf(project, ldm, output_path=None):
     SOFT   = _PDF_SOFT
     GREEN  = _PDF_GREEN
 
-    _cached_company_name = _safe_text(_load_company().get("name") or "Project Tracker")
+    _ldm_company_data = _load_company()
+    _cached_company_name = _safe_text(_ldm_company_data.get("name") or "Project Tracker")
 
     items = ldm.get("items", [])
     project_name = _safe_text(project.get("name", ""))
@@ -1241,11 +1260,12 @@ def build_ldm_pdf(project, ldm, output_path=None):
     # Las paginas siguientes usan el header estandar (project / numero / fecha).
     pdf.add_page()
 
-    # Banner negro con logo (alto suficiente para que el logo quede centrado)
+    # Banner de portada (alto suficiente para que el logo quede centrado)
     BANNER_H = 56
     LOGO_W = 60
     LOGO_H = 40  # alto explicito para centrar verticalmente sin depender del ratio
-    pdf.set_fill_color(0, 0, 0)
+    _ldm_portada_fill = _hex_to_rgb(_ldm_company_data.get("portada_color"), default=(0, 0, 0))
+    pdf.set_fill_color(*_ldm_portada_fill)
     pdf.rect(0, 0, 210, BANNER_H, style="F")
     if logo_path:
         logo_x = (210 - LOGO_W) / 2

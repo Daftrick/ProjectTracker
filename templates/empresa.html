@@ -3,6 +3,7 @@
 {% block page_title %}<i class="bi bi-building me-2"></i>Perfil de empresa{% endblock %}
 {% block content %}
 {% set fe = field_errors|default({}) %}
+{% set _portada_color = company.portada_color or '#000000' %}
 <div style="max-width:600px">
 
   <!-- Card 1: datos de la empresa -->
@@ -29,6 +30,16 @@
           <input name="rut" class="form-control" value="{{ company.rut }}"
                  placeholder="Ej: DEP210101ABC">
         </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Color de portada del PDF</label>
+          <div class="d-flex align-items-center gap-2">
+            <input type="color" name="portada_color" id="portadaColorPicker"
+                   class="form-control form-control-color"
+                   value="{{ _portada_color }}"
+                   style="width:44px;height:36px;padding:2px;cursor:pointer">
+            <span class="text-muted small">Color del banner superior en portada y LDM</span>
+          </div>
+        </div>
         <button type="submit" class="btn btn-primary">
           <i class="bi bi-check-lg me-1"></i>Guardar información
         </button>
@@ -43,13 +54,17 @@
     </div>
     <div class="card-body">
       {% if company.logo %}
-      <div class="mb-3 p-3 border rounded-3 text-center" style="background:#0d1120">
-        <img src="{{ url_for('static', filename=company.logo, v=logo_version) }}" alt="Logo actual" style="max-height:80px;max-width:280px">
-        <div class="mt-2"><small class="text-muted">Logo actual: <code>{{ company.logo }}</code></small></div>
+      <div id="logoPreviewBg" class="mb-3 p-3 border rounded-3 text-center"
+           style="background:{{ _portada_color }}">
+        <img src="{{ url_for('admin_bp.empresa_logo_file') }}?v={{ logo_version }}"
+             alt="Logo actual" style="max-height:80px;max-width:280px">
+        <div class="mt-2"><small style="color:rgba(255,255,255,.55)">Vista previa de portada PDF</small></div>
       </div>
       {% else %}
-      <div class="mb-3 p-3 border rounded-3 text-center text-muted" style="background:#0d1120;font-size:.88rem">
-        <i class="bi bi-image fs-2 d-block mb-1"></i>Sin logo cargado — el nombre de empresa aparecerá en los PDFs.
+      <div id="logoPreviewBg" class="mb-3 p-3 border rounded-3 text-center text-muted"
+           style="background:{{ _portada_color }};font-size:.88rem">
+        <i class="bi bi-image fs-2 d-block mb-1" style="color:rgba(255,255,255,.4)"></i>
+        <span style="color:rgba(255,255,255,.55)">Sin logo cargado — el nombre de empresa aparecerá en los PDFs.</span>
       </div>
       {% endif %}
       <form method="post" action="{{ url_for('admin_bp.empresa_logo') }}" enctype="multipart/form-data">
@@ -57,7 +72,7 @@
         <div class="mb-3">
           <label class="form-label fw-semibold">Subir nuevo logo</label>
           <input type="file" name="logo" class="form-control" accept=".png,.jpg,.jpeg,image/png,image/jpeg">
-          <div class="form-text">PNG o JPG · máx. 2 MB. El archivo se guardará como <code>static/uploads/logo.{ext}</code>.</div>
+          <div class="form-text">PNG o JPG · máx. 2 MB.</div>
         </div>
         <button type="submit" class="btn btn-outline-primary">
           <i class="bi bi-upload me-1"></i>Subir logo
@@ -67,4 +82,18 @@
   </div>
 
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  var picker = document.getElementById('portadaColorPicker');
+  var preview = document.getElementById('logoPreviewBg');
+  if (picker && preview) {
+    picker.addEventListener('input', function () {
+      preview.style.background = this.value;
+    });
+  }
+}());
+</script>
 {% endblock %}

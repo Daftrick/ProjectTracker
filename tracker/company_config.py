@@ -5,6 +5,7 @@ COMPANY_DEFAULTS = {
     "logo": "",
     "address": "",
     "rut": "",
+    "portada_color": "#000000",
 }
 
 
