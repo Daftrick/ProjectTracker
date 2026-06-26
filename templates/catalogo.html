@@ -370,7 +370,7 @@ function openEdit(item) {
   const isFrac = !!item.is_fractional;
   document.getElementById('editIsFractional').checked = isFrac;
   document.getElementById('editFractionalFields').classList.toggle('d-none', !isFrac);
-  document.getElementById('editBuyUnitSize').value   = item.buy_unit_size || '';
+  document.getElementById('editBuyUnitSize').value   = item.buy_unit_size ?? '';
   document.getElementById('editBuyUnitLabel').value  = item.buy_unit_label || '';
   document.getElementById('editForm').dataset.itemId = item.id;
   new bootstrap.Modal(document.getElementById('modalEdit')).show();

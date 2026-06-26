@@ -144,8 +144,11 @@ def validate_quote_form(form):
         field_errors["currency"] = message
         currency = "MXN"
 
+    default_pct_mo = _parse_float(form.get("default_pct_mo", "0") or "0", "% MO", errors, default=0.0)
+    default_pct_indirectos = _parse_float(form.get("default_pct_indirectos", "0") or "0", "% Indirectos", errors, default=0.0)
+    default_pct_utilidad = _parse_float(form.get("default_pct_utilidad", "0") or "0", "% Utilidad", errors, default=0.0)
     item_error_start = len(errors)
-    items, subtotal = _parse_quote_items(form, errors)
+    items, subtotal = _parse_quote_items(form, errors, default_pct_mo, default_pct_indirectos, default_pct_utilidad)
     if not items:
         message = "Agrega al menos una partida o sección a la cotización."
         errors.append(message)
@@ -187,6 +190,9 @@ def validate_quote_form(form):
         "specs": specs,
         "items": items,
         "subtotal": round(subtotal, 2),
+        "default_pct_mo": default_pct_mo,
+        "default_pct_indirectos": default_pct_indirectos,
+        "default_pct_utilidad": default_pct_utilidad,
     }
 
 
@@ -228,14 +234,17 @@ def validate_ldm_form(form):
     }
 
 
-def _parse_quote_items(form, errors):
+def _parse_quote_items(form, errors, default_pct_mo=0.0, default_pct_indirectos=0.0, default_pct_utilidad=0.0):
     kinds = form.getlist("item_kind[]")
     sections = form.getlist("item_section[]")
     descs = form.getlist("item_desc[]")
     desc2s = form.getlist("item_desc2[]")
     units = form.getlist("item_unit[]")
     qtys = form.getlist("item_qty[]")
-    prices = form.getlist("item_price[]")
+    prices = form.getlist("item_precio_costo[]")
+    pct_mos = form.getlist("item_pct_mo[]")
+    pct_inds = form.getlist("item_pct_indirectos[]")
+    pct_utils = form.getlist("item_pct_utilidad[]")
     catalog_ids = form.getlist("item_catalog_id[]")
     deleted_ids = form.getlist("item_deleted_catalog_id[]")
     deleted_names = form.getlist("item_deleted_catalog_nombre[]")
@@ -277,18 +286,28 @@ def _parse_quote_items(form, errors):
             continue
 
         qty = _parse_float(raw_qty, "cantidad", errors, row=row)
-        price = _parse_float(raw_price, "precio unitario", errors, row=row)
+        price = _parse_float(raw_price, "costo unitario", errors, row=row)
         if qty <= 0:
             errors.append(f"Fila {row}: cantidad debe ser mayor a 0.")
         if price < 0:
-            errors.append(f"Fila {row}: precio unitario no puede ser negativo.")
+            errors.append(f"Fila {row}: costo unitario no puede ser negativo.")
+
+        raw_pct_mo = _clean(pct_mos[index]) if index < len(pct_mos) else ""
+        raw_pct_ind = _clean(pct_inds[index]) if index < len(pct_inds) else ""
+        raw_pct_util = _clean(pct_utils[index]) if index < len(pct_utils) else ""
+        pct_mo_override = _parse_float(raw_pct_mo, "% MO", errors, row=row) if raw_pct_mo else None
+        pct_ind_override = _parse_float(raw_pct_ind, "% Indirectos", errors, row=row) if raw_pct_ind else None
+        pct_util_override = _parse_float(raw_pct_util, "% Utilidad", errors, row=row) if raw_pct_util else None
 
         raw_item = {
             "catalog_item_id": _clean(catalog_ids[index]) if index < len(catalog_ids) else "",
             "description": _clean(description),
             "unit": _clean(units[index]) if index < len(units) else "pza",
             "qty": qty,
-            "price": price,
+            "precio_costo": price,
+            "pct_mo_override": pct_mo_override,
+            "pct_indirectos_override": pct_ind_override,
+            "pct_utilidad_override": pct_util_override,
             "catalog_description": _clean(desc2s[index]) if index < len(desc2s) else "",
             "section": section,
         }
@@ -303,14 +322,21 @@ def _parse_quote_items(form, errors):
         )
         if deleted_catalog_item:
             raw_item["deleted_catalog_item"] = deleted_catalog_item
-        hydrated = hydrate_quote_item(raw_item, catalog_by_id, catalog_by_name, infer_by_name=False)
+        hydrated = hydrate_quote_item(
+            raw_item, catalog_by_id, catalog_by_name, infer_by_name=False,
+            default_pct_mo=default_pct_mo,
+            default_pct_indirectos=default_pct_indirectos,
+            default_pct_utilidad=default_pct_utilidad,
+        )
         parsed_item = {
             "catalog_item_id": hydrated.get("catalog_item_id", ""),
             "description": hydrated["description"],
             "unit": hydrated["unit"] or "pza",
             "qty": hydrated["qty"],
-            "price": hydrated["price"],
-            "total": hydrated["total"],
+            "precio_costo": hydrated["precio_costo"],
+            "pct_mo_override": pct_mo_override,
+            "pct_indirectos_override": pct_ind_override,
+            "pct_utilidad_override": pct_util_override,
             "catalog_description": hydrated.get("catalog_description", ""),
             "section": hydrated.get("section", ""),
         }

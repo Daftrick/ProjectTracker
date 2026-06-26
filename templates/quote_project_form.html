@@ -557,9 +557,9 @@
                 <td class="drag-cell">
                   <input type="hidden" name="item_kind[]" value="item">
                   <input type="hidden" name="item_section[]" value="{{ item_section }}">
-                  <input type="hidden" name="item_pct_mo[]" value="{{ item.get('pct_mo_override', '') or '' }}">
-                  <input type="hidden" name="item_pct_indirectos[]" value="{{ item.get('pct_indirectos_override', '') or '' }}">
-                  <input type="hidden" name="item_pct_utilidad[]" value="{{ item.get('pct_utilidad_override', '') or '' }}">
+                  <input type="hidden" name="item_pct_mo[]" value="{{ '' if item.get('pct_mo_override') is none else item.get('pct_mo_override') }}">
+                  <input type="hidden" name="item_pct_indirectos[]" value="{{ '' if item.get('pct_indirectos_override') is none else item.get('pct_indirectos_override') }}">
+                  <input type="hidden" name="item_pct_utilidad[]" value="{{ '' if item.get('pct_utilidad_override') is none else item.get('pct_utilidad_override') }}">
                   <input type="hidden" name="item_deleted_catalog_id[]" value="{{ deleted_catalog.id or '' }}">
                   <input type="hidden" name="item_deleted_catalog_nombre[]" value="{{ deleted_catalog.nombre or '' }}">
                   <input type="hidden" name="item_deleted_catalog_descripcion[]" value="{{ deleted_catalog.descripcion or '' }}">

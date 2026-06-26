@@ -32,7 +32,7 @@ class ValidatorsTest(unittest.TestCase):
                 ("item_desc[]", ""),
                 ("item_unit[]", "pza"),
                 ("item_qty[]", "1"),
-                ("item_price[]", "0"),
+                ("item_precio_costo[]", "0"),
                 ("item_catalog_id[]", ""),
                 ("item_desc2[]", ""),
             ])
@@ -51,7 +51,7 @@ class ValidatorsTest(unittest.TestCase):
                 ("item_desc[]", "Interruptor"),
                 ("item_unit[]", "pza"),
                 ("item_qty[]", "dos"),
-                ("item_price[]", "-5"),
+                ("item_precio_costo[]", "-5"),
                 ("item_catalog_id[]", ""),
                 ("item_desc2[]", ""),
             ])
@@ -61,7 +61,7 @@ class ValidatorsTest(unittest.TestCase):
         self.assertIn("IVA debe estar entre 0 y 100.", result["errors"])
         self.assertIn("Fila 1: cantidad debe ser un número válido.", result["errors"])
         self.assertIn("Fila 1: cantidad debe ser mayor a 0.", result["errors"])
-        self.assertIn("Fila 1: precio unitario no puede ser negativo.", result["errors"])
+        self.assertIn("Fila 1: costo unitario no puede ser negativo.", result["errors"])
         self.assertEqual(result["field_errors"]["tax_rate"], "IVA debe estar entre 0 y 100.")
         self.assertEqual(result["field_errors"]["items"], "Revisa las partidas marcadas por la validación.")
 
@@ -75,7 +75,7 @@ class ValidatorsTest(unittest.TestCase):
                 ("item_desc[]", "Interruptor"),
                 ("item_unit[]", "pza"),
                 ("item_qty[]", "2"),
-                ("item_price[]", "10.50"),
+                ("item_precio_costo[]", "10.50"),
                 ("item_catalog_id[]", ""),
                 ("item_desc2[]", ""),
             ])
@@ -84,7 +84,7 @@ class ValidatorsTest(unittest.TestCase):
         self.assertTrue(result["ok"])
         self.assertEqual(result["project_basis_note"], "Plano autorizado")
         self.assertEqual(result["subtotal"], 21.0)
-        self.assertEqual(result["items"][0]["total"], 21.0)
+        self.assertEqual(result["items"][0]["precio_costo"], 10.50)
 
     def test_quote_preserves_deleted_catalog_snapshot(self):
         result = validate_quote_form(
@@ -95,7 +95,7 @@ class ValidatorsTest(unittest.TestCase):
                 ("item_desc[]", "Interruptor histórico"),
                 ("item_unit[]", "pza"),
                 ("item_qty[]", "2"),
-                ("item_price[]", "10.50"),
+                ("item_precio_costo[]", "10.50"),
                 ("item_catalog_id[]", ""),
                 ("item_desc2[]", "Detalle"),
                 ("item_deleted_catalog_id[]", "CAT1"),
@@ -123,7 +123,7 @@ class ValidatorsTest(unittest.TestCase):
                 ("item_desc[]", ""),
                 ("item_unit[]", ""),
                 ("item_qty[]", ""),
-                ("item_price[]", ""),
+                ("item_precio_costo[]", ""),
                 ("item_catalog_id[]", ""),
                 ("item_desc2[]", ""),
                 ("item_kind[]", "item"),
@@ -131,7 +131,7 @@ class ValidatorsTest(unittest.TestCase):
                 ("item_desc[]", "Salida eléctrica"),
                 ("item_unit[]", "pza"),
                 ("item_qty[]", "2"),
-                ("item_price[]", "750"),
+                ("item_precio_costo[]", "750"),
                 ("item_catalog_id[]", ""),
                 ("item_desc2[]", ""),
             ])
@@ -153,7 +153,7 @@ class ValidatorsTest(unittest.TestCase):
                 ("item_desc[]", ""),
                 ("item_unit[]", ""),
                 ("item_qty[]", ""),
-                ("item_price[]", ""),
+                ("item_precio_costo[]", ""),
                 ("item_catalog_id[]", ""),
                 ("item_desc2[]", ""),
             ])

@@ -121,6 +121,9 @@ def new_quote(project_id):
             "tax": round(validation["subtotal"] * validation["tax_rate"] / 100, 2),
             "total": round(validation["subtotal"] + validation["subtotal"] * validation["tax_rate"] / 100, 2),
             "currency": validation["currency"],
+            "default_pct_mo": validation["default_pct_mo"],
+            "default_pct_indirectos": validation["default_pct_indirectos"],
+            "default_pct_utilidad": validation["default_pct_utilidad"],
             "notes": validation["notes"],
             "project_basis_note": validation["project_basis_note"] if quote_type == "Extraordinaria" else "",
             "specs": validation["specs"],
@@ -236,6 +239,9 @@ def edit_quote(project_id, quote_id):
             "tax": round(validation["subtotal"] * validation["tax_rate"] / 100, 2),
             "total": round(validation["subtotal"] + validation["subtotal"] * validation["tax_rate"] / 100, 2),
             "currency": validation["currency"],
+            "default_pct_mo": validation["default_pct_mo"],
+            "default_pct_indirectos": validation["default_pct_indirectos"],
+            "default_pct_utilidad": validation["default_pct_utilidad"],
             "notes": validation["notes"],
             "project_basis_note": validation["project_basis_note"] if validation["quote_type"] == "Extraordinaria" else "",
             "specs": validation["specs"],
@@ -299,17 +305,10 @@ def purge_quote_deleted_catalog_items(project_id, quote_id):
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
 
     updated_quote, removed = purge_deleted_catalog_items_from_record(quote)
-    subtotal = round(
-        sum(
-            safe_float(item.get("qty", 0)) * safe_float(item.get("precio_costo", item.get("price", 0)))
-            for item in updated_quote.get("items", [])
-        ),
-        2,
-    )
-    tax_rate = safe_float(updated_quote.get("tax_rate", 16), 16)
-    updated_quote["subtotal"] = subtotal
-    updated_quote["tax"] = round(subtotal * tax_rate / 100, 2)
-    updated_quote["total"] = round(subtotal + updated_quote["tax"], 2)
+    hydrated = hydrate_quote(updated_quote, *catalog_maps())
+    updated_quote["subtotal"] = hydrated["subtotal"]
+    updated_quote["tax"] = hydrated["tax"]
+    updated_quote["total"] = hydrated["total"]
     quote.update(updated_quote)
     save("quotes", quotes)
     flash(f"Se eliminaron {removed} partida(s) con catálogo eliminado de la cotización.", "warning")
