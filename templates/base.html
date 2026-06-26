@@ -313,6 +313,18 @@
        data-label="Auditoría Catálogo">
       <i class="bi bi-exclamation-triangle"></i><span class="nav-label"> Auditoría Catálogo</span>
     </a>
+    <a href="{{ url_for('admin_bp.export_data') }}" class="nav-link {% if request.endpoint=='admin_bp.export_data' %}active{% endif %}"
+       data-label="Exportar datos">
+      <i class="bi bi-download"></i><span class="nav-label"> Exportar datos</span>
+    </a>
+    <a href="{{ url_for('admin_bp.import_json') }}" class="nav-link {% if request.endpoint=='admin_bp.import_json' %}active{% endif %}"
+       data-label="Importar JSON">
+      <i class="bi bi-upload"></i><span class="nav-label"> Importar JSON</span>
+    </a>
+    <a href="{{ url_for('admin_bp.reset_data') }}" class="nav-link {% if request.endpoint=='admin_bp.reset_data' %}active{% endif %}"
+       data-label="Reiniciar app" style="color:#a87070">
+      <i class="bi bi-trash3"></i><span class="nav-label"> Reiniciar app</span>
+    </a>
     {% endif %}
   </nav>
   <div class="sfooter">
