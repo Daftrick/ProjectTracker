@@ -1,3 +1,4 @@
+import json
 import os
 
 import csv as _csv
@@ -909,6 +910,45 @@ def quote_templates():
         flash("Plantillas de cotización guardadas.", "success")
         return redirect(url_for("admin_bp.quote_templates"))
     return render_template("quote_templates.html", templates=current, quote_types=_QUOTE_TYPES, specs_fields=_SPECS_FIELDS)
+
+
+_IMPORTABLE = {
+    "catalogo":    "Catálogo",
+    "proveedores": "Proveedores",
+    "fichas":      "Fichas técnicas",
+    "bundles":     "Bundles",
+}
+
+
+@bp.route("/import-json", methods=["GET", "POST"], endpoint="import_json")
+@admin_required
+def import_json():
+    if request.method == "POST":
+        imported = []
+        errors = []
+        for key, label in _IMPORTABLE.items():
+            file = request.files.get(key)
+            if not file or not file.filename:
+                continue
+            try:
+                data = json.loads(file.read().decode("utf-8-sig"))
+            except Exception as exc:
+                errors.append(f"{label}: JSON inválido — {exc}")
+                continue
+            if not isinstance(data, list):
+                errors.append(f"{label}: se esperaba una lista, no {type(data).__name__}")
+                continue
+            save(key, data)
+            imported.append(f"{label} ({len(data)} registros)")
+        if imported:
+            flash("Importado correctamente: " + ", ".join(imported) + ".", "success")
+        if errors:
+            for err in errors:
+                flash(err, "danger")
+        if not imported and not errors:
+            flash("No se seleccionó ningún archivo.", "warning")
+        return redirect(url_for("admin_bp.import_json"))
+    return render_template("import_json.html", importable=_IMPORTABLE)
 
 
 @bp.route("/export", methods=["GET"], endpoint="export_data")

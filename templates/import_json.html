@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Importar datos{% endblock %}
+{% block page_title %}<i class="bi bi-upload me-2 text-primary"></i>Importar datos desde JSON{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 py-4" style="max-width:560px">
+  <p class="text-muted small mb-4">
+    Sube los archivos <code>.json</code> exportados desde <strong>/admin/export</strong>.
+    Solo se reemplaza lo que subas — los demás datos no se tocan.
+  </p>
+
+  <form method="post" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="card">
+      <div class="card-body d-flex flex-column gap-3">
+        {% for key, label in importable.items() %}
+        <div>
+          <label class="form-label fw-semibold mb-1">
+            {{ label }}
+            <code class="text-muted fw-normal ms-1" style="font-size:.8rem">{{ key }}.json</code>
+          </label>
+          <input type="file" name="{{ key }}" accept=".json" class="form-control form-control-sm">
+        </div>
+        {% endfor %}
+      </div>
+      <div class="card-footer d-flex gap-2">
+        <button type="submit" class="btn btn-primary btn-sm">
+          <i class="bi bi-upload me-1"></i>Importar
+        </button>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary btn-sm">Cancelar</a>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}
