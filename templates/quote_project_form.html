@@ -1214,7 +1214,7 @@
     return Math.round(costo * (1 + pctMo / 100) * (1 + pctInd / 100) / (1 - pctUtil / 100) * 100) / 100;
   }
 
-  function calcRow(el){
+  function calcRow(el, skipUpdate = false){
     const r = el.closest("tr");
     const q = parseFloat(r.querySelector(".qty").value) || 0;
     const costo = parseFloat(r.querySelector(".costo").value) || 0;
@@ -1225,14 +1225,15 @@
     const pventaEl = r.querySelector(".pventa");
     if (pventaEl) pventaEl.value = pventa.toFixed(2);
     r.querySelector(".tot").value = (q * pventa).toFixed(2);
-    updateTotals();
+    if (!skipUpdate) updateTotals();
   }
 
   function recalcAllRows() {
     document.querySelectorAll('#itemsBody .quote-row').forEach(r => {
       const qtyEl = r.querySelector('.qty');
-      if (qtyEl) calcRow(qtyEl);
+      if (qtyEl) calcRow(qtyEl, true);
     });
+    updateTotals();
   }
 
   // ── Sincronización automática de precio entre artículos iguales ────────────
@@ -1493,9 +1494,7 @@
     bootstrap.Modal.getInstance(document.getElementById("catalogModal")).hide();
   }
 
-  function escHtml(s) {
-    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-  }
+  const escHtml = escapeHtml;  // alias → window.escapeHtml (base.html)
 
   // ── Agregar al catálogo desde la cotización ─────────────────────────────────
   function toggleAddForm() {

@@ -1,8 +1,6 @@
 import re
 import unicodedata
 
-from flask import request
-
 from .storage import load, save, today
 
 
@@ -193,11 +191,10 @@ def safe_float(value, default=0.0):
 
 def _calc_precio_venta(precio_costo, pct_mo=0.0, pct_indirectos=0.0, pct_utilidad=0.0):
     """precio_venta = costo × (1+%mo) × (1+%ind) / (1−%util). Utilidad sobre precio de venta (APU México)."""
-    pct_util = safe_float(pct_utilidad)
-    if pct_util >= 100:
+    if pct_utilidad >= 100:
         return 0.0
-    base = safe_float(precio_costo) * (1 + safe_float(pct_mo) / 100) * (1 + safe_float(pct_indirectos) / 100)
-    return round(base / (1 - pct_util / 100), 2)
+    base = safe_float(precio_costo) * (1 + pct_mo / 100) * (1 + pct_indirectos / 100)
+    return round(base / (1 - pct_utilidad / 100), 2)
 
 
 def resolve_catalog_binding(item, catalog_by_id, catalog_by_name, text_key, infer_by_name=True):
@@ -403,77 +400,6 @@ def hydrate_ldm(ldm, catalog_by_id=None, catalog_by_name=None):
     else:
         hydrated["subtotal_cot"] = round(safe_float(hydrated.get("subtotal_cot", 0)), 2)
     return hydrated
-
-
-def parse_quote_items():
-    descs, desc2s, units, qtys, prices = (
-        request.form.getlist(f"item_{key}[]") for key in ("desc", "desc2", "unit", "qty", "price")
-    )
-    catalog_ids = request.form.getlist("item_catalog_id[]")
-    catalog_by_id, catalog_by_name = catalog_maps()
-    items = []
-    subtotal = 0.0
-    for index, description in enumerate(descs):
-        if not description.strip():
-            continue
-        qty = safe_float(qtys[index]) if index < len(qtys) and qtys[index] else 0
-        price = safe_float(prices[index]) if index < len(prices) and prices[index] else 0
-        explicit_desc = desc2s[index].strip() if index < len(desc2s) and desc2s[index] else ""
-        unit = units[index] if index < len(units) else "pza"
-        raw_item = {
-            "catalog_item_id": catalog_ids[index].strip() if index < len(catalog_ids) and catalog_ids[index] else "",
-            "description": description.strip(),
-            "unit": unit,
-            "qty": qty,
-            "price": price,
-            "catalog_description": explicit_desc,
-        }
-        hydrated = hydrate_quote_item(raw_item, catalog_by_id, catalog_by_name, infer_by_name=False)
-        items.append({
-            "catalog_item_id": hydrated.get("catalog_item_id", ""),
-            "description": hydrated["description"],
-            "unit": hydrated["unit"],
-            "qty": hydrated["qty"],
-            "price": hydrated["price"],
-            "total": hydrated["total"],
-            "catalog_description": hydrated.get("catalog_description", ""),
-        })
-        subtotal += hydrated["total"]
-    return items, subtotal
-
-
-def parse_ldm_items():
-    descs = request.form.getlist("item_desc[]")
-    units = request.form.getlist("item_unit[]")
-    qtys = request.form.getlist("item_qty[]")
-    prices = request.form.getlist("item_precio_cot[]")
-    catalog_ids = request.form.getlist("item_catalog_id[]")
-    catalog_by_id, catalog_by_name = catalog_maps()
-    items = []
-    subtotal = 0.0
-    for index, description in enumerate(descs):
-        if not description.strip():
-            continue
-        qty = safe_float(qtys[index], 1) if index < len(qtys) and qtys[index] else 1
-        price = safe_float(prices[index], 0) if index < len(prices) and prices[index] else 0.0
-        raw_item = {
-            "catalog_item_id": catalog_ids[index].strip() if index < len(catalog_ids) and catalog_ids[index] else "",
-            "description": description.strip(),
-            "unit": units[index] if index < len(units) else "pza",
-            "qty": qty,
-            "precio_cot": price,
-        }
-        hydrated = hydrate_ldm_item(raw_item, catalog_by_id, catalog_by_name, infer_by_name=False)
-        items.append({
-            "catalog_item_id": hydrated.get("catalog_item_id", ""),
-            "description": hydrated["description"],
-            "unit": hydrated["unit"],
-            "qty": hydrated["qty"],
-            "precio_cot": hydrated.get("precio_cot", 0.0),
-            "total_cot": hydrated.get("total_cot", 0.0),
-        })
-        subtotal += hydrated.get("total_cot", 0.0)
-    return items, round(subtotal, 2)
 
 
 def next_quote_number(project, all_quotes, quote_type, date_str):

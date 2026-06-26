@@ -394,8 +394,6 @@ document.getElementById('editForm').addEventListener('submit', async function(e)
   if (json.ok) {
     const row = document.getElementById('row-' + id);
     if (row) {
-      const esc = s => String(s||'').replace(/[&<>"']/g,
-        c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
       row.querySelector('.cell-nombre').textContent = json.item.nombre;
       row.querySelector('.cell-desc').textContent   = json.item.descripcion || '—';
       row.querySelector('.cell-unidad .badge').textContent = json.item.unidad;
@@ -403,13 +401,13 @@ document.getElementById('editForm').addEventListener('submit', async function(e)
       const marcaCell = row.querySelector('.cell-marca');
       if (marcaCell) {
         marcaCell.innerHTML = json.item.marca
-          ? `<span class="badge bg-secondary-subtle text-secondary-emphasis border">${esc(json.item.marca)}</span>`
+          ? `<span class="badge bg-secondary-subtle text-secondary-emphasis border">${escapeHtml(json.item.marca)}</span>`
           : '<span class="text-muted">—</span>';
       }
       const catCell = row.querySelector('.cell-categoria');
       if (catCell) {
         catCell.innerHTML = json.item.categoria
-          ? `<span class="badge bg-secondary-subtle text-secondary-emphasis border">${esc(json.item.categoria)}</span>`
+          ? `<span class="badge bg-secondary-subtle text-secondary-emphasis border">${escapeHtml(json.item.categoria)}</span>`
           : '<span class="text-muted" style="font-size:.8rem">—</span>';
       }
       // Actualizar el onclick del botón editar con los nuevos datos

@@ -4,6 +4,27 @@ Deferred items from active reviews. Each entry has a source and context so it ca
 
 ---
 
+## Mantenimiento — Duplicados Python
+
+### Módulo utils.py compartido
+**Source:** code-review audit 2026-06-25
+**Context:** Tres helpers están duplicados entre `tracker/validators.py` y `tracker/routes/admin.py`:
+- `_clean(value)` — idéntico en ambos archivos (validators:10, admin:30)
+- `_parse_float(value, ...)` — misma lógica base, distintas firmas (validators:18, admin:369)
+- `_deleted_catalog_item_at(...)` — duplicado exacto entre validators:65 y form_models:158
+
+**Fix propuesto:** Crear `tracker/utils.py` con las versiones canónicas e importar desde ahí.
+**Estimado:** ~30 min. Bajo riesgo, mejora la mantenibilidad.
+**Trigger:** Cuando se modifique alguno de estos helpers o se agregue un cuarto archivo que los necesite.
+
+### Bloque resumen copiado 3×
+**Source:** code-review audit 2026-06-25
+**Context:** En `tracker/routes/quotes.py` las rutas `quote_resumen`, `quote_resumen_pdf` y `quote_resumen_excel` (líneas ~617, 638, 662) repiten el mismo bloque de 8 líneas: `hydrate_quote → aggregate_quote_items → recalcular subtotal/tax/total → armar dict resumen`.
+**Fix propuesto:** Extraer función `_build_resumen(quote)` que devuelva el dict hidratado y agregado.
+**Estimado:** ~20 min. Cero cambio de comportamiento.
+
+---
+
 ## v1.5 — Backend
 
 ### SQLite full migration (data de negocio)
