@@ -300,7 +300,10 @@ def purge_quote_deleted_catalog_items(project_id, quote_id):
 
     updated_quote, removed = purge_deleted_catalog_items_from_record(quote)
     subtotal = round(
-        sum(safe_float(item.get("qty", 0)) * safe_float(item.get("price", 0)) for item in updated_quote.get("items", [])),
+        sum(
+            safe_float(item.get("qty", 0)) * safe_float(item.get("precio_costo", item.get("price", 0)))
+            for item in updated_quote.get("items", [])
+        ),
         2,
     )
     tax_rate = safe_float(updated_quote.get("tax_rate", 16), 16)

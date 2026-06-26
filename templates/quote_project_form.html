@@ -312,6 +312,60 @@
                    value="{{ quote.tax_rate if quote else 16 }}" min="0" max="100" step="0.01">
             {% if fe.get('tax_rate') %}<div class="invalid-feedback">{{ fe.get('tax_rate') }}</div>{% endif %}
           </div>
+          {# ── Estructura de costos (collapsible) ── #}
+          {% set _has_costs = quote and (quote.get('default_pct_mo') or quote.get('default_pct_indirectos') or quote.get('default_pct_utilidad')) %}
+          <div class="col-12">
+            <button type="button" class="btn btn-sm btn-outline-secondary"
+                    data-bs-toggle="collapse" data-bs-target="#costsCollapse"
+                    aria-expanded="{{ 'true' if _has_costs else 'false' }}">
+              <i class="bi bi-percent me-1"></i>Estructura de costos
+              <i class="bi bi-chevron-down ms-1"></i>
+            </button>
+          </div>
+          <div class="col-12 collapse {% if _has_costs %}show{% endif %}" id="costsCollapse">
+            <div class="card border-0 bg-body-secondary rounded-3 p-3">
+              <div class="row g-2 align-items-end">
+                <div class="col-md-3">
+                  <label class="form-label form-label-sm fw-semibold">% Mano de obra</label>
+                  <div class="input-group input-group-sm">
+                    <input type="number" name="default_pct_mo" id="defaultPctMo"
+                           class="form-control form-control-sm"
+                           value="{{ quote.default_pct_mo if quote else 0 }}"
+                           step="0.01" min="0" max="100" placeholder="0"
+                           oninput="recalcAllRows()">
+                    <span class="input-group-text">%</span>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label form-label-sm fw-semibold">% Indirectos</label>
+                  <div class="input-group input-group-sm">
+                    <input type="number" name="default_pct_indirectos" id="defaultPctIndirectos"
+                           class="form-control form-control-sm"
+                           value="{{ quote.default_pct_indirectos if quote else 0 }}"
+                           step="0.01" min="0" max="100" placeholder="0"
+                           oninput="recalcAllRows()">
+                    <span class="input-group-text">%</span>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label form-label-sm fw-semibold">% Utilidad</label>
+                  <div class="input-group input-group-sm">
+                    <input type="number" name="default_pct_utilidad" id="defaultPctUtilidad"
+                           class="form-control form-control-sm"
+                           value="{{ quote.default_pct_utilidad if quote else 0 }}"
+                           step="0.01" min="0" max="99.9" placeholder="0"
+                           oninput="recalcAllRows()">
+                    <span class="input-group-text">%</span>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <p class="mb-0 text-muted" style="font-size:.75rem">
+                    P. Venta = Costo × (1+%MO) × (1+%Ind) / (1−%Util)
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="col-12">
             <label class="form-label">Notas generales</label>
             <textarea name="notes" class="form-control" rows="2"
@@ -442,16 +496,17 @@
         <table class="table mb-0 sticky-items-table" id="itemsTable">
           <thead class="table-light">
             <tr>
-              <th style="width:7%" class="text-center">
+              <th style="width:6%" class="text-center">
                 <input type="checkbox" id="selectAll" class="form-check-input select-checkbox"
                        onclick="toggleSelectAll(this)" title="Seleccionar/deseleccionar todas las partidas visibles">
               </th>
-              <th style="width:33%">Descripción</th>
-              <th style="width:10%">Unidad</th>
-              <th style="width:11%">Cantidad</th>
-              <th style="width:15%">Precio unit.</th>
-              <th style="width:15%">Total</th>
-              <th style="width:9%"></th>
+              <th style="width:29%">Descripción</th>
+              <th style="width:9%">Unidad</th>
+              <th style="width:10%">Cantidad</th>
+              <th style="width:12%">Costo</th>
+              <th style="width:12%">P. Venta</th>
+              <th style="width:12%">Total</th>
+              <th style="width:8%"></th>
             </tr>
           </thead>
           <tbody id="itemsBody">
@@ -469,7 +524,10 @@
                   <input type="hidden" name="item_desc2[]" value="">
                   <input type="hidden" name="item_unit[]" value="">
                   <input type="hidden" name="item_qty[]" value="">
-                  <input type="hidden" name="item_price[]" value="">
+                  <input type="hidden" name="item_precio_costo[]" value="">
+                  <input type="hidden" name="item_pct_mo[]" value="">
+                  <input type="hidden" name="item_pct_indirectos[]" value="">
+                  <input type="hidden" name="item_pct_utilidad[]" value="">
                   <input type="hidden" name="item_deleted_catalog_id[]" value="">
                   <input type="hidden" name="item_deleted_catalog_nombre[]" value="">
                   <input type="hidden" name="item_deleted_catalog_descripcion[]" value="">
@@ -499,6 +557,9 @@
                 <td class="drag-cell">
                   <input type="hidden" name="item_kind[]" value="item">
                   <input type="hidden" name="item_section[]" value="{{ item_section }}">
+                  <input type="hidden" name="item_pct_mo[]" value="{{ item.get('pct_mo_override', '') or '' }}">
+                  <input type="hidden" name="item_pct_indirectos[]" value="{{ item.get('pct_indirectos_override', '') or '' }}">
+                  <input type="hidden" name="item_pct_utilidad[]" value="{{ item.get('pct_utilidad_override', '') or '' }}">
                   <input type="hidden" name="item_deleted_catalog_id[]" value="{{ deleted_catalog.id or '' }}">
                   <input type="hidden" name="item_deleted_catalog_nombre[]" value="{{ deleted_catalog.nombre or '' }}">
                   <input type="hidden" name="item_deleted_catalog_descripcion[]" value="{{ deleted_catalog.descripcion or '' }}">
@@ -532,7 +593,13 @@
                 <td>
                   <div class="input-group input-group-sm">
                     <span class="input-group-text">$</span>
-                    <input type="number" name="item_price[]" class="form-control form-control-sm price" value="{{ item.price }}" step="0.01" min="0" oninput="calcRow(this)">
+                    <input type="number" name="item_precio_costo[]" class="form-control form-control-sm costo" value="{{ item.precio_costo }}" step="0.01" min="0" oninput="calcRow(this)">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control form-control-sm pventa" value="{{ item.price }}" readonly tabindex="-1" style="background:#0a0f1c;color:#8a9298">
                   </div>
                 </td>
                 <td>
@@ -683,11 +750,14 @@
     activeSectionRow?.classList.add('quote-section-active');
   }
 
-  function makeRowHTML(desc, desc2, unit, qty, price, total, catalogId) {
+  function makeRowHTML(desc, desc2, unit, qty, costo, total, catalogId) {
     return `
       <td class="drag-cell">
         <input type="hidden" name="item_kind[]" value="item">
         <input type="hidden" name="item_section[]" value="">
+        <input type="hidden" name="item_pct_mo[]" value="">
+        <input type="hidden" name="item_pct_indirectos[]" value="">
+        <input type="hidden" name="item_pct_utilidad[]" value="">
         <input type="hidden" name="item_deleted_catalog_id[]" value="">
         <input type="hidden" name="item_deleted_catalog_nombre[]" value="">
         <input type="hidden" name="item_deleted_catalog_descripcion[]" value="">
@@ -714,7 +784,13 @@
       <td>
         <div class="input-group input-group-sm">
           <span class="input-group-text">$</span>
-          <input type="number" name="item_price[]" class="form-control form-control-sm price" value="${price||0}" step="0.01" min="0" oninput="calcRow(this)">
+          <input type="number" name="item_precio_costo[]" class="form-control form-control-sm costo" value="${costo||0}" step="0.01" min="0" oninput="calcRow(this)">
+        </div>
+      </td>
+      <td>
+        <div class="input-group input-group-sm">
+          <span class="input-group-text">$</span>
+          <input type="number" class="form-control form-control-sm pventa" value="${total||0}" readonly tabindex="-1" style="background:#0a0f1c;color:#8a9298">
         </div>
       </td>
       <td>
@@ -745,7 +821,10 @@
         <input type="hidden" name="item_desc2[]" value="">
         <input type="hidden" name="item_unit[]" value="">
         <input type="hidden" name="item_qty[]" value="">
-        <input type="hidden" name="item_price[]" value="">
+        <input type="hidden" name="item_precio_costo[]" value="">
+        <input type="hidden" name="item_pct_mo[]" value="">
+        <input type="hidden" name="item_pct_indirectos[]" value="">
+        <input type="hidden" name="item_pct_utilidad[]" value="">
         <input type="hidden" name="item_deleted_catalog_id[]" value="">
         <input type="hidden" name="item_deleted_catalog_nombre[]" value="">
         <input type="hidden" name="item_deleted_catalog_descripcion[]" value="">
@@ -767,11 +846,10 @@
         </button>
       </td>`;
   }
-  function addRow(desc, desc2, unit, qty, price, catalogId) {
+  function addRow(desc, desc2, unit, qty, costo, catalogId) {
     const tr = document.createElement("tr");
     tr.className = "quote-row quote-draggable";
-    const tot = ((qty||1) * (price||0)).toFixed(2);
-    tr.innerHTML = makeRowHTML(desc, desc2, unit, qty, price, tot, catalogId);
+    tr.innerHTML = makeRowHTML(desc, desc2, unit, qty, costo, 0, catalogId);
     const tbody = document.getElementById("itemsBody");
     if (activeSectionRow) {
       let anchor = activeSectionRow.nextElementSibling;
@@ -783,6 +861,8 @@
       tbody.appendChild(tr);
     }
     syncItemSections();
+    const qtyEl = tr.querySelector('.qty');
+    if (qtyEl) calcRow(qtyEl);
     updateTotals();
     if (typeof updateSelectionUI === "function") updateSelectionUI();
   }
@@ -1124,12 +1204,35 @@
       else tbody.appendChild(row);
     });
   }
+  function _getPctForRow(row, inputName, defaultId) {
+    const v = row.querySelector(`[name="${inputName}"]`)?.value?.trim();
+    return (v !== undefined && v !== '') ? (parseFloat(v) || 0) : (parseFloat(document.getElementById(defaultId)?.value) || 0);
+  }
+
+  function calcPventa(costo, pctMo, pctInd, pctUtil) {
+    if (pctUtil >= 100) return 0;
+    return Math.round(costo * (1 + pctMo / 100) * (1 + pctInd / 100) / (1 - pctUtil / 100) * 100) / 100;
+  }
+
   function calcRow(el){
-    const r=el.closest("tr");
-    const q=parseFloat(r.querySelector(".qty").value)||0;
-    const p=parseFloat(r.querySelector(".price").value)||0;
-    r.querySelector(".tot").value=(q*p).toFixed(2);
+    const r = el.closest("tr");
+    const q = parseFloat(r.querySelector(".qty").value) || 0;
+    const costo = parseFloat(r.querySelector(".costo").value) || 0;
+    const pctMo  = _getPctForRow(r, "item_pct_mo[]", "defaultPctMo");
+    const pctInd = _getPctForRow(r, "item_pct_indirectos[]", "defaultPctIndirectos");
+    const pctUtil= _getPctForRow(r, "item_pct_utilidad[]", "defaultPctUtilidad");
+    const pventa = calcPventa(costo, pctMo, pctInd, pctUtil);
+    const pventaEl = r.querySelector(".pventa");
+    if (pventaEl) pventaEl.value = pventa.toFixed(2);
+    r.querySelector(".tot").value = (q * pventa).toFixed(2);
     updateTotals();
+  }
+
+  function recalcAllRows() {
+    document.querySelectorAll('#itemsBody .quote-row').forEach(r => {
+      const qtyEl = r.querySelector('.qty');
+      if (qtyEl) calcRow(qtyEl);
+    });
   }
 
   // ── Sincronización automática de precio entre artículos iguales ────────────
@@ -1145,7 +1248,7 @@
     return row.querySelector('[name="item_catalog_id[]"]')?.value?.trim() || '';
   }
 
-  function syncPriceAcrossItems(sourceRow, newPrice) {
+  function syncPriceAcrossItems(sourceRow, newCosto) {
     if (!_priceSyncEnabled) return;
     const catalogId = _getCatalogId(sourceRow);
     if (!catalogId) return;   // sin vínculo a catálogo → sin sincronización
@@ -1155,13 +1258,13 @@
     if (!sibling.length) return;
 
     sibling.forEach(r => {
-      const priceInput = r.querySelector('.price');
-      if (!priceInput) return;
-      priceInput.value = newPrice;
-      calcRow(priceInput);
+      const costoInput = r.querySelector('.costo');
+      if (!costoInput) return;
+      costoInput.value = newCosto;
+      calcRow(costoInput);
       // Pulso visual para que el usuario vea el cambio
-      priceInput.closest('.input-group')?.classList.add('price-sync-pulse');
-      setTimeout(() => priceInput.closest('.input-group')?.classList.remove('price-sync-pulse'), 900);
+      costoInput.closest('.input-group')?.classList.add('price-sync-pulse');
+      setTimeout(() => costoInput.closest('.input-group')?.classList.remove('price-sync-pulse'), 900);
     });
 
     // Indicador de cuántos artículos se actualizaron
@@ -1175,7 +1278,7 @@
     badge.className = 'price-sync-badge';
     badge.style.cssText = 'font-size:.7rem;color:#6ab888;margin-top:2px;white-space:nowrap;';
     badge.innerHTML = `<i class="bi bi-arrow-repeat"></i> ${count} artículo${count !== 1 ? 's' : ''} actualizado${count !== 1 ? 's' : ''}`;
-    row.querySelector('.price')?.closest('td')?.appendChild(badge);
+    row.querySelector('.costo')?.closest('td')?.appendChild(badge);
     setTimeout(() => badge.remove(), 2800);
   }
   function updateTotals(){
@@ -1520,7 +1623,7 @@
     row.querySelector('[name="item_catalog_id[]"]').value = item.id || "";
     row.querySelector('[name="item_desc2[]"]').value = item.descripcion || "";
     row.querySelector('[name="item_unit[]"]').value  = item.unidad;
-    row.querySelector('[name="item_price[]"]').value = item.precio;
+    row.querySelector('[name="item_precio_costo[]"]').value = item.precio;
     clearDeletedCatalogState(row);
     row.classList.remove("deleted-catalog-row");
     calcRow(row.querySelector(".qty"));
@@ -1581,11 +1684,11 @@
         _acSearch(e.target);
       } else if (e.target.name === "item_unit[]") {
         clearCatalogLink(e.target.closest("tr"));
-      } else if (e.target.name === "item_price[]") {
-        // Sincronizar precio con artículos iguales (mismo catalog_item_id)
+      } else if (e.target.name === "item_precio_costo[]") {
+        // Sincronizar costo con artículos iguales (mismo catalog_item_id)
         const row = e.target.closest("tr");
-        const newPrice = e.target.value;
-        syncPriceAcrossItems(row, newPrice);
+        const newCosto = e.target.value;
+        syncPriceAcrossItems(row, newCosto);
         // NO se limpia el catalog link al editar precio: el artículo sigue vinculado
       } else if (e.target.classList.contains("section-title-input")) {
         // Refrescar el dropdown de la barra masiva si el usuario renombra una sección

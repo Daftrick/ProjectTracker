@@ -191,6 +191,15 @@ def safe_float(value, default=0.0):
         return default
 
 
+def _calc_precio_venta(precio_costo, pct_mo=0.0, pct_indirectos=0.0, pct_utilidad=0.0):
+    """precio_venta = costo × (1+%mo) × (1+%ind) / (1−%util). Utilidad sobre precio de venta (APU México)."""
+    pct_util = safe_float(pct_utilidad)
+    if pct_util >= 100:
+        return 0.0
+    base = safe_float(precio_costo) * (1 + safe_float(pct_mo) / 100) * (1 + safe_float(pct_indirectos) / 100)
+    return round(base / (1 - pct_util / 100), 2)
+
+
 def resolve_catalog_binding(item, catalog_by_id, catalog_by_name, text_key, infer_by_name=True):
     catalog_item_id = str(item.get("catalog_item_id", "")).strip()
     if catalog_item_id:
@@ -262,7 +271,8 @@ def aggregate_quote_items(items):
     return [seen[k] for k in order]
 
 
-def hydrate_quote_item(item, catalog_by_id, catalog_by_name, infer_by_name=True):
+def hydrate_quote_item(item, catalog_by_id, catalog_by_name, infer_by_name=True,
+                       default_pct_mo=0.0, default_pct_indirectos=0.0, default_pct_utilidad=0.0):
     hydrated = dict(item)
     if is_quote_section_marker(hydrated):
         return {
@@ -271,6 +281,7 @@ def hydrate_quote_item(item, catalog_by_id, catalog_by_name, infer_by_name=True)
             "description": "",
             "unit": "",
             "qty": 0,
+            "precio_costo": 0,
             "price": 0,
             "total": 0,
             "catalog_description": "",
@@ -279,7 +290,11 @@ def hydrate_quote_item(item, catalog_by_id, catalog_by_name, infer_by_name=True)
             "catalog_missing": False,
             "catalog_deleted": False,
         }
-    stored_price = safe_float(hydrated.get("price", item.get("price", 0) if isinstance(item, dict) else 0))
+    # precio_costo = costo proveedor. Backward compat: items anteriores usan "price" como costo.
+    if "precio_costo" in hydrated:
+        stored_costo = safe_float(hydrated.get("precio_costo", 0))
+    else:
+        stored_costo = safe_float(hydrated.get("price", 0))
     deleted_catalog_item = hydrated.get("deleted_catalog_item") or None
     catalog_item_id, catalog_item = resolve_catalog_binding(
         hydrated, catalog_by_id, catalog_by_name, "description", infer_by_name=infer_by_name
@@ -290,12 +305,10 @@ def hydrate_quote_item(item, catalog_by_id, catalog_by_name, infer_by_name=True)
         hydrated["catalog_linked"] = False
         hydrated["catalog_missing"] = False
         hydrated["catalog_deleted"] = True
-        hydrated["price"] = stored_price
     elif catalog_item:
         hydrated["catalog_item_id"] = catalog_item_id
         hydrated["description"] = catalog_item.get("nombre", hydrated.get("description", ""))
         hydrated["unit"] = catalog_item.get("unidad", hydrated.get("unit", "pza"))
-        hydrated["price"] = stored_price
         hydrated["catalog_description"] = catalog_item.get("descripcion", "").strip()
         hydrated["catalog_linked"] = True
         hydrated["catalog_missing"] = False
@@ -307,9 +320,14 @@ def hydrate_quote_item(item, catalog_by_id, catalog_by_name, infer_by_name=True)
         hydrated["catalog_linked"] = False
         hydrated["catalog_missing"] = bool(catalog_item_id)
         hydrated["catalog_deleted"] = False
-        hydrated["price"] = stored_price
+    # Porcentajes efectivos: override por item > defaults de la cotización
+    pct_mo = safe_float(hydrated["pct_mo_override"]) if hydrated.get("pct_mo_override") is not None else safe_float(default_pct_mo)
+    pct_ind = safe_float(hydrated["pct_indirectos_override"]) if hydrated.get("pct_indirectos_override") is not None else safe_float(default_pct_indirectos)
+    pct_util = safe_float(hydrated["pct_utilidad_override"]) if hydrated.get("pct_utilidad_override") is not None else safe_float(default_pct_utilidad)
     hydrated["section"] = quote_item_section(hydrated)
     hydrated["qty"] = safe_float(hydrated.get("qty", 0))
+    hydrated["precio_costo"] = stored_costo
+    hydrated["price"] = _calc_precio_venta(stored_costo, pct_mo, pct_ind, pct_util)
     hydrated["total"] = round(hydrated["qty"] * hydrated["price"], 2)
     return hydrated
 
@@ -318,7 +336,18 @@ def hydrate_quote(quote, catalog_by_id=None, catalog_by_name=None):
     catalog_by_id = catalog_by_id if catalog_by_id is not None else {}
     catalog_by_name = catalog_by_name if catalog_by_name is not None else {}
     hydrated = dict(quote)
-    hydrated["items"] = [hydrate_quote_item(item, catalog_by_id, catalog_by_name) for item in quote.get("items", [])]
+    default_pct_mo = safe_float(hydrated.get("default_pct_mo", 0))
+    default_pct_indirectos = safe_float(hydrated.get("default_pct_indirectos", 0))
+    default_pct_utilidad = safe_float(hydrated.get("default_pct_utilidad", 0))
+    hydrated["items"] = [
+        hydrate_quote_item(
+            item, catalog_by_id, catalog_by_name,
+            default_pct_mo=default_pct_mo,
+            default_pct_indirectos=default_pct_indirectos,
+            default_pct_utilidad=default_pct_utilidad,
+        )
+        for item in quote.get("items", [])
+    ]
     tax_rate = safe_float(hydrated.get("tax_rate", 16), 16)
     subtotal = round(
         sum(item.get("total", 0) for item in hydrated["items"] if not is_quote_section_marker(item)),

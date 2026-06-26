@@ -21,7 +21,7 @@ class FormModelsTest(unittest.TestCase):
                 ("item_desc[]", ""),
                 ("item_unit[]", ""),
                 ("item_qty[]", ""),
-                ("item_price[]", ""),
+                ("item_precio_costo[]", ""),
                 ("item_catalog_id[]", ""),
                 ("item_desc2[]", ""),
                 ("item_kind[]", "item"),
@@ -29,7 +29,7 @@ class FormModelsTest(unittest.TestCase):
                 ("item_desc[]", " Interruptor "),
                 ("item_unit[]", "pza"),
                 ("item_qty[]", "2"),
-                ("item_price[]", "150.5"),
+                ("item_precio_costo[]", "150.5"),
                 ("item_catalog_id[]", "ABC123"),
                 ("item_desc2[]", "Detalle"),
             ])
@@ -39,7 +39,7 @@ class FormModelsTest(unittest.TestCase):
         self.assertEqual(result["quote_number"], "COT-OM001-E01-20260428")
         self.assertEqual(result["items"][0], {"kind": "section", "section": "Tableros"})
         self.assertEqual(result["items"][1]["section"], "Tableros")
-        self.assertEqual(result["items"][1]["total"], 301.0)
+        self.assertEqual(result["items"][1]["precio_costo"], "150.5")
         self.assertEqual(result["items"][1]["catalog_item_id"], "ABC123")
 
     def test_quote_from_form_preserves_section_without_items(self):
@@ -51,7 +51,7 @@ class FormModelsTest(unittest.TestCase):
                 ("item_desc[]", ""),
                 ("item_unit[]", ""),
                 ("item_qty[]", ""),
-                ("item_price[]", ""),
+                ("item_precio_costo[]", ""),
                 ("item_catalog_id[]", ""),
                 ("item_desc2[]", ""),
             ])
@@ -66,7 +66,7 @@ class FormModelsTest(unittest.TestCase):
                 ("item_desc[]", "Interruptor"),
                 ("item_unit[]", "pza"),
                 ("item_qty[]", "1"),
-                ("item_price[]", "100"),
+                ("item_precio_costo[]", "100"),
                 ("item_catalog_id[]", ""),
                 ("item_desc2[]", "3P"),
                 ("item_deleted_catalog_id[]", "CAT1"),
@@ -94,7 +94,7 @@ class FormModelsTest(unittest.TestCase):
                 ("item_desc[]", "Interruptor"),
                 ("item_unit[]", "pza"),
                 ("item_qty[]", "1"),
-                ("item_price[]", "100"),
+                ("item_precio_costo[]", "100"),
                 ("item_catalog_id[]", ""),
                 ("item_desc2[]", ""),
             ])
@@ -111,7 +111,7 @@ class FormModelsTest(unittest.TestCase):
             ("item_desc[]", "X"),
             ("item_unit[]", "pza"),
             ("item_qty[]", "1"),
-            ("item_price[]", "1"),
+            ("item_precio_costo[]", "1"),
             ("item_catalog_id[]", ""),
             ("item_desc2[]", ""),
         ]))

@@ -25,7 +25,10 @@ def quote_from_form(form, fallback_quote=None):
     desc2s = form.getlist("item_desc2[]")
     units = form.getlist("item_unit[]")
     qtys = form.getlist("item_qty[]")
-    prices = form.getlist("item_price[]")
+    precios_costo = form.getlist("item_precio_costo[]")
+    pct_mo_overrides = form.getlist("item_pct_mo[]")
+    pct_ind_overrides = form.getlist("item_pct_indirectos[]")
+    pct_util_overrides = form.getlist("item_pct_utilidad[]")
     catalog_ids = form.getlist("item_catalog_id[]")
     deleted_ids = form.getlist("item_deleted_catalog_id[]")
     deleted_names = form.getlist("item_deleted_catalog_nombre[]")
@@ -49,15 +52,19 @@ def quote_from_form(form, fallback_quote=None):
             continue
         section = raw_section.strip() or current_section
         qty = qtys[index] if index < len(qtys) else "1"
-        price = prices[index] if index < len(prices) else "0"
-        total = round(_to_float(qty, 0) * _to_float(price, 0), 2)
+        precio_costo = precios_costo[index] if index < len(precios_costo) else "0"
+        pct_mo_raw = pct_mo_overrides[index].strip() if index < len(pct_mo_overrides) else ""
+        pct_ind_raw = pct_ind_overrides[index].strip() if index < len(pct_ind_overrides) else ""
+        pct_util_raw = pct_util_overrides[index].strip() if index < len(pct_util_overrides) else ""
         parsed_item = {
             "catalog_item_id": catalog_ids[index].strip() if index < len(catalog_ids) else "",
             "description": description.strip(),
             "unit": units[index].strip() if index < len(units) else "pza",
             "qty": qty,
-            "price": price,
-            "total": total,
+            "precio_costo": precio_costo,
+            "pct_mo_override": _to_float(pct_mo_raw) if pct_mo_raw else None,
+            "pct_indirectos_override": _to_float(pct_ind_raw) if pct_ind_raw else None,
+            "pct_utilidad_override": _to_float(pct_util_raw) if pct_util_raw else None,
             "catalog_description": desc2s[index].strip() if index < len(desc2s) else "",
             "section": section,
         }
@@ -87,6 +94,9 @@ def quote_from_form(form, fallback_quote=None):
         "valid_until": form.get("valid_until", "").strip(),
         "currency": form.get("currency", "MXN").strip() or "MXN",
         "tax_rate": form.get("tax_rate", "16").strip() or "16",
+        "default_pct_mo": _to_float(form.get("default_pct_mo", "0") or "0"),
+        "default_pct_indirectos": _to_float(form.get("default_pct_indirectos", "0") or "0"),
+        "default_pct_utilidad": _to_float(form.get("default_pct_utilidad", "0") or "0"),
         "notes": form.get("notes", "").strip(),
         "project_basis_note": form.get("project_basis_note", "").strip(),
         "specs": specs,
