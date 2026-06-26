@@ -48,6 +48,11 @@ class MatchItemTest(unittest.TestCase):
         # 'tableros' está en categoria; 'square' está en descripcion
         self.assertTrue(cs.match_item(self.SAMPLE, ["tableros", "square"]))
 
+    def test_marca_field_is_searchable(self):
+        item = {"nombre": "Interruptor 30A", "descripcion": "", "categoria": "", "marca": "Siemens"}
+        self.assertTrue(cs.match_item(item, ["siemens"]))
+        self.assertFalse(cs.match_item(item, ["schneider"]))
+
 
 class FilterCatalogTest(unittest.TestCase):
     ITEMS = [

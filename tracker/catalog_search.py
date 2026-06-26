@@ -39,7 +39,7 @@ def _indexable_text(item: dict) -> str:
     return _normalize(
         " ".join(
             str(item.get(field, "") or "")
-            for field in ("nombre", "descripcion", "categoria")
+            for field in ("nombre", "descripcion", "categoria", "marca")
         )
     )
 

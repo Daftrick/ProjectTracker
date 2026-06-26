@@ -52,6 +52,7 @@ def _parse_price(value):
 
 def _catalog_form(form=None):
     form = form or {}
+    buy_size_raw = _clean(form.get("buy_unit_size"))
     return {
         "nombre": _clean(form.get("nombre")),
         "descripcion": _clean(form.get("descripcion")),
@@ -59,6 +60,10 @@ def _catalog_form(form=None):
         "precio": _clean(form.get("precio")) or "0",
         "categoria": _clean(form.get("categoria")),
         "disciplina": _clean(form.get("disciplina")) or "instalaciones",
+        "marca": _clean(form.get("marca")),
+        "is_fractional": form.get("is_fractional") == "1",
+        "buy_unit_size": float(buy_size_raw) if buy_size_raw else None,
+        "buy_unit_label": _clean(form.get("buy_unit_label")),
     }
 
 
@@ -188,6 +193,10 @@ def catalogo():
             "precio": price,
             "categoria": form_state["categoria"],
             "disciplina": form_state["disciplina"],
+            "marca": form_state["marca"],
+            "is_fractional": form_state["is_fractional"],
+            "buy_unit_size": form_state["buy_unit_size"],
+            "buy_unit_label": form_state["buy_unit_label"],
             "created_at": today(),
         })
         save("catalogo", items)
@@ -220,6 +229,10 @@ def edit_catalogo(item_id):
         item["precio"] = price
         item["categoria"] = form_state["categoria"]
         item["disciplina"] = form_state["disciplina"]
+        item["marca"] = form_state["marca"]
+        item["is_fractional"] = form_state["is_fractional"]
+        item["buy_unit_size"] = form_state["buy_unit_size"]
+        item["buy_unit_label"] = form_state["buy_unit_label"]
         save("catalogo", items)
         if is_ajax:
             return jsonify({"ok": True, "item": item})
@@ -242,6 +255,24 @@ def delete_catalogo(item_id):
     refs = result["counts"]["quote_refs"] + result["counts"]["material_refs"]
     flash(f"Artículo eliminado. Se limpiaron {refs} referencia(s) en cotizaciones/LDMs.", "warning")
     return redirect(url_for("catalogo"))
+
+
+@bp.route("/api/catalogo/migrate-marca", methods=["POST"], endpoint="migrate_catalog_marca")
+@admin_required
+def migrate_catalog_marca():
+    """One-time migration: split 'Marca | Nombre' items into separate marca + nombre fields."""
+    items = load("catalogo")
+    migrated = 0
+    for item in items:
+        nombre = item.get("nombre", "")
+        if "|" in nombre and not item.get("marca"):
+            parts = nombre.split("|", 1)
+            item["marca"] = parts[0].strip()
+            item["nombre"] = parts[1].strip()
+            migrated += 1
+    if migrated:
+        save("catalogo", items)
+    return jsonify({"ok": True, "migrated": migrated})
 
 
 @bp.route("/api/catalogo/bulk-delete", methods=["POST"], endpoint="bulk_delete_catalogo")
@@ -309,6 +340,10 @@ def api_catalogo_add():
         "precio": float(data.get("precio", 0) or 0),
         "categoria": (data.get("categoria", "") or "").strip(),
         "disciplina": (data.get("disciplina", "") or "instalaciones").strip(),
+        "marca": (data.get("marca", "") or "").strip(),
+        "is_fractional": False,
+        "buy_unit_size": None,
+        "buy_unit_label": "",
         "created_at": today(),
     }
     items.append(new_item)

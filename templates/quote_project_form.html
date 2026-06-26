@@ -1574,6 +1574,7 @@
       div.innerHTML =
         `<div class="fw-semibold text-truncate">${escHtml(item.nombre)}</div>` +
         `<div class="text-muted" style="font-size:.75rem">` +
+          (item.marca ? `<span class="badge bg-secondary-subtle text-secondary-emphasis me-1" style="font-size:.7rem">${escHtml(item.marca)}</span>` : "") +
           `${escHtml(item.unidad)} · $${parseFloat(item.precio).toLocaleString("es-MX",{minimumFractionDigits:2})}` +
           (item.descripcion ? ` · ${escHtml(item.descripcion.substring(0,45))}` : "") +
         `</div>`;
