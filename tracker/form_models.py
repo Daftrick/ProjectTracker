@@ -1,5 +1,6 @@
 from .catalog import quote_type_code, quote_type_key
 from .pdfs import QUOTE_TERMS_DEFAULTS
+from .quote_templates_config import MAX_QUOTE_TEMPLATE_CONTACTS, normalize_contact_rows
 from .storage import today
 from .utils import deleted_catalog_item_at as _deleted_catalog_item_at
 
@@ -99,6 +100,14 @@ def quote_from_form(form, fallback_quote=None):
             "enabled": enabled,
         })
     specs["terms"] = terms
+    specs["integrantes"] = normalize_contact_rows([
+        {
+            "enabled": bool(form.get(f"integrante_{index}_enabled")),
+            "name": (form.get(f"integrante_{index}_name") or "").strip(),
+            "role": (form.get(f"integrante_{index}_role") or "").strip(),
+        }
+        for index in range(MAX_QUOTE_TEMPLATE_CONTACTS)
+    ])
     base.update({
         "quote_type": quote_type_key(form.get("quote_type", "Proyecto")),
         "quote_number": form.get("quote_number", "").strip(),
@@ -167,5 +176,4 @@ def _to_float(value, default=0):
         return float(str(value or "").replace(",", "."))
     except ValueError:
         return default
-
 

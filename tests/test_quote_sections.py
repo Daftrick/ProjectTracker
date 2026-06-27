@@ -55,6 +55,14 @@ class QuoteSectionsTest(unittest.TestCase):
         self.assertIn("function copySelectedToSection()", template)
         self.assertIn("openCopyToMultiModal()", template)
 
+    def test_quote_form_has_integrantes_editor(self):
+        template = Path("templates/quote_project_form.html").read_text(encoding="utf-8")
+
+        self.assertIn("Integrantes de la cotización", template)
+        self.assertIn("toggleIntegranteBody", template)
+        self.assertIn('name="integrante_{{ loop.index0 }}_name"', template)
+        self.assertIn('name="integrante_{{ loop.index0 }}_role"', template)
+
 
 if __name__ == "__main__":
     unittest.main()

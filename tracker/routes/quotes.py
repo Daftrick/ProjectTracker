@@ -20,10 +20,11 @@ bp = Blueprint("quotes_bp", __name__)
 
 def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None, form_action=None):
     from ..pdfs import QUOTE_TERMS_DEFAULTS
-    from ..quote_templates_config import get_quote_templates
+    from ..quote_templates_config import MAX_QUOTE_TEMPLATE_CONTACTS, get_quote_templates, normalize_contact_rows
     stored_terms = {}
     for t in ((quote or {}).get("specs") or {}).get("terms") or []:
         stored_terms[t["key"]] = t
+    stored_integrantes = ((quote or {}).get("specs") or {}).get("integrantes")
     terms_config = []
     for key, title, default_body in QUOTE_TERMS_DEFAULTS:
         stored = stored_terms.get(key, {})
@@ -33,6 +34,14 @@ def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None,
             "body": stored.get("body", default_body) if stored else default_body,
             "enabled": stored.get("enabled", True) if stored else True,
         })
+    integrantes_config = (
+        normalize_contact_rows(stored_integrantes)
+        if stored_integrantes is not None
+        else normalize_contact_rows([
+            {"enabled": False, "name": "", "role": ""}
+            for _ in range(MAX_QUOTE_TEMPLATE_CONTACTS)
+        ])
+    )
     return render_template(
         "quote_project_form.html",
         project=project,
@@ -42,6 +51,7 @@ def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None,
         form_action=form_action,
         quote_templates=get_quote_templates(),
         terms_config=terms_config,
+        integrantes_config=integrantes_config,
         **quote_default_numbers(project, quotes, quote_id=quote_id),
     )
 

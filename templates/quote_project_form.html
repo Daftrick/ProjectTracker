@@ -473,6 +473,55 @@
               </div>
             </div>
           </div>
+          {# ── Integrantes ── #}
+          <div class="col-12">
+            <div class="d-flex align-items-center mb-2">
+              <button type="button" class="btn btn-link p-0 text-decoration-none"
+                      style="font-size:.9rem;color:inherit"
+                      data-bs-toggle="collapse" data-bs-target="#integrantesSection"
+                      aria-expanded="true" aria-controls="integrantesSection">
+                <i class="bi bi-people me-1 text-muted"></i>
+                <span>Integrantes de la cotización</span>
+                <i class="bi bi-chevron-down ms-1 terms-chevron" style="font-size:.7rem;transition:transform .2s"></i>
+              </button>
+            </div>
+          </div>
+          <div class="col-12 collapse show" id="integrantesSection">
+            <div class="card border-0 bg-body-secondary rounded-3 p-3">
+              <div class="row g-3">
+                {% for integrante in integrantes_config %}
+                <div class="col-12 border-bottom pb-2">
+                  <div class="d-flex align-items-center gap-2 mb-1">
+                    <input type="checkbox" class="form-check-input flex-shrink-0"
+                           name="integrante_{{ loop.index0 }}_enabled"
+                           value="1"
+                           id="integrante_chk_{{ loop.index0 }}"
+                           {% if integrante.enabled %}checked{% endif %}
+                           onchange="toggleIntegranteBody('{{ loop.index0 }}', this.checked)">
+                    <label class="fw-semibold mb-0" style="font-size:.85rem;cursor:pointer"
+                           for="integrante_chk_{{ loop.index0 }}">Integrante {{ loop.index }}</label>
+                  </div>
+                  <div id="integrante_body_{{ loop.index0 }}" {% if not integrante.enabled %}style="display:none"{% endif %}>
+                    <div class="row g-2">
+                      <div class="col-md-6">
+                        <input name="integrante_{{ loop.index0 }}_name"
+                               class="form-control form-control-sm"
+                               value="{{ integrante.name }}"
+                               placeholder="Nombre">
+                      </div>
+                      <div class="col-md-6">
+                        <input name="integrante_{{ loop.index0 }}_role"
+                               class="form-control form-control-sm"
+                               value="{{ integrante.role }}"
+                               placeholder="Puesto">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
           <div class="col-12">
             <label class="form-label form-label-sm fw-semibold">Disciplina / Descripción portada
               <small class="text-muted fw-normal ms-1">Aparece en la portada del PDF</small>
@@ -1406,6 +1455,7 @@
       for (const s of sections) addSection(s, {silent: true});
       if (tbody.children.length === 0) addRow();
       applyTermsDefault(tmpl);
+      applyIntegrantesDefault(tmpl);
     }
     {% endif %}
   }
@@ -1430,6 +1480,11 @@
     if (el) el.style.display = show ? "" : "none";
   }
 
+  function toggleIntegranteBody(index, show) {
+    const el = document.getElementById(`integrante_body_${index}`);
+    if (el) el.style.display = show ? "" : "none";
+  }
+
   function applyTermsDefault(tmpl) {
     const termsDefault = tmpl.terms_default || [];
     for (const term of termsDefault) {
@@ -1441,6 +1496,26 @@
       }
       if (body && term.body !== undefined && term.body !== null) {
         body.value = term.body;
+      }
+    }
+  }
+
+  function applyIntegrantesDefault(tmpl) {
+    const integrantesDefault = tmpl.contacts_default || [];
+    for (let index = 0; index < integrantesDefault.length; index++) {
+      const integrante = integrantesDefault[index] || {};
+      const chk = document.getElementById(`integrante_chk_${index}`);
+      const name = document.querySelector(`input[name="integrante_${index}_name"]`);
+      const role = document.querySelector(`input[name="integrante_${index}_role"]`);
+      if (chk) {
+        chk.checked = integrante.enabled !== false;
+        toggleIntegranteBody(index, chk.checked);
+      }
+      if (name && integrante.name !== undefined && integrante.name !== null) {
+        name.value = integrante.name;
+      }
+      if (role && integrante.role !== undefined && integrante.role !== null) {
+        role.value = integrante.role;
       }
     }
   }
@@ -1470,6 +1545,7 @@
     }
     if (tbody.children.length === 0) addRow();
     applyTermsDefault(tmpl);
+    applyIntegrantesDefault(tmpl);
     {% else %}
     if (tbody.children.length === 0) addRow();
     {% endif %}

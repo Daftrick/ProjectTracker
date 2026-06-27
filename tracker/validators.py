@@ -3,6 +3,7 @@ from datetime import datetime
 
 from .catalog import catalog_maps, hydrate_ldm_item, hydrate_quote_item, quote_type_key
 from .pdfs import QUOTE_TERMS_DEFAULTS
+from .quote_templates_config import MAX_QUOTE_TEMPLATE_CONTACTS, normalize_contact_rows
 from .utils import clean as _clean, deleted_catalog_item_at as _deleted_catalog_item_at, parse_form_float as _parse_float
 
 VALID_CURRENCIES = {"MXN", "USD", "EUR"}
@@ -136,6 +137,14 @@ def validate_quote_form(form):
             "enabled": enabled,
         })
     specs["terms"] = terms
+    specs["integrantes"] = normalize_contact_rows([
+        {
+            "enabled": bool(form.get(f"integrante_{index}_enabled")),
+            "name": _clean(form.get(f"integrante_{index}_name")),
+            "role": _clean(form.get(f"integrante_{index}_role")),
+        }
+        for index in range(MAX_QUOTE_TEMPLATE_CONTACTS)
+    ])
     return {
         "ok": not errors,
         "errors": errors,

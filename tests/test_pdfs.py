@@ -127,6 +127,12 @@ class QuotePdfSectionsTest(unittest.TestCase):
             "notes": "Nota visible",
             "specs": {
                 "condiciones_pago": "Pago visible",
+                "integrantes": [
+                    {"enabled": True, "name": "Ana Lopez", "role": "Directora"},
+                    {"enabled": True, "name": "Luis Perez", "role": "Gerente"},
+                    {"enabled": False, "name": "Oculto", "role": "No Render"},
+                    {"enabled": False, "name": "", "role": ""},
+                ],
                 "terms": [
                     {
                         "key": "vigencia",
@@ -157,9 +163,9 @@ class QuotePdfSectionsTest(unittest.TestCase):
                 "sections_default": [],
                 "terms_default": [],
                 "contacts_default": [
-                    {"enabled": True, "name": "Ana Lopez", "role": "Directora"},
+                    {"enabled": True, "name": "Plantilla", "role": "No debe salir"},
                     {"enabled": False, "name": "Oculto", "role": "No Render"},
-                    {"enabled": True, "name": "Luis Perez", "role": "Gerente"},
+                    {"enabled": True, "name": "Plantilla 2", "role": "No debe salir"},
                     {"enabled": False, "name": "", "role": ""},
                 ],
             }
@@ -175,6 +181,8 @@ class QuotePdfSectionsTest(unittest.TestCase):
 
         self.assertIn("Ana Lopez - Directora", text)
         self.assertIn("Luis Perez - Gerente", text)
+        self.assertNotIn("Plantilla - No debe salir", text)
+        self.assertNotIn("Plantilla 2 - No debe salir", text)
         self.assertNotIn("Oculto - No Render", text)
         self.assertIn("Calle Uno 123", text)
         self.assertIn("contacto@empresa.test - 55 1234 5678", text)

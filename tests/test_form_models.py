@@ -105,6 +105,33 @@ class FormModelsTest(unittest.TestCase):
         self.assertEqual(result["specs"]["forma_entrega"], "PDF")
         self.assertEqual(result["specs"]["contacto"], "Ing. López")
 
+    def test_quote_from_form_parses_integrantes(self):
+        result = quote_from_form(
+            MultiDict([
+                ("date", "2026-04-28"),
+                ("integrante_0_enabled", "1"),
+                ("integrante_0_name", "Ana López"),
+                ("integrante_0_role", "Directora"),
+                ("integrante_1_name", "Luis Pérez"),
+                ("integrante_1_role", "Gerente"),
+                ("item_desc[]", "Interruptor"),
+                ("item_unit[]", "pza"),
+                ("item_qty[]", "1"),
+                ("item_precio_costo[]", "100"),
+                ("item_catalog_id[]", ""),
+                ("item_desc2[]", ""),
+            ])
+        )
+
+        self.assertEqual(result["specs"]["integrantes"][0], {
+            "enabled": True,
+            "name": "Ana López",
+            "role": "Directora",
+        })
+        self.assertFalse(result["specs"]["integrantes"][1]["enabled"])
+        self.assertEqual(result["specs"]["integrantes"][1]["name"], "Luis Pérez")
+        self.assertEqual(result["specs"]["integrantes"][1]["role"], "Gerente")
+
     def test_quote_from_form_specs_defaults_to_empty_strings(self):
         result = quote_from_form(MultiDict([
             ("date", "2026-04-28"),

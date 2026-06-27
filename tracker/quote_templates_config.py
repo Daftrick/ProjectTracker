@@ -80,6 +80,10 @@ def _normalize_contacts(stored_contacts):
     return normalized
 
 
+def normalize_contact_rows(stored_contacts):
+    return _normalize_contacts(stored_contacts)
+
+
 def _normalize(raw):
     result = {}
     for qtype, defaults in QUOTE_TEMPLATE_DEFAULTS.items():
