@@ -76,8 +76,11 @@
       <!-- Barra de acciones múltiples -->
       <div id="bulkBar" class="d-none d-flex align-items-center gap-2">
         <span id="selCount" class="text-muted small fw-semibold"></span>
+        <button class="btn btn-sm btn-outline-primary" onclick="bulkEdit()">
+          <i class="bi bi-pencil-square me-1"></i>Editar campos
+        </button>
         <button class="btn btn-sm btn-danger" onclick="bulkDelete()">
-          <i class="bi bi-trash me-1"></i>Eliminar seleccionados
+          <i class="bi bi-trash me-1"></i>Eliminar
         </button>
         <button class="btn btn-sm btn-outline-secondary" onclick="clearSelection()">
           <i class="bi bi-x"></i>
@@ -249,6 +252,50 @@
           <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Guardar</button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Editar por lotes -->
+<div class="modal fade" id="modalBulkEdit" tabindex="-1">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-pencil-square me-2 text-primary"></i>Editar campos — <span id="bulkEditCount"></span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted small mb-3">Solo se aplican los campos que rellenes. Los vacíos no se modifican.</p>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Marca</label>
+            <input id="beMarca" type="text" class="form-control" placeholder="Dejar vacío = sin cambio">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Unidad</label>
+            <input id="beUnidad" type="text" class="form-control" placeholder="Ej: pza, m, kg">
+          </div>
+          <div class="col-12">
+            <label class="form-label fw-semibold">Descripción</label>
+            <input id="beDesc" type="text" class="form-control" placeholder="Dejar vacío = sin cambio">
+          </div>
+          <div class="col-12">
+            <label class="form-label fw-semibold">Categoría</label>
+            <select id="beCat" class="form-select">
+              <option value="">— sin cambio —</option>
+              {% for cat in categorias %}
+              <option value="{{ cat }}">{{ cat }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" onclick="submitBulkEdit()">
+          <i class="bi bi-check-lg me-1"></i>Aplicar cambios
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -522,6 +569,66 @@ function bulkDelete() {
       }
     }
   });
+}
+
+// ── Edición por lotes ────────────────────────────────────────────────────
+function bulkEdit() {
+  const ids = [...document.querySelectorAll('.row-check:checked')].map(cb => cb.value);
+  if (!ids.length) return;
+  document.getElementById('bulkEditCount').textContent = `${ids.length} artículo(s)`;
+  document.getElementById('beMarca').value = '';
+  document.getElementById('beUnidad').value = '';
+  document.getElementById('beDesc').value = '';
+  document.getElementById('beCat').value = '';
+  new bootstrap.Modal(document.getElementById('modalBulkEdit')).show();
+}
+
+async function submitBulkEdit() {
+  const ids = [...document.querySelectorAll('.row-check:checked')].map(cb => cb.value);
+  const fields = {
+    marca:      document.getElementById('beMarca').value.trim(),
+    descripcion: document.getElementById('beDesc').value.trim(),
+    categoria:  document.getElementById('beCat').value.trim(),
+    unidad:     document.getElementById('beUnidad').value.trim(),
+  };
+  const hasAny = Object.values(fields).some(v => v !== '');
+  if (!hasAny) {
+    alert('Rellena al menos un campo para aplicar.');
+    return;
+  }
+  const res = await fetch('/api/catalogo/bulk-edit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': window._csrf },
+    body: JSON.stringify({ ids, fields }),
+  });
+  const json = await res.json();
+  if (!json.ok) { alert('Error al guardar.'); return; }
+
+  // Actualizar celdas en-página
+  ids.forEach(id => {
+    const row = document.getElementById('row-' + id);
+    if (!row) return;
+    if (fields.marca !== '') {
+      row.querySelector('.cell-marca').innerHTML = fields.marca
+        ? `<span class="badge bg-secondary-subtle text-secondary-emphasis border">${fields.marca}</span>`
+        : `<span class="text-muted">—</span>`;
+    }
+    if (fields.descripcion !== '') {
+      row.querySelector('.cell-desc').textContent = fields.descripcion || '—';
+    }
+    if (fields.categoria !== '') {
+      row.querySelector('.cell-categoria').innerHTML = fields.categoria
+        ? `<span class="badge bg-secondary-subtle text-secondary-emphasis border">${fields.categoria}</span>`
+        : `<span class="text-muted" style="font-size:.8rem">—</span>`;
+    }
+    if (fields.unidad !== '') {
+      row.querySelector('.cell-unidad').innerHTML =
+        `<span class="badge bg-light text-dark border">${fields.unidad}</span>`;
+    }
+  });
+
+  bootstrap.Modal.getInstance(document.getElementById('modalBulkEdit')).hide();
+  clearSelection();
 }
 
 // ── Actualizar contador total ─────────────────────────────────────────────

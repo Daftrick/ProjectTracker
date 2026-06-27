@@ -279,6 +279,28 @@ def migrate_catalog_marca():
     return jsonify({"ok": True, "migrated": migrated})
 
 
+@bp.route("/api/catalogo/bulk-edit", methods=["POST"], endpoint="bulk_edit_catalogo")
+@admin_required
+def bulk_edit_catalogo():
+    data = request.get_json(force=True) or {}
+    ids = set(str(i) for i in (data.get("ids") or []))
+    fields = {k: str(v).strip() for k, v in (data.get("fields") or {}).items()}
+    allowed = {"marca", "descripcion", "categoria", "unidad"}
+    to_apply = {k: v for k, v in fields.items() if k in allowed and v}
+    if not ids or not to_apply:
+        return jsonify(ok=False, error="Nada que aplicar")
+    items = load("catalogo")
+    updated = 0
+    for item in items:
+        if str(item.get("id", "")) in ids:
+            for k, v in to_apply.items():
+                item[k] = v
+            updated += 1
+    if updated:
+        save("catalogo", items)
+    return jsonify(ok=True, updated=updated)
+
+
 @bp.route("/api/catalogo/bulk-delete", methods=["POST"], endpoint="bulk_delete_catalogo")
 @admin_required
 def bulk_delete_catalogo():
