@@ -242,13 +242,13 @@ def build_quote_pdf(project, quote, output_path=None):
             self.set_draw_color(*LINE)
             self.line(left, 13, right, 13)
             self.set_xy(left, 6)
-            self.set_font(FONT, "B", 11)
+            self.set_font(FONT, "B", 9)
             self.set_text_color(*NAVY)
-            self.cell(cw * 0.57, 6, _safe_text(self.project_name))
+            self.cell(cw * 0.62, 6, _safe_text(self.project_name))
             self.set_font(FONT, "", 8.5)
             self.set_text_color(*MUTED)
-            self.cell(cw * 0.23, 6, _safe_text(self.quote_number), align="C")
-            self.cell(cw * 0.20, 6, _safe_text(self.quote_date), align="R")
+            self.cell(cw * 0.22, 6, _safe_text(self.quote_number), align="C")
+            self.cell(cw * 0.16, 6, _safe_text(self.quote_date), align="R")
             self.ln(10)
 
         def footer(self):
@@ -528,7 +528,7 @@ def build_quote_pdf(project, quote, output_path=None):
     def section_title(title, subtitle=None):
         pdf.set_x(pdf.l_margin)
         pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "B", 15)
+        pdf.set_font("DejaVu", "B", 12)
         pdf.cell(content_width, 7, _safe_text(title), ln=True)
         if subtitle:
             pdf.set_x(pdf.l_margin)
@@ -606,7 +606,7 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.set_fill_color(*_portada_fill)
     pdf.rect(0, 0, 210, 112, style="F")
     if logo_path:
-        pdf.image(logo_path, x=48, y=12, w=114)
+        pdf.image(logo_path, x=55, y=20, w=100)
     else:
         pdf.set_text_color(255, 255, 255)
         pdf.set_xy(16, 28)
@@ -628,8 +628,8 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.cell(0, 5, "PROPUESTA ECONÓMICA")
     pdf.set_xy(16, 148)
     pdf.set_text_color(*INK)
-    pdf.set_font("DejaVu", "B", 23)
-    pdf.multi_cell(158, 9.5, _safe_text(cover_title))
+    pdf.set_font("DejaVu", "B", 18)
+    pdf.multi_cell(158, 8, _safe_text(cover_title))
     if cover_basis_note:
         pdf.ln(1)
         pdf.set_x(16)
@@ -649,8 +649,8 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.cell(0, 6, "Propuesta para")
     pdf.set_xy(16, proposal_y + 9)
     pdf.set_text_color(*INK)
-    pdf.set_font("DejaVu", "B", 19)
-    pdf.multi_cell(112, 8.5, client_name)
+    pdf.set_font("DejaVu", "B", 15)
+    pdf.multi_cell(112, 7, client_name)
     summary_x = 16
     summary_y = max(215, min(250, round(221 + _spacing_delta)))
     summary_w = 178
@@ -686,7 +686,10 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.set_xy(left_x, summary_y + 5)
     info_label("PROYECTO", ln=True)
     pdf.set_x(left_x)
-    info_value(project_name, ln=True)
+    _pname_box = _safe_text(project_name)
+    if len(_pname_box) > 40:
+        _pname_box = _pname_box[:37] + "..."
+    info_value(_pname_box, ln=True)
 
     # Renglón 2: Cotización
     pdf.set_xy(left_x, summary_y + 24)
