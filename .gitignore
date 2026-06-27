@@ -42,5 +42,10 @@ graphify-out/cost.json
 *.db-shm
 *.db-journal
 
+# Persistent data — lives on Railway volume at /app/data, not in git
+data/*.json
+data/*.db
+data/*.bak
+
 # FUSE temp artifacts from mounted filesystems
 .fuse_hidden*
