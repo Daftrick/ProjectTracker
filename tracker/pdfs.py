@@ -673,16 +673,16 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.set_fill_color(*SOFT)
     pdf.rect(summary_x, summary_y, summary_w, summary_h, style="F")
 
-    totals_box_x = 111
-    totals_box_w = 88
-    totals_box_h = 34
+    totals_box_x = 107
+    totals_box_w = 96
+    totals_box_h = 38
     totals_box_y = summary_y + (summary_h - totals_box_h) / 2
     pdf.set_fill_color(255, 255, 255)
     pdf.set_draw_color(*LINE)
     pdf.rect(totals_box_x, totals_box_y, totals_box_w, totals_box_h, style="DF")
 
-    left_x = 11
-    left_w = totals_box_x - left_x - 8
+    left_x = 7
+    left_w = totals_box_x - left_x - 6
     label_h = 3.8
     value_h = 5.8
 
@@ -730,9 +730,9 @@ def build_quote_pdf(project, quote, output_path=None):
     # Anchos fijos; si la fecha no cabe a 9.8pt (fuente monoespaciada más ancha),
     # se escala el tamaño de fuente hacia abajo hasta que quepa.
     pdf.set_font("DejaVu", "", 9.8)
-    moneda_w       = 15
-    version_w      = 12
-    fecha_w        = left_w - moneda_w - version_w
+    moneda_w       = 14
+    fecha_w        = 55
+    version_w      = left_w - moneda_w - fecha_w
     _date_str_w    = pdf.get_string_width(quote_date)
     fecha_font_sz  = 9.8 if _date_str_w + 1 <= fecha_w else max(7.0, round(9.8 * fecha_w / (_date_str_w + 1), 1))
     moneda_x  = left_x

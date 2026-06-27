@@ -1,6 +1,12 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v43.1 — 27-Jun-2026
+## Versión actual: v43.2 — 27-Jun-2026
+
+### v43.2 — PDF portada: ajustes visuales recuadro gris
+- Margen interior reducido: `left_x` 11mm → 7mm (padding lateral de 2mm desde el borde del recuadro)
+- VERSIÓN se mueve de x=91 a x=76mm: `fecha_w` fijo en 55mm (cabe "30 de septiembre de 2026"); `version_w` crece a ~25mm como remanente
+- Caja de totales más grande: 88mm → 96mm de ancho, 34mm → 38mm de alto; finaliza a 2mm del borde derecho del recuadro gris
+- 337 tests pasan
 
 ### v43.1 — PDF: fuente Atkinson Hyperlegible Mono + portada a ancho completo
 - Fuente cambiada a **Atkinson Hyperlegible Mono** (Regular + Bold) en todos los PDFs; fallback a DejaVu Sans si los archivos no están disponibles
