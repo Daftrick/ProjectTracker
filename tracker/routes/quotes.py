@@ -139,6 +139,7 @@ def new_quote(project_id):
             "default_pct_utilidad": validation["default_pct_utilidad"],
             "notes": validation["notes"],
             "project_basis_note": validation["project_basis_note"] if quote_type == "Extraordinaria" else "",
+            "cover_discipline": validation["cover_discipline"] or "",
             "specs": validation["specs"],
             "created_at": today(),
         }
@@ -257,6 +258,7 @@ def edit_quote(project_id, quote_id):
             "default_pct_utilidad": validation["default_pct_utilidad"],
             "notes": validation["notes"],
             "project_basis_note": validation["project_basis_note"] if validation["quote_type"] == "Extraordinaria" else "",
+            "cover_discipline": validation["cover_discipline"] or "",
             "specs": validation["specs"],
         })
         save("quotes", quotes)

@@ -100,6 +100,7 @@ def quote_from_form(form, fallback_quote=None):
         "default_pct_utilidad": _to_float(form.get("default_pct_utilidad", "0") or "0"),
         "notes": form.get("notes", "").strip(),
         "project_basis_note": form.get("project_basis_note", "").strip(),
+        "cover_discipline": form.get("cover_discipline", "").strip(),
         "specs": specs,
         "items": items,
     })

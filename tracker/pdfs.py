@@ -176,20 +176,21 @@ def quote_sequence_from_number(quote_number):
 
 
 def quote_cover_copy(quote):
+    discipline = str(quote.get("cover_discipline") or "").strip() or "Instalaciones Eléctricas"
     quote_type = quote_type_key(quote.get("quote_type"))
     if quote_type == "Proyecto":
-        return "Cotización de Proyecto\nInstalaciones Eléctricas", None
+        return f"Cotización de Proyecto\n{discipline}", None
     if quote_type == "Obra":
-        return "Cotización de Obra\nInstalaciones Eléctricas", None
+        return f"Cotización de Obra\n{discipline}", None
     if quote_type == "Servicio":
-        return "Cotización de Servicio\nInstalaciones Eléctricas", None
+        return f"Cotización de Servicio\n{discipline}", None
     if quote_type == "Preliminar":
-        return "Cotización Preliminar de\nInstalaciones Eléctricas", None
+        return f"Cotización Preliminar de\n{discipline}", None
     if quote_type == "Extraordinaria":
         sequence = quote_sequence_from_number(quote.get("quote_number"))
         subtitle = f"Número secuencial de cotización {sequence}" if sequence else "Número secuencial de cotización"
-        return "Cotización Extraordinaria de\nInstalaciones Eléctricas", subtitle
-    return "Cotización de Instalaciones\nEléctricas", None
+        return f"Cotización Extraordinaria de\n{discipline}", subtitle
+    return f"Cotización de {discipline}", None
 
 
 def quote_project_basis_note(quote):
@@ -686,10 +687,25 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.set_xy(left_x, summary_y + 5)
     info_label("PROYECTO", ln=True)
     pdf.set_x(left_x)
-    _pname_box = _safe_text(project_name)
-    if len(_pname_box) > 40:
-        _pname_box = _pname_box[:37] + "..."
-    info_value(_pname_box, ln=True)
+    pdf.set_text_color(*INK)
+    pdf.set_font("DejaVu", "", 9.8)
+    _pname_safe = _safe_text(project_name)
+    _l1, _l2 = [], []
+    _filling = _l1
+    for _tok in _pname_safe.split():
+        _test = " ".join(_filling + [_tok])
+        if pdf.get_string_width(_test) <= left_w:
+            _filling.append(_tok)
+        else:
+            if _filling is _l1:
+                _filling = _l2
+                _filling.append(_tok)
+            else:
+                break
+    for _pline in (_l1, _l2):
+        if _pline:
+            pdf.set_x(left_x)
+            pdf.cell(left_w, value_h, " ".join(_pline), ln=True)
 
     # Renglón 2: Cotización
     pdf.set_xy(left_x, summary_y + 24)

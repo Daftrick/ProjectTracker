@@ -418,6 +418,14 @@
               </div>
             </div>
           </div>
+          <div class="col-12">
+            <label class="form-label form-label-sm fw-semibold">Disciplina / Descripción portada
+              <small class="text-muted fw-normal ms-1">Aparece en la portada del PDF</small>
+            </label>
+            <input name="cover_discipline" class="form-control form-control-sm"
+                   value="{{ quote.cover_discipline if quote else '' }}"
+                   placeholder="Instalaciones Eléctricas">
+          </div>
           <div class="col-12 d-none" id="projectBasisNoteGroup">
             <label class="form-label">Nota base de proyecto <small class="text-muted">(extraordinaria)</small></label>
             <textarea name="project_basis_note" class="form-control" rows="2"
