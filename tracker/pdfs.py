@@ -156,18 +156,21 @@ def quote_scope_paragraphs():
     ]
 
 
+QUOTE_TERMS_DEFAULTS = [
+    ("vigencia",          "Vigencia.",                    "La presente cotización tendrá vigencia de 15 días naturales a partir de su fecha de emisión."),
+    ("precios",           "Precios.",                     "Todos los precios están expresados en pesos mexicanos (MXN) y no incluyen IVA, salvo indicación expresa."),
+    ("info_base",         "Información base y ajustes.",  "La cotización fue elaborada con base en la información disponible al momento de su emisión. En caso de no contar con proyecto ejecutivo definitivo, así como por cambios en planos, especificaciones, cantidades, trayectorias, capacidades, materiales, equipos o condiciones reales de obra, la cotización podrá ser revisada y actualizada en alcance, precio y plazo."),
+    ("condpago",          "Condiciones de pago.",         "El inicio, continuidad y entrega de los trabajos estarán sujetos al cumplimiento de las condiciones de pago pactadas entre las partes."),
+    ("plazos",            "Plazos.",                      "Los tiempos de suministro y ejecución estarán sujetos a disponibilidad de materiales, liberación de frentes, coordinación con otras especialidades y condiciones reales de obra. No serán imputables al contratista los atrasos derivados de cambios de proyecto, falta de pago, falta de liberación de áreas, retrasos de terceros, caso fortuito o fuerza mayor."),
+    ("trab_adic",         "Trabajos adicionales.",        "Todo trabajo adicional, modificación, adecuación o concepto no contemplado originalmente deberá cotizarse y autorizarse por separado antes de su ejecución."),
+    ("exclusiones",       "Exclusiones.",                 "Salvo que se indique expresamente, no se incluyen obra civil, resanes, ranurados, perforaciones especiales, trámites, gestorías, permisos, acometidas de la compañía suministradora, pruebas especializadas por terceros ni cualquier otro trabajo fuera del alcance descrito."),
+    ("garantia",          "Garantía.",                    "Los trabajos ejecutados contarán con garantía por defectos atribuibles a la mano de obra, así como por defectos en materiales o equipos suministrados, siempre que la instalación no haya sido modificada, sobrecargada, mal operada o intervenida por terceros."),
+    ("aceptacion",        "Aceptación.",                  "La aprobación de la cotización mediante firma, orden de compra, anticipo o confirmación escrita implicará la aceptación total de precios, alcances y presentes términos y condiciones."),
+]
+
+
 def quote_terms():
-    return [
-        ("Vigencia.", "La presente cotización tendrá vigencia de 15 días naturales a partir de su fecha de emisión."),
-        ("Precios.", "Todos los precios están expresados en pesos mexicanos (MXN) y no incluyen IVA, salvo indicación expresa."),
-        ("Información base y ajustes.", "La cotización fue elaborada con base en la información disponible al momento de su emisión. En caso de no contar con proyecto ejecutivo definitivo, así como por cambios en planos, especificaciones, cantidades, trayectorias, capacidades, materiales, equipos o condiciones reales de obra, la cotización podrá ser revisada y actualizada en alcance, precio y plazo."),
-        ("Condiciones de pago.", "El inicio, continuidad y entrega de los trabajos estarán sujetos al cumplimiento de las condiciones de pago pactadas entre las partes."),
-        ("Plazos.", "Los tiempos de suministro y ejecución estarán sujetos a disponibilidad de materiales, liberación de frentes, coordinación con otras especialidades y condiciones reales de obra. No serán imputables al contratista los atrasos derivados de cambios de proyecto, falta de pago, falta de liberación de áreas, retrasos de terceros, caso fortuito o fuerza mayor."),
-        ("Trabajos adicionales.", "Todo trabajo adicional, modificación, adecuación o concepto no contemplado originalmente deberá cotizarse y autorizarse por separado antes de su ejecución."),
-        ("Exclusiones.", "Salvo que se indique expresamente, no se incluyen obra civil, resanes, ranurados, perforaciones especiales, trámites, gestorías, permisos, acometidas de la compañía suministradora, pruebas especializadas por terceros ni cualquier otro trabajo fuera del alcance descrito."),
-        ("Garantía.", "Los trabajos ejecutados contarán con garantía por defectos atribuibles a la mano de obra, así como por defectos en materiales o equipos suministrados, siempre que la instalación no haya sido modificada, sobrecargada, mal operada o intervenida por terceros."),
-        ("Aceptación.", "La aprobación de la cotización mediante firma, orden de compra, anticipo o confirmación escrita implicará la aceptación total de precios, alcances y presentes términos y condiciones."),
-    ]
+    return [(title, body) for _, title, body in QUOTE_TERMS_DEFAULTS]
 
 
 def quote_sequence_from_number(quote_number):
@@ -928,7 +931,28 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.set_font("DejaVu", "B", 17)
     _CONDICION_FIELDS = ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto")
     _has_specs = any(str(_specs.get(f) or "").strip() for f in _CONDICION_FIELDS)
-    if _has_specs:
+    _stored_terms = _specs.get("terms")
+    if _stored_terms is not None:
+        _active_terms = [
+            (t.get("title", ""), t.get("body", ""))
+            for t in _stored_terms
+            if t.get("enabled", True) and str(t.get("body") or "").strip()
+        ]
+        if _active_terms:
+            pdf.cell(content_width, 8, "Términos y condiciones", ln=True)
+            pdf.set_x(pdf.l_margin)
+            pdf.set_font("DejaVu", "", 9.4)
+            pdf.set_text_color(*INK)
+            pdf.ln(1)
+            for title, body in _active_terms:
+                pdf.set_x(pdf.l_margin)
+                pdf.set_font("DejaVu", "B", 9.2)
+                pdf.multi_cell(content_width, 5, _safe_text(title))
+                pdf.set_x(pdf.l_margin)
+                pdf.set_font("DejaVu", "", 9.2)
+                pdf.multi_cell(content_width, 5, _safe_text(body))
+                pdf.ln(1.2)
+    elif _has_specs:
         pdf.cell(content_width, 8, "Condiciones y especificaciones", ln=True)
         pdf.set_x(pdf.l_margin)
         pdf.set_font("DejaVu", "", 9.4)

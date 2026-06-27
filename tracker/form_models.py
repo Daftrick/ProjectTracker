@@ -1,4 +1,5 @@
 from .catalog import quote_type_code, quote_type_key
+from .pdfs import QUOTE_TERMS_DEFAULTS
 from .storage import today
 from .utils import deleted_catalog_item_at as _deleted_catalog_item_at
 
@@ -87,6 +88,17 @@ def quote_from_form(form, fallback_quote=None):
         field: (form.get(f"specs_{field}") or "").strip()
         for field in ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto")
     }
+    terms = []
+    for key, title, default_body in QUOTE_TERMS_DEFAULTS:
+        body = (form.get(f"term_{key}_body") or "").strip()
+        enabled = bool(form.get(f"term_{key}_enabled"))
+        terms.append({
+            "key": key,
+            "title": title,
+            "body": body or default_body,
+            "enabled": enabled,
+        })
+    specs["terms"] = terms
     base.update({
         "quote_type": quote_type_key(form.get("quote_type", "Proyecto")),
         "quote_number": form.get("quote_number", "").strip(),

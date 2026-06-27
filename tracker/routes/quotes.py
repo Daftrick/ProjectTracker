@@ -19,7 +19,20 @@ bp = Blueprint("quotes_bp", __name__)
 
 
 def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None, form_action=None):
+    from ..pdfs import QUOTE_TERMS_DEFAULTS
     from ..quote_templates_config import get_quote_templates
+    stored_terms = {}
+    for t in ((quote or {}).get("specs") or {}).get("terms") or []:
+        stored_terms[t["key"]] = t
+    terms_config = []
+    for key, title, default_body in QUOTE_TERMS_DEFAULTS:
+        stored = stored_terms.get(key, {})
+        terms_config.append({
+            "key": key,
+            "title": title,
+            "body": stored.get("body", default_body) if stored else default_body,
+            "enabled": stored.get("enabled", True) if stored else True,
+        })
     return render_template(
         "quote_project_form.html",
         project=project,
@@ -28,6 +41,7 @@ def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None,
         field_errors=field_errors or {},
         form_action=form_action,
         quote_templates=get_quote_templates(),
+        terms_config=terms_config,
         **quote_default_numbers(project, quotes, quote_id=quote_id),
     )
 

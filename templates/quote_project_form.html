@@ -162,12 +162,15 @@
   .quote-section-active .section-title-input {
     color: #7eb3f5 !important;
   }
-  [data-bs-toggle="collapse"] .specs-chevron {
+  [data-bs-toggle="collapse"] .specs-chevron,
+  [data-bs-toggle="collapse"] .terms-chevron {
     transition: transform .2s;
   }
-  [data-bs-toggle="collapse"][aria-expanded="true"] .specs-chevron {
+  [data-bs-toggle="collapse"][aria-expanded="true"] .specs-chevron,
+  [data-bs-toggle="collapse"][aria-expanded="true"] .terms-chevron {
     transform: rotate(-180deg);
   }
+  #termsSection .border-bottom:last-child { border-bottom: 0 !important; padding-bottom: 0 !important; }
   .drag-cell {
     width: 64px;
     text-align: center;
@@ -449,7 +452,7 @@
           </div>
           {# ── Especificaciones técnicas ── #}
           {% set _specs = quote.get('specs', {}) if quote else {} %}
-          {% set _has_specs = _specs.values() | select | list | length > 0 %}
+          {% set _has_specs = _specs.get('condiciones_pago') or _specs.get('exclusiones') or _specs.get('validez') or _specs.get('forma_entrega') or _specs.get('contacto') %}
           <div class="col-12">
             <div class="d-flex align-items-center mb-2">
               <span style="font-size:.9rem"><i class="bi bi-card-checklist me-1 text-muted"></i>Especificaciones técnicas</span>
@@ -493,6 +496,44 @@
                          value="{{ _specs.get('contacto', '') }}"
                          placeholder="Ej: Ing. Ricardo López — info@dide.cl">
                 </div>
+              </div>
+            </div>
+          </div>
+          {# ── Términos y condiciones ── #}
+          <div class="col-12">
+            <div class="d-flex align-items-center mb-2">
+              <button type="button" class="btn btn-link p-0 text-decoration-none"
+                      style="font-size:.9rem;color:inherit"
+                      data-bs-toggle="collapse" data-bs-target="#termsSection"
+                      aria-expanded="true" aria-controls="termsSection">
+                <i class="bi bi-file-text me-1 text-muted"></i>
+                <span>Términos y condiciones</span>
+                <i class="bi bi-chevron-down ms-1 terms-chevron" style="font-size:.7rem;transition:transform .2s"></i>
+              </button>
+            </div>
+          </div>
+          <div class="col-12 collapse show" id="termsSection">
+            <div class="card border-0 bg-body-secondary rounded-3 p-3">
+              <div class="row g-3">
+                {% for term in terms_config %}
+                <div class="col-12 border-bottom pb-2">
+                  <div class="d-flex align-items-center gap-2 mb-1">
+                    <input type="checkbox" class="form-check-input flex-shrink-0"
+                           name="term_{{ term.key }}_enabled"
+                           value="1"
+                           id="term_chk_{{ term.key }}"
+                           {% if term.enabled %}checked{% endif %}
+                           onchange="toggleTermBody('{{ term.key }}', this.checked)">
+                    <label class="fw-semibold mb-0" style="font-size:.85rem;cursor:pointer"
+                           for="term_chk_{{ term.key }}">{{ term.title }}</label>
+                  </div>
+                  <div id="term_body_{{ term.key }}" {% if not term.enabled %}style="display:none"{% endif %}>
+                    <textarea name="term_{{ term.key }}_body"
+                              class="form-control form-control-sm"
+                              rows="2">{{ term.body }}</textarea>
+                  </div>
+                </div>
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -1466,6 +1507,11 @@
 
   function toggleSection(id, show) {
     const el = document.getElementById(id);
+    if (el) el.style.display = show ? "" : "none";
+  }
+
+  function toggleTermBody(key, show) {
+    const el = document.getElementById(`term_body_${key}`);
     if (el) el.style.display = show ? "" : "none";
   }
 

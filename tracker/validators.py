@@ -2,6 +2,7 @@ import re
 from datetime import datetime
 
 from .catalog import catalog_maps, hydrate_ldm_item, hydrate_quote_item, quote_type_key
+from .pdfs import QUOTE_TERMS_DEFAULTS
 from .utils import clean as _clean, deleted_catalog_item_at as _deleted_catalog_item_at, parse_form_float as _parse_float
 
 VALID_CURRENCIES = {"MXN", "USD", "EUR"}
@@ -124,6 +125,17 @@ def validate_quote_form(form):
         field: _clean(form.get(f"specs_{field}")) or ""
         for field in ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto")
     }
+    terms = []
+    for key, title, default_body in QUOTE_TERMS_DEFAULTS:
+        body = (_clean(form.get(f"term_{key}_body")) or "").strip()
+        enabled = bool(form.get(f"term_{key}_enabled"))
+        terms.append({
+            "key": key,
+            "title": title,
+            "body": body or default_body,
+            "enabled": enabled,
+        })
+    specs["terms"] = terms
     return {
         "ok": not errors,
         "errors": errors,
