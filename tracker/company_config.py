@@ -5,6 +5,8 @@ COMPANY_DEFAULTS = {
     "prefix": "",
     "logo": "",
     "address": "",
+    "email": "",
+    "phone": "",
     "rut": "",
     "portada_color": "#000000",
 }

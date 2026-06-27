@@ -1,5 +1,6 @@
 import unittest
 import tempfile
+from unittest.mock import patch
 
 from tracker.pdfs import (
     build_quote_pdf,
@@ -142,12 +143,44 @@ class QuotePdfSectionsTest(unittest.TestCase):
                 ],
             },
         }
+        company = {
+            "name": "Empresa PDF",
+            "address": "Calle Uno 123",
+            "email": "contacto@empresa.test",
+            "phone": "55 1234 5678",
+            "rut": "RFC123",
+            "logo": "",
+            "portada_color": "#000000",
+        }
+        quote_templates = {
+            "Proyecto": {
+                "sections_default": [],
+                "terms_default": [],
+                "contacts_default": [
+                    {"enabled": True, "name": "Ana Lopez", "role": "Directora"},
+                    {"enabled": False, "name": "Oculto", "role": "No Render"},
+                    {"enabled": True, "name": "Luis Perez", "role": "Gerente"},
+                    {"enabled": False, "name": "", "role": ""},
+                ],
+            }
+        }
 
         with tempfile.NamedTemporaryFile(suffix=".pdf") as tmp:
-            build_quote_pdf(project, quote, tmp.name)
+            with patch("tracker.pdfs._load_company", return_value=company), \
+                    patch("tracker.pdfs.quote_logo_path", return_value=None), \
+                    patch("tracker.quote_templates_config._load", return_value=quote_templates):
+                build_quote_pdf(project, quote, tmp.name)
             with pdfplumber.open(tmp.name) as pdf:
                 text = "\n".join(page.extract_text() or "" for page in pdf.pages)
 
+        self.assertIn("Ana Lopez - Directora", text)
+        self.assertIn("Luis Perez - Gerente", text)
+        self.assertNotIn("Oculto - No Render", text)
+        self.assertIn("Calle Uno 123", text)
+        self.assertIn("contacto@empresa.test - 55 1234 5678", text)
+        self.assertIn("Detalle de Partidas", text)
+        self.assertIn("Nombre, Firma y Fecha", text)
+        self.assertIn("Representante Autorizado", text)
         self.assertIn("Especificaciones técnicas", text)
         self.assertIn("Pago visible", text)
         self.assertIn("Términos y Condiciones", text)

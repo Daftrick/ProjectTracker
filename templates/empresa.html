@@ -32,6 +32,16 @@
                  placeholder="Ej: Av. Insurgentes Sur 1234, CDMX">
         </div>
         <div class="mb-3">
+          <label class="form-label fw-semibold">Correo de la empresa <small class="text-muted">(opcional)</small></label>
+          <input type="email" name="email" class="form-control" value="{{ company.email }}"
+                 placeholder="Ej: contacto@empresa.com">
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Teléfono de la empresa <small class="text-muted">(opcional)</small></label>
+          <input name="phone" class="form-control" value="{{ company.phone }}"
+                 placeholder="Ej: 55 1234 5678">
+        </div>
+        <div class="mb-3">
           <label class="form-label fw-semibold">RFC / RUT <small class="text-muted">(opcional)</small></label>
           <input name="rut" class="form-control" value="{{ company.rut }}"
                  placeholder="Ej: DEP210101ABC">

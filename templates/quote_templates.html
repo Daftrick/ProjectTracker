@@ -42,6 +42,45 @@
           </div>
         </div>
 
+        <!-- Contactos de portada -->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="bi bi-person-lines-fill me-2 text-primary"></i>Contactos de portada
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+              {% for contact in tmpl.contacts_default %}
+              <div class="col-12">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                  <input type="checkbox" class="form-check-input mt-0"
+                         name="{{ qtype }}_contact_{{ loop.index0 }}_enabled"
+                         value="1"
+                         id="{{ qtype }}_contact_{{ loop.index0 }}_enabled"
+                         {% if contact.enabled %}checked{% endif %}>
+                  <label class="form-check-label fw-semibold" for="{{ qtype }}_contact_{{ loop.index0 }}_enabled">
+                    Renglón {{ loop.index }}
+                  </label>
+                </div>
+                <div class="row g-2">
+                  <div class="col-md-6">
+                    <input name="{{ qtype }}_contact_{{ loop.index0 }}_name"
+                           class="form-control"
+                           value="{{ contact.name }}"
+                           placeholder="Nombre">
+                  </div>
+                  <div class="col-md-6">
+                    <input name="{{ qtype }}_contact_{{ loop.index0 }}_role"
+                           class="form-control"
+                           value="{{ contact.role }}"
+                           placeholder="Puesto">
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
         <!-- Términos y condiciones -->
         <div class="card mb-3">
           <div class="card-header">

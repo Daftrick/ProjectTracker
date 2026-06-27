@@ -301,6 +301,24 @@ def build_quote_pdf(project, quote, output_path=None):
     logo_path = quote_logo_path()
     catalog_lookup = catalog_description_lookup()
 
+    def quote_template_contact_lines():
+        try:
+            from .quote_templates_config import get_template_for_type
+            template = get_template_for_type(quote_type_key(quote.get("quote_type")))
+        except Exception:
+            template = {}
+        lines = []
+        for contact in (template.get("contacts_default") or [])[:4]:
+            if not isinstance(contact, dict) or not contact.get("enabled"):
+                continue
+            name = str(contact.get("name") or "").strip()
+            role = str(contact.get("role") or "").strip()
+            if name and role:
+                lines.append(f"{name} - {role}")
+            elif name or role:
+                lines.append(name or role)
+        return lines
+
     pdf = QuotePDF(project_name, quote_number, quote_date)
     if not _register_dejavu(pdf):
         raise RuntimeError("No se encontraron fuentes DejaVu para generar PDF con UTF-8.")
@@ -580,9 +598,9 @@ def build_quote_pdf(project, quote, output_path=None):
 
         pdf.set_font("DejaVu", "", 7.8)
         pdf.set_xy(left_x, line_y + 7.2)
-        pdf.cell(line_w, 4, "Nombre, firma y fecha", align="C")
+        pdf.cell(line_w, 4, "Nombre, Firma y Fecha", align="C")
         pdf.set_xy(right_x, line_y + 7.2)
-        pdf.cell(line_w, 4, "Representante autorizado", align="C")
+        pdf.cell(line_w, 4, "Representante Autorizado", align="C")
 
         pdf.set_y(top + block_h)
 
@@ -625,20 +643,38 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.rect(0, 0, 210, 112, style="F")
     if logo_path:
         pdf.image(logo_path, x=55, y=20, w=100)
+        contact_y = 76
     else:
         pdf.set_text_color(255, 255, 255)
         pdf.set_xy(16, 28)
         pdf.set_font("DejaVu", "B", 18)
         pdf.cell(0, 8, _cached_company_name)
+        contact_y = 48
+    cover_contact_lines = quote_template_contact_lines()
+    if cover_contact_lines:
+        pdf.set_text_color(255, 255, 255)
+        pdf.set_font("DejaVu", "", 8.4)
+        for line in cover_contact_lines:
+            pdf.set_xy(16, contact_y)
+            pdf.cell(178, 4.6, _safe_text(line), align="C")
+            contact_y += 5
     pdf.set_draw_color(*LINE)
     _caddr = str(_company_data.get("address") or "").strip()
     _crut = str(_company_data.get("rut") or "").strip()
+    _cemail = str(_company_data.get("email") or "").strip()
+    _cphone = str(_company_data.get("phone") or "").strip()
     _cinfo = "  ·  ".join(p for p in [_caddr, _crut] if p)
+    _ccontact = " - ".join(p for p in [_cemail, _cphone] if p)
     if _cinfo:
         pdf.set_text_color(*MUTED)
         pdf.set_font("DejaVu", "", 8)
         pdf.set_xy(16, 115)
         pdf.cell(178, 4.5, _safe_text(_cinfo), align="R")
+    if _ccontact:
+        pdf.set_text_color(*MUTED)
+        pdf.set_font("DejaVu", "", 8)
+        pdf.set_xy(16, 120)
+        pdf.cell(178, 4.5, _safe_text(_ccontact), align="R")
     pdf.line(16, 128, 194, 128)
     pdf.set_xy(16, 138)
     pdf.set_text_color(*NAVY)
@@ -816,8 +852,8 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.set_x(scope_inner_left)
     pdf.set_y(scope_y + scope_h + 6)
 
-    # 2. Titulo "Detalle de partidas"
-    section_title("Detalle de partidas", "Desglose económico de conceptos incluidos en la propuesta.")
+    # 2. Titulo "Detalle de Partidas"
+    section_title("Detalle de Partidas", "Desglose económico de conceptos incluidos en la propuesta.")
     cols = table_header()
     pdf.set_text_color(*INK)
     pdf.set_font("DejaVu", "", 8.6)

@@ -833,6 +833,8 @@ def empresa():
             "name":          (request.form.get("name", "") or "").strip(),
             "prefix":        (request.form.get("prefix", "") or "").strip(),
             "address":       (request.form.get("address", "") or "").strip(),
+            "email":         (request.form.get("email", "") or "").strip(),
+            "phone":         (request.form.get("phone", "") or "").strip(),
             "rut":           (request.form.get("rut", "") or "").strip(),
             "logo":          current.get("logo", ""),
             "portada_color": portada_color,
@@ -938,13 +940,21 @@ _QUOTE_TYPES = ("Proyecto", "Obra", "Servicio")
 @admin_required
 def quote_templates():
     from ..pdfs import QUOTE_TERMS_DEFAULTS
-    from ..quote_templates_config import get_quote_templates, save_quote_templates
+    from ..quote_templates_config import MAX_QUOTE_TEMPLATE_CONTACTS, get_quote_templates, save_quote_templates
     current = get_quote_templates()
     if request.method == "POST":
         for qtype in _QUOTE_TYPES:
             sections_raw = request.form.get(f"{qtype}_sections", "")
             current[qtype]["sections_default"] = [
                 s.strip() for s in sections_raw.splitlines() if s.strip()
+            ]
+            current[qtype]["contacts_default"] = [
+                {
+                    "enabled": bool(request.form.get(f"{qtype}_contact_{index}_enabled")),
+                    "name": (request.form.get(f"{qtype}_contact_{index}_name", "") or "").strip(),
+                    "role": (request.form.get(f"{qtype}_contact_{index}_role", "") or "").strip(),
+                }
+                for index in range(MAX_QUOTE_TEMPLATE_CONTACTS)
             ]
             current[qtype]["terms_default"] = [
                 {

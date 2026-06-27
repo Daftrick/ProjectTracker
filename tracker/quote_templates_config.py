@@ -1,6 +1,8 @@
 from .pdfs import QUOTE_TERMS_DEFAULTS
 from .storage import load as _load, save as _save
 
+MAX_QUOTE_TEMPLATE_CONTACTS = 4
+
 
 def _default_terms():
     return [
@@ -14,18 +16,32 @@ def _default_terms():
     ]
 
 
+def _default_contacts():
+    return [
+        {
+            "enabled": False,
+            "name": "",
+            "role": "",
+        }
+        for _ in range(MAX_QUOTE_TEMPLATE_CONTACTS)
+    ]
+
+
 QUOTE_TEMPLATE_DEFAULTS = {
     "Proyecto": {
         "sections_default": [],
         "terms_default": _default_terms(),
+        "contacts_default": _default_contacts(),
     },
     "Obra": {
         "sections_default": [],
         "terms_default": _default_terms(),
+        "contacts_default": _default_contacts(),
     },
     "Servicio": {
         "sections_default": [],
         "terms_default": _default_terms(),
+        "contacts_default": _default_contacts(),
     },
 }
 
@@ -51,6 +67,19 @@ def _normalize_terms(stored_terms):
     return normalized
 
 
+def _normalize_contacts(stored_contacts):
+    stored = stored_contacts if isinstance(stored_contacts, list) else []
+    normalized = []
+    for index in range(MAX_QUOTE_TEMPLATE_CONTACTS):
+        item = stored[index] if index < len(stored) and isinstance(stored[index], dict) else {}
+        normalized.append({
+            "enabled": bool(item.get("enabled", False)),
+            "name": str(item.get("name") or "").strip(),
+            "role": str(item.get("role") or "").strip(),
+        })
+    return normalized
+
+
 def _normalize(raw):
     result = {}
     for qtype, defaults in QUOTE_TEMPLATE_DEFAULTS.items():
@@ -61,6 +90,7 @@ def _normalize(raw):
         result[qtype] = {
             "sections_default": sections if isinstance(sections, list) else list(defaults["sections_default"]),
             "terms_default": _normalize_terms(stored.get("terms_default")),
+            "contacts_default": _normalize_contacts(stored.get("contacts_default")),
         }
     return result
 

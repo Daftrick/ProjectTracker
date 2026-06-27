@@ -11,6 +11,8 @@ class CompanyConfigTest(unittest.TestCase):
         self.assertEqual(result["name"], "Mi Empresa")
         self.assertIn("logo", result)
         self.assertIn("address", result)
+        self.assertIn("email", result)
+        self.assertIn("phone", result)
         self.assertIn("rut", result)
 
     def test_merges_stored_values_over_defaults(self):
@@ -20,6 +22,8 @@ class CompanyConfigTest(unittest.TestCase):
         self.assertEqual(result["name"], "ACME Corp")
         self.assertEqual(result["rut"], "12345")
         self.assertEqual(result["logo"], "")
+        self.assertEqual(result["email"], "")
+        self.assertEqual(result["phone"], "")
 
     def test_non_dict_storage_returns_defaults(self):
         from tracker.company_config import get_company

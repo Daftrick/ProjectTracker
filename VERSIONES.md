@@ -1,6 +1,15 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v44.2 — 27-Jun-2026
+## Versión actual: v45.0 — 27-Jun-2026
+
+### v45.0 — Contactos de portada en cotizaciones
+- Plantillas de cotización agregan hasta 4 renglones de contacto para portada, cada uno con toggle, nombre y puesto
+- Perfil de empresa agrega correo y teléfono; el PDF los muestra debajo de la dirección como `correo - teléfono`
+- Portada de cotización renderiza los contactos activos después del logo y antes de la dirección
+- PDF actualiza los textos `Detalle de Partidas`, `Nombre, Firma y Fecha` y `Representante Autorizado`
+- 338 tests pasan
+
+## Versión anterior: v44.2 — 27-Jun-2026
 
 ### v44.2 — Títulos de términos en Title Case
 - Secciones de Términos y Condiciones usan títulos sin punto final y con mayúscula inicial por palabra: `Información Base y Ajustes`, `Condiciones de Pago`, `Trabajos Adicionales`, etc.
