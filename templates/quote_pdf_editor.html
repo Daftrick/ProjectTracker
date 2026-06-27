@@ -368,7 +368,7 @@
           <h3 id="prevTermsTitle"
               style="font-size:18px;font-weight:bold;color:#25262c;margin:0 0 10px;">
             {% set _hc = specs.get('condiciones_pago') or specs.get('exclusiones') or specs.get('validez') or specs.get('forma_entrega') or specs.get('contacto') %}
-            {{ 'Condiciones y especificaciones' if _hc else 'Términos y condiciones' }}
+            {{ 'Condiciones y especificaciones' if _hc else 'Términos y Condiciones' }}
           </h3>
 
           <div id="prevTermsBody" style="font-size:10px;color:#25262c;line-height:1.5;">
@@ -540,7 +540,7 @@
     if (prevTermsTitle) {
       prevTermsTitle.textContent = hasCustom
         ? "Condiciones y especificaciones"
-        : "Términos y condiciones";
+        : "Términos y Condiciones";
     }
 
     if (prevTermsBody) {

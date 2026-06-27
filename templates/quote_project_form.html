@@ -1465,32 +1465,10 @@
     const tipo = document.getElementById("quoteType").value;
     const tmpl = QUOTE_TEMPLATES[tipo] || {};
     const tbody = document.getElementById("itemsBody");
-    const notesField = document.querySelector("textarea[name='notes']");
-    const specsFields = ["condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto"];
-    const allEmpty = (
-      tbody.children.length === 0 &&
-      (!notesField || !notesField.value) &&
-      specsFields.every(f => { const el = document.querySelector(`input[name="specs_${f}"]`); return !el || !el.value; })
-    );
-    if (allEmpty) {
+    if (tbody.children.length === 0) {
       const sections = tmpl.sections_default || [];
       for (const s of sections) addSection(s, {silent: true});
       if (tbody.children.length === 0) addRow();
-      if (notesField && tmpl.notes_default) {
-        notesField.value = tmpl.notes_default;
-        const nt = document.getElementById("notesToggle");
-        if (nt) { nt.checked = true; toggleSection("notesSection", true); }
-      }
-      const specsDefault = tmpl.specs_default || {};
-      let hasSpecsDefault = false;
-      for (const f of specsFields) {
-        const el = document.querySelector(`input[name="specs_${f}"]`);
-        if (el && specsDefault[f]) { el.value = specsDefault[f]; hasSpecsDefault = true; }
-      }
-      if (hasSpecsDefault) {
-        const st = document.getElementById("specsToggle");
-        if (st) { st.checked = true; toggleSection("specsSection", true); }
-      }
       applyTermsDefault(tmpl);
     }
     {% endif %}
@@ -1547,7 +1525,7 @@
   window.addEventListener("DOMContentLoaded", () => {
     const tbody = document.getElementById("itemsBody");
     {% if not quote %}
-    // Pre-poblar secciones, notas y specs desde la plantilla del tipo (solo en cotizaciones nuevas)
+    // Pre-poblar secciones y terminos desde la plantilla del tipo (solo en cotizaciones nuevas)
     const tipo = document.getElementById("quoteType").value;
     const tmpl = QUOTE_TEMPLATES[tipo] || {};
     const sections = tmpl.sections_default || [];
@@ -1555,26 +1533,6 @@
       for (const s of sections) addSection(s, {silent: true});
     }
     if (tbody.children.length === 0) addRow();
-    const notesField = document.querySelector("textarea[name='notes']");
-    if (notesField && !notesField.value && tmpl.notes_default) {
-      notesField.value = tmpl.notes_default;
-      const nt = document.getElementById("notesToggle");
-      if (nt) { nt.checked = true; toggleSection("notesSection", true); }
-    }
-    const specsDefault = tmpl.specs_default || {};
-    const specsFields = ["condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto"];
-    let hasSpecsDefault = false;
-    for (const f of specsFields) {
-      const el = document.querySelector(`input[name="specs_${f}"]`);
-      if (el && !el.value && specsDefault[f]) {
-        el.value = specsDefault[f];
-        hasSpecsDefault = true;
-      }
-    }
-    if (hasSpecsDefault) {
-      const st = document.getElementById("specsToggle");
-      if (st) { st.checked = true; toggleSection("specsSection", true); }
-    }
     applyTermsDefault(tmpl);
     {% else %}
     if (tbody.children.length === 0) addRow();

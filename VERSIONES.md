@@ -1,6 +1,15 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v44.0 — 27-Jun-2026
+## Versión actual: v44.1 — 27-Jun-2026
+
+### v44.1 — Plantillas sin notas/specs legacy
+- Plantillas de cotización eliminan los bloques `Notas predeterminadas` y `Especificaciones técnicas predeterminadas`
+- `quote_templates_config.py` deja de exponer `notes_default` y `specs_default`; conserva compatibilidad ignorando esos campos si existen en datos viejos
+- Cotizaciones nuevas ya no prellenan Notas ni Especificaciones técnicas desde plantillas; solo secciones y Términos y Condiciones
+- PDF usa el título exacto `Términos y Condiciones`
+- 338 tests pasan
+
+## Versión anterior: v44.0 — 27-Jun-2026
 
 ### v44.0 — Plantillas de términos y PDF con secciones independientes
 - Plantillas de cotización agregan `terms_default` para editar textos y toggles de Términos y condiciones por tipo de cotización
@@ -590,6 +599,7 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
+| 2026-06-27 | **v44.1 — Plantillas sin notas/specs legacy**: eliminados los bloques `Notas predeterminadas` y `Especificaciones técnicas predeterminadas` de plantillas; las cotizaciones nuevas ya no prellenan notas/specs desde plantillas; el PDF usa el título `Términos y Condiciones`. |
 | 2026-06-27 | **v44.0 — Plantillas de términos y PDF con secciones independientes**: `terms_default` en plantillas de cotización; UI para editar textos/toggles de Términos y condiciones por tipo; cotizaciones nuevas aplican esos defaults; el PDF renderiza Especificaciones técnicas, Términos y condiciones y Notas como secciones independientes, respetando checkboxes. |
 | 2026-06-27 | **v42.1 — Acciones de cotización expandidas**: botones CSV/Duplicar/Purgar/Eliminar visibles inline en pantallas ≥lg; dropdown `···` solo en pantallas menores. |
 | 2026-06-27 | **v42.0 — Página de cotizaciones cross-proyecto**: nueva ruta `GET /cotizaciones` con tabla de todas las cotizaciones agrupadas por proyecto; métricas rápidas (total, aprobadas, monto); filtro JS en tiempo real; botón "Ver proyecto →" como acción principal (edición solo desde la vista interna de cada proyecto). Enlace en sidebar izquierdo bajo Principal. `quotes_summary.html` nuevo. |

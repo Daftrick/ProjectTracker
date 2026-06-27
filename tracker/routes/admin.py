@@ -932,7 +932,6 @@ def project_templates_admin():
 # ─────────────────────────────────────────────────────────────
 
 _QUOTE_TYPES = ("Proyecto", "Obra", "Servicio")
-_SPECS_FIELDS = ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto")
 
 
 @bp.route("/quote-templates", methods=["GET", "POST"], endpoint="quote_templates")
@@ -947,9 +946,6 @@ def quote_templates():
             current[qtype]["sections_default"] = [
                 s.strip() for s in sections_raw.splitlines() if s.strip()
             ]
-            current[qtype]["notes_default"] = request.form.get(f"{qtype}_notes", "").strip()
-            for field in _SPECS_FIELDS:
-                current[qtype]["specs_default"][field] = request.form.get(f"{qtype}_{field}", "").strip()
             current[qtype]["terms_default"] = [
                 {
                     "key": key,
@@ -962,7 +958,7 @@ def quote_templates():
         save_quote_templates(current)
         flash("Plantillas de cotización guardadas.", "success")
         return redirect(url_for("admin_bp.quote_templates"))
-    return render_template("quote_templates.html", templates=current, quote_types=_QUOTE_TYPES, specs_fields=_SPECS_FIELDS)
+    return render_template("quote_templates.html", templates=current, quote_types=_QUOTE_TYPES)
 
 
 _IMPORTABLE = {

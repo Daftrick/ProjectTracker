@@ -19,19 +19,16 @@ class QuoteTemplatesConfigTest(unittest.TestCase):
         for qtype in ("Proyecto", "Obra", "Servicio"):
             tmpl = result[qtype]
             self.assertIn("sections_default", tmpl)
-            self.assertIn("notes_default", tmpl)
-            self.assertIn("specs_default", tmpl)
             self.assertIn("terms_default", tmpl)
+            self.assertNotIn("notes_default", tmpl)
+            self.assertNotIn("specs_default", tmpl)
             self.assertIsInstance(tmpl["sections_default"], list)
-            self.assertIsInstance(tmpl["specs_default"], dict)
             self.assertIsInstance(tmpl["terms_default"], list)
-            for field in ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto"):
-                self.assertIn(field, tmpl["specs_default"])
             self.assertTrue(all("key" in term for term in tmpl["terms_default"]))
             self.assertTrue(all("body" in term for term in tmpl["terms_default"]))
             self.assertTrue(all("enabled" in term for term in tmpl["terms_default"]))
 
-    def test_merges_stored_sections_over_defaults(self):
+    def test_merges_sections_and_terms_ignores_legacy_notes_specs(self):
         from tracker.quote_templates_config import get_quote_templates
         stored = {
             "Proyecto": {
@@ -51,9 +48,8 @@ class QuoteTemplatesConfigTest(unittest.TestCase):
         with patch("tracker.quote_templates_config._load", return_value=stored):
             result = get_quote_templates()
         self.assertEqual(result["Proyecto"]["sections_default"], ["Iluminación", "Contactos"])
-        self.assertEqual(result["Proyecto"]["notes_default"], "Nota de prueba")
-        self.assertEqual(result["Proyecto"]["specs_default"]["condiciones_pago"], "50% anticipo")
-        self.assertEqual(result["Proyecto"]["specs_default"]["validez"], "30 días naturales")
+        self.assertNotIn("notes_default", result["Proyecto"])
+        self.assertNotIn("specs_default", result["Proyecto"])
         self.assertEqual(result["Proyecto"]["terms_default"][0]["body"], "Vigencia personalizada")
         self.assertFalse(result["Proyecto"]["terms_default"][0]["enabled"])
         self.assertGreater(len(result["Proyecto"]["terms_default"]), 1)
@@ -76,8 +72,6 @@ class QuoteTemplatesConfigTest(unittest.TestCase):
         stored = {
             "Proyecto": {
                 "sections_default": ["Sección A"],
-                "notes_default": "",
-                "specs_default": {},
                 "terms_default": [],
             }
         }

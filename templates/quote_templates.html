@@ -5,7 +5,7 @@
 <div style="max-width:760px">
   <p class="text-muted mb-4">
     Define los valores predeterminados por tipo de cotización. Al crear una cotización nueva,
-    el formulario se pre-llena con estas secciones, notas, especificaciones y términos.
+    el formulario se pre-llena con estas secciones y términos.
   </p>
 
   <form method="post" action="{{ url_for('admin_bp.quote_templates') }}">
@@ -39,67 +39,6 @@
             </label>
             <textarea name="{{ qtype }}_sections" class="form-control font-monospace" rows="5"
                       placeholder="Iluminación&#10;Contactos e Instalaciones&#10;Cuadro de Cargas">{{ tmpl.sections_default | join('\n') }}</textarea>
-          </div>
-        </div>
-
-        <!-- Notas -->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="bi bi-chat-left-text me-2 text-primary"></i>Notas predeterminadas
-          </div>
-          <div class="card-body">
-            <label class="form-label">
-              Texto inicial del campo Notas en cotizaciones nuevas de este tipo.
-            </label>
-            <textarea name="{{ qtype }}_notes" class="form-control" rows="3"
-                      placeholder="Notas que aparecen por defecto...">{{ tmpl.notes_default }}</textarea>
-          </div>
-        </div>
-
-        <!-- Especificaciones -->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="bi bi-card-checklist me-2 text-primary"></i>Especificaciones técnicas predeterminadas
-          </div>
-          <div class="card-body">
-            <div class="row g-3">
-
-              <div class="col-12">
-                <label class="form-label fw-semibold">Condiciones de pago</label>
-                <input name="{{ qtype }}_condiciones_pago" class="form-control"
-                       value="{{ tmpl.specs_default.condiciones_pago }}"
-                       placeholder="Ej: 50% anticipo / 50% contra entrega">
-              </div>
-
-              <div class="col-12">
-                <label class="form-label fw-semibold">Exclusiones</label>
-                <input name="{{ qtype }}_exclusiones" class="form-control"
-                       value="{{ tmpl.specs_default.exclusiones }}"
-                       placeholder="Ej: No incluye suministro de materiales">
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label fw-semibold">Validez</label>
-                <input name="{{ qtype }}_validez" class="form-control"
-                       value="{{ tmpl.specs_default.validez }}"
-                       placeholder="Ej: 30 días naturales">
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label fw-semibold">Forma de entrega</label>
-                <input name="{{ qtype }}_forma_entrega" class="form-control"
-                       value="{{ tmpl.specs_default.forma_entrega }}"
-                       placeholder="Ej: PDF digital">
-              </div>
-
-              <div class="col-12">
-                <label class="form-label fw-semibold">Contacto</label>
-                <input name="{{ qtype }}_contacto" class="form-control"
-                       value="{{ tmpl.specs_default.contacto }}"
-                       placeholder="Ej: Ing. Ricardo López — info@dide.cl">
-              </div>
-
-            </div>
           </div>
         </div>
 

@@ -989,7 +989,7 @@ def build_quote_pdf(project, quote, output_path=None):
         ]
     else:
         _active_terms = quote_terms()
-    render_text_blocks("Términos y condiciones", _active_terms)
+    render_text_blocks("Términos y Condiciones", _active_terms)
 
     notes = note_lines(quote.get("notes"))
     if notes:

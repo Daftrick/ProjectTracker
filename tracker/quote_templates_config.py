@@ -1,14 +1,6 @@
 from .pdfs import QUOTE_TERMS_DEFAULTS
 from .storage import load as _load, save as _save
 
-_SPECS_DEFAULTS = {
-    "condiciones_pago": "",
-    "exclusiones": "",
-    "validez": "30 días naturales",
-    "forma_entrega": "PDF digital",
-    "contacto": "",
-}
-
 
 def _default_terms():
     return [
@@ -25,20 +17,14 @@ def _default_terms():
 QUOTE_TEMPLATE_DEFAULTS = {
     "Proyecto": {
         "sections_default": [],
-        "notes_default": "",
-        "specs_default": dict(_SPECS_DEFAULTS),
         "terms_default": _default_terms(),
     },
     "Obra": {
         "sections_default": [],
-        "notes_default": "",
-        "specs_default": dict(_SPECS_DEFAULTS),
         "terms_default": _default_terms(),
     },
     "Servicio": {
         "sections_default": [],
-        "notes_default": "",
-        "specs_default": dict(_SPECS_DEFAULTS),
         "terms_default": _default_terms(),
     },
 }
@@ -71,12 +57,9 @@ def _normalize(raw):
         stored = raw.get(qtype, {}) if isinstance(raw, dict) else {}
         if not isinstance(stored, dict):
             stored = {}
-        specs = {**defaults["specs_default"], **(stored.get("specs_default") or {})}
         sections = stored.get("sections_default")
         result[qtype] = {
             "sections_default": sections if isinstance(sections, list) else list(defaults["sections_default"]),
-            "notes_default": stored["notes_default"] if stored.get("notes_default") is not None else defaults["notes_default"],
-            "specs_default": specs,
             "terms_default": _normalize_terms(stored.get("terms_default")),
         }
     return result
