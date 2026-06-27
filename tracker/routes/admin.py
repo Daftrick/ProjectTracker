@@ -879,9 +879,15 @@ def empresa_logo():
     filename = f"logo.{detected_ext}"
     with open(_os.path.join(uploads_dir, filename), "wb") as f:
         f.write(content)
-    company = get_company()
-    company["logo"] = f"uploads/{filename}"
-    save_company(company)
+    # Read raw file without merging COMPANY_DEFAULTS so we don't
+    # overwrite user-entered fields (name, address, rut, portada_color)
+    # with defaults when company.json is missing or partial.
+    from ..company_config import save_company
+    raw = load("company")
+    if not isinstance(raw, dict):
+        raw = {}
+    raw["logo"] = f"uploads/{filename}"
+    save_company(raw)
     flash("Logo actualizado.", "success")
     return redirect(url_for("admin_bp.empresa"))
 

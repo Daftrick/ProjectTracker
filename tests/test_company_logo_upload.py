@@ -18,7 +18,7 @@ class CompanyLogoUploadTests(TestCase):
         png_content = b"\x89PNG\r\n\x1a\n" + b"0" * 12
         with tempfile.TemporaryDirectory() as uploads_dir, \
              patch("tracker.routes.admin._logo_upload_dir", return_value=uploads_dir), \
-             patch("tracker.company_config.get_company", return_value={"name": "ACME", "logo": ""}), \
+             patch("tracker.routes.admin.load", return_value={"name": "ACME", "logo": ""}), \
              patch("tracker.company_config.save_company") as mock_save:
             response = self.client.post(
                 "/empresa/logo",

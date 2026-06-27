@@ -44,6 +44,7 @@ def load(key):
 def save(key, data):
     path = FILES[key]
     dir_name = os.path.dirname(path)
+    os.makedirs(dir_name, exist_ok=True)
     with _LOCK:
         with tempfile.NamedTemporaryFile(
             mode="w", encoding="utf-8", dir=dir_name, delete=False, suffix=".tmp"
