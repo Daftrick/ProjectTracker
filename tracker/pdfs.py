@@ -989,21 +989,22 @@ def build_quote_pdf(project, quote, output_path=None):
         ("contacto", "Contacto."),
     ]
 
-    def render_text_blocks(section_title, blocks):
+    def render_text_blocks(section_title, blocks, pre_ln=3, post_ln=1, colon=False):
         if not blocks:
             return
         if pdf.get_y() > 24:
-            pdf.ln(3)
+            pdf.ln(pre_ln)
         pdf.set_text_color(*INK)
         pdf.set_font("DejaVu", "B", 17)
         pdf.cell(content_width, 8, section_title, ln=True)
         pdf.set_x(pdf.l_margin)
         pdf.set_font("DejaVu", "", 9.4)
-        pdf.ln(1)
+        pdf.ln(post_ln)
         for title, body in blocks:
             pdf.set_x(pdf.l_margin)
             pdf.set_font("DejaVu", "B", 9.2)
-            pdf.multi_cell(content_width, 5, _safe_text(title))
+            label = _safe_text(title) + (":" if colon else "")
+            pdf.multi_cell(content_width, 5, label)
             pdf.set_x(pdf.l_margin)
             pdf.set_font("DejaVu", "", 9.2)
             pdf.multi_cell(content_width, 5, _safe_text(body))
@@ -1027,7 +1028,7 @@ def build_quote_pdf(project, quote, output_path=None):
         ]
     else:
         _active_terms = quote_terms()
-    render_text_blocks("Términos y Condiciones", _active_terms)
+    render_text_blocks("Términos y Condiciones", _active_terms, pre_ln=1, post_ln=4, colon=True)
 
     notes = note_lines(quote.get("notes"))
     if notes:
