@@ -729,7 +729,9 @@ def build_quote_pdf(project, quote, output_path=None):
 
     totals_box_x = 107
     totals_box_w = 96
-    totals_box_h = 38
+    _ptax_rate = quote.get("tax_rate", 16)
+    _ptax      = quote.get("tax", 0)
+    totals_box_h = 38 if (_ptax_rate and _ptax) else 20
     totals_box_y = summary_y + (summary_h - totals_box_h) / 2
     pdf.set_fill_color(255, 255, 255)
     pdf.set_draw_color(*LINE)
@@ -816,24 +818,26 @@ def build_quote_pdf(project, quote, output_path=None):
     value_w = inner_right - label_x - label_w
     row_h = 6.6
 
-    # Subtotal (moneda omitida: ya esta en el campo MONEDA)
-    pdf.set_xy(label_x, totals_box_y + 5.5)
     pdf.set_text_color(*INK)
     pdf.set_font("DejaVu", "B", 10.8)
-    pdf.cell(label_w, row_h, "Subtotal")
-    pdf.cell(value_w, row_h, money_pdf(quote.get("subtotal", 0)), align="R", ln=True)
-
-    # IVA
-    pdf.set_xy(label_x, totals_box_y + 13.7)
-    pdf.cell(label_w, row_h, f"IVA ({quote.get('tax_rate', 16)}%)")
-    pdf.cell(value_w, row_h, money_pdf(quote.get("tax", 0)), align="R", ln=True)
-
-    # Divisor
-    pdf.set_draw_color(*LINE)
-    pdf.line(label_x, totals_box_y + 21.8, inner_right, totals_box_y + 21.8)
+    if _ptax_rate and _ptax:
+        # Subtotal
+        pdf.set_xy(label_x, totals_box_y + 5.5)
+        pdf.cell(label_w, row_h, "Subtotal")
+        pdf.cell(value_w, row_h, money_pdf(quote.get("subtotal", 0)), align="R", ln=True)
+        # IVA
+        pdf.set_xy(label_x, totals_box_y + 13.7)
+        pdf.cell(label_w, row_h, f"IVA ({_ptax_rate}%)")
+        pdf.cell(value_w, row_h, money_pdf(_ptax), align="R", ln=True)
+        # Divisor
+        pdf.set_draw_color(*LINE)
+        pdf.line(label_x, totals_box_y + 21.8, inner_right, totals_box_y + 21.8)
+        total_y = totals_box_y + 24.5
+    else:
+        total_y = totals_box_y + 6.5
 
     # TOTAL
-    pdf.set_xy(label_x, totals_box_y + 24.5)
+    pdf.set_xy(label_x, total_y)
     pdf.set_font("DejaVu", "B", 13.2)
     pdf.cell(label_w, 7.5, "TOTAL")
     pdf.set_text_color(*GREEN)

@@ -1,5 +1,11 @@
 # ProjectTracker — Estado y Versiones
 
+## Versión actual: v45.10 — 27-Jun-2026
+
+### v45.10 — Portada PDF: caja de totales condicional en IVA
+- **Sin IVA**: la caja de totales se reduce (h=20) y muestra solo "TOTAL" centrado verticalmente
+- **Con IVA**: comportamiento original — Subtotal, IVA (X%), divisor, TOTAL (h=38)
+
 ## Versión actual: v45.9 — 27-Jun-2026
 
 ### v45.9 — Totales generales en PDF de cotización
