@@ -303,12 +303,17 @@ def build_quote_pdf(project, quote, output_path=None):
 
     def quote_template_contact_lines():
         try:
-            from .quote_templates_config import get_template_for_type
+            from .quote_templates_config import get_template_for_type, normalize_contact_rows
             template = get_template_for_type(quote_type_key(quote.get("quote_type")))
+            stored_integrantes = (quote.get("specs") or {}).get("integrantes")
+            if stored_integrantes is None:
+                rows = normalize_contact_rows(template.get("contacts_default"))
+            else:
+                rows = normalize_contact_rows(stored_integrantes)
         except Exception:
-            template = {}
+            rows = []
         lines = []
-        for contact in (template.get("contacts_default") or [])[:4]:
+        for contact in rows[:4]:
             if not isinstance(contact, dict) or not contact.get("enabled"):
                 continue
             name = str(contact.get("name") or "").strip()
@@ -640,19 +645,24 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.set_fill_color(255, 255, 255)
     pdf.rect(0, 0, 210, 297, style="F")
     pdf.set_fill_color(*_portada_fill)
-    pdf.rect(0, 0, 210, 112, style="F")
+    pdf.rect(0, 0, 210, 92, style="F")
     if logo_path:
-        pdf.image(logo_path, x=55, y=20, w=100)
-        contact_y = 76
+        pdf.image(logo_path, x=60, y=10, w=90)
+        contact_y = 95
+        _contacts_on_dark = False
     else:
         pdf.set_text_color(255, 255, 255)
         pdf.set_xy(16, 28)
         pdf.set_font("DejaVu", "B", 18)
         pdf.cell(0, 8, _cached_company_name)
         contact_y = 48
+        _contacts_on_dark = True
     cover_contact_lines = quote_template_contact_lines()
     if cover_contact_lines:
-        pdf.set_text_color(255, 255, 255)
+        if _contacts_on_dark:
+            pdf.set_text_color(255, 255, 255)
+        else:
+            pdf.set_text_color(*MUTED)
         pdf.set_font("DejaVu", "", 8.4)
         for line in cover_contact_lines:
             pdf.set_xy(16, contact_y)
@@ -665,22 +675,26 @@ def build_quote_pdf(project, quote, output_path=None):
     _cphone = str(_company_data.get("phone") or "").strip()
     _cinfo = "  ·  ".join(p for p in [_caddr, _crut] if p)
     _ccontact = " - ".join(p for p in [_cemail, _cphone] if p)
+    _caddr_y = max(contact_y + 2, 95) if not _contacts_on_dark else 115
     if _cinfo:
         pdf.set_text_color(*MUTED)
         pdf.set_font("DejaVu", "", 8)
-        pdf.set_xy(16, 115)
+        pdf.set_xy(16, _caddr_y)
         pdf.cell(178, 4.5, _safe_text(_cinfo), align="R")
+        _caddr_y += 5
     if _ccontact:
         pdf.set_text_color(*MUTED)
         pdf.set_font("DejaVu", "", 8)
-        pdf.set_xy(16, 120)
+        pdf.set_xy(16, _caddr_y)
         pdf.cell(178, 4.5, _safe_text(_ccontact), align="R")
-    pdf.line(16, 128, 194, 128)
-    pdf.set_xy(16, 138)
+        _caddr_y += 5
+    _sep_y = _caddr_y + 3
+    pdf.line(16, _sep_y, 194, _sep_y)
+    pdf.set_xy(16, _sep_y + 10)
     pdf.set_text_color(*NAVY)
     pdf.set_font("DejaVu", "B", 9)
     pdf.cell(0, 5, "PROPUESTA ECONÓMICA")
-    pdf.set_xy(16, 148)
+    pdf.set_xy(16, _sep_y + 20)
     pdf.set_text_color(*INK)
     pdf.set_font("DejaVu", "B", 18)
     pdf.multi_cell(158, 8, _safe_text(cover_title))
