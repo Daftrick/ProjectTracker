@@ -25,7 +25,7 @@
   }
   #catalogoCard thead th {
     position: sticky;
-    top: calc(var(--topbar-h) + 49px);
+    top: calc(var(--topbar-h) + var(--cat-header-h, 49px));
     z-index: 29;
     background-color: #1a2540 !important;
   }
@@ -652,6 +652,14 @@ function updateTotalCount() {
   const n = document.querySelectorAll('#catalogoTbody tr').length;
   document.getElementById('totalCount').textContent = `${n} artículo(s)`;
 }
+
+(function syncStickyOffset() {
+  const hdr = document.querySelector('#catalogoCard .card-header');
+  if (!hdr) return;
+  const set = () => document.documentElement.style.setProperty('--cat-header-h', hdr.getBoundingClientRect().height + 'px');
+  set();
+  new ResizeObserver(set).observe(hdr);
+})();
 
 {% if open_modal %}
 window.addEventListener('DOMContentLoaded', () => {
