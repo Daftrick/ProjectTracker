@@ -176,21 +176,23 @@ def quote_sequence_from_number(quote_number):
 
 
 def quote_cover_copy(quote):
-    discipline = str(quote.get("cover_discipline") or "").strip() or "Instalaciones Eléctricas"
+    discipline = str(quote.get("cover_discipline") or "").strip()
+    _d = f"\n{discipline}" if discipline else ""
+    _de_d = f" de\n{discipline}" if discipline else ""
     quote_type = quote_type_key(quote.get("quote_type"))
     if quote_type == "Proyecto":
-        return f"Cotización de Proyecto\n{discipline}", None
+        return f"Cotización de Proyecto{_d}", None
     if quote_type == "Obra":
-        return f"Cotización de Obra\n{discipline}", None
+        return f"Cotización de Obra{_d}", None
     if quote_type == "Servicio":
-        return f"Cotización de Servicio\n{discipline}", None
+        return f"Cotización de Servicio{_d}", None
     if quote_type == "Preliminar":
-        return f"Cotización Preliminar de\n{discipline}", None
+        return f"Cotización Preliminar{_de_d}", None
     if quote_type == "Extraordinaria":
         sequence = quote_sequence_from_number(quote.get("quote_number"))
         subtitle = f"Número secuencial de cotización {sequence}" if sequence else "Número secuencial de cotización"
-        return f"Cotización Extraordinaria de\n{discipline}", subtitle
-    return f"Cotización de {discipline}", None
+        return f"Cotización Extraordinaria{_de_d}", subtitle
+    return f"Cotización{_d}", None
 
 
 def quote_project_basis_note(quote):
