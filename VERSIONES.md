@@ -1,6 +1,14 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v45.1 — 27-Jun-2026
+## Versión actual: v45.2 — 27-Jun-2026
+
+### v45.2 — `graphify` local en PATH como shim seguro
+- `graphify` ya existe en `~/.local/bin` como enlace al wrapper del repo
+- El wrapper no intenta invocarse a sí mismo y sale en limpio como no-op cuando no hay binario real instalado
+- El comando ya no bloquea otros procesos del terminal
+- 341 tests pasan
+
+## Versión anterior: v45.1 — 27-Jun-2026
 
 ### v45.1 — Hook Graphify tolerante sin binario local
 - `mise run graph-update` y `mise run graph-check` usan `tools/graphify_task.py`
