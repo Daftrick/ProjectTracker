@@ -1,6 +1,6 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v36.0 — 22-Jun-2026
+## Versión actual: v38.0 — 26-Jun-2026
 
 ---
 
@@ -157,11 +157,11 @@ ProjectTracker/
 
 ### Proyecto (`projects.json`)
 ```
-id, name, clave, client, version, fecha (AAMMDD), alcances[], notes,
-folder_num (NNN auto-incremental), closed_at, created_at,
+id, name, clave, client, version, fecha (AAMMDD), disciplina (prefijo IE/ARQ/EST/AA/…),
+alcances[], notes, folder_num (NNN auto-incremental), closed_at, created_at,
 in_obra (bool, default False — único campo de etapa manual; el resto se deriva)
 ```
-Carpeta Drive: `IE-{folder_num}-{clave}` (ej. `IE-004-OM001`)
+Carpeta Drive: `{disciplina}-{folder_num}-{clave}` (ej. `IE-004-OM001`, `ARQ-007-TorreReforma`)
 
 ### Tarea (`tasks.json`)
 ```
@@ -266,6 +266,9 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | COT/LDM | Sincronización parcial desde bundles directos: agrega a una LDM existente sólo materiales faltantes o cantidades insuficientes calculadas desde la COT activa por `catalog_item_id`; no sobrescribe renglones existentes ni precios capturados | `ldm_sync.py` + `routes/materials.py:sync_ldm_bundles` |
 | Catálogo | CRUD + búsqueda por tokens AND (sin acentos) + filtro por categoría + API JSON (`/api/catalogo`, `/api/catalogo/categorias`) | `routes/admin.py` + `catalog_search.py` |
 | Catálogo | Bulk delete vía API (`/api/catalogo/bulk-delete`) | `routes/admin.py` |
+| Catálogo | Bulk edit vía API (`/api/catalogo/bulk-edit`): precio, categoria y disciplina en lote con barra de selección sticky | `routes/admin.py` + `catalogo.html` |
+| Alcances | Editor CRUD admin en `/alcances`: tabla + modal para crear, editar y eliminar alcances; persiste en `data/alcances.json`; fallback a `DEFAULT_ALCANCES` | `routes/admin.py` + `alcances_admin.html` + `domain.py` |
+| Proyectos | Campo `disciplina` (IE/ARQ/EST/AA/HID/VOZ…) configurable por proyecto; controla prefijo de carpeta y nombre de archivo; lista editable en `/disciplinas` | `routes/admin.py` + `disciplinas_admin.html` + `domain.py` |
 | Catálogo | Alta rápida desde formulario de COT/LDM (acepta categoría) | `routes/admin.py:api_catalogo_add` |
 | Catálogo | Migración suave que agrega campo `categoria=''` a artículos existentes al arranque | `catalog.py:migrate_catalog_fields` |
 | COT/LDM | Filtro inline de partidas capturadas: caja con tokens AND, busca en descripción/unidad/sección, oculta filas no machean sin afectar el submit | `quote_project_form.html` + `ldm_form.html` |
@@ -364,6 +367,7 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | POST | `/catalogo/<id>/edit` | `edit_catalogo` | Editar artículo (soporta AJAX) |
 | POST | `/catalogo/<id>/delete` | `delete_catalogo` | Eliminar artículo (soporta AJAX) |
 | POST | `/api/catalogo/bulk-delete` | `bulk_delete_catalogo` | Eliminar varios artículos |
+| POST | `/api/catalogo/bulk-edit` | `bulk_edit_catalogo` | Edición masiva de precio/categoria/disciplina |
 | GET | `/api/catalogo` | `api_catalogo` | Buscar artículos (JSON, max 50, tokens AND + filtro `categoria`) |
 | GET | `/api/catalogo/categorias` | `api_catalogo_categorias` | Lista única de categorías existentes (JSON) |
 | POST | `/api/catalogo/add` | `api_catalogo_add` | Agregar artículo vía JSON (acepta `categoria`) |
@@ -384,6 +388,10 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | POST | `/fichas/<id>/delete` | `delete_ficha` | Eliminar ficha |
 | GET/POST | `/team` | `team` | CRUD equipo |
 | POST | `/team/<id>/delete` | `delete_member` | Eliminar miembro |
+| GET | `/alcances` | `alcances_admin` | Editor CRUD de alcances de proyecto |
+| POST | `/api/alcances/save` | `alcances_api_save` | Guardar lista de alcances (JSON) |
+| GET | `/disciplinas` | `disciplinas_admin` | Editor CRUD de disciplinas (prefijos) |
+| POST | `/api/disciplinas/save` | `disciplinas_api_save` | Guardar lista de disciplinas (JSON) |
 
 > **Nota:** `tracker/__init__.py:_register_legacy_endpoint_aliases` registra aliases sin el prefijo del blueprint para que los `url_for(...)` en templates sin prefijo sigan funcionando.
 
@@ -409,6 +417,8 @@ Tipos de ficha: `LUM, CONT, INT, THERM, TFO, PANEL, CABLE, COND, UPS, FV, AC, OT
 | `audit_deleted_catalog.html` | `GET /audit/deleted-catalog` |
 | `bundles.html` | `GET/POST /bundles` y rutas de versiones de bundles |
 | `kanban.html` | `GET /kanban` |
+| `alcances_admin.html` | `GET /alcances` |
+| `disciplinas_admin.html` | `GET /disciplinas` |
 
 ---
 
@@ -453,13 +463,14 @@ Donde `TIPO` ∈ {`G`, `P`, `E`} y `NN` es el secuencial de ese tipo dentro del 
 
 **Carpeta del proyecto en Drive:**
 ```
-IE-{folder_num}-{clave}
-Ej: IE-004-OM001
+{DISC}-{folder_num}-{clave}
+Ej: IE-004-OM001  |  ARQ-007-TorreReforma  |  EST-012-EdificioNorte
 ```
+`DISC` = campo `disciplina` del proyecto (IE por defecto). Lista configurable en Sistema → Disciplinas.
 
-**Archivos eléctricos:**
-- Planos DWG: `IE-{CLAVE}-{VERSION}-{FECHA}.dwg`
-- Planos PDF: `IE-{CLAVE}-{VERSION}-{FECHA}.pdf`
+**Archivos de proyecto:**
+- Plano principal DWG: `{DISC}-{CLAVE}-{VERSION}-{FECHA}.dwg`
+- Plano principal PDF: `{DISC}-{CLAVE}-{VERSION}-{FECHA}.pdf`
 - Memorias: `MEM-{CLAVE}-{VERSION}-{FECHA}.pdf`
 - XREFs: `XREF-{CLAVE}-{VERSION}-{FECHA}.*`
 
@@ -488,6 +499,10 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
+| 2026-06-26 | **v38.0 — Disciplina de proyecto configurable**: nuevo campo `disciplina` en proyectos que controla el prefijo de carpeta y nombre de archivo (`IE`, `ARQ`, `EST`, `AA`, `HID`, `VOZ`, …). Lista de disciplinas editable en admin (Sistema → Disciplinas). Badge de carpeta, preview de nombre de archivo y modal de edición actualizan dinámicamente al cambiar la disciplina. Proyectos existentes usan `IE` como fallback sin migración. `domain.py` expone `get_disciplinas()` con fallback a `DEFAULT_DISCIPLINAS`. Rutas: `GET /disciplinas`, `POST /api/disciplinas/save`. Nuevo template: `disciplinas_admin.html`. Convención de nomenclatura actualizada de `IE-{N}-{clave}` a `{DISC}-{N}-{clave}`. |
+| 2026-06-26 | **v37.1 — Simplificación editor de alcances**: se retira el campo "Info Ext" (aparece en hoja de Info EXT del PDF) del modal y tabla del editor de alcances. El campo se conserva en el modelo de datos para compatibilidad con la generación de PDFs (`get_info_ext_excluded()`), pero deja de ser editable. |
+| 2026-06-26 | **v37.0 — Alcances personalizables con editor CRUD**: los alcances del proyecto dejan de ser hardcoded. Nueva página admin (Sistema → Alcances) con tabla y modal para agregar, editar y eliminar alcances con soporte de fuente (propia/externa), etiqueta de dependencia y campo de bloqueo. Persiste en `data/alcances.json`; si el archivo no existe usa `DEFAULT_ALCANCES` como fallback. `domain.py` expone `get_alcances()`, `get_alcances_by_id()`, `get_info_ext_excluded()` — funciones dinámicas que leen del archivo en cada llamada. `check_blocked()` actualizado para usar datos vivos. Módulo-nivel `ALCANCES`, `ALCANCES_BY_ID`, `INFO_EXT_EXCLUDED` conservados como alias de compatibilidad. Rutas: `GET /alcances`, `POST /api/alcances/save`. Nuevo template: `alcances_admin.html`. Enlace en sidebar (Sistema). |
+| 2026-06-25 | **v36.1 — Sticky headers + fixes de UI y bugs críticos**: (1) Header del catálogo (barra de bulk-edit + encabezados de columna) ahora permanece visible al hacer scroll — implementado con `position:sticky`, `ResizeObserver` para offset dinámico y colores de fondo hardcoded `#141c30`/`#1a2540` para el tema oscuro. (2) Mismo comportamiento sticky para headers de cotizaciones y LDM en detalle de proyecto. (3) Preview de nombre de archivo en formulario de nuevo proyecto corregido a colores del tema oscuro (antes fondo azul claro hardcoded). (4) CSRF token en bulk-edit del catálogo corregido (`window._csrf` indefinido → `document.querySelector('meta[name="csrf-token"]').content`). (5) Subida de logo de empresa ya no sobrescribe datos de compañía — se corrigió el uso de `get_company()` (mezcla defaults) por `load("company")` (JSON crudo). (6) `data/*.json` excluidos de git y volumen persistente configurado en Railway para que los datos sobrevivan redespliegues. |
 | 2026-06-22 | **v36.0 — Editor PDF Asistido para Cotizaciones (Fase 12)**: nueva ruta `GET/POST /projects/<id>/quote/<qid>/pdf-editor` con layout de dos paneles (sidebar + preview). Sidebar con acordeón de 4 secciones editables: **Portada** (nota base del proyecto para tipos General/Extraordinaria), **Alcance** (texto libre que sobreescribe los dos párrafos estándar, almacenado en `specs.alcance_custom`), **Condiciones** (5 campos personalizados — validez, condiciones\_de\_pago, exclusiones, forma\_de\_entrega, contacto — que reemplazan los Términos y Condiciones estándar cuando alguno tiene valor, almacenados en `specs`), **Notas** (`quote.notes`). Panel derecho: preview HTML del PDF con las 3 páginas del documento (portada, tabla de partidas, condiciones/notas) con paleta navy/ink/muted del PDF real. Actualización en tiempo real vía JS con debounce 250ms: portada, alcance, condiciones y notas se reflejan en el preview sin recargar la página. Botón "Guardar cambios" (POST al mismo endpoint). Acceso desde la vista de detalle de cotización con botón **Editor PDF**. 5 tests nuevos en `test_quote_pdf_editor.py`. Suite total: 356 tests. |
 | 2026-06-21 | **v35.1 — Corrección de bugs en sincronización de bundles (code review)**: 6 bugs corregidos tras revisión exhaustiva del diff v34.1/v35.0. (1) `ldm_sync.py`: clasificación `sync_issue` ahora usa presencia en `actual_items` en lugar de `actual_qty <= 0`, evitando que filas con qty negativo (devoluciones) sean etiquetadas como `missing_in_ldm`. (2) `materials.py`: guard de dedup bloquea agregar un `catalog_item_id` que ya tiene fila `origen=bundle_sync` en la LDM, previniendo duplicados por doble-submit o sesiones concurrentes. (3) `materials.py`: mensaje flash diferenciado cuando las selecciones del usuario ya no aparecen en las sugerencias recalculadas en POST (cotización o bundles cambiaron entre GET y POST). (4) `materials.py`: `subtotal_cot` se recalcula después de agregar filas sincronizadas, igual que en `purge_ldm_deleted_catalog_items`. (5) `validators.py` + `ldm_form.html`: `sync_total_expected_qty` y `sync_actual_qty` (campos nuevos de v35.0) ahora se round-tripean en los hidden inputs del formulario de edición; antes se perdían en el primer guardado. (6) `ldm_form.html`: `existing_ldm` excluye también `bundle_suggestion`, evitando que una LDM sugerida active el formulario de edición en paralelo. `.gitignore` agrega `.claude/settings.local.json`. |
 | 2026-06-21 | **v35.0 — Sincronización asistida para LDM existente**: `/projects/<id>/ldm/<lid>/sync-bundles` ahora abre un preview por GET con diff de faltantes calculados desde COT activa + bundles antes de escribir. El usuario puede seleccionar subset de materiales (`selected_catalog_item_id[]`) y el POST agrega sólo las filas marcadas, sin modificar renglones ni precios existentes. El diff muestra esperado total, cantidad ya existente y cantidad a agregar; `tracker/ldm_sync.py` conserva metadatos `sync_expected_*` y agrega `sync_total_expected_qty`/`sync_actual_qty`. La pestaña Materiales muestra acción **Revisar** por LDM. Tests nuevos cubren preview, selección parcial, no-op sin selección y UI del botón. |
