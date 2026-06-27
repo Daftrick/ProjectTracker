@@ -3,20 +3,25 @@
 ## Versión actual: v41.0 — 27-Jun-2026
 
 ### v41.0 — Dashboard simplificado + prefijo en sidebar
-- Dashboard: eliminados semáforo y KPI de consistencia COT vs LDM; ruta simplificada (sin hydrate ni compute_consistency)
+- Dashboard: eliminados semáforo (`project_semaphore`) y KPI de consistencia COT vs LDM
+- Ruta `dashboard` simplificada: sin `hydrate_ldm`, `hydrate_quote`, `compute_consistency` ni `catalog_maps`; sólo dos pasadas (agrupar cotizaciones por proyecto, sumar totales no-borrador)
+- Strip de métricas globales en dashboard: conteo de activos y suma total cotizada
 - Cards de proyecto muestran nombre, código `{Prefijo}-{###}-{Clave}`, cliente y total cotizado
-- Sidebar muestra `company.prefix` como nombre de la app (fallback a nombre de empresa)
+- `base.html`: sidebar muestra `company.prefix` (fallback a `company.name`) como nombre de la app
 - 337 tests pasan
 
 ## Versión anterior: v40.0 — 26-Jun-2026
 
 ### v40.0 — Clave de proyecto con prefijo de empresa
-- Eliminados `disciplina`, `fecha` y `version` del nivel de proyecto (viven en los archivos)
-- Clave adopta formato `{Prefijo}-{###}-{Clave}` donde el número es consecutivo automático
-- Nuevo campo `prefix` en perfil de empresa (Admin → Empresa); si está vacío usa el nombre de la empresa
-- `project_view.py`: `file_ie`/`file_xref` generados con el prefijo dinámico
-- `project_new.html`: formulario simplificado, vista previa muestra `PREFIJO-###-Clave`
-- `project_detail.html`: header y modal Editar muestran prefijo dinámico; CSS sobrante eliminado (~64 líneas de clases sin uso)
+- Eliminados `disciplina`, `fecha` y `version` del modelo de proyecto — se reservan para nombrar archivos, no el proyecto
+- Código de proyecto adopta formato `{Prefijo}-{###}-{Clave}` donde `###` es `folder_num` (consecutivo automático)
+- Nuevo campo `prefix` en perfil de empresa (Admin → Empresa); si está vacío usa el nombre de la empresa como prefijo
+- `company_config.py`: `COMPANY_DEFAULTS` incluye `"prefix": ""`; `routes/admin.py` persiste el campo al guardar
+- `project_view.py`: `file_ie`/`file_xref` generados como `{prefix}-{folder_num}-{clave}.dwg` via `get_company()` dinámico
+- `project_new.html`: formulario simplificado sin disciplina/fecha/versión; vista previa muestra `PREFIJO-###-Clave`
+- `project_detail.html`: header badge y modal Editar usan `company.prefix or company.name`; CSS sobrante eliminado (~64 líneas: `alcance-row`, `status-pill`, `obs-*`, `tl-*`, etc.)
+- `validators.py`: `validate_project_form` reducida a `name`, `clave`, `client`, `notes`
+- `tests/test_validators.py` y `tests/test_project_view.py` actualizados al nuevo formato sin fecha ni disciplina
 - 337 tests pasan
 
 ### v39.0 — Refactoring cotizador (simplificación mayor)
@@ -185,11 +190,13 @@ ProjectTracker/
 
 ### Proyecto (`projects.json`)
 ```
-id, name, clave, client, version, fecha (AAMMDD), disciplina (prefijo IE/ARQ/EST/AA/…),
-alcances[], notes, folder_num (NNN auto-incremental), closed_at, created_at,
+id, name, clave, client, notes, folder_num (NNN auto-incremental), deadline, drive_url,
+status (Activo|Entregado|Archivado), closed_at, created_at, updated_at, template_id,
 in_obra (bool, default False — único campo de etapa manual; el resto se deriva)
 ```
-Carpeta Drive: `{disciplina}-{folder_num}-{clave}` (ej. `IE-004-OM001`, `ARQ-007-TorreReforma`)
+Código de proyecto: `{company.prefix}-{folder_num}-{clave}` (ej. `DIDE-004-OM001`).
+El prefijo se configura en Admin → Empresa (`data/company.json` → campo `prefix`; fallback al nombre de empresa).
+`disciplina`, `fecha` y `version` se eliminaron del modelo en v40.0 — viven en los nombres de archivo, no en el proyecto.
 
 ### Tarea (`tasks.json`)
 ```
@@ -489,12 +496,13 @@ Ej: COT-OM001-G01-20260420.pdf
 ```
 Donde `TIPO` ∈ {`G`, `P`, `E`} y `NN` es el secuencial de ese tipo dentro del proyecto. `FECHA` formato `YYYYMMDD` (8 dígitos, sin guiones).
 
-**Carpeta del proyecto en Drive:**
+**Código y carpeta de proyecto:**
 ```
-{DISC}-{folder_num}-{clave}
-Ej: IE-004-OM001  |  ARQ-007-TorreReforma  |  EST-012-EdificioNorte
+{Prefijo}-{folder_num}-{clave}
+Ej: DIDE-004-OM001  |  ARQ-007-TorreReforma
 ```
-`DISC` = campo `disciplina` del proyecto (IE por defecto). Lista configurable en Sistema → Disciplinas.
+`Prefijo` = campo `prefix` del perfil de empresa (Admin → Empresa); si está vacío usa el nombre de la empresa.
+`folder_num` = número consecutivo de 3 dígitos asignado automáticamente al crear el proyecto.
 
 **Archivos de proyecto:**
 - Plano principal DWG: `{DISC}-{CLAVE}-{VERSION}-{FECHA}.dwg`
@@ -527,6 +535,9 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
+| 2026-06-27 | **v41.0 — Dashboard simplificado + prefijo en sidebar**: eliminados semáforo y KPI de consistencia COT vs LDM del dashboard; ruta simplificada sin hydration pipeline; strip de métricas globales (activos + total cotizado); `base.html` sidebar usa `company.prefix` como nombre de la app. 337 tests. |
+| 2026-06-26 | **v40.0 — Prefijo de empresa en código de proyecto**: `disciplina`, `fecha` y `version` eliminados del modelo de proyecto (v40). Código adopta formato `{Prefijo}-{###}-{Clave}`. Campo `prefix` en Admin → Empresa. `project_view.py` genera `file_ie`/`file_xref` con prefijo dinámico. CSS sobrante en `project_detail.html` eliminado (~64 líneas). `validators.py` simplificado. 337 tests. |
+| 2026-06-26 | **v39.0 — Refactoring cotizador (simplificación mayor)**: app replanteada como cotizador puro. `project_detail.html`: eliminados tabs Alcances y Avance, 6 modales y handlers JS; tab Cotización activo por defecto; selector manual de estado Activo/Entregado/Archivado. `base.html`: quitados links nav Alcances, Disciplinas, Tipos, Kanban. `routes/projects.py`: rutas kanban, toggle_obra, update_task_status, update_project_alcances eliminadas. `services.py`: `create_project()` sin tareas. 337 tests. |
 | 2026-06-26 | **v38.0 — Disciplina de proyecto configurable**: nuevo campo `disciplina` en proyectos que controla el prefijo de carpeta y nombre de archivo (`IE`, `ARQ`, `EST`, `AA`, `HID`, `VOZ`, …). Lista de disciplinas editable en admin (Sistema → Disciplinas). Badge de carpeta, preview de nombre de archivo y modal de edición actualizan dinámicamente al cambiar la disciplina. Proyectos existentes usan `IE` como fallback sin migración. `domain.py` expone `get_disciplinas()` con fallback a `DEFAULT_DISCIPLINAS`. Rutas: `GET /disciplinas`, `POST /api/disciplinas/save`. Nuevo template: `disciplinas_admin.html`. Convención de nomenclatura actualizada de `IE-{N}-{clave}` a `{DISC}-{N}-{clave}`. |
 | 2026-06-26 | **v37.1 — Simplificación editor de alcances**: se retira el campo "Info Ext" (aparece en hoja de Info EXT del PDF) del modal y tabla del editor de alcances. El campo se conserva en el modelo de datos para compatibilidad con la generación de PDFs (`get_info_ext_excluded()`), pero deja de ser editable. |
 | 2026-06-26 | **v37.0 — Alcances personalizables con editor CRUD**: los alcances del proyecto dejan de ser hardcoded. Nueva página admin (Sistema → Alcances) con tabla y modal para agregar, editar y eliminar alcances con soporte de fuente (propia/externa), etiqueta de dependencia y campo de bloqueo. Persiste en `data/alcances.json`; si el archivo no existe usa `DEFAULT_ALCANCES` como fallback. `domain.py` expone `get_alcances()`, `get_alcances_by_id()`, `get_info_ext_excluded()` — funciones dinámicas que leen del archivo en cada llamada. `check_blocked()` actualizado para usar datos vivos. Módulo-nivel `ALCANCES`, `ALCANCES_BY_ID`, `INFO_EXT_EXCLUDED` conservados como alias de compatibilidad. Rutas: `GET /alcances`, `POST /api/alcances/save`. Nuevo template: `alcances_admin.html`. Enlace en sidebar (Sistema). |
