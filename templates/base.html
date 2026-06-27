@@ -272,11 +272,11 @@
        data-label="Catálogo">
       <i class="bi bi-box-seam"></i><span class="nav-label"> Catálogo</span>
     </a>
-    {% if current_user.is_authenticated and current_user.role == 'admin' %}
     <a href="{{ url_for('bundles') }}" class="nav-link {% if request.endpoint in ('bundles','admin_bp.bundles','update_bundle','admin_bp.update_bundle','update_bundle_version','admin_bp.update_bundle_version') %}active{% endif %}"
        data-label="Bundles">
       <i class="bi bi-boxes"></i><span class="nav-label"> Bundles</span>
     </a>
+    {% if current_user.is_authenticated and current_user.role == 'admin' %}
     <a href="{{ url_for('proveedores') }}" class="nav-link {% if request.endpoint in ('proveedores','edit_proveedor') %}active{% endif %}"
        data-label="Proveedores">
       <i class="bi bi-truck"></i><span class="nav-label"> Proveedores</span>
