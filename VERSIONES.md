@@ -1,5 +1,11 @@
 # ProjectTracker — Estado y Versiones
 
+## Versión actual: v45.5 — 27-Jun-2026
+
+### v45.5 — Limpieza pestaña Documentos y badge XREF
+- **Pestaña Documentos eliminada**: `#tab-docs` (Historial de Entregas) removida del nav y del contenido en `project_detail.html`
+- **Badge XREF eliminado**: badge `file_xref` y CSS `.fnb-xref` removidos del encabezado del proyecto
+
 ## Versión actual: v45.4 — 27-Jun-2026
 
 ### v45.4 — Gestión de usuarios completa

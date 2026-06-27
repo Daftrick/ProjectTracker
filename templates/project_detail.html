@@ -56,7 +56,6 @@
   .file-name-badge{ border-radius:8px;padding:5px 11px;font-family:monospace;font-size:.85rem;border:1px solid; }
   .fnb-folder{ background:rgba(40,65,125,.30); border-color:rgba(80,120,210,.28); color:#8aacd0; }
   .fnb-ie    { background:rgba(115,88,20,.28);  border-color:rgba(175,135,38,.28); color:#c2a855; }
-  .fnb-xref  { background:rgba(28,95,75,.28);   border-color:rgba(48,145,105,.28); color:#6cb890; }
 
   /* Totales tfoot */
   tfoot td              { color:#b0bac8!important; }
@@ -99,7 +98,6 @@
             <i class="bi bi-folder2 me-1"></i>{{ company.prefix or company.name }}-{{ project.folder_num or "???" }}-{{ project.clave }}
           </span>
           <span class="file-name-badge fnb-ie"><i class="bi bi-file-earmark-code me-1"></i>{{ file_ie }}</span>
-          <span class="file-name-badge fnb-xref"><i class="bi bi-file-earmark-image me-1"></i>{{ file_xref }}</span>
         </div>
         {% if project.client %}<small class="text-muted"><i class="bi bi-building me-1"></i>{{ project.client }}</small>{% endif %}
         {% if project.notes %}<p class="text-muted mb-0 mt-1" style="font-size:.85rem">{{ project.notes }}</p>{% endif %}
@@ -182,7 +180,6 @@
   <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-quote" id="tab-quote-link"><i class="bi bi-receipt me-1"></i>Cotización</a></li>
   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-materiales" id="tab-materiales-link"><i class="bi bi-card-list me-1"></i>Materiales</a></li>
   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-fichas" id="tab-fichas-link"><i class="bi bi-journal-bookmark me-1"></i>Fichas Técnicas</a></li>
-  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-docs" id="tab-docs-link"><i class="bi bi-folder2 me-1"></i>Documentos</a></li>
   <li class="nav-item">
     <a class="nav-link" data-bs-toggle="tab" href="#tab-consistencia" id="tab-consistencia-link">
       <i class="bi bi-shield-check me-1"></i>Consistencia
@@ -193,62 +190,6 @@
 <div class="tab-content">
 
 <!-- ── TAB DOCUMENTOS ── -->
-<div class="tab-pane fade" id="tab-docs">
-  <div class="row g-3">
-
-    <!-- Historial de Entregas -->
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header">
-          <i class="bi bi-clock-history me-2"></i>Historial de Entregas
-          <span class="badge bg-light text-dark ms-2">{{ deliveries|length }}</span>
-        </div>
-        {% if deliveries %}
-        <div class="card-body p-0">
-          <table class="table mb-0">
-            <thead><tr>
-              <th>Fecha</th><th>ZIP</th><th>Tipo</th><th>Versión</th><th>Archivos</th><th>Notas</th><th class="text-end">Acción</th>
-            </tr></thead>
-            <tbody>
-            {% for d in deliveries %}
-            <tr>
-              <td><strong>{{ d.date | fdate }}</strong></td>
-              <td><code style="font-size:.78rem" class="text-success">{{ d.zip_name }}</code></td>
-              <td>
-                <span class="badge {% if d.dtype=='completa' %}bs-Aprobado{% else %}bs-En-Progreso{% endif %}">
-                  {{ d.dtype | capitalize }}
-                </span>
-              </td>
-              <td><span class="badge bg-light text-dark border">{{ d.version }}</span></td>
-              <td><small class="text-muted">{{ d.files_included | length }} archivo(s)</small></td>
-              <td><small class="text-muted">{{ d.notes or '—' }}</small></td>
-              <td class="text-end">
-                <form method="post"
-                      action="{{ url_for('delete_delivery', project_id=project.id, delivery_id=d.id) }}"
-                      class="d-inline">
-                  <button type="button" class="btn btn-sm btn-outline-danger"
-                          data-confirm-title="Eliminar entrega"
-                          data-confirm-body='<p class="mb-2">\u00bfEliminar el registro de entrega <strong>{{ d.zip_name | e }}</strong>?</p><dl class="row small mb-1"><dt class="col-5">Versi\u00f3n</dt><dd class="col-7">{{ d.version | e }}</dd><dt class="col-5">Tipo</dt><dd class="col-7">{{ d.dtype | capitalize }}</dd><dt class="col-5">Archivos</dt><dd class="col-7">{{ d.files_included | length }}</dd></dl><div class="alert alert-info py-1 mb-0" style="font-size:.82rem"><i class="bi bi-info-circle me-1"></i>Solo se elimina el registro. El ZIP en Drive <strong>no</strong> se borra.</div>'
-                          onclick="submitFormWithConfirm(this)">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </form>
-              </td>
-            </tr>
-            {% endfor %}
-            </tbody>
-          </table>
-        </div>
-        {% else %}
-        <div class="card-body text-center py-4 text-muted">
-          <i class="bi bi-file-zip fs-2 d-block mb-2"></i>Sin entregas registradas aún.
-        </div>
-        {% endif %}
-      </div>
-    </div>
-
-  </div>
-</div>
 
 <!-- ── TAB COTIZACIÓN ── -->
 <div class="tab-pane fade show active" id="tab-quote">
