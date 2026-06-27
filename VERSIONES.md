@@ -1,5 +1,12 @@
 # ProjectTracker — Estado y Versiones
 
+## Versión actual: v45.4 — 27-Jun-2026
+
+### v45.4 — Gestión de usuarios completa
+- **Eliminar usuario**: botón Eliminar con confirmación JS; ruta `POST /usuarios/<id>/delete`; protección contra auto-eliminación
+- **Editar nombre de usuario**: ícono lápiz abre modal con nombre prellenado; ruta `POST /usuarios/<id>/edit-username`; valida duplicados antes de guardar
+- `graphify` en PATH confirmado como shim no-op (`~/.local/bin/graphify`) — exits limpio cuando no hay binario real
+
 ## Versión actual: v45.3 — 27-Jun-2026
 
 ### v45.3 — PDF portada + editor de cotizaciones: pulido visual y sincronización
