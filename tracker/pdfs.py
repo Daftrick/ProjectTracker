@@ -991,13 +991,15 @@ def build_quote_pdf(project, quote, output_path=None):
     _lw        = sum(cols[:-1])
     _vw        = cols[-1]
     if _tax_rate == 0 or _tax == 0:
-        ensure_space(8)
+        ensure_space(13)
+        pdf.ln(5)
         pdf.set_text_color(*INK)
         pdf.set_font("DejaVu", "B", 9)
         pdf.cell(_lw, 7, "TOTAL", border="T", align="R")
         pdf.cell(_vw, 7, money_pdf(_total), border="T", align="C", ln=True)
     else:
-        ensure_space(21)
+        ensure_space(26)
+        pdf.ln(5)
         pdf.set_text_color(*MUTED)
         pdf.set_font("DejaVu", "", 8.6)
         pdf.cell(_lw, 6.5, "Subtotal", border="T", align="R")
@@ -1022,7 +1024,7 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.ln(1)
 
     pdf.add_page()
-    pdf.set_y(22)
+    pdf.set_y(16)
     pdf.set_text_color(*INK)
     _CONDICION_FIELDS = ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto")
     _has_specs = any(str(_specs.get(f) or "").strip() for f in _CONDICION_FIELDS)

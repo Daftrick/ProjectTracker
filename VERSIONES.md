@@ -1,5 +1,11 @@
 # ProjectTracker — Estado y Versiones
 
+## Versión actual: v45.11 — 27-Jun-2026
+
+### v45.11 — PDF: espaciado de totales y T&C
+- **Totales generales**: +5mm de espacio antes del bloque (ln=5 tras ensure_space) para mayor protagonismo
+- **Términos y Condiciones**: `set_y(16)` en lugar de `set_y(22)` — título más pegado al header de página
+
 ## Versión actual: v45.10 — 27-Jun-2026
 
 ### v45.10 — Portada PDF: caja de totales condicional en IVA
