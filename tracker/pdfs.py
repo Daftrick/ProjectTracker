@@ -1028,7 +1028,7 @@ def build_quote_pdf(project, quote, output_path=None):
         ]
     else:
         _active_terms = quote_terms()
-    render_text_blocks("Términos y Condiciones", _active_terms, pre_ln=1, post_ln=4, colon=True)
+    render_text_blocks("Términos y Condiciones", _active_terms, pre_ln=0, post_ln=4, colon=True)
 
     notes = note_lines(quote.get("notes"))
     if notes:
