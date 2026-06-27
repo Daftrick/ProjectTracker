@@ -44,87 +44,31 @@
 
 {% block extra_head %}
 <style>
-  .alcance-row{transition:background .15s;}
-  .alcance-row:hover{background:rgba(255,255,255,.04);}
-  .alcance-row.blocked{opacity:.55;}
-  .status-pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.78rem;font-weight:600;}
-  .history-dot{width:8px;height:8px;border-radius:50%;background:#5a82c8;flex-shrink:0;margin-top:5px;}
-  .items-table th{font-size:.8rem;}
-
-  /* Sticky thead for quotes and LDM tables */
-  #tab-quote .card table thead th,
-  #tab-ldm   .card table thead th {
+  /* Sticky thead for quotes table */
+  #tab-quote .card table thead th {
     position: sticky;
     top: 52px;
     z-index: 20;
     background-color: #141c30 !important;
   }
 
-  /* ── Badges de archivo con colores distintos ── */
+  /* Badges de archivo */
   .file-name-badge{ border-radius:8px;padding:5px 11px;font-family:monospace;font-size:.85rem;border:1px solid; }
   .fnb-folder{ background:rgba(40,65,125,.30); border-color:rgba(80,120,210,.28); color:#8aacd0; }
   .fnb-ie    { background:rgba(115,88,20,.28);  border-color:rgba(175,135,38,.28); color:#c2a855; }
   .fnb-xref  { background:rgba(28,95,75,.28);   border-color:rgba(48,145,105,.28); color:#6cb890; }
 
-  /* ── Totales tfoot ── */
-  tfoot td                { color:#b0bac8!important; }
-  tfoot td.text-warning   { color:#c8a850!important; }
-  tfoot td.text-success   { color:#70b085!important; }
-  tfoot td.text-danger    { color:#b08080!important; }
+  /* Totales tfoot */
+  tfoot td              { color:#b0bac8!important; }
+  tfoot td.text-warning { color:#c8a850!important; }
+  tfoot td.text-success { color:#70b085!important; }
+  tfoot td.text-danger  { color:#b08080!important; }
 
-  /* ── Caja financiera (header del proyecto) ── */
+  /* Caja financiera (header del proyecto) */
   .margen-box{background:#0d1630;border:1px solid rgba(255,255,255,.18);border-radius:10px;
               padding:.5rem .75rem;font-size:.82rem;}
-  .parcial-label{background:#0d1630;border:1px solid rgba(255,255,255,.18);border-radius:6px;
-                 cursor:pointer;transition:border-color .15s;}
-  .parcial-label:hover{border-color:rgba(60,100,170,.45);}
-  .csv-status-badge{font-size:.62rem;line-height:1;padding:.23rem .38rem;white-space:nowrap;}
-  .csv-meta{font-size:.65rem;white-space:nowrap;}
-  .action-btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:3px;
-  }
-  .action-label{ display:none; }
 
-  /* ── Fila expandible de detalle ── */
-  .detail-row { display:none; }
-  .detail-row.open { display:table-row; }
-  .detail-row > td { padding:0 !important; border-bottom:none !important; }
-  .detail-row.open > td { border-bottom:1px solid rgba(255,255,255,.06) !important; }
-  .detail-inner { padding:10px 16px 14px 20px; border-left:3px solid #5a82c8; background:rgba(55,100,200,.06); }
-  .detail-section-title { font-size:.7rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:#7b8494; margin-bottom:5px; }
-  .obs-item { margin-bottom:6px; }
-  .obs-note { font-size:.8rem; padding:5px 9px; border-left:2px solid #D4537E; background:rgba(212,83,126,.08); border-radius:0 4px 4px 0; margin-top:3px; line-height:1.5; color:inherit; }
-  .obs-no-note { font-size:.78rem; color:#7b8494; font-style:italic; margin-top:2px; padding-left:4px; }
-  .obs-checklist { display:flex; flex-direction:column; gap:4px; margin-top:7px; }
-  .obs-check-item { display:flex; align-items:center; gap:7px; font-size:.8rem; color:#b0bac8; }
-  .obs-check-item.done { color:#7b8494; text-decoration:line-through; }
-  .obs-check-item .form-check-input { margin:0; width:14px; height:14px; }
-  .obs-check-progress { font-size:.7rem; color:#7b8494; }
-  .obs-edit-btn { font-size:.72rem; padding:2px 8px; }
-  .tl-list { display:flex; flex-direction:column; gap:3px; }
-  .tl-item { display:flex; gap:8px; align-items:flex-start; }
-  .tl-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; margin-top:4px; }
-  .tl-obs-dot  { background:#D4537E; }
-  .tl-aprobado-dot { background:#22c55e; }
-  .tl-change-dot { background:#5a82c8; }
-  .tl-date  { font-size:.75rem; color:#7b8494; margin-right:4px; white-space:nowrap; }
-  .tl-arrow { font-size:.78rem; }
-  .tl-note  { font-size:.75rem; color:#7b8494; }
-  .scope-title-cell { display:flex; align-items:flex-start; gap:8px; }
-  .scope-title-body { min-width:0; }
-  .expand-btn {
-    width:24px;
-    height:24px;
-    min-width:24px;
-    padding:0;
-    font-size:.72rem;
-    line-height:1;
-    transition:transform .2s;
-  }
-  .expand-btn.open { transform:rotate(180deg); }
+  .action-btn{display:inline-flex;align-items:center;justify-content:center;gap:3px;}
 </style>
 {% endblock %}
 
@@ -152,7 +96,7 @@
       <div class="col-md-5">
         <div class="mb-2 d-flex flex-wrap gap-2">
           <span class="file-name-badge fnb-folder">
-            <i class="bi bi-folder2 me-1"></i>{{ project.disciplina or "IE" }}-{{ project.folder_num or "???" }}-{{ project.clave }}
+            <i class="bi bi-folder2 me-1"></i>{{ company.prefix or company.name }}-{{ project.folder_num or "???" }}-{{ project.clave }}
           </span>
           <span class="file-name-badge fnb-ie"><i class="bi bi-file-earmark-code me-1"></i>{{ file_ie }}</span>
           <span class="file-name-badge fnb-xref"><i class="bi bi-file-earmark-image me-1"></i>{{ file_xref }}</span>
@@ -1011,24 +955,15 @@
               <label class="form-label">Cliente</label>
               <input name="client" class="form-control" value="{{ project.client }}">
             </div>
-            <div class="col-md-4">
-              <label class="form-label">Disciplina</label>
-              <input name="disciplina" class="form-control" id="editDisc" oninput="updateEditPreview()" placeholder="IE, ARQ, EST…" value="{{ project.disciplina or '' }}" maxlength="10">
-            </div>
-            <div class="col-md-5">
-              <label class="form-label">Clave</label>
-              <input name="clave" class="form-control" value="{{ project.clave }}" id="editClave" oninput="updateEditPreview()">
-            </div>
-            <div class="col-md-3">
-              <label class="form-label">Versión</label>
-              <input name="version" class="form-control" value="{{ project.version }}" id="editVer" oninput="updateEditPreview()">
-            </div>
-            <div class="col-md-4">
-              <label class="form-label">Fecha (AAMMDD)</label>
-              <input name="fecha" class="form-control" value="{{ project.fecha }}" id="editFecha" oninput="updateEditPreview()">
-            </div>
             <div class="col-12">
-              <div class="file-name-badge" id="editPreview">{{ file_ie }}</div>
+              <label class="form-label">Clave</label>
+              <div class="input-group">
+                <span class="input-group-text text-muted" style="font-size:.82rem">{{ company.prefix or company.name }}-{{ project.folder_num or "???" }}-</span>
+                <input name="clave" class="form-control" value="{{ project.clave }}" id="editClave" oninput="updateEditPreview()">
+              </div>
+              <small class="text-muted" style="font-size:.72rem" id="editPreview">
+                {{ company.prefix or company.name }}-{{ project.folder_num or "???" }}-{{ project.clave }}
+              </small>
             </div>
             <div class="col-md-6">
               <label class="form-label">Deadline</label>
@@ -1113,11 +1048,9 @@
 
   // Preview en modal editar
   function updateEditPreview() {
-    const d=document.getElementById("editDisc").value||"IE";
-    const c=document.getElementById("editClave").value||"?";
-    const v=document.getElementById("editVer").value||"?";
-    const f=document.getElementById("editFecha").value||"?";
-    document.getElementById("editPreview").textContent=`${d}-${c}-${v}-${f}`;
+    const c = document.getElementById("editClave").value || "?";
+    document.getElementById("editPreview").textContent =
+      `{{ company.prefix or company.name }}-{{ project.folder_num or "???" }}-${c}`;
   }
 
   // Modal: asignar Nº cotización proveedor

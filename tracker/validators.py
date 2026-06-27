@@ -51,10 +51,7 @@ def validate_project_form(form):
         "name": _clean(form.get("name")),
         "clave": _clean(form.get("clave")),
         "client": _clean(form.get("client")),
-        "version": _clean(form.get("version")) or "V1",
-        "fecha": _clean(form.get("fecha")),
         "notes": _clean(form.get("notes")),
-        "disciplina": _clean(form.get("disciplina")),
     }
 
     if not fields["name"]:
@@ -65,10 +62,6 @@ def validate_project_form(form):
         message = "La clave del proyecto es requerida."
         errors.append(message)
         field_errors["clave"] = message
-    if fields["fecha"] and not PROJECT_DATE_RE.match(fields["fecha"]):
-        message = "La fecha del proyecto debe usar formato AAMMDD, por ejemplo 260424."
-        errors.append(message)
-        field_errors["fecha"] = message
 
     return {
         "ok": not errors,

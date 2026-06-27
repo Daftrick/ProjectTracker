@@ -237,9 +237,12 @@ def build_project_detail_context(project):
         catalog_by_id,
     )
 
-    _disc = project.get("disciplina") or "IE"
-    _ie_fallback = f"{_disc}-{project['clave']}-{project['version']}-{project['fecha']}.dwg"
-    _xref_fallback = f"XREF-{project['clave']}-{project['version']}-{project['fecha']}.dwg"
+    from .company_config import get_company as _get_company
+    _company = _get_company()
+    _prefix = _company.get("prefix") or _company.get("name") or "PROY"
+    _fn = project.get("folder_num") or "???"
+    _ie_fallback = f"{_prefix}-{_fn}-{project['clave']}.dwg"
+    _xref_fallback = f"XREF-{_prefix}-{_fn}-{project['clave']}.dwg"
 
     return {
         "project": project,

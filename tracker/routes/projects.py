@@ -27,10 +27,7 @@ def _blank_project_form_state():
             "name": "",
             "client": "",
             "clave": "",
-            "version": "V1",
-            "fecha": "",
             "notes": "",
-            "disciplina": "",
             "drive_url": "",
         },
         "field_errors": {},
@@ -132,12 +129,9 @@ def update_project(project_id):
         project["name"] = request.form.get("name", project["name"]).strip()
         project["client"] = request.form.get("client", project.get("client", "")).strip()
         project["clave"] = request.form.get("clave", project["clave"]).strip()
-        project["version"] = request.form.get("version", project["version"]).strip()
-        project["fecha"] = request.form.get("fecha", project["fecha"]).strip()
         project["notes"] = request.form.get("notes", "").strip()
         project["deadline"] = request.form.get("deadline", "").strip() or None
         project["drive_url"] = request.form.get("drive_url", "").strip() or ""
-        project["disciplina"] = request.form.get("disciplina", "").strip()
         project["updated_at"] = today()
         save("projects", projects)
         flash("Proyecto actualizado.", "success")

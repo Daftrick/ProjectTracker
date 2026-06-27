@@ -21,6 +21,12 @@
           {% if fe.get('name') %}<div class="invalid-feedback">{{ fe.get('name') }}</div>{% endif %}
         </div>
         <div class="mb-3">
+          <label class="form-label fw-semibold">Prefijo de proyectos <small class="text-muted">(opcional)</small></label>
+          <input name="prefix" class="form-control" value="{{ company.prefix }}"
+                 placeholder="Ej: DIDE, ARQ, MEP" maxlength="10">
+          <div class="form-text">Código corto que aparece en los nombres de carpeta y archivo: <code>PREFIJO-001-Clave</code>. Si se deja vacío se usa el nombre de la empresa.</div>
+        </div>
+        <div class="mb-3">
           <label class="form-label fw-semibold">Dirección <small class="text-muted">(opcional)</small></label>
           <input name="address" class="form-control" value="{{ company.address }}"
                  placeholder="Ej: Av. Insurgentes Sur 1234, CDMX">

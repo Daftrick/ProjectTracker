@@ -2,6 +2,7 @@ from .storage import load as _load, save as _save
 
 COMPANY_DEFAULTS = {
     "name": "Mi Empresa",
+    "prefix": "",
     "logo": "",
     "address": "",
     "rut": "",

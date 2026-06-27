@@ -1,6 +1,15 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v39.0 — 26-Jun-2026
+## Versión actual: v40.0 — 26-Jun-2026
+
+### v40.0 — Clave de proyecto con prefijo de empresa
+- Eliminados `disciplina`, `fecha` y `version` del nivel de proyecto (viven en los archivos)
+- Clave adopta formato `{Prefijo}-{###}-{Clave}` donde el número es consecutivo automático
+- Nuevo campo `prefix` en perfil de empresa (Admin → Empresa); si está vacío usa el nombre de la empresa
+- `project_view.py`: `file_ie`/`file_xref` generados con el prefijo dinámico
+- `project_new.html`: formulario simplificado, vista previa muestra `PREFIJO-###-Clave`
+- `project_detail.html`: header y modal Editar muestran prefijo dinámico; CSS sobrante eliminado (~64 líneas de clases sin uso)
+- 337 tests pasan
 
 ### v39.0 — Refactoring cotizador (simplificación mayor)
 - App replanteada como cotizador puro: se suprimen tracker de tareas y sistema de alcances

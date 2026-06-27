@@ -15,42 +15,35 @@
       <div class="row g-3">
         <div class="col-md-8">
           <label class="form-label">Nombre del proyecto *</label>
-          <input name="name" class="form-control{% if fe.get('name') %} is-invalid{% endif %}" required placeholder="Ej: Oficinas Torre Reforma" value="{{ fs.name }}">
+          <input name="name" class="form-control{% if fe.get('name') %} is-invalid{% endif %}" required
+                 placeholder="Ej: Oficinas Torre Reforma" value="{{ fs.name }}">
           {% if fe.get('name') %}<div class="invalid-feedback">{{ fe.get('name') }}</div>{% endif %}
         </div>
         <div class="col-md-4">
           <label class="form-label">Cliente</label>
           <input name="client" class="form-control" placeholder="Nombre del cliente" value="{{ fs.client }}">
         </div>
-        <div class="col-md-4">
-          <label class="form-label">Disciplina</label>
-          <input name="disciplina" class="form-control" id="discInput" oninput="updatePreview()"
-                 placeholder="IE, ARQ, EST…" value="{{ fs.disciplina }}" maxlength="10">
-        </div>
-        <div class="col-md-5">
+        <div class="col-md-6">
           <label class="form-label">Clave del proyecto *
             <i class="bi bi-info-circle text-muted ms-1" data-bs-toggle="tooltip"
-               title="Ej: OficinasPalmas1 | Cero5Cien-402 | RSF-LT1013"></i>
+               title="Parte descriptiva de la clave. Ej: OficinasPalmas, RSF-LT1013"></i>
           </label>
-          <input name="clave" class="form-control{% if fe.get('clave') %} is-invalid{% endif %}" required placeholder="Ej: OficinasPalmas1"
-                 id="claveInput" oninput="updatePreview()" value="{{ fs.clave }}">
+          <input name="clave" class="form-control{% if fe.get('clave') %} is-invalid{% endif %}" required
+                 placeholder="Ej: OficinasPalmas" id="claveInput" oninput="updatePreview()"
+                 value="{{ fs.clave }}">
           {% if fe.get('clave') %}<div class="invalid-feedback">{{ fe.get('clave') }}</div>{% endif %}
         </div>
-        <div class="col-md-3">
-          <label class="form-label">Versión</label>
-          <input name="version" class="form-control" value="{{ fs.version }}" placeholder="V1" id="verInput" oninput="updatePreview()">
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Fecha (AAMMDD)</label>
-          <input name="fecha" class="form-control{% if fe.get('fecha') %} is-invalid{% endif %}" placeholder="260418" id="fechaInput" oninput="updatePreview()" value="{{ fs.fecha }}">
-          {% if fe.get('fecha') %}<div class="invalid-feedback">{{ fe.get('fecha') }}</div>{% endif %}
-        </div>
-        <!-- Preview nombre de archivo -->
+        <!-- Vista previa del código de carpeta -->
         <div class="col-12">
           <div class="p-2 rounded" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);">
-            <small class="text-muted d-block mb-1">Vista previa del nombre de archivo:</small>
-            <code id="previewIE" style="color:#8aacd0">{disciplina}-{clave}-{versión}-{fecha}</code><br>
-            <code id="previewXREF" style="color:#6cb890">XREF-{clave}-{versión}-{fecha}</code>
+            <small class="text-muted d-block mb-1">Vista previa del código de carpeta:</small>
+            <code id="previewFolder" style="color:#8aacd0">
+              <i class="bi bi-folder2 me-1"></i>{{ company.prefix or company.name }}-<span class="text-muted">###</span>-{clave}
+            </code>
+            <small class="text-muted d-block mt-1" style="font-size:.72rem">
+              El número consecutivo (###) se asigna automáticamente al crear.
+              Fecha, disciplina y versión van en cada archivo.
+            </small>
           </div>
         </div>
         <div class="col-md-6">
@@ -59,7 +52,8 @@
         </div>
         <div class="col-12">
           <label class="form-label">Notas</label>
-          <textarea name="notes" class="form-control" rows="2" placeholder="Descripción general, ubicación, etc.">{{ fs.notes }}</textarea>
+          <textarea name="notes" class="form-control" rows="2"
+                    placeholder="Descripción general, ubicación, etc.">{{ fs.notes }}</textarea>
         </div>
         <div class="col-md-6">
           <label class="form-label">Carpeta en Google Drive</label>
@@ -81,15 +75,11 @@
 {% block extra_js %}
 <script>
   function updatePreview(){
-    const d=document.getElementById("discInput").value||"{disciplina}";
-    const c=document.getElementById("claveInput").value||"{clave}";
-    const v=document.getElementById("verInput").value||"{versión}";
-    const f=document.getElementById("fechaInput").value||"{fecha}";
-    document.getElementById("previewIE").textContent=`${d}-${c}-${v}-${f}`;
-    document.getElementById("previewXREF").textContent=`XREF-${c}-${v}-${f}`;
+    const c = document.getElementById("claveInput").value || "{clave}";
+    document.getElementById("previewFolder").innerHTML =
+      '<i class="bi bi-folder2 me-1"></i>{{ company.prefix or company.name }}-<span class="text-muted">###</span>-' + c;
   }
   updatePreview();
-  // Tooltips Bootstrap
-  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el=>new bootstrap.Tooltip(el));
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
 </script>
 {% endblock %}

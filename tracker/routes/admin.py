@@ -831,6 +831,7 @@ def empresa():
             portada_color = current.get("portada_color", "#000000") or "#000000"
         data = {
             "name":          (request.form.get("name", "") or "").strip(),
+            "prefix":        (request.form.get("prefix", "") or "").strip(),
             "address":       (request.form.get("address", "") or "").strip(),
             "rut":           (request.form.get("rut", "") or "").strip(),
             "logo":          current.get("logo", ""),
