@@ -223,6 +223,10 @@ def set_user_permissions(user_id, perms: dict):
     )
 
 
+def delete_user(user_id):
+    _db_execute("DELETE FROM users WHERE id=?", (user_id,))
+
+
 def permission_required(perm):
     def decorator(f):
         @wraps(f)

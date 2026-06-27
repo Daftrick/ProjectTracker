@@ -8,6 +8,7 @@ from ..auth import (
     KNOWN_PERMISSIONS,
     admin_required,
     create_user,
+    delete_user,
     get_all_users,
     record_login,
     reset_user_password,
@@ -127,6 +128,17 @@ def edit_user_permissions(user_id):
     perms = {p: (request.form.get(p) == "1") for p in KNOWN_PERMISSIONS}
     set_user_permissions(user_id, perms)
     flash("Permisos actualizados.", "success")
+    return redirect(url_for("auth_bp.users"))
+
+
+@bp.route("/usuarios/<int:user_id>/delete", methods=["POST"], endpoint="delete_user")
+@admin_required
+def delete_user_view(user_id):
+    if user_id == current_user.id:
+        flash("No puedes eliminar tu propia cuenta.", "warning")
+        return redirect(url_for("auth_bp.users"))
+    delete_user(user_id)
+    flash("Usuario eliminado.", "success")
     return redirect(url_for("auth_bp.users"))
 
 

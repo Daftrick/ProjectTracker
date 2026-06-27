@@ -100,6 +100,17 @@
               </button>
               {% endif %}
 
+              {# Eliminar #}
+              {% if u.id != current_user.id %}
+              <form method="post" action="{{ url_for('auth_bp.delete_user', user_id=u.id) }}"
+                    onsubmit="return confirm('¿Eliminar permanentemente al usuario {{ u.username }}? Esta acción no se puede deshacer.')">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-sm btn-outline-danger">
+                  <i class="bi bi-trash me-1"></i>Eliminar
+                </button>
+              </form>
+              {% endif %}
+
               {% endif %}{# fin if u.id != current_user.id #}
 
               <a href="{{ url_for('auth_bp.reset_password', user_id=u.id) }}"
