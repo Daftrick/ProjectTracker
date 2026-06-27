@@ -979,6 +979,34 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.cell(value_width, 6.6, money_pdf(section.get("subtotal", 0)), border="T", align="C", ln=True)
             pdf.set_font("DejaVu", "", 8.6)
 
+    # ── Totales generales ──────────────────────────────────────────
+    _subtotal  = quote.get("subtotal", 0)
+    _tax       = quote.get("tax", 0)
+    _total     = quote.get("total", 0)
+    _tax_rate  = quote.get("tax_rate", 16)
+    _lw        = sum(cols[:-1])
+    _vw        = cols[-1]
+    if _tax_rate == 0 or _tax == 0:
+        ensure_space(8)
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "B", 9)
+        pdf.cell(_lw, 7, "TOTAL", border="T", align="R")
+        pdf.cell(_vw, 7, money_pdf(_total), border="T", align="C", ln=True)
+    else:
+        ensure_space(21)
+        pdf.set_text_color(*MUTED)
+        pdf.set_font("DejaVu", "", 8.6)
+        pdf.cell(_lw, 6.5, "Subtotal", border="T", align="R")
+        pdf.cell(_vw, 6.5, money_pdf(_subtotal), border="T", align="C", ln=True)
+        pdf.cell(_lw, 6.5, f"IVA ({_tax_rate}%)", align="R")
+        pdf.cell(_vw, 6.5, money_pdf(_tax), align="C", ln=True)
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "B", 9)
+        pdf.cell(_lw, 7, "TOTAL", align="R")
+        pdf.cell(_vw, 7, money_pdf(_total), align="C", ln=True)
+    pdf.set_font("DejaVu", "", 8.6)
+    pdf.set_text_color(*INK)
+
     _nota_precio = str(_specs.get("nota_precio") or "").strip()
     if _nota_precio:
         ensure_space(8)

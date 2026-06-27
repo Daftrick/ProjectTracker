@@ -1,5 +1,12 @@
 # ProjectTracker — Estado y Versiones
 
+## Versión actual: v45.9 — 27-Jun-2026
+
+### v45.9 — Totales generales en PDF de cotización
+- **Bloque de totales al final de la tabla de partidas**: se inserta después del último total de sección
+- **Sin IVA**: un solo renglón "TOTAL" con borde superior y fuente bold
+- **Con IVA**: tres renglones — "Subtotal" (MUTED), "IVA (X%)" (MUTED), "TOTAL" (bold INK) con separador superior
+
 ## Versión actual: v45.8 — 27-Jun-2026
 
 ### v45.8 — Contador de cotizaciones limpio
