@@ -1,5 +1,11 @@
 # ProjectTracker — Estado y Versiones
 
+## Versión actual: v45.8 — 27-Jun-2026
+
+### v45.8 — Contador de cotizaciones limpio
+- **Eliminado contador estático** `cotización(es)` del resumen de totales en el tab de cotizaciones
+- **Contador dinámico** en barra de filtros ya mostraba "1 cotización" / "N cotizaciones" correctamente — se preserva
+
 ## Versión actual: v45.7 — 27-Jun-2026
 
 ### v45.7 — Limpieza header de proyecto
