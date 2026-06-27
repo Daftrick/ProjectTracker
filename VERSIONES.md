@@ -1,5 +1,11 @@
 # ProjectTracker — Estado y Versiones
 
+## Versión actual: v45.7 — 27-Jun-2026
+
+### v45.7 — Limpieza header de proyecto
+- **Badge carpeta**: muestra el nombre del proyecto en lugar del código de carpeta (`prefix-folder_num-clave`)
+- **Badge DWG eliminado**: removido el badge `fnb-ie` (nombre de archivo `.dwg`) del encabezado del proyecto
+
 ## Versión actual: v45.6 — 27-Jun-2026
 
 ### v45.6 — Permisos ampliados para cotizadores
