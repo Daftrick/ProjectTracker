@@ -1,6 +1,14 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v40.0 — 26-Jun-2026
+## Versión actual: v41.0 — 27-Jun-2026
+
+### v41.0 — Dashboard simplificado + prefijo en sidebar
+- Dashboard: eliminados semáforo y KPI de consistencia COT vs LDM; ruta simplificada (sin hydrate ni compute_consistency)
+- Cards de proyecto muestran nombre, código `{Prefijo}-{###}-{Clave}`, cliente y total cotizado
+- Sidebar muestra `company.prefix` como nombre de la app (fallback a nombre de empresa)
+- 337 tests pasan
+
+## Versión anterior: v40.0 — 26-Jun-2026
 
 ### v40.0 — Clave de proyecto con prefijo de empresa
 - Eliminados `disciplina`, `fecha` y `version` del nivel de proyecto (viven en los archivos)

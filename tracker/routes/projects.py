@@ -2,10 +2,7 @@ from datetime import date
 
 from flask import Blueprint, abort, flash, redirect, render_template, request, send_file, url_for
 
-from ..catalog import catalog_maps, hydrate_ldm, hydrate_quote
-from ..consistency import compute_consistency
 from ..deletions import delete_project_data
-from ..domain import project_semaphore
 from ..project_view import build_project_detail_context
 from ..services import create_project
 from ..pdfs import build_progress_pdf
@@ -37,17 +34,15 @@ def _blank_project_form_state():
 @bp.route("/", endpoint="dashboard")
 def dashboard():
     projects = load("projects")
-    catalog_by_id, catalog_by_name = catalog_maps()
-    raw_quotes = load("quotes")
-    raw_materiales = load("materiales")
-    hydrated_quotes = [hydrate_quote(q, catalog_by_id, catalog_by_name) for q in raw_quotes]
-    hydrated_ldms = [hydrate_ldm(m, catalog_by_id, catalog_by_name) for m in raw_materiales]
+
+    quotes_by_project: dict = {}
+    for q in load("quotes"):
+        pid = q.get("project_id")
+        if pid and q.get("status") != "draft":
+            quotes_by_project.setdefault(pid, []).append(float(q.get("total", 0)))
 
     for project in projects:
-        project["consistency"] = compute_consistency(
-            project, hydrated_quotes, hydrated_ldms, catalog_by_id,
-        )
-        project["semaphore"] = project_semaphore(project, today())
+        project["total_cotizado"] = round(sum(quotes_by_project.get(project["id"], [])), 2)
 
     active = [p for p in projects if not p.get("closed_at") and p.get("status") not in ("Entregado", "Archivado")]
     delivered = [p for p in projects if not p.get("closed_at") and p.get("status") == "Entregado"]

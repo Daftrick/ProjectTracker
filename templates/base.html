@@ -248,7 +248,7 @@
   <div class="brand">
     <i class="bi bi-lightning-charge-fill brand-icon"></i>
     <div class="brand-text">
-      <h5>{{ company.name or "Project Tracker" }}</h5>
+      <h5>{{ company.prefix or company.name or "Project Tracker" }}</h5>
       <small>{{ app_version }}</small>
     </div>
   </div>
