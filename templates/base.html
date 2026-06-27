@@ -258,6 +258,10 @@
        data-label="Proyectos">
       <i class="bi bi-grid-1x2"></i><span class="nav-label"> Proyectos</span>
     </a>
+    <a href="{{ url_for('quotes_bp.all_quotes') }}" class="nav-link {% if request.endpoint=='quotes_bp.all_quotes' %}active{% endif %}"
+       data-label="Cotizaciones">
+      <i class="bi bi-receipt"></i><span class="nav-label"> Cotizaciones</span>
+    </a>
 
     <div class="nav-section mt-2">Recursos</div>
     <a href="{{ url_for('fichas') }}" class="nav-link {% if request.endpoint=='fichas' %}active{% endif %}"

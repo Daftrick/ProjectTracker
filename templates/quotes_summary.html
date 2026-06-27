@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}Cotizaciones – Project Tracker{% endblock %}
+{% block page_title %}<i class="bi bi-receipt me-2 text-primary"></i>Cotizaciones{% endblock %}
+
+{% block content %}
+
+{# ── Métricas rápidas ── #}
+<div class="d-flex gap-4 mb-4 px-1" style="font-size:.82rem">
+  <span><span class="text-muted">Total registros:</span> <span class="fw-semibold">{{ rows|length }}</span></span>
+  <span>
+    <span class="text-muted">Aprobadas:</span>
+    <span class="fw-semibold">{{ rows|selectattr('approval_badge','equalto','success')|list|length }}</span>
+  </span>
+  <span>
+    <span class="text-muted">Monto aprobado:</span>
+    <span class="fw-semibold text-success">{{ total_aprobado | currency }}</span>
+  </span>
+</div>
+
+{# ── Filtro ── #}
+<div class="mb-3">
+  <input id="qFilter" type="search" class="form-control form-control-sm" style="max-width:360px"
+         placeholder="Filtrar por proyecto, número, tipo…">
+</div>
+
+{# ── Tabla ── #}
+{% if rows %}
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0 align-middle" id="quotesTable" style="font-size:.85rem">
+      <thead style="font-size:.75rem;text-transform:uppercase;letter-spacing:.04em">
+        <tr>
+          <th class="px-3">Proyecto</th>
+          <th>Número</th>
+          <th>Tipo</th>
+          <th>Fecha</th>
+          <th class="text-end">Total</th>
+          <th>Estado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        {% set q = row.quote %}
+        {% set p = row.project %}
+        <tr class="quote-row" data-search="{{ (p.name or '') ~ ' ' ~ (q.quote_number or '') ~ ' ' ~ (q.quote_type or '') | lower }}">
+          <td class="px-3">
+            <span class="fw-semibold">{{ p.name or '—' }}</span>
+            {% if p.folder_num or p.clave %}
+            <br><small class="text-muted font-monospace" style="font-size:.72rem">
+              {{ company.prefix or company.name }}-{{ p.folder_num or '???' }}-{{ p.clave or '???' }}
+            </small>
+            {% endif %}
+          </td>
+          <td class="font-monospace">{{ q.quote_number or '—' }}</td>
+          <td>
+            <span class="badge bg-secondary" style="font-size:.7rem">{{ q.quote_type or '—' }}</span>
+          </td>
+          <td class="text-muted">
+            {% if q.date %}{{ q.date | fdate }}{% else %}—{% endif %}
+          </td>
+          <td class="text-end fw-semibold">
+            {% if q.total %}{{ q.total | currency }}{% else %}—{% endif %}
+          </td>
+          <td>
+            <span class="badge bg-{{ row.approval_badge }}">{{ row.approval_label }}</span>
+          </td>
+          <td class="text-end pe-3">
+            {% if p.id %}
+            <a href="{{ url_for('quotes_bp.edit_quote', project_id=p.id, quote_id=q.id) }}"
+               class="btn btn-sm btn-outline-secondary py-0 px-2" style="font-size:.75rem">
+              Editar
+            </a>
+            <a href="{{ url_for('project_detail', project_id=p.id) }}#tab-quote"
+               class="btn btn-sm btn-outline-primary py-0 px-2 ms-1" style="font-size:.75rem">
+              Ver proyecto
+            </a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+<div class="text-center py-5">
+  <i class="bi bi-receipt fs-1 text-muted d-block mb-3" style="opacity:.3"></i>
+  <h5 class="text-muted">Sin cotizaciones aún</h5>
+  <p class="text-muted mb-0" style="font-size:.88rem">
+    Crea la primera desde la pestaña <strong>Cotización</strong> de cualquier proyecto.
+  </p>
+</div>
+{% endif %}
+
+<script>
+document.getElementById('qFilter').addEventListener('input', function(){
+  const q = this.value.toLowerCase();
+  document.querySelectorAll('#quotesTable .quote-row').forEach(tr => {
+    tr.style.display = tr.dataset.search.includes(q) ? '' : 'none';
+  });
+});
+</script>
+{% endblock %}

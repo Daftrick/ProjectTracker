@@ -249,8 +249,8 @@
   </div>
 </div>
 
-<div class="row g-3 align-items-start">
-  <div class="col-lg-8">
+<div class="row g-3">
+  <div class="col-12">
     <div class="card mb-3">
       <div class="card-header">Datos generales</div>
       <div class="card-body">
@@ -646,41 +646,6 @@
             {% endif %}
           </tbody>
         </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- Sidebar: resumen en vivo -->
-  <div class="col-lg-4">
-    <div class="card" id="sidebarSummary" style="position:sticky;top:1rem">
-      <div class="card-header py-2 px-3">
-        <span class="fw-semibold" style="font-size:.85rem">
-          <i class="bi bi-receipt me-1 text-muted"></i>Resumen
-        </span>
-      </div>
-      <div class="card-body py-2 px-3">
-        <div class="d-flex justify-content-between mb-1" style="font-size:.82rem">
-          <span class="text-muted">Secciones</span>
-          <span class="fw-semibold" id="sbSections">—</span>
-        </div>
-        <div class="d-flex justify-content-between mb-2" style="font-size:.82rem">
-          <span class="text-muted">Partidas</span>
-          <span class="fw-semibold" id="sbItems">—</span>
-        </div>
-        <hr class="my-2">
-        <div class="d-flex justify-content-between mb-1" style="font-size:.82rem">
-          <span class="text-muted">Subtotal</span>
-          <span id="sbSubtotal">—</span>
-        </div>
-        <div class="d-flex justify-content-between mb-2" style="font-size:.82rem">
-          <span class="text-muted">IVA <span id="sbTaxPct">16</span>%</span>
-          <span id="sbTax">—</span>
-        </div>
-        <div class="d-flex justify-content-between pt-2"
-             style="font-size:.95rem;border-top:1px solid var(--bs-border-color)">
-          <span class="fw-bold">Total</span>
-          <span class="fw-bold text-success" id="sbTotal">—</span>
-        </div>
       </div>
     </div>
   </div>
@@ -1326,12 +1291,6 @@
     document.getElementById("dTax").textContent=fmt(tax);
     document.getElementById("dTotal").textContent=fmt(s+tax);
     document.getElementById("dTaxPct").textContent=tr;
-    document.getElementById("sbSubtotal").textContent=fmt(s);
-    document.getElementById("sbTax").textContent=fmt(tax);
-    document.getElementById("sbTotal").textContent=fmt(s+tax);
-    document.getElementById("sbTaxPct").textContent=tr;
-    document.getElementById("sbSections").textContent=document.querySelectorAll('#itemsBody .quote-section-row').length;
-    document.getElementById("sbItems").textContent=document.querySelectorAll('#itemsBody .quote-row').length;
   }
   function fmt(n){return"$"+n.toLocaleString("es-MX",{minimumFractionDigits:2,maximumFractionDigits:2});}
   // ── Numeración auto-generada ───────────────────────────────────────────────

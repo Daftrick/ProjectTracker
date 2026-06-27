@@ -751,6 +751,56 @@ def quote_duplicate(project_id, quote_id):
     return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=new_quote["id"]))
 
 
+@bp.route("/cotizaciones", endpoint="all_quotes")
+def all_quotes():
+    quotes = load("quotes")
+    projects = load("projects")
+    projects_by_id = {p["id"]: p for p in projects}
+
+    from ..project_view import build_quote_row_views
+
+    # Merge project info into each quote row
+    all_rows = []
+    for quote in quotes:
+        pid = quote.get("project_id", "")
+        project = projects_by_id.get(pid, {})
+        all_rows.append({
+            "project": project,
+            "quote": quote,
+        })
+
+    # Sort: most recent date first
+    all_rows.sort(key=lambda r: r["quote"].get("date", ""), reverse=True)
+
+    # Compute approval view fields per quote
+    from ..catalog import APPROVAL_ACTIVE, APPROVAL_DRAFT, APPROVAL_OBSOLETE, is_base_quote_type
+    for row in all_rows:
+        q = row["quote"]
+        approval = q.get("approval_status", APPROVAL_DRAFT)
+        is_extra = not is_base_quote_type(q.get("quote_type"))
+        if approval == APPROVAL_ACTIVE:
+            row["approval_badge"] = "success"
+            row["approval_label"] = "Aprobada" if not is_extra else "Activa"
+        elif approval == APPROVAL_OBSOLETE:
+            row["approval_badge"] = "secondary"
+            row["approval_label"] = "Obsoleta" if not is_extra else "Inactiva"
+        else:
+            row["approval_badge"] = "warning"
+            row["approval_label"] = "Borrador"
+
+    total_aprobado = sum(
+        r["quote"].get("total", 0)
+        for r in all_rows
+        if r["quote"].get("approval_status") == APPROVAL_ACTIVE
+    )
+
+    return render_template(
+        "quotes_summary.html",
+        rows=all_rows,
+        total_aprobado=total_aprobado,
+    )
+
+
 @bp.route("/audit/deleted-catalog", endpoint="audit_deleted_catalog")
 def audit_deleted_catalog():
     """Audit all quotes and LDMs for deleted catalog items"""
