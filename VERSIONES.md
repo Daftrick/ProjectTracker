@@ -1,6 +1,11 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v42.0 — 27-Jun-2026
+## Versión actual: v42.1 — 27-Jun-2026
+
+### v42.1 — Acciones de cotización expandidas en pantallas grandes
+- Botones CSV, Duplicar, Purgar y Eliminar ahora aparecen inline en pantallas ≥lg (`d-none d-lg-inline*`)
+- El dropdown `···` se mantiene para pantallas menores a lg (`d-lg-none`) — sin duplicar código de confirmación
+- 337 tests pasan
 
 ### v42.0 — Página de cotizaciones cross-proyecto
 - Nueva ruta `GET /cotizaciones` (`quotes_bp.all_quotes`): carga todas las cotizaciones de todos los proyectos, une metadata del proyecto, ordena por fecha descendente y computa badge de aprobación
@@ -538,6 +543,7 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
+| 2026-06-27 | **v42.1 — Acciones de cotización expandidas**: botones CSV/Duplicar/Purgar/Eliminar visibles inline en pantallas ≥lg; dropdown `···` solo en pantallas menores. |
 | 2026-06-27 | **v42.0 — Página de cotizaciones cross-proyecto**: nueva ruta `GET /cotizaciones` con tabla de todas las cotizaciones agrupadas por proyecto; métricas rápidas (total, aprobadas, monto); filtro JS en tiempo real; botón "Ver proyecto →" como acción principal (edición solo desde la vista interna de cada proyecto). Enlace en sidebar izquierdo bajo Principal. `quotes_summary.html` nuevo. |
 | 2026-06-27 | **v41.0 — Dashboard simplificado + prefijo en sidebar**: eliminados semáforo y KPI COT vs LDM; cards muestran código `{Prefijo}-{###}-{Clave}` y total cotizado; sidebar usa `company.prefix` como nombre de app. |
 | 2026-06-26 | **v40.0 — Clave de proyecto con prefijo de empresa**: formato `{Prefijo}-{###}-{Clave}`; nuevo campo `prefix` en perfil de empresa; eliminados `disciplina`, `fecha`, `version` del nivel de proyecto. |
