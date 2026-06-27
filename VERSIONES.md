@@ -1,5 +1,18 @@
 # ProjectTracker — Estado y Versiones
 
+## Versión actual: v45.3 — 27-Jun-2026
+
+### v45.3 — PDF portada + editor de cotizaciones: pulido visual y sincronización
+- **PDF portada — márgenes unificados**: integrantes, dirección, separador, título y "Propuesta para" usan `l_margin=5mm` y `content_width=200mm` — iguales al recuadro gris
+- **PDF portada — integrantes sobre logo**: fondo reducido 112→85mm, logo ajustado a `x=60 y=10 w=90`, contactos renderizados debajo del fondo (y=88+) alineados a la derecha
+- **PDF portada — header simplificado**: eliminado número de cotización del header de páginas internas; columnas fecha/proyecto dimensionadas con `get_string_width`
+- **PDF T&C**: ":" después de cada subtítulo; `pre_ln=0` (sin espacio antes del bloque), `post_ln=4mm` después del encabezado
+- **Editor — Notas generales y Especificaciones técnicas eliminadas**: secciones removidas del formulario de cotización
+- **Editor — T&C e Integrantes colapsados por default**: `aria-expanded="false"` / `collapse` (sin `show`) en ambos paneles
+- **Plantillas — "Renglón N" → "Integrante N"**: etiqueta de contactos en `quote_templates.html`
+- **Sincronización integrantes**: el form carga desde `contacts_default` de la plantilla cuando no hay integrantes guardados por cotización; los guardados sobrescriben el default (mismo patrón que T&C)
+- 341 tests pasan
+
 ## Versión actual: v45.2 — 27-Jun-2026
 
 ### v45.2 — `graphify` local en PATH como shim seguro

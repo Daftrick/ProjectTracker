@@ -441,14 +441,14 @@
               <button type="button" class="btn btn-link p-0 text-decoration-none"
                       style="font-size:.9rem;color:inherit"
                       data-bs-toggle="collapse" data-bs-target="#termsSection"
-                      aria-expanded="true" aria-controls="termsSection">
+                      aria-expanded="false" aria-controls="termsSection">
                 <i class="bi bi-file-text me-1 text-muted"></i>
                 <span>Términos y condiciones</span>
                 <i class="bi bi-chevron-down ms-1 terms-chevron" style="font-size:.7rem;transition:transform .2s"></i>
               </button>
             </div>
           </div>
-          <div class="col-12 collapse show" id="termsSection">
+          <div class="col-12 collapse" id="termsSection">
             <div class="card border-0 bg-body-secondary rounded-3 p-3">
               <div class="row g-3">
                 {% for term in terms_config %}
@@ -479,14 +479,14 @@
               <button type="button" class="btn btn-link p-0 text-decoration-none"
                       style="font-size:.9rem;color:inherit"
                       data-bs-toggle="collapse" data-bs-target="#integrantesSection"
-                      aria-expanded="true" aria-controls="integrantesSection">
+                      aria-expanded="false" aria-controls="integrantesSection">
                 <i class="bi bi-people me-1 text-muted"></i>
                 <span>Integrantes de la cotización</span>
                 <i class="bi bi-chevron-down ms-1 terms-chevron" style="font-size:.7rem;transition:transform .2s"></i>
               </button>
             </div>
           </div>
-          <div class="col-12 collapse show" id="integrantesSection">
+          <div class="col-12 collapse" id="integrantesSection">
             <div class="card border-0 bg-body-secondary rounded-3 p-3">
               <div class="row g-3">
                 {% for integrante in integrantes_config %}
