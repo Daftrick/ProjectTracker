@@ -51,6 +51,7 @@ class QuoteTemplatesConfigTest(unittest.TestCase):
         self.assertNotIn("notes_default", result["Proyecto"])
         self.assertNotIn("specs_default", result["Proyecto"])
         self.assertEqual(result["Proyecto"]["terms_default"][0]["body"], "Vigencia personalizada")
+        self.assertEqual(result["Proyecto"]["terms_default"][0]["title"], "Vigencia")
         self.assertFalse(result["Proyecto"]["terms_default"][0]["enabled"])
         self.assertGreater(len(result["Proyecto"]["terms_default"]), 1)
 

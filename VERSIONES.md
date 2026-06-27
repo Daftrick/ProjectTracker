@@ -1,6 +1,14 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v44.1 — 27-Jun-2026
+## Versión actual: v44.2 — 27-Jun-2026
+
+### v44.2 — Títulos de términos en Title Case
+- Secciones de Términos y Condiciones usan títulos sin punto final y con mayúscula inicial por palabra: `Información Base y Ajustes`, `Condiciones de Pago`, `Trabajos Adicionales`, etc.
+- Plantillas normalizan títulos por clave, ignorando títulos legacy guardados
+- PDF renderiza títulos canónicos por `key` aunque la cotización tenga títulos anteriores en `specs.terms`
+- 338 tests pasan
+
+## Versión anterior: v44.1 — 27-Jun-2026
 
 ### v44.1 — Plantillas sin notas/specs legacy
 - Plantillas de cotización eliminan los bloques `Notas predeterminadas` y `Especificaciones técnicas predeterminadas`
@@ -599,6 +607,7 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
+| 2026-06-27 | **v44.2 — Títulos de términos en Title Case**: secciones de Términos y Condiciones sin punto final y con mayúscula inicial por palabra; plantillas/PDF normalizan títulos por clave para ignorar títulos legacy guardados. |
 | 2026-06-27 | **v44.1 — Plantillas sin notas/specs legacy**: eliminados los bloques `Notas predeterminadas` y `Especificaciones técnicas predeterminadas` de plantillas; las cotizaciones nuevas ya no prellenan notas/specs desde plantillas; el PDF usa el título `Términos y Condiciones`. |
 | 2026-06-27 | **v44.0 — Plantillas de términos y PDF con secciones independientes**: `terms_default` en plantillas de cotización; UI para editar textos/toggles de Términos y condiciones por tipo; cotizaciones nuevas aplican esos defaults; el PDF renderiza Especificaciones técnicas, Términos y condiciones y Notas como secciones independientes, respetando checkboxes. |
 | 2026-06-27 | **v42.1 — Acciones de cotización expandidas**: botones CSV/Duplicar/Purgar/Eliminar visibles inline en pantallas ≥lg; dropdown `···` solo en pantallas menores. |

@@ -44,7 +44,7 @@ def _normalize_terms(stored_terms):
         stored = stored_by_key.get(key, {})
         normalized.append({
             "key": key,
-            "title": stored.get("title") or title,
+            "title": title,
             "body": stored.get("body") if stored.get("body") is not None else body,
             "enabled": bool(stored.get("enabled", True)),
         })

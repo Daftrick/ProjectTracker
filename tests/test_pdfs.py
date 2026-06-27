@@ -151,6 +151,8 @@ class QuotePdfSectionsTest(unittest.TestCase):
         self.assertIn("Especificaciones técnicas", text)
         self.assertIn("Pago visible", text)
         self.assertIn("Términos y Condiciones", text)
+        self.assertIn("Vigencia", text)
+        self.assertNotIn("Vigencia.", text)
         self.assertIn("Termino visible", text)
         self.assertNotIn("Termino oculto", text)
         self.assertIn("Notas", text)

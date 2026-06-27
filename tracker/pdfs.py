@@ -165,16 +165,18 @@ def quote_scope_paragraphs():
 
 
 QUOTE_TERMS_DEFAULTS = [
-    ("vigencia",          "Vigencia.",                    "La presente cotización tendrá vigencia de 15 días naturales a partir de su fecha de emisión."),
-    ("precios",           "Precios.",                     "Todos los precios están expresados en pesos mexicanos (MXN) y no incluyen IVA, salvo indicación expresa."),
-    ("info_base",         "Información base y ajustes.",  "La cotización fue elaborada con base en la información disponible al momento de su emisión. En caso de no contar con proyecto ejecutivo definitivo, así como por cambios en planos, especificaciones, cantidades, trayectorias, capacidades, materiales, equipos o condiciones reales de obra, la cotización podrá ser revisada y actualizada en alcance, precio y plazo."),
-    ("condpago",          "Condiciones de pago.",         "El inicio, continuidad y entrega de los trabajos estarán sujetos al cumplimiento de las condiciones de pago pactadas entre las partes."),
-    ("plazos",            "Plazos.",                      "Los tiempos de suministro y ejecución estarán sujetos a disponibilidad de materiales, liberación de frentes, coordinación con otras especialidades y condiciones reales de obra. No serán imputables al contratista los atrasos derivados de cambios de proyecto, falta de pago, falta de liberación de áreas, retrasos de terceros, caso fortuito o fuerza mayor."),
-    ("trab_adic",         "Trabajos adicionales.",        "Todo trabajo adicional, modificación, adecuación o concepto no contemplado originalmente deberá cotizarse y autorizarse por separado antes de su ejecución."),
-    ("exclusiones",       "Exclusiones.",                 "Salvo que se indique expresamente, no se incluyen obra civil, resanes, ranurados, perforaciones especiales, trámites, gestorías, permisos, acometidas de la compañía suministradora, pruebas especializadas por terceros ni cualquier otro trabajo fuera del alcance descrito."),
-    ("garantia",          "Garantía.",                    "Los trabajos ejecutados contarán con garantía por defectos atribuibles a la mano de obra, así como por defectos en materiales o equipos suministrados, siempre que la instalación no haya sido modificada, sobrecargada, mal operada o intervenida por terceros."),
-    ("aceptacion",        "Aceptación.",                  "La aprobación de la cotización mediante firma, orden de compra, anticipo o confirmación escrita implicará la aceptación total de precios, alcances y presentes términos y condiciones."),
+    ("vigencia",          "Vigencia",                    "La presente cotización tendrá vigencia de 15 días naturales a partir de su fecha de emisión."),
+    ("precios",           "Precios",                     "Todos los precios están expresados en pesos mexicanos (MXN) y no incluyen IVA, salvo indicación expresa."),
+    ("info_base",         "Información Base y Ajustes",  "La cotización fue elaborada con base en la información disponible al momento de su emisión. En caso de no contar con proyecto ejecutivo definitivo, así como por cambios en planos, especificaciones, cantidades, trayectorias, capacidades, materiales, equipos o condiciones reales de obra, la cotización podrá ser revisada y actualizada en alcance, precio y plazo."),
+    ("condpago",          "Condiciones de Pago",         "El inicio, continuidad y entrega de los trabajos estarán sujetos al cumplimiento de las condiciones de pago pactadas entre las partes."),
+    ("plazos",            "Plazos",                      "Los tiempos de suministro y ejecución estarán sujetos a disponibilidad de materiales, liberación de frentes, coordinación con otras especialidades y condiciones reales de obra. No serán imputables al contratista los atrasos derivados de cambios de proyecto, falta de pago, falta de liberación de áreas, retrasos de terceros, caso fortuito o fuerza mayor."),
+    ("trab_adic",         "Trabajos Adicionales",        "Todo trabajo adicional, modificación, adecuación o concepto no contemplado originalmente deberá cotizarse y autorizarse por separado antes de su ejecución."),
+    ("exclusiones",       "Exclusiones",                 "Salvo que se indique expresamente, no se incluyen obra civil, resanes, ranurados, perforaciones especiales, trámites, gestorías, permisos, acometidas de la compañía suministradora, pruebas especializadas por terceros ni cualquier otro trabajo fuera del alcance descrito."),
+    ("garantia",          "Garantía",                    "Los trabajos ejecutados contarán con garantía por defectos atribuibles a la mano de obra, así como por defectos en materiales o equipos suministrados, siempre que la instalación no haya sido modificada, sobrecargada, mal operada o intervenida por terceros."),
+    ("aceptacion",        "Aceptación",                  "La aprobación de la cotización mediante firma, orden de compra, anticipo o confirmación escrita implicará la aceptación total de precios, alcances y presentes términos y condiciones."),
 ]
+
+QUOTE_TERM_TITLES = {key: title for key, title, _ in QUOTE_TERMS_DEFAULTS}
 
 
 def quote_terms():
@@ -983,7 +985,7 @@ def build_quote_pdf(project, quote, output_path=None):
 
     if _stored_terms is not None:
         _active_terms = [
-            (t.get("title", ""), t.get("body", ""))
+            (QUOTE_TERM_TITLES.get(t.get("key"), t.get("title", "")), t.get("body", ""))
             for t in _stored_terms
             if t.get("enabled", True) and str(t.get("body") or "").strip()
         ]
