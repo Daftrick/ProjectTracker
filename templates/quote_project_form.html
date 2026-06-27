@@ -12,7 +12,7 @@
   {% if existing_quote %}
   {% set _qa = quote.approval_status if quote else 'draft' %}
   {% set _qx = quote and quote.quote_type == 'Extraordinaria' %}
-  {% set _qd = (quote.items | selectattr('deleted_catalog_item') | list) if quote else [] %}
+  {% set _qd = (quote['items'] | selectattr('deleted_catalog_item') | list) if quote else [] %}
   {# Siempre disponibles: vista y descargas #}
   <a href="{{ url_for('quote_pdf', project_id=project.id, quote_id=quote.id) }}?inline=1"
      class="btn btn-sm btn-outline-secondary" target="_blank" title="Vista previa PDF">
