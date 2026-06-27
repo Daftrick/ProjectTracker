@@ -652,7 +652,7 @@ def build_quote_pdf(project, quote, output_path=None):
         _contacts_on_dark = False
     else:
         pdf.set_text_color(255, 255, 255)
-        pdf.set_xy(16, 28)
+        pdf.set_xy(pdf.l_margin, 28)
         pdf.set_font("DejaVu", "B", 18)
         pdf.cell(0, 8, _cached_company_name)
         contact_y = 48
@@ -665,8 +665,8 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.set_text_color(*MUTED)
         pdf.set_font("DejaVu", "", 8.4)
         for line in cover_contact_lines:
-            pdf.set_xy(16, contact_y)
-            pdf.cell(178, 4.6, _safe_text(line), align="R")
+            pdf.set_xy(pdf.l_margin, contact_y)
+            pdf.cell(content_width, 4.6, _safe_text(line), align="R")
             contact_y += 5
     pdf.set_draw_color(*LINE)
     _caddr = str(_company_data.get("address") or "").strip()
@@ -679,46 +679,46 @@ def build_quote_pdf(project, quote, output_path=None):
     if _cinfo:
         pdf.set_text_color(*MUTED)
         pdf.set_font("DejaVu", "", 8)
-        pdf.set_xy(16, _caddr_y)
-        pdf.cell(178, 4.5, _safe_text(_cinfo), align="R")
+        pdf.set_xy(pdf.l_margin, _caddr_y)
+        pdf.cell(content_width, 4.5, _safe_text(_cinfo), align="R")
         _caddr_y += 5
     if _ccontact:
         pdf.set_text_color(*MUTED)
         pdf.set_font("DejaVu", "", 8)
-        pdf.set_xy(16, _caddr_y)
-        pdf.cell(178, 4.5, _safe_text(_ccontact), align="R")
+        pdf.set_xy(pdf.l_margin, _caddr_y)
+        pdf.cell(content_width, 4.5, _safe_text(_ccontact), align="R")
         _caddr_y += 5
     _sep_y = _caddr_y + 3
-    pdf.line(16, _sep_y, 194, _sep_y)
-    pdf.set_xy(16, _sep_y + 10)
+    pdf.line(pdf.l_margin, _sep_y, pdf.l_margin + content_width, _sep_y)
+    pdf.set_xy(pdf.l_margin, _sep_y + 10)
     pdf.set_text_color(*NAVY)
     pdf.set_font("DejaVu", "B", 9)
     pdf.cell(0, 5, "PROPUESTA ECONÓMICA")
-    pdf.set_xy(16, _sep_y + 20)
+    pdf.set_xy(pdf.l_margin, _sep_y + 20)
     pdf.set_text_color(*INK)
     pdf.set_font("DejaVu", "B", 18)
-    pdf.multi_cell(158, 8, _safe_text(cover_title))
+    pdf.multi_cell(content_width, 8, _safe_text(cover_title))
     if cover_basis_note:
         pdf.ln(1)
-        pdf.set_x(16)
+        pdf.set_x(pdf.l_margin)
         pdf.set_text_color(*NAVY_2)
         pdf.set_font("DejaVu", "", 10.5)
-        pdf.multi_cell(170, 5.3, _safe_text(cover_basis_note))
+        pdf.multi_cell(content_width, 5.3, _safe_text(cover_basis_note))
     if cover_subtitle:
         pdf.ln(1)
-        pdf.set_x(16)
+        pdf.set_x(pdf.l_margin)
         pdf.set_text_color(*NAVY_2)
         pdf.set_font("DejaVu", "B", 10.5)
         pdf.cell(0, 5.5, _safe_text(cover_subtitle), ln=True)
     proposal_y = max(168 + _spacing_delta, pdf.get_y() + 7)
-    pdf.set_xy(16, proposal_y)
+    pdf.set_xy(pdf.l_margin, proposal_y)
     pdf.set_text_color(*MUTED)
     pdf.set_font("DejaVu", "", 11)
     pdf.cell(0, 6, "Propuesta para")
-    pdf.set_xy(16, proposal_y + 9)
+    pdf.set_xy(pdf.l_margin, proposal_y + 9)
     pdf.set_text_color(*INK)
     pdf.set_font("DejaVu", "B", 15)
-    pdf.multi_cell(112, 7, client_name)
+    pdf.multi_cell(content_width, 7, client_name)
     summary_x = pdf.l_margin
     summary_y = max(215, min(250, round(221 + _spacing_delta)))
     summary_w = content_width
