@@ -1,5 +1,13 @@
 # ProjectTracker — Estado y Versiones
 
+## Versión actual: v45.12 — 27-Jun-2026
+
+### v45.12 — PDF: totales generales con layout 2 columnas explícito
+- **Layout 2 columnas**: `_tot_lbl_w=48` + `cols[-1]=28`, posicionados con `set_xy` explícito en cada fila — sin depender de `ln=True` para resetear x
+- **Valores right-aligned**: `align="R"` en ambas columnas para alineación precisa
+- **Tax rate display**: `16.0%` → `16%` cuando es entero
+- **TOTAL sin IVA**: caja reducida (h=20) con un solo renglón
+
 ## Versión actual: v45.11 — 27-Jun-2026
 
 ### v45.11 — PDF: espaciado de totales y T&C

@@ -988,28 +988,41 @@ def build_quote_pdf(project, quote, output_path=None):
     _tax       = quote.get("tax", 0)
     _total     = quote.get("total", 0)
     _tax_rate  = quote.get("tax_rate", 16)
-    _lw        = sum(cols[:-1])
-    _vw        = cols[-1]
+    _tax_rate_disp = int(_tax_rate) if float(_tax_rate) == int(float(_tax_rate)) else _tax_rate
+    _tot_lbl_w = 48
+    _tot_val_w = cols[-1]   # alinea con columna IMPORTE
+    _tot_x     = pdf.l_margin + content_width - _tot_lbl_w - _tot_val_w
+
     if _tax_rate == 0 or _tax == 0:
         ensure_space(13)
         pdf.ln(5)
+        _gy = pdf.get_y()
+        pdf.set_xy(_tot_x, _gy)
         pdf.set_text_color(*INK)
         pdf.set_font("DejaVu", "B", 9)
-        pdf.cell(_lw, 7, "TOTAL", border="T", align="R")
-        pdf.cell(_vw, 7, money_pdf(_total), border="T", align="C", ln=True)
+        pdf.cell(_tot_lbl_w, 7, "TOTAL", border="T", align="R")
+        pdf.cell(_tot_val_w, 7, money_pdf(_total), border="T", align="R")
+        pdf.set_y(_gy + 7)
     else:
         ensure_space(26)
         pdf.ln(5)
+        _gy = pdf.get_y()
         pdf.set_text_color(*MUTED)
         pdf.set_font("DejaVu", "", 8.6)
-        pdf.cell(_lw, 6.5, "Subtotal", border="T", align="R")
-        pdf.cell(_vw, 6.5, money_pdf(_subtotal), border="T", align="C", ln=True)
-        pdf.cell(_lw, 6.5, f"IVA ({_tax_rate}%)", align="R")
-        pdf.cell(_vw, 6.5, money_pdf(_tax), align="C", ln=True)
+        pdf.set_xy(_tot_x, _gy)
+        pdf.cell(_tot_lbl_w, 6.5, "Subtotal", border="T", align="R")
+        pdf.cell(_tot_val_w, 6.5, money_pdf(_subtotal), border="T", align="R")
+        _gy += 6.5
+        pdf.set_xy(_tot_x, _gy)
+        pdf.cell(_tot_lbl_w, 6.5, f"IVA ({_tax_rate_disp}%)", align="R")
+        pdf.cell(_tot_val_w, 6.5, money_pdf(_tax), align="R")
+        _gy += 6.5
+        pdf.set_xy(_tot_x, _gy)
         pdf.set_text_color(*INK)
         pdf.set_font("DejaVu", "B", 9)
-        pdf.cell(_lw, 7, "TOTAL", align="R")
-        pdf.cell(_vw, 7, money_pdf(_total), align="C", ln=True)
+        pdf.cell(_tot_lbl_w, 7, "TOTAL", align="R")
+        pdf.cell(_tot_val_w, 7, money_pdf(_total), align="R")
+        pdf.set_y(_gy + 7)
     pdf.set_font("DejaVu", "", 8.6)
     pdf.set_text_color(*INK)
 
