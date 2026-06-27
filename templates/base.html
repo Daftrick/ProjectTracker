@@ -297,6 +297,10 @@
        data-label="Empresa">
       <i class="bi bi-building"></i><span class="nav-label"> Empresa</span>
     </a>
+    <a href="{{ url_for('admin_bp.alcances_admin') }}" class="nav-link {% if request.endpoint=='admin_bp.alcances_admin' %}active{% endif %}"
+       data-label="Alcances">
+      <i class="bi bi-diagram-3"></i><span class="nav-label"> Alcances</span>
+    </a>
     <a href="{{ url_for('admin_bp.project_templates_admin') }}" class="nav-link {% if request.endpoint=='admin_bp.project_templates_admin' %}active{% endif %}"
        data-label="Tipos de Proyecto">
       <i class="bi bi-list-check"></i><span class="nav-label"> Tipos de Proyecto</span>

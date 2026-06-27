@@ -1,4 +1,4 @@
-from .domain import ALCANCES_BY_ID, check_blocked
+from .domain import check_blocked, get_alcances_by_id
 from .storage import new_id, today
 
 
@@ -149,7 +149,7 @@ def next_folder_number(projects):
 
 def build_scope_task(project_id, alcance_id, note, id_factory=new_id, today_value=None):
     created_at = today_value or today()
-    alcance = ALCANCES_BY_ID.get(alcance_id, {})
+    alcance = get_alcances_by_id().get(alcance_id, {})
     return {
         "id": id_factory(),
         "project_id": project_id,

@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+{% block title %}Alcances – Project Tracker{% endblock %}
+{% block page_title %}<i class="bi bi-list-check me-2 text-primary"></i>Catálogo de alcances{% endblock %}
+{% block topbar_actions %}
+  <button class="btn btn-primary btn-sm" onclick="openModal()">
+    <i class="bi bi-plus-lg me-1"></i>Nuevo alcance
+  </button>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+  .alcance-source-badge { font-size:.72rem; padding:2px 8px; border-radius:20px; }
+  .src-propia  { background:rgba(40,100,60,.3);  border:1px solid rgba(70,160,90,.3);  color:#7cc89a; }
+  .src-externa { background:rgba(100,80,20,.3);  border:1px solid rgba(160,130,40,.3); color:#d4aa55; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span>Alcances definidos</span>
+    <small class="text-muted" id="alcanceCount">{{ alcances|length }} alcance(s)</small>
+  </div>
+  <div class="card-body p-0">
+    <table class="table mb-0" id="alcancesTable">
+      <thead class="table-light">
+        <tr>
+          <th style="width:14%">ID</th>
+          <th style="width:28%">Nombre</th>
+          <th style="width:10%">Fuente</th>
+          <th style="width:22%">Etiqueta externa</th>
+          <th style="width:10%" class="text-center">Info ext.</th>
+          <th style="width:16%" class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="alcancesTbody">
+        {% for a in alcances %}
+        <tr id="arow-{{ loop.index0 }}" data-idx="{{ loop.index0 }}">
+          <td><code class="text-muted" style="font-size:.8rem">{{ a.id }}</code></td>
+          <td class="fw-semibold">{{ a.nombre }}</td>
+          <td>
+            <span class="alcance-source-badge src-{{ a.source }}">
+              {{ "Propia" if a.source == "propia" else "Externa" }}
+            </span>
+          </td>
+          <td class="text-muted small">{{ a.dep_label or "—" }}</td>
+          <td class="text-center">
+            {% if a.get("info_ext", true) %}
+              <i class="bi bi-check-circle-fill text-success"></i>
+            {% else %}
+              <i class="bi bi-dash-circle text-muted"></i>
+            {% endif %}
+          </td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-secondary" onclick="editAlcance({{ loop.index0 }})">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger ms-1" onclick="deleteAlcance({{ loop.index0 }})">
+              <i class="bi bi-trash3"></i>
+            </button>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="text-center text-muted py-4">
+          <i class="bi bi-list-check fs-2 d-block mb-2 opacity-50"></i>
+          Sin alcances definidos — agrega el primero.
+        </td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal add/edit -->
+<div class="modal fade" id="modalAlcance" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalAlcanceTitle">
+          <i class="bi bi-list-check me-2 text-primary"></i>Alcance
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editIdx" value="">
+        <div class="mb-3">
+          <label class="form-label fw-semibold">ID <small class="text-muted fw-normal">(slug único, sin espacios)</small></label>
+          <input id="aId" class="form-control font-monospace" placeholder="ej: voz_datos">
+          <div class="form-text">Solo letras minúsculas, números y guion bajo.</div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Nombre</label>
+          <input id="aNombre" class="form-control" placeholder="ej: Red de Voz y Datos">
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Fuente</label>
+          <select id="aSource" class="form-select" onchange="toggleDepLabel()">
+            <option value="propia">Propia — el equipo elabora el proyecto</option>
+            <option value="externa">Externa — depende de proyecto de otra área</option>
+          </select>
+        </div>
+        <div class="mb-3" id="depLabelGroup" style="display:none">
+          <label class="form-label fw-semibold">Etiqueta de dependencia externa</label>
+          <input id="aDepLabel" class="form-control" placeholder="ej: Proyecto de Voz y Datos (TI)">
+          <div class="form-text">Se muestra en la tarjeta del alcance cuando la fuente es externa.</div>
+        </div>
+        <div class="form-check form-switch mb-3">
+          <input class="form-check-input" type="checkbox" id="aInfoExt" checked>
+          <label class="form-check-label" for="aInfoExt">
+            Aparece en hoja de Info Ext del PDF
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" onclick="saveAlcance()">
+          <i class="bi bi-check-lg me-1"></i>Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// In-memory list synced with server
+let _alcances = {{ alcances | tojson }};
+
+function renderTable() {
+  const tbody = document.getElementById('alcancesTbody');
+  document.getElementById('alcanceCount').textContent = `${_alcances.length} alcance(s)`;
+  if (!_alcances.length) {
+    tbody.innerHTML = `<tr><td colspan="6" class="text-center text-muted py-4">
+      <i class="bi bi-list-check fs-2 d-block mb-2 opacity-50"></i>
+      Sin alcances definidos — agrega el primero.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = _alcances.map((a, i) => `
+    <tr>
+      <td><code class="text-muted" style="font-size:.8rem">${a.id}</code></td>
+      <td class="fw-semibold">${escHtml(a.nombre)}</td>
+      <td><span class="alcance-source-badge src-${a.source}">${a.source === 'propia' ? 'Propia' : 'Externa'}</span></td>
+      <td class="text-muted small">${escHtml(a.dep_label || '—')}</td>
+      <td class="text-center">${a.info_ext !== false ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-dash-circle text-muted"></i>'}</td>
+      <td class="text-end">
+        <button class="btn btn-sm btn-outline-secondary" onclick="editAlcance(${i})"><i class="bi bi-pencil"></i></button>
+        <button class="btn btn-sm btn-outline-danger ms-1" onclick="deleteAlcance(${i})"><i class="bi bi-trash3"></i></button>
+      </td>
+    </tr>`).join('');
+}
+
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function openModal(idx = null) {
+  document.getElementById('modalAlcanceTitle').innerHTML =
+    `<i class="bi bi-list-check me-2 text-primary"></i>${idx === null ? 'Nuevo alcance' : 'Editar alcance'}`;
+  document.getElementById('editIdx').value = idx === null ? '' : idx;
+  const a = idx !== null ? _alcances[idx] : null;
+  document.getElementById('aId').value = a ? a.id : '';
+  document.getElementById('aId').disabled = a !== null; // don't allow ID change on edit
+  document.getElementById('aNombre').value = a ? a.nombre : '';
+  document.getElementById('aSource').value = a ? a.source : 'propia';
+  document.getElementById('aDepLabel').value = a ? (a.dep_label || '') : '';
+  document.getElementById('aInfoExt').checked = a ? (a.info_ext !== false) : true;
+  toggleDepLabel();
+  bootstrap.Modal.getOrCreateInstance(document.getElementById('modalAlcance')).show();
+}
+
+function editAlcance(i) { openModal(i); }
+
+function toggleDepLabel() {
+  document.getElementById('depLabelGroup').style.display =
+    document.getElementById('aSource').value === 'externa' ? '' : 'none';
+}
+
+function saveAlcance() {
+  const idxStr = document.getElementById('editIdx').value;
+  const idx = idxStr === '' ? null : parseInt(idxStr);
+  const a_id = document.getElementById('aId').value.trim().toLowerCase().replace(/[^a-z0-9_]/g, '_').replace(/^_+|_+$/g, '');
+  const nombre = document.getElementById('aNombre').value.trim();
+  if (!a_id || !nombre) { alert('ID y Nombre son obligatorios.'); return; }
+  if (idx === null && _alcances.some(a => a.id === a_id)) {
+    alert(`Ya existe un alcance con ID "${a_id}".`); return;
+  }
+  const entry = {
+    id: a_id,
+    nombre,
+    source: document.getElementById('aSource').value,
+    dep_label: document.getElementById('aSource').value === 'externa'
+      ? (document.getElementById('aDepLabel').value.trim() || null) : null,
+    blocked_by: idx !== null ? (_alcances[idx].blocked_by || []) : [],
+    info_ext: document.getElementById('aInfoExt').checked,
+  };
+  if (idx === null) { _alcances.push(entry); }
+  else { _alcances[idx] = { ..._alcances[idx], ...entry, id: _alcances[idx].id }; }
+  persist();
+}
+
+function deleteAlcance(i) {
+  if (!confirm(`¿Eliminar "${_alcances[i].nombre}"?\nLos proyectos que usen este alcance conservarán la tarea pero ya no aparecerá en el catálogo.`)) return;
+  _alcances.splice(i, 1);
+  persist();
+}
+
+async function persist() {
+  const res = await fetch('{{ url_for("admin_bp.alcances_api_save") }}', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').content },
+    body: JSON.stringify(_alcances),
+  });
+  const json = await res.json();
+  if (!json.ok) { alert('Error al guardar: ' + (json.error || '')); return; }
+  bootstrap.Modal.getInstance(document.getElementById('modalAlcance'))?.hide();
+  renderTable();
+}
+</script>
+{% endblock %}

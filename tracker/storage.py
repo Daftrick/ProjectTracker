@@ -29,6 +29,7 @@ FILES = {
     "company":           os.path.join(DATA_DIR, "company.json"),
     "project_templates": os.path.join(DATA_DIR, "project_templates.json"),
     "quote_templates":   os.path.join(DATA_DIR, "quote_templates.json"),
+    "alcances":          os.path.join(DATA_DIR, "alcances.json"),
 }
 
 

@@ -6,7 +6,7 @@ from flask import Blueprint, abort, flash, redirect, render_template, request, s
 from ..catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from ..consistency import compute_consistency
 from ..deletions import delete_project_data
-from ..domain import ALCANCES, STAGES, get_progress, project_semaphore, project_stage
+from ..domain import STAGES, get_alcances, get_progress, project_semaphore, project_stage
 from ..project_view import build_project_detail_context
 from ..services import (
     apply_task_status_change,
@@ -132,7 +132,7 @@ def toggle_obra(project_id):
 def new_project():
     if request.method == "POST":
         selected = request.form.getlist("alcances")
-        validation = validate_project_form(request.form, selected, set(alcance["id"] for alcance in ALCANCES))
+        validation = validate_project_form(request.form, selected, set(alcance["id"] for alcance in get_alcances()))
         if not validation["ok"]:
             for error in validation["errors"]:
                 flash(error, "warning")

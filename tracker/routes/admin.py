@@ -1086,6 +1086,47 @@ def export_data():
     )
 
 
+@bp.route("/alcances", endpoint="alcances_admin")
+@admin_required
+def alcances_admin():
+    from ..domain import get_alcances
+    return render_template("alcances_admin.html", alcances=get_alcances())
+
+
+@bp.route("/api/alcances/save", methods=["POST"], endpoint="alcances_api_save")
+@admin_required
+def alcances_api_save():
+    import re as _re
+    from ..domain import get_alcances
+    data = request.get_json(force=True) or []
+    if not isinstance(data, list):
+        return jsonify(ok=False, error="Formato inválido")
+    clean = []
+    ids_seen = set()
+    for item in data:
+        if not isinstance(item, dict):
+            continue
+        a_id = _re.sub(r"[^a-z0-9_]", "_", (item.get("id") or "").strip().lower()).strip("_")
+        nombre = (item.get("nombre") or "").strip()
+        if not a_id or not nombre:
+            return jsonify(ok=False, error="Cada alcance necesita ID y Nombre.")
+        if a_id in ids_seen:
+            return jsonify(ok=False, error=f"ID duplicado: {a_id}")
+        ids_seen.add(a_id)
+        dep_label = (item.get("dep_label") or "").strip() or None
+        blocked_by = [str(x).strip() for x in (item.get("blocked_by") or []) if str(x).strip()]
+        clean.append({
+            "id": a_id,
+            "nombre": nombre,
+            "source": item.get("source", "propia") if item.get("source") in ("propia", "externa") else "propia",
+            "dep_label": dep_label,
+            "blocked_by": blocked_by,
+            "info_ext": bool(item.get("info_ext", True)),
+        })
+    save("alcances", clean)
+    return jsonify(ok=True, count=len(clean))
+
+
 @bp.route("/reset-data", methods=["GET", "POST"], endpoint="reset_data")
 @admin_required
 def reset_data():

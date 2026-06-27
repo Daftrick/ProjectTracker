@@ -4,20 +4,38 @@ from .storage import load
 
 APP_VERSION = "v36.0"
 
-ALCANCES = [
-    {"id": "iluminacion", "nombre": "IE - Iluminación", "source": "externa", "dep_label": "Diseño de iluminación (otra área)", "blocked_by": []},
-    {"id": "contactos", "nombre": "IE - Contactos", "source": "propia", "dep_label": None, "blocked_by": []},
-    {"id": "hvac", "nombre": "IE - HVAC", "source": "externa", "dep_label": "Proyecto HVAC (otra área)", "blocked_by": []},
-    {"id": "emergencia", "nombre": "Sistema de Emergencia", "source": "propia", "dep_label": None, "blocked_by": []},
-    {"id": "fotovoltaico", "nombre": "Sistema Fotovoltaico", "source": "propia", "dep_label": None, "blocked_by": []},
-    {"id": "subestacion", "nombre": "Subestación Eléctrica", "source": "propia", "dep_label": None, "blocked_by": []},
-    {"id": "cuadro_cargas", "nombre": "Cuadro de Cargas", "source": "propia", "dep_label": None, "blocked_by": ["iluminacion", "contactos", "hvac", "emergencia", "fotovoltaico", "subestacion"]},
-    {"id": "diagrama_unifilar", "nombre": "Diagrama Unifilar", "source": "propia", "dep_label": None, "blocked_by": ["cuadro_cargas"]},
-    {"id": "cotizacion", "nombre": "Cotización", "source": "propia", "dep_label": None, "blocked_by": []},
+DEFAULT_ALCANCES = [
+    {"id": "iluminacion",    "nombre": "IE - Iluminación",        "source": "externa", "dep_label": "Diseño de iluminación (otra área)", "blocked_by": [],                                                                          "info_ext": True},
+    {"id": "contactos",      "nombre": "IE - Contactos",           "source": "propia",  "dep_label": None,                                "blocked_by": [],                                                                          "info_ext": True},
+    {"id": "hvac",           "nombre": "IE - HVAC",                "source": "externa", "dep_label": "Proyecto HVAC (otra área)",          "blocked_by": [],                                                                          "info_ext": True},
+    {"id": "emergencia",     "nombre": "Sistema de Emergencia",    "source": "propia",  "dep_label": None,                                "blocked_by": [],                                                                          "info_ext": True},
+    {"id": "fotovoltaico",   "nombre": "Sistema Fotovoltaico",     "source": "propia",  "dep_label": None,                                "blocked_by": [],                                                                          "info_ext": True},
+    {"id": "subestacion",    "nombre": "Subestación Eléctrica",    "source": "propia",  "dep_label": None,                                "blocked_by": [],                                                                          "info_ext": True},
+    {"id": "cuadro_cargas",  "nombre": "Cuadro de Cargas",         "source": "propia",  "dep_label": None,                                "blocked_by": ["iluminacion", "contactos", "hvac", "emergencia", "fotovoltaico", "subestacion"], "info_ext": False},
+    {"id": "diagrama_unifilar", "nombre": "Diagrama Unifilar",     "source": "propia",  "dep_label": None,                                "blocked_by": ["cuadro_cargas"],                                                            "info_ext": False},
+    {"id": "cotizacion",     "nombre": "Cotización",               "source": "propia",  "dep_label": None,                                "blocked_by": [],                                                                          "info_ext": False},
 ]
 
-INFO_EXT_EXCLUDED = {"cuadro_cargas", "diagrama_unifilar", "cotizacion"}
-ALCANCES_BY_ID = {alcance["id"]: alcance for alcance in ALCANCES}
+
+def get_alcances():
+    data = load("alcances")
+    if not isinstance(data, list) or not data:
+        return DEFAULT_ALCANCES
+    return data
+
+
+def get_alcances_by_id(alcances=None):
+    return {a["id"]: a for a in (alcances if alcances is not None else get_alcances())}
+
+
+def get_info_ext_excluded(alcances=None):
+    return {a["id"] for a in (alcances if alcances is not None else get_alcances()) if not a.get("info_ext", True)}
+
+
+# Module-level names kept for backward-compat imports; use get_alcances() for live data.
+ALCANCES = DEFAULT_ALCANCES
+ALCANCES_BY_ID = {a["id"]: a for a in DEFAULT_ALCANCES}
+INFO_EXT_EXCLUDED = {a["id"] for a in DEFAULT_ALCANCES if not a.get("info_ext", True)}
 TASK_STATUSES = ["Pendiente", "En progreso", "Revisión", "Observaciones", "Aprobado"]
 TIPOS_FICHA = ["LUM", "CONT", "INT", "THERM", "TFO", "PANEL", "CABLE", "COND", "UPS", "FV", "AC", "OTRO"]
 
@@ -25,7 +43,7 @@ STAGES = ["Cotización", "Diseño", "Entregado", "Obra"]
 
 
 def check_blocked(task, main_tasks):
-    for dep_id in ALCANCES_BY_ID.get(task.get("alcance", ""), {}).get("blocked_by", []):
+    for dep_id in get_alcances_by_id().get(task.get("alcance", ""), {}).get("blocked_by", []):
         dep = next((item for item in main_tasks if item.get("alcance") == dep_id), None)
         if dep and dep["status"] != "Aprobado":
             return True
