@@ -34,13 +34,14 @@ def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None,
             "body": stored.get("body", default_body) if stored else default_body,
             "enabled": stored.get("enabled", True) if stored else True,
         })
+    _qt = quote_type_key((quote or {}).get("quote_type", ""))
+    _tmpl_contacts = (get_quote_templates().get(_qt) or {}).get("contacts_default") or []
     integrantes_config = (
         normalize_contact_rows(stored_integrantes)
         if stored_integrantes is not None
-        else normalize_contact_rows([
-            {"enabled": False, "name": "", "role": ""}
-            for _ in range(MAX_QUOTE_TEMPLATE_CONTACTS)
-        ])
+        else normalize_contact_rows(
+            _tmpl_contacts or [{"enabled": False, "name": "", "role": ""} for _ in range(MAX_QUOTE_TEMPLATE_CONTACTS)]
+        )
     )
     return render_template(
         "quote_project_form.html",
