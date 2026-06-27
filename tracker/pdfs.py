@@ -62,19 +62,27 @@ def _safe_text(text):
 
 
 def _register_dejavu(pdf):
-    """Registra las fuentes DejaVu en tracker/fonts/.
-    Devuelve False si no estan disponibles para que el caller falle con un error claro."""
+    """Registra fuentes PDF bajo el nombre 'DejaVu'.
+    Prioriza Atkinson Hyperlegible Mono; cae en DejaVu Sans si no está disponible.
+    Devuelve False sólo si ninguna fuente está disponible."""
     font_dir = os.path.join(os.path.dirname(__file__), "fonts")
+    atkinson_reg  = os.path.join(font_dir, "AtkinsonHyperlegibleMono-Regular.ttf")
+    atkinson_bold = os.path.join(font_dir, "AtkinsonHyperlegibleMono-Bold.ttf")
+    if os.path.isfile(atkinson_reg) and os.path.isfile(atkinson_bold):
+        pdf.add_font("DejaVu", "",  atkinson_reg,  uni=True)
+        pdf.add_font("DejaVu", "B", atkinson_bold, uni=True)
+        pdf.add_font("DejaVu", "I", atkinson_reg,  uni=True)  # sin italic → usa regular
+        return True
     regular = os.path.join(font_dir, "DejaVuSans.ttf")
-    bold = os.path.join(font_dir, "DejaVuSans-Bold.ttf")
+    bold    = os.path.join(font_dir, "DejaVuSans-Bold.ttf")
     oblique = os.path.join(font_dir, "DejaVuSans-Oblique.ttf")
     if os.path.isfile(regular) and os.path.isfile(bold):
         pdf.add_font("DejaVu", "", regular, uni=True)
-        pdf.add_font("DejaVu", "B", bold, uni=True)
+        pdf.add_font("DejaVu", "B", bold,    uni=True)
         if os.path.isfile(oblique):
             pdf.add_font("DejaVu", "I", oblique, uni=True)
         return True
-    return False  # caller debe caer en Helvetica como fallback
+    return False
 
 
 
