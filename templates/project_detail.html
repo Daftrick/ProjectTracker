@@ -36,10 +36,12 @@
       <button class="btn btn-sm btn-outline-warning">Reabrir</button>
     </form>
   {% endif %}
+  {% if current_user.role == 'admin' %}
   <form method="post" action="{{ url_for('delete_project', project_id=project.id) }}" class="d-inline"
         onsubmit="return confirm('¿Eliminar {{ project.clave }}? Se borrarán {{ delete_preview.tasks }} tarea(s), {{ delete_preview.quotes }} cotización(es), {{ delete_preview.ldms }} LDM(s), {{ delete_preview.deliveries }} entrega(s) y se quitarán {{ delete_preview.linked_fichas }} vínculo(s) a fichas. Esta acción no se puede deshacer.')">
     <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
   </form>
+  {% endif %}
 {% endblock %}
 
 {% block extra_head %}

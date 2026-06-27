@@ -67,7 +67,6 @@ def dashboard():
 
 
 @bp.route("/projects/new", methods=["GET", "POST"], endpoint="new_project")
-@admin_required
 def new_project():
     if request.method == "POST":
         validation = validate_project_form(request.form)
@@ -174,6 +173,7 @@ def reopen_project(project_id):
 
 
 @bp.route("/projects/<project_id>/delete", methods=["POST"], endpoint="delete_project")
+@admin_required
 def delete_project(project_id):
     result = delete_project_data(
         project_id,

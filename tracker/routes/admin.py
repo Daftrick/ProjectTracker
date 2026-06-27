@@ -441,9 +441,6 @@ def _render_bundles(open_bundle_id=""):
 @bp.route("/bundles", methods=["GET", "POST"], endpoint="bundles")
 def bundles():
     if request.method == "POST":
-        guard = _require_admin_post("bundles")
-        if guard:
-            return guard
         catalog_item_id = _clean(request.form.get("catalog_item_id"))
         catalog_by_id = _catalog_by_id()
         item = catalog_by_id.get(catalog_item_id)
@@ -472,7 +469,6 @@ def bundles():
 
 
 @bp.route("/bundles/<bundle_id>/update", methods=["POST"], endpoint="update_bundle")
-@admin_required
 def update_bundle(bundle_id):
     items = load("bundles")
     bundle = _find_bundle(items, bundle_id)
@@ -497,7 +493,6 @@ def update_bundle(bundle_id):
 
 
 @bp.route("/bundles/<bundle_id>/delete", methods=["POST"], endpoint="delete_bundle")
-@admin_required
 def delete_bundle(bundle_id):
     before = load("bundles")
     after = [bundle for bundle in before if bundle.get("id") != bundle_id]
@@ -507,7 +502,6 @@ def delete_bundle(bundle_id):
 
 
 @bp.route("/bundles/<bundle_id>/versions/<int:version_number>/update", methods=["POST"], endpoint="update_bundle_version")
-@admin_required
 def update_bundle_version(bundle_id, version_number):
     items = load("bundles")
     bundle = _find_bundle(items, bundle_id)
@@ -530,7 +524,6 @@ def update_bundle_version(bundle_id, version_number):
 
 
 @bp.route("/bundles/<bundle_id>/versions/add", methods=["POST"], endpoint="add_bundle_version_route")
-@admin_required
 def add_bundle_version_route(bundle_id):
     items = load("bundles")
     bundle = _find_bundle(items, bundle_id)
@@ -556,7 +549,6 @@ def add_bundle_version_route(bundle_id):
 
 
 @bp.route("/bundles/<bundle_id>/versions/<int:version_number>/activate", methods=["POST"], endpoint="activate_bundle_version_route")
-@admin_required
 def activate_bundle_version_route(bundle_id, version_number):
     items = load("bundles")
     bundle = _find_bundle(items, bundle_id)
@@ -573,7 +565,6 @@ def activate_bundle_version_route(bundle_id, version_number):
 
 
 @bp.route("/bundles/<bundle_id>/versions/<int:version_number>/delete", methods=["POST"], endpoint="delete_bundle_version_route")
-@admin_required
 def delete_bundle_version_route(bundle_id, version_number):
     items = load("bundles")
     bundle = _find_bundle(items, bundle_id)
