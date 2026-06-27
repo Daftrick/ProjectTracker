@@ -6,22 +6,18 @@ from tracker.validators import validate_ldm_form, validate_project_form, validat
 
 
 class ValidatorsTest(unittest.TestCase):
-    def test_project_requires_name_clave_scope_and_valid_short_date(self):
+    def test_project_requires_name_clave_and_valid_short_date(self):
         result = validate_project_form(
             MultiDict({"name": "", "clave": "", "fecha": "2026-04-24"}),
-            [],
-            {"contactos"},
         )
 
         self.assertFalse(result["ok"])
         self.assertIn("El nombre del proyecto es requerido.", result["errors"])
         self.assertIn("La clave del proyecto es requerida.", result["errors"])
-        self.assertIn("Selecciona al menos un alcance.", result["errors"])
         self.assertIn("La fecha del proyecto debe usar formato AAMMDD, por ejemplo 260424.", result["errors"])
         self.assertEqual(result["field_errors"]["name"], "El nombre del proyecto es requerido.")
         self.assertEqual(result["field_errors"]["clave"], "La clave del proyecto es requerida.")
         self.assertEqual(result["field_errors"]["fecha"], "La fecha del proyecto debe usar formato AAMMDD, por ejemplo 260424.")
-        self.assertEqual(result["field_errors"]["alcances"], "Selecciona al menos un alcance.")
 
     def test_quote_ignores_default_empty_row_but_requires_real_items(self):
         result = validate_quote_form(

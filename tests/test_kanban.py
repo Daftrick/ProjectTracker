@@ -91,48 +91,6 @@ class ProjectStageTest(unittest.TestCase):
         self.assertEqual(project_stage(PROJECT, [parent, child]), "Entregado")
 
 
-class KanbanRouteTest(unittest.TestCase):
-
-    def setUp(self):
-        self.app = create_app()
-        self.app.config["TESTING"] = True
-        self.app.config["LOGIN_DISABLED"] = True
-        self.app.config["WTF_CSRF_ENABLED"] = False
-        self.client = self.app.test_client()
-
-    def test_kanban_page_200(self):
-        r = self.client.get("/kanban")
-        self.assertEqual(r.status_code, 200)
-
-    def test_kanban_shows_all_stage_columns(self):
-        r = self.client.get("/kanban")
-        body = r.data.decode()
-        for stage in ("Cotización", "Diseño", "Entregado", "Obra"):
-            self.assertIn(stage, body)
-
-    def test_toggle_obra_sets_in_obra(self):
-        projects = load("projects")
-        target = next((p for p in projects if not p.get("closed_at")), None)
-        if not target:
-            self.skipTest("No open projects in test data")
-        pid = target["id"]
-        original = target.get("in_obra", False)
-        try:
-            r = self.client.post(f"/projects/{pid}/toggle_obra")
-            self.assertEqual(r.status_code, 302)
-            updated = next(p for p in load("projects") if p["id"] == pid)
-            self.assertEqual(updated["in_obra"], not original)
-        finally:
-            projects = load("projects")
-            for p in projects:
-                if p["id"] == pid:
-                    p["in_obra"] = original
-            save("projects", projects)
-
-    def test_toggle_obra_unknown_project_404(self):
-        r = self.client.post("/projects/NONEXISTENT/toggle_obra")
-        self.assertEqual(r.status_code, 404)
-
 
 if __name__ == "__main__":
     unittest.main()

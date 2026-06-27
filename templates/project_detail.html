@@ -166,21 +166,6 @@
           </a>
         </div>
         {% endif %}
-        {% set tmpl = templates_map.get(project.get('template_id', '')) %}
-        {% if tmpl %}
-        <div class="mt-2">
-          <div class="d-flex flex-wrap gap-1 align-items-center">
-            {% set _ss = project.get('stage_status') or {} %}
-            {% for stage in tmpl.stages %}
-              {{ render_stage_badge(_ss.get(stage, {}), stage) }}
-            {% endfor %}
-            <a href="#tab-avance" data-bs-toggle="tab"
-               class="badge bg-transparent border text-muted" style="font-size:.68rem;text-decoration:none;cursor:pointer">
-              <i class="bi bi-pencil-square"></i>
-            </a>
-          </div>
-        </div>
-        {% endif %}
       </div>
       <!-- Margen financiero -->
       <div class="col-md-3">
@@ -224,25 +209,25 @@
           {% endif %}
         </div>
       </div>
-      <!-- Progreso -->
+      <!-- Estado del proyecto -->
       <div class="col-md-4">
-        <div class="d-flex justify-content-between mb-1">
-          <small class="text-muted">Avance de alcances</small>
-          <small class="fw-bold">{{ prog.approved }}/{{ prog.total }} aprobados</small>
-        </div>
-        <div class="progress mb-2" style="height:10px;border-radius:6px;">
-          <div class="progress-bar bg-success" style="width:{{ prog.pct }}%"></div>
-        </div>
-        <div class="d-flex flex-wrap gap-2">
-          {% if prog.pct == 100 %}
-            <span class="badge bs-Aprobado"><i class="bi bi-check-circle me-1"></i>Todos los alcances aprobados</span>
-          {% endif %}
-          {% if not can_close and prog.pct == 100 %}
-            <span class="badge bg-warning text-dark" style="font-size:.72rem">
-              <i class="bi bi-info-circle me-1"></i>Marca documentos como entrega para cerrar
-            </span>
-          {% endif %}
-        </div>
+        <small class="text-muted d-block mb-1">Estado del proyecto</small>
+        <form method="post" action="{{ url_for('update_project_status', project_id=project.id) }}"
+              class="d-flex align-items-center gap-2">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <select name="status" class="form-select form-select-sm"
+                  onchange="this.form.submit()" style="max-width:160px">
+            {% for s in ['Activo', 'Entregado', 'Archivado'] %}
+            <option {% if project.status == s %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+          </select>
+          <span class="badge
+            {% if project.status == 'Activo' %}bg-success
+            {% elif project.status == 'Entregado' %}bg-primary
+            {% else %}bg-secondary{% endif %}">
+            {{ project.status or 'Activo' }}
+          </span>
+        </form>
       </div>
     </div>
   </div>
@@ -250,209 +235,18 @@
 
 <!-- Tabs -->
 <ul class="nav nav-tabs mb-3" id="projTabs">
-  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-alcances"><i class="bi bi-list-check me-1"></i>Alcances</a></li>
+  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-quote" id="tab-quote-link"><i class="bi bi-receipt me-1"></i>Cotización</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-materiales" id="tab-materiales-link"><i class="bi bi-card-list me-1"></i>Materiales</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-fichas" id="tab-fichas-link"><i class="bi bi-journal-bookmark me-1"></i>Fichas Técnicas</a></li>
   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-docs" id="tab-docs-link"><i class="bi bi-folder2 me-1"></i>Documentos</a></li>
-  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-quote" id="tab-quote-link"><i class="bi bi-receipt me-1"></i>Cotización</a></li>
   <li class="nav-item">
     <a class="nav-link" data-bs-toggle="tab" href="#tab-consistencia" id="tab-consistencia-link">
       <i class="bi bi-shield-check me-1"></i>Consistencia
     </a>
   </li>
-  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-materiales" id="tab-materiales-link"><i class="bi bi-card-list me-1"></i>Materiales</a></li>
-  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-fichas" id="tab-fichas-link"><i class="bi bi-journal-bookmark me-1"></i>Fichas Técnicas</a></li>
-  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-avance" id="tab-avance-link"><i class="bi bi-kanban me-1"></i>Avance</a></li>
 </ul>
 
 <div class="tab-content">
-
-<!-- ── TAB ALCANCES ── -->
-<div class="tab-pane fade show active" id="tab-alcances">
-  <div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <span class="fw-semibold" style="font-size:.875rem">Alcances del proyecto</span>
-      {% if not project.closed_at %}
-      <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalAlcances">
-        <i class="bi bi-pencil me-1"></i>Modificar alcances
-      </button>
-      {% endif %}
-    </div>
-    <div class="card-body p-0">
-      <table class="table mb-0">
-        <thead>
-          <tr>
-            <th style="width:32%">Alcance</th>
-            <th>Info. externa</th>
-            <th>Estado</th>
-            <th>Últ. cambio</th>
-            <th class="text-end">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for row in task_rows %}
-          {% set t = row.task %}
-          <tr class="alcance-row {% if row.blocked %}blocked{% endif %}">
-            <td>
-              <div class="scope-title-cell">
-                {% if row.has_detail %}
-                <button class="btn btn-outline-secondary expand-btn" id="expand-{{ t.id }}"
-                        onclick="toggleDetail('{{ t.id }}')" title="Ver detalle">
-                  <i class="bi bi-chevron-down"></i>
-                </button>
-                {% endif %}
-                <div class="scope-title-body">
-                  <div class="fw-semibold" style="font-size:.875rem">{{ t.title }}</div>
-                  {% if t.notes %}<small class="text-muted">{{ t.notes }}</small>{% endif %}
-                  {% if row.active_observations %}
-                    <div class="mt-1">
-                      {% for obs in row.active_observations %}
-                        {% set st = obs.task %}
-                        <span class="badge status-pill bs-{{ st.status | replace(' ', '-') }}" style="font-size:.7rem">
-                          <i class="bi bi-arrow-return-right me-1"></i>{{ st.title|truncate(30,True) }} · {{ st.status }}
-                        </span>
-                      {% endfor %}
-                    </div>
-                  {% endif %}
-                </div>
-              </div>
-            </td>
-            <td>
-              {% if t.alcance not in info_ext_excluded %}
-                <div class="d-flex flex-wrap align-items-center gap-1">
-                  {% if row.source == 'externa' %}
-                    <span class="badge src-externa">Externa</span>
-                    <span class="badge {% if row.info_status=='Entregado' %}bs-Aprobado{% else %}bs-Pendiente{% endif %}">
-                      {{ row.info_status }}
-                    </span>
-                    {% if t.external_dep %}
-                      <br><small class="text-muted w-100" style="font-size:.75rem">{{ t.external_dep }}</small>
-                    {% endif %}
-                  {% else %}
-                    <span class="badge src-propia">Propia</span>
-                  {% endif %}
-                </div>
-                {% if not project.closed_at %}
-                <button class="btn btn-link p-0 mt-1" style="font-size:.75rem;color:#7dd3fc"
-                        data-bs-toggle="modal" data-bs-target="#modalInfo"
-                        data-task-id="{{ t.id }}"
-                        data-task-title="{{ t.title }}"
-                        data-source="{{ row.source }}"
-                        data-ext-dep="{{ t.external_dep or '' }}"
-                        data-info-status="{{ row.info_status }}">
-                  <i class="bi bi-pencil me-1"></i>Editar
-                </button>
-                {% endif %}
-              {% else %}
-                <span class="text-muted">—</span>
-              {% endif %}
-            </td>
-            <td>
-              {% if row.blocked %}
-                <span class="badge bs-Bloqueado"><i class="bi bi-lock me-1"></i>Bloqueado</span>
-              {% else %}
-                <span class="badge bs-{{ t.status | replace(' ', '-') }} status-pill">{{ t.status }}</span>
-              {% endif %}
-            </td>
-            <td>
-              {% if row.last_history %}
-                <small class="text-muted d-block">{{ row.last_history.date | fdate }}</small>
-                <small style="font-size:.72rem;color:#7b8494">{{ row.last_history.from }} → {{ row.last_history.to }}</small>
-              {% else %}—{% endif %}
-            </td>
-            <td class="text-end">
-              {% if not project.closed_at %}
-              <button class="btn btn-sm btn-outline-secondary"
-                      data-bs-toggle="modal" data-bs-target="#modalStatus"
-                      data-task-id="{{ t.id }}"
-                      data-task-title="{{ t.title }}"
-                      data-task-status="{{ t.status }}"
-                      data-blocked="{{ 'true' if row.blocked else 'false' }}">
-                <i class="bi bi-arrow-repeat"></i>
-              </button>
-              {% endif %}
-            </td>
-          </tr>
-          {% if row.has_detail %}
-          <tr class="detail-row" id="detail-{{ t.id }}">
-            <td colspan="5">
-              <div class="detail-inner">
-                {% if row.active_observations %}
-                <div class="detail-section mb-3">
-                  <div class="detail-section-title">Observaciones activas</div>
-                  {% for obs in row.active_observations %}
-                  {% set st = obs.task %}
-                  <div class="obs-item">
-                    <div class="d-flex align-items-center gap-2 flex-wrap">
-                      <span class="badge bs-{{ st.status | replace(' ', '-') }}" style="font-size:.7rem">
-                        <i class="bi bi-arrow-return-right me-1"></i>{{ st.title }}
-                      </span>
-                      <span class="badge bs-{{ st.status | replace(' ', '-') }}" style="font-size:.68rem">{{ st.status }}</span>
-                      {% if not project.closed_at %}
-                      <button class="btn btn-sm btn-outline-secondary obs-edit-btn" type="button"
-                              data-bs-toggle="modal" data-bs-target="#modalEditObservation"
-                              data-observation-id="{{ st.id }}"
-                              data-observation-title="{{ st.title }}"
-                              data-observation-notes="{{ st.notes | e }}"
-                              data-observation-checklist="{{ obs.checklist_text | e }}">
-                        <i class="bi bi-pencil me-1"></i>Editar
-                      </button>
-                      {% endif %}
-                    </div>
-                    {% if st.notes %}
-                    <div class="obs-note">{{ st.notes }}</div>
-                    {% else %}
-                    <div class="obs-no-note">Sin notas registradas</div>
-                    {% endif %}
-                    {% if obs.checklist %}
-                    <div class="obs-checklist">
-                      <div class="obs-check-progress">{{ obs.done_count }}/{{ obs.checklist_count }} puntos cumplidos</div>
-                      {% for item in obs.checklist %}
-                      <form method="post"
-                            action="{{ url_for('update_observation_checklist', project_id=project.id, observation_id=st.id, item_id=item.id) }}">
-                        <label class="obs-check-item {% if item.done %}done{% endif %}">
-                          <input class="form-check-input" type="checkbox" name="done" value="1"
-                                 {% if item.done %}checked{% endif %}
-                                 {% if project.closed_at %}disabled{% else %}onchange="this.form.submit()"{% endif %}>
-                          <span>{{ item.text }}</span>
-                        </label>
-                      </form>
-                      {% endfor %}
-                    </div>
-                    {% endif %}
-                  </div>
-                  {% endfor %}
-                </div>
-                {% endif %}
-                {% if t.history %}
-                <div class="detail-section">
-                  <div class="detail-section-title">Historial completo</div>
-                  <div class="tl-list">
-                    {% for entry in t.history | reverse %}
-                    <div class="tl-item">
-                      <div class="tl-dot
-                        {% if entry.to == 'Observaciones' %}tl-obs-dot
-                        {% elif entry.to == 'Aprobado' %}tl-aprobado-dot
-                        {% else %}tl-change-dot{% endif %}">
-                      </div>
-                      <div>
-                        <span class="tl-date">{{ entry.date | fdate }}</span>
-                        <span class="tl-arrow">{{ entry.from }} → {{ entry.to }}</span>
-                        {% if entry.note %}<span class="tl-note"> · {{ entry.note }}</span>{% endif %}
-                      </div>
-                    </div>
-                    {% endfor %}
-                  </div>
-                </div>
-                {% endif %}
-              </div>
-            </td>
-          </tr>
-          {% endif %}
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
 
 <!-- ── TAB DOCUMENTOS ── -->
 <div class="tab-pane fade" id="tab-docs">
@@ -513,7 +307,7 @@
 </div>
 
 <!-- ── TAB COTIZACIÓN ── -->
-<div class="tab-pane fade" id="tab-quote">
+<div class="tab-pane fade show active" id="tab-quote">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <span class="text-muted" style="font-size:.875rem">
       Cotizaciones del proyecto <strong>{{ project.clave }}</strong>
@@ -1193,345 +987,11 @@
   </div>
 </div>
 
-
-<!-- ── TAB AVANCE ── -->
-<div class="tab-pane fade" id="tab-avance">
-  {% set tmpl_av = templates_map.get(project.get('template_id', '')) %}
-  {% set _ss_av  = project.get('stage_status') or {} %}
-  {% set _sb_av  = project.get('stage_budget')  or {} %}
-  {% set _dc_av  = project.get('docs_checklist') or [] %}
-
-  <!-- Etapas del proyecto -->
-  {% if tmpl_av %}
-  <div class="card mb-3">
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <span class="fw-semibold" style="font-size:.875rem"><i class="bi bi-kanban me-2 text-primary"></i>Etapas del proyecto</span>
-      {% if not project.closed_at %}
-      <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalBudget">
-        <i class="bi bi-currency-dollar me-1"></i>Editar presupuesto
-      </button>
-      {% endif %}
-    </div>
-    <div class="card-body p-0">
-      <table class="table mb-0 align-middle">
-        <thead class="table-light">
-          <tr>
-            <th style="width:28%">Etapa</th>
-            <th style="width:18%">Estado</th>
-            <th style="width:16%">Fecha</th>
-            <th style="width:16%">Planeado</th>
-            <th style="width:16%">Ejercido</th>
-            {% if not project.closed_at %}<th style="width:6%"></th>{% endif %}
-          </tr>
-        </thead>
-        <tbody>
-          {% set _status_labels = {'done': 'Completado', 'in_progress': 'En progreso', 'pending': 'Pendiente'} %}
-          {% for stage in tmpl_av.stages %}
-          {% set _st = _ss_av.get(stage, {}) %}
-          {% set _bd = _sb_av.get(stage, {}) %}
-          <tr>
-            <td class="fw-semibold" style="font-size:.875rem">{{ stage }}</td>
-            <td>{{ render_stage_badge(_st, _status_labels.get(_st.get('status', 'pending'), 'Pendiente')) }}</td>
-            <td class="text-muted" style="font-size:.82rem">{{ _st.get('date') or '—' }}</td>
-            <td style="font-size:.82rem">
-              {% if _bd.get('planned') %}${{ "{:,.0f}".format(_bd.planned | float) }}{% else %}—{% endif %}
-            </td>
-            <td style="font-size:.82rem">
-              {% if _bd.get('actual') %}
-                {% set _pct = (_bd.actual | float / _bd.planned | float * 100) | int if _bd.get('planned') and _bd.planned | float > 0 else 0 %}
-                <span class="{{ 'text-danger fw-semibold' if _pct > 100 else '' }}">
-                  ${{ "{:,.0f}".format(_bd.actual | float) }}
-                </span>
-              {% else %}—{% endif %}
-            </td>
-            {% if not project.closed_at %}
-            <td class="text-end pe-2">
-              <button class="btn btn-sm btn-outline-secondary py-0 px-1"
-                      data-bs-toggle="modal" data-bs-target="#modalStageStatus"
-                      data-stage="{{ stage }}"
-                      data-status="{{ _st.get('status', 'pending') }}"
-                      data-date="{{ _st.get('date', '') }}"
-                      title="Actualizar estado">
-                <i class="bi bi-pencil" style="font-size:.72rem"></i>
-              </button>
-            </td>
-            {% endif %}
-          </tr>
-          {% endfor %}
-        </tbody>
-        {% if stage_budget_totals.planned or stage_budget_totals.actual %}
-        <tfoot class="table-light">
-          <tr>
-            <td colspan="3" class="fw-semibold text-muted" style="font-size:.8rem">Total</td>
-            <td class="fw-semibold" style="font-size:.82rem">${{ "{:,.0f}".format(stage_budget_totals.planned) }}</td>
-            <td class="fw-semibold {{ 'text-danger' if stage_budget_totals.actual > stage_budget_totals.planned else '' }}" style="font-size:.82rem">${{ "{:,.0f}".format(stage_budget_totals.actual) }}</td>
-            {% if not project.closed_at %}<td></td>{% endif %}
-          </tr>
-        </tfoot>
-        {% endif %}
-      </table>
-    </div>
-    <div class="card-footer text-end">
-      <a href="{{ url_for('project_progress_pdf', project_id=project.id) }}"
-         class="btn btn-sm btn-outline-primary">
-        <i class="bi bi-file-earmark-pdf me-1"></i>Descargar reporte PDF
-      </a>
-    </div>
-  </div>
-  {% endif %}
-
-  <!-- Documentos requeridos -->
-  <div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <span class="fw-semibold" style="font-size:.875rem">
-        <i class="bi bi-file-earmark-check me-2 text-primary"></i>Documentos requeridos
-        {% if _dc_av %}
-          <span class="badge bg-secondary ms-1" style="font-size:.7rem">
-            {{ _dc_av | selectattr('done') | list | length }}/{{ _dc_av | length }}
-          </span>
-        {% endif %}
-      </span>
-      {% if not tmpl_av %}
-      <a href="{{ url_for('project_progress_pdf', project_id=project.id) }}"
-         class="btn btn-sm btn-outline-primary">
-        <i class="bi bi-file-earmark-pdf me-1"></i>Reporte PDF
-      </a>
-      {% endif %}
-    </div>
-    <div class="card-body">
-      {% if _dc_av %}
-      <ul class="list-group list-group-flush mb-3">
-        {% for doc in _dc_av %}
-        <li class="list-group-item px-0 d-flex align-items-center justify-content-between gap-2">
-          <form method="post" action="{{ url_for('toggle_doc_checklist', project_id=project.id) }}"
-                class="d-flex align-items-center gap-2 flex-grow-1">
-            <input type="hidden" name="item_id" value="{{ doc.id }}">
-            <button type="submit" class="btn p-0 border-0 bg-transparent" style="width:22px;height:22px;line-height:1">
-              {% if doc.done %}
-                <i class="bi bi-check-circle-fill text-success" style="font-size:1.1rem"></i>
-              {% else %}
-                <i class="bi bi-circle text-muted" style="font-size:1.1rem"></i>
-              {% endif %}
-            </button>
-            <span class="{{ 'text-muted text-decoration-line-through' if doc.done else '' }}"
-                  style="font-size:.88rem">{{ doc.name }}</span>
-          </form>
-          {% if not project.closed_at %}
-          <form method="post"
-                action="{{ url_for('delete_doc_checklist', project_id=project.id, item_id=doc.id) }}">
-            <button type="submit" class="btn btn-sm btn-outline-danger py-0 px-1"
-                    onclick="return confirm('¿Eliminar «{{ doc.name }}»?')">
-              <i class="bi bi-x" style="font-size:.9rem"></i>
-            </button>
-          </form>
-          {% endif %}
-        </li>
-        {% endfor %}
-      </ul>
-      {% else %}
-      <p class="text-muted mb-3" style="font-size:.85rem">Sin documentos registrados. Agrega el primero abajo.</p>
-      {% endif %}
-      {% if not project.closed_at %}
-      <form method="post" action="{{ url_for('add_doc_checklist', project_id=project.id) }}"
-            class="d-flex gap-2">
-        <input name="name" class="form-control form-control-sm"
-               placeholder="Ej: Planos arquitectónicos, Licencia de construcción…" required>
-        <button type="submit" class="btn btn-sm btn-primary text-nowrap">
-          <i class="bi bi-plus-lg me-1"></i>Agregar
-        </button>
-      </form>
-      {% endif %}
-    </div>
-  </div>
-</div>
-
 </div><!-- /tab-content -->
 
 {% endblock %}
 
 {% block modals %}
-<!-- ── Modal: Info Externa ── -->
-<div class="modal fade" id="modalInfo" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form id="infoForm" method="post">
-        <div class="modal-header">
-          <h5 class="modal-title"><i class="bi bi-info-circle me-2 text-primary"></i>Información externa</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <p class="fw-semibold mb-3" id="infoTaskTitle"></p>
-          <div class="mb-3">
-            <label class="form-label">Fuente</label>
-            <div class="d-flex gap-3">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="source" value="propia"
-                       id="srcPropia" onchange="toggleExtFields(this.value)">
-                <label class="form-check-label" for="srcPropia">Propia</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="source" value="externa"
-                       id="srcExterna" onchange="toggleExtFields(this.value)">
-                <label class="form-check-label" for="srcExterna">Externa</label>
-              </div>
-            </div>
-          </div>
-          <div id="externaFields">
-            <div class="mb-3">
-              <label class="form-label">Descripción <small class="text-muted">(de quién o qué se espera)</small></label>
-              <input name="external_dep" class="form-control" id="infoExtDep"
-                     placeholder="Ej: Diseño de iluminación (arquitecto)">
-            </div>
-            <div class="mb-0">
-              <label class="form-label">Estado</label>
-              <div class="d-flex gap-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="info_status" value="Pendiente" id="isPendiente">
-                  <label class="form-check-label" for="isPendiente">Pendiente</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="info_status" value="Entregado" id="isEntregado">
-                  <label class="form-check-label" for="isEntregado">Entregado</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- ── Modal: Cambiar estado de alcance ── -->
-<div class="modal fade" id="modalStatus" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form id="statusForm" method="post">
-        <div class="modal-header">
-          <h5 class="modal-title"><i class="bi bi-arrow-repeat me-2 text-primary"></i>Actualizar estado</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <p class="fw-semibold" id="modalTaskTitle"></p>
-          <div id="blockedAlert" class="alert alert-warning d-none">
-            <i class="bi bi-lock me-2"></i>Este alcance está bloqueado por dependencias sin aprobar.
-            Solo puedes marcarlo como "Pendiente" o "En progreso" cuando sus dependencias estén aprobadas.
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Nuevo estado</label>
-            <select name="status" class="form-select" id="modalStatusSelect">
-              {% for s in task_statuses %}
-                <option>{{ s }}</option>
-              {% endfor %}
-            </select>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Nota (opcional)</label>
-            <textarea name="note" class="form-control" rows="2"
-                      placeholder="Descripción del cambio, razón de observación, etc."></textarea>
-          </div>
-          <div class="mb-3 d-none" id="observationChecklistFields">
-            <label class="form-label">Checklist de observaciones</label>
-            <textarea name="checklist" class="form-control" rows="4"
-                      placeholder="Un punto por línea"></textarea>
-          </div>
-          <div class="alert alert-info border-0" style="font-size:.82rem">
-            <i class="bi bi-info-circle me-1"></i>
-            Si seleccionas <strong>Observaciones</strong>, se creará automáticamente una subtarea de seguimiento.
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- ── Modal: Editar observación ── -->
-<div class="modal fade" id="modalEditObservation" tabindex="-1">
-  <div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content">
-      <form id="observationForm" method="post" action="#">
-        <div class="modal-header">
-          <h5 class="modal-title"><i class="bi bi-list-check me-2 text-primary"></i>Editar observación</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <p class="fw-semibold" id="observationTitle"></p>
-          <div class="mb-3">
-            <label class="form-label">Observación</label>
-            <textarea name="notes" class="form-control" rows="3" id="observationNotes"></textarea>
-          </div>
-          <div class="mb-0">
-            <label class="form-label">Checklist</label>
-            <textarea name="checklist" class="form-control" rows="5" id="observationChecklist"
-                      placeholder="Un punto por línea"></textarea>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- ── Modal: Modificar alcances ── -->
-<div class="modal fade" id="modalAlcances" tabindex="-1">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <form method="post" action="{{ url_for('update_project_alcances', project_id=project.id) }}">
-        <div class="modal-header">
-          <h5 class="modal-title"><i class="bi bi-list-check me-2 text-primary"></i>Modificar alcances</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="alert alert-warning py-2 mb-3" style="font-size:.83rem">
-            <i class="bi bi-exclamation-triangle me-1"></i>
-            Eliminar un alcance borrará su tarea y todo su historial de cambios de estado.
-          </div>
-          <div class="row g-2">
-            {% for alc in alcances_catalog %}
-            <div class="col-md-6">
-              <div class="form-check p-3 border rounded-3 h-100" style="cursor:pointer"
-                   onclick="this.querySelector('input').click()">
-                <input class="form-check-input" type="checkbox" name="alcances"
-                       value="{{ alc.id }}" id="malc_{{ alc.id }}"
-                       onclick="event.stopPropagation()"
-                       {% if alc.id in project.alcances %}checked{% endif %}>
-                <label class="form-check-label w-100" for="malc_{{ alc.id }}" style="cursor:pointer"
-                       onclick="event.stopPropagation()">
-                  <span class="fw-semibold">{{ alc.nombre }}</span>
-                  <div class="mt-1 d-flex flex-wrap gap-1">
-                    <span class="badge src-{{ alc.source }}">{{ alc.source }}</span>
-                    {% if alc.dep_label %}
-                      <span class="badge bg-light text-dark border" style="font-size:.7rem">
-                        <i class="bi bi-arrow-down-circle me-1"></i>{{ alc.dep_label }}
-                      </span>
-                    {% endif %}
-                  </div>
-                </label>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Guardar cambios</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
 <!-- ── Modal: Editar proyecto ── -->
 <div class="modal fade" id="modalEditProject" tabindex="-1">
   <div class="modal-dialog">
@@ -1553,13 +1013,7 @@
             </div>
             <div class="col-md-4">
               <label class="form-label">Disciplina</label>
-              <select name="disciplina" class="form-select" id="editDisc" onchange="updateEditPreview()">
-                {% for d in disciplinas_catalog %}
-                <option value="{{ d.id }}" {% if project.disciplina == d.id %}selected{% elif loop.first and not project.disciplina %}selected{% endif %}>
-                  {{ d.id }} — {{ d.nombre }}
-                </option>
-                {% endfor %}
-              </select>
+              <input name="disciplina" class="form-control" id="editDisc" oninput="updateEditPreview()" placeholder="IE, ARQ, EST…" value="{{ project.disciplina or '' }}" maxlength="10">
             </div>
             <div class="col-md-5">
               <label class="form-label">Clave</label>
@@ -1636,164 +1090,14 @@
     </div>
   </div>
 </div>
-
-<!-- ── Modal: Actualizar estado de etapa ── -->
-<div class="modal fade" id="modalStageStatus" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form id="stageStatusForm" method="post">
-        <div class="modal-header">
-          <h5 class="modal-title"><i class="bi bi-kanban me-2 text-primary"></i>Actualizar etapa</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <p class="fw-semibold mb-3" id="stageStatusName"></p>
-          <input type="hidden" name="stage" id="stageStatusHidden">
-          <div class="mb-3">
-            <label class="form-label">Estado</label>
-            <select name="status" class="form-select" id="stageStatusSelect">
-              <option value="pending">Pendiente</option>
-              <option value="in_progress">En progreso</option>
-              <option value="done">Completado</option>
-            </select>
-          </div>
-          <div class="mb-0">
-            <label class="form-label">Fecha de cierre <span class="text-muted">(opcional)</span></label>
-            <input type="date" name="date" class="form-control" id="stageStatusDate">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- ── Modal: Presupuesto por etapa ── -->
-{% set _tmpl_modal = templates_map.get(project.get('template_id', '')) %}
-{% if _tmpl_modal %}
-<div class="modal fade" id="modalBudget" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form method="post" action="{{ url_for('update_stage_budget', project_id=project.id) }}">
-        <div class="modal-header">
-          <h5 class="modal-title"><i class="bi bi-currency-dollar me-2 text-primary"></i>Presupuesto por etapa</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row g-2 mb-1 text-muted" style="font-size:.8rem">
-            <div class="col-5">Etapa</div>
-            <div class="col-3 text-center">Planeado ($)</div>
-            <div class="col-4 text-center">Ejercido ($)</div>
-          </div>
-          {% set _sb_modal = project.get('stage_budget') or {} %}
-          {% for stage in _tmpl_modal.stages %}
-          {% set _bk  = stage.replace(' ', '_').replace('-', '_') %}
-          {% set _bv  = _sb_modal.get(stage, {}) %}
-          <div class="row g-2 mb-2 align-items-center">
-            <div class="col-5" style="font-size:.88rem">{{ stage }}</div>
-            <div class="col-3">
-              <input type="number" name="planned_{{ _bk }}" class="form-control form-control-sm text-end"
-                     placeholder="0" min="0" step="1"
-                     value="{{ _bv.get('planned', '') or '' }}">
-            </div>
-            <div class="col-4">
-              <input type="number" name="actual_{{ _bk }}" class="form-control form-control-sm text-end"
-                     placeholder="0" min="0" step="1"
-                     value="{{ _bv.get('actual', '') or '' }}">
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Guardar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-{% endif %}
 {% endblock %}
 
 {% block extra_js %}
 <script>
-  // ── Fila expandible de detalle ──────────────────────────────────────────────
-  function toggleDetail(taskId) {
-    const row = document.getElementById('detail-' + taskId);
-    const btn = document.getElementById('expand-' + taskId);
-    if (!row) return;
-    const isOpen = row.classList.contains('open');
-    row.classList.toggle('open', !isOpen);
-    if (btn) btn.classList.toggle('open', !isOpen);
-  }
-
-  // Modal Info Externa
-  document.getElementById("modalInfo").addEventListener("show.bs.modal", function(e) {
-    const btn = e.relatedTarget;
-    document.getElementById("infoTaskTitle").textContent = btn.dataset.taskTitle;
-    document.getElementById("infoForm").action =
-      "/projects/{{ project.id }}/tasks/" + btn.dataset.taskId + "/info";
-    const src = btn.dataset.source || "propia";
-    document.querySelector(`input[name="source"][value="${src}"]`).checked = true;
-    document.getElementById("infoExtDep").value = btn.dataset.extDep || "";
-    const ist = btn.dataset.infoStatus || "Pendiente";
-    document.querySelector(`input[name="info_status"][value="${ist}"]`).checked = true;
-    toggleExtFields(src);
-  });
-  function toggleExtFields(v) {
-    document.getElementById("externaFields").style.display = v === "externa" ? "block" : "none";
-  }
-
   // Entrega parcial: mostrar/ocultar selección de archivos
   function toggleParcial(v) {
     document.getElementById("parcialFiles").style.display = v === "parcial" ? "block" : "none";
   }
-
-  // Modal de cambio de estado
-  document.getElementById("modalStatus").addEventListener("show.bs.modal", function(e) {
-    const btn = e.relatedTarget;
-    const form = document.getElementById("statusForm");
-    document.getElementById("modalTaskTitle").textContent = btn.dataset.taskTitle;
-    document.getElementById("modalStatusSelect").value    = btn.dataset.taskStatus;
-    form.action =
-      "/projects/{{ project.id }}/tasks/" + btn.dataset.taskId + "/status";
-    form.querySelector('textarea[name="note"]').value = "";
-    form.querySelector('textarea[name="checklist"]').value = "";
-    const blocked = btn.dataset.blocked === "true";
-    document.getElementById("blockedAlert").classList.toggle("d-none", !blocked);
-    toggleObservationChecklistFields();
-  });
-
-  document.getElementById("modalStatusSelect").addEventListener("change", toggleObservationChecklistFields);
-
-  function toggleObservationChecklistFields() {
-    const isObservations = document.getElementById("modalStatusSelect").value === "Observaciones";
-    document.getElementById("observationChecklistFields").classList.toggle("d-none", !isObservations);
-  }
-
-  // Modal editar observación — usa show.bs.modal (mismo patrón que modalStatus, fiable en móvil)
-  document.getElementById("modalEditObservation").addEventListener("show.bs.modal", function(e) {
-    const btn = e.relatedTarget;
-    const form = document.getElementById("observationForm");
-    document.getElementById("observationTitle").textContent = btn.dataset.observationTitle || "";
-    document.getElementById("observationNotes").value       = btn.dataset.observationNotes || "";
-    document.getElementById("observationChecklist").value   = btn.dataset.observationChecklist || "";
-    form.action = "/projects/{{ project.id }}/observations/" + btn.dataset.observationId + "/update";
-  });
-
-  // Modal: Actualizar estado de etapa
-  document.getElementById("modalStageStatus")?.addEventListener("show.bs.modal", function(e) {
-    const btn = e.relatedTarget;
-    document.getElementById("stageStatusName").textContent  = btn.dataset.stage;
-    document.getElementById("stageStatusHidden").value      = btn.dataset.stage;
-    document.getElementById("stageStatusSelect").value      = btn.dataset.status || "pending";
-    document.getElementById("stageStatusDate").value        = btn.dataset.date   || "";
-    document.getElementById("stageStatusForm").action       =
-      "/projects/{{ project.id }}/stage-status";
-  });
 
   // Activar tab correcto si hay hash en URL
   window.addEventListener("DOMContentLoaded", function() {

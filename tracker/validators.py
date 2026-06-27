@@ -44,7 +44,7 @@ def _validate_optional_iso_date(value, field_label, errors, field_errors=None, f
     return cleaned
 
 
-def validate_project_form(form, selected_alcances, allowed_alcances):
+def validate_project_form(form):
     errors = []
     field_errors = {}
     fields = {
@@ -54,9 +54,8 @@ def validate_project_form(form, selected_alcances, allowed_alcances):
         "version": _clean(form.get("version")) or "V1",
         "fecha": _clean(form.get("fecha")),
         "notes": _clean(form.get("notes")),
-        "disciplina": _clean(form.get("disciplina")) or "IE",
+        "disciplina": _clean(form.get("disciplina")),
     }
-    selected = [_clean(item) for item in selected_alcances if _clean(item)]
 
     if not fields["name"]:
         message = "El nombre del proyecto es requerido."
@@ -70,23 +69,12 @@ def validate_project_form(form, selected_alcances, allowed_alcances):
         message = "La fecha del proyecto debe usar formato AAMMDD, por ejemplo 260424."
         errors.append(message)
         field_errors["fecha"] = message
-    if not selected:
-        message = "Selecciona al menos un alcance."
-        errors.append(message)
-        field_errors["alcances"] = message
-
-    unknown = [alcance for alcance in selected if alcance not in allowed_alcances]
-    if unknown:
-        message = "Hay alcances no reconocidos en el formulario."
-        errors.append(message)
-        field_errors["alcances"] = message
 
     return {
         "ok": not errors,
         "errors": errors,
         "field_errors": field_errors,
         "fields": fields,
-        "alcances": selected,
     }
 
 

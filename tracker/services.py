@@ -147,6 +147,25 @@ def next_folder_number(projects):
     return (max(numbers) + 1) if numbers else 1
 
 
+def create_project(projects, fields, id_factory=new_id, today_value=None):
+    created_at = today_value or today()
+    project = {
+        "id": id_factory(),
+        "name": fields.get("name", "").strip(),
+        "clave": fields.get("clave", "").strip(),
+        "client": fields.get("client", "").strip(),
+        "version": fields.get("version", "V1").strip(),
+        "fecha": fields.get("fecha", "").strip(),
+        "disciplina": fields.get("disciplina", "").strip(),
+        "notes": fields.get("notes", "").strip(),
+        "folder_num": f"{next_folder_number(projects):03d}",
+        "status": "Activo",
+        "closed_at": None,
+        "created_at": created_at,
+    }
+    return project
+
+
 def build_scope_task(project_id, alcance_id, note, id_factory=new_id, today_value=None):
     created_at = today_value or today()
     alcance = get_alcances_by_id().get(alcance_id, {})

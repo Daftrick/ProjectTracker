@@ -5,7 +5,7 @@ from flask_login import current_user
 from .auth import init_auth
 from .catalog import migrate_catalog_disciplina, migrate_catalog_fields, migrate_quote_approval
 from .company_config import get_company
-from .domain import APP_VERSION, STAGES, TASK_STATUSES, TIPOS_FICHA, currency, fdate, get_alcances, get_alcances_by_id, get_disciplinas, get_info_ext_excluded
+from .domain import APP_VERSION, TIPOS_FICHA, currency, fdate
 from .routes.admin import bp as admin_bp
 from .routes.auth_routes import bp as auth_bp
 from .routes.materials import bp as materials_bp
@@ -71,13 +71,7 @@ def create_app():
     def inject_globals():
         return {
             "app_version": APP_VERSION,
-            "alcances_catalog": get_alcances(),
-            "alcances_by_id": get_alcances_by_id(),
-            "disciplinas_catalog": get_disciplinas(),
-            "task_statuses": TASK_STATUSES,
             "tipos_ficha": TIPOS_FICHA,
-            "info_ext_excluded": get_info_ext_excluded(),
-            "stages": STAGES,
             "company": get_company(),
         }
 

@@ -23,14 +23,9 @@
           <input name="client" class="form-control" placeholder="Nombre del cliente" value="{{ fs.client }}">
         </div>
         <div class="col-md-4">
-          <label class="form-label">Disciplina *</label>
-          <select name="disciplina" class="form-select" id="discInput" onchange="updatePreview()">
-            {% for d in disciplinas_catalog %}
-            <option value="{{ d.id }}" {% if fs.disciplina == d.id %}selected{% elif loop.first and not fs.disciplina %}selected{% endif %}>
-              {{ d.id }} — {{ d.nombre }}
-            </option>
-            {% endfor %}
-          </select>
+          <label class="form-label">Disciplina</label>
+          <input name="disciplina" class="form-control" id="discInput" oninput="updatePreview()"
+                 placeholder="IE, ARQ, EST…" value="{{ fs.disciplina }}" maxlength="10">
         </div>
         <div class="col-md-5">
           <label class="form-label">Clave del proyecto *
@@ -67,59 +62,11 @@
           <textarea name="notes" class="form-control" rows="2" placeholder="Descripción general, ubicación, etc.">{{ fs.notes }}</textarea>
         </div>
         <div class="col-md-6">
-          <label class="form-label">Tipo de proyecto</label>
-          <select name="template_id" class="form-select">
-            <option value="">— Sin plantilla —</option>
-            {% for t in project_templates %}
-            <option value="{{ t.id }}" {% if fs.template_id == t.id %}selected{% endif %}>{{ t.name }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        <div class="col-md-6">
           <label class="form-label">Carpeta en Google Drive</label>
           <input name="drive_url" type="url" class="form-control"
                  placeholder="https://drive.google.com/drive/folders/..."
                  value="{{ fs.drive_url }}">
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card mb-3">
-    <div class="card-header">Selecciona los alcances del proyecto</div>
-    <div class="card-body">
-      {% if fe.get('alcances') %}
-      <div class="alert alert-warning py-2 mb-3">{{ fe.get('alcances') }}</div>
-      {% endif %}
-      <div class="row g-2">
-        {% for alc in alcances_catalog %}
-        <div class="col-md-6">
-          <div class="form-check p-3 border rounded-3 h-100" style="cursor:pointer"
-               onclick="this.querySelector('input').click()">
-            <input class="form-check-input" type="checkbox" name="alcances"
-                   value="{{ alc.id }}" id="alc_{{ alc.id }}"
-                   onclick="event.stopPropagation()"
-                   {% if alc.id in form_state.alcances %}checked{% endif %}>
-            <label class="form-check-label w-100" for="alc_{{ alc.id }}" style="cursor:pointer"
-                   onclick="event.stopPropagation()">
-              <span class="fw-semibold">{{ alc.nombre }}</span>
-              <div class="mt-1 d-flex flex-wrap gap-1">
-                <span class="badge src-{{ alc.source }}">{{ alc.source }}</span>
-                {% if alc.dep_label %}
-                  <span class="badge bg-light text-dark border" style="font-size:.7rem">
-                    <i class="bi bi-arrow-down-circle me-1"></i>{{ alc.dep_label }}
-                  </span>
-                {% endif %}
-                {% if alc.blocked_by %}
-                  <span class="badge bg-light text-muted border" style="font-size:.7rem">
-                    <i class="bi bi-lock me-1"></i>Depende de anteriores
-                  </span>
-                {% endif %}
-              </div>
-            </label>
-          </div>
-        </div>
-        {% endfor %}
       </div>
     </div>
   </div>

@@ -237,12 +237,6 @@
     .bs-Revisión      { background:rgba(95,70,145,.18);  color:#9888b8; }
     .bs-Observaciones { background:rgba(145,120,60,.18); color:#aaa078; }
     .bs-Aprobado      { background:rgba(55,120,80,.18);  color:#7aaa88; }
-    .bs-Bloqueado     { background:rgba(150,80,80,.18);  color:#b09090; }
-    .bs-Completado    { background:rgba(55,120,80,.18);  color:#7aaa88; }
-    .ps-Pendiente     { background:rgba(150,80,80,.18);  color:#b09090; }
-    .ps-En-progreso   { background:rgba(65,95,150,.18);  color:#8a9aba; }
-    .ps-Completado    { background:rgba(55,120,80,.18);  color:#7aaa88; }
-    .ps-Sin-alcances  { background:rgba(80,85,100,.18);  color:#8a909e; }
     .src-externa      { background:rgba(145,120,60,.18); color:#aaa078; }
     .src-propia       { background:rgba(55,120,80,.18);  color:#7aaa88; }
   </style>
@@ -264,10 +258,7 @@
        data-label="Proyectos">
       <i class="bi bi-grid-1x2"></i><span class="nav-label"> Proyectos</span>
     </a>
-    <a href="{{ url_for('kanban') }}" class="nav-link {% if request.endpoint=='kanban' %}active{% endif %}"
-       data-label="Portafolio">
-      <i class="bi bi-kanban"></i><span class="nav-label"> Portafolio</span>
-    </a>
+
     <div class="nav-section mt-2">Recursos</div>
     <a href="{{ url_for('fichas') }}" class="nav-link {% if request.endpoint=='fichas' %}active{% endif %}"
        data-label="Fichas Técnicas">
@@ -296,18 +287,6 @@
 <a href="{{ url_for('admin_bp.empresa') }}" class="nav-link {% if request.endpoint in ('admin_bp.empresa','admin_bp.empresa_logo') %}active{% endif %}"
        data-label="Empresa">
       <i class="bi bi-building"></i><span class="nav-label"> Empresa</span>
-    </a>
-    <a href="{{ url_for('admin_bp.alcances_admin') }}" class="nav-link {% if request.endpoint=='admin_bp.alcances_admin' %}active{% endif %}"
-       data-label="Alcances">
-      <i class="bi bi-diagram-3"></i><span class="nav-label"> Alcances</span>
-    </a>
-    <a href="{{ url_for('admin_bp.disciplinas_admin') }}" class="nav-link {% if request.endpoint in ('admin_bp.disciplinas_admin','admin_bp.disciplinas_api_save') %}active{% endif %}"
-       data-label="Disciplinas">
-      <i class="bi bi-layers"></i><span class="nav-label"> Disciplinas</span>
-    </a>
-    <a href="{{ url_for('admin_bp.project_templates_admin') }}" class="nav-link {% if request.endpoint=='admin_bp.project_templates_admin' %}active{% endif %}"
-       data-label="Tipos de Proyecto">
-      <i class="bi bi-list-check"></i><span class="nav-label"> Tipos de Proyecto</span>
     </a>
     <a href="{{ url_for('admin_bp.quote_templates') }}" class="nav-link {% if request.endpoint=='admin_bp.quote_templates' %}active{% endif %}"
        data-label="Plantillas Cotización">

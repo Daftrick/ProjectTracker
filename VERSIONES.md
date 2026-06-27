@@ -1,6 +1,17 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v38.0 — 26-Jun-2026
+## Versión actual: v39.0 — 26-Jun-2026
+
+### v39.0 — Refactoring cotizador (simplificación mayor)
+- App replanteada como cotizador puro: se suprimen tracker de tareas y sistema de alcances
+- `project_detail.html`: eliminados tab Alcances, tab Avance, 6 modales relacionados (Info Externa, Cambiar estado, Editar observación, Modificar alcances, Actualizar etapa, Presupuesto por etapa) y handlers JS asociados; tab Cotización es ahora el primero y activo por defecto; selector de estado manual (Activo/Entregado/Archivado) reemplaza barra de progreso de alcances; disciplina en modal Editar cambia de `<select>` a `<input>` libre
+- `dashboard.html`: eliminada barra de progreso de alcances por proyecto; se muestra total cotizado individual por tarjeta; sección `completed` renombrada a `delivered` (alineado con ruta); sección Archivados usa texto correcto
+- `templates/project_new.html`: disciplina como texto libre sin catálogo
+- `base.html`: quitados links de nav Alcances, Disciplinas, Tipos de Proyecto, Kanban
+- `routes/projects.py`: rutas kanban, toggle_obra, update_task_status, update_observation_checklist, update_observation, update_task_info, save_task_note, update_project_alcances eliminadas; agregada `update_project_status` (Activo/Entregado/Archivado)
+- `services.py`: `create_project()` sin tareas; funciones de alcances y tareas mantenidas pero sin llamadas activas
+- `validators.py`: `validate_project_form` simplificada (sin alcances)
+- 337 tests pasan
 
 ---
 
