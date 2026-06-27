@@ -1,6 +1,24 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v42.1 — 27-Jun-2026
+## Versión actual: v43.1 — 27-Jun-2026
+
+### v43.1 — PDF: fuente Atkinson Hyperlegible Mono + portada a ancho completo
+- Fuente cambiada a **Atkinson Hyperlegible Mono** (Regular + Bold) en todos los PDFs; fallback a DejaVu Sans si los archivos no están disponibles
+- Recuadro gris de portada expandido a `content_width` (200mm) igualando el bloque de Alcance; panel izquierdo crece de 70 → 92mm, box de totales se desplaza a x=111
+- Fecha en recuadro de portada: ancho dinámico (65mm) elimina desborde; escalado de fuente proporcional como respaldo para meses largos
+- 337 tests pasan
+
+### v43.0 — Editor de cotización: topbar completo + toggles + T&C editables
+- **Topbar del editor**: todos los controles de `project_detail` replicados en el editor — Vista previa (PDF inline), Resumen, Descargar PDF, Descargar Excel, Aprobar/Toggle extraordinaria, CSV, Duplicar, Purgar catálogo eliminado (condicional), Eliminar con confirmación
+- **Notas generales**: toggle ON/OFF (form-switch); campo oculto cuando está desactivado
+- **Especificaciones técnicas**: toggle ON/OFF para el bloque completo
+- **Disciplina / Descripción portada**: campo editable en datos generales; vacío = sin segunda línea en portada del PDF
+- **Nombre de proyecto en 2 renglones**: info box de portada usa `get_string_width` para distribuir palabras en hasta 2 líneas en vez de truncar con "..."
+- **Términos y condiciones editables por cotización**: 9 secciones (Vigencia, Precios, Información base, Condiciones de pago, Plazos, Trabajos adicionales, Exclusiones, Garantía, Aceptación) con toggle ON/OFF individual y textarea editable; se almacenan en `specs["terms"]`; cotizaciones sin terms almacenados usan el comportamiento anterior sin cambios
+- **Fix 500 en editor**: `quote.items` en Jinja2 resuelve al método built-in `dict.items()` en vez de la clave; corregido a `quote['items']`
+- 337 tests pasan
+
+## Versión anterior: v42.1 — 27-Jun-2026
 
 ### v42.1 — Acciones de cotización expandidas en pantallas grandes
 - Botones CSV, Duplicar, Purgar y Eliminar ahora aparecen inline en pantallas ≥lg (`d-none d-lg-inline*`)
