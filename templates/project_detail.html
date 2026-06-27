@@ -51,6 +51,15 @@
   .history-dot{width:8px;height:8px;border-radius:50%;background:#5a82c8;flex-shrink:0;margin-top:5px;}
   .items-table th{font-size:.8rem;}
 
+  /* Sticky thead for quotes and LDM tables */
+  #tab-quote .card table thead th,
+  #tab-ldm   .card table thead th {
+    position: sticky;
+    top: 52px;
+    z-index: 20;
+    background-color: #141c30 !important;
+  }
+
   /* ── Badges de archivo con colores distintos ── */
   .file-name-badge{ border-radius:8px;padding:5px 11px;font-family:monospace;font-size:.85rem;border:1px solid; }
   .fnb-folder{ background:rgba(40,65,125,.30); border-color:rgba(80,120,210,.28); color:#8aacd0; }
