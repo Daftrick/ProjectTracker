@@ -97,9 +97,8 @@
       <div class="col-md-5">
         <div class="mb-2 d-flex flex-wrap gap-2">
           <span class="file-name-badge fnb-folder">
-            <i class="bi bi-folder2 me-1"></i>{{ company.prefix or company.name }}-{{ project.folder_num or "???" }}-{{ project.clave }}
+            <i class="bi bi-folder2 me-1"></i>{{ project.name }}
           </span>
-          <span class="file-name-badge fnb-ie"><i class="bi bi-file-earmark-code me-1"></i>{{ file_ie }}</span>
         </div>
         {% if project.client %}<small class="text-muted"><i class="bi bi-building me-1"></i>{{ project.client }}</small>{% endif %}
         {% if project.notes %}<p class="text-muted mb-0 mt-1" style="font-size:.85rem">{{ project.notes }}</p>{% endif %}
