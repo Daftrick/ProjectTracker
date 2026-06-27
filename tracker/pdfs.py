@@ -665,15 +665,15 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.set_text_color(*INK)
     pdf.set_font("DejaVu", "B", 15)
     pdf.multi_cell(112, 7, client_name)
-    summary_x = 16
+    summary_x = pdf.l_margin
     summary_y = max(215, min(250, round(221 + _spacing_delta)))
-    summary_w = 178
+    summary_w = content_width
     summary_h = 53
     pdf.set_xy(summary_x, summary_y)
     pdf.set_fill_color(*SOFT)
     pdf.rect(summary_x, summary_y, summary_w, summary_h, style="F")
 
-    totals_box_x = 100
+    totals_box_x = 111
     totals_box_w = 88
     totals_box_h = 34
     totals_box_y = summary_y + (summary_h - totals_box_h) / 2
@@ -681,7 +681,7 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.set_draw_color(*LINE)
     pdf.rect(totals_box_x, totals_box_y, totals_box_w, totals_box_h, style="DF")
 
-    left_x = 22
+    left_x = 11
     left_w = totals_box_x - left_x - 8
     label_h = 3.8
     value_h = 5.8
