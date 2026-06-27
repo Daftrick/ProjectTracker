@@ -1,3 +1,4 @@
+from .pdfs import QUOTE_TERMS_DEFAULTS
 from .storage import load as _load, save as _save
 
 _SPECS_DEFAULTS = {
@@ -8,23 +9,60 @@ _SPECS_DEFAULTS = {
     "contacto": "",
 }
 
+
+def _default_terms():
+    return [
+        {
+            "key": key,
+            "title": title,
+            "body": body,
+            "enabled": True,
+        }
+        for key, title, body in QUOTE_TERMS_DEFAULTS
+    ]
+
+
 QUOTE_TEMPLATE_DEFAULTS = {
     "Proyecto": {
         "sections_default": [],
         "notes_default": "",
         "specs_default": dict(_SPECS_DEFAULTS),
+        "terms_default": _default_terms(),
     },
     "Obra": {
         "sections_default": [],
         "notes_default": "",
         "specs_default": dict(_SPECS_DEFAULTS),
+        "terms_default": _default_terms(),
     },
     "Servicio": {
         "sections_default": [],
         "notes_default": "",
         "specs_default": dict(_SPECS_DEFAULTS),
+        "terms_default": _default_terms(),
     },
 }
+
+
+def _normalize_terms(stored_terms):
+    stored_by_key = {}
+    if isinstance(stored_terms, list):
+        stored_by_key = {
+            item.get("key"): item
+            for item in stored_terms
+            if isinstance(item, dict) and item.get("key")
+        }
+
+    normalized = []
+    for key, title, body in QUOTE_TERMS_DEFAULTS:
+        stored = stored_by_key.get(key, {})
+        normalized.append({
+            "key": key,
+            "title": stored.get("title") or title,
+            "body": stored.get("body") if stored.get("body") is not None else body,
+            "enabled": bool(stored.get("enabled", True)),
+        })
+    return normalized
 
 
 def _normalize(raw):
@@ -39,6 +77,7 @@ def _normalize(raw):
             "sections_default": sections if isinstance(sections, list) else list(defaults["sections_default"]),
             "notes_default": stored["notes_default"] if stored.get("notes_default") is not None else defaults["notes_default"],
             "specs_default": specs,
+            "terms_default": _normalize_terms(stored.get("terms_default")),
         }
     return result
 

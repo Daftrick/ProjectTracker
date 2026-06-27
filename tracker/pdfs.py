@@ -940,61 +940,29 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.add_page()
     pdf.set_y(22)
     pdf.set_text_color(*INK)
-    pdf.set_font("DejaVu", "B", 17)
     _CONDICION_FIELDS = ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto")
     _has_specs = any(str(_specs.get(f) or "").strip() for f in _CONDICION_FIELDS)
     _stored_terms = _specs.get("terms")
-    if _stored_terms is not None:
-        _active_terms = [
-            (t.get("title", ""), t.get("body", ""))
-            for t in _stored_terms
-            if t.get("enabled", True) and str(t.get("body") or "").strip()
-        ]
-        if _active_terms:
-            pdf.cell(content_width, 8, "Términos y condiciones", ln=True)
-            pdf.set_x(pdf.l_margin)
-            pdf.set_font("DejaVu", "", 9.4)
-            pdf.set_text_color(*INK)
-            pdf.ln(1)
-            for title, body in _active_terms:
-                pdf.set_x(pdf.l_margin)
-                pdf.set_font("DejaVu", "B", 9.2)
-                pdf.multi_cell(content_width, 5, _safe_text(title))
-                pdf.set_x(pdf.l_margin)
-                pdf.set_font("DejaVu", "", 9.2)
-                pdf.multi_cell(content_width, 5, _safe_text(body))
-                pdf.ln(1.2)
-    elif _has_specs:
-        pdf.cell(content_width, 8, "Condiciones y especificaciones", ln=True)
+    _SPECS_LABELS = [
+        ("condiciones_pago", "Condiciones de pago."),
+        ("exclusiones", "Exclusiones."),
+        ("validez", "Vigencia."),
+        ("forma_entrega", "Forma de entrega."),
+        ("contacto", "Contacto."),
+    ]
+
+    def render_text_blocks(section_title, blocks):
+        if not blocks:
+            return
+        if pdf.get_y() > 24:
+            pdf.ln(3)
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "B", 17)
+        pdf.cell(content_width, 8, section_title, ln=True)
         pdf.set_x(pdf.l_margin)
         pdf.set_font("DejaVu", "", 9.4)
-        pdf.set_text_color(*INK)
         pdf.ln(1)
-        _SPECS_LABELS = [
-            ("condiciones_pago", "Condiciones de pago."),
-            ("exclusiones", "Exclusiones."),
-            ("validez", "Vigencia."),
-            ("forma_entrega", "Forma de entrega."),
-            ("contacto", "Contacto."),
-        ]
-        for _field, _label in _SPECS_LABELS:
-            _val = str(_specs.get(_field) or "").strip()
-            if not _val:
-                continue
-            pdf.set_x(pdf.l_margin)
-            pdf.set_font("DejaVu", "B", 9.2)
-            pdf.multi_cell(content_width, 5, _safe_text(_label))
-            pdf.set_x(pdf.l_margin)
-            pdf.set_font("DejaVu", "", 9.2)
-            pdf.multi_cell(content_width, 5, _safe_text(_val))
-            pdf.ln(1.2)
-    else:
-        pdf.cell(content_width, 8, "Términos y condiciones", ln=True)
-        pdf.set_x(pdf.l_margin)
-        pdf.set_font("DejaVu", "", 9.4)
-        pdf.set_text_color(*INK)
-        pdf.ln(1)
-        for title, body in quote_terms():
+        for title, body in blocks:
             pdf.set_x(pdf.l_margin)
             pdf.set_font("DejaVu", "B", 9.2)
             pdf.multi_cell(content_width, 5, _safe_text(title))
@@ -1002,6 +970,26 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.set_font("DejaVu", "", 9.2)
             pdf.multi_cell(content_width, 5, _safe_text(body))
             pdf.ln(1.2)
+
+    if _has_specs:
+        render_text_blocks(
+            "Especificaciones técnicas",
+            [
+                (_label, _val)
+                for _field, _label in _SPECS_LABELS
+                if (_val := str(_specs.get(_field) or "").strip())
+            ],
+        )
+
+    if _stored_terms is not None:
+        _active_terms = [
+            (t.get("title", ""), t.get("body", ""))
+            for t in _stored_terms
+            if t.get("enabled", True) and str(t.get("body") or "").strip()
+        ]
+    else:
+        _active_terms = quote_terms()
+    render_text_blocks("Términos y condiciones", _active_terms)
 
     notes = note_lines(quote.get("notes"))
     if notes:

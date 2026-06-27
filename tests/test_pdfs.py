@@ -1,6 +1,8 @@
 import unittest
+import tempfile
 
 from tracker.pdfs import (
+    build_quote_pdf,
     quote_cover_copy,
     quote_project_basis_note,
     quote_sequence_from_number,
@@ -92,6 +94,67 @@ class QuoteSequenceFromNumberTest(unittest.TestCase):
 
     def test_empty(self):
         self.assertEqual(quote_sequence_from_number(""), "")
+
+
+class QuotePdfSectionsTest(unittest.TestCase):
+    def test_specs_terms_and_notes_render_as_independent_sections(self):
+        import pdfplumber
+
+        project = {
+            "name": "Proyecto PDF",
+            "client": "Cliente PDF",
+        }
+        quote = {
+            "quote_type": "Proyecto",
+            "quote_number": "COT-PDF-P01-20260627",
+            "date": "2026-06-27",
+            "currency": "MXN",
+            "tax_rate": 16,
+            "items": [
+                {
+                    "description": "Salida de prueba",
+                    "unit": "pza",
+                    "qty": 1,
+                    "price": 100,
+                    "precio_costo": 100,
+                    "total": 100,
+                }
+            ],
+            "subtotal": 100,
+            "tax": 16,
+            "total": 116,
+            "notes": "Nota visible",
+            "specs": {
+                "condiciones_pago": "Pago visible",
+                "terms": [
+                    {
+                        "key": "vigencia",
+                        "title": "Vigencia.",
+                        "body": "Termino visible",
+                        "enabled": True,
+                    },
+                    {
+                        "key": "precios",
+                        "title": "Precios.",
+                        "body": "Termino oculto",
+                        "enabled": False,
+                    },
+                ],
+            },
+        }
+
+        with tempfile.NamedTemporaryFile(suffix=".pdf") as tmp:
+            build_quote_pdf(project, quote, tmp.name)
+            with pdfplumber.open(tmp.name) as pdf:
+                text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+
+        self.assertIn("Especificaciones técnicas", text)
+        self.assertIn("Pago visible", text)
+        self.assertIn("Términos y condiciones", text)
+        self.assertIn("Termino visible", text)
+        self.assertNotIn("Termino oculto", text)
+        self.assertIn("Notas", text)
+        self.assertIn("Nota visible", text)
 
 
 if __name__ == "__main__":

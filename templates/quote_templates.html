@@ -5,7 +5,7 @@
 <div style="max-width:760px">
   <p class="text-muted mb-4">
     Define los valores predeterminados por tipo de cotización. Al crear una cotización nueva,
-    el formulario se pre-llena con estas secciones, notas y especificaciones.
+    el formulario se pre-llena con estas secciones, notas, especificaciones y términos.
   </p>
 
   <form method="post" action="{{ url_for('admin_bp.quote_templates') }}">
@@ -99,6 +99,34 @@
                        placeholder="Ej: Ing. Ricardo López — info@dide.cl">
               </div>
 
+            </div>
+          </div>
+        </div>
+
+        <!-- Términos y condiciones -->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="bi bi-file-text me-2 text-primary"></i>Términos y condiciones predeterminados
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+              {% for term in tmpl.terms_default %}
+              <div class="col-12 border-bottom pb-3">
+                <div class="form-check mb-2">
+                  <input type="checkbox" class="form-check-input"
+                         name="{{ qtype }}_term_{{ term.key }}_enabled"
+                         value="1"
+                         id="{{ qtype }}_term_{{ term.key }}_enabled"
+                         {% if term.enabled %}checked{% endif %}>
+                  <label class="form-check-label fw-semibold" for="{{ qtype }}_term_{{ term.key }}_enabled">
+                    {{ term.title }}
+                  </label>
+                </div>
+                <textarea name="{{ qtype }}_term_{{ term.key }}_body"
+                          class="form-control"
+                          rows="2">{{ term.body }}</textarea>
+              </div>
+              {% endfor %}
             </div>
           </div>
         </div>

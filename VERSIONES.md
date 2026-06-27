@@ -1,6 +1,15 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v43.4 — 27-Jun-2026
+## Versión actual: v44.0 — 27-Jun-2026
+
+### v44.0 — Plantillas de términos y PDF con secciones independientes
+- Plantillas de cotización agregan `terms_default` para editar textos y toggles de Términos y condiciones por tipo de cotización
+- Cotizaciones nuevas aplican los términos predeterminados de la plantilla seleccionada al cargar o cambiar tipo
+- PDF separa `Especificaciones técnicas`, `Términos y condiciones` y `Notas`; specs ya no sustituyen ni ocultan los términos
+- Los checkboxes de términos siguen controlando qué secciones aparecen en el PDF
+- 338 tests pasan
+
+## Versión anterior: v43.4 — 27-Jun-2026
 
 ### v43.4 — PDF header: eliminar número de cotización
 - Header de páginas internas muestra solo nombre de proyecto (izquierda) y fecha (derecha)
@@ -581,6 +590,7 @@ Reglas de portada PDF:
 
 | Fecha | Cambio |
 |---|---|
+| 2026-06-27 | **v44.0 — Plantillas de términos y PDF con secciones independientes**: `terms_default` en plantillas de cotización; UI para editar textos/toggles de Términos y condiciones por tipo; cotizaciones nuevas aplican esos defaults; el PDF renderiza Especificaciones técnicas, Términos y condiciones y Notas como secciones independientes, respetando checkboxes. |
 | 2026-06-27 | **v42.1 — Acciones de cotización expandidas**: botones CSV/Duplicar/Purgar/Eliminar visibles inline en pantallas ≥lg; dropdown `···` solo en pantallas menores. |
 | 2026-06-27 | **v42.0 — Página de cotizaciones cross-proyecto**: nueva ruta `GET /cotizaciones` con tabla de todas las cotizaciones agrupadas por proyecto; métricas rápidas (total, aprobadas, monto); filtro JS en tiempo real; botón "Ver proyecto →" como acción principal (edición solo desde la vista interna de cada proyecto). Enlace en sidebar izquierdo bajo Principal. `quotes_summary.html` nuevo. |
 | 2026-06-27 | **v41.0 — Dashboard simplificado + prefijo en sidebar**: eliminados semáforo y KPI COT vs LDM; cards muestran código `{Prefijo}-{###}-{Clave}` y total cotizado; sidebar usa `company.prefix` como nombre de app. |

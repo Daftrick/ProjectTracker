@@ -1491,6 +1491,7 @@
         const st = document.getElementById("specsToggle");
         if (st) { st.checked = true; toggleSection("specsSection", true); }
       }
+      applyTermsDefault(tmpl);
     }
     {% endif %}
   }
@@ -1513,6 +1514,21 @@
   function toggleTermBody(key, show) {
     const el = document.getElementById(`term_body_${key}`);
     if (el) el.style.display = show ? "" : "none";
+  }
+
+  function applyTermsDefault(tmpl) {
+    const termsDefault = tmpl.terms_default || [];
+    for (const term of termsDefault) {
+      const chk = document.getElementById(`term_chk_${term.key}`);
+      const body = document.querySelector(`textarea[name="term_${term.key}_body"]`);
+      if (chk) {
+        chk.checked = term.enabled !== false;
+        toggleTermBody(term.key, chk.checked);
+      }
+      if (body && term.body !== undefined && term.body !== null) {
+        body.value = term.body;
+      }
+    }
   }
 
   document.getElementById("quoteForm").addEventListener("submit", function() {
@@ -1559,6 +1575,7 @@
       const st = document.getElementById("specsToggle");
       if (st) { st.checked = true; toggleSection("specsSection", true); }
     }
+    applyTermsDefault(tmpl);
     {% else %}
     if (tbody.children.length === 0) addRow();
     {% endif %}

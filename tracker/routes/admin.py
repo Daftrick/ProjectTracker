@@ -938,6 +938,7 @@ _SPECS_FIELDS = ("condiciones_pago", "exclusiones", "validez", "forma_entrega", 
 @bp.route("/quote-templates", methods=["GET", "POST"], endpoint="quote_templates")
 @admin_required
 def quote_templates():
+    from ..pdfs import QUOTE_TERMS_DEFAULTS
     from ..quote_templates_config import get_quote_templates, save_quote_templates
     current = get_quote_templates()
     if request.method == "POST":
@@ -949,6 +950,15 @@ def quote_templates():
             current[qtype]["notes_default"] = request.form.get(f"{qtype}_notes", "").strip()
             for field in _SPECS_FIELDS:
                 current[qtype]["specs_default"][field] = request.form.get(f"{qtype}_{field}", "").strip()
+            current[qtype]["terms_default"] = [
+                {
+                    "key": key,
+                    "title": title,
+                    "body": request.form.get(f"{qtype}_term_{key}_body", "").strip() or default_body,
+                    "enabled": bool(request.form.get(f"{qtype}_term_{key}_enabled")),
+                }
+                for key, title, default_body in QUOTE_TERMS_DEFAULTS
+            ]
         save_quote_templates(current)
         flash("Plantillas de cotización guardadas.", "success")
         return redirect(url_for("admin_bp.quote_templates"))
