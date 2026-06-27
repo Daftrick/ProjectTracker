@@ -1,5 +1,12 @@
 # ProjectTracker — Estado y Versiones
 
+## Versión actual: v43.3 — 27-Jun-2026
+
+### v43.3 — PDF header: columnas dinámicas para evitar desborde con fuente monoespaciada
+- Header (páginas 2+): en vez de proporciones fijas (62/22/16%), se mide el ancho real de la fecha y el número de cotización con `get_string_width` y la columna del proyecto recibe el espacio restante
+- Elimina la sobreposición visible "COT-CCAL-P01-202606277 de junio de 2026" causada por que la fuente monoespaciada ocupa más ancho que DejaVu Sans con los mismos porcentajes
+- 337 tests pasan
+
 ## Versión actual: v43.2 — 27-Jun-2026
 
 ### v43.2 — PDF portada: ajustes visuales recuadro gris
