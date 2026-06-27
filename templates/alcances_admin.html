@@ -29,7 +29,6 @@
           <th style="width:28%">Nombre</th>
           <th style="width:10%">Fuente</th>
           <th style="width:22%">Etiqueta externa</th>
-          <th style="width:10%" class="text-center">Info ext.</th>
           <th style="width:16%" class="text-end">Acciones</th>
         </tr>
       </thead>
@@ -44,13 +43,6 @@
             </span>
           </td>
           <td class="text-muted small">{{ a.dep_label or "—" }}</td>
-          <td class="text-center">
-            {% if a.get("info_ext", true) %}
-              <i class="bi bi-check-circle-fill text-success"></i>
-            {% else %}
-              <i class="bi bi-dash-circle text-muted"></i>
-            {% endif %}
-          </td>
           <td class="text-end">
             <button class="btn btn-sm btn-outline-secondary" onclick="editAlcance({{ loop.index0 }})">
               <i class="bi bi-pencil"></i>
@@ -104,12 +96,6 @@
           <input id="aDepLabel" class="form-control" placeholder="ej: Proyecto de Voz y Datos (TI)">
           <div class="form-text">Se muestra en la tarjeta del alcance cuando la fuente es externa.</div>
         </div>
-        <div class="form-check form-switch mb-3">
-          <input class="form-check-input" type="checkbox" id="aInfoExt" checked>
-          <label class="form-check-label" for="aInfoExt">
-            Aparece en hoja de Info Ext del PDF
-          </label>
-        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -142,7 +128,6 @@ function renderTable() {
       <td class="fw-semibold">${escHtml(a.nombre)}</td>
       <td><span class="alcance-source-badge src-${a.source}">${a.source === 'propia' ? 'Propia' : 'Externa'}</span></td>
       <td class="text-muted small">${escHtml(a.dep_label || '—')}</td>
-      <td class="text-center">${a.info_ext !== false ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-dash-circle text-muted"></i>'}</td>
       <td class="text-end">
         <button class="btn btn-sm btn-outline-secondary" onclick="editAlcance(${i})"><i class="bi bi-pencil"></i></button>
         <button class="btn btn-sm btn-outline-danger ms-1" onclick="deleteAlcance(${i})"><i class="bi bi-trash3"></i></button>
@@ -164,7 +149,6 @@ function openModal(idx = null) {
   document.getElementById('aNombre').value = a ? a.nombre : '';
   document.getElementById('aSource').value = a ? a.source : 'propia';
   document.getElementById('aDepLabel').value = a ? (a.dep_label || '') : '';
-  document.getElementById('aInfoExt').checked = a ? (a.info_ext !== false) : true;
   toggleDepLabel();
   bootstrap.Modal.getOrCreateInstance(document.getElementById('modalAlcance')).show();
 }
@@ -192,7 +176,7 @@ function saveAlcance() {
     dep_label: document.getElementById('aSource').value === 'externa'
       ? (document.getElementById('aDepLabel').value.trim() || null) : null,
     blocked_by: idx !== null ? (_alcances[idx].blocked_by || []) : [],
-    info_ext: document.getElementById('aInfoExt').checked,
+    info_ext: idx !== null ? (_alcances[idx].info_ext !== false) : true,
   };
   if (idx === null) { _alcances.push(entry); }
   else { _alcances[idx] = { ..._alcances[idx], ...entry, id: _alcances[idx].id }; }
