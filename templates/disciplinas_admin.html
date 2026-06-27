@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% block title %}Disciplinas – Project Tracker{% endblock %}
+{% block page_title %}<i class="bi bi-layers me-2 text-primary"></i>Disciplinas de proyecto{% endblock %}
+{% block topbar_actions %}
+  <button class="btn btn-primary btn-sm" onclick="openModal()">
+    <i class="bi bi-plus-lg me-1"></i>Nueva disciplina
+  </button>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+  .disc-id-badge { font-family:monospace; font-size:.78rem; padding:2px 10px;
+                   border-radius:20px; background:rgba(79,142,247,.15);
+                   border:1px solid rgba(79,142,247,.25); color:#8aacd0; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span>Disciplinas definidas</span>
+    <small class="text-muted" id="discCount">{{ disciplinas|length }} disciplina(s)</small>
+  </div>
+  <div class="card-body p-0">
+    <table class="table mb-0" id="disciplinasTable">
+      <thead class="table-light">
+        <tr>
+          <th style="width:18%">Prefijo (ID)</th>
+          <th>Nombre</th>
+          <th style="width:14%" class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="disciplinasTbody">
+        {% for d in disciplinas %}
+        <tr>
+          <td><span class="disc-id-badge">{{ d.id }}</span></td>
+          <td class="fw-semibold">{{ d.nombre }}</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-secondary" onclick="editDisc({{ loop.index0 }})">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger ms-1" onclick="deleteDisc({{ loop.index0 }})">
+              <i class="bi bi-trash3"></i>
+            </button>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="3" class="text-center text-muted py-4">
+          <i class="bi bi-layers fs-2 d-block mb-2 opacity-50"></i>
+          Sin disciplinas — agrega la primera.
+        </td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalDisc" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalDiscTitle">
+          <i class="bi bi-layers me-2 text-primary"></i>Disciplina
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editIdx" value="">
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Prefijo <small class="text-muted fw-normal">(máx 5 letras)</small></label>
+          <input id="dId" class="form-control font-monospace text-uppercase" placeholder="Ej: ARQ" maxlength="5">
+          <div class="form-text">Solo letras y números. Ejemplo: IE, ARQ, EST, AA.</div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Nombre</label>
+          <input id="dNombre" class="form-control" placeholder="Ej: Arquitectónico">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" onclick="saveDisc()">
+          <i class="bi bi-check-lg me-1"></i>Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let _disciplinas = {{ disciplinas | tojson }};
+
+function renderTable() {
+  const tbody = document.getElementById('disciplinasTbody');
+  document.getElementById('discCount').textContent = `${_disciplinas.length} disciplina(s)`;
+  if (!_disciplinas.length) {
+    tbody.innerHTML = `<tr><td colspan="3" class="text-center text-muted py-4">
+      <i class="bi bi-layers fs-2 d-block mb-2 opacity-50"></i>
+      Sin disciplinas — agrega la primera.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = _disciplinas.map((d, i) => `
+    <tr>
+      <td><span class="disc-id-badge">${escHtml(d.id)}</span></td>
+      <td class="fw-semibold">${escHtml(d.nombre)}</td>
+      <td class="text-end">
+        <button class="btn btn-sm btn-outline-secondary" onclick="editDisc(${i})"><i class="bi bi-pencil"></i></button>
+        <button class="btn btn-sm btn-outline-danger ms-1" onclick="deleteDisc(${i})"><i class="bi bi-trash3"></i></button>
+      </td>
+    </tr>`).join('');
+}
+
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function openModal(idx = null) {
+  document.getElementById('modalDiscTitle').innerHTML =
+    `<i class="bi bi-layers me-2 text-primary"></i>${idx === null ? 'Nueva disciplina' : 'Editar disciplina'}`;
+  document.getElementById('editIdx').value = idx === null ? '' : idx;
+  const d = idx !== null ? _disciplinas[idx] : null;
+  document.getElementById('dId').value = d ? d.id : '';
+  document.getElementById('dId').disabled = d !== null;
+  document.getElementById('dNombre').value = d ? d.nombre : '';
+  bootstrap.Modal.getOrCreateInstance(document.getElementById('modalDisc')).show();
+}
+
+function editDisc(i) { openModal(i); }
+
+function saveDisc() {
+  const idxStr = document.getElementById('editIdx').value;
+  const idx = idxStr === '' ? null : parseInt(idxStr);
+  const d_id = document.getElementById('dId').value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+  const nombre = document.getElementById('dNombre').value.trim();
+  if (!d_id || !nombre) { alert('Prefijo y Nombre son obligatorios.'); return; }
+  if (idx === null && _disciplinas.some(d => d.id === d_id)) {
+    alert(`Ya existe una disciplina con prefijo "${d_id}".`); return;
+  }
+  const entry = { id: d_id, nombre };
+  if (idx === null) { _disciplinas.push(entry); }
+  else { _disciplinas[idx] = { ..._disciplinas[idx], ...entry, id: _disciplinas[idx].id }; }
+  persist();
+}
+
+function deleteDisc(i) {
+  if (!confirm(`¿Eliminar "${_disciplinas[i].nombre}"?\nLos proyectos que usen esta disciplina conservarán su prefijo actual.`)) return;
+  _disciplinas.splice(i, 1);
+  persist();
+}
+
+async function persist() {
+  const res = await fetch('{{ url_for("admin_bp.disciplinas_api_save") }}', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').content },
+    body: JSON.stringify(_disciplinas),
+  });
+  const json = await res.json();
+  if (!json.ok) { alert('Error al guardar: ' + (json.error || '')); return; }
+  bootstrap.Modal.getInstance(document.getElementById('modalDisc'))?.hide();
+  renderTable();
+}
+
+document.getElementById('dId').addEventListener('input', function() {
+  this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+});
+</script>
+{% endblock %}

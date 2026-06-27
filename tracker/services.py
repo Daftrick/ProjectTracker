@@ -175,6 +175,7 @@ def create_project_with_tasks(projects, tasks, fields, selected_alcances, id_fac
         "client": fields.get("client", "").strip(),
         "version": fields.get("version", "V1").strip(),
         "fecha": fields.get("fecha", "").strip(),
+        "disciplina": fields.get("disciplina", "IE").strip(),
         "alcances": list(selected_alcances),
         "notes": fields.get("notes", "").strip(),
         "folder_num": f"{next_folder_number(projects):03d}",

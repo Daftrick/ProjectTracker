@@ -237,7 +237,8 @@ def build_project_detail_context(project):
         catalog_by_id,
     )
 
-    _ie_fallback = f"IE-{project['clave']}-{project['version']}-{project['fecha']}.dwg"
+    _disc = project.get("disciplina") or "IE"
+    _ie_fallback = f"{_disc}-{project['clave']}-{project['version']}-{project['fecha']}.dwg"
     _xref_fallback = f"XREF-{project['clave']}-{project['version']}-{project['fecha']}.dwg"
 
     return {

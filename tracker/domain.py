@@ -32,6 +32,23 @@ def get_info_ext_excluded(alcances=None):
     return {a["id"] for a in (alcances if alcances is not None else get_alcances()) if not a.get("info_ext", True)}
 
 
+DEFAULT_DISCIPLINAS = [
+    {"id": "IE",  "nombre": "Instalaciones Eléctricas"},
+    {"id": "ARQ", "nombre": "Arquitectónico"},
+    {"id": "EST", "nombre": "Estructural"},
+    {"id": "AA",  "nombre": "Aire Acondicionado (HVAC)"},
+    {"id": "HID", "nombre": "Hidráulico / Sanitario"},
+    {"id": "VOZ", "nombre": "Voz y Datos"},
+]
+
+
+def get_disciplinas():
+    data = load("disciplinas")
+    if not isinstance(data, list) or not data:
+        return DEFAULT_DISCIPLINAS
+    return data
+
+
 # Module-level names kept for backward-compat imports; use get_alcances() for live data.
 ALCANCES = DEFAULT_ALCANCES
 ALCANCES_BY_ID = {a["id"]: a for a in DEFAULT_ALCANCES}

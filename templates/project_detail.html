@@ -152,7 +152,7 @@
       <div class="col-md-5">
         <div class="mb-2 d-flex flex-wrap gap-2">
           <span class="file-name-badge fnb-folder">
-            <i class="bi bi-folder2 me-1"></i>IE-{{ project.folder_num or "???" }}-{{ project.clave }}
+            <i class="bi bi-folder2 me-1"></i>{{ project.disciplina or "IE" }}-{{ project.folder_num or "???" }}-{{ project.clave }}
           </span>
           <span class="file-name-badge fnb-ie"><i class="bi bi-file-earmark-code me-1"></i>{{ file_ie }}</span>
           <span class="file-name-badge fnb-xref"><i class="bi bi-file-earmark-image me-1"></i>{{ file_xref }}</span>
@@ -1551,6 +1551,16 @@
               <label class="form-label">Cliente</label>
               <input name="client" class="form-control" value="{{ project.client }}">
             </div>
+            <div class="col-md-4">
+              <label class="form-label">Disciplina</label>
+              <select name="disciplina" class="form-select" id="editDisc" onchange="updateEditPreview()">
+                {% for d in disciplinas_catalog %}
+                <option value="{{ d.id }}" {% if project.disciplina == d.id %}selected{% elif loop.first and not project.disciplina %}selected{% endif %}>
+                  {{ d.id }} — {{ d.nombre }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
             <div class="col-md-5">
               <label class="form-label">Clave</label>
               <input name="clave" class="form-control" value="{{ project.clave }}" id="editClave" oninput="updateEditPreview()">
@@ -1799,10 +1809,11 @@
 
   // Preview en modal editar
   function updateEditPreview() {
+    const d=document.getElementById("editDisc").value||"IE";
     const c=document.getElementById("editClave").value||"?";
     const v=document.getElementById("editVer").value||"?";
     const f=document.getElementById("editFecha").value||"?";
-    document.getElementById("editPreview").textContent=`IE-${c}-${v}-${f}`;
+    document.getElementById("editPreview").textContent=`${d}-${c}-${v}-${f}`;
   }
 
   // Modal: asignar Nº cotización proveedor

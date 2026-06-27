@@ -54,6 +54,7 @@ def validate_project_form(form, selected_alcances, allowed_alcances):
         "version": _clean(form.get("version")) or "V1",
         "fecha": _clean(form.get("fecha")),
         "notes": _clean(form.get("notes")),
+        "disciplina": _clean(form.get("disciplina")) or "IE",
     }
     selected = [_clean(item) for item in selected_alcances if _clean(item)]
 

@@ -37,6 +37,7 @@ def _blank_project_form_state():
             "version": "V1",
             "fecha": "",
             "notes": "",
+            "disciplina": "",
             "template_id": "",
             "drive_url": "",
         },
@@ -200,6 +201,9 @@ def update_project(project_id):
         project["notes"] = request.form.get("notes", "").strip()
         project["deadline"] = request.form.get("deadline", "").strip() or None
         project["drive_url"] = request.form.get("drive_url", "").strip() or ""
+        disciplina = request.form.get("disciplina", "").strip()
+        if disciplina:
+            project["disciplina"] = disciplina
         project["updated_at"] = today()
         save("projects", projects)
         flash("Proyecto actualizado.", "success")

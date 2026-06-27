@@ -1127,6 +1127,37 @@ def alcances_api_save():
     return jsonify(ok=True, count=len(clean))
 
 
+@bp.route("/disciplinas", endpoint="disciplinas_admin")
+@admin_required
+def disciplinas_admin():
+    from ..domain import get_disciplinas
+    return render_template("disciplinas_admin.html", disciplinas=get_disciplinas())
+
+
+@bp.route("/api/disciplinas/save", methods=["POST"], endpoint="disciplinas_api_save")
+@admin_required
+def disciplinas_api_save():
+    import re as _re
+    data = request.get_json(force=True) or []
+    if not isinstance(data, list):
+        return jsonify(ok=False, error="Formato inválido")
+    clean = []
+    ids_seen = set()
+    for item in data:
+        if not isinstance(item, dict):
+            continue
+        d_id = _re.sub(r"[^A-Z0-9]", "", (item.get("id") or "").strip().upper())
+        nombre = (item.get("nombre") or "").strip()
+        if not d_id or not nombre:
+            return jsonify(ok=False, error="Cada disciplina necesita ID y Nombre.")
+        if d_id in ids_seen:
+            return jsonify(ok=False, error=f"ID duplicado: {d_id}")
+        ids_seen.add(d_id)
+        clean.append({"id": d_id, "nombre": nombre})
+    save("disciplinas", clean)
+    return jsonify(ok=True, count=len(clean))
+
+
 @bp.route("/reset-data", methods=["GET", "POST"], endpoint="reset_data")
 @admin_required
 def reset_data():
