@@ -67,13 +67,9 @@
           </td>
           <td class="text-end pe-3">
             {% if p.id %}
-            <a href="{{ url_for('quotes_bp.edit_quote', project_id=p.id, quote_id=q.id) }}"
-               class="btn btn-sm btn-outline-secondary py-0 px-2" style="font-size:.75rem">
-              Editar
-            </a>
             <a href="{{ url_for('project_detail', project_id=p.id) }}#tab-quote"
-               class="btn btn-sm btn-outline-primary py-0 px-2 ms-1" style="font-size:.75rem">
-              Ver proyecto
+               class="btn btn-sm btn-primary">
+              Ver proyecto <i class="bi bi-arrow-right ms-1"></i>
             </a>
             {% endif %}
           </td>
