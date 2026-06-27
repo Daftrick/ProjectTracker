@@ -1,5 +1,13 @@
 # ProjectTracker — Estado y Versiones
 
+## Versión actual: v45.6 — 27-Jun-2026
+
+### v45.6 — Permisos ampliados para cotizadores
+- **Bundles**: cotizadores pueden crear, editar, eliminar bundles y gestionar versiones; se removió `_require_admin_post` y `@admin_required` de todos los routes de mutación
+- **Proyectos**: cotizadores pueden crear y editar proyectos; botón "Nuevo proyecto" visible en dashboard para todos los usuarios autenticados
+- **Eliminar proyecto protegido**: `delete_project` ahora tiene `@admin_required` (antes estaba desprotegido); botón Eliminar oculto para no-admins en el detail
+- **Sidebar Bundles**: link visible para cotizadores desde v45.5+
+
 ## Versión actual: v45.5 — 27-Jun-2026
 
 ### v45.5 — Limpieza pestaña Documentos y badge XREF
