@@ -227,6 +227,10 @@ def delete_user(user_id):
     _db_execute("DELETE FROM users WHERE id=?", (user_id,))
 
 
+def update_username(user_id, new_username):
+    _db_execute("UPDATE users SET username=? WHERE id=?", (new_username, user_id))
+
+
 def permission_required(perm):
     def decorator(f):
         @wraps(f)

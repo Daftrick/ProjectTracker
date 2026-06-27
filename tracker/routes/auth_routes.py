@@ -10,11 +10,13 @@ from ..auth import (
     create_user,
     delete_user,
     get_all_users,
+    get_user_by_username,
     record_login,
     reset_user_password,
     set_user_active,
     set_user_permissions,
     update_user_role,
+    update_username,
     verify_credentials,
 )
 from ..extensions import csrf
@@ -128,6 +130,21 @@ def edit_user_permissions(user_id):
     perms = {p: (request.form.get(p) == "1") for p in KNOWN_PERMISSIONS}
     set_user_permissions(user_id, perms)
     flash("Permisos actualizados.", "success")
+    return redirect(url_for("auth_bp.users"))
+
+
+@bp.route("/usuarios/<int:user_id>/edit-username", methods=["POST"], endpoint="edit_username")
+@admin_required
+def edit_username_view(user_id):
+    new_username = request.form.get("username", "").strip()
+    if not new_username:
+        flash("El nombre de usuario no puede estar vacío.", "warning")
+        return redirect(url_for("auth_bp.users"))
+    if get_user_by_username(new_username):
+        flash(f"El nombre de usuario '{new_username}' ya está en uso.", "warning")
+        return redirect(url_for("auth_bp.users"))
+    update_username(user_id, new_username)
+    flash(f"Nombre de usuario actualizado a '{new_username}'.", "success")
     return redirect(url_for("auth_bp.users"))
 
 
