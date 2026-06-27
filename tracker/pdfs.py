@@ -256,13 +256,18 @@ def build_quote_pdf(project, quote, output_path=None):
             self.set_draw_color(*LINE)
             self.line(left, 13, right, 13)
             self.set_xy(left, 6)
+            # Measure with the actual font before drawing to avoid overflow with monospace
+            self.set_font(FONT, "", 8.5)
+            date_w = self.get_string_width(_safe_text(self.quote_date)) + 5
+            num_w  = self.get_string_width(_safe_text(self.quote_number)) + 5
+            name_w = cw - num_w - date_w
             self.set_font(FONT, "B", 9)
             self.set_text_color(*NAVY)
-            self.cell(cw * 0.62, 6, _safe_text(self.project_name))
+            self.cell(name_w, 6, _safe_text(self.project_name))
             self.set_font(FONT, "", 8.5)
             self.set_text_color(*MUTED)
-            self.cell(cw * 0.22, 6, _safe_text(self.quote_number), align="C")
-            self.cell(cw * 0.16, 6, _safe_text(self.quote_date), align="R")
+            self.cell(num_w, 6, _safe_text(self.quote_number), align="C")
+            self.cell(date_w, 6, _safe_text(self.quote_date), align="R")
             self.ln(10)
 
         def footer(self):
