@@ -645,10 +645,10 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.set_fill_color(255, 255, 255)
     pdf.rect(0, 0, 210, 297, style="F")
     pdf.set_fill_color(*_portada_fill)
-    pdf.rect(0, 0, 210, 92, style="F")
+    pdf.rect(0, 0, 210, 85, style="F")
     if logo_path:
         pdf.image(logo_path, x=60, y=10, w=90)
-        contact_y = 95
+        contact_y = 88
         _contacts_on_dark = False
     else:
         pdf.set_text_color(255, 255, 255)
@@ -666,7 +666,7 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.set_font("DejaVu", "", 8.4)
         for line in cover_contact_lines:
             pdf.set_xy(16, contact_y)
-            pdf.cell(178, 4.6, _safe_text(line), align="C")
+            pdf.cell(178, 4.6, _safe_text(line), align="R")
             contact_y += 5
     pdf.set_draw_color(*LINE)
     _caddr = str(_company_data.get("address") or "").strip()
@@ -675,7 +675,7 @@ def build_quote_pdf(project, quote, output_path=None):
     _cphone = str(_company_data.get("phone") or "").strip()
     _cinfo = "  ·  ".join(p for p in [_caddr, _crut] if p)
     _ccontact = " - ".join(p for p in [_cemail, _cphone] if p)
-    _caddr_y = max(contact_y + 2, 95) if not _contacts_on_dark else 115
+    _caddr_y = max(contact_y + 2, 88) if not _contacts_on_dark else 115
     if _cinfo:
         pdf.set_text_color(*MUTED)
         pdf.set_font("DejaVu", "", 8)
