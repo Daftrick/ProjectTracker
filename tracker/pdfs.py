@@ -726,15 +726,17 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.set_x(left_x)
     info_value(quote_number, ln=True)
 
-    # Renglón 3: Moneda / Fecha / Versión (mismo ritmo que los anteriores)
-    # Anchos calibrados con metricas reales de Helvetica:
-    #   labels @7pt:    MONEDA ~11 mm, FECHA ~9 mm, VERSIÓN ~11 mm
-    #   values @10.2pt: "MXN" ~8 mm, "30 de septiembre de 2026" ~42 mm, "Rev.10" ~11 mm
-    moneda_w = 18
-    fecha_w = 39
-    version_w = 12
-    moneda_x = left_x
-    fecha_x = moneda_x + moneda_w
+    # Renglón 3: Moneda / Fecha / Versión
+    # Anchos fijos; si la fecha no cabe a 9.8pt (fuente monoespaciada más ancha),
+    # se escala el tamaño de fuente hacia abajo hasta que quepa.
+    pdf.set_font("DejaVu", "", 9.8)
+    moneda_w       = 15
+    version_w      = 12
+    fecha_w        = left_w - moneda_w - version_w
+    _date_str_w    = pdf.get_string_width(quote_date)
+    fecha_font_sz  = 9.8 if _date_str_w + 1 <= fecha_w else max(7.0, round(9.8 * fecha_w / (_date_str_w + 1), 1))
+    moneda_x  = left_x
+    fecha_x   = moneda_x + moneda_w
     version_x = fecha_x + fecha_w
 
     label_y = summary_y + 43
@@ -749,7 +751,7 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.set_xy(moneda_x, label_y + label_h)
     info_value(_safe_text(currency), width=moneda_w)
     pdf.set_x(fecha_x)
-    info_value(quote_date, width=fecha_w)
+    info_value(quote_date, width=fecha_w, size=fecha_font_sz)
     pdf.set_x(version_x)
     info_value(_safe_text(quote.get("version") or project.get("version") or "V1"), width=version_w, ln=True)
 
