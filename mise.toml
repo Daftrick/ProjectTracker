@@ -14,7 +14,7 @@ sources = ["app.py", "tracker/**/*.py", "tests/**/*.py", "data/*.json"]
 
 [tasks.graph-update]
 description = "Refresh the local Graphify knowledge graph after code changes."
-run = "graphify update ."
+run = "python tools/graphify_task.py update"
 sources = [
   "app.py",
   "tracker/**/*.py",
@@ -27,7 +27,7 @@ outputs = ["graphify-out/graph.json", "graphify-out/GRAPH_REPORT.md"]
 
 [tasks.graph-check]
 description = "Check whether Graphify thinks the graph needs a semantic refresh."
-run = "graphify check-update ."
+run = "python tools/graphify_task.py check-update"
 sources = ["graphify-out/graph.json", "graphify-out/GRAPH_REPORT.md"]
 
 [tasks.organize]

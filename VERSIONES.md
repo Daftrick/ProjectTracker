@@ -1,6 +1,14 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v45.0 — 27-Jun-2026
+## Versión actual: v45.1 — 27-Jun-2026
+
+### v45.1 — Hook Graphify tolerante sin binario local
+- `mise run graph-update` y `mise run graph-check` usan `tools/graphify_task.py`
+- Si `graphify` no está instalado/en PATH, la tarea avisa y termina correctamente en vez de romper el cierre
+- Si `graphify` existe y devuelve error, el wrapper conserva el código de salida fallido
+- 341 tests pasan
+
+## Versión anterior: v45.0 — 27-Jun-2026
 
 ### v45.0 — Contactos de portada en cotizaciones
 - Plantillas de cotización agregan hasta 4 renglones de contacto para portada, cada uno con toggle, nombre y puesto
