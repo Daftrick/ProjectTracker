@@ -598,7 +598,7 @@ async function submitBulkEdit() {
   }
   const res = await fetch('/api/catalogo/bulk-edit', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': window._csrf },
+    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').content },
     body: JSON.stringify({ ids, fields }),
   });
   const json = await res.json();
