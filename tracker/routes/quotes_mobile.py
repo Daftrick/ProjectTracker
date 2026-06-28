@@ -3,7 +3,7 @@ import tempfile
 
 from flask import Blueprint, flash, redirect, render_template, request, send_file, url_for
 
-from ..bundles import hydrate_quote_bundle_breakdowns
+from ..bundles import bundle_by_catalog_item_id, capture_bundle_snapshot, hydrate_quote_bundle_breakdowns
 from ..catalog import catalog_maps, hydrate_quote
 from ..pdfs import build_quote_pdf
 from ..services import (
@@ -179,6 +179,14 @@ def mobile_generate_pdf(project_id):
     if not finalized:
         flash("No se pudo finalizar el borrador.", "danger")
         return redirect(url_for("quotes_mobile_bp.mobile_review", project_id=project_id))
+
+    catalog_by_id, _ = catalog_maps()
+    bundle_index = bundle_by_catalog_item_id(load("bundles"))
+    for item in finalized.get("items", []) or []:
+        if not item.get("bundle_snapshot") and item.get("catalog_item_id"):
+            snap = capture_bundle_snapshot(item, bundle_index, catalog_by_id)
+            if snap:
+                item["bundle_snapshot"] = snap
 
     save("quotes", updated)
 
