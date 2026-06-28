@@ -262,6 +262,10 @@
        data-label="Cotizaciones">
       <i class="bi bi-receipt"></i><span class="nav-label"> Cotizaciones</span>
     </a>
+    <a href="{{ url_for('quotes_bp.quote_templates') }}" class="nav-link {% if request.endpoint=='quotes_bp.quote_templates' %}active{% endif %}"
+       data-label="Plantillas">
+      <i class="bi bi-file-earmark-text"></i><span class="nav-label"> Plantillas</span>
+    </a>
 
     <div class="nav-section mt-2">Recursos</div>
     <a href="{{ url_for('fichas') }}" class="nav-link {% if request.endpoint=='fichas' %}active{% endif %}"
@@ -292,10 +296,7 @@
        data-label="Empresa">
       <i class="bi bi-building"></i><span class="nav-label"> Empresa</span>
     </a>
-    <a href="{{ url_for('admin_bp.quote_templates') }}" class="nav-link {% if request.endpoint=='admin_bp.quote_templates' %}active{% endif %}"
-       data-label="Plantillas Cotización">
-      <i class="bi bi-file-earmark-text"></i><span class="nav-label"> Plantillas Cotización</span>
-    </a>
+
     <a href="{{ url_for('auth_bp.users') }}" class="nav-link {% if request.endpoint in ('auth_bp.users','auth_bp.new_user','auth_bp.toggle_user','auth_bp.reset_password') %}active{% endif %}"
        data-label="Usuarios">
       <i class="bi bi-person-badge"></i><span class="nav-label"> Usuarios</span>

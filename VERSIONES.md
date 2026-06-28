@@ -1,5 +1,19 @@
 # ProjectTracker — Estado y Versiones
 
+## Versión actual: v45.16 — 28-Jun-2026
+
+### v45.16 — Plantillas de cotización: UI de tarjetas y acceso para cotizadores
+- **Ruta movida a cotizadores**: `/plantillas-cotizacion` en el blueprint de quotes; accesible por todos los roles (no requiere admin). La ruta admin `/quote-templates` redirige automáticamente
+- **Nav link visible para todos**: "Plantillas" aparece en la sección Principal junto a Cotizaciones
+- **UI rediseñada con tarjetas**: pestañas por tipo (Proyecto / Obra / Servicio) con tarjetas por plantilla; click en la tarjeta abre el editor acordeón — ya no todo expandido a la vez
+- **Guardado por plantilla individual**: cada tarjeta tiene su propio `<form>` y botón "Guardar plantilla"; elimina el bug donde errores en otras pestañas bloqueaban el guardado
+- **Restaura pestaña y tarjeta activa** tras guardar/crear/eliminar vía `?tab=&open=` en la URL de redirect
+- 367 tests pasan
+
+## Versión anterior: v45.15 — 28-Jun-2026
+
+### v45.15 — mobile: captura bundle_snapshot al finalizar borrador
+
 ## Versión actual: v45.14 — 28-Jun-2026
 
 ### v45.14 — Cotizaciones: plantillas múltiples por tipo y bundles con desglose de cantidades

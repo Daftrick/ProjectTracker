@@ -87,10 +87,10 @@ class QuoteSectionsTest(unittest.TestCase):
     def test_quote_templates_admin_edits_items_without_prices(self):
         template = Path("templates/quote_templates.html").read_text(encoding="utf-8")
 
-        self.assertIn("template-search-input", template)
-        self.assertIn("template-item-qty", template)
-        self.assertIn("template-sections-json", template)
-        self.assertIn("TEMPLATE_CATALOG", template)
+        self.assertIn("tpl-search-input", template)
+        self.assertIn("tpl-item-qty", template)
+        self.assertIn("sections-json-", template)
+        self.assertIn("TPL_CATALOG", template)
         self.assertNotIn("item.precio", template)
         self.assertNotIn("unit_price", template)
 

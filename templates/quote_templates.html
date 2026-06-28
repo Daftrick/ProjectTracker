@@ -1,378 +1,395 @@
 {% extends "base.html" %}
 {% block title %}Plantillas de Cotización{% endblock %}
 {% block page_title %}<i class="bi bi-file-earmark-text me-2"></i>Plantillas de Cotización{% endblock %}
-{% block content %}
+
+{% block extra_head %}
 <style>
-  .template-shell { max-width: 1120px; }
-  .template-list { display: grid; gap: 1rem; }
-  .template-editor {
-    border: 1px solid rgba(255,255,255,.12);
-    border-radius: 8px;
-    background: rgba(255,255,255,.03);
-  }
-  .template-editor-header {
-    display: grid;
-    grid-template-columns: minmax(220px, 1fr) auto;
-    gap: .75rem;
-    padding: 1rem;
-    border-bottom: 1px solid rgba(255,255,255,.10);
-  }
-  .template-editor-body { padding: 1rem; }
-  .template-section {
+  .tpl-shell { max-width: 860px; }
+  .tpl-card {
     border: 1px solid rgba(255,255,255,.10);
+    border-radius: 10px;
+    background: rgba(255,255,255,.03);
+    margin-bottom: .65rem;
+  }
+  .tpl-card-header {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .85rem 1rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .tpl-card-header:hover { background: rgba(255,255,255,.04); border-radius: 10px; }
+  .tpl-card-header.is-open { border-radius: 10px 10px 0 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .tpl-card-info { flex: 1; min-width: 0; }
+  .tpl-card-name { font-weight: 600; }
+  .tpl-card-meta { font-size: .76rem; color: var(--bs-secondary-color); margin-top: 2px; }
+  .tpl-card-body { padding: 1.1rem 1rem 1rem; }
+  .tpl-section {
+    border: 1px solid rgba(255,255,255,.09);
     border-radius: 8px;
     padding: .85rem;
-    margin-bottom: .75rem;
-    background: rgba(0,0,0,.12);
+    margin-bottom: .65rem;
+    background: rgba(0,0,0,.10);
   }
-  .template-section-header {
+  .tpl-section-header {
     display: grid;
-    grid-template-columns: minmax(180px, 1fr) auto;
+    grid-template-columns: 1fr auto;
     gap: .5rem;
-    margin-bottom: .75rem;
+    margin-bottom: .65rem;
   }
-  .template-item-row {
+  .tpl-item-row {
     display: grid;
-    grid-template-columns: minmax(220px, 1fr) 100px 110px auto;
+    grid-template-columns: 1fr 90px auto;
     gap: .5rem;
     align-items: center;
-    margin-bottom: .45rem;
+    margin-bottom: .4rem;
   }
-  .template-item-muted { color: var(--bs-secondary-color); font-size: .78rem; }
-  .template-search { position: relative; }
-  .template-search-results {
+  .tpl-item-muted { color: var(--bs-secondary-color); font-size: .76rem; }
+  .tpl-search { position: relative; }
+  .tpl-search-results {
     display: none;
     position: absolute;
-    z-index: 30;
+    z-index: 40;
     top: calc(100% + 4px);
-    left: 0;
-    right: 0;
-    max-height: 240px;
-    overflow: auto;
-    border: 1px solid rgba(255,255,255,.18);
+    left: 0; right: 0;
+    max-height: 220px;
+    overflow-y: auto;
+    border: 1px solid rgba(255,255,255,.16);
     border-radius: 8px;
     background: #111827;
-    box-shadow: 0 16px 28px rgba(0,0,0,.35);
+    box-shadow: 0 14px 28px rgba(0,0,0,.35);
   }
-  .template-search-results.is-open { display: block; }
-  .template-search-result {
-    width: 100%;
-    text-align: left;
-    border: 0;
-    border-bottom: 1px solid rgba(255,255,255,.08);
-    padding: .55rem .7rem;
-    background: transparent;
-    color: inherit;
+  .tpl-search-results.is-open { display: block; }
+  .tpl-search-result {
+    width: 100%; text-align: left; border: 0;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    padding: .5rem .7rem; background: transparent; color: inherit;
   }
-  .template-search-result:hover { background: rgba(255,255,255,.08); }
-  @media (max-width: 768px) {
-    .template-editor-header,
-    .template-section-header,
-    .template-item-row {
-      grid-template-columns: 1fr;
-    }
+  .tpl-search-result:hover { background: rgba(255,255,255,.07); }
+  .tpl-chevron { transition: transform .2s; color: var(--bs-secondary-color); }
+  .tpl-chevron.rotated { transform: rotate(180deg); }
+  @media (max-width: 600px) {
+    .tpl-item-row { grid-template-columns: 1fr auto; }
+    .tpl-item-qty { display: none; }
   }
 </style>
+{% endblock %}
 
-<div class="template-shell">
+{% block content %}
+<div class="tpl-shell">
   <p class="text-muted mb-4">
-    Administra plantillas por tipo de cotización. Las plantillas guardan secciones,
-    artículos de catálogo y cantidades; los precios se toman del catálogo al crear la cotización.
+    Las plantillas definen secciones, artículos y cantidades por defecto al crear una cotización.
+    Los precios se toman del catálogo en el momento de crear la cotización.
   </p>
 
-  <form method="post" action="{{ url_for('admin_bp.quote_templates') }}" id="quoteTemplatesForm">
-    <ul class="nav nav-tabs mb-3" id="qtTypeTabs">
-      {% for qtype in quote_types %}
-      <li class="nav-item">
-        <button class="nav-link {% if loop.first %}active{% endif %}"
-                type="button"
-                data-bs-toggle="tab"
-                data-bs-target="#tab-{{ qtype }}">
-          {{ qtype }}
-        </button>
-      </li>
-      {% endfor %}
-    </ul>
+  <ul class="nav nav-tabs mb-3" id="qtTypeTabs">
+    {% for qtype in quote_types %}
+    <li class="nav-item">
+      <button class="nav-link {% if qtype == open_tab %}active{% endif %}"
+              type="button" data-bs-toggle="tab"
+              data-bs-target="#tab-{{ qtype }}">
+        {{ qtype }}
+        <span class="badge bg-secondary ms-1">{{ templates[qtype]|length }}</span>
+      </button>
+    </li>
+    {% endfor %}
+  </ul>
 
-    <div class="tab-content">
-      {% for qtype in quote_types %}
-      <div class="tab-pane fade {% if loop.first %}show active{% endif %}" id="tab-{{ qtype }}">
-        <div class="d-flex gap-2 mb-3">
-          <input name="new_template_name_{{ qtype }}" class="form-control"
-                 placeholder="Nombre de nueva plantilla">
-          <button type="submit" name="create_qtype" value="{{ qtype }}" class="btn btn-outline-primary text-nowrap">
-            <i class="bi bi-plus-lg me-1"></i>Nueva plantilla
-          </button>
+  <div class="tab-content">
+    {% for qtype in quote_types %}
+    <div class="tab-pane fade {% if qtype == open_tab %}show active{% endif %}" id="tab-{{ qtype }}">
+
+      {% for tmpl in templates[qtype] %}
+      {% set tid = tmpl.id %}
+      {% set is_open = (tid == open_template) %}
+      <div class="tpl-card" id="tplcard-{{ tid }}">
+
+        <!-- Card header -->
+        <div class="tpl-card-header {% if is_open %}is-open{% endif %}"
+             onclick="toggleCard('{{ tid }}')" id="tplhdr-{{ tid }}">
+          <i class="bi bi-file-earmark-text text-primary"></i>
+          <div class="tpl-card-info">
+            <div class="tpl-card-name">{{ tmpl.name }}</div>
+            <div class="tpl-card-meta">
+              {{ tmpl.sections_default|length }} sección(es)
+              · {{ tmpl.sections_default|sum(attribute='items')|list|length if tmpl.sections_default else 0 }} artículo(s)
+            </div>
+          </div>
+          <i class="bi bi-chevron-down tpl-chevron {% if is_open %}rotated{% endif %}" id="tplchev-{{ tid }}"></i>
         </div>
 
-        <div class="template-list">
-          {% for tmpl in templates[qtype] %}
-          <section class="template-editor" data-template-id="{{ tmpl.id }}">
-            <input type="hidden" name="template_{{ tmpl.id }}_sections_json" class="template-sections-json">
-            <div class="template-editor-header">
-              <div>
-                <label class="form-label form-label-sm fw-semibold">Nombre</label>
-                <input name="template_{{ tmpl.id }}_name" class="form-control"
-                       value="{{ tmpl.name }}" placeholder="Ejecutivo completo">
-              </div>
-              <div class="d-flex align-items-end gap-2">
-                <button type="button" class="btn btn-outline-secondary" onclick="addTemplateSection('{{ tmpl.id }}')">
-                  <i class="bi bi-layout-text-sidebar-reverse me-1"></i>Sección
-                </button>
-                <button type="submit" class="btn btn-outline-danger"
-                        name="delete_target" value="{{ qtype }}:{{ tmpl.id }}"
-                        onclick="return confirm('¿Eliminar esta plantilla?')">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </div>
-            </div>
+        <!-- Collapsible editor -->
+        <div id="tpleditor-{{ tid }}" style="display:{% if is_open %}block{% else %}none{% endif %}">
+          <div class="tpl-card-body">
+            <form method="post" action="{{ url_for('quotes_bp.quote_templates') }}"
+                  id="form-{{ tid }}"
+                  onsubmit="syncTplSections('{{ tid }}')">
+              <input type="hidden" name="action" value="save">
+              <input type="hidden" name="qtype" value="{{ qtype }}">
+              <input type="hidden" name="template_id" value="{{ tid }}">
+              <input type="hidden" name="template_{{ tid }}_sections_json"
+                     id="sections-json-{{ tid }}" value="{{ tmpl.sections_default | tojson }}">
 
-            <div class="template-editor-body">
-              <div class="template-sections">
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Nombre</label>
+                <input name="template_{{ tid }}_name" class="form-control"
+                       value="{{ tmpl.name }}" placeholder="Ej. Ejecutivo completo" required>
+              </div>
+
+              <!-- Secciones -->
+              <label class="form-label fw-semibold">Secciones y artículos</label>
+              <div id="sections-{{ tid }}" class="mb-2">
                 {% for section in tmpl.sections_default %}
-                <div class="template-section">
-                  <div class="template-section-header">
-                    <input class="form-control template-section-name"
+                <div class="tpl-section">
+                  <div class="tpl-section-header">
+                    <input class="form-control tpl-section-name"
                            value="{{ section.name }}" placeholder="Nombre de sección">
-                    <button type="button" class="btn btn-outline-danger" onclick="removeTemplateSection(this)">
+                    <button type="button" class="btn btn-sm btn-outline-danger"
+                            onclick="removeSection(this)">
                       <i class="bi bi-x-lg"></i>
                     </button>
                   </div>
-                  <div class="template-items">
-                    {% for item in section["items"] %}
-                    <div class="template-item-row">
+                  <div class="tpl-items">
+                    {% for item in section.items %}
+                    <div class="tpl-item-row">
                       <div>
-                        <input type="hidden" class="template-item-id" value="{{ item.catalog_item_id }}">
-                        <input type="hidden" class="template-item-description" value="{{ item.description }}">
-                        <input type="hidden" class="template-item-unit" value="{{ item.unit }}">
-                        <div class="fw-semibold template-item-title">{{ item.description }}</div>
-                        <div class="template-item-muted">{{ item.unit }}</div>
+                        <input type="hidden" class="tpl-item-id"   value="{{ item.catalog_item_id }}">
+                        <input type="hidden" class="tpl-item-desc" value="{{ item.description }}">
+                        <input type="hidden" class="tpl-item-unit" value="{{ item.unit }}">
+                        <div class="fw-semibold">{{ item.description }}</div>
+                        <div class="tpl-item-muted">{{ item.unit }}</div>
                       </div>
-                      <input class="form-control form-control-sm template-item-qty" type="number"
-                             value="{{ item.qty }}" min="0" step="0.01" aria-label="Cantidad">
-                      <span class="template-item-muted">cantidad</span>
-                      <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeTemplateItem(this)">
+                      <input class="form-control form-control-sm tpl-item-qty tpl-item-qty"
+                             type="number" value="{{ item.qty }}" min="0" step="0.01" aria-label="Qty">
+                      <button type="button" class="btn btn-sm btn-outline-danger"
+                              onclick="removeItem(this)">
                         <i class="bi bi-x"></i>
                       </button>
                     </div>
                     {% endfor %}
                   </div>
-                  <div class="template-search mt-2">
-                    <input class="form-control form-control-sm template-search-input"
-                           placeholder="Buscar artículo de catálogo para agregar">
-                    <div class="template-search-results"></div>
+                  <div class="tpl-search mt-2">
+                    <input class="form-control form-control-sm tpl-search-input"
+                           placeholder="Buscar artículo del catálogo…">
+                    <div class="tpl-search-results"></div>
                   </div>
                 </div>
                 {% endfor %}
               </div>
-              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addTemplateSection('{{ tmpl.id }}')">
+              <button type="button" class="btn btn-sm btn-outline-secondary mb-3"
+                      onclick="addSection('{{ tid }}')">
                 <i class="bi bi-plus-lg me-1"></i>Agregar sección
               </button>
 
               <hr>
+
+              <!-- Contactos -->
               <h6 class="fw-semibold mb-3">Contactos de portada</h6>
               <div class="row g-3 mb-3">
                 {% for contact in tmpl.contacts_default %}
                 <div class="col-md-6">
-                  <div class="d-flex align-items-center gap-2 mb-2">
+                  <div class="d-flex align-items-center gap-2 mb-1">
                     <input type="checkbox" class="form-check-input mt-0"
-                           name="template_{{ tmpl.id }}_contact_{{ loop.index0 }}_enabled"
+                           name="template_{{ tid }}_contact_{{ loop.index0 }}_enabled"
                            value="1"
-                           id="template_{{ tmpl.id }}_contact_{{ loop.index0 }}_enabled"
+                           id="c-{{ tid }}-{{ loop.index0 }}"
                            {% if contact.enabled %}checked{% endif %}>
-                    <label class="form-check-label fw-semibold" for="template_{{ tmpl.id }}_contact_{{ loop.index0 }}_enabled">
+                    <label class="form-check-label fw-semibold" for="c-{{ tid }}-{{ loop.index0 }}">
                       Integrante {{ loop.index }}
                     </label>
                   </div>
                   <div class="row g-2">
                     <div class="col-6">
-                      <input name="template_{{ tmpl.id }}_contact_{{ loop.index0 }}_name"
+                      <input name="template_{{ tid }}_contact_{{ loop.index0 }}_name"
                              class="form-control form-control-sm"
-                             value="{{ contact.name }}"
-                             placeholder="Nombre">
+                             value="{{ contact.name }}" placeholder="Nombre">
                     </div>
                     <div class="col-6">
-                      <input name="template_{{ tmpl.id }}_contact_{{ loop.index0 }}_role"
+                      <input name="template_{{ tid }}_contact_{{ loop.index0 }}_role"
                              class="form-control form-control-sm"
-                             value="{{ contact.role }}"
-                             placeholder="Puesto">
+                             value="{{ contact.role }}" placeholder="Puesto">
                     </div>
                   </div>
                 </div>
                 {% endfor %}
               </div>
 
+              <!-- Términos -->
               <h6 class="fw-semibold mb-3">Términos y condiciones</h6>
-              <div class="row g-3">
+              <div class="row g-3 mb-4">
                 {% for term in tmpl.terms_default %}
                 <div class="col-md-6">
-                  <div class="form-check mb-2">
+                  <div class="form-check mb-1">
                     <input type="checkbox" class="form-check-input"
-                           name="template_{{ tmpl.id }}_term_{{ term.key }}_enabled"
+                           name="template_{{ tid }}_term_{{ term.key }}_enabled"
                            value="1"
-                           id="template_{{ tmpl.id }}_term_{{ term.key }}_enabled"
+                           id="t-{{ tid }}-{{ term.key }}"
                            {% if term.enabled %}checked{% endif %}>
-                    <label class="form-check-label fw-semibold" for="template_{{ tmpl.id }}_term_{{ term.key }}_enabled">
+                    <label class="form-check-label fw-semibold" for="t-{{ tid }}-{{ term.key }}">
                       {{ term.title }}
                     </label>
                   </div>
-                  <textarea name="template_{{ tmpl.id }}_term_{{ term.key }}_body"
-                            class="form-control form-control-sm"
-                            rows="2">{{ term.body }}</textarea>
+                  <textarea name="template_{{ tid }}_term_{{ term.key }}_body"
+                            class="form-control form-control-sm" rows="2">{{ term.body }}</textarea>
                 </div>
                 {% endfor %}
               </div>
-            </div>
-          </section>
-          {% endfor %}
+
+              <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-check-lg me-1"></i>Guardar plantilla
+                </button>
+                <form method="post" action="{{ url_for('quotes_bp.quote_templates') }}"
+                      class="d-inline"
+                      onsubmit="return confirm('¿Eliminar la plantilla «{{ tmpl.name }}»?')">
+                  <input type="hidden" name="delete_target" value="{{ qtype }}:{{ tid }}">
+                  <button type="submit" class="btn btn-outline-danger">
+                    <i class="bi bi-trash me-1"></i>Eliminar
+                  </button>
+                </form>
+              </div>
+
+            </form>
+          </div>
         </div>
+
       </div>
       {% endfor %}
-    </div>
 
-    <div class="d-flex gap-2 mt-4 mb-4">
-      <button type="submit" name="action" value="save" class="btn btn-primary">
-        <i class="bi bi-check-lg me-1"></i>Guardar plantillas
-      </button>
+      <!-- Nueva plantilla -->
+      <div class="card mt-3">
+        <div class="card-body py-3">
+          <form method="post" action="{{ url_for('quotes_bp.quote_templates') }}">
+            <input type="hidden" name="create_qtype" value="{{ qtype }}">
+            <div class="d-flex gap-2">
+              <input name="new_template_name_{{ qtype }}" class="form-control"
+                     placeholder="Nombre de nueva plantilla…">
+              <button type="submit" class="btn btn-outline-primary text-nowrap">
+                <i class="bi bi-plus-lg me-1"></i>Nueva plantilla
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
     </div>
-  </form>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-  const TEMPLATE_CATALOG = {{ catalog | tojson }};
+  const TPL_CATALOG = {{ catalog | tojson }};
 
-  function templateEsc(value) {
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;");
+  function esc(v) {
+    return String(v ?? "")
+      .replaceAll("&","&amp;").replaceAll("<","&lt;")
+      .replaceAll(">","&gt;").replaceAll('"',"&quot;");
   }
 
-  function templateItemRow(item) {
-    return `
-      <div class="template-item-row">
-        <div>
-          <input type="hidden" class="template-item-id" value="${templateEsc(item.id || item.catalog_item_id || "")}">
-          <input type="hidden" class="template-item-description" value="${templateEsc(item.nombre || item.description || "")}">
-          <input type="hidden" class="template-item-unit" value="${templateEsc(item.unidad || item.unit || "")}">
-          <div class="fw-semibold template-item-title">${templateEsc(item.nombre || item.description || "")}</div>
-          <div class="template-item-muted">${templateEsc(item.unidad || item.unit || "")}</div>
+  function toggleCard(tid) {
+    const editor = document.getElementById(`tpleditor-${tid}`);
+    const hdr    = document.getElementById(`tplhdr-${tid}`);
+    const chev   = document.getElementById(`tplchev-${tid}`);
+    const open   = editor.style.display !== "none";
+    editor.style.display = open ? "none" : "block";
+    hdr.classList.toggle("is-open", !open);
+    chev.classList.toggle("rotated", !open);
+  }
+
+  function addSection(tid) {
+    const container = document.getElementById(`sections-${tid}`);
+    container.insertAdjacentHTML("beforeend", `
+      <div class="tpl-section">
+        <div class="tpl-section-header">
+          <input class="form-control tpl-section-name" placeholder="Nombre de sección">
+          <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSection(this)">
+            <i class="bi bi-x-lg"></i>
+          </button>
         </div>
-        <input class="form-control form-control-sm template-item-qty" type="number"
-               value="${templateEsc(item.qty || 1)}" min="0" step="0.01" aria-label="Cantidad">
-        <span class="template-item-muted">cantidad</span>
-        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeTemplateItem(this)">
+        <div class="tpl-items"></div>
+        <div class="tpl-search mt-2">
+          <input class="form-control form-control-sm tpl-search-input"
+                 placeholder="Buscar artículo del catálogo…">
+          <div class="tpl-search-results"></div>
+        </div>
+      </div>`);
+    container.querySelector(".tpl-section:last-child .tpl-section-name")?.focus();
+  }
+
+  function removeSection(btn) { btn.closest(".tpl-section")?.remove(); }
+  function removeItem(btn)    { btn.closest(".tpl-item-row")?.remove(); }
+
+  function itemRowHTML(item) {
+    return `
+      <div class="tpl-item-row">
+        <div>
+          <input type="hidden" class="tpl-item-id"   value="${esc(item.id || item.catalog_item_id || "")}">
+          <input type="hidden" class="tpl-item-desc" value="${esc(item.nombre || item.description || "")}">
+          <input type="hidden" class="tpl-item-unit" value="${esc(item.unidad || item.unit || "")}">
+          <div class="fw-semibold">${esc(item.nombre || item.description || "")}</div>
+          <div class="tpl-item-muted">${esc(item.unidad || item.unit || "")}</div>
+        </div>
+        <input class="form-control form-control-sm tpl-item-qty"
+               type="number" value="${esc(item.qty || 1)}" min="0" step="0.01" aria-label="Qty">
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeItem(this)">
           <i class="bi bi-x"></i>
         </button>
       </div>`;
   }
 
-  function templateSectionHTML(name = "") {
-    return `
-      <div class="template-section">
-        <div class="template-section-header">
-          <input class="form-control template-section-name" value="${templateEsc(name)}" placeholder="Nombre de sección">
-          <button type="button" class="btn btn-outline-danger" onclick="removeTemplateSection(this)">
-            <i class="bi bi-x-lg"></i>
-          </button>
-        </div>
-        <div class="template-items"></div>
-        <div class="template-search mt-2">
-          <input class="form-control form-control-sm template-search-input"
-                 placeholder="Buscar artículo de catálogo para agregar">
-          <div class="template-search-results"></div>
-        </div>
-      </div>`;
-  }
-
-  function addTemplateSection(templateId) {
-    const editor = document.querySelector(`[data-template-id="${CSS.escape(templateId)}"]`);
-    const container = editor?.querySelector(".template-sections");
-    if (!container) return;
-    container.insertAdjacentHTML("beforeend", templateSectionHTML(""));
-    container.querySelector(".template-section:last-child .template-section-name")?.focus();
-  }
-
-  function removeTemplateSection(button) {
-    button.closest(".template-section")?.remove();
-  }
-
-  function removeTemplateItem(button) {
-    button.closest(".template-item-row")?.remove();
-  }
-
-  function addItemToSection(section, item) {
-    section.querySelector(".template-items")?.insertAdjacentHTML("beforeend", templateItemRow(item));
-  }
-
-  function renderSearchResults(input) {
-    const section = input.closest(".template-section");
-    const results = section.querySelector(".template-search-results");
-    const query = input.value.trim().toLowerCase();
-    if (!query) {
-      results.classList.remove("is-open");
-      results.innerHTML = "";
-      return;
-    }
-    const matches = TEMPLATE_CATALOG
-      .filter(item => `${item.nombre || ""} ${item.descripcion || ""} ${item.unidad || ""}`.toLowerCase().includes(query))
+  function renderSearch(input) {
+    const section = input.closest(".tpl-section");
+    const box     = section.querySelector(".tpl-search-results");
+    const q       = input.value.trim().toLowerCase();
+    if (!q) { box.classList.remove("is-open"); box.innerHTML = ""; return; }
+    const hits = TPL_CATALOG
+      .filter(i => `${i.nombre||""} ${i.descripcion||""} ${i.unidad||""}`.toLowerCase().includes(q))
       .slice(0, 12);
-    if (!matches.length) {
-      results.innerHTML = `<div class="template-item-muted p-2">Sin resultados.</div>`;
-      results.classList.add("is-open");
-      return;
+    if (!hits.length) {
+      box.innerHTML = `<div class="tpl-item-muted p-2">Sin resultados.</div>`;
+      box.classList.add("is-open"); return;
     }
-    results.innerHTML = matches.map((item, index) => `
-      <button type="button" class="template-search-result" data-catalog-index="${index}">
-        <div class="fw-semibold">${templateEsc(item.nombre)}</div>
-        <div class="template-item-muted">${templateEsc(item.unidad)}${item.descripcion ? ` · ${templateEsc(item.descripcion)}` : ""}</div>
+    box.innerHTML = hits.map(i => `
+      <button type="button" class="tpl-search-result">
+        <div class="fw-semibold">${esc(i.nombre)}</div>
+        <div class="tpl-item-muted">${esc(i.unidad)}${i.descripcion ? ` · ${esc(i.descripcion)}` : ""}</div>
       </button>`).join("");
-    results.querySelectorAll(".template-search-result").forEach((button, index) => {
-      button.addEventListener("mousedown", event => {
-        event.preventDefault();
-        addItemToSection(section, matches[index]);
+    box.querySelectorAll(".tpl-search-result").forEach((btn, idx) => {
+      btn.addEventListener("mousedown", e => {
+        e.preventDefault();
+        section.querySelector(".tpl-items").insertAdjacentHTML("beforeend", itemRowHTML(hits[idx]));
         input.value = "";
-        results.classList.remove("is-open");
-        results.innerHTML = "";
+        box.classList.remove("is-open"); box.innerHTML = "";
       });
     });
-    results.classList.add("is-open");
+    box.classList.add("is-open");
   }
 
-  function syncTemplateSections() {
-    document.querySelectorAll(".template-editor").forEach(editor => {
-      const sections = Array.from(editor.querySelectorAll(".template-section")).map(section => {
-        const items = Array.from(section.querySelectorAll(".template-item-row")).map(row => ({
-          catalog_item_id: row.querySelector(".template-item-id")?.value || "",
-          description: row.querySelector(".template-item-description")?.value || "",
-          unit: row.querySelector(".template-item-unit")?.value || "",
-          qty: parseFloat(row.querySelector(".template-item-qty")?.value || "1") || 1,
-        })).filter(item => item.catalog_item_id);
-        return {
-          name: section.querySelector(".template-section-name")?.value.trim() || "",
-          items,
-        };
-      }).filter(section => section.name || section.items.length);
-      editor.querySelector(".template-sections-json").value = JSON.stringify(sections);
-    });
+  function syncTplSections(tid) {
+    const container = document.getElementById(`sections-${tid}`);
+    const jsonInput = document.getElementById(`sections-json-${tid}`);
+    if (!container || !jsonInput) return;
+    const sections = [...container.querySelectorAll(".tpl-section")].map(sec => ({
+      name: sec.querySelector(".tpl-section-name")?.value.trim() || "",
+      items: [...sec.querySelectorAll(".tpl-item-row")].map(row => ({
+        catalog_item_id: row.querySelector(".tpl-item-id")?.value || "",
+        description:     row.querySelector(".tpl-item-desc")?.value || "",
+        unit:            row.querySelector(".tpl-item-unit")?.value || "",
+        qty: parseFloat(row.querySelector(".tpl-item-qty")?.value || "1") || 1,
+      })).filter(i => i.catalog_item_id),
+    })).filter(s => s.name || s.items.length);
+    jsonInput.value = JSON.stringify(sections);
   }
 
-  document.addEventListener("input", event => {
-    if (event.target.classList.contains("template-search-input")) {
-      renderSearchResults(event.target);
-    }
+  document.addEventListener("input", e => {
+    if (e.target.classList.contains("tpl-search-input")) renderSearch(e.target);
   });
-  document.addEventListener("click", event => {
-    if (!event.target.closest(".template-search")) {
-      document.querySelectorAll(".template-search-results").forEach(el => {
-        el.classList.remove("is-open");
-      });
-    }
+  document.addEventListener("click", e => {
+    if (!e.target.closest(".tpl-search"))
+      document.querySelectorAll(".tpl-search-results").forEach(el => el.classList.remove("is-open"));
   });
-  document.getElementById("quoteTemplatesForm").addEventListener("submit", syncTemplateSections);
-  window.addEventListener("DOMContentLoaded", syncTemplateSections);
 </script>
 {% endblock %}
