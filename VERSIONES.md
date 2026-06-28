@@ -1,5 +1,12 @@
 # ProjectTracker — Estado y Versiones
 
+## Versión actual: v45.13 — 28-Jun-2026
+
+### v45.13 — PDF: correcciones label IVA y null-guard tax_rate
+- **IVA label consistente**: portada ahora usa `_ptax_rate_disp` (igual que bloque de totales) → ambas páginas muestran `IVA (16%)` en lugar de `IVA (16.0%)` cuando la tasa es entera
+- **Null-guard tax_rate**: `_ptax_rate` y `_tax_rate` guardan contra `None` explícito antes de `float()` — evita `TypeError` en documentos con `tax_rate: null`
+- **`_tax_rate_disp` simplificado**: `float(x) % 1 == 0` reemplaza `float(x) == int(float(x))`
+
 ## Versión actual: v45.12 — 27-Jun-2026
 
 ### v45.12 — PDF: totales generales con layout 2 columnas explícito

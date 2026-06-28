@@ -730,6 +730,9 @@ def build_quote_pdf(project, quote, output_path=None):
     totals_box_x = 107
     totals_box_w = 96
     _ptax_rate = quote.get("tax_rate", 16)
+    if _ptax_rate is None:
+        _ptax_rate = 16
+    _ptax_rate_disp = int(_ptax_rate) if float(_ptax_rate) % 1 == 0 else _ptax_rate
     _ptax      = quote.get("tax", 0)
     totals_box_h = 38 if (_ptax_rate and _ptax) else 20
     totals_box_y = summary_y + (summary_h - totals_box_h) / 2
@@ -827,7 +830,7 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.cell(value_w, row_h, money_pdf(quote.get("subtotal", 0)), align="R", ln=True)
         # IVA
         pdf.set_xy(label_x, totals_box_y + 13.7)
-        pdf.cell(label_w, row_h, f"IVA ({_ptax_rate}%)")
+        pdf.cell(label_w, row_h, f"IVA ({_ptax_rate_disp}%)")
         pdf.cell(value_w, row_h, money_pdf(_ptax), align="R", ln=True)
         # Divisor
         pdf.set_draw_color(*LINE)
@@ -988,7 +991,9 @@ def build_quote_pdf(project, quote, output_path=None):
     _tax       = quote.get("tax", 0)
     _total     = quote.get("total", 0)
     _tax_rate  = quote.get("tax_rate", 16)
-    _tax_rate_disp = int(_tax_rate) if float(_tax_rate) == int(float(_tax_rate)) else _tax_rate
+    if _tax_rate is None:
+        _tax_rate = 16
+    _tax_rate_disp = int(_tax_rate) if float(_tax_rate) % 1 == 0 else _tax_rate
     _tot_lbl_w = 48
     _tot_val_w = cols[-1]   # alinea con columna IMPORTE
     _tot_x     = pdf.l_margin + content_width - _tot_lbl_w - _tot_val_w
