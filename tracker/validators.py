@@ -1,3 +1,4 @@
+import json as _json
 import re
 from datetime import datetime
 
@@ -317,7 +318,6 @@ def _parse_quote_items(form, errors, default_pct_mo=0.0, default_pct_indirectos=
             parsed_item["deleted_catalog_item"] = hydrated["deleted_catalog_item"]
         raw_snapshot = bundle_snapshots[index].strip() if index < len(bundle_snapshots) else ""
         if raw_snapshot:
-            import json as _json
             try:
                 parsed_item["bundle_snapshot"] = _json.loads(raw_snapshot)
             except (ValueError, TypeError):

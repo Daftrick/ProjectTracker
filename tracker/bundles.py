@@ -156,11 +156,12 @@ def quote_item_bundle_breakdown(item: dict, bundle_index: dict, catalog_by_id: d
     snapshot = item.get("bundle_snapshot") or {}
     snapshot_components = snapshot.get("components") if isinstance(snapshot, dict) else None
     if isinstance(snapshot_components, list):
+        quote_qty = _safe_float(item.get("qty", 1))
         rows = []
         for component in snapshot_components:
             if not isinstance(component, dict):
                 continue
-            qty = _safe_float(component.get("qty"))
+            qty = _safe_float(component.get("qty")) * quote_qty
             if qty <= 0:
                 continue
             rows.append(_component_row(component, qty, catalog_by_id))
@@ -244,6 +245,8 @@ def capture_bundle_snapshot(item: dict, bundle_index: dict, catalog_by_id: dict 
             "qty": comp["qty"],
         })
 
+    if not components:
+        return None
     return {
         "bundle_id": bundle.get("id", ""),
         "bundle_version": active_version.get("version"),

@@ -105,7 +105,7 @@ class QuoteItemBundleBreakdownTest(unittest.TestCase):
             "qty": 3,
             "bundle_snapshot": {
                 "components": [
-                    {"catalog_item_id": "MAT-SNAP", "description": "Snapshot item", "unit": "pza", "qty": 7}
+                    {"catalog_item_id": "MAT-SNAP", "description": "Snapshot item", "unit": "m", "qty": 7}
                 ]
             },
         }
@@ -114,7 +114,22 @@ class QuoteItemBundleBreakdownTest(unittest.TestCase):
 
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0]["catalog_item_id"], "MAT-SNAP")
-        self.assertEqual(rows[0]["qty"], 7.0)
+        # snapshot stores per-unit factor (7); quote qty=3 → total = 7 * 3 = 21
+        self.assertEqual(rows[0]["qty"], 21.0)
+
+    def test_snapshot_qty_scales_by_quote_item_qty(self):
+        item = {
+            "catalog_item_id": "COT-X",
+            "qty": 5,
+            "bundle_snapshot": {
+                "components": [
+                    {"catalog_item_id": "MAT-A", "description": "Cable", "unit": "m", "qty": 2.0},
+                ]
+            },
+        }
+        rows = b.quote_item_bundle_breakdown(item, {}, {})
+        # 2.0 factor × 5 items = 10.0
+        self.assertEqual(rows[0]["qty"], 10.0)
 
     def test_breakdown_missing_bundle_returns_empty_list(self):
         rows = b.quote_item_bundle_breakdown({"catalog_item_id": "NOPE", "qty": 1}, {}, {})
@@ -359,6 +374,17 @@ class CaptureBundleSnapshotTest(unittest.TestCase):
         )
         self.assertEqual(len(result["components"]), 1)
         self.assertEqual(result["components"][0]["catalog_item_id"], "MAT-OK")
+
+    def test_returns_none_when_all_components_filtered(self):
+        bundle = self._make_bundle("COT-4", [
+            {"catalog_item_id": "MAT-ZERO", "qty": 0},
+        ])
+        result = b.capture_bundle_snapshot(
+            {"catalog_item_id": "COT-4"},
+            b.bundle_by_catalog_item_id([bundle]),
+            {},
+        )
+        self.assertIsNone(result)
 
 
 if __name__ == "__main__":
