@@ -92,8 +92,8 @@ class QuoteItemBundleBreakdownTest(unittest.TestCase):
             "qty": 6.0,
             "qty_display": "6",
         })
-        self.assertAlmostEqual(rows[1]["qty"], 4.95)
-        self.assertEqual(rows[1]["qty_display"], "4.95")
+        self.assertAlmostEqual(rows[1]["qty"], 4.5)
+        self.assertEqual(rows[1]["qty_display"], "4.5")
         for row in rows:
             self.assertNotIn("price", row)
             self.assertNotIn("total", row)
@@ -260,6 +260,105 @@ class BundleEdgeCasesTest(unittest.TestCase):
         result = b.expand_quote_bundles(quote, [bundle], {})
         self.assertIn("MAT-1", result["items"])
         self.assertEqual(len(result["unmapped_quote_items"]) + len(result["bundle_quote_items"]), 1)
+
+
+class BreakdownQtyRulesTest(unittest.TestCase):
+    def test_no_waste_pct_in_live_breakdown(self):
+        bundle = b.create_bundle("COT-W", "Bundle con desperdicio", [
+            {"catalog_item_id": "MAT-W", "qty": 2.0, "waste_pct": 20},
+        ])
+        rows = b.quote_item_bundle_breakdown(
+            {"catalog_item_id": "COT-W", "qty": 3},
+            b.bundle_by_catalog_item_id([bundle]),
+            {"MAT-W": {"nombre": "Material", "unidad": "m"}},
+        )
+        # Without waste: 3 * 2.0 = 6.0 (not 7.2 which would include waste)
+        self.assertAlmostEqual(rows[0]["qty"], 6.0)
+
+    def test_discrete_unit_ceil(self):
+        bundle = b.create_bundle("COT-D", "Bundle discreto", [
+            {"catalog_item_id": "MAT-P", "qty": 1.5},
+        ])
+        rows = b.quote_item_bundle_breakdown(
+            {"catalog_item_id": "COT-D", "qty": 3},
+            b.bundle_by_catalog_item_id([bundle]),
+            {"MAT-P": {"nombre": "Piezas", "unidad": "pza"}},
+        )
+        # 3 * 1.5 = 4.5 → ceil → 5 for discrete unit "pza"
+        self.assertEqual(rows[0]["qty"], 5)
+        self.assertEqual(rows[0]["qty_display"], "5")
+
+    def test_continuous_unit_not_ceiled(self):
+        bundle = b.create_bundle("COT-C", "Bundle continuo", [
+            {"catalog_item_id": "MAT-M", "qty": 1.5},
+        ])
+        rows = b.quote_item_bundle_breakdown(
+            {"catalog_item_id": "COT-C", "qty": 3},
+            b.bundle_by_catalog_item_id([bundle]),
+            {"MAT-M": {"nombre": "Metro lineal", "unidad": "m"}},
+        )
+        self.assertAlmostEqual(rows[0]["qty"], 4.5)
+
+
+class CaptureBundleSnapshotTest(unittest.TestCase):
+    def _make_bundle(self, catalog_item_id, components):
+        return b.create_bundle(catalog_item_id, "Bundle", components)
+
+    def test_returns_none_when_no_bundle(self):
+        item = {"catalog_item_id": "NOPE", "qty": 1}
+        result = b.capture_bundle_snapshot(item, {}, {})
+        self.assertIsNone(result)
+
+    def test_returns_none_when_no_catalog_item_id(self):
+        result = b.capture_bundle_snapshot({}, {}, {})
+        self.assertIsNone(result)
+
+    def test_captures_description_and_unit_from_catalog(self):
+        bundle = self._make_bundle("COT-1", [
+            {"catalog_item_id": "MAT-A", "qty": 2.0},
+            {"catalog_item_id": "MAT-B", "qty": 1.0},
+        ])
+        catalog_by_id = {
+            "MAT-A": {"nombre": "Cable THHN", "unidad": "m"},
+            "MAT-B": {"nombre": "Conector", "unidad": "pza"},
+        }
+        result = b.capture_bundle_snapshot(
+            {"catalog_item_id": "COT-1", "qty": 5},
+            b.bundle_by_catalog_item_id([bundle]),
+            catalog_by_id,
+        )
+        self.assertIsNotNone(result)
+        self.assertEqual(len(result["components"]), 2)
+        a = result["components"][0]
+        self.assertEqual(a["catalog_item_id"], "MAT-A")
+        self.assertEqual(a["description"], "Cable THHN")
+        self.assertEqual(a["unit"], "m")
+        self.assertEqual(a["qty"], 2.0)
+
+    def test_snapshot_has_bundle_id_and_version(self):
+        bundle = self._make_bundle("COT-2", [{"catalog_item_id": "MAT-A", "qty": 1}])
+        bundle["id"] = "BNDL-42"
+        result = b.capture_bundle_snapshot(
+            {"catalog_item_id": "COT-2"},
+            b.bundle_by_catalog_item_id([bundle]),
+            {"MAT-A": {"nombre": "X", "unidad": "pza"}},
+        )
+        self.assertEqual(result["bundle_id"], "BNDL-42")
+        self.assertEqual(result["bundle_version"], 1)
+        self.assertIn("captured_at", result)
+
+    def test_skips_zero_qty_components(self):
+        bundle = self._make_bundle("COT-3", [
+            {"catalog_item_id": "MAT-OK", "qty": 3.0},
+            {"catalog_item_id": "MAT-ZERO", "qty": 0},
+        ])
+        result = b.capture_bundle_snapshot(
+            {"catalog_item_id": "COT-3"},
+            b.bundle_by_catalog_item_id([bundle]),
+            {"MAT-OK": {"nombre": "OK", "unidad": "m"}},
+        )
+        self.assertEqual(len(result["components"]), 1)
+        self.assertEqual(result["components"][0]["catalog_item_id"], "MAT-OK")
 
 
 if __name__ == "__main__":

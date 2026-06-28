@@ -1,3 +1,5 @@
+import json as _json
+
 from .catalog import quote_type_code, quote_type_key
 from .pdfs import QUOTE_TERMS_DEFAULTS
 from .quote_templates_config import MAX_QUOTE_TEMPLATE_CONTACTS, normalize_contact_rows
@@ -33,6 +35,7 @@ def quote_from_form(form, fallback_quote=None):
     pct_ind_overrides = form.getlist("item_pct_indirectos[]")
     pct_util_overrides = form.getlist("item_pct_utilidad[]")
     catalog_ids = form.getlist("item_catalog_id[]")
+    bundle_snapshots = form.getlist("item_bundle_snapshot[]")
     deleted_ids = form.getlist("item_deleted_catalog_id[]")
     deleted_names = form.getlist("item_deleted_catalog_nombre[]")
     deleted_descriptions = form.getlist("item_deleted_catalog_descripcion[]")
@@ -82,6 +85,12 @@ def quote_from_form(form, fallback_quote=None):
         )
         if deleted_catalog_item:
             parsed_item["deleted_catalog_item"] = deleted_catalog_item
+        raw_snapshot = bundle_snapshots[index].strip() if index < len(bundle_snapshots) else ""
+        if raw_snapshot:
+            try:
+                parsed_item["bundle_snapshot"] = _json.loads(raw_snapshot)
+            except (ValueError, TypeError):
+                pass
         items.append(parsed_item)
 
     base = dict(fallback_quote or {})

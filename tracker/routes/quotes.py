@@ -5,7 +5,7 @@ from io import BytesIO
 
 from flask import Blueprint, Response, flash, redirect, render_template, request, send_file, url_for
 
-from ..bundles import hydrate_quote_bundle_breakdowns
+from ..bundles import bundle_by_catalog_item_id, capture_bundle_snapshot, hydrate_quote_bundle_breakdowns
 from ..catalog import aggregate_quote_items, approve_quote, catalog_maps, hydrate_quote, next_quote_number, quote_type_key, safe_float
 from ..csv_catalog_validation import validate_csv_catalog_items
 from ..deletions import purge_deleted_catalog_items_from_record
@@ -23,6 +23,17 @@ def _hydrate_quote_for_display(quote):
     catalog_by_id, catalog_by_name = catalog_maps()
     hydrated = hydrate_quote(quote, catalog_by_id, catalog_by_name)
     return hydrate_quote_bundle_breakdowns(hydrated, load("bundles"), catalog_by_id)
+
+
+def _fill_bundle_snapshots(items):
+    bundles_data = load("bundles")
+    catalog_by_id, _ = catalog_maps()
+    bundle_index = bundle_by_catalog_item_id(bundles_data)
+    for item in items or []:
+        if not item.get("bundle_snapshot") and item.get("catalog_item_id"):
+            snapshot = capture_bundle_snapshot(item, bundle_index, catalog_by_id)
+            if snapshot:
+                item["bundle_snapshot"] = snapshot
 
 
 def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None, form_action=None):
@@ -205,6 +216,7 @@ def new_quote(project_id):
                 for index, key in enumerate(metadata_keys)
                 if key.strip() and index < len(metadata_values) and metadata_values[index].strip()
             }
+        _fill_bundle_snapshots(validation["items"])
         quotes.append(quote)
         save("quotes", quotes)
         flash(f"Cotización {quote['quote_number']} creada.", "success")
@@ -292,6 +304,7 @@ def edit_quote(project_id, quote_id):
                 field_errors=validation["field_errors"],
                 quote_id=quote_id,
             )
+        _fill_bundle_snapshots(validation["items"])
         quote.update({
             "quote_number": validation["quote_number"] or quote["quote_number"],
             "quote_type": validation["quote_type"],
@@ -531,6 +544,12 @@ def _build_quote_workbook(project, quote, Workbook, Alignment, Font):
             ws.cell(row=r, column=total_col).alignment = Alignment(horizontal="right")
             ws.cell(row=r, column=price_col).number_format = "#,##0.00"
             ws.cell(row=r, column=total_col).number_format = "#,##0.00"
+            for comp in item.get("bundle_breakdown", []) or []:
+                comp_text = f"  Incluye: {comp.get('qty_display', comp.get('qty', ''))} {comp.get('unit', '')} {comp.get('description', '')}".strip()
+                incluye_row = [""] * total_col
+                incluye_row[section_label_col - 1] = comp_text
+                ws.append(incluye_row)
+                ws.cell(row=ws.max_row, column=section_label_col).font = Font(italic=True)
 
         if section.get("name"):
             subtotal_row = [""] * total_col

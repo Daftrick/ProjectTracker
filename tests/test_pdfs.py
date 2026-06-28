@@ -97,6 +97,53 @@ class QuoteSequenceFromNumberTest(unittest.TestCase):
         self.assertEqual(quote_sequence_from_number(""), "")
 
 
+class BundleBreakdownPdfRenderTest(unittest.TestCase):
+    def test_pdf_with_bundle_item_renders_without_error(self):
+        bundle_breakdown = [
+            {"catalog_item_id": f"MAT-{i}", "description": f"Componente {i}", "unit": "pza", "qty": float(i), "qty_display": str(i)}
+            for i in range(1, 12)
+        ]
+        quote = {
+            "id": "Q-TEST",
+            "quote_number": "COT-TEST-P01-20260101",
+            "quote_type": "Proyecto",
+            "version": "A",
+            "date": "2026-01-01",
+            "valid_until": "2026-02-01",
+            "client": "Cliente Test",
+            "project_name": "Proyecto Test",
+            "currency": "MXN",
+            "tax_rate": 16,
+            "subtotal": 1000.0,
+            "tax": 160.0,
+            "total": 1160.0,
+            "default_pct_mo": 0,
+            "default_pct_indirectos": 0,
+            "default_pct_utilidad": 0,
+            "notes": "",
+            "cover_discipline": "",
+            "specs": {},
+            "items": [
+                {
+                    "catalog_item_id": "COT-BUNDLE",
+                    "description": "Partida con bundle de 11 componentes",
+                    "unit": "pza",
+                    "qty": 2,
+                    "price": 500.0,
+                    "total": 1000.0,
+                    "section": "",
+                    "bundle_breakdown": bundle_breakdown,
+                    "has_bundle_breakdown": True,
+                }
+            ],
+            "sections": [{"name": "", "items": [], "subtotal": 1000.0}],
+        }
+        project = {"id": "P-TEST", "name": "Proyecto Test", "client": "Cliente Test", "clave": "TEST"}
+        pdf_bytes = build_quote_pdf(project, quote)
+        self.assertIsInstance(pdf_bytes, bytes)
+        self.assertGreater(len(pdf_bytes), 0)
+
+
 class QuotePdfSectionsTest(unittest.TestCase):
     def test_bundle_breakdown_renders_quantities_without_component_prices(self):
         import pdfplumber

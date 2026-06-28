@@ -667,6 +667,7 @@
                   <input type="hidden" name="item_deleted_catalog_unidad[]" value="">
                   <input type="hidden" name="item_deleted_catalog_precio[]" value="">
                   <input type="hidden" name="item_deleted_catalog_deleted_at[]" value="">
+                  <input type="hidden" name="item_bundle_snapshot[]" value="">
                   <span class="drag-handle" title="Arrastrar sección">
                     <i class="bi bi-grip-vertical"></i>
                   </span>
@@ -699,6 +700,7 @@
                   <input type="hidden" name="item_deleted_catalog_unidad[]" value="{{ deleted_catalog.unidad or '' }}">
                   <input type="hidden" name="item_deleted_catalog_precio[]" value="{{ deleted_catalog.precio or '' }}">
                   <input type="hidden" name="item_deleted_catalog_deleted_at[]" value="{{ deleted_catalog.deleted_at or '' }}">
+                  <input type="hidden" name="item_bundle_snapshot[]" value="{{ item.bundle_snapshot | tojson if item.bundle_snapshot else '' }}">
                   <input type="checkbox" class="form-check-input select-checkbox item-select"
                          onchange="updateSelectionUI()" title="Seleccionar partida">
                   <span class="drag-handle" title="Arrastrar para reordenar">
@@ -907,6 +909,7 @@
         <input type="hidden" name="item_deleted_catalog_unidad[]" value="">
         <input type="hidden" name="item_deleted_catalog_precio[]" value="">
         <input type="hidden" name="item_deleted_catalog_deleted_at[]" value="">
+        <input type="hidden" name="item_bundle_snapshot[]" value="">
         <input type="checkbox" class="form-check-input select-checkbox item-select"
                onchange="updateSelectionUI()" title="Seleccionar partida">
         <span class="drag-handle" title="Arrastrar para reordenar">

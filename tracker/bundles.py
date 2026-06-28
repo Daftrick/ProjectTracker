@@ -8,9 +8,19 @@ simples y evitar acoplar la lógica al almacenamiento.
 
 from __future__ import annotations
 
+import logging
+import math
+from datetime import datetime, timezone
 from typing import Iterable
 
 from .catalog import is_quote_section_marker, quote_section_groups
+
+_logger = logging.getLogger(__name__)
+
+DISCRETE_UNITS = {
+    "pza", "pieza", "tramo", "luminaria", "contacto",
+    "interruptor", "tablero", "equipo", "caja", "tapa",
+}
 
 DEFAULT_BUNDLE_STATUS = "draft"
 STATUS_DRAFT = "draft"
@@ -90,6 +100,12 @@ def bundle_by_catalog_item_id(bundles: Iterable[dict]) -> dict[str, dict]:
         current = normalize_bundle(bundle)
         cid = _clean(current.get("catalog_item_id"))
         if cid:
+            if cid in indexed:
+                _logger.warning(
+                    "bundle_by_catalog_item_id: duplicate catalog_item_id '%s'; "
+                    "bundle '%s' overwrites '%s'",
+                    cid, current.get("id", "?"), indexed[cid].get("id", "?"),
+                )
             indexed[cid] = current
     return indexed
 
@@ -117,6 +133,8 @@ def _component_row(component: dict, qty: float, catalog_by_id: dict | None = Non
         or _clean(component.get("unit"))
         or _clean(component.get("unidad"))
     )
+    if unit.lower() in DISCRETE_UNITS:
+        qty = math.ceil(qty)
     rounded_qty = _round(qty)
     return {
         "catalog_item_id": comp_cid,
@@ -166,7 +184,7 @@ def quote_item_bundle_breakdown(item: dict, bundle_index: dict, catalog_by_id: d
         comp = normalize_component(component)
         if not comp["catalog_item_id"] or comp["qty"] <= 0:
             continue
-        qty = quote_qty * comp["qty"] * (1 + comp["waste_pct"] / 100.0)
+        qty = quote_qty * comp["qty"]
         rows.append(_component_row(comp, qty, catalog_by_id))
     return rows
 
@@ -187,6 +205,51 @@ def hydrate_quote_bundle_breakdowns(quote: dict, bundles: Iterable[dict], catalo
     if "sections" in current:
         current["sections"] = quote_section_groups(enriched_items)
     return current
+
+
+def capture_bundle_snapshot(item: dict, bundle_index: dict, catalog_by_id: dict | None = None) -> dict | None:
+    """Build a frozen snapshot of the active bundle for this quote item.
+
+    Returns None if the item has no matching active bundle.
+    Stores description and unit from the catalog at capture time so the
+    display survives catalog renames and deletions (Approach C).
+    """
+    catalog_by_id = catalog_by_id or {}
+    item_cid = _clean(item.get("catalog_item_id"))
+    if not item_cid:
+        return None
+    bundle = (bundle_index or {}).get(item_cid)
+    if not bundle:
+        return None
+    active_version = get_active_bundle_version(bundle)
+    if not active_version:
+        return None
+
+    components = []
+    for component in active_version.get("components", []) or []:
+        if not isinstance(component, dict):
+            continue
+        comp = normalize_component(component)
+        if not comp["catalog_item_id"] or comp["qty"] <= 0:
+            continue
+        catalog_item = catalog_by_id.get(comp["catalog_item_id"]) or {}
+        components.append({
+            "catalog_item_id": comp["catalog_item_id"],
+            "description": (
+                _clean(catalog_item.get("nombre"))
+                or _clean(comp.get("notes"))
+                or comp["catalog_item_id"]
+            ),
+            "unit": _clean(catalog_item.get("unidad")) or "",
+            "qty": comp["qty"],
+        })
+
+    return {
+        "bundle_id": bundle.get("id", ""),
+        "bundle_version": active_version.get("version"),
+        "captured_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "components": components,
+    }
 
 
 def next_bundle_version(bundle: dict) -> int:
