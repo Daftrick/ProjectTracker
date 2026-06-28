@@ -1,0 +1,36 @@
+{
+  "hotspots": [
+    {
+      "label": "build_quote_pdf()",
+      "risk": 0.812,
+      "type": "FUNCTION"
+    },
+    {
+      "label": "build_ldm_pdf()",
+      "risk": 0.519,
+      "type": "FUNCTION"
+    },
+    {
+      "label": "build_progress_pdf()",
+      "risk": 0.3,
+      "type": "FUNCTION"
+    },
+    {
+      "label": "project_semaphore()",
+      "risk": 0.272,
+      "type": "FUNCTION"
+    },
+    {
+      "label": "project_stage()",
+      "risk": 0.245,
+      "type": "FUNCTION"
+    }
+  ],
+  "blast_radius": {
+    "load()": 111,
+    "save()": 74,
+    "today()": 53,
+    "catalog_maps()": 27,
+    "_clean()": 27
+  }
+}
