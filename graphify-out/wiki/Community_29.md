@@ -1,30 +1,28 @@
 # Community 29
 
-> 8 nodes · cohesion 0.39
+> 8 nodes · cohesion 0.25
 
 ## Key Concepts
 
-- [AdminFormsTest](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L6) (7 connections)
-- [.assert_invalid_form_preserved()](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L13) (5 connections)
-- [.test_catalogo_invalid_form_preserves_capture()](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L20) (2 connections)
-- [.test_fichas_invalid_form_preserves_capture()](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L34) (2 connections)
-- [.test_proveedores_invalid_form_preserves_capture()](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L27) (2 connections)
-- [.test_team_invalid_form_preserves_capture()](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L41) (2 connections)
-- [.setUp()](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L7) (1 connections)
-- [test_admin_forms.py](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L1) (1 connections)
+- [AdminBundlesRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L14) (5 connections)
+- [test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L1) (3 connections)
+- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L23) (1 connections)
+- [.test_bundles_page_loads()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L36) (1 connections)
+- [.test_comparison_rules_page_is_not_available()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L42) (1 connections)
+- [.test_create_bundle_persists_bundle()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L46) (1 connections)
+- [Smoke tests de UI Admin para bundles.](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L1) (1 connections)
+- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L16) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AdminFormsTest {
-        +test_admin_forms.py()
-        +.setUp()
-        +.assert_invalid_form_preserved()
-        +.test_catalogo_invalid_form_preserves_capture()
-        +.test_proveedores_invalid_form_preserves_capture()
-        +.test_fichas_invalid_form_preserves_capture()
-        +.test_team_invalid_form_preserves_capture()
+    class AdminBundlesRoutesTest {
+        +test_admin_bundles_routes.py()
+        +._fake_load()
+        +.test_bundles_page_loads()
+        +.test_comparison_rules_page_is_not_available()
+        +.test_create_bundle_persists_bundle()
     }
 ```
 
@@ -34,11 +32,11 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_admin_forms.py](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py)
+- [/Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 22 (100%)
+- EXTRACTED: 14 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

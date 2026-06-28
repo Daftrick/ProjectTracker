@@ -1,60 +1,74 @@
 # Community 11
 
-> 34 nodes · cohesion 0.10
+> 35 nodes · cohesion 0.08
 
 ## Key Concepts
 
-- [quote_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L1) (13 connections)
-- [quote_from_form()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L24) (12 connections)
-- [form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L1) (11 connections)
-- [get_quote_templates()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L102) (9 connections)
-- [FormModelsTest](file:///Users/macbook/ProjectTracker/tests/test_form_models.py#L8) (9 connections)
-- [QuoteTemplatesConfigTest](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py#L5) (8 connections)
-- [ldm_from_form()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L131) (6 connections)
-- [normalize_contact_rows()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L83) (5 connections)
-- [get_template_for_type()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L116) (4 connections)
-- [_normalize()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L87) (4 connections)
-- [quote_templates()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L932) (3 connections)
-- [_normalize_contacts()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L70) (3 connections)
-- [save_quote_templates()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L112) (3 connections)
-- [_to_float()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L174) (2 connections)
-- [_normalize_terms()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L49) (2 connections)
-- [.test_ldm_from_form_preserves_deleted_catalog_snapshot()](file:///Users/macbook/ProjectTracker/tests/test_form_models.py#L169) (2 connections)
-- [.test_ldm_from_form_preserves_fallback_and_items()](file:///Users/macbook/ProjectTracker/tests/test_form_models.py#L149) (2 connections)
-- [.test_quote_from_form_parses_integrantes()](file:///Users/macbook/ProjectTracker/tests/test_form_models.py#L108) (2 connections)
-- [.test_quote_from_form_parses_specs()](file:///Users/macbook/ProjectTracker/tests/test_form_models.py#L85) (2 connections)
-- [.test_quote_from_form_preserves_deleted_catalog_snapshot()](file:///Users/macbook/ProjectTracker/tests/test_form_models.py#L62) (2 connections)
-- [.test_quote_from_form_preserves_section_without_items()](file:///Users/macbook/ProjectTracker/tests/test_form_models.py#L45) (2 connections)
-- [.test_quote_from_form_preserves_sections_and_items()](file:///Users/macbook/ProjectTracker/tests/test_form_models.py#L9) (2 connections)
-- [.test_quote_from_form_specs_defaults_to_empty_strings()](file:///Users/macbook/ProjectTracker/tests/test_form_models.py#L135) (2 connections)
-- [.test_default_structure_has_required_fields()](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py#L15) (2 connections)
-- [.test_get_template_for_type()](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py#L85) (2 connections)
-- *... and 9 more nodes in this community*
+- [filter_catalog()](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py#L63) (13 connections)
+- [match_item()](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py#L47) (11 connections)
+- [tokenize()](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py#L32) (8 connections)
+- [FilterCatalogTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L57) (7 connections)
+- [MatchItemTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L23) (7 connections)
+- [test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L1) (7 connections)
+- [ApiCatalogoTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L114) (5 connections)
+- [TokenizeTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L8) (5 connections)
+- [.test_combined_tokens_and_category()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L88) (2 connections)
+- [.test_filter_by_category()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L81) (2 connections)
+- [.test_filters_by_token_and_returns_alphabetical()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L65) (2 connections)
+- [.test_multiple_tokens_must_all_match()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L70) (2 connections)
+- [.test_no_filters_returns_all_sorted()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L92) (2 connections)
+- [.test_tokens_match_across_fields_including_category()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L75) (2 connections)
+- [ListCategoriesTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L99) (2 connections)
+- [.test_returns_unique_sorted_non_empty()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L100) (2 connections)
+- [.test_all_tokens_must_match()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L30) (2 connections)
+- [.test_categoria_filter_matches_normalized()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L42) (2 connections)
+- [.test_diacritics_and_case_ignored()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L35) (2 connections)
+- [.test_marca_field_is_searchable()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L51) (2 connections)
+- [.test_no_tokens_means_match()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L39) (2 connections)
+- [.test_tokens_can_match_across_fields()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L47) (2 connections)
+- [.test_collapses_extra_whitespace()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L15) (2 connections)
+- [.test_empty_query_yields_empty_list()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L18) (2 connections)
+- [.test_splits_by_whitespace_and_normalizes()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L9) (2 connections)
+- *... and 10 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class FormModelsTest {
-        +test_form_models.py()
-        +.test_quote_from_form_preserves_sections_and_items()
-        +.test_quote_from_form_preserves_section_without_items()
-        +.test_quote_from_form_preserves_deleted_catalog_snapshot()
-        +.test_quote_from_form_parses_specs()
-        +.test_quote_from_form_parses_integrantes()
-        +.test_quote_from_form_specs_defaults_to_empty_strings()
-        +.test_ldm_from_form_preserves_fallback_and_items()
-        +.test_ldm_from_form_preserves_deleted_catalog_snapshot()
+    class ApiCatalogoTest {
+        +test_catalog_search.py()
+        +.test_api_returns_json_list()
+        +.test_api_accepts_query_parameters()
+        +.test_api_categorias_returns_sorted_list()
     }
-    class QuoteTemplatesConfigTest {
-        +test_quote_templates.py()
-        +.test_returns_all_types_when_no_file()
-        +.test_default_structure_has_required_fields()
-        +.test_merges_sections_and_terms_ignores_legacy_notes_specs()
-        +.test_non_dict_storage_returns_defaults()
-        +.test_save_calls_storage()
-        +.test_get_template_for_type()
-        +.test_get_template_for_unknown_type_returns_empty()
+    class FilterCatalogTest {
+        +test_catalog_search.py()
+        +.test_filters_by_token_and_returns_alphabetical()
+        +.test_multiple_tokens_must_all_match()
+        +.test_tokens_match_across_fields_including_category()
+        +.test_filter_by_category()
+        +.test_combined_tokens_and_category()
+        +.test_no_filters_returns_all_sorted()
+    }
+    class ListCategoriesTest {
+        +test_catalog_search.py()
+        +.test_returns_unique_sorted_non_empty()
+    }
+    class MatchItemTest {
+        +test_catalog_search.py()
+        +.test_all_tokens_must_match()
+        +.test_diacritics_and_case_ignored()
+        +.test_no_tokens_means_match()
+        +.test_categoria_filter_matches_normalized()
+        +.test_tokens_can_match_across_fields()
+        +.test_marca_field_is_searchable()
+    }
+    class TokenizeTest {
+        +test_catalog_search.py()
+        +.test_splits_by_whitespace_and_normalizes()
+        +.test_strips_diacritics()
+        +.test_collapses_extra_whitespace()
+        +.test_empty_query_yields_empty_list()
     }
 ```
 
@@ -64,16 +78,13 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_form_models.py](file:///Users/macbook/ProjectTracker/tests/test_form_models.py)
-- [/Users/macbook/ProjectTracker/tests/test_quote_templates.py](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py)
-- [/Users/macbook/ProjectTracker/tracker/form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py)
-- [/Users/macbook/ProjectTracker/tracker/quote_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
+- [/Users/macbook/ProjectTracker/tests/test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog_search.py](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py)
 
 ## Audit Trail
 
-- EXTRACTED: 83 (65%)
-- INFERRED: 45 (35%)
+- EXTRACTED: 73 (68%)
+- INFERRED: 35 (32%)
 - AMBIGUOUS: 0 (0%)
 
 ---

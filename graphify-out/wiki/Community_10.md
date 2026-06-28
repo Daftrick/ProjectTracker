@@ -1,45 +1,60 @@
 # Community 10
 
-> 37 nodes · cohesion 0.11
+> 45 nodes · cohesion 0.08
 
 ## Key Concepts
 
-- [materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L1) (47 connections)
-- [import_ldm_csv_upload()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L266) (15 connections)
-- [_find_project()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L31) (11 connections)
-- [import_ldm_pdf_create()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L732) (11 connections)
-- [edit_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L379) (9 connections)
-- [import_ldm_pdf_map()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L704) (9 connections)
-- [_clear_pdf_import()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L609) (7 connections)
-- [import_ldm_pdf_upload()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L647) (7 connections)
-- [_load_pdf_import()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L626) (7 connections)
-- [_ldm_csv_response()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L122) (6 connections)
-- [_pdf_import_path()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L602) (6 connections)
-- [_render_ldm_form()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L146) (6 connections)
-- [_clean_form_text()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L27) (5 connections)
-- [_store_pdf_import()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L617) (5 connections)
-- [_csv_already_imported()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L59) (4 connections)
-- [delete_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L509) (4 connections)
-- [_hydrate_import_items()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L70) (4 connections)
-- [ldm_csv()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L425) (4 connections)
-- [_pdf_import_session_key()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L592) (4 connections)
-- [_redirect_closed_pdf_import()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L641) (4 connections)
-- [set_ldm_cot()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L548) (4 connections)
-- [LdmPdfImportRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L14) (4 connections)
-- [_attach_csv_item_metadata()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L93) (3 connections)
-- [_csv_item_lookup()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L85) (3 connections)
-- [_csv_number()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L118) (3 connections)
-- *... and 12 more nodes in this community*
+- [build_project_detail_context()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L163) (17 connections)
+- [domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py#L1) (16 connections)
+- [project_view.py](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L1) (16 connections)
+- [project_stage()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L70) (12 connections)
+- [ProjectStageTest](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L39) (11 connections)
+- [_task()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L23) (9 connections)
+- [build_consistency_view()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L134) (7 connections)
+- [ProjectViewTest](file:///Users/macbook/ProjectTracker/tests/test_project_view.py#L13) (7 connections)
+- [get_alcances()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L20) (5 connections)
+- [build_quote_row_views()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L62) (5 connections)
+- [check_blocked()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L62) (4 connections)
+- [get_alcances_by_id()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L27) (4 connections)
+- [build_ldm_row_views()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L47) (4 connections)
+- [build_task_row_views()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L114) (4 connections)
+- [get_progress()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L94) (3 connections)
+- [_deleted_catalog_items()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L31) (3 connections)
+- [.test_all_aprobado_returns_entregado()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L71) (3 connections)
+- [.test_cot_aprobado_design_en_progreso_returns_diseno()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L63) (3 connections)
+- [.test_cot_aprobado_design_pending_returns_diseno()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L56) (3 connections)
+- [.test_cot_aprobado_only_returns_entregado()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L52) (3 connections)
+- [.test_cot_en_progreso_returns_cotizacion()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L48) (3 connections)
+- [.test_cot_pendiente_returns_cotizacion()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L44) (3 connections)
+- [.test_in_obra_true_overrides_derived_stage()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L79) (3 connections)
+- [.test_subtasks_not_counted()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L88) (3 connections)
+- [alcances_admin()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L1176) (2 connections)
+- *... and 20 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class LdmPdfImportRoutesTest {
-        +test_ldm_pdf_import_routes.py()
-        +.test_upload_stores_pdf_import_payload_outside_cookie_session()
-        +.test_upload_pdf_is_blocked_when_project_is_closed()
-        +.test_create_pdf_import_is_blocked_when_project_is_closed()
+    class ProjectStageTest {
+        +test_kanban.py()
+        +.test_no_tasks_returns_cotizacion()
+        +.test_cot_pendiente_returns_cotizacion()
+        +.test_cot_en_progreso_returns_cotizacion()
+        +.test_cot_aprobado_only_returns_entregado()
+        +.test_cot_aprobado_design_pending_returns_diseno()
+        +.test_cot_aprobado_design_en_progreso_returns_diseno()
+        +.test_all_aprobado_returns_entregado()
+        +.test_in_obra_true_overrides_derived_stage()
+        +.test_in_obra_true_even_with_no_tasks()
+    }
+    class ProjectViewTest {
+        +test_project_view.py()
+        +.test_build_project_detail_context_groups_and_calculates_totals()
+        +.test_build_task_row_views_precomputes_observation_values()
+        +.test_build_ldm_row_views_precomputes_materials_template_values()
+        +.test_build_quote_row_views_precomputes_deleted_catalog_values()
+        +.test_build_consistency_view_prepares_template_rows()
+        +.test_build_consistency_view_prepares_visual_review_helpers()
     }
 ```
 
@@ -49,13 +64,16 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
+- [/Users/macbook/ProjectTracker/tests/test_kanban.py](file:///Users/macbook/ProjectTracker/tests/test_kanban.py)
+- [/Users/macbook/ProjectTracker/tests/test_project_view.py](file:///Users/macbook/ProjectTracker/tests/test_project_view.py)
+- [/Users/macbook/ProjectTracker/tracker/domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py)
+- [/Users/macbook/ProjectTracker/tracker/project_view.py](file:///Users/macbook/ProjectTracker/tracker/project_view.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
 
 ## Audit Trail
 
-- EXTRACTED: 168 (79%)
-- INFERRED: 45 (21%)
+- EXTRACTED: 135 (72%)
+- INFERRED: 53 (28%)
 - AMBIGUOUS: 0 (0%)
 
 ---

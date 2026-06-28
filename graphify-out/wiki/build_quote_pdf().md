@@ -1,6 +1,6 @@
 # build_quote_pdf()
 
-> God node · 21 connections · [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L234)
+> God node · 22 connections · [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L234)
 
 ## Call Trace Diagram
 
@@ -14,11 +14,11 @@ sequenceDiagram
     participant P5 as next_quote_number()
     participant P6 as quote_from_form()
     participant P7 as pick_active_quote()
-    participant P8 as is_base_quote_type()
+    participant P8 as _render_quote_form()
     participant P9 as quote_pdf_editor()
-    participant P10 as migrate_quote_approval()
-    participant P11 as approve_quote()
-    participant P12 as _render_quote_form()
+    participant P10 as is_base_quote_type()
+    participant P11 as migrate_quote_approval()
+    participant P12 as approve_quote()
     participant P13 as quote_project_basis_note()
     participant P14 as _quote_preview_from_csv()
     participant P15 as quote_type_code()
@@ -31,15 +31,15 @@ sequenceDiagram
     participant P22 as .test_preliminar()
     participant P23 as .test_general_fallback()
     participant P24 as export_data()
-    participant P25 as _safe_text()
-    participant P26 as mobile_generate_pdf()
+    participant P25 as mobile_generate_pdf()
+    participant P26 as _safe_text()
     participant P27 as quote_section_groups()
     participant P28 as _load_company()
-    participant P29 as format_date_long()
-    participant P30 as quote_logo_path()
-    participant P31 as _register_dejavu()
-    participant P32 as catalog_description_lookup()
-    participant P33 as quote_pdf()
+    participant P29 as quote_pdf()
+    participant P30 as format_date_long()
+    participant P31 as quote_logo_path()
+    participant P32 as _register_dejavu()
+    participant P33 as catalog_description_lookup()
     participant P34 as _hex_to_rgb()
     participant P35 as money_pdf()
     participant P36 as quote_catalog_description()
@@ -47,7 +47,8 @@ sequenceDiagram
     participant P38 as quote_resumen_pdf()
     participant P39 as quote_scope_paragraphs()
     participant P40 as quote_terms()
-    participant P41 as .test_specs_terms_and_notes_render_as_independent_sections()
+    participant P41 as .test_bundle_breakdown_renders_quantities_without_component_prices()
+    participant P42 as .test_specs_terms_and_notes_render_as_independent_sections()
     P0->>+ P1: calls
     P1-->>- P0: return
     P1->>+ P0: calls
@@ -106,10 +107,10 @@ sequenceDiagram
     P25-->>- P0: return
     P0->>+ P26: calls
     P26-->>- P0: return
-    P0->>+ P13: calls
-    P13-->>- P0: return
     P0->>+ P27: calls
     P27-->>- P0: return
+    P0->>+ P13: calls
+    P13-->>- P0: return
     P0->>+ P28: calls
     P28-->>- P0: return
     P0->>+ P29: calls
@@ -138,6 +139,8 @@ sequenceDiagram
     P40-->>- P0: return
     P0->>+ P41: calls
     P41-->>- P0: return
+    P0->>+ P42: calls
+    P42-->>- P0: return
 ```
 
 ## Connections by Relation
@@ -145,16 +148,16 @@ sequenceDiagram
 ### calls
 - [[quote_cover_copy()]] `EXTRACTED`
 - [[export_data()]] `INFERRED`
-- [[_safe_text()]] `EXTRACTED`
 - [[mobile_generate_pdf()]] `INFERRED`
-- [[quote_project_basis_note()]] `EXTRACTED`
+- [[_safe_text()]] `EXTRACTED`
 - [[quote_section_groups()]] `INFERRED`
+- [[quote_project_basis_note()]] `EXTRACTED`
 - [[_load_company()]] `EXTRACTED`
+- [[quote_pdf()]] `INFERRED`
 - [[format_date_long()]] `EXTRACTED`
 - [[quote_logo_path()]] `EXTRACTED`
 - [[_register_dejavu()]] `EXTRACTED`
 - [[catalog_description_lookup()]] `INFERRED`
-- [[quote_pdf()]] `INFERRED`
 - [[_hex_to_rgb()]] `EXTRACTED`
 - [[money_pdf()]] `EXTRACTED`
 - [[quote_catalog_description()]] `EXTRACTED`
@@ -162,7 +165,7 @@ sequenceDiagram
 - [[quote_resumen_pdf()]] `INFERRED`
 - [[quote_scope_paragraphs()]] `EXTRACTED`
 - [[quote_terms()]] `EXTRACTED`
-- [[.test_specs_terms_and_notes_render_as_independent_sections()]] `INFERRED`
+- [[.test_bundle_breakdown_renders_quantities_without_component_prices()]] `INFERRED`
 
 ### contains
 - [[pdfs.py]] `EXTRACTED`

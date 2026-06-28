@@ -1,26 +1,15 @@
 # Community 34
 
-> 6 nodes · cohesion 0.33
+> 6 nodes · cohesion 0.47
 
 ## Key Concepts
 
-- [MaterialsCsvExportTest](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L25) (3 connections)
-- [test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L1) (3 connections)
-- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L35) (1 connections)
-- [.test_exports_existing_ldm_without_creating_a_new_list()](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L42) (1 connections)
-- [Tests for exporting an existing LDM as CSV.](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L1) (1 connections)
-- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L27) (1 connections)
-
-## Class Diagram
-
-```mermaid
-classDiagram
-    class MaterialsCsvExportTest {
-        +test_materials_csv_export.py()
-        +._fake_load()
-        +.test_exports_existing_ldm_without_creating_a_new_list()
-    }
-```
+- [LDM (Lista de Materiales) Entity](file:///Users/macbook/ProjectTracker/templates/ldm_form.html) (4 connections)
+- [Bundle Entity (COT Commercial Item + LDM Components)](file:///Users/macbook/ProjectTracker/templates/bundles.html) (3 connections)
+- [Catalog Item Entity](file:///Users/macbook/ProjectTracker/templates/catalogo.html) (3 connections)
+- [Quote (Cotización) Entity](file:///Users/macbook/ProjectTracker/templates/quotes.html) (2 connections)
+- [COT/LDM Comparison Rule Entity](file:///Users/macbook/ProjectTracker/templates/comparison_rules.html) (1 connections)
+- [Supplier (Proveedor) Entity](file:///Users/macbook/ProjectTracker/templates/proveedores.html) (1 connections)
 
 ## Relationships
 
@@ -28,12 +17,17 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py)
+- [templates/bundles.html](file:///Users/macbook/ProjectTracker/templates/bundles.html)
+- [templates/catalogo.html](file:///Users/macbook/ProjectTracker/templates/catalogo.html)
+- [templates/comparison_rules.html](file:///Users/macbook/ProjectTracker/templates/comparison_rules.html)
+- [templates/ldm_form.html](file:///Users/macbook/ProjectTracker/templates/ldm_form.html)
+- [templates/proveedores.html](file:///Users/macbook/ProjectTracker/templates/proveedores.html)
+- [templates/quotes.html](file:///Users/macbook/ProjectTracker/templates/quotes.html)
 
 ## Audit Trail
 
-- EXTRACTED: 10 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 2 (14%)
+- INFERRED: 12 (86%)
 - AMBIGUOUS: 0 (0%)
 
 ---

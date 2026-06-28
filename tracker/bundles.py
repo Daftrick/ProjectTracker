@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from typing import Iterable
 
-from .catalog import is_quote_section_marker
+from .catalog import is_quote_section_marker, quote_section_groups
 
 DEFAULT_BUNDLE_STATUS = "draft"
 STATUS_DRAFT = "draft"
@@ -92,6 +92,101 @@ def bundle_by_catalog_item_id(bundles: Iterable[dict]) -> dict[str, dict]:
         if cid:
             indexed[cid] = current
     return indexed
+
+
+def _display_qty(value) -> str:
+    qty = _round(_safe_float(value))
+    if float(qty).is_integer():
+        return str(int(qty))
+    return f"{qty:.4f}".rstrip("0").rstrip(".")
+
+
+def _component_row(component: dict, qty: float, catalog_by_id: dict | None = None) -> dict:
+    catalog_by_id = catalog_by_id or {}
+    comp = normalize_component(component)
+    comp_cid = comp["catalog_item_id"]
+    catalog_item = catalog_by_id.get(comp_cid) or {}
+    description = (
+        _clean(catalog_item.get("nombre"))
+        or _clean(component.get("description"))
+        or _clean(component.get("nombre"))
+        or comp_cid
+    )
+    unit = (
+        _clean(catalog_item.get("unidad"))
+        or _clean(component.get("unit"))
+        or _clean(component.get("unidad"))
+    )
+    rounded_qty = _round(qty)
+    return {
+        "catalog_item_id": comp_cid,
+        "description": description,
+        "unit": unit,
+        "qty": rounded_qty,
+        "qty_display": _display_qty(rounded_qty),
+    }
+
+
+def quote_item_bundle_breakdown(item: dict, bundle_index: dict, catalog_by_id: dict | None = None) -> list[dict]:
+    """Return included component rows for one commercial quote item.
+
+    Renderers consume this normalized shape so the current calculated version can
+    later upgrade to persisted item["bundle_snapshot"] without changing templates
+    or PDF code.
+    """
+    catalog_by_id = catalog_by_id or {}
+    snapshot = item.get("bundle_snapshot") or {}
+    snapshot_components = snapshot.get("components") if isinstance(snapshot, dict) else None
+    if isinstance(snapshot_components, list):
+        rows = []
+        for component in snapshot_components:
+            if not isinstance(component, dict):
+                continue
+            qty = _safe_float(component.get("qty"))
+            if qty <= 0:
+                continue
+            rows.append(_component_row(component, qty, catalog_by_id))
+        return rows
+
+    item_cid = _clean(item.get("catalog_item_id"))
+    if not item_cid:
+        return []
+    bundle = (bundle_index or {}).get(item_cid)
+    if not bundle:
+        return []
+    active_version = get_active_bundle_version(bundle)
+    if not active_version:
+        return []
+
+    quote_qty = _safe_float(item.get("qty"))
+    rows = []
+    for component in active_version.get("components", []) or []:
+        if not isinstance(component, dict):
+            continue
+        comp = normalize_component(component)
+        if not comp["catalog_item_id"] or comp["qty"] <= 0:
+            continue
+        qty = quote_qty * comp["qty"] * (1 + comp["waste_pct"] / 100.0)
+        rows.append(_component_row(comp, qty, catalog_by_id))
+    return rows
+
+
+def hydrate_quote_bundle_breakdowns(quote: dict, bundles: Iterable[dict], catalog_by_id: dict | None = None) -> dict:
+    """Attach non-priced bundle inclusions to hydrated quote items."""
+    current = dict(quote or {})
+    bundle_index = bundle_by_catalog_item_id(bundles or [])
+    enriched_items = []
+    for item in current.get("items", []) or []:
+        enriched = dict(item)
+        if not is_quote_section_marker(enriched):
+            breakdown = quote_item_bundle_breakdown(enriched, bundle_index, catalog_by_id or {})
+            enriched["bundle_breakdown"] = breakdown
+            enriched["has_bundle_breakdown"] = bool(breakdown)
+        enriched_items.append(enriched)
+    current["items"] = enriched_items
+    if "sections" in current:
+        current["sections"] = quote_section_groups(enriched_items)
+    return current
 
 
 def next_bundle_version(bundle: dict) -> int:

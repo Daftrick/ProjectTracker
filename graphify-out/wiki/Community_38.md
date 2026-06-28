@@ -4,20 +4,10 @@
 
 ## Key Concepts
 
-- [LdmCsvImportRouteTest](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L14) (2 connections)
-- [test_ldm_csv_import_route.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L1) (2 connections)
-- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L24) (1 connections)
-- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L16) (1 connections)
-
-## Class Diagram
-
-```mermaid
-classDiagram
-    class LdmCsvImportRouteTest {
-        +test_ldm_csv_import_route.py()
-        +._fake_load()
-    }
-```
+- [AutoCAD/LISP to App Workflow](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (2 connections)
+- [CSV de Plano (AutoCAD Export) Entity](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (2 connections)
+- [CSV Import API Routes (Pending)](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (1 connections)
+- [CSV Plano Filename Convention](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
 
 ## Relationships
 
@@ -25,12 +15,14 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py)
+- [REFERENCIA_ESTRUCTURAS_CSV.txt](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 6 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 4 (67%)
+- INFERRED: 2 (33%)
 - AMBIGUOUS: 0 (0%)
 
 ---

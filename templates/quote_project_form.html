@@ -162,6 +162,18 @@
   .quote-section-active .section-title-input {
     color: #7eb3f5 !important;
   }
+  .quote-bundle-includes{
+    margin-top:6px;
+    padding-left:10px;
+    border-left:2px solid rgba(126,179,245,.55);
+    color:#8f9bad;
+    font-size:.76rem;
+    line-height:1.35;
+  }
+  .quote-bundle-includes ul{
+    margin:2px 0 0;
+    padding-left:16px;
+  }
   [data-bs-toggle="collapse"] .specs-chevron,
   [data-bs-toggle="collapse"] .terms-chevron {
     transition: transform .2s;
@@ -334,6 +346,15 @@
               <option value="Extraordinaria" {% if quote and quote.get('quote_type') in ['Extraordinaria','Extraordinario'] %}selected{% endif %}>Extraordinaria</option>
             </select>
           </div>
+          {% if not quote %}
+          <div class="col-md-3">
+            <label class="form-label">Plantilla</label>
+            <select class="form-select" id="quoteTemplateSelect" onchange="applySelectedQuoteTemplate(true)">
+              <option value="">(en blanco)</option>
+            </select>
+            <div class="form-text" id="quoteTemplateWarning"></div>
+          </div>
+          {% endif %}
           <!-- Número de cotización (auto-generado, editable) -->
           <div class="col-md-4">
             <label class="form-label d-flex justify-content-between">
@@ -696,6 +717,16 @@
                       <span class="badge bg-danger deleted-catalog-badge">
                         Catálogo eliminado{% if deleted_catalog.deleted_at %} · {{ deleted_catalog.deleted_at | fdate }}{% endif %}
                       </span>
+                    </div>
+                    {% endif %}
+                    {% if item.bundle_breakdown %}
+                    <div class="quote-bundle-includes">
+                      <strong>Incluye:</strong>
+                      <ul>
+                        {% for component in item.bundle_breakdown %}
+                        <li>{{ component.qty_display or component.qty }} {{ component.unit }} {{ component.description }}</li>
+                        {% endfor %}
+                      </ul>
                     </div>
                     {% endif %}
                   </div>
@@ -1446,17 +1477,7 @@
     updateNum();
     updateProjectBasisNoteVisibility();
     {% if not quote %}
-    // Re-apply template defaults when switching type on an empty new-quote form
-    const tipo = document.getElementById("quoteType").value;
-    const tmpl = QUOTE_TEMPLATES[tipo] || {};
-    const tbody = document.getElementById("itemsBody");
-    if (tbody.children.length === 0) {
-      const sections = tmpl.sections_default || [];
-      for (const s of sections) addSection(s, {silent: true});
-      if (tbody.children.length === 0) addRow();
-      applyTermsDefault(tmpl);
-      applyIntegrantesDefault(tmpl);
-    }
+    updateTemplateOptions(true);
     {% endif %}
   }
 
@@ -1468,6 +1489,101 @@
   const QUOTE_TEMPLATES = {{ quote_templates | tojson }};
   {% else %}
   const QUOTE_TEMPLATES = {};
+  {% endif %}
+  const QUOTE_TEMPLATES_BY_ID = {{ templates_by_id | default({}) | tojson }};
+  const CATALOG_BY_ID = {{ catalog_by_id | default({}) | tojson }};
+  const BASE_TERMS_DEFAULT = {{ terms_config | tojson }};
+  const BASE_INTEGRANTES_DEFAULT = {{ integrantes_config | tojson }};
+
+  {% if not quote %}
+  function hasQuoteRows() {
+    return document.querySelectorAll("#itemsBody tr").length > 0;
+  }
+
+  function clearQuoteRows() {
+    document.getElementById("itemsBody").innerHTML = "";
+    activeSectionRow = null;
+    setActiveSection(null);
+  }
+
+  function activeQuoteTemplate() {
+    const tipo = document.getElementById("quoteType").value;
+    const templateId = document.getElementById("quoteTemplateSelect")?.value || "";
+    return (QUOTE_TEMPLATES_BY_ID[tipo] || {})[templateId] || null;
+  }
+
+  function updateTemplateOptions(applyWhenEmpty = false) {
+    const tipo = document.getElementById("quoteType").value;
+    const select = document.getElementById("quoteTemplateSelect");
+    if (!select) return;
+    const templates = QUOTE_TEMPLATES[tipo] || [];
+    select.innerHTML = '<option value="">(en blanco)</option>';
+    for (const tmpl of templates) {
+      const option = document.createElement("option");
+      option.value = tmpl.id;
+      option.textContent = tmpl.name || "Sin nombre";
+      select.appendChild(option);
+    }
+    if (templates.length === 1) {
+      select.value = templates[0].id;
+    } else {
+      select.value = "";
+    }
+    if (applyWhenEmpty && !hasQuoteRows()) {
+      applySelectedQuoteTemplate(false);
+    }
+  }
+
+  function applySelectedQuoteTemplate(requireConfirm = true) {
+    const select = document.getElementById("quoteTemplateSelect");
+    const warning = document.getElementById("quoteTemplateWarning");
+    const template = activeQuoteTemplate();
+    if (!select) return;
+    if (requireConfirm && hasQuoteRows()) {
+      const ok = confirm("Cambiar plantilla reemplazará las secciones y partidas actuales. ¿Continuar?");
+      if (!ok) return;
+    }
+    clearQuoteRows();
+    if (warning) warning.textContent = "";
+    if (!template) {
+      addRow();
+      applyTermsDefault({terms_default: BASE_TERMS_DEFAULT});
+      applyIntegrantesDefault({contacts_default: BASE_INTEGRANTES_DEFAULT});
+      syncItemSections();
+      updateTotals();
+      return;
+    }
+    const missing = [];
+    const sections = template.sections_default || [];
+    for (const section of sections) {
+      const sectionName = typeof section === "string" ? section : (section.name || "");
+      addSection(sectionName, {silent: true});
+      for (const templateItem of (section.items || [])) {
+        const catalogItem = CATALOG_BY_ID[templateItem.catalog_item_id];
+        if (!catalogItem) {
+          missing.push(templateItem.description || templateItem.catalog_item_id);
+          continue;
+        }
+        addRow(
+          catalogItem.nombre || templateItem.description || "",
+          catalogItem.descripcion || "",
+          catalogItem.unidad || templateItem.unit || "pza",
+          templateItem.qty || 1,
+          catalogItem.precio || 0,
+          catalogItem.id || templateItem.catalog_item_id || ""
+        );
+      }
+    }
+    if (!hasQuoteRows()) addRow();
+    applyTermsDefault(template);
+    applyIntegrantesDefault(template);
+    syncItemSections();
+    updateTotals();
+    if (warning && missing.length) {
+      warning.textContent = `Artículo no encontrado en catálogo: ${missing.slice(0, 3).join(", ")}${missing.length > 3 ? "..." : ""}. Verifica la plantilla.`;
+      warning.className = "form-text text-warning";
+    }
+  }
   {% endif %}
 
   function toggleSection(id, show) {
@@ -1536,16 +1652,8 @@
   window.addEventListener("DOMContentLoaded", () => {
     const tbody = document.getElementById("itemsBody");
     {% if not quote %}
-    // Pre-poblar secciones y terminos desde la plantilla del tipo (solo en cotizaciones nuevas)
-    const tipo = document.getElementById("quoteType").value;
-    const tmpl = QUOTE_TEMPLATES[tipo] || {};
-    const sections = tmpl.sections_default || [];
-    if (tbody.children.length === 0 && sections.length > 0) {
-      for (const s of sections) addSection(s, {silent: true});
-    }
+    updateTemplateOptions(true);
     if (tbody.children.length === 0) addRow();
-    applyTermsDefault(tmpl);
-    applyIntegrantesDefault(tmpl);
     {% else %}
     if (tbody.children.length === 0) addRow();
     {% endif %}

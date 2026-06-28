@@ -3,6 +3,7 @@ import tempfile
 
 from flask import Blueprint, flash, redirect, render_template, request, send_file, url_for
 
+from ..bundles import hydrate_quote_bundle_breakdowns
 from ..catalog import catalog_maps, hydrate_quote
 from ..pdfs import build_quote_pdf
 from ..services import (
@@ -25,6 +26,12 @@ def _find_draft(quotes, project_id):
         (q for q in quotes if q.get("project_id") == project_id and q.get("status") == "draft"),
         None,
     )
+
+
+def _hydrate_quote_for_display(quote):
+    catalog_by_id, catalog_by_name = catalog_maps()
+    hydrated = hydrate_quote(quote, catalog_by_id, catalog_by_name)
+    return hydrate_quote_bundle_breakdowns(hydrated, load("bundles"), catalog_by_id)
 
 
 def _discipline_list(catalog):
@@ -148,7 +155,7 @@ def mobile_review(project_id):
         flash("No hay borrador activo para este proyecto.", "warning")
         return redirect(url_for("quotes_mobile_bp.mobile_items", project_id=project_id))
 
-    return render_template("mobile_review.html", project=project, draft=draft)
+    return render_template("mobile_review.html", project=project, draft=_hydrate_quote_for_display(draft))
 
 
 # ---------------------------------------------------------------------------
@@ -175,8 +182,7 @@ def mobile_generate_pdf(project_id):
 
     save("quotes", updated)
 
-    catalog_by_id, catalog_by_name = catalog_maps()
-    hydrated = hydrate_quote(finalized, catalog_by_id, catalog_by_name)
+    hydrated = _hydrate_quote_for_display(finalized)
 
     pdf_name = f"{hydrated.get('quote_number', 'COT')}.pdf"
 

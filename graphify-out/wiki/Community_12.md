@@ -1,23 +1,23 @@
 # Community 12
 
-> 31 nodes · cohesion 0.08
+> 32 nodes · cohesion 0.07
 
 ## Key Concepts
 
 - [test_quotes_mobile.py](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L1) (9 connections)
 - [MobileItemsTest](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L122) (8 connections)
+- [MobileReviewTest](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L305) (7 connections)
 - [MobileRouteTestBase](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L69) (7 connections)
 - [MobileProjectsTest](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L83) (6 connections)
-- [MobileReviewTest](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L305) (6 connections)
 - [MobileAddItemTest](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L209) (5 connections)
-- [MobileGeneratePdfTest](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L343) (5 connections)
+- [MobileGeneratePdfTest](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L376) (5 connections)
 - [MobileRemoveItemTest](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L274) (3 connections)
 - [.test_add_item_creates_draft_and_redirects()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L210) (1 connections)
 - [.test_add_item_empty_item_id_no_save()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L248) (1 connections)
 - [.test_add_item_unknown_project_redirects_to_projects()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L239) (1 connections)
-- [.test_generate_pdf_no_draft_redirects()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L369) (1 connections)
-- [.test_generate_pdf_returns_pdf_bytes()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L344) (1 connections)
-- [.test_generate_pdf_unknown_project_redirects()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L382) (1 connections)
+- [.test_generate_pdf_no_draft_redirects()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L402) (1 connections)
+- [.test_generate_pdf_returns_pdf_bytes()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L377) (1 connections)
+- [.test_generate_pdf_unknown_project_redirects()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L415) (1 connections)
 - [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L123) (1 connections)
 - [.test_discipline_filter_shows_only_matching_items()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L183) (1 connections)
 - [.test_draft_banner_shown_when_draft_exists()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L144) (1 connections)
@@ -29,7 +29,7 @@
 - [.test_draft_badge_shown_when_draft_exists()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L97) (1 connections)
 - [.test_projects_page_200()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L91) (1 connections)
 - [.test_remove_item_updates_draft_and_redirects_to_review()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L275) (1 connections)
-- *... and 6 more nodes in this community*
+- *... and 7 more nodes in this community*
 
 ## Class Diagram
 
@@ -71,6 +71,7 @@ classDiagram
         +test_quotes_mobile.py()
         +._fake_load()
         +.test_review_page_200_with_draft()
+        +.test_review_shows_bundle_breakdown()
         +.test_review_no_draft_redirects_to_items()
         +.test_review_unknown_project_redirects()
     }
@@ -101,7 +102,7 @@ classDiagram
 
 ## Audit Trail
 
-- EXTRACTED: 72 (100%)
+- EXTRACTED: 74 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

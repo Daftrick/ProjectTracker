@@ -1,24 +1,13 @@
 # Community 36
 
-> 5 nodes · cohesion 0.40
+> 4 nodes · cohesion 0.67
 
 ## Key Concepts
 
-- [test_audit_deleted_catalog_route.py](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L1) (3 connections)
-- [AuditDeletedCatalogRouteTest](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L7) (2 connections)
-- [.test_audit_deleted_catalog_loads_materiales_for_ldms()](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L17) (1 connections)
-- [Tests for the deleted catalog audit route.](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L1) (1 connections)
-- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L9) (1 connections)
-
-## Class Diagram
-
-```mermaid
-classDiagram
-    class AuditDeletedCatalogRouteTest {
-        +test_audit_deleted_catalog_route.py()
-        +.test_audit_deleted_catalog_loads_materiales_for_ldms()
-    }
-```
+- [check_syntax.py](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L1) (3 connections)
+- [iter_python_files()](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L12) (2 connections)
+- [main()](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L22) (2 connections)
+- [Parse project Python files without writing bytecode.](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L1) (1 connections)
 
 ## Relationships
 
@@ -26,7 +15,7 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py)
+- [/Users/macbook/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/ProjectTracker/tools/check_syntax.py)
 
 ## Audit Trail
 

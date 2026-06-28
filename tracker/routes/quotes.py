@@ -5,6 +5,7 @@ from io import BytesIO
 
 from flask import Blueprint, Response, flash, redirect, render_template, request, send_file, url_for
 
+from ..bundles import hydrate_quote_bundle_breakdowns
 from ..catalog import aggregate_quote_items, approve_quote, catalog_maps, hydrate_quote, next_quote_number, quote_type_key, safe_float
 from ..csv_catalog_validation import validate_csv_catalog_items
 from ..deletions import purge_deleted_catalog_items_from_record
@@ -18,9 +19,31 @@ from ..validators import validate_quote_form
 bp = Blueprint("quotes_bp", __name__)
 
 
+def _hydrate_quote_for_display(quote):
+    catalog_by_id, catalog_by_name = catalog_maps()
+    hydrated = hydrate_quote(quote, catalog_by_id, catalog_by_name)
+    return hydrate_quote_bundle_breakdowns(hydrated, load("bundles"), catalog_by_id)
+
+
 def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None, form_action=None):
     from ..pdfs import QUOTE_TERMS_DEFAULTS
-    from ..quote_templates_config import MAX_QUOTE_TEMPLATE_CONTACTS, get_quote_templates, normalize_contact_rows
+    from ..quote_templates_config import MAX_QUOTE_TEMPLATE_CONTACTS, get_quote_templates, get_template_for_type, normalize_contact_rows
+    quote_templates = get_quote_templates()
+    catalog_by_id, _catalog_by_name = catalog_maps()
+    public_catalog_by_id = {
+        item_id: {
+            "id": item.get("id", item_id),
+            "nombre": item.get("nombre", ""),
+            "descripcion": item.get("descripcion", ""),
+            "unidad": item.get("unidad", ""),
+            "precio": item.get("precio", 0),
+        }
+        for item_id, item in catalog_by_id.items()
+    }
+    templates_by_id = {
+        qtype: {str(template.get("id")): template for template in templates}
+        for qtype, templates in quote_templates.items()
+    }
     stored_terms = {}
     for t in ((quote or {}).get("specs") or {}).get("terms") or []:
         stored_terms[t["key"]] = t
@@ -35,22 +58,25 @@ def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None,
             "enabled": stored.get("enabled", True) if stored else True,
         })
     _qt = quote_type_key((quote or {}).get("quote_type", ""))
-    _tmpl_contacts = (get_quote_templates().get(_qt) or {}).get("contacts_default") or []
+    _tmpl_contacts = get_template_for_type(_qt).get("contacts_default") or []
     integrantes_config = (
         normalize_contact_rows(stored_integrantes)
         if stored_integrantes is not None
         else normalize_contact_rows(
-            _tmpl_contacts or [{"enabled": False, "name": "", "role": ""} for _ in range(MAX_QUOTE_TEMPLATE_CONTACTS)]
+            _tmpl_contacts if quote else []
         )
     )
+    display_quote = _hydrate_quote_for_display(quote) if quote else quote
     return render_template(
         "quote_project_form.html",
         project=project,
-        quote=quote,
+        quote=display_quote,
         today=today(),
         field_errors=field_errors or {},
         form_action=form_action,
-        quote_templates=get_quote_templates(),
+        quote_templates=quote_templates,
+        templates_by_id=templates_by_id,
+        catalog_by_id=public_catalog_by_id,
         terms_config=terms_config,
         integrantes_config=integrantes_config,
         **quote_default_numbers(project, quotes, quote_id=quote_id),
@@ -111,7 +137,7 @@ def _quote_preview_from_csv(project, parsed, filename, quotes):
 
 
 def _build_resumen(quote):
-    hydrated = hydrate_quote(quote, *catalog_maps())
+    hydrated = _hydrate_quote_for_display(quote)
     agg_items = aggregate_quote_items(hydrated["items"])
     subtotal = round(sum(safe_float(i.get("total", 0)) for i in agg_items), 2)
     tax_rate = safe_float(hydrated.get("tax_rate", 16), 16)
@@ -120,7 +146,7 @@ def _build_resumen(quote):
     resumen["subtotal"] = subtotal
     resumen["tax"] = round(subtotal * tax_rate / 100, 2)
     resumen["total"] = round(subtotal + resumen["tax"], 2)
-    return resumen
+    return _hydrate_quote_for_display(resumen)
 
 
 @bp.route("/projects/<project_id>/quote/new", methods=["GET", "POST"], endpoint="new_quote")
@@ -289,8 +315,7 @@ def edit_quote(project_id, quote_id):
         save("quotes", quotes)
         flash("Cotización actualizada.", "success")
         return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=quote_id))
-    hydrated = hydrate_quote(quote, *catalog_maps())
-    return _render_quote_form(project, hydrated, quotes, quote_id=quote_id)
+    return _render_quote_form(project, quote, quotes, quote_id=quote_id)
 
 
 @bp.route("/projects/<project_id>/quote/<quote_id>/view", endpoint="view_quote")
@@ -302,7 +327,7 @@ def view_quote(project_id, quote_id):
         if project:
             return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
         return redirect(url_for("dashboard"))
-    hydrated = hydrate_quote(quote, *catalog_maps())
+    hydrated = _hydrate_quote_for_display(quote)
     return render_template("quote_project_detail.html", project=project, quote=hydrated)
 
 
@@ -345,7 +370,7 @@ def purge_quote_deleted_catalog_items(project_id, quote_id):
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
 
     updated_quote, removed = purge_deleted_catalog_items_from_record(quote)
-    hydrated = hydrate_quote(updated_quote, *catalog_maps())
+    hydrated = _hydrate_quote_for_display(updated_quote)
     updated_quote["subtotal"] = hydrated["subtotal"]
     updated_quote["tax"] = hydrated["tax"]
     updated_quote["total"] = hydrated["total"]
@@ -362,7 +387,7 @@ def quote_pdf(project_id, quote_id):
     if not project or not quote or quote.get("project_id") != project_id:
         flash("Cotización no encontrada.", "danger")
         return redirect(url_for("dashboard"))
-    hydrated = hydrate_quote(quote, *catalog_maps())
+    hydrated = _hydrate_quote_for_display(quote)
     pdf_name = f"{hydrated.get('quote_number', 'COT')}.pdf"
     inline = request.args.get("inline") == "1"
     try:
@@ -415,7 +440,7 @@ def _build_quote_workbook(project, quote, Workbook, Alignment, Font):
 
     Devuelve (wb, filename) para que el caller decida cómo persistirlo.
     """
-    hydrated = hydrate_quote(quote, *catalog_maps())
+    hydrated = _hydrate_quote_for_display(quote)
     sections = hydrated.get("sections", [])
     has_sections = any(section.get("name") for section in sections)
     filename = f"{hydrated.get('quote_number', 'cotizacion')}.xlsx"
@@ -715,7 +740,7 @@ def quote_csv_export(project_id, quote_id):
     if not project or not quote or quote.get("project_id") != project_id:
         flash("Cotización no encontrada.", "danger")
         return redirect(url_for("dashboard"))
-    hydrated = hydrate_quote(quote, *catalog_maps())
+    hydrated = _hydrate_quote_for_display(quote)
 
     def _csv_escape(value):
         return str(value or "").replace('"', '""')
@@ -885,7 +910,7 @@ def quote_pdf_editor(project_id, quote_id):
     from ..pdfs import quote_cover_copy, quote_scope_paragraphs, quote_terms
     from ..company_config import get_company
 
-    hydrated = hydrate_quote(quote, *catalog_maps())
+    hydrated = _hydrate_quote_for_display(quote)
     cover_title, cover_subtitle = quote_cover_copy(hydrated)
     qt = quote_type_key(quote.get("quote_type"))
     specs = quote.get("specs") or {}

@@ -63,6 +63,37 @@ class QuoteSectionsTest(unittest.TestCase):
         self.assertIn('name="integrante_{{ loop.index0 }}_name"', template)
         self.assertIn('name="integrante_{{ loop.index0 }}_role"', template)
 
+    def test_quote_views_render_bundle_breakdown_without_price_columns(self):
+        form_template = Path("templates/quote_project_form.html").read_text(encoding="utf-8")
+        detail_template = Path("templates/quote_project_detail.html").read_text(encoding="utf-8")
+
+        for template in (form_template, detail_template):
+            self.assertIn("quote-bundle-includes", template)
+            self.assertIn("item.bundle_breakdown", template)
+            self.assertIn("<strong>Incluye:</strong>", template)
+            self.assertIn("component.qty_display or component.qty", template)
+            self.assertNotIn("component.price", template)
+            self.assertNotIn("component.total", template)
+
+    def test_quote_form_has_named_template_selector_and_catalog_application(self):
+        template = Path("templates/quote_project_form.html").read_text(encoding="utf-8")
+
+        self.assertIn('id="quoteTemplateSelect"', template)
+        self.assertIn("QUOTE_TEMPLATES_BY_ID", template)
+        self.assertIn("CATALOG_BY_ID", template)
+        self.assertIn("applySelectedQuoteTemplate", template)
+        self.assertIn("Artículo no encontrado en catálogo", template)
+
+    def test_quote_templates_admin_edits_items_without_prices(self):
+        template = Path("templates/quote_templates.html").read_text(encoding="utf-8")
+
+        self.assertIn("template-search-input", template)
+        self.assertIn("template-item-qty", template)
+        self.assertIn("template-sections-json", template)
+        self.assertIn("TEMPLATE_CATALOG", template)
+        self.assertNotIn("item.precio", template)
+        self.assertNotIn("unit_price", template)
+
 
 if __name__ == "__main__":
     unittest.main()

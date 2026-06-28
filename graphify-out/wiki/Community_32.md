@@ -4,22 +4,22 @@
 
 ## Key Concepts
 
-- [QuoteCsvImportRouteTest](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L17) (4 connections)
-- [test_quote_csv_import_route.py](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L1) (2 connections)
-- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L27) (1 connections)
-- [.test_import_quote_csv_blocks_unit_mismatch()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L68) (1 connections)
-- [.test_import_quote_csv_renders_editable_preview()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L42) (1 connections)
-- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L19) (1 connections)
+- [ProjectDetailBundleUITest](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L7) (4 connections)
+- [test_project_detail_bundle_ui.py](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L1) (2 connections)
+- [.test_materials_tab_exposes_assisted_bundle_sync_review()](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L28) (1 connections)
+- [.test_materials_tab_exposes_csv_export_for_existing_ldms()](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L22) (1 connections)
+- [.test_template_contains_simple_cot_ldm_summary()](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L8) (1 connections)
+- [Smoke tests for simplified project detail COT/LDM UI.](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L1) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class QuoteCsvImportRouteTest {
-        +test_quote_csv_import_route.py()
-        +._fake_load()
-        +.test_import_quote_csv_renders_editable_preview()
-        +.test_import_quote_csv_blocks_unit_mismatch()
+    class ProjectDetailBundleUITest {
+        +test_project_detail_bundle_ui.py()
+        +.test_template_contains_simple_cot_ldm_summary()
+        +.test_materials_tab_exposes_csv_export_for_existing_ldms()
+        +.test_materials_tab_exposes_assisted_bundle_sync_review()
     }
 ```
 
@@ -29,7 +29,7 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py)
+- [/Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py)
 
 ## Audit Trail
 

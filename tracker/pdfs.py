@@ -904,6 +904,16 @@ def build_quote_pdf(project, quote, output_path=None):
             desc_text = smart_render_text(item.get("description", ""), cols[1] - 4)
             title_lines = pdf.multi_cell(cols[1] - 4, 5.0, desc_text, align="L",
                                          dry_run=True, output="LINES") if desc_text else []
+            pdf.set_font("DejaVu", "", 7.3)
+            bundle_lines = []
+            for component in item.get("bundle_breakdown", []) or []:
+                qty = _safe_text(component.get("qty_display") or component.get("qty", ""))
+                unit = _safe_text(component.get("unit", ""))
+                desc = _safe_text(component.get("description", ""))
+                line = smart_render_text(f"- {qty} {unit} {desc}".strip(), cols[1] - 8)
+                wrapped = pdf.multi_cell(cols[1] - 8, 3.6, line, align="L",
+                                         dry_run=True, output="LINES") if line else []
+                bundle_lines.append({"text": line, "line_count": len(wrapped) or 1})
             pdf.set_font("DejaVu", "", 7.5)
             brand_text, detail_text = split_secondary_render(catalog_desc, cols[1] - 4)
             brand_lines = pdf.multi_cell(cols[1] - 4, 3.7, brand_text, align="L",
@@ -911,9 +921,14 @@ def build_quote_pdf(project, quote, output_path=None):
             detail_lines = pdf.multi_cell(cols[1] - 4, 3.7, detail_text, align="L",
                                           dry_run=True, output="LINES") if detail_text else []
             title_h = 5.0 * len(title_lines)
+            bundle_h = 0
+            if bundle_lines:
+                bundle_h = 1.0 + 3.6 + sum(row["line_count"] * 3.6 for row in bundle_lines)
             brand_h = 3.7 * len(brand_lines)
             detail_h = 3.7 * len(detail_lines)
             text_h = 1.6 + title_h
+            if bundle_lines:
+                text_h += bundle_h
             if brand_lines:
                 text_h += 0.7 + brand_h
             if detail_lines:
@@ -938,6 +953,16 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.set_text_color(*INK)
             if desc_text:
                 pdf.multi_cell(cols[1] - 4, 5.0, desc_text, align="L")
+            if bundle_lines:
+                pdf.set_xy(desc_x, pdf.get_y() + 1.0)
+                pdf.set_font("DejaVu", "B", 7.3)
+                pdf.set_text_color(*INK)
+                pdf.cell(cols[1] - 4, 3.6, "Incluye:", ln=True)
+                pdf.set_font("DejaVu", "", 7.3)
+                pdf.set_text_color(*MUTED)
+                for row in bundle_lines:
+                    pdf.set_x(desc_x + 3)
+                    pdf.multi_cell(cols[1] - 8, 3.6, row["text"], align="L")
             if brand_text:
                 pdf.set_xy(desc_x, pdf.get_y() + 0.7)
                 pdf.set_font("DejaVu", "", 7.5)

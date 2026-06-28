@@ -1,12 +1,12 @@
 # Community 41
 
-> 3 nodes · cohesion 0.67
+> 3 nodes · cohesion 1.00
 
 ## Key Concepts
 
-- [_is_truthy()](file:///Users/macbook/ProjectTracker/app.py#L8) (2 connections)
-- [Reconoce '1', 'true', 'yes', 'on' (case-insensitive) como verdadero.](file:///Users/macbook/ProjectTracker/app.py#L9) (1 connections)
-- [app.py](file:///Users/macbook/ProjectTracker/app.py#L1) (1 connections)
+- [main()](file:///Users/macbook/ProjectTracker/tools/graphify_task.py#L26) (2 connections)
+- [_run_graphify()](file:///Users/macbook/ProjectTracker/tools/graphify_task.py#L12) (2 connections)
+- [graphify_task.py](file:///Users/macbook/ProjectTracker/tools/graphify_task.py#L1) (2 connections)
 
 ## Relationships
 
@@ -14,11 +14,11 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/app.py](file:///Users/macbook/ProjectTracker/app.py)
+- [/Users/macbook/ProjectTracker/tools/graphify_task.py](file:///Users/macbook/ProjectTracker/tools/graphify_task.py)
 
 ## Audit Trail
 
-- EXTRACTED: 4 (100%)
+- EXTRACTED: 6 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

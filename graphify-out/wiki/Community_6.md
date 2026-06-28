@@ -1,35 +1,35 @@
 # Community 6
 
-> 51 nodes · cohesion 0.08
+> 62 nodes · cohesion 0.07
 
 ## Key Concepts
 
-- [expand_quote_bundles()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L178) (19 connections)
-- [bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L1) (17 connections)
-- [create_bundle()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L106) (15 connections)
+- [bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L1) (23 connections)
+- [expand_quote_bundles()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L273) (19 connections)
+- [create_bundle()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L201) (18 connections)
 - [normalize_bundle()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L36) (13 connections)
-- [add_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L129) (10 connections)
-- [delete_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L162) (9 connections)
-- [BundleEdgeCasesTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L125) (9 connections)
-- [get_active_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L72) (8 connections)
-- [normalize_component()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L62) (8 connections)
-- [activate_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L145) (7 connections)
-- [_clean()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L32) (7 connections)
-- [_safe_float()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L21) (7 connections)
-- [SeededBundlesTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L73) (7 connections)
-- [bundle_by_catalog_item_id()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L86) (6 connections)
+- [quote_item_bundle_breakdown()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L130) (11 connections)
+- [add_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L224) (10 connections)
+- [normalize_component()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L62) (10 connections)
+- [bundle_by_catalog_item_id()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L86) (9 connections)
+- [_clean()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L32) (9 connections)
+- [delete_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L257) (9 connections)
+- [get_active_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L72) (9 connections)
+- [hydrate_quote_bundle_breakdowns()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L174) (9 connections)
+- [_safe_float()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L21) (9 connections)
+- [BundleEdgeCasesTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L202) (9 connections)
+- [activate_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L240) (7 connections)
+- [SeededBundlesTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L150) (7 connections)
+- [_component_row()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L104) (6 connections)
+- [test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L1) (6 connections)
 - [.test_add_activate_and_delete_version()](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L15) (5 connections)
-- [test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L1) (5 connections)
-- [next_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L97) (4 connections)
-- [.test_delete_nonexistent_version_raises()](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L162) (4 connections)
+- [QuoteItemBundleBreakdownTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L73) (5 connections)
+- [_display_qty()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L97) (4 connections)
+- [next_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L192) (4 connections)
+- [_round()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L28) (4 connections)
+- [.test_delete_nonexistent_version_raises()](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L239) (4 connections)
 - [BundleVersioningTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L8) (4 connections)
-- [ExpandQuoteBundlesTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L31) (4 connections)
-- [._expand()](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L81) (4 connections)
-- [.test_activate_nonexistent_version_raises()](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L157) (3 connections)
-- [.test_component_with_empty_catalog_item_id_goes_to_invalid()](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L140) (3 connections)
-- [.test_component_with_zero_qty_goes_to_invalid()](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L128) (3 connections)
-- [.test_section_markers_are_skipped()](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L177) (3 connections)
-- *... and 26 more nodes in this community*
+- *... and 37 more nodes in this community*
 
 ## Class Diagram
 
@@ -57,6 +57,13 @@ classDiagram
         +.test_unmapped_quote_items_are_preserved()
         +.test_seeded_circuit_bundles_expand_catalog_materials()
     }
+    class QuoteItemBundleBreakdownTest {
+        +test_bundles.py()
+        +.test_breakdown_multiplies_component_quantities_without_prices()
+        +.test_breakdown_prefers_snapshot_when_present()
+        +.test_breakdown_missing_bundle_returns_empty_list()
+        +.test_hydrate_quote_bundle_breakdowns_keeps_totals_and_sections()
+    }
     class SeededBundlesTest {
         +test_bundles.py()
         +._expand()
@@ -78,8 +85,8 @@ classDiagram
 
 ## Audit Trail
 
-- EXTRACTED: 159 (71%)
-- INFERRED: 66 (29%)
+- EXTRACTED: 209 (70%)
+- INFERRED: 88 (30%)
 - AMBIGUOUS: 0 (0%)
 
 ---

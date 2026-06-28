@@ -1,87 +1,112 @@
 # Community 3
 
-> 69 nodes · cohesion 0.06
+> 69 nodes · cohesion 0.05
 
 ## Key Concepts
 
-- [catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L1) (38 connections)
-- [quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1) (36 connections)
-- [catalog_maps()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L172) (27 connections)
-- [hydrate_quote()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L332) (19 connections)
-- [quote_type_key()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L65) (15 connections)
-- [safe_float()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L185) (13 connections)
-- [next_quote_number()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L405) (12 connections)
-- [hydrate_ldm()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L392) (11 connections)
-- [sync_ldm_bundles()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L442) (11 connections)
-- [export_data()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L1006) (10 connections)
-- [hydrate_quote_item()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L271) (10 connections)
-- [new_quote()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L127) (10 connections)
-- [quote_pdf_editor()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L859) (10 connections)
-- [import_quote_csv()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L190) (9 connections)
-- [_render_quote_form()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L21) (9 connections)
-- [quote_section_groups()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L228) (8 connections)
-- [_build_resumen()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L113) (8 connections)
-- [edit_quote()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L251) (8 connections)
-- [_quote_preview_from_csv()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L76) (8 connections)
-- [hydrate_ldm_item()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L361) (7 connections)
-- [is_quote_section_marker()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L224) (7 connections)
-- [_build_quote_workbook()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L413) (7 connections)
-- [purge_deleted_item()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L612) (7 connections)
-- [NextQuoteNumberTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L117) (7 connections)
-- [QuoteSectionsTest](file:///Users/macbook/ProjectTracker/tests/test_quote_sections.py#L7) (7 connections)
+- [services.py](file:///Users/macbook/ProjectTracker/tracker/services.py#L1) (20 connections)
+- [upsert_mobile_draft()](file:///Users/macbook/ProjectTracker/tracker/services.py#L49) (15 connections)
+- [UpsertMobileDraftTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L81) (12 connections)
+- [IdFactory](file:///Users/macbook/ProjectTracker/tests/test_services.py#L12) (10 connections)
+- [._upsert()](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L82) (10 connections)
+- [ProjectServicesTest](file:///Users/macbook/ProjectTracker/tests/test_services.py#L21) (10 connections)
+- [apply_task_status_change()](file:///Users/macbook/ProjectTracker/tracker/services.py#L263) (9 connections)
+- [filter_catalog_by_disciplina()](file:///Users/macbook/ProjectTracker/tracker/services.py#L9) (8 connections)
+- [finalize_mobile_draft()](file:///Users/macbook/ProjectTracker/tracker/services.py#L123) (8 connections)
+- [remove_item_from_draft()](file:///Users/macbook/ProjectTracker/tracker/services.py#L101) (8 connections)
+- [FilterCatalogTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L59) (6 connections)
+- [RemoveItemFromDraftTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L161) (6 connections)
+- [build_scope_task()](file:///Users/macbook/ProjectTracker/tracker/services.py#L166) (5 connections)
+- [create_project_with_tasks()](file:///Users/macbook/ProjectTracker/tracker/services.py#L184) (5 connections)
+- [test_services_mobile.py](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L1) (5 connections)
+- [create_project()](file:///Users/macbook/ProjectTracker/tracker/services.py#L150) (4 connections)
+- [_recalculate_totals()](file:///Users/macbook/ProjectTracker/tracker/services.py#L40) (4 connections)
+- [sync_project_alcances()](file:///Users/macbook/ProjectTracker/tracker/services.py#L209) (4 connections)
+- [update_observation_details()](file:///Users/macbook/ProjectTracker/tracker/services.py#L324) (4 connections)
+- [FinalizeMobileDraftTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L192) (4 connections)
+- [._setup()](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L162) (4 connections)
+- [_build_mobile_item()](file:///Users/macbook/ProjectTracker/tracker/services.py#L16) (3 connections)
+- [next_folder_number()](file:///Users/macbook/ProjectTracker/tracker/services.py#L145) (3 connections)
+- [update_observation_checklist_item()](file:///Users/macbook/ProjectTracker/tracker/services.py#L357) (3 connections)
+- [.test_finalize_assigns_quote_number()](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L201) (3 connections)
 - *... and 44 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class NextQuoteNumberTest {
-        +test_catalog_approval.py()
-        +._project()
-        +.test_no_collision_preliminar_then_proyecto()
-        +.test_first_proyecto_in_clean_project()
-        +.test_obra_independent_counter()
-        +.test_servicio_counter()
-        +.test_does_not_count_other_project_quotes()
+    class IdFactory {
+        +test_services.py()
+        +.__init__()
+        +.__call__()
     }
-    class DeletionsTest {
-        +test_deletions.py()
-        +.test_delete_project_cascades_and_unlinks_fichas()
-        +.test_delete_catalog_items_marks_quote_and_ldm_refs_as_deleted_snapshots()
-        +.test_hydrate_items_flags_deleted_catalog_snapshot_without_relinking()
-        +.test_purge_deleted_catalog_items_removes_only_marked_rows()
+    class FilterCatalogTest {
+        +test_services_mobile.py()
+        +.test_none_returns_all()
+        +.test_todos_returns_all()
+        +.test_filters_by_disciplina()
+        +.test_unknown_disciplina_returns_empty()
+        +.test_empty_catalog()
     }
-    class QuoteSectionsTest {
-        +test_quote_sections.py()
-        +.test_quote_section_groups_preserve_contiguous_order()
-        +.test_quote_section_groups_preserve_empty_section_markers()
-        +.test_hydrate_quote_keeps_section_markers_out_of_totals()
-        +.test_quote_form_rebuilds_repeated_section_headers()
-        +.test_quote_form_has_quick_copy_to_selected_section()
-        +.test_quote_form_has_integrantes_editor()
+    class FinalizeMobileDraftTest {
+        +test_services_mobile.py()
+        +.test_finalize_removes_status_field()
+        +.test_finalize_assigns_quote_number()
+        +.test_finalize_returns_none_for_unknown_id()
+    }
+    class IdFactory {
+        +test_services_mobile.py()
+        +.__init__()
+        +.__call__()
+    }
+    class RemoveItemFromDraftTest {
+        +test_services_mobile.py()
+        +._setup()
+        +.test_removes_item_and_recalculates()
+        +.test_no_op_when_item_not_in_draft()
+        +.test_returns_none_when_no_draft_exists()
+        +.test_empty_items_after_last_removal()
+    }
+    class UpsertMobileDraftTest {
+        +test_services_mobile.py()
+        +._upsert()
+        +.test_creates_draft_when_none_exists()
+        +.test_item_fields_populated_from_catalog()
+        +.test_totals_calculated()
+        +.test_second_item_appended_to_existing_draft()
+        +.test_re_adding_same_item_updates_qty()
+        +.test_unknown_item_id_is_no_op()
+        +.test_draft_defaults()
+        +.test_original_quotes_list_not_mutated()
+    }
+    class ProjectServicesTest {
+        +test_services.py()
+        +.test_create_project_assigns_next_folder_and_tasks()
+        +.test_sync_project_alcances_adds_and_removes_tasks_with_children()
+        +.test_apply_task_status_blocks_dependency()
+        +.test_apply_task_status_creates_observation_child()
+        +.test_apply_task_status_creates_observation_checklist()
+        +.test_apply_task_status_does_not_generate_checklist_from_note()
+        +.test_apply_task_status_creates_new_observation_when_already_in_observations()
+        +.test_update_observation_details_edits_note_and_checklist()
+        +.test_update_observation_checklist_item_updates_status()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 2]] (6 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_catalog_approval.py](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py)
-- [/Users/macbook/ProjectTracker/tests/test_deletions.py](file:///Users/macbook/ProjectTracker/tests/test_deletions.py)
-- [/Users/macbook/ProjectTracker/tests/test_quote_sections.py](file:///Users/macbook/ProjectTracker/tests/test_quote_sections.py)
-- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
-- [/Users/macbook/ProjectTracker/tracker/deletions.py](file:///Users/macbook/ProjectTracker/tracker/deletions.py)
-- [/Users/macbook/ProjectTracker/tracker/form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tests/test_services.py](file:///Users/macbook/ProjectTracker/tests/test_services.py)
+- [/Users/macbook/ProjectTracker/tests/test_services_mobile.py](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py)
+- [/Users/macbook/ProjectTracker/tracker/services.py](file:///Users/macbook/ProjectTracker/tracker/services.py)
 
 ## Audit Trail
 
-- EXTRACTED: 250 (56%)
-- INFERRED: 194 (44%)
+- EXTRACTED: 188 (71%)
+- INFERRED: 76 (29%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -1,26 +1,24 @@
 # Community 44
 
-> 3 nodes · cohesion 0.67
+> 2 nodes · cohesion 1.00
 
 ## Key Concepts
 
-- [Project File Structure](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
-- [CLAUDE.md Graphify Rules](file:///Users/macbook/ProjectTracker/CLAUDE.md) (1 connections)
-- [Flask Blueprints Architecture](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Data Integrity Rules (R1-R7)](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [ProjectTracker System Rationale](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
 
 ## Relationships
 
-- [[Community 15]] (4 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [CLAUDE.md](file:///Users/macbook/ProjectTracker/CLAUDE.md)
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 2 (50%)
-- INFERRED: 2 (50%)
+- EXTRACTED: 2 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -98,6 +98,76 @@ class QuoteSequenceFromNumberTest(unittest.TestCase):
 
 
 class QuotePdfSectionsTest(unittest.TestCase):
+    def test_bundle_breakdown_renders_quantities_without_component_prices(self):
+        import pdfplumber
+
+        project = {
+            "name": "Proyecto Bundle",
+            "client": "Cliente Bundle",
+        }
+        quote = {
+            "quote_type": "Proyecto",
+            "quote_number": "COT-BND-P01-20260628",
+            "date": "2026-06-28",
+            "currency": "MXN",
+            "tax_rate": 16,
+            "items": [
+                {
+                    "description": "Instalacion electrica interior",
+                    "unit": "lote",
+                    "qty": 1,
+                    "price": 18500,
+                    "precio_costo": 18500,
+                    "total": 18500,
+                    "bundle_breakdown": [
+                        {
+                            "description": "Salida contacto duplex",
+                            "unit": "pza",
+                            "qty": 12,
+                            "qty_display": "12",
+                            "price": 999,
+                            "total": 11988,
+                        },
+                        {
+                            "description": "Tuberia conduit EMT 3/4",
+                            "unit": "m",
+                            "qty": 36,
+                            "qty_display": "36",
+                            "price": 888,
+                            "total": 31968,
+                        },
+                    ],
+                }
+            ],
+            "subtotal": 18500,
+            "tax": 2960,
+            "total": 21460,
+            "specs": {},
+        }
+        company = {
+            "name": "Empresa PDF",
+            "address": "",
+            "email": "",
+            "phone": "",
+            "rut": "",
+            "logo": "",
+            "portada_color": "#000000",
+        }
+
+        with tempfile.NamedTemporaryFile(suffix=".pdf") as tmp:
+            with patch("tracker.pdfs._load_company", return_value=company), \
+                    patch("tracker.pdfs.quote_logo_path", return_value=None):
+                build_quote_pdf(project, quote, tmp.name)
+            with pdfplumber.open(tmp.name) as pdf:
+                text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+
+        self.assertIn("Incluye", text)
+        self.assertIn("12 pza Salida contacto duplex", text)
+        self.assertIn("36 m Tuberia conduit EMT 3/4", text)
+        self.assertIn("$18,500.00", text)
+        self.assertNotIn("$999.00", text)
+        self.assertNotIn("$888.00", text)
+
     def test_specs_terms_and_notes_render_as_independent_sections(self):
         import pdfplumber
 

@@ -4,22 +4,21 @@
 
 ## Key Concepts
 
-- [ProjectDetailBundleUITest](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L7) (4 connections)
-- [test_project_detail_bundle_ui.py](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L1) (2 connections)
-- [.test_materials_tab_exposes_assisted_bundle_sync_review()](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L28) (1 connections)
-- [.test_materials_tab_exposes_csv_export_for_existing_ldms()](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L22) (1 connections)
-- [.test_template_contains_simple_cot_ldm_summary()](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L8) (1 connections)
-- [Smoke tests for simplified project detail COT/LDM UI.](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L1) (1 connections)
+- [MaterialsCsvExportTest](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L25) (3 connections)
+- [test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L1) (3 connections)
+- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L35) (1 connections)
+- [.test_exports_existing_ldm_without_creating_a_new_list()](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L42) (1 connections)
+- [Tests for exporting an existing LDM as CSV.](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L1) (1 connections)
+- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L27) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class ProjectDetailBundleUITest {
-        +test_project_detail_bundle_ui.py()
-        +.test_template_contains_simple_cot_ldm_summary()
-        +.test_materials_tab_exposes_csv_export_for_existing_ldms()
-        +.test_materials_tab_exposes_assisted_bundle_sync_review()
+    class MaterialsCsvExportTest {
+        +test_materials_csv_export.py()
+        +._fake_load()
+        +.test_exports_existing_ldm_without_creating_a_new_list()
     }
 ```
 
@@ -29,7 +28,7 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py)
+- [/Users/macbook/ProjectTracker/tests/test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py)
 
 ## Audit Trail
 

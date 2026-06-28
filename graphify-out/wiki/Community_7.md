@@ -1,71 +1,56 @@
 # Community 7
 
-> 51 nodes · cohesion 0.08
+> 55 nodes · cohesion 0.08
 
 ## Key Concepts
 
-- [pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1) (27 connections)
-- [build_quote_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L234) (21 connections)
-- [build_ldm_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1117) (13 connections)
-- [quote_cover_copy()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L191) (12 connections)
-- [build_progress_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1587) (9 connections)
-- [quote_sequence_from_number()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L186) (9 connections)
-- [_safe_text()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L45) (9 connections)
-- [quote_project_basis_note()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L211) (8 connections)
-- [QuoteCoverCopyTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L13) (8 connections)
-- [QuoteSequenceFromNumberTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L77) (8 connections)
-- [_load_company()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L119) (7 connections)
-- [QuoteProjectBasisNoteTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L52) (6 connections)
-- [catalog_description_lookup()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L163) (5 connections)
-- [format_date_long()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L89) (5 connections)
-- [quote_logo_path()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L133) (5 connections)
-- [_register_dejavu()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L64) (5 connections)
-- [_hex_to_rgb()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L34) (4 connections)
-- [money_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L103) (4 connections)
-- [note_lines()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L112) (4 connections)
-- [quote_catalog_description()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L227) (4 connections)
-- [test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L1) (4 connections)
-- [_company_name()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L156) (3 connections)
-- [quote_scope_paragraphs()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L160) (3 connections)
-- [quote_terms()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L182) (3 connections)
-- [.test_extraordinaria_no_sequence()](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L37) (2 connections)
-- *... and 26 more nodes in this community*
+- [materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L1) (47 connections)
+- [import_ldm_csv_upload()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L266) (15 connections)
+- [quote_from_form()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L24) (12 connections)
+- [hydrate_ldm()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L392) (11 connections)
+- [_find_project()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L31) (11 connections)
+- [import_ldm_pdf_create()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L732) (11 connections)
+- [sync_ldm_bundles()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L442) (11 connections)
+- [form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L1) (11 connections)
+- [new_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L219) (10 connections)
+- [edit_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L379) (9 connections)
+- [import_ldm_pdf_map()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L704) (9 connections)
+- [FormModelsTest](file:///Users/macbook/ProjectTracker/tests/test_form_models.py#L8) (9 connections)
+- [_bundle_suggestion_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L157) (8 connections)
+- [_clear_pdf_import()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L609) (7 connections)
+- [import_ldm_pdf_upload()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L647) (7 connections)
+- [_load_pdf_import()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L626) (7 connections)
+- [ldm_from_form()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L131) (6 connections)
+- [_bundle_sync_suggestions()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L194) (6 connections)
+- [_ldm_csv_response()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L122) (6 connections)
+- [ldm_pdf()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L559) (6 connections)
+- [_pdf_import_path()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L602) (6 connections)
+- [_render_ldm_form()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L146) (6 connections)
+- [_clean_form_text()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L27) (5 connections)
+- [_store_pdf_import()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L617) (5 connections)
+- [_csv_already_imported()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L59) (4 connections)
+- *... and 30 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class QuoteCoverCopyTest {
-        +test_pdfs.py()
-        +.test_proyecto()
-        +.test_obra()
-        +.test_servicio()
-        +.test_extraordinaria_with_sequence()
-        +.test_extraordinaria_no_sequence()
-        +.test_preliminar()
-        +.test_general_fallback()
+    class FormModelsTest {
+        +test_form_models.py()
+        +.test_quote_from_form_preserves_sections_and_items()
+        +.test_quote_from_form_preserves_section_without_items()
+        +.test_quote_from_form_preserves_deleted_catalog_snapshot()
+        +.test_quote_from_form_parses_specs()
+        +.test_quote_from_form_parses_integrantes()
+        +.test_quote_from_form_specs_defaults_to_empty_strings()
+        +.test_ldm_from_form_preserves_fallback_and_items()
+        +.test_ldm_from_form_preserves_deleted_catalog_snapshot()
     }
-    class QuotePdfSectionsTest {
-        +test_pdfs.py()
-        +.test_specs_terms_and_notes_render_as_independent_sections()
-    }
-    class QuoteProjectBasisNoteTest {
-        +test_pdfs.py()
-        +.test_proyecto_with_source()
-        +.test_proyecto_without_source()
-        +.test_obra_returns_empty()
-        +.test_servicio_returns_empty()
-        +.test_extraordinaria_uses_note_field()
-    }
-    class QuoteSequenceFromNumberTest {
-        +test_pdfs.py()
-        +.test_proyecto_code()
-        +.test_obra_code()
-        +.test_servicio_code()
-        +.test_extraordinaria_code()
-        +.test_general_code()
-        +.test_no_match()
-        +.test_empty()
+    class LdmPdfImportRoutesTest {
+        +test_ldm_pdf_import_routes.py()
+        +.test_upload_stores_pdf_import_payload_outside_cookie_session()
+        +.test_upload_pdf_is_blocked_when_project_is_closed()
+        +.test_create_pdf_import_is_blocked_when_project_is_closed()
     }
 ```
 
@@ -75,14 +60,16 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py)
+- [/Users/macbook/ProjectTracker/tests/test_form_models.py](file:///Users/macbook/ProjectTracker/tests/test_form_models.py)
+- [/Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py)
 - [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
-- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tracker/form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
 
 ## Audit Trail
 
-- EXTRACTED: 173 (74%)
-- INFERRED: 61 (26%)
+- EXTRACTED: 214 (68%)
+- INFERRED: 102 (32%)
 - AMBIGUOUS: 0 (0%)
 
 ---

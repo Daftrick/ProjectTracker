@@ -22,6 +22,16 @@
           <div class="flex-grow-1">
             <div class="item-name">{{ item.description }}</div>
             <div class="item-meta">{{ item.qty }} {{ item.unit }} × {{ item.price | float | currency }} = {{ item.total | currency }}</div>
+            {% if item.bundle_breakdown %}
+              <div class="small text-secondary mt-2 ps-2 border-start">
+                <strong>Incluye:</strong>
+                <ul class="mb-0 ps-3">
+                  {% for component in item.bundle_breakdown %}
+                    <li>{{ component.qty_display or component.qty }} {{ component.unit }} {{ component.description }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
           </div>
           <form method="post"
                 action="{{ url_for('quotes_mobile_bp.mobile_remove_item', project_id=project.id) }}">

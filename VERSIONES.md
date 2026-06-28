@@ -1,6 +1,15 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v45.13 — 28-Jun-2026
+## Versión actual: v45.14 — 28-Jun-2026
+
+### v45.14 — Cotizaciones: plantillas múltiples por tipo y bundles con desglose de cantidades
+- **Plantillas por tipo ahora son lista nombrada**: `quote_templates.json` migra de un dict legacy a `[{ id, name, sections_default, terms_default, contacts_default }]` por tipo, con compatibilidad automática al leer
+- **Editor de plantillas reescrito**: `/quote-templates` permite crear, editar y borrar múltiples plantillas por tipo; las secciones pueden incluir artículos de catálogo con cantidad, sin mostrar precios
+- **Selector de plantilla en nueva cotización**: el form pre-llena secciones, artículos, términos y contactos desde la plantilla elegida; `(en blanco)` siempre queda disponible
+- **Bundles en cotizaciones**: los bundles se renderizan como renglón comercial con desglose de artículos incluidos y cantidades, sin precios por componente, en editor, vista, móvil y PDF
+- **Semilla de aceptación**: se añadió la plantilla inicial `Proyecto ejecutivo completo` con artículos reales del catálogo
+- 356 tests pasan
+## Versión anterior: v45.13 — 28-Jun-2026
 
 ### v45.13 — PDF: correcciones label IVA y null-guard tax_rate
 - **IVA label consistente**: portada ahora usa `_ptax_rate_disp` (igual que bloque de totales) → ambas páginas muestran `IVA (16%)` en lugar de `IVA (16.0%)` cuando la tasa es entera

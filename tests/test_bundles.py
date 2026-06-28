@@ -70,6 +70,83 @@ class ExpandQuoteBundlesTest(unittest.TestCase):
         self.assertEqual(result["unmapped_quote_items"], [])
 
 
+class QuoteItemBundleBreakdownTest(unittest.TestCase):
+    def test_breakdown_multiplies_component_quantities_without_prices(self):
+        bundle = b.create_bundle("COT-1", "Instalacion", [
+            {"catalog_item_id": "MAT-1", "qty": 2},
+            {"catalog_item_id": "MAT-2", "qty": 1.5, "waste_pct": 10},
+        ])
+        rows = b.quote_item_bundle_breakdown(
+            {"catalog_item_id": "COT-1", "qty": 3},
+            b.bundle_by_catalog_item_id([bundle]),
+            {
+                "MAT-1": {"nombre": "Salida contacto", "unidad": "pza", "precio": 99},
+                "MAT-2": {"nombre": "Tuberia EMT", "unidad": "m", "precio": 20},
+            },
+        )
+
+        self.assertEqual(rows[0], {
+            "catalog_item_id": "MAT-1",
+            "description": "Salida contacto",
+            "unit": "pza",
+            "qty": 6.0,
+            "qty_display": "6",
+        })
+        self.assertAlmostEqual(rows[1]["qty"], 4.95)
+        self.assertEqual(rows[1]["qty_display"], "4.95")
+        for row in rows:
+            self.assertNotIn("price", row)
+            self.assertNotIn("total", row)
+
+    def test_breakdown_prefers_snapshot_when_present(self):
+        bundle = b.create_bundle("COT-1", "Instalacion", [{"catalog_item_id": "MAT-LIVE", "qty": 20}])
+        item = {
+            "catalog_item_id": "COT-1",
+            "qty": 3,
+            "bundle_snapshot": {
+                "components": [
+                    {"catalog_item_id": "MAT-SNAP", "description": "Snapshot item", "unit": "pza", "qty": 7}
+                ]
+            },
+        }
+
+        rows = b.quote_item_bundle_breakdown(item, b.bundle_by_catalog_item_id([bundle]), {})
+
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["catalog_item_id"], "MAT-SNAP")
+        self.assertEqual(rows[0]["qty"], 7.0)
+
+    def test_breakdown_missing_bundle_returns_empty_list(self):
+        rows = b.quote_item_bundle_breakdown({"catalog_item_id": "NOPE", "qty": 1}, {}, {})
+
+        self.assertEqual(rows, [])
+
+    def test_hydrate_quote_bundle_breakdowns_keeps_totals_and_sections(self):
+        quote = {
+            "subtotal": 100,
+            "tax": 16,
+            "total": 116,
+            "items": [
+                {"kind": "section", "section": "Instalaciones"},
+                {"catalog_item_id": "COT-1", "description": "Bundle", "section": "Instalaciones", "qty": 2, "total": 100},
+            ],
+            "sections": [
+                {"name": "Instalaciones", "items": [], "subtotal": 100},
+            ],
+        }
+        bundle = b.create_bundle("COT-1", "Bundle", [{"catalog_item_id": "MAT-1", "qty": 3}])
+
+        hydrated = b.hydrate_quote_bundle_breakdowns(quote, [bundle], {"MAT-1": {"nombre": "Material", "unidad": "m"}})
+
+        self.assertEqual(hydrated["subtotal"], 100)
+        self.assertEqual(hydrated["tax"], 16)
+        self.assertEqual(hydrated["total"], 116)
+        item = hydrated["sections"][0]["items"][0]
+        self.assertTrue(item["has_bundle_breakdown"])
+        self.assertEqual(item["bundle_breakdown"][0]["description"], "Material")
+        self.assertEqual(item["bundle_breakdown"][0]["qty"], 6.0)
+
+
 class SeededBundlesTest(unittest.TestCase):
     """Cobertura de los bundles reales en data/bundles.json."""
 

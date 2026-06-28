@@ -4,18 +4,18 @@
 
 ## Key Concepts
 
-- [AutoCAD/LISP to App Workflow](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (2 connections)
-- [CSV de Plano (AutoCAD Export) Entity](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (2 connections)
-- [CSV Import API Routes (Pending)](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (1 connections)
-- [CSV Plano Filename Convention](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Bundles Versioned System](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Consistency COT vs LDM Module](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Catalog Hydration Logic](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [Pending: Bundle Technical Consistency Audit](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
 
 ## Relationships
 
-- [[Community 15]] (6 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [REFERENCIA_ESTRUCTURAS_CSV.txt](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt)
+- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
 - [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
 - [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 

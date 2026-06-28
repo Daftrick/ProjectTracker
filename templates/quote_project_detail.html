@@ -82,6 +82,18 @@
     color:#d4dbe6 !important;
     border-color:rgba(255,255,255,.1) !important;
   }
+  .quote-bundle-includes{
+    margin-top:6px;
+    padding-left:12px;
+    border-left:2px solid #c8d1dc;
+    color:#5c6878;
+    font-size:.84rem;
+    line-height:1.35;
+  }
+  .quote-bundle-includes ul{
+    margin:2px 0 0;
+    padding-left:18px;
+  }
 </style>
 {% endblock %}
 {% block content %}
@@ -118,7 +130,19 @@
             {% set row_ns.index = row_ns.index + 1 %}
             <tr>
               <td class="text-muted">{{ row_ns.index }}</td>
-              <td>{{ item.description }}</td>
+              <td>
+                <div>{{ item.description }}</div>
+                {% if item.bundle_breakdown %}
+                <div class="quote-bundle-includes">
+                  <strong>Incluye:</strong>
+                  <ul>
+                    {% for component in item.bundle_breakdown %}
+                    <li>{{ component.qty_display or component.qty }} {{ component.unit }} {{ component.description }}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% endif %}
+              </td>
               <td class="text-center">{{ item.unit }}</td>
               <td class="text-end">{{ item.qty }}</td>
               <td class="text-end">{{ item.price | currency }}</td>

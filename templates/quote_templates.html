@@ -2,14 +2,85 @@
 {% block title %}Plantillas de Cotización{% endblock %}
 {% block page_title %}<i class="bi bi-file-earmark-text me-2"></i>Plantillas de Cotización{% endblock %}
 {% block content %}
-<div style="max-width:760px">
+<style>
+  .template-shell { max-width: 1120px; }
+  .template-list { display: grid; gap: 1rem; }
+  .template-editor {
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 8px;
+    background: rgba(255,255,255,.03);
+  }
+  .template-editor-header {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) auto;
+    gap: .75rem;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,.10);
+  }
+  .template-editor-body { padding: 1rem; }
+  .template-section {
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 8px;
+    padding: .85rem;
+    margin-bottom: .75rem;
+    background: rgba(0,0,0,.12);
+  }
+  .template-section-header {
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) auto;
+    gap: .5rem;
+    margin-bottom: .75rem;
+  }
+  .template-item-row {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) 100px 110px auto;
+    gap: .5rem;
+    align-items: center;
+    margin-bottom: .45rem;
+  }
+  .template-item-muted { color: var(--bs-secondary-color); font-size: .78rem; }
+  .template-search { position: relative; }
+  .template-search-results {
+    display: none;
+    position: absolute;
+    z-index: 30;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    max-height: 240px;
+    overflow: auto;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 8px;
+    background: #111827;
+    box-shadow: 0 16px 28px rgba(0,0,0,.35);
+  }
+  .template-search-results.is-open { display: block; }
+  .template-search-result {
+    width: 100%;
+    text-align: left;
+    border: 0;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    padding: .55rem .7rem;
+    background: transparent;
+    color: inherit;
+  }
+  .template-search-result:hover { background: rgba(255,255,255,.08); }
+  @media (max-width: 768px) {
+    .template-editor-header,
+    .template-section-header,
+    .template-item-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="template-shell">
   <p class="text-muted mb-4">
-    Define los valores predeterminados por tipo de cotización. Al crear una cotización nueva,
-    el formulario se pre-llena con estas secciones y términos.
+    Administra plantillas por tipo de cotización. Las plantillas guardan secciones,
+    artículos de catálogo y cantidades; los precios se toman del catálogo al crear la cotización.
   </p>
 
-  <form method="post" action="{{ url_for('admin_bp.quote_templates') }}">
-
+  <form method="post" action="{{ url_for('admin_bp.quote_templates') }}" id="quoteTemplatesForm">
     <ul class="nav nav-tabs mb-3" id="qtTypeTabs">
       {% for qtype in quote_types %}
       <li class="nav-item">
@@ -25,100 +96,283 @@
 
     <div class="tab-content">
       {% for qtype in quote_types %}
-      {% set tmpl = templates[qtype] %}
       <div class="tab-pane fade {% if loop.first %}show active{% endif %}" id="tab-{{ qtype }}">
-
-        <!-- Secciones -->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="bi bi-list-ul me-2 text-primary"></i>Secciones predeterminadas
-          </div>
-          <div class="card-body">
-            <label class="form-label">
-              Una sección por línea. Se pre-insertan como encabezados en cotizaciones nuevas.
-            </label>
-            <textarea name="{{ qtype }}_sections" class="form-control font-monospace" rows="5"
-                      placeholder="Iluminación&#10;Contactos e Instalaciones&#10;Cuadro de Cargas">{{ tmpl.sections_default | join('\n') }}</textarea>
-          </div>
+        <div class="d-flex gap-2 mb-3">
+          <input name="new_template_name_{{ qtype }}" class="form-control"
+                 placeholder="Nombre de nueva plantilla">
+          <button type="submit" name="create_qtype" value="{{ qtype }}" class="btn btn-outline-primary text-nowrap">
+            <i class="bi bi-plus-lg me-1"></i>Nueva plantilla
+          </button>
         </div>
 
-        <!-- Contactos de portada -->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="bi bi-person-lines-fill me-2 text-primary"></i>Contactos de portada
-          </div>
-          <div class="card-body">
-            <div class="row g-3">
-              {% for contact in tmpl.contacts_default %}
-              <div class="col-12">
-                <div class="d-flex align-items-center gap-2 mb-2">
-                  <input type="checkbox" class="form-check-input mt-0"
-                         name="{{ qtype }}_contact_{{ loop.index0 }}_enabled"
-                         value="1"
-                         id="{{ qtype }}_contact_{{ loop.index0 }}_enabled"
-                         {% if contact.enabled %}checked{% endif %}>
-                  <label class="form-check-label fw-semibold" for="{{ qtype }}_contact_{{ loop.index0 }}_enabled">
-                    Integrante {{ loop.index }}
-                  </label>
-                </div>
-                <div class="row g-2">
-                  <div class="col-md-6">
-                    <input name="{{ qtype }}_contact_{{ loop.index0 }}_name"
-                           class="form-control"
-                           value="{{ contact.name }}"
-                           placeholder="Nombre">
-                  </div>
-                  <div class="col-md-6">
-                    <input name="{{ qtype }}_contact_{{ loop.index0 }}_role"
-                           class="form-control"
-                           value="{{ contact.role }}"
-                           placeholder="Puesto">
-                  </div>
-                </div>
+        <div class="template-list">
+          {% for tmpl in templates[qtype] %}
+          <section class="template-editor" data-template-id="{{ tmpl.id }}">
+            <input type="hidden" name="template_{{ tmpl.id }}_sections_json" class="template-sections-json">
+            <div class="template-editor-header">
+              <div>
+                <label class="form-label form-label-sm fw-semibold">Nombre</label>
+                <input name="template_{{ tmpl.id }}_name" class="form-control"
+                       value="{{ tmpl.name }}" placeholder="Ejecutivo completo">
               </div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-
-        <!-- Términos y condiciones -->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="bi bi-file-text me-2 text-primary"></i>Términos y condiciones predeterminados
-          </div>
-          <div class="card-body">
-            <div class="row g-3">
-              {% for term in tmpl.terms_default %}
-              <div class="col-12 border-bottom pb-3">
-                <div class="form-check mb-2">
-                  <input type="checkbox" class="form-check-input"
-                         name="{{ qtype }}_term_{{ term.key }}_enabled"
-                         value="1"
-                         id="{{ qtype }}_term_{{ term.key }}_enabled"
-                         {% if term.enabled %}checked{% endif %}>
-                  <label class="form-check-label fw-semibold" for="{{ qtype }}_term_{{ term.key }}_enabled">
-                    {{ term.title }}
-                  </label>
-                </div>
-                <textarea name="{{ qtype }}_term_{{ term.key }}_body"
-                          class="form-control"
-                          rows="2">{{ term.body }}</textarea>
+              <div class="d-flex align-items-end gap-2">
+                <button type="button" class="btn btn-outline-secondary" onclick="addTemplateSection('{{ tmpl.id }}')">
+                  <i class="bi bi-layout-text-sidebar-reverse me-1"></i>Sección
+                </button>
+                <button type="submit" class="btn btn-outline-danger"
+                        name="delete_target" value="{{ qtype }}:{{ tmpl.id }}"
+                        onclick="return confirm('¿Eliminar esta plantilla?')">
+                  <i class="bi bi-trash"></i>
+                </button>
               </div>
-              {% endfor %}
             </div>
-          </div>
-        </div>
 
+            <div class="template-editor-body">
+              <div class="template-sections">
+                {% for section in tmpl.sections_default %}
+                <div class="template-section">
+                  <div class="template-section-header">
+                    <input class="form-control template-section-name"
+                           value="{{ section.name }}" placeholder="Nombre de sección">
+                    <button type="button" class="btn btn-outline-danger" onclick="removeTemplateSection(this)">
+                      <i class="bi bi-x-lg"></i>
+                    </button>
+                  </div>
+                  <div class="template-items">
+                    {% for item in section["items"] %}
+                    <div class="template-item-row">
+                      <div>
+                        <input type="hidden" class="template-item-id" value="{{ item.catalog_item_id }}">
+                        <input type="hidden" class="template-item-description" value="{{ item.description }}">
+                        <input type="hidden" class="template-item-unit" value="{{ item.unit }}">
+                        <div class="fw-semibold template-item-title">{{ item.description }}</div>
+                        <div class="template-item-muted">{{ item.unit }}</div>
+                      </div>
+                      <input class="form-control form-control-sm template-item-qty" type="number"
+                             value="{{ item.qty }}" min="0" step="0.01" aria-label="Cantidad">
+                      <span class="template-item-muted">cantidad</span>
+                      <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeTemplateItem(this)">
+                        <i class="bi bi-x"></i>
+                      </button>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  <div class="template-search mt-2">
+                    <input class="form-control form-control-sm template-search-input"
+                           placeholder="Buscar artículo de catálogo para agregar">
+                    <div class="template-search-results"></div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addTemplateSection('{{ tmpl.id }}')">
+                <i class="bi bi-plus-lg me-1"></i>Agregar sección
+              </button>
+
+              <hr>
+              <h6 class="fw-semibold mb-3">Contactos de portada</h6>
+              <div class="row g-3 mb-3">
+                {% for contact in tmpl.contacts_default %}
+                <div class="col-md-6">
+                  <div class="d-flex align-items-center gap-2 mb-2">
+                    <input type="checkbox" class="form-check-input mt-0"
+                           name="template_{{ tmpl.id }}_contact_{{ loop.index0 }}_enabled"
+                           value="1"
+                           id="template_{{ tmpl.id }}_contact_{{ loop.index0 }}_enabled"
+                           {% if contact.enabled %}checked{% endif %}>
+                    <label class="form-check-label fw-semibold" for="template_{{ tmpl.id }}_contact_{{ loop.index0 }}_enabled">
+                      Integrante {{ loop.index }}
+                    </label>
+                  </div>
+                  <div class="row g-2">
+                    <div class="col-6">
+                      <input name="template_{{ tmpl.id }}_contact_{{ loop.index0 }}_name"
+                             class="form-control form-control-sm"
+                             value="{{ contact.name }}"
+                             placeholder="Nombre">
+                    </div>
+                    <div class="col-6">
+                      <input name="template_{{ tmpl.id }}_contact_{{ loop.index0 }}_role"
+                             class="form-control form-control-sm"
+                             value="{{ contact.role }}"
+                             placeholder="Puesto">
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+
+              <h6 class="fw-semibold mb-3">Términos y condiciones</h6>
+              <div class="row g-3">
+                {% for term in tmpl.terms_default %}
+                <div class="col-md-6">
+                  <div class="form-check mb-2">
+                    <input type="checkbox" class="form-check-input"
+                           name="template_{{ tmpl.id }}_term_{{ term.key }}_enabled"
+                           value="1"
+                           id="template_{{ tmpl.id }}_term_{{ term.key }}_enabled"
+                           {% if term.enabled %}checked{% endif %}>
+                    <label class="form-check-label fw-semibold" for="template_{{ tmpl.id }}_term_{{ term.key }}_enabled">
+                      {{ term.title }}
+                    </label>
+                  </div>
+                  <textarea name="template_{{ tmpl.id }}_term_{{ term.key }}_body"
+                            class="form-control form-control-sm"
+                            rows="2">{{ term.body }}</textarea>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </section>
+          {% endfor %}
+        </div>
       </div>
       {% endfor %}
     </div>
 
-    <div class="d-flex gap-2 mt-2 mb-4">
-      <button type="submit" class="btn btn-primary">
+    <div class="d-flex gap-2 mt-4 mb-4">
+      <button type="submit" name="action" value="save" class="btn btn-primary">
         <i class="bi bi-check-lg me-1"></i>Guardar plantillas
       </button>
     </div>
-
   </form>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const TEMPLATE_CATALOG = {{ catalog | tojson }};
+
+  function templateEsc(value) {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;");
+  }
+
+  function templateItemRow(item) {
+    return `
+      <div class="template-item-row">
+        <div>
+          <input type="hidden" class="template-item-id" value="${templateEsc(item.id || item.catalog_item_id || "")}">
+          <input type="hidden" class="template-item-description" value="${templateEsc(item.nombre || item.description || "")}">
+          <input type="hidden" class="template-item-unit" value="${templateEsc(item.unidad || item.unit || "")}">
+          <div class="fw-semibold template-item-title">${templateEsc(item.nombre || item.description || "")}</div>
+          <div class="template-item-muted">${templateEsc(item.unidad || item.unit || "")}</div>
+        </div>
+        <input class="form-control form-control-sm template-item-qty" type="number"
+               value="${templateEsc(item.qty || 1)}" min="0" step="0.01" aria-label="Cantidad">
+        <span class="template-item-muted">cantidad</span>
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeTemplateItem(this)">
+          <i class="bi bi-x"></i>
+        </button>
+      </div>`;
+  }
+
+  function templateSectionHTML(name = "") {
+    return `
+      <div class="template-section">
+        <div class="template-section-header">
+          <input class="form-control template-section-name" value="${templateEsc(name)}" placeholder="Nombre de sección">
+          <button type="button" class="btn btn-outline-danger" onclick="removeTemplateSection(this)">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+        <div class="template-items"></div>
+        <div class="template-search mt-2">
+          <input class="form-control form-control-sm template-search-input"
+                 placeholder="Buscar artículo de catálogo para agregar">
+          <div class="template-search-results"></div>
+        </div>
+      </div>`;
+  }
+
+  function addTemplateSection(templateId) {
+    const editor = document.querySelector(`[data-template-id="${CSS.escape(templateId)}"]`);
+    const container = editor?.querySelector(".template-sections");
+    if (!container) return;
+    container.insertAdjacentHTML("beforeend", templateSectionHTML(""));
+    container.querySelector(".template-section:last-child .template-section-name")?.focus();
+  }
+
+  function removeTemplateSection(button) {
+    button.closest(".template-section")?.remove();
+  }
+
+  function removeTemplateItem(button) {
+    button.closest(".template-item-row")?.remove();
+  }
+
+  function addItemToSection(section, item) {
+    section.querySelector(".template-items")?.insertAdjacentHTML("beforeend", templateItemRow(item));
+  }
+
+  function renderSearchResults(input) {
+    const section = input.closest(".template-section");
+    const results = section.querySelector(".template-search-results");
+    const query = input.value.trim().toLowerCase();
+    if (!query) {
+      results.classList.remove("is-open");
+      results.innerHTML = "";
+      return;
+    }
+    const matches = TEMPLATE_CATALOG
+      .filter(item => `${item.nombre || ""} ${item.descripcion || ""} ${item.unidad || ""}`.toLowerCase().includes(query))
+      .slice(0, 12);
+    if (!matches.length) {
+      results.innerHTML = `<div class="template-item-muted p-2">Sin resultados.</div>`;
+      results.classList.add("is-open");
+      return;
+    }
+    results.innerHTML = matches.map((item, index) => `
+      <button type="button" class="template-search-result" data-catalog-index="${index}">
+        <div class="fw-semibold">${templateEsc(item.nombre)}</div>
+        <div class="template-item-muted">${templateEsc(item.unidad)}${item.descripcion ? ` · ${templateEsc(item.descripcion)}` : ""}</div>
+      </button>`).join("");
+    results.querySelectorAll(".template-search-result").forEach((button, index) => {
+      button.addEventListener("mousedown", event => {
+        event.preventDefault();
+        addItemToSection(section, matches[index]);
+        input.value = "";
+        results.classList.remove("is-open");
+        results.innerHTML = "";
+      });
+    });
+    results.classList.add("is-open");
+  }
+
+  function syncTemplateSections() {
+    document.querySelectorAll(".template-editor").forEach(editor => {
+      const sections = Array.from(editor.querySelectorAll(".template-section")).map(section => {
+        const items = Array.from(section.querySelectorAll(".template-item-row")).map(row => ({
+          catalog_item_id: row.querySelector(".template-item-id")?.value || "",
+          description: row.querySelector(".template-item-description")?.value || "",
+          unit: row.querySelector(".template-item-unit")?.value || "",
+          qty: parseFloat(row.querySelector(".template-item-qty")?.value || "1") || 1,
+        })).filter(item => item.catalog_item_id);
+        return {
+          name: section.querySelector(".template-section-name")?.value.trim() || "",
+          items,
+        };
+      }).filter(section => section.name || section.items.length);
+      editor.querySelector(".template-sections-json").value = JSON.stringify(sections);
+    });
+  }
+
+  document.addEventListener("input", event => {
+    if (event.target.classList.contains("template-search-input")) {
+      renderSearchResults(event.target);
+    }
+  });
+  document.addEventListener("click", event => {
+    if (!event.target.closest(".template-search")) {
+      document.querySelectorAll(".template-search-results").forEach(el => {
+        el.classList.remove("is-open");
+      });
+    }
+  });
+  document.getElementById("quoteTemplatesForm").addEventListener("submit", syncTemplateSections);
+  window.addEventListener("DOMContentLoaded", syncTemplateSections);
+</script>
 {% endblock %}

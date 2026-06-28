@@ -934,32 +934,109 @@ def quote_templates():
     from ..quote_templates_config import MAX_QUOTE_TEMPLATE_CONTACTS, get_quote_templates, save_quote_templates
     current = get_quote_templates()
     if request.method == "POST":
-        for qtype in _QUOTE_TYPES:
-            sections_raw = request.form.get(f"{qtype}_sections", "")
-            current[qtype]["sections_default"] = [
-                s.strip() for s in sections_raw.splitlines() if s.strip()
-            ]
-            current[qtype]["contacts_default"] = [
-                {
-                    "enabled": bool(request.form.get(f"{qtype}_contact_{index}_enabled")),
-                    "name": (request.form.get(f"{qtype}_contact_{index}_name", "") or "").strip(),
-                    "role": (request.form.get(f"{qtype}_contact_{index}_role", "") or "").strip(),
-                }
-                for index in range(MAX_QUOTE_TEMPLATE_CONTACTS)
-            ]
-            current[qtype]["terms_default"] = [
-                {
-                    "key": key,
-                    "title": title,
-                    "body": request.form.get(f"{qtype}_term_{key}_body", "").strip() or default_body,
-                    "enabled": bool(request.form.get(f"{qtype}_term_{key}_enabled")),
-                }
-                for key, title, default_body in QUOTE_TERMS_DEFAULTS
-            ]
-        save_quote_templates(current)
-        flash("Plantillas de cotización guardadas.", "success")
+        create_qtype = request.form.get("create_qtype", "")
+        delete_target = request.form.get("delete_target", "")
+        action = "create" if create_qtype else "delete" if delete_target else request.form.get("action") or "save"
+        qtype = create_qtype or request.form.get("qtype", "")
+        if delete_target and ":" in delete_target:
+            qtype, template_id = delete_target.split(":", 1)
+        else:
+            template_id = request.form.get("template_id", "")
+        if action == "create":
+            name = (request.form.get(f"new_template_name_{qtype}", "") or "").strip()
+            if qtype not in _QUOTE_TYPES or not name:
+                flash("El tipo y nombre de plantilla son requeridos.", "warning")
+            elif any(t.get("name", "").casefold() == name.casefold() for t in current.get(qtype, [])):
+                flash(f"Ya existe una plantilla '{name}' para {qtype}.", "warning")
+            else:
+                current.setdefault(qtype, []).append({
+                    "id": new_id().lower(),
+                    "name": name,
+                    "sections_default": [],
+                    "contacts_default": [
+                        {"enabled": False, "name": "", "role": ""}
+                        for _ in range(MAX_QUOTE_TEMPLATE_CONTACTS)
+                    ],
+                    "terms_default": [
+                        {"key": key, "title": title, "body": default_body, "enabled": True}
+                        for key, title, default_body in QUOTE_TERMS_DEFAULTS
+                    ],
+                })
+                save_quote_templates(current)
+                flash(f"Plantilla '{name}' creada.", "success")
+        elif action == "delete":
+            templates = current.get(qtype, [])
+            if qtype not in _QUOTE_TYPES or not template_id:
+                flash("No se pudo identificar la plantilla a eliminar.", "warning")
+            elif len(templates) <= 1:
+                flash("No puedes eliminar la última plantilla de un tipo.", "warning")
+            else:
+                current[qtype] = [t for t in templates if str(t.get("id")) != template_id]
+                save_quote_templates(current)
+                flash("Plantilla eliminada.", "success")
+        else:
+            has_error = False
+            for qtype in _QUOTE_TYPES:
+                templates = current.get(qtype, [])
+                seen_names = set()
+                for template in templates:
+                    tid = str(template.get("id"))
+                    name = (request.form.get(f"template_{tid}_name", "") or "").strip()
+                    if not name:
+                        has_error = True
+                        flash(f"Cada plantilla de {qtype} necesita nombre.", "warning")
+                        continue
+                    name_key = name.casefold()
+                    if name_key in seen_names:
+                        has_error = True
+                        flash(f"Nombre duplicado en {qtype}: {name}.", "warning")
+                        continue
+                    seen_names.add(name_key)
+                    raw_sections = request.form.get(f"template_{tid}_sections_json", "[]") or "[]"
+                    try:
+                        sections = json.loads(raw_sections)
+                    except json.JSONDecodeError:
+                        sections = []
+                        has_error = True
+                        flash(f"No se pudieron leer las secciones de '{name}'.", "warning")
+                    template["name"] = name
+                    template["sections_default"] = sections if isinstance(sections, list) else []
+                    template["contacts_default"] = [
+                        {
+                            "enabled": bool(request.form.get(f"template_{tid}_contact_{index}_enabled")),
+                            "name": (request.form.get(f"template_{tid}_contact_{index}_name", "") or "").strip(),
+                            "role": (request.form.get(f"template_{tid}_contact_{index}_role", "") or "").strip(),
+                        }
+                        for index in range(MAX_QUOTE_TEMPLATE_CONTACTS)
+                    ]
+                    template["terms_default"] = [
+                        {
+                            "key": key,
+                            "title": title,
+                            "body": request.form.get(f"template_{tid}_term_{key}_body", "").strip() or default_body,
+                            "enabled": bool(request.form.get(f"template_{tid}_term_{key}_enabled")),
+                        }
+                        for key, title, default_body in QUOTE_TERMS_DEFAULTS
+                    ]
+            if not has_error:
+                save_quote_templates(current)
+                flash("Plantillas de cotización guardadas.", "success")
         return redirect(url_for("admin_bp.quote_templates"))
-    return render_template("quote_templates.html", templates=current, quote_types=_QUOTE_TYPES)
+    catalog = [
+        {
+            "id": item.get("id", ""),
+            "nombre": item.get("nombre", ""),
+            "descripcion": item.get("descripcion", ""),
+            "unidad": item.get("unidad", ""),
+        }
+        for item in sorted(load("catalogo"), key=lambda item: str(item.get("nombre", "")).casefold())
+    ]
+    return render_template(
+        "quote_templates.html",
+        templates=current,
+        quote_types=_QUOTE_TYPES,
+        catalog=catalog,
+    )
 
 
 _IMPORTABLE = {

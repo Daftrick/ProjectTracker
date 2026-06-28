@@ -311,11 +311,44 @@ class MobileReviewTest(MobileRouteTestBase):
         return []
 
     def test_review_page_200_with_draft(self):
-        with patch("tracker.routes.quotes_mobile.load", side_effect=self._fake_load):
+        with patch("tracker.routes.quotes_mobile.load", side_effect=self._fake_load), \
+             patch("tracker.routes.quotes_mobile.catalog_maps", return_value=(CATALOG_BY_ID, {})):
             resp = self.client.get("/cotizar/mobile/PROJ-MOB/review")
         self.assertEqual(resp.status_code, 200)
         self.assertIn(b"Silla", resp.data)
         self.assertIn(b"3,480", resp.data)
+
+    def test_review_shows_bundle_breakdown(self):
+        bundle = {
+            "id": "BND-1",
+            "catalog_item_id": "ITEM-A",
+            "active_version": 1,
+            "versions": [
+                {
+                    "version": 1,
+                    "label": "Version 1",
+                    "status": "active",
+                    "components": [{"catalog_item_id": "ITEM-B", "qty": 3}],
+                }
+            ],
+        }
+
+        def fake_load(key):
+            if key == "projects":
+                return [PROJECT]
+            if key == "quotes":
+                return [DRAFT_QUOTE]
+            if key == "bundles":
+                return [bundle]
+            return []
+
+        with patch("tracker.routes.quotes_mobile.load", side_effect=fake_load), \
+             patch("tracker.routes.quotes_mobile.catalog_maps", return_value=(CATALOG_BY_ID, {})):
+            resp = self.client.get("/cotizar/mobile/PROJ-MOB/review")
+
+        self.assertEqual(resp.status_code, 200)
+        self.assertIn("Incluye".encode("utf-8"), resp.data)
+        self.assertIn("6 pza Mesa de trabajo".encode("utf-8"), resp.data)
 
     def test_review_no_draft_redirects_to_items(self):
         def fake_load(key):

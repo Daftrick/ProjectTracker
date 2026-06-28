@@ -1,34 +1,20 @@
 # Community 25
 
-> 12 nodes · cohesion 0.23
+> 11 nodes · cohesion 0.20
 
 ## Key Concepts
 
-- [get_company()](file:///Users/macbook/ProjectTracker/tracker/company_config.py#L15) (7 connections)
-- [CompanyConfigTest](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py#L5) (5 connections)
-- [empresa()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L815) (4 connections)
-- [save_company()](file:///Users/macbook/ProjectTracker/tracker/company_config.py#L25) (4 connections)
-- [company_config.py](file:///Users/macbook/ProjectTracker/tracker/company_config.py#L1) (4 connections)
-- [_company_logo_version()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L789) (2 connections)
-- [empresa_logo_file()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L801) (2 connections)
-- [.test_merges_stored_values_over_defaults()](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py#L18) (2 connections)
-- [.test_non_dict_storage_returns_defaults()](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py#L28) (2 connections)
-- [.test_returns_defaults_when_no_file()](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py#L7) (2 connections)
-- [.test_save_company_calls_storage()](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py#L34) (2 connections)
-- [test_company_templates.py](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py#L1) (2 connections)
-
-## Class Diagram
-
-```mermaid
-classDiagram
-    class CompanyConfigTest {
-        +test_company_templates.py()
-        +.test_returns_defaults_when_no_file()
-        +.test_merges_stored_values_over_defaults()
-        +.test_non_dict_storage_returns_defaults()
-        +.test_save_company_calls_storage()
-    }
-```
+- [Roadmap de Mejoras (Backlog)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (7 connections)
+- [Historial de Cambios Recientes](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
+- [Version Actual v25.1](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
+- [Checklist de Cierre de Mejora](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (2 connections)
+- [Limpieza Residual de Templates (Media Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Funcionalidades Completadas](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Exportaciones y Reportes (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Filtros y Busqueda Adicionales (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Sincronizacion Parcial COT-Bundle-LDM (Diseno Pendiente)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Mejoras de UX General (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Convencion de Versionado](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
 
 ## Relationships
 
@@ -36,14 +22,13 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_company_templates.py](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py)
-- [/Users/macbook/ProjectTracker/tracker/company_config.py](file:///Users/macbook/ProjectTracker/tracker/company_config.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
+- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
 
 ## Audit Trail
 
-- EXTRACTED: 22 (58%)
-- INFERRED: 16 (42%)
+- EXTRACTED: 20 (91%)
+- INFERRED: 2 (9%)
 - AMBIGUOUS: 0 (0%)
 
 ---
