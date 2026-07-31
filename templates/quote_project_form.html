@@ -101,7 +101,8 @@
   /* Padding inferior para que la barra no tape el contenido */
   #main .content { padding-bottom: 80px; }
 
-  /* ── Mensajes flash flotantes: visibles sin necesitar scroll al inicio ── */
+  /* ── Mensajes flash como notificación flotante: aparece y desaparece
+       sola, sin mover el scroll (estilo notificación de WhatsApp) ── */
   .floating-toast {
     position: fixed;
     right: 24px;
@@ -109,6 +110,11 @@
     min-width: 280px;
     max-width: 420px;
     box-shadow: 0 6px 24px rgba(0,0,0,.45);
+    animation: toast-in .25s ease-out;
+  }
+  @keyframes toast-in {
+    from { opacity: 0; transform: translateX(24px); }
+    to   { opacity: 1; transform: translateX(0); }
   }
 
   /* ── Autocomplete inline ──────────────────────────────────────── */
@@ -2264,30 +2270,13 @@
   }
 </script>
 
-<!-- ── Preservar la posición de scroll al guardar + mensajes flash flotantes ── -->
+<!-- ── Mensajes flash como notificación flotante (sin tocar el scroll) ── -->
 <script>
   (function () {
-    var SCROLL_KEY = "quoteFormScroll:" + location.pathname;
-
-    // Si venimos de un guardado, restaurar dónde estaba el usuario en vez de
-    // dejar que el navegador salte al inicio de la página.
-    var savedScroll = sessionStorage.getItem(SCROLL_KEY);
-    if (savedScroll !== null) {
-      sessionStorage.removeItem(SCROLL_KEY);
-      window.scrollTo(0, parseInt(savedScroll, 10) || 0);
-    }
-
-    // Al enviar el formulario de la cotización, recordar la posición actual.
-    var quoteForm = document.getElementById("quoteForm");
-    if (quoteForm) {
-      quoteForm.addEventListener("submit", function () {
-        sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
-      });
-    }
-
-    // Los mensajes flash (ej. "Cotización actualizada.") ya no requieren que
-    // el usuario esté hasta arriba para verlos: se muestran flotando encima
-    // del contenido, apilados si hay más de uno.
+    // No movemos el scroll para nada: la página se queda donde el navegador
+    // la deje. Los mensajes flash (ej. "Cotización actualizada.") se
+    // muestran como notificación flotante que aparece y desaparece sola,
+    // apilados si hay más de uno.
     var toastTop = 70;
     document.querySelectorAll(".content > .alert").forEach(function (alert) {
       alert.classList.add("floating-toast");
