@@ -2,7 +2,7 @@ from datetime import date
 
 from .catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from .catalog import APPROVAL_ACTIVE, is_base_quote_type
-from .consistency import compute_consistency, pick_active_quote
+from .consistency import compute_consistency
 from .domain import check_blocked, get_progress
 from .storage import load, today
 
@@ -210,21 +210,23 @@ def build_project_detail_context(project):
     )
 
     # Totales para el header del proyecto.
-    # Se suma: la cotización base aprobada (General/Preliminar con approval_status='active')
-    # más todas las Extraordinarias con approval_status='active'.
-    # Fallback: si ninguna tiene estado explícito se comporta igual que antes (suma todo).
-    _active_base = pick_active_quote(quotes)
+    # Se suma el total de TODAS las cotizaciones con approval_status='active',
+    # base o extraordinaria, sin importar el tipo (la aprobación es libre e
+    # independiente por cotización, así que puede haber varias activas a la vez).
+    _active_bases = [
+        q for q in quotes
+        if is_base_quote_type(q.get("quote_type"))
+        and q.get("approval_status", APPROVAL_ACTIVE) == APPROVAL_ACTIVE
+    ]
+    _active_bases.sort(key=lambda q: (q.get("date") or "", q.get("created_at") or ""), reverse=True)
     _active_extras = [
         q for q in quotes
         if not is_base_quote_type(q.get("quote_type"))
         and q.get("approval_status", APPROVAL_ACTIVE) == APPROVAL_ACTIVE
     ]
-    if _active_base is not None:
-        total_cotizado = round(
-            _active_base.get("total", 0) + sum(q.get("total", 0) for q in _active_extras), 2
-        )
-    else:
-        total_cotizado = round(sum(q.get("total", 0) for q in _active_extras), 2)
+    total_cotizado = round(
+        sum(q.get("total", 0) for q in _active_bases) + sum(q.get("total", 0) for q in _active_extras), 2
+    )
     costo_proveedor = round(sum(ldm.get("subtotal_cot", 0) for ldm in ldms), 2)
     margen = round(total_cotizado - costo_proveedor, 2)
 
@@ -270,7 +272,8 @@ def build_project_detail_context(project):
         "today_short": date.today().strftime("%y%m%d"),
         "file_ie": _ie_fallback,
         "file_xref": _xref_fallback,
-        "active_base_quote": _active_base,
+        "active_base_quote": _active_bases[0] if _active_bases else None,
+        "active_bases_count": len(_active_bases),
         "active_extras_count": len(_active_extras),
         "total_cotizado": total_cotizado,
         "costo_proveedor": costo_proveedor,
