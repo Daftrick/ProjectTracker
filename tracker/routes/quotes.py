@@ -355,11 +355,11 @@ def delete_quote(project_id, quote_id):
 @bp.route("/projects/<project_id>/quote/<quote_id>/approve", methods=["POST"], endpoint="approve_quote")
 @admin_required
 def approve_quote_route(project_id, quote_id):
-    """Aprueba/activa una cotización.
+    """Aprueba/activa o desactiva una cotización.
 
-    - General/Preliminar: marca la seleccionada como 'active' y las demás del
-      mismo proyecto (mismos tipos) como 'obsolete'.
-    - Extraordinaria: toggle active ↔ obsolete independiente.
+    Toggle libre e independiente para cualquier tipo: active ↔ obsolete.
+    No afecta a otras cotizaciones, así que pueden quedar varias cotizaciones
+    aprobadas a la vez en el mismo proyecto, sin importar el tipo.
     """
     quotes = load("quotes")
     changed = approve_quote(quote_id, quotes)

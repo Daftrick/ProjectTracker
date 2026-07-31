@@ -124,33 +124,20 @@ def migrate_quote_approval(quotes):
 
 
 def approve_quote(target_id, quotes):
-    """Marca la cotización target_id como active.
+    """Marca la cotización target_id como active, o la regresa a obsolete si ya lo estaba.
 
-    Si es General/Preliminar, pasa las demás del mismo proyecto a obsolete.
-    Si es Extraordinaria, sólo la activa/desactiva (toggle).
+    Aprobación libre e independiente: cualquier tipo (General, Preliminar,
+    Proyecto, Obra, Servicio, Extraordinaria) se activa/desactiva por sí sola,
+    sin afectar a otras cotizaciones del mismo proyecto ni del mismo tipo.
+    Esto permite tener varias cotizaciones aprobadas a la vez sin importar el tipo.
     Devuelve True si algo cambió.
     """
     target = next((q for q in quotes if q.get("id") == target_id), None)
     if target is None:
         return False
 
-    qtype = quote_type_key(target.get("quote_type"))
-    project_id = target.get("project_id")
-
-    if qtype == QUOTE_TYPE_EXTRAORDINARIA:
-        # Toggle independiente: active ↔ obsolete (no afecta otras cotizaciones)
-        current = target.get("approval_status", APPROVAL_DRAFT)
-        target["approval_status"] = APPROVAL_OBSOLETE if current == APPROVAL_ACTIVE else APPROVAL_ACTIVE
-    else:
-        # Aprobar base: marcar la seleccionada como active, las demás del MISMO tipo → obsolete
-        # Cada sub-tipo (Proyecto, Obra, Servicio, General, Preliminar) compite sólo consigo mismo
-        for q in quotes:
-            if q.get("project_id") != project_id:
-                continue
-            if quote_type_key(q.get("quote_type")) != qtype:
-                continue
-            q["approval_status"] = APPROVAL_ACTIVE if q.get("id") == target_id else APPROVAL_OBSOLETE
-
+    current = target.get("approval_status", APPROVAL_DRAFT)
+    target["approval_status"] = APPROVAL_OBSOLETE if current == APPROVAL_ACTIVE else APPROVAL_ACTIVE
     return True
 
 

@@ -302,21 +302,13 @@
             <form method="post"
                   action="{{ url_for('quotes_bp.approve_quote', project_id=project.id, quote_id=q.id) }}"
                   class="d-inline">
-              {% if row.approval == 'active' and not row.is_extra %}
-                <button type="button" class="btn btn-sm btn-success me-1 action-btn" disabled title="Cotización aprobada">
-                  <i class="bi bi-check-circle"></i>
-                </button>
-              {% elif row.is_extra and row.approval == 'active' %}
-                <button type="submit" class="btn btn-sm btn-success me-1 action-btn" title="Desactivar extraordinaria">
+              {% if row.approval == 'active' %}
+                <button type="submit" class="btn btn-sm btn-success me-1 action-btn" title="{{ 'Desactivar extraordinaria' if row.is_extra else 'Quitar aprobación' }}">
                   <i class="bi bi-toggle-on"></i>
                 </button>
-              {% elif row.is_extra %}
-                <button type="submit" class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Activar extraordinaria">
-                  <i class="bi bi-toggle-off"></i>
-                </button>
               {% else %}
-                <button type="submit" class="btn btn-sm btn-outline-primary me-1 action-btn" title="Aprobar esta cotización como base del proyecto">
-                  <i class="bi bi-check-circle"></i>
+                <button type="submit" class="btn btn-sm btn-outline-{{ 'secondary' if row.is_extra else 'primary' }} me-1 action-btn" title="{{ 'Activar extraordinaria' if row.is_extra else 'Aprobar esta cotización' }}">
+                  <i class="bi bi-toggle-off"></i>
                 </button>
               {% endif %}
             </form>

@@ -30,14 +30,16 @@ class ApproveQuoteTest(unittest.TestCase):
         self.assertEqual(by_id["o1"]["approval_status"], APPROVAL_ACTIVE)
         self.assertEqual(by_id["s1"]["approval_status"], APPROVAL_ACTIVE)
 
-    def test_approving_proyecto_obsoletes_other_proyecto_only(self):
+    def test_approving_proyecto_does_not_obsolete_other_proyecto(self):
+        # Aprobación libre: varias cotizaciones del MISMO tipo pueden quedar
+        # activas a la vez; aprobar una no toca a las demás.
         quotes = [
             _q("p1", "proj", "Proyecto", APPROVAL_ACTIVE),
             _q("p2", "proj", "Proyecto", APPROVAL_DRAFT),
         ]
         approve_quote("p2", quotes)
         by_id = {q["id"]: q for q in quotes}
-        self.assertEqual(by_id["p1"]["approval_status"], APPROVAL_OBSOLETE)
+        self.assertEqual(by_id["p1"]["approval_status"], APPROVAL_ACTIVE)
         self.assertEqual(by_id["p2"]["approval_status"], APPROVAL_ACTIVE)
 
     def test_approving_extraordinaria_toggles_only_itself(self):
@@ -50,7 +52,7 @@ class ApproveQuoteTest(unittest.TestCase):
         self.assertEqual(by_id["e1"]["approval_status"], APPROVAL_ACTIVE)
         self.assertEqual(by_id["p1"]["approval_status"], APPROVAL_ACTIVE)
 
-    def test_approving_obra_does_not_affect_proyecto(self):
+    def test_approving_obra_does_not_affect_proyecto_or_other_obra(self):
         quotes = [
             _q("p1", "proj", "Proyecto", APPROVAL_ACTIVE),
             _q("o1", "proj", "Obra", APPROVAL_DRAFT),
@@ -60,7 +62,14 @@ class ApproveQuoteTest(unittest.TestCase):
         by_id = {q["id"]: q for q in quotes}
         self.assertEqual(by_id["p1"]["approval_status"], APPROVAL_ACTIVE)
         self.assertEqual(by_id["o1"]["approval_status"], APPROVAL_ACTIVE)
-        self.assertEqual(by_id["o2"]["approval_status"], APPROVAL_OBSOLETE)
+        self.assertEqual(by_id["o2"]["approval_status"], APPROVAL_ACTIVE)
+
+    def test_approving_active_base_quote_toggles_it_off(self):
+        # Igual que las extraordinarias: aprobar una cotización base ya activa
+        # la regresa a obsolete (toggle libre, sin excepción por tipo).
+        quotes = [_q("p1", "proj", "Proyecto", APPROVAL_ACTIVE)]
+        approve_quote("p1", quotes)
+        self.assertEqual(quotes[0]["approval_status"], APPROVAL_OBSOLETE)
 
     def test_approve_does_not_touch_other_project(self):
         quotes = [
