@@ -101,6 +101,16 @@
   /* Padding inferior para que la barra no tape el contenido */
   #main .content { padding-bottom: 80px; }
 
+  /* ── Mensajes flash flotantes: visibles sin necesitar scroll al inicio ── */
+  .floating-toast {
+    position: fixed;
+    right: 24px;
+    z-index: 2000;
+    min-width: 280px;
+    max-width: 420px;
+    box-shadow: 0 6px 24px rgba(0,0,0,.45);
+  }
+
   /* ── Autocomplete inline ──────────────────────────────────────── */
   .ac-wrapper { position: relative; }
   .ac-dropdown {
@@ -2252,6 +2262,45 @@
     document.body.appendChild(form);
     form.submit();
   }
+</script>
+
+<!-- ── Preservar la posición de scroll al guardar + mensajes flash flotantes ── -->
+<script>
+  (function () {
+    var SCROLL_KEY = "quoteFormScroll:" + location.pathname;
+
+    // Si venimos de un guardado, restaurar dónde estaba el usuario en vez de
+    // dejar que el navegador salte al inicio de la página.
+    var savedScroll = sessionStorage.getItem(SCROLL_KEY);
+    if (savedScroll !== null) {
+      sessionStorage.removeItem(SCROLL_KEY);
+      window.scrollTo(0, parseInt(savedScroll, 10) || 0);
+    }
+
+    // Al enviar el formulario de la cotización, recordar la posición actual.
+    var quoteForm = document.getElementById("quoteForm");
+    if (quoteForm) {
+      quoteForm.addEventListener("submit", function () {
+        sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
+      });
+    }
+
+    // Los mensajes flash (ej. "Cotización actualizada.") ya no requieren que
+    // el usuario esté hasta arriba para verlos: se muestran flotando encima
+    // del contenido, apilados si hay más de uno.
+    var toastTop = 70;
+    document.querySelectorAll(".content > .alert").forEach(function (alert) {
+      alert.classList.add("floating-toast");
+      alert.style.top = toastTop + "px";
+      toastTop += alert.offsetHeight + 12;
+      if (alert.classList.contains("alert-success")) {
+        setTimeout(function () {
+          var closeBtn = alert.querySelector(".btn-close");
+          if (closeBtn) closeBtn.click();
+        }, 4000);
+      }
+    });
+  })();
 </script>
 
 {% endblock %}
