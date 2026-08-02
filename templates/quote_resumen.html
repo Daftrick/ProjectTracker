@@ -56,7 +56,7 @@
           <tr>
             <td class="text-center text-muted">{{ loop.index }}</td>
             <td>
-              {{ item.description }}
+              <span style="white-space:pre-line">{{ item.description }}</span>
               {% if item.catalog_deleted %}
                 <span class="badge bg-danger ms-1" style="font-size:.65rem">catálogo eliminado</span>
               {% elif item.catalog_missing %}

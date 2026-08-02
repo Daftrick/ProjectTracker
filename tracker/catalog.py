@@ -141,6 +141,27 @@ def approve_quote(target_id, quotes):
     return True
 
 
+VALID_APPROVAL_STATUSES = (APPROVAL_DRAFT, APPROVAL_ACTIVE, APPROVAL_OBSOLETE)
+
+
+def set_quote_status(quote_id, quotes, status):
+    """Cambia el approval_status de una cotización a cualquiera de los 3
+    estados válidos (borrador/activa/obsoleta), sin pasar por el toggle
+    binario de approve_quote — el usuario elige libremente desde la columna
+    de Estado en la lista de cotizaciones. Devuelve True si se encontró la
+    cotización y el estado cambió.
+    """
+    if status not in VALID_APPROVAL_STATUSES:
+        return False
+    target = next((q for q in quotes if q.get("id") == quote_id), None)
+    if target is None:
+        return False
+    if target.get("approval_status", APPROVAL_DRAFT) == status:
+        return False
+    target["approval_status"] = status
+    return True
+
+
 def catalog_name_key(text):
     normalized = unicodedata.normalize("NFKD", sanitize_pdf_text(text).casefold())
     ascii_text = "".join(char for char in normalized if not unicodedata.combining(char))

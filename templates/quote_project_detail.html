@@ -2,39 +2,26 @@
 {% block title %}{{ quote.quote_number }}{% endblock %}
 {% block page_title %}<i class="bi bi-receipt me-2 text-success"></i>{{ quote.quote_number }}{% endblock %}
 {% block topbar_actions %}
-  {%- set _qtype = quote.get('quote_type','General') %}
-  {%- set _is_extra = _qtype in ['Extraordinaria','Extraordinario'] %}
   {%- set _approval = quote.get('approval_status','draft') %}
-  {# Badge de estado — nomenclatura unificada y editable, ver /configuracion/nomenclatura-cotizaciones #}
-  <span class="badge bg-{{ quote_status.badge }}{% if quote_status.badge == 'warning' %} text-dark{% endif %} me-2 align-self-center" style="font-size:.75rem">
-    <i class="bi bi-{{ quote_status.icon }} me-1"></i>{{ quote_status.label }}
-  </span>
-  {# Botón Aprobar / toggle para Extraordinaria #}
+  {# Selector de estado — libre entre borrador/activa/obsoleta, sin importar
+     el tipo de cotización. Nomenclatura editable, ver
+     /configuracion/nomenclatura-cotizaciones #}
   {% if not project.closed_at %}
     <form method="post"
-          action="{{ url_for('quotes_bp.approve_quote', project_id=project.id, quote_id=quote.id) }}"
-          class="d-inline me-2">
-      {% if _is_extra %}
-        {% if _approval == 'active' %}
-          <button type="submit" class="btn btn-sm btn-success" title="Desactivar cotización extraordinaria">
-            <i class="bi bi-toggle-on me-1"></i>{{ quote_status.label }}
-          </button>
-        {% else %}
-          <button type="submit" class="btn btn-sm btn-outline-secondary" title="Activar cotización extraordinaria">
-            <i class="bi bi-toggle-off me-1"></i>Activar
-          </button>
-        {% endif %}
-      {% elif _approval == 'active' %}
-        <button type="button" class="btn btn-sm btn-success" disabled title="Ya es la cotización base aprobada">
-          <i class="bi bi-check-circle me-1"></i>{{ quote_status.label }}
-        </button>
-      {% else %}
-        <button type="submit" class="btn btn-sm btn-outline-primary"
-                title="Aprobar como cotización base del proyecto (desactiva las demás)">
-          <i class="bi bi-check-circle me-1"></i>Aprobar
-        </button>
-      {% endif %}
+          action="{{ url_for('quotes_bp.set_quote_status', project_id=project.id, quote_id=quote.id) }}"
+          class="d-inline me-2 quote-status-form">
+      <input type="hidden" name="next" value="{{ url_for('quotes_bp.view_quote', project_id=project.id, quote_id=quote.id) }}">
+      <select name="status" class="form-select form-select-sm status-select status-select-{{ quote_status.badge }} align-self-center"
+              style="font-weight:600" onchange="this.form.submit()" title="Cambiar estado">
+        <option value="draft" {% if _approval == 'draft' %}selected{% endif %}>{{ quote_status_labels.draft }}</option>
+        <option value="active" {% if _approval == 'active' %}selected{% endif %}>{{ quote_status_labels.active }}</option>
+        <option value="obsolete" {% if _approval == 'obsolete' %}selected{% endif %}>{{ quote_status_labels.obsolete }}</option>
+      </select>
     </form>
+  {% else %}
+    <span class="badge bg-{{ quote_status.badge }}{% if quote_status.badge == 'warning' %} text-dark{% endif %} me-2 align-self-center" style="font-size:.75rem">
+      <i class="bi bi-{{ quote_status.icon }} me-1"></i>{{ quote_status.label }}
+    </span>
   {% endif %}
   <button onclick="window.print()" class="btn btn-sm btn-outline-secondary me-2"><i class="bi bi-printer me-1"></i>Imprimir / PDF</button>
   <a href="{{ url_for('quotes_bp.quote_excel', project_id=project.id, quote_id=quote.id) }}" class="btn btn-sm btn-outline-success me-2"><i class="bi bi-file-earmark-spreadsheet me-1"></i>Excel</a>
@@ -48,6 +35,10 @@
     #sidebar, .topbar, .alert, .no-print { display:none !important; }
     #main { margin-left:0 !important; }
   }
+  .status-select{border-width:1px;font-weight:600;cursor:pointer;}
+  .status-select-success{background-color:rgba(40,167,69,.16);border-color:rgba(40,167,69,.45);color:#7fd99a;}
+  .status-select-warning{background-color:rgba(255,193,7,.16);border-color:rgba(255,193,7,.45);color:#e0c060;}
+  .status-select-secondary{background-color:rgba(108,117,125,.18);border-color:rgba(108,117,125,.45);color:#adb5bd;}
   .qheader{background:linear-gradient(135deg,#1a1f2e,#2d3550);color:#fff;border-radius:12px;padding:24px;}
   .quote-summary td{
     background:#141c30 !important;
@@ -121,7 +112,7 @@
             <tr>
               <td class="text-muted">{{ row_ns.index }}</td>
               <td>
-                <div>{{ item.description }}</div>
+                <div style="white-space:pre-line">{{ item.description }}</div>
                 {% if item.bundle_breakdown %}
                 <div class="quote-bundle-includes">
                   <strong>Incluye:</strong>

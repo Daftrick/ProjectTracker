@@ -68,6 +68,12 @@
               padding:.5rem .75rem;font-size:.82rem;}
 
   .action-btn{display:inline-flex;align-items:center;justify-content:center;gap:3px;}
+
+  /* Selector de estado de cotización (columna Estado) */
+  .status-select{border-width:1px;font-weight:600;cursor:pointer;}
+  .status-select-success{background-color:rgba(40,167,69,.16);border-color:rgba(40,167,69,.45);color:#7fd99a;}
+  .status-select-warning{background-color:rgba(255,193,7,.16);border-color:rgba(255,193,7,.45);color:#e0c060;}
+  .status-select-secondary{background-color:rgba(108,117,125,.18);border-color:rgba(108,117,125,.45);color:#adb5bd;}
 </style>
 {% endblock %}
 
@@ -279,10 +285,25 @@
             {% endif %}
           </td>
           <td>
+            {% if not project.closed_at %}
+            <form method="post"
+                  action="{{ url_for('quotes_bp.set_quote_status', project_id=project.id, quote_id=q.id) }}"
+                  class="d-inline quote-status-form">
+              <input type="hidden" name="next" value="{{ url_for('project_detail', project_id=project.id) }}#tab-quote">
+              <select name="status" class="form-select form-select-sm status-select status-select-{{ row.approval_badge }}"
+                      style="font-size:.72rem;padding:.15rem 1.6rem .15rem .5rem;min-width:6.5rem"
+                      onchange="this.form.submit()" title="Cambiar estado">
+                <option value="draft" {% if row.approval == 'draft' %}selected{% endif %}>{{ quote_status_labels.draft }}</option>
+                <option value="active" {% if row.approval == 'active' %}selected{% endif %}>{{ quote_status_labels.active }}</option>
+                <option value="obsolete" {% if row.approval == 'obsolete' %}selected{% endif %}>{{ quote_status_labels.obsolete }}</option>
+              </select>
+            </form>
+            {% else %}
             <span class="badge bg-{{ row.approval_badge }}{% if row.approval_badge == 'warning' %} text-dark{% endif %}"
                   style="font-size:.72rem">
               <i class="bi bi-{{ row.approval_icon }} me-1"></i>{{ row.approval_label }}
             </span>
+            {% endif %}
           </td>
           <td><small class="text-muted">{{ q.date | fdate }}</small></td>
           <td class="text-end">{{ q.subtotal | currency }}</td>
@@ -301,19 +322,6 @@
             <a href="{{ url_for('quotes_bp.quote_excel', project_id=project.id, quote_id=q.id) }}"
                class="btn btn-sm btn-outline-success me-1 action-btn" title="Descargar Excel"><i class="bi bi-file-earmark-spreadsheet"></i></a>
             {% if not project.closed_at %}
-            <form method="post"
-                  action="{{ url_for('quotes_bp.approve_quote', project_id=project.id, quote_id=q.id) }}"
-                  class="d-inline">
-              {% if row.approval == 'active' %}
-                <button type="submit" class="btn btn-sm btn-success me-1 action-btn" title="{{ 'Desactivar extraordinaria' if row.is_extra else 'Quitar aprobación' }}">
-                  <i class="bi bi-toggle-on"></i>
-                </button>
-              {% else %}
-                <button type="submit" class="btn btn-sm btn-outline-{{ 'secondary' if row.is_extra else 'primary' }} me-1 action-btn" title="{{ 'Activar extraordinaria' if row.is_extra else 'Aprobar esta cotización' }}">
-                  <i class="bi bi-toggle-off"></i>
-                </button>
-              {% endif %}
-            </form>
             <a href="{{ url_for('edit_quote', project_id=project.id, quote_id=q.id) }}"
                class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Editar"><i class="bi bi-pencil"></i></a>
 

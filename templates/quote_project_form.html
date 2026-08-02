@@ -119,6 +119,15 @@
 
   /* ── Autocomplete inline ──────────────────────────────────────── */
   .ac-wrapper { position: relative; }
+  /* item_desc[] es un <textarea> para poder revisar conceptos largos en
+     varios renglones; crece automáticamente con el contenido (ver
+     _acAutoGrow en el JS) y además se puede redimensionar a mano. */
+  textarea.ac-input {
+    resize: vertical;
+    overflow-y: hidden;
+    min-height: 34px;
+    line-height: 1.35;
+  }
   .ac-dropdown {
     display: none;
     position: absolute;
@@ -769,8 +778,7 @@
                 </td>
                 <td>
                   <div class="ac-wrapper">
-                    <input name="item_desc[]" class="form-control form-control-sm ac-input"
-                           value="{{ item.description }}" autocomplete="off" required>
+                    <textarea name="item_desc[]" class="form-control form-control-sm ac-input" rows="1" autocomplete="off" required>{{ item.description }}</textarea>
                     <input type="hidden" name="item_catalog_id[]" value="{{ item.catalog_item_id or '' }}">
                     <input type="hidden" name="item_desc2[]" value="{{ item.catalog_description or item.description_secondary or '' }}">
                     <div class="ac-dropdown" role="listbox"></div>
@@ -976,8 +984,8 @@
       </td>
       <td>
         <div class="ac-wrapper">
-          <input name="item_desc[]" class="form-control form-control-sm ac-input"
-                 placeholder="Descripción…" value="${escHtml(desc||'')}" autocomplete="off" required>
+          <textarea name="item_desc[]" class="form-control form-control-sm ac-input" rows="1"
+                    placeholder="Descripción…" autocomplete="off" required>${escHtml(desc||'')}</textarea>
           <input type="hidden" name="item_catalog_id[]" value="${escHtml(catalogId||'')}">
           <input type="hidden" name="item_desc2[]" value="${escHtml(desc2||'')}">
           <div class="ac-dropdown" role="listbox"></div>
@@ -1067,6 +1075,7 @@
     syncItemSections();
     const qtyEl = tr.querySelector('.qty');
     if (qtyEl) calcRow(qtyEl);
+    _acAutoGrow(tr.querySelector('textarea.ac-input'));
     updateTotals();
     if (typeof updateSelectionUI === "function") updateSelectionUI();
   }
@@ -1247,6 +1256,7 @@
         dest.value = src.value;
       } else {
         dest.value = src.value;
+        if (dest.tagName === 'TEXTAREA') _acAutoGrow(dest);
       }
     });
   }
@@ -1882,6 +1892,14 @@
 
   let _acTimer = null;
 
+  /** item_desc[] es un <textarea>: crece con el contenido para poder revisar
+   *  conceptos largos completos sin scroll horizontal ni texto cortado. */
+  function _acAutoGrow(el) {
+    if (!el || el.tagName !== "TEXTAREA") return;
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+  }
+
   function _acSearch(input) {
     clearTimeout(_acTimer);
     const val = input.value.trim();
@@ -1950,7 +1968,9 @@
 
   /** Rellena los campos de una fila con datos de un artículo del catálogo */
   function fillRowFromCatalogItem(row, item) {
-    row.querySelector('[name="item_desc[]"]').value  = item.nombre;
+    const descEl = row.querySelector('[name="item_desc[]"]');
+    descEl.value  = item.nombre;
+    _acAutoGrow(descEl);
     row.querySelector('[name="item_catalog_id[]"]').value = item.id || "";
     row.querySelector('[name="item_desc2[]"]').value = item.descripcion || "";
     row.querySelector('[name="item_unit[]"]').value  = item.unidad;
@@ -2000,6 +2020,10 @@
     let dragStarted = false;
     let dragPointerOffset = 0;
 
+    // Ajustar altura inicial de los textarea item_desc[] ya renderizados
+    // (partidas existentes con conceptos largos al abrir el editor).
+    tbody.querySelectorAll("textarea.ac-input").forEach(_acAutoGrow);
+
     // Clic en sección → activar (toggle si ya estaba activa)
     tbody.addEventListener("click", e => {
       const sectionRow = e.target.closest('.quote-section-row');
@@ -2013,6 +2037,7 @@
       if (e.target.classList.contains("ac-input")) {
         clearCatalogLink(e.target.closest("tr"), true);
         _acSearch(e.target);
+        _acAutoGrow(e.target);
       } else if (e.target.name === "item_unit[]") {
         clearCatalogLink(e.target.closest("tr"));
       } else if (e.target.name === "item_precio_costo[]") {

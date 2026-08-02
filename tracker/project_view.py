@@ -5,6 +5,7 @@ from .catalog import APPROVAL_ACTIVE, is_base_quote_type
 from .consistency import compute_consistency
 from .domain import check_blocked, get_progress
 from .payments import get_payments_for_project, payment_summary
+from .quote_status_labels import get_quote_status_labels
 from .storage import load, today
 
 
@@ -267,6 +268,7 @@ def build_project_detail_context(project):
         "deliveries": deliveries,
         "quotes": quotes,
         "quote_rows": build_quote_row_views(quotes),
+        "quote_status_labels": get_quote_status_labels(),
         "ldms": ldms,
         "ldm_rows": build_ldm_row_views(ldms),
         "linked_fichas": linked_fichas,

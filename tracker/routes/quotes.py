@@ -8,6 +8,7 @@ from flask import Blueprint, Response, flash, redirect, render_template, request
 
 from ..bundles import bundle_by_catalog_item_id, capture_bundle_snapshot, hydrate_quote_bundle_breakdowns
 from ..catalog import (
+    VALID_APPROVAL_STATUSES,
     aggregate_quote_items,
     approve_quote,
     catalog_maps,
@@ -18,6 +19,7 @@ from ..catalog import (
     resolve_quote_client,
     resolve_quote_proposal_for,
     safe_float,
+    set_quote_status,
 )
 from ..csv_catalog_validation import validate_csv_catalog_items
 from ..deletions import purge_deleted_catalog_items_from_record
@@ -387,6 +389,7 @@ def view_quote(project_id, quote_id):
         payment_summary=payment_summary(hydrated.get("total", 0), quote_payments),
         today=today(),
         quote_status=quote_status_view(hydrated.get("approval_status")),
+        quote_status_labels=get_quote_status_labels(),
     )
 
 
@@ -478,6 +481,28 @@ def approve_quote_route(project_id, quote_id):
     else:
         flash("Cotización no encontrada.", "danger")
     return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
+
+
+@bp.route("/projects/<project_id>/quote/<quote_id>/status", methods=["POST"], endpoint="set_quote_status")
+def set_quote_status_route(project_id, quote_id):
+    """Cambia el estado de una cotización libremente a borrador/activa/obsoleta,
+    elegido directamente en la columna Estado de la lista de cotizaciones —
+    a diferencia de approve_quote (toggle binario active↔obsolete), aquí se
+    puede ir a cualquiera de los 3 estados en cualquier momento."""
+    next_url = request.form.get("next") or (url_for("project_detail", project_id=project_id) + "#tab-quote")
+    status = (request.form.get("status") or "").strip()
+    if status not in VALID_APPROVAL_STATUSES:
+        flash("Estado no válido.", "danger")
+        return redirect(next_url)
+    quotes = load("quotes")
+    quote = next((q for q in quotes if q["id"] == quote_id and q.get("project_id") == project_id), None)
+    if not quote:
+        flash("Cotización no encontrada.", "danger")
+        return redirect(next_url)
+    if set_quote_status(quote_id, quotes, status):
+        save("quotes", quotes)
+        flash("Estado de cotización actualizado.", "success")
+    return redirect(next_url)
 
 
 @bp.route(
