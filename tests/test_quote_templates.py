@@ -22,17 +22,15 @@ class QuoteTemplatesConfigTest(unittest.TestCase):
             self.assertIn("id", tmpl)
             self.assertIn("name", tmpl)
             self.assertIn("sections_default", tmpl)
-            self.assertIn("terms_default", tmpl)
             self.assertIn("contacts_default", tmpl)
+            self.assertIn("scope_default", tmpl)
+            self.assertNotIn("terms_default", tmpl)
             self.assertNotIn("notes_default", tmpl)
             self.assertNotIn("specs_default", tmpl)
             self.assertIsInstance(tmpl["sections_default"], list)
-            self.assertIsInstance(tmpl["terms_default"], list)
             self.assertIsInstance(tmpl["contacts_default"], list)
+            self.assertIsInstance(tmpl["scope_default"], str)
             self.assertEqual(len(tmpl["contacts_default"]), 4)
-            self.assertTrue(all("key" in term for term in tmpl["terms_default"]))
-            self.assertTrue(all("body" in term for term in tmpl["terms_default"]))
-            self.assertTrue(all("enabled" in term for term in tmpl["terms_default"]))
             self.assertTrue(all("enabled" in contact for contact in tmpl["contacts_default"]))
             self.assertTrue(all("name" in contact for contact in tmpl["contacts_default"]))
             self.assertTrue(all("role" in contact for contact in tmpl["contacts_default"]))
@@ -44,14 +42,7 @@ class QuoteTemplatesConfigTest(unittest.TestCase):
                 "sections_default": ["Iluminación", "Contactos"],
                 "notes_default": "Nota de prueba",
                 "specs_default": {"condiciones_pago": "50% anticipo"},
-                "terms_default": [
-                    {
-                        "key": "vigencia",
-                        "title": "Vigencia.",
-                        "body": "Vigencia personalizada",
-                        "enabled": False,
-                    }
-                ],
+                "scope_default": "Alcance personalizado",
                 "contacts_default": [
                     {"enabled": True, "name": "Ana Lopez", "role": "Directora"},
                 ],
@@ -67,10 +58,8 @@ class QuoteTemplatesConfigTest(unittest.TestCase):
         ])
         self.assertNotIn("notes_default", tmpl)
         self.assertNotIn("specs_default", tmpl)
-        self.assertEqual(tmpl["terms_default"][0]["body"], "Vigencia personalizada")
-        self.assertEqual(tmpl["terms_default"][0]["title"], "Vigencia")
-        self.assertFalse(tmpl["terms_default"][0]["enabled"])
-        self.assertGreater(len(tmpl["terms_default"]), 1)
+        self.assertNotIn("terms_default", tmpl)
+        self.assertEqual(tmpl["scope_default"], "Alcance personalizado")
         self.assertEqual(tmpl["contacts_default"][0]["name"], "Ana Lopez")
         self.assertEqual(tmpl["contacts_default"][0]["role"], "Directora")
         self.assertTrue(tmpl["contacts_default"][0]["enabled"])
@@ -133,7 +122,6 @@ class QuoteTemplatesConfigTest(unittest.TestCase):
                     "id": "one",
                     "name": "Primera",
                     "sections_default": ["Sección A"],
-                    "terms_default": [],
                     "contacts_default": [],
                 }
             ]

@@ -5,20 +5,10 @@
   {%- set _qtype = quote.get('quote_type','General') %}
   {%- set _is_extra = _qtype in ['Extraordinaria','Extraordinario'] %}
   {%- set _approval = quote.get('approval_status','draft') %}
-  {# Badge de estado #}
-  {% if _approval == 'active' %}
-    <span class="badge bg-success me-2 align-self-center" style="font-size:.75rem">
-      <i class="bi bi-check-circle me-1"></i>{% if _is_extra %}Activa{% else %}Aprobada{% endif %}
-    </span>
-  {% elif _approval == 'obsolete' %}
-    <span class="badge bg-secondary me-2 align-self-center" style="font-size:.75rem">
-      <i class="bi bi-slash-circle me-1"></i>{% if _is_extra %}Inactiva{% else %}Obsoleta{% endif %}
-    </span>
-  {% else %}
-    <span class="badge bg-warning text-dark me-2 align-self-center" style="font-size:.75rem">
-      <i class="bi bi-pencil-square me-1"></i>Borrador
-    </span>
-  {% endif %}
+  {# Badge de estado — nomenclatura unificada y editable, ver /configuracion/nomenclatura-cotizaciones #}
+  <span class="badge bg-{{ quote_status.badge }}{% if quote_status.badge == 'warning' %} text-dark{% endif %} me-2 align-self-center" style="font-size:.75rem">
+    <i class="bi bi-{{ quote_status.icon }} me-1"></i>{{ quote_status.label }}
+  </span>
   {# Botón Aprobar / toggle para Extraordinaria #}
   {% if not project.closed_at %}
     <form method="post"
@@ -27,7 +17,7 @@
       {% if _is_extra %}
         {% if _approval == 'active' %}
           <button type="submit" class="btn btn-sm btn-success" title="Desactivar cotización extraordinaria">
-            <i class="bi bi-toggle-on me-1"></i>Activa
+            <i class="bi bi-toggle-on me-1"></i>{{ quote_status.label }}
           </button>
         {% else %}
           <button type="submit" class="btn btn-sm btn-outline-secondary" title="Activar cotización extraordinaria">
@@ -36,7 +26,7 @@
         {% endif %}
       {% elif _approval == 'active' %}
         <button type="button" class="btn btn-sm btn-success" disabled title="Ya es la cotización base aprobada">
-          <i class="bi bi-check-circle me-1"></i>Aprobada
+          <i class="bi bi-check-circle me-1"></i>{{ quote_status.label }}
         </button>
       {% else %}
         <button type="submit" class="btn btn-sm btn-outline-primary"
@@ -55,7 +45,7 @@
 {% block extra_head %}
 <style>
   @media print {
-    #sidebar, .topbar, .alert { display:none !important; }
+    #sidebar, .topbar, .alert, .no-print { display:none !important; }
     #main { margin-left:0 !important; }
   }
   .qheader{background:linear-gradient(135deg,#1a1f2e,#2d3550);color:#fff;border-radius:12px;padding:24px;}
@@ -159,12 +149,140 @@
         </tbody>
         <tfoot class="quote-summary">
           <tr><td colspan="5" class="text-end">Subtotal</td><td class="text-end fw-semibold">{{ quote.subtotal | currency }} {{ quote.currency }}</td></tr>
+          {% if quote.discount_pct %}
+          <tr><td colspan="5" class="text-end">Descuento ({{ quote.discount_pct | int }}%)</td><td class="text-end">-{{ quote.discount_amount | currency }} {{ quote.currency }}</td></tr>
+          {% endif %}
           <tr><td colspan="5" class="text-end">IVA ({{ quote.tax_rate }}%)</td><td class="text-end">{{ quote.tax | currency }} {{ quote.currency }}</td></tr>
           <tr class="quote-summary-total"><td colspan="5" class="text-end fw-bold fs-6">TOTAL</td><td class="text-end fw-bold fs-5 quote-summary-total-value">{{ quote.total | currency }} {{ quote.currency }}</td></tr>
         </tfoot>
       </table>
     </div>
   </div>
-  {% if quote.notes %}<div class="card"><div class="card-header">Notas y condiciones</div><div class="card-body">{{ quote.notes }}</div></div>{% endif %}
+  {% if quote.notes %}<div class="card mb-3"><div class="card-header">Notas y condiciones</div><div class="card-body">{{ quote.notes }}</div></div>{% endif %}
+
+  <!-- ── Pagos de esta cotización ── -->
+  <div class="card mb-3">
+    <div class="card-header"><i class="bi bi-cash-stack me-2 text-primary"></i>Pagos</div>
+    <div class="card-body">
+      <div class="row g-3 mb-3">
+        <div class="col-4">
+          <div class="text-muted small">Total</div>
+          <div class="fs-5 fw-semibold">{{ payment_summary.total | currency }}</div>
+        </div>
+        <div class="col-4">
+          <div class="text-muted small">Pagado</div>
+          <div class="fs-5 fw-semibold text-success">{{ payment_summary.paid | currency }}</div>
+        </div>
+        <div class="col-4">
+          <div class="text-muted small">Saldo pendiente</div>
+          <div class="fs-5 fw-semibold {% if payment_summary.balance > 0 %}text-warning{% else %}text-success{% endif %}">{{ payment_summary.balance | currency }}</div>
+        </div>
+      </div>
+
+      {% if payments %}
+      <table class="table table-sm mb-3">
+        <thead><tr><th>Fecha</th><th>Concepto</th><th class="text-end">Monto</th><th class="text-end no-print">Acciones</th></tr></thead>
+        <tbody>
+        {% for p in payments %}
+        <tr>
+          <td>{{ p.date | fdate }}</td>
+          <td><small class="text-muted">{{ p.concept or "—" }}</small></td>
+          <td class="text-end fw-semibold">{{ p.amount | currency }}</td>
+          <td class="text-end no-print">
+            <button type="button" class="btn btn-sm btn-outline-secondary"
+                    title="Editar"
+                    data-payment-id="{{ p.id }}"
+                    data-payment-date="{{ p.date }}"
+                    data-payment-amount="{{ p.amount }}"
+                    data-payment-concept="{{ p.concept }}"
+                    data-payment-next="{{ url_for('quotes_bp.view_quote', project_id=project.id, quote_id=quote.id) }}"
+                    onclick="openEditPaymentModal(this)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <form method="post" action="{{ url_for('quotes_bp.delete_payment', project_id=project.id, payment_id=p.id) }}" class="d-inline"
+                  onsubmit="return confirm('¿Eliminar este pago?')">
+              <input type="hidden" name="next" value="{{ url_for('quotes_bp.view_quote', project_id=project.id, quote_id=quote.id) }}">
+              <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar"><i class="bi bi-trash"></i></button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p class="text-muted small mb-3">Aún no hay pagos registrados para esta cotización.</p>
+      {% endif %}
+
+      <form method="post" action="{{ url_for('quotes_bp.add_payment', project_id=project.id) }}" class="row g-2 align-items-end no-print">
+        <input type="hidden" name="quote_id" value="{{ quote.id }}">
+        <input type="hidden" name="next" value="{{ url_for('quotes_bp.view_quote', project_id=project.id, quote_id=quote.id) }}">
+        <div class="col-md-3">
+          <label class="form-label">Fecha</label>
+          <input type="date" name="date" class="form-control" value="{{ today }}" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Monto</label>
+          <input type="number" name="amount" class="form-control" min="0.01" step="0.01" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Concepto <small class="text-muted">(opcional)</small></label>
+          <input type="text" name="concept" class="form-control" placeholder="Ej. Anticipo 50%">
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-primary w-100"><i class="bi bi-plus-lg me-1"></i>Agregar</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
+{% endblock %}
+
+{% block modals %}
+<!-- ── Modal: Editar pago ── -->
+<div class="modal fade" id="modalEditPayment" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <form id="editPaymentForm" method="post">
+        <input type="hidden" name="next" id="editPaymentNext">
+        <div class="modal-header">
+          <h5 class="modal-title" style="font-size:1rem"><i class="bi bi-pencil me-2 text-primary"></i>Editar pago</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-2">
+            <label class="form-label">Fecha</label>
+            <input type="date" name="date" id="editPaymentDate" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Monto</label>
+            <input type="number" name="amount" id="editPaymentAmount" class="form-control" min="0.01" step="0.01" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Concepto</label>
+            <input type="text" name="concept" id="editPaymentConcept" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const EDIT_PAYMENT_URL_TEMPLATE = "{{ url_for('quotes_bp.edit_payment', project_id=project.id, payment_id='__PID__') }}";
+  function openEditPaymentModal(btn) {
+    const d = btn.dataset;
+    document.getElementById("editPaymentForm").action = EDIT_PAYMENT_URL_TEMPLATE.replace("__PID__", d.paymentId);
+    document.getElementById("editPaymentDate").value = d.paymentDate;
+    document.getElementById("editPaymentAmount").value = d.paymentAmount;
+    document.getElementById("editPaymentConcept").value = d.paymentConcept || "";
+    document.getElementById("editPaymentNext").value = d.paymentNext;
+    new bootstrap.Modal(document.getElementById("modalEditPayment")).show();
+  }
+</script>
 {% endblock %}

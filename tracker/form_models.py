@@ -1,7 +1,7 @@
 import json as _json
 
 from .catalog import quote_type_code, quote_type_key
-from .pdfs import QUOTE_TERMS_DEFAULTS
+from .domain import STANDARD_TAX_RATE
 from .quote_templates_config import MAX_QUOTE_TEMPLATE_CONTACTS, normalize_contact_rows
 from .storage import today
 from .utils import deleted_catalog_item_at as _deleted_catalog_item_at
@@ -98,17 +98,7 @@ def quote_from_form(form, fallback_quote=None):
         field: (form.get(f"specs_{field}") or "").strip()
         for field in ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto")
     }
-    terms = []
-    for key, title, default_body in QUOTE_TERMS_DEFAULTS:
-        body = (form.get(f"term_{key}_body") or "").strip()
-        enabled = bool(form.get(f"term_{key}_enabled"))
-        terms.append({
-            "key": key,
-            "title": title,
-            "body": body or default_body,
-            "enabled": enabled,
-        })
-    specs["terms"] = terms
+    specs["terms_template_id"] = (form.get("terms_template_id") or "").strip()
     specs["integrantes"] = normalize_contact_rows([
         {
             "enabled": bool(form.get(f"integrante_{index}_enabled")),
@@ -124,7 +114,8 @@ def quote_from_form(form, fallback_quote=None):
         "date": form.get("date", "").strip(),
         "valid_until": form.get("valid_until", "").strip(),
         "currency": form.get("currency", "MXN").strip() or "MXN",
-        "tax_rate": form.get("tax_rate", "16").strip() or "16",
+        "tax_rate": STANDARD_TAX_RATE if (form.get("tax_enabled") or "").strip() else 0.0,
+        "discount_pct": min(max(_to_float(form.get("discount_pct", "0") or "0"), 0), 100),
         "default_pct_mo": _to_float(form.get("default_pct_mo", "0") or "0"),
         "default_pct_indirectos": _to_float(form.get("default_pct_indirectos", "0") or "0"),
         "default_pct_utilidad": _to_float(form.get("default_pct_utilidad", "0") or "0"),

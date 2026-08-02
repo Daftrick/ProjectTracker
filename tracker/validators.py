@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 
 from .catalog import catalog_maps, hydrate_ldm_item, hydrate_quote_item, quote_type_key
-from .pdfs import QUOTE_TERMS_DEFAULTS
+from .domain import STANDARD_TAX_RATE
 from .quote_templates_config import MAX_QUOTE_TEMPLATE_CONTACTS, normalize_contact_rows
 from .utils import clean as _clean, deleted_catalog_item_at as _deleted_catalog_item_at, parse_form_float as _parse_float
 
@@ -77,18 +77,26 @@ def validate_project_form(form):
 def validate_quote_form(form):
     errors = []
     field_errors = {}
-    tax_rate = _parse_float(
-        form.get("tax_rate", 16),
-        "IVA",
+    # El IVA ya no se edita como número libre: sólo se activa/desactiva.
+    # Cualquier checkbox marcado (tax_enabled=on) aplica la tasa estándar;
+    # si no viene, no lleva IVA.
+    tax_rate = STANDARD_TAX_RATE if _clean(form.get("tax_enabled")) else 0.0
+
+    # Descuento a nivel cotización: porcentaje sobre el subtotal, aplicado
+    # antes del IVA (ver hydrate_quote en catalog.py).
+    discount_pct = _parse_float(
+        form.get("discount_pct", "0") or "0",
+        "Descuento",
         errors,
-        default=16,
+        default=0.0,
         field_errors=field_errors,
-        field_key="tax_rate",
+        field_key="discount_pct",
     )
-    if tax_rate < 0 or tax_rate > 100:
-        message = "IVA debe estar entre 0 y 100."
+    if discount_pct < 0 or discount_pct > 100:
+        message = "Descuento debe estar entre 0 y 100."
         errors.append(message)
-        field_errors.setdefault("tax_rate", message)
+        field_errors.setdefault("discount_pct", message)
+        discount_pct = min(max(discount_pct, 0), 100)
 
     currency = _clean(form.get("currency")) or "MXN"
     if currency not in VALID_CURRENCIES:
@@ -125,19 +133,11 @@ def validate_quote_form(form):
 
     specs = {
         field: _clean(form.get(f"specs_{field}")) or ""
-        for field in ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto")
+        for field in ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto", "alcance_custom")
     }
-    terms = []
-    for key, title, default_body in QUOTE_TERMS_DEFAULTS:
-        body = (_clean(form.get(f"term_{key}_body")) or "").strip()
-        enabled = bool(form.get(f"term_{key}_enabled"))
-        terms.append({
-            "key": key,
-            "title": title,
-            "body": body or default_body,
-            "enabled": enabled,
-        })
-    specs["terms"] = terms
+    # Los términos y condiciones ya no se editan por cotización: sólo se elige
+    # qué plantilla de T&C aplica (ver terms_templates_config.resolve_quote_terms).
+    specs["terms_template_id"] = _clean(form.get("terms_template_id")) or ""
     specs["integrantes"] = normalize_contact_rows([
         {
             "enabled": bool(form.get(f"integrante_{index}_enabled")),
@@ -157,6 +157,7 @@ def validate_quote_form(form):
         "valid_until": valid_until,
         "currency": currency,
         "tax_rate": tax_rate,
+        "discount_pct": discount_pct,
         "notes": _clean(form.get("notes")),
         "project_basis_note": _clean(form.get("project_basis_note")),
         "cover_discipline": _clean(form.get("cover_discipline")),

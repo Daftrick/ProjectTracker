@@ -21,7 +21,7 @@ class ValidatorsTest(unittest.TestCase):
         result = validate_quote_form(
             MultiDict([
                 ("date", "2026-04-24"),
-                ("tax_rate", "16"),
+                ("tax_enabled", "on"),
                 ("currency", "MXN"),
                 ("item_desc[]", ""),
                 ("item_unit[]", "pza"),
@@ -36,11 +36,11 @@ class ValidatorsTest(unittest.TestCase):
         self.assertEqual(result["items"], [])
         self.assertEqual(result["errors"], ["Agrega al menos una partida o sección a la cotización."])
 
-    def test_quote_validates_numbers_and_tax_range(self):
+    def test_quote_validates_numbers(self):
         result = validate_quote_form(
             MultiDict([
                 ("date", "2026-04-24"),
-                ("tax_rate", "150"),
+                ("tax_enabled", "on"),
                 ("currency", "MXN"),
                 ("item_desc[]", "Interruptor"),
                 ("item_unit[]", "pza"),
@@ -52,18 +52,64 @@ class ValidatorsTest(unittest.TestCase):
         )
 
         self.assertFalse(result["ok"])
-        self.assertIn("IVA debe estar entre 0 y 100.", result["errors"])
         self.assertIn("Fila 1: cantidad debe ser un número válido.", result["errors"])
         self.assertIn("Fila 1: cantidad debe ser mayor a 0.", result["errors"])
         self.assertIn("Fila 1: costo unitario no puede ser negativo.", result["errors"])
-        self.assertEqual(result["field_errors"]["tax_rate"], "IVA debe estar entre 0 y 100.")
         self.assertEqual(result["field_errors"]["items"], "Revisa las partidas marcadas por la validación.")
+
+    def test_quote_tax_rate_is_toggle_not_free_number(self):
+        # El IVA ya no se edita como número libre: sólo se activa/desactiva
+        # con tax_enabled. Cualquier valor de tax_rate en el form se ignora.
+        base_fields = [
+            ("date", "2026-04-24"),
+            ("currency", "MXN"),
+            ("item_desc[]", "Interruptor"),
+            ("item_unit[]", "pza"),
+            ("item_qty[]", "1"),
+            ("item_precio_costo[]", "100"),
+            ("item_catalog_id[]", ""),
+            ("item_desc2[]", ""),
+        ]
+
+        on_result = validate_quote_form(MultiDict(base_fields + [("tax_enabled", "on")]))
+        self.assertEqual(on_result["tax_rate"], 16)
+
+        off_result = validate_quote_form(MultiDict(base_fields))
+        self.assertEqual(off_result["tax_rate"], 0.0)
+
+        # Un tax_rate arbitrario en el POST no tiene ningún efecto.
+        tampered_result = validate_quote_form(MultiDict(base_fields + [("tax_rate", "999")]))
+        self.assertEqual(tampered_result["tax_rate"], 0.0)
+
+    def test_quote_discount_pct_parsed_and_range_validated(self):
+        base_fields = [
+            ("date", "2026-04-24"),
+            ("currency", "MXN"),
+            ("item_desc[]", "Interruptor"),
+            ("item_unit[]", "pza"),
+            ("item_qty[]", "1"),
+            ("item_precio_costo[]", "100"),
+            ("item_catalog_id[]", ""),
+            ("item_desc2[]", ""),
+        ]
+
+        no_discount = validate_quote_form(MultiDict(base_fields))
+        self.assertEqual(no_discount["discount_pct"], 0.0)
+
+        with_discount = validate_quote_form(MultiDict(base_fields + [("discount_pct", "15")]))
+        self.assertTrue(with_discount["ok"])
+        self.assertEqual(with_discount["discount_pct"], 15.0)
+
+        out_of_range = validate_quote_form(MultiDict(base_fields + [("discount_pct", "150")]))
+        self.assertFalse(out_of_range["ok"])
+        self.assertIn("Descuento debe estar entre 0 y 100.", out_of_range["errors"])
+        self.assertEqual(out_of_range["field_errors"]["discount_pct"], "Descuento debe estar entre 0 y 100.")
 
     def test_quote_accepts_valid_item_and_computes_subtotal(self):
         result = validate_quote_form(
             MultiDict([
                 ("date", "2026-04-24"),
-                ("tax_rate", "16"),
+                ("tax_enabled", "on"),
                 ("currency", "MXN"),
                 ("project_basis_note", "Plano autorizado"),
                 ("item_desc[]", "Interruptor"),
@@ -84,7 +130,7 @@ class ValidatorsTest(unittest.TestCase):
         result = validate_quote_form(
             MultiDict([
                 ("date", "2026-04-24"),
-                ("tax_rate", "16"),
+                ("tax_enabled", "on"),
                 ("currency", "MXN"),
                 ("integrante_0_enabled", "1"),
                 ("integrante_0_name", "Ana López"),
@@ -114,7 +160,7 @@ class ValidatorsTest(unittest.TestCase):
         result = validate_quote_form(
             MultiDict([
                 ("date", "2026-04-24"),
-                ("tax_rate", "16"),
+                ("tax_enabled", "on"),
                 ("currency", "MXN"),
                 ("item_desc[]", "Interruptor histórico"),
                 ("item_unit[]", "pza"),
@@ -140,7 +186,7 @@ class ValidatorsTest(unittest.TestCase):
         result = validate_quote_form(
             MultiDict([
                 ("date", "2026-04-24"),
-                ("tax_rate", "16"),
+                ("tax_enabled", "on"),
                 ("currency", "MXN"),
                 ("item_kind[]", "section"),
                 ("item_section[]", "Bodega de alcohol"),
@@ -170,7 +216,7 @@ class ValidatorsTest(unittest.TestCase):
         result = validate_quote_form(
             MultiDict([
                 ("date", "2026-04-24"),
-                ("tax_rate", "16"),
+                ("tax_enabled", "on"),
                 ("currency", "MXN"),
                 ("item_kind[]", "section"),
                 ("item_section[]", "Areas exteriores"),

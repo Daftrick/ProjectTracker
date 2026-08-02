@@ -92,5 +92,49 @@ class ProjectStageTest(unittest.TestCase):
 
 
 
+class KanbanRoutesTest(unittest.TestCase):
+    """Cubre las rutas /kanban y toggle_obra restauradas (el template
+    kanban.html había quedado huérfano tras un refactor previo)."""
+
+    def setUp(self):
+        self.app = create_app()
+        self.app.config["TESTING"] = True
+        self.app.config["LOGIN_DISABLED"] = True
+        self.app.config["WTF_CSRF_ENABLED"] = False
+        self.client = self.app.test_client()
+        projects = load("projects")
+        self._saved_projects = [p for p in projects if p["id"] != PROJECT["id"]]
+        save("projects", self._saved_projects + [dict(PROJECT)])
+
+    def tearDown(self):
+        save("projects", self._saved_projects)
+
+    def _get_project(self):
+        return next(p for p in load("projects") if p["id"] == PROJECT["id"])
+
+    def test_kanban_page_loads_and_lists_project_in_cotizacion(self):
+        response = self.client.get("/kanban")
+        self.assertEqual(response.status_code, 200)
+        body = response.get_data(as_text=True)
+        self.assertIn(PROJECT["clave"], body)
+        self.assertIn("Portafolio", body)
+
+    def test_toggle_obra_moves_project_to_obra_and_back(self):
+        response = self.client.post(f"/projects/{PROJECT['id']}/toggle_obra", follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(self._get_project()["in_obra"])
+
+        response = self.client.get("/kanban")
+        self.assertIn(PROJECT["clave"], response.get_data(as_text=True))
+
+        response = self.client.post(f"/projects/{PROJECT['id']}/toggle_obra", follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(self._get_project()["in_obra"])
+
+    def test_toggle_obra_unknown_project_does_not_crash(self):
+        response = self.client.post("/projects/does-not-exist/toggle_obra", follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+
+
 if __name__ == "__main__":
     unittest.main()

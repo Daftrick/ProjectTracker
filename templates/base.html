@@ -258,6 +258,10 @@
        data-label="Proyectos">
       <i class="bi bi-grid-1x2"></i><span class="nav-label"> Proyectos</span>
     </a>
+    <a href="{{ url_for('kanban') }}" class="nav-link {% if request.endpoint=='kanban' %}active{% endif %}"
+       data-label="Portafolio">
+      <i class="bi bi-kanban"></i><span class="nav-label"> Portafolio</span>
+    </a>
     <a href="{{ url_for('quotes_bp.all_quotes') }}" class="nav-link {% if request.endpoint=='quotes_bp.all_quotes' %}active{% endif %}"
        data-label="Cotizaciones">
       <i class="bi bi-receipt"></i><span class="nav-label"> Cotizaciones</span>
@@ -265,6 +269,10 @@
     <a href="{{ url_for('quotes_bp.quote_templates') }}" class="nav-link {% if request.endpoint=='quotes_bp.quote_templates' %}active{% endif %}"
        data-label="Plantillas">
       <i class="bi bi-file-earmark-text"></i><span class="nav-label"> Plantillas</span>
+    </a>
+    <a href="{{ url_for('quotes_bp.terms_templates') }}" class="nav-link {% if request.endpoint=='quotes_bp.terms_templates' %}active{% endif %}"
+       data-label="Términos y Condiciones">
+      <i class="bi bi-file-text"></i><span class="nav-label"> Términos y Condiciones</span>
     </a>
 
     <div class="nav-section mt-2">Recursos</div>
@@ -280,7 +288,7 @@
        data-label="Bundles">
       <i class="bi bi-boxes"></i><span class="nav-label"> Bundles</span>
     </a>
-    {% if current_user.is_authenticated and current_user.role == 'admin' %}
+    {% if current_user.is_authenticated %}
     <a href="{{ url_for('proveedores') }}" class="nav-link {% if request.endpoint in ('proveedores','edit_proveedor') %}active{% endif %}"
        data-label="Proveedores">
       <i class="bi bi-truck"></i><span class="nav-label"> Proveedores</span>
@@ -290,33 +298,38 @@
       <i class="bi bi-people"></i><span class="nav-label"> Equipo</span>
     </a>
     {% endif %}
-    {% if current_user.is_authenticated and current_user.role == 'admin' %}
+    {% if current_user.is_authenticated %}
     <div class="nav-section mt-2">Sistema</div>
-<a href="{{ url_for('admin_bp.empresa') }}" class="nav-link {% if request.endpoint in ('admin_bp.empresa','admin_bp.empresa_logo') %}active{% endif %}"
-       data-label="Empresa">
-      <i class="bi bi-building"></i><span class="nav-label"> Empresa</span>
-    </a>
-
-    <a href="{{ url_for('auth_bp.users') }}" class="nav-link {% if request.endpoint in ('auth_bp.users','auth_bp.new_user','auth_bp.toggle_user','auth_bp.reset_password') %}active{% endif %}"
-       data-label="Usuarios">
-      <i class="bi bi-person-badge"></i><span class="nav-label"> Usuarios</span>
-    </a>
     <a href="{{ url_for('quotes_bp.audit_deleted_catalog') }}" class="nav-link {% if request.endpoint=='quotes_bp.audit_deleted_catalog' %}active{% endif %}"
        data-label="Auditoría Catálogo">
       <i class="bi bi-exclamation-triangle"></i><span class="nav-label"> Auditoría Catálogo</span>
-    </a>
-    <a href="{{ url_for('admin_bp.export_data') }}" class="nav-link {% if request.endpoint=='admin_bp.export_data' %}active{% endif %}"
-       data-label="Exportar datos">
-      <i class="bi bi-download"></i><span class="nav-label"> Exportar datos</span>
     </a>
     <a href="{{ url_for('admin_bp.import_json') }}" class="nav-link {% if request.endpoint=='admin_bp.import_json' %}active{% endif %}"
        data-label="Importar JSON">
       <i class="bi bi-upload"></i><span class="nav-label"> Importar JSON</span>
     </a>
+    <a href="{{ url_for('quotes_bp.quote_status_labels_admin') }}" class="nav-link {% if request.endpoint=='quotes_bp.quote_status_labels_admin' %}active{% endif %}"
+       data-label="Nomenclatura Cotizaciones">
+      <i class="bi bi-tags"></i><span class="nav-label"> Nomenclatura Cotizaciones</span>
+    </a>
+    <a href="{{ url_for('admin_bp.empresa') }}" class="nav-link {% if request.endpoint in ('admin_bp.empresa','admin_bp.empresa_logo') %}active{% endif %}"
+       data-label="Empresa">
+      <i class="bi bi-building"></i><span class="nav-label"> Empresa</span>
+    </a>
+    {% if current_user.role == 'admin' %}
+    <a href="{{ url_for('auth_bp.users') }}" class="nav-link {% if request.endpoint in ('auth_bp.users','auth_bp.new_user','auth_bp.toggle_user','auth_bp.reset_password') %}active{% endif %}"
+       data-label="Usuarios">
+      <i class="bi bi-person-badge"></i><span class="nav-label"> Usuarios</span>
+    </a>
+    <a href="{{ url_for('admin_bp.export_data') }}" class="nav-link {% if request.endpoint=='admin_bp.export_data' %}active{% endif %}"
+       data-label="Exportar datos">
+      <i class="bi bi-download"></i><span class="nav-label"> Exportar datos</span>
+    </a>
     <a href="{{ url_for('admin_bp.reset_data') }}" class="nav-link {% if request.endpoint=='admin_bp.reset_data' %}active{% endif %}"
        data-label="Reiniciar app" style="color:#a87070">
       <i class="bi bi-trash3"></i><span class="nav-label"> Reiniciar app</span>
     </a>
+    {% endif %}
     {% endif %}
   </nav>
   <div class="sfooter">

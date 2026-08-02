@@ -35,16 +35,6 @@ DISCIPLINAS = ["instalaciones", "arquitectura", "estructura", "otros"]
 bp = Blueprint("admin_bp", __name__)
 
 
-def _require_admin_post(redirect_endpoint):
-    """Returns a redirect Response if the current POST is not from an admin, else None."""
-    if current_app.config.get("LOGIN_DISABLED"):
-        return None
-    if not current_user.is_authenticated or current_user.role != "admin":
-        flash("Acceso restringido a administradores.", "danger")
-        return redirect(url_for(redirect_endpoint))
-    return None
-
-
 def _parse_price(value):
     raw = _clean(value) or "0"
     try:
@@ -174,9 +164,9 @@ def _render_team(form_state=None, field_errors=None, open_modal=None):
 @bp.route("/catalogo", methods=["GET", "POST"], endpoint="catalogo")
 def catalogo():
     if request.method == "POST":
-        guard = _require_admin_post("catalogo")
-        if guard:
-            return guard
+        # Agregar conceptos nuevos al catálogo está disponible para todos los
+        # usuarios autenticados (no sólo administradores) — los cotizadores
+        # necesitan poder dar de alta artículos mientras arman una cotización.
         form_state = _catalog_form(request.form)
         field_errors = {}
         if not form_state["nombre"]:
@@ -214,7 +204,6 @@ def catalogo():
 
 
 @bp.route("/catalogo/<item_id>/edit", methods=["POST"], endpoint="edit_catalogo")
-@admin_required
 def edit_catalogo(item_id):
     is_ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest"
     items = load("catalogo")
@@ -247,7 +236,6 @@ def edit_catalogo(item_id):
 
 
 @bp.route("/catalogo/<item_id>/delete", methods=["POST"], endpoint="delete_catalogo")
-@admin_required
 def delete_catalogo(item_id):
     is_ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest"
     result = delete_catalog_items_data({item_id}, load("catalogo"), load("quotes"), load("materiales"))
@@ -262,7 +250,6 @@ def delete_catalogo(item_id):
 
 
 @bp.route("/api/catalogo/migrate-marca", methods=["POST"], endpoint="migrate_catalog_marca")
-@admin_required
 def migrate_catalog_marca():
     """One-time migration: split 'Marca | Nombre' items into separate marca + nombre fields."""
     items = load("catalogo")
@@ -280,7 +267,6 @@ def migrate_catalog_marca():
 
 
 @bp.route("/api/catalogo/bulk-edit", methods=["POST"], endpoint="bulk_edit_catalogo")
-@admin_required
 def bulk_edit_catalogo():
     data = request.get_json(force=True) or {}
     ids = set(str(i) for i in (data.get("ids") or []))
@@ -302,7 +288,6 @@ def bulk_edit_catalogo():
 
 
 @bp.route("/api/catalogo/bulk-delete", methods=["POST"], endpoint="bulk_delete_catalogo")
-@admin_required
 def bulk_delete_catalogo():
     ids = set((request.get_json(force=True) or {}).get("ids", []))
     result = delete_catalog_items_data(ids, load("catalogo"), load("quotes"), load("materiales"))
@@ -351,8 +336,9 @@ def api_catalogo_categorias():
 
 
 @bp.route("/api/catalogo/add", methods=["POST"], endpoint="api_catalogo_add")
-@admin_required
 def api_catalogo_add():
+    # Disponible para todos los usuarios autenticados (ver nota en catalogo()):
+    # se usa desde el selector de conceptos del editor de cotizaciones y LDM.
     data = request.get_json(force=True) or {}
     nombre = (data.get("nombre", "") or "").strip()
     if not nombre:
@@ -583,9 +569,6 @@ def delete_bundle_version_route(bundle_id, version_number):
 @bp.route("/proveedores", methods=["GET", "POST"], endpoint="proveedores")
 def proveedores():
     if request.method == "POST":
-        guard = _require_admin_post("proveedores")
-        if guard:
-            return guard
         form_state = _proveedor_form(request.form)
         field_errors = {}
         if not form_state["nombre"]:
@@ -615,7 +598,6 @@ def proveedores():
 
 
 @bp.route("/proveedores/<prov_id>/edit", methods=["POST"], endpoint="edit_proveedor")
-@admin_required
 def edit_proveedor(prov_id):
     proveedores_data = load("proveedores")
     proveedor = next((item for item in proveedores_data if item["id"] == prov_id), None)
@@ -636,7 +618,6 @@ def edit_proveedor(prov_id):
 
 
 @bp.route("/proveedores/<prov_id>/delete", methods=["POST"], endpoint="delete_proveedor")
-@admin_required
 def delete_proveedor(prov_id):
     save("proveedores", [item for item in load("proveedores") if item["id"] != prov_id])
     flash("Proveedor eliminado.", "warning")
@@ -646,9 +627,6 @@ def delete_proveedor(prov_id):
 @bp.route("/fichas", methods=["GET", "POST"], endpoint="fichas")
 def fichas():
     if request.method == "POST":
-        guard = _require_admin_post("fichas")
-        if guard:
-            return guard
         form_state = _ficha_form(request.form)
         field_errors = {}
         if form_state["tipo"] not in TIPOS_FICHA:
@@ -711,7 +689,6 @@ def unlink_ficha(ficha_id, project_id):
 
 
 @bp.route("/fichas/<ficha_id>/delete", methods=["POST"], endpoint="delete_ficha")
-@admin_required
 def delete_ficha(ficha_id):
     save("fichas", [item for item in load("fichas") if item["id"] != ficha_id])
     flash("Ficha eliminada.", "warning")
@@ -721,9 +698,6 @@ def delete_ficha(ficha_id):
 @bp.route("/team", methods=["GET", "POST"], endpoint="team")
 def team():
     if request.method == "POST":
-        guard = _require_admin_post("team")
-        if guard:
-            return guard
         form_state = _team_form(request.form)
         field_errors = {}
         if not form_state["name"]:
@@ -749,7 +723,6 @@ def team():
 
 
 @bp.route("/team/<member_id>/delete", methods=["POST"], endpoint="delete_member")
-@admin_required
 def delete_member(member_id):
     save("team", [item for item in load("team") if item["id"] != member_id])
     flash("Miembro eliminado.", "warning")
@@ -811,27 +784,36 @@ def empresa_logo_file():
 
 
 @bp.route("/empresa", methods=["GET", "POST"], endpoint="empresa")
-@admin_required
 def empresa():
     from ..company_config import get_company, save_company
     errors = {}
+    is_admin = bool(current_app.config.get("LOGIN_DISABLED")) or (
+        current_user.is_authenticated and current_user.role == "admin"
+    )
     if request.method == "POST":
         current = get_company()
-        portada_color = (request.form.get("portada_color", "") or "").strip()
-        if not portada_color.startswith("#") or len(portada_color) != 7:
-            portada_color = current.get("portada_color", "#000000") or "#000000"
-        data = {
-            "name":          (request.form.get("name", "") or "").strip(),
-            "prefix":        (request.form.get("prefix", "") or "").strip(),
-            "address":       (request.form.get("address", "") or "").strip(),
-            "email":         (request.form.get("email", "") or "").strip(),
-            "phone":         (request.form.get("phone", "") or "").strip(),
-            "rut":           (request.form.get("rut", "") or "").strip(),
-            "logo":          current.get("logo", ""),
-            "portada_color": portada_color,
-        }
-        if not data["name"]:
-            errors["name"] = "El nombre de la empresa es obligatorio."
+        if is_admin:
+            portada_color = (request.form.get("portada_color", "") or "").strip()
+            if not portada_color.startswith("#") or len(portada_color) != 7:
+                portada_color = current.get("portada_color", "#000000") or "#000000"
+            data = {
+                "name":          (request.form.get("name", "") or "").strip(),
+                "prefix":        (request.form.get("prefix", "") or "").strip(),
+                "address":       (request.form.get("address", "") or "").strip(),
+                "email":         (request.form.get("email", "") or "").strip(),
+                "phone":         (request.form.get("phone", "") or "").strip(),
+                "rut":           (request.form.get("rut", "") or "").strip(),
+                "logo":          current.get("logo", ""),
+                "portada_color": portada_color,
+            }
+            if not data["name"]:
+                errors["name"] = "El nombre de la empresa es obligatorio."
+        else:
+            # Usuarios no-admin sólo pueden editar la dirección; el resto de
+            # los campos de la empresa (nombre, prefijo, contacto, RUT, logo,
+            # color de portada) se conservan sin cambios.
+            data = dict(current)
+            data["address"] = (request.form.get("address", "") or "").strip()
         if not errors:
             save_company(data)
             flash("Perfil de empresa guardado.", "success")
@@ -842,6 +824,7 @@ def empresa():
         company=company,
         field_errors=errors,
         logo_version=_company_logo_version(company),
+        can_edit_all=is_admin,
     )
 
 
@@ -891,7 +874,6 @@ def empresa_logo():
 # ─────────────────────────────────────────────────────────────
 
 @bp.route("/project-templates", methods=["GET", "POST"], endpoint="project_templates_admin")
-@admin_required
 def project_templates_admin():
     from ..templates_config import get_project_templates, save_project_templates
     templates = get_project_templates()
@@ -925,7 +907,6 @@ def project_templates_admin():
 # ─────────────────────────────────────────────────────────────
 
 @bp.route("/quote-templates", endpoint="quote_templates")
-@admin_required
 def quote_templates():
     return redirect(url_for("quotes_bp.quote_templates", **request.args))
 
@@ -939,7 +920,6 @@ _IMPORTABLE = {
 
 
 @bp.route("/import-json", methods=["GET", "POST"], endpoint="import_json")
-@admin_required
 def import_json():
     if request.method == "POST":
         imported = []
@@ -1063,14 +1043,12 @@ def export_data():
 
 
 @bp.route("/alcances", endpoint="alcances_admin")
-@admin_required
 def alcances_admin():
     from ..domain import get_alcances
     return render_template("alcances_admin.html", alcances=get_alcances())
 
 
 @bp.route("/api/alcances/save", methods=["POST"], endpoint="alcances_api_save")
-@admin_required
 def alcances_api_save():
     import re as _re
     from ..domain import get_alcances
@@ -1104,14 +1082,12 @@ def alcances_api_save():
 
 
 @bp.route("/disciplinas", endpoint="disciplinas_admin")
-@admin_required
 def disciplinas_admin():
     from ..domain import get_disciplinas
     return render_template("disciplinas_admin.html", disciplinas=get_disciplinas())
 
 
 @bp.route("/api/disciplinas/save", methods=["POST"], endpoint="disciplinas_api_save")
-@admin_required
 def disciplinas_api_save():
     import re as _re
     data = request.get_json(force=True) or []

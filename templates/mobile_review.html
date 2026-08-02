@@ -55,6 +55,12 @@
         <span>Subtotal</span>
         <span>{{ draft.subtotal | currency }}</span>
       </div>
+      {% if draft.discount_pct %}
+      <div class="d-flex justify-content-between small text-secondary mb-1">
+        <span>Descuento ({{ draft.discount_pct | int }}%)</span>
+        <span>-{{ draft.discount_amount | currency }}</span>
+      </div>
+      {% endif %}
       <div class="d-flex justify-content-between small text-secondary mb-1">
         <span>IVA ({{ draft.tax_rate | int }}%)</span>
         <span>{{ draft.tax | currency }}</span>

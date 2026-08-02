@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% block title %}Plantillas de Términos y Condiciones{% endblock %}
+{% block page_title %}<i class="bi bi-file-text me-2"></i>Plantillas de Términos y Condiciones{% endblock %}
+
+{% block extra_head %}
+<style>
+  .tpl-shell { max-width: 860px; }
+  .tpl-card {
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 10px;
+    background: rgba(255,255,255,.03);
+    margin-bottom: .65rem;
+  }
+  .tpl-card-header {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .85rem 1rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .tpl-card-header:hover { background: rgba(255,255,255,.04); border-radius: 10px; }
+  .tpl-card-header.is-open { border-radius: 10px 10px 0 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .tpl-card-info { flex: 1; min-width: 0; }
+  .tpl-card-name { font-weight: 600; }
+  .tpl-card-meta { font-size: .76rem; color: var(--bs-secondary-color); margin-top: 2px; }
+  .tpl-card-body { padding: 1.1rem 1rem 1rem; }
+  .tpl-term-row {
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 8px;
+    padding: .85rem;
+    margin-bottom: .65rem;
+    background: rgba(0,0,0,.10);
+  }
+  .tpl-term-head {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .5rem;
+  }
+  .tpl-chevron { transition: transform .2s; color: var(--bs-secondary-color); }
+  .tpl-chevron.rotated { transform: rotate(180deg); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="tpl-shell">
+  <p class="text-muted mb-4">
+    Cada plantilla es un conjunto de términos y condiciones con nombre propio.
+    En el editor de cotización se elige cuál aplica — si corriges el texto aquí,
+    se actualiza en todas las cotizaciones que la usan.
+  </p>
+
+  {% for tmpl in templates %}
+  {% set tid = tmpl.id %}
+  {% set is_open = (tid == open_template) %}
+  <div class="tpl-card" id="tplcard-{{ tid }}">
+
+    <div class="tpl-card-header {% if is_open %}is-open{% endif %}"
+         onclick="toggleCard('{{ tid }}')" id="tplhdr-{{ tid }}">
+      <i class="bi bi-file-text text-primary"></i>
+      <div class="tpl-card-info">
+        <div class="tpl-card-name">{{ tmpl.name }}</div>
+        <div class="tpl-card-meta">{{ tmpl.terms|length }} término(s)</div>
+      </div>
+      <i class="bi bi-chevron-down tpl-chevron {% if is_open %}rotated{% endif %}" id="tplchev-{{ tid }}"></i>
+    </div>
+
+    <div id="tpleditor-{{ tid }}" style="display:{% if is_open %}block{% else %}none{% endif %}">
+      <div class="tpl-card-body">
+        <form method="post" action="{{ url_for('quotes_bp.terms_templates') }}"
+              id="form-{{ tid }}"
+              onsubmit="syncTerms('{{ tid }}')">
+          <input type="hidden" name="template_id" value="{{ tid }}">
+          <input type="hidden" name="template_{{ tid }}_terms_json"
+                 id="terms-json-{{ tid }}" value="{{ tmpl.terms | tojson }}">
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Nombre de la plantilla</label>
+            <input name="template_{{ tid }}_name" class="form-control"
+                   value="{{ tmpl.name }}" placeholder="Ej. Términos estándar" required>
+          </div>
+
+          <label class="form-label fw-semibold">Términos</label>
+          <div id="terms-{{ tid }}" class="mb-2">
+            {% for term in tmpl.terms %}
+            <div class="tpl-term-row">
+              <div class="tpl-term-head">
+                <input type="checkbox" class="form-check-input mt-0 tpl-term-enabled"
+                       {% if term.enabled %}checked{% endif %}>
+                <input class="form-control form-control-sm fw-semibold tpl-term-title"
+                       value="{{ term.title }}" placeholder="Título del término">
+                <button type="button" class="btn btn-sm btn-outline-danger flex-shrink-0"
+                        onclick="removeTerm(this)">
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </div>
+              <textarea class="form-control form-control-sm tpl-term-body" rows="2"
+                        placeholder="Contenido del término">{{ term.body }}</textarea>
+            </div>
+            {% endfor %}
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary mb-3"
+                  onclick="addTerm('{{ tid }}')">
+            <i class="bi bi-plus-lg me-1"></i>Agregar término
+          </button>
+
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-check-lg me-1"></i>Guardar plantilla
+            </button>
+            <button type="submit" form="delete-form-{{ tid }}" class="btn btn-outline-danger"
+                    onclick="return confirm('¿Eliminar la plantilla «{{ tmpl.name }}»?')">
+              <i class="bi bi-trash me-1"></i>Eliminar
+            </button>
+          </div>
+        </form>
+        {# Formulario de eliminar independiente, fuera del formulario de guardar
+           (ver nota en quote_templates.html sobre anidar <form> dentro de <form>). #}
+        <form method="post" action="{{ url_for('quotes_bp.terms_templates') }}"
+              id="delete-form-{{ tid }}" class="d-none">
+          <input type="hidden" name="delete_target" value="{{ tid }}">
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  <!-- Nueva plantilla -->
+  <div class="card mt-3">
+    <div class="card-body py-3">
+      <form method="post" action="{{ url_for('quotes_bp.terms_templates') }}">
+        <div class="d-flex gap-2">
+          <input name="create_name" class="form-control" placeholder="Nombre de nueva plantilla…">
+          <button type="submit" class="btn btn-outline-primary text-nowrap">
+            <i class="bi bi-plus-lg me-1"></i>Nueva plantilla
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function toggleCard(tid) {
+    const editor = document.getElementById(`tpleditor-${tid}`);
+    const hdr    = document.getElementById(`tplhdr-${tid}`);
+    const chev   = document.getElementById(`tplchev-${tid}`);
+    const open   = editor.style.display !== "none";
+    editor.style.display = open ? "none" : "block";
+    hdr.classList.toggle("is-open", !open);
+    chev.classList.toggle("rotated", !open);
+  }
+
+  function addTerm(tid) {
+    const container = document.getElementById(`terms-${tid}`);
+    container.insertAdjacentHTML("beforeend", `
+      <div class="tpl-term-row">
+        <div class="tpl-term-head">
+          <input type="checkbox" class="form-check-input mt-0 tpl-term-enabled" checked>
+          <input class="form-control form-control-sm fw-semibold tpl-term-title" placeholder="Título del término">
+          <button type="button" class="btn btn-sm btn-outline-danger flex-shrink-0" onclick="removeTerm(this)">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+        <textarea class="form-control form-control-sm tpl-term-body" rows="2" placeholder="Contenido del término"></textarea>
+      </div>`);
+    container.querySelector(".tpl-term-row:last-child .tpl-term-title")?.focus();
+  }
+
+  function removeTerm(btn) { btn.closest(".tpl-term-row")?.remove(); }
+
+  function syncTerms(tid) {
+    const container = document.getElementById(`terms-${tid}`);
+    const jsonInput = document.getElementById(`terms-json-${tid}`);
+    if (!container || !jsonInput) return;
+    const terms = [...container.querySelectorAll(".tpl-term-row")].map(row => ({
+      title: row.querySelector(".tpl-term-title")?.value.trim() || "",
+      body: row.querySelector(".tpl-term-body")?.value.trim() || "",
+      enabled: row.querySelector(".tpl-term-enabled")?.checked ?? true,
+    })).filter(t => t.title || t.body);
+    jsonInput.value = JSON.stringify(terms);
+  }
+</script>
+{% endblock %}

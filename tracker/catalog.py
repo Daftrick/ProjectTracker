@@ -316,6 +316,26 @@ def hydrate_quote_item(item, catalog_by_id, catalog_by_name, infer_by_name=True,
     return hydrated
 
 
+def compute_quote_totals(subtotal, tax_rate, discount_pct=0):
+    """Descuento a nivel cotización, aplicado antes del IVA:
+    subtotal -> descuento (%) -> subtotal_after_discount -> IVA -> total.
+    """
+    subtotal = safe_float(subtotal, 0)
+    tax_rate = safe_float(tax_rate, 0)
+    discount_pct = min(max(safe_float(discount_pct, 0), 0), 100)
+    discount_amount = round(subtotal * discount_pct / 100, 2)
+    subtotal_after_discount = round(subtotal - discount_amount, 2)
+    tax = round(subtotal_after_discount * tax_rate / 100, 2)
+    total = round(subtotal_after_discount + tax, 2)
+    return {
+        "discount_pct": discount_pct,
+        "discount_amount": discount_amount,
+        "subtotal_after_discount": subtotal_after_discount,
+        "tax": tax,
+        "total": total,
+    }
+
+
 def hydrate_quote(quote, catalog_by_id=None, catalog_by_name=None):
     catalog_by_id = catalog_by_id if catalog_by_id is not None else {}
     catalog_by_name = catalog_by_name if catalog_by_name is not None else {}
@@ -337,10 +357,10 @@ def hydrate_quote(quote, catalog_by_id=None, catalog_by_name=None):
         sum(item.get("total", 0) for item in hydrated["items"] if not is_quote_section_marker(item)),
         2,
     )
+    totals = compute_quote_totals(subtotal, tax_rate, hydrated.get("discount_pct", 0))
     hydrated["tax_rate"] = tax_rate
     hydrated["subtotal"] = subtotal
-    hydrated["tax"] = round(subtotal * tax_rate / 100, 2)
-    hydrated["total"] = round(subtotal + hydrated["tax"], 2)
+    hydrated.update(totals)
     hydrated["sections"] = quote_section_groups(hydrated["items"])
     return hydrated
 

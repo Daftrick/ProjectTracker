@@ -266,6 +266,11 @@
                 <div style="display:flex;justify-content:space-between;margin-bottom:5px;font-size:11px;font-weight:bold;color:#25262c;">
                   <span>Subtotal</span><span>{{ quote.subtotal | currency }}</span>
                 </div>
+                {% if quote.discount_pct %}
+                <div style="display:flex;justify-content:space-between;margin-bottom:5px;font-size:11px;font-weight:bold;color:#25262c;">
+                  <span>Descuento ({{ quote.discount_pct | int }}%)</span><span>-{{ quote.discount_amount | currency }}</span>
+                </div>
+                {% endif %}
                 <div style="display:flex;justify-content:space-between;margin-bottom:5px;font-size:11px;font-weight:bold;color:#25262c;">
                   <span>IVA ({{ quote.tax_rate or 16 }}%)</span><span>{{ quote.tax | currency }}</span>
                 </div>
@@ -352,6 +357,9 @@
           <div style="display:flex;justify-content:flex-end;margin-top:8px;padding-top:6px;border-top:1px solid #d7dde6;">
             <div style="text-align:right;font-size:11px;">
               <div style="margin-bottom:3px;"><strong>Subtotal:</strong> {{ quote.subtotal | currency }}</div>
+              {% if quote.discount_pct %}
+              <div style="margin-bottom:3px;"><strong>Descuento ({{ quote.discount_pct | int }}%):</strong> -{{ quote.discount_amount | currency }}</div>
+              {% endif %}
               <div style="margin-bottom:3px;"><strong>IVA ({{ quote.tax_rate or 16 }}%):</strong> {{ quote.tax | currency }}</div>
               <div style="font-size:14px;font-weight:bold;color:#228b5e;">TOTAL: {{ quote.total | currency }}</div>
             </div>

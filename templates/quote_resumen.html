@@ -80,6 +80,12 @@
           <td class="text-end text-muted">Subtotal</td>
           <td class="text-end fw-semibold" style="min-width:110px">{{ quote.subtotal | currency }} {{ quote.currency }}</td>
         </tr>
+        {% if quote.discount_pct %}
+        <tr>
+          <td class="text-end text-muted">Descuento ({{ quote.discount_pct | int }}%)</td>
+          <td class="text-end">-{{ quote.discount_amount | currency }} {{ quote.currency }}</td>
+        </tr>
+        {% endif %}
         <tr>
           <td class="text-end text-muted">IVA ({{ quote.tax_rate }}%)</td>
           <td class="text-end">{{ quote.tax | currency }} {{ quote.currency }}</td>

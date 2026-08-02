@@ -12,18 +12,23 @@
       <i class="bi bi-pencil-square me-2 text-primary"></i>Información de la empresa
     </div>
     <div class="card-body">
+      {% if not can_edit_all %}
+      <div class="alert alert-secondary py-2 px-3 mb-3" style="font-size:.85rem">
+        <i class="bi bi-info-circle me-1"></i>Sólo puedes editar la dirección. El resto de los datos de la empresa los administra un admin.
+      </div>
+      {% endif %}
       <form method="post" action="{{ url_for('admin_bp.empresa') }}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="mb-3">
           <label class="form-label fw-semibold">Nombre de la empresa <span class="text-danger">*</span></label>
           <input name="name" class="form-control{% if fe.get('name') %} is-invalid{% endif %}"
-                 value="{{ company.name }}" placeholder="Ej: Desarrolladora Palmas">
+                 value="{{ company.name }}" placeholder="Ej: Desarrolladora Palmas" {% if not can_edit_all %}disabled{% endif %}>
           {% if fe.get('name') %}<div class="invalid-feedback">{{ fe.get('name') }}</div>{% endif %}
         </div>
         <div class="mb-3">
           <label class="form-label fw-semibold">Prefijo de proyectos <small class="text-muted">(opcional)</small></label>
           <input name="prefix" class="form-control" value="{{ company.prefix }}"
-                 placeholder="Ej: DIDE, ARQ, MEP" maxlength="10">
+                 placeholder="Ej: DIDE, ARQ, MEP" maxlength="10" {% if not can_edit_all %}disabled{% endif %}>
           <div class="form-text">Código corto que aparece en los nombres de carpeta y archivo: <code>PREFIJO-001-Clave</code>. Si se deja vacío se usa el nombre de la empresa.</div>
         </div>
         <div class="mb-3">
@@ -34,17 +39,17 @@
         <div class="mb-3">
           <label class="form-label fw-semibold">Correo de la empresa <small class="text-muted">(opcional)</small></label>
           <input type="email" name="email" class="form-control" value="{{ company.email }}"
-                 placeholder="Ej: contacto@empresa.com">
+                 placeholder="Ej: contacto@empresa.com" {% if not can_edit_all %}disabled{% endif %}>
         </div>
         <div class="mb-3">
           <label class="form-label fw-semibold">Teléfono de la empresa <small class="text-muted">(opcional)</small></label>
           <input name="phone" class="form-control" value="{{ company.phone }}"
-                 placeholder="Ej: 55 1234 5678">
+                 placeholder="Ej: 55 1234 5678" {% if not can_edit_all %}disabled{% endif %}>
         </div>
         <div class="mb-3">
           <label class="form-label fw-semibold">RFC / RUT <small class="text-muted">(opcional)</small></label>
           <input name="rut" class="form-control" value="{{ company.rut }}"
-                 placeholder="Ej: DEP210101ABC">
+                 placeholder="Ej: DEP210101ABC" {% if not can_edit_all %}disabled{% endif %}>
         </div>
         <div class="mb-3">
           <label class="form-label fw-semibold">Color de portada del PDF</label>
@@ -52,7 +57,7 @@
             <input type="color" name="portada_color" id="portadaColorPicker"
                    class="form-control form-control-color"
                    value="{{ _portada_color }}"
-                   style="width:44px;height:36px;padding:2px;cursor:pointer">
+                   style="width:44px;height:36px;padding:2px;cursor:pointer" {% if not can_edit_all %}disabled{% endif %}>
             <span class="text-muted small">Color del banner superior en portada y LDM</span>
           </div>
         </div>
@@ -63,7 +68,8 @@
     </div>
   </div>
 
-  <!-- Card 2: logo -->
+  {% if can_edit_all %}
+  <!-- Card 2: logo (sólo admin) -->
   <div class="card">
     <div class="card-header">
       <i class="bi bi-image me-2 text-primary"></i>Logo de la empresa
@@ -96,6 +102,7 @@
       </form>
     </div>
   </div>
+  {% endif %}
 
 </div>
 {% endblock %}

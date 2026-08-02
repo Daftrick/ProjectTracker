@@ -7,13 +7,25 @@ from io import BytesIO
 from flask import Blueprint, Response, flash, redirect, render_template, request, send_file, url_for
 
 from ..bundles import bundle_by_catalog_item_id, capture_bundle_snapshot, hydrate_quote_bundle_breakdowns
-from ..catalog import aggregate_quote_items, approve_quote, catalog_maps, hydrate_quote, next_quote_number, quote_type_key, safe_float
+from ..catalog import aggregate_quote_items, approve_quote, catalog_maps, compute_quote_totals, hydrate_quote, next_quote_number, quote_type_key, safe_float
 from ..csv_catalog_validation import validate_csv_catalog_items
 from ..deletions import purge_deleted_catalog_items_from_record
 from ..form_models import quote_default_numbers, quote_from_form
+from ..payments import (
+    add_payment,
+    delete_payment,
+    get_payment_by_id,
+    get_payments_for_quote,
+    payment_summary,
+    update_payment,
+)
 from ..pdfs import build_quote_pdf
 from ..quote_csv_import import parse_quote_file
-from ..auth import admin_required
+from ..quote_status_labels import (
+    get_quote_status_labels,
+    quote_status_view,
+    save_quote_status_labels,
+)
 from ..storage import load, new_id, save, today
 from ..validators import validate_quote_form
 
@@ -38,8 +50,8 @@ def _fill_bundle_snapshots(items):
 
 
 def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None, form_action=None):
-    from ..pdfs import QUOTE_TERMS_DEFAULTS
     from ..quote_templates_config import MAX_QUOTE_TEMPLATE_CONTACTS, get_quote_templates, get_template_for_type, normalize_contact_rows
+    from ..terms_templates_config import get_terms_templates, resolve_quote_terms
     quote_templates = get_quote_templates()
     catalog_by_id, _catalog_by_name = catalog_maps()
     public_catalog_by_id = {
@@ -56,19 +68,13 @@ def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None,
         qtype: {str(template.get("id")): template for template in templates}
         for qtype, templates in quote_templates.items()
     }
-    stored_terms = {}
-    for t in ((quote or {}).get("specs") or {}).get("terms") or []:
-        stored_terms[t["key"]] = t
     stored_integrantes = ((quote or {}).get("specs") or {}).get("integrantes")
-    terms_config = []
-    for key, title, default_body in QUOTE_TERMS_DEFAULTS:
-        stored = stored_terms.get(key, {})
-        terms_config.append({
-            "key": key,
-            "title": title,
-            "body": stored.get("body", default_body) if stored else default_body,
-            "enabled": stored.get("enabled", True) if stored else True,
-        })
+    terms_templates = get_terms_templates()
+    if quote:
+        _terms, _terms_tmpl = resolve_quote_terms(quote)
+        selected_terms_template_id = _terms_tmpl.get("id", "")
+    else:
+        selected_terms_template_id = terms_templates[0]["id"] if terms_templates else ""
     _qt = quote_type_key((quote or {}).get("quote_type", ""))
     _tmpl_contacts = get_template_for_type(_qt).get("contacts_default") or []
     integrantes_config = (
@@ -89,7 +95,8 @@ def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None,
         quote_templates=quote_templates,
         templates_by_id=templates_by_id,
         catalog_by_id=public_catalog_by_id,
-        terms_config=terms_config,
+        terms_templates=terms_templates,
+        selected_terms_template_id=selected_terms_template_id,
         integrantes_config=integrantes_config,
         **quote_default_numbers(project, quotes, quote_id=quote_id),
     )
@@ -153,11 +160,11 @@ def _build_resumen(quote):
     agg_items = aggregate_quote_items(hydrated["items"])
     subtotal = round(sum(safe_float(i.get("total", 0)) for i in agg_items), 2)
     tax_rate = safe_float(hydrated.get("tax_rate", 16), 16)
+    totals = compute_quote_totals(subtotal, tax_rate, hydrated.get("discount_pct", 0))
     resumen = dict(hydrated)
     resumen["items"] = agg_items
     resumen["subtotal"] = subtotal
-    resumen["tax"] = round(subtotal * tax_rate / 100, 2)
-    resumen["total"] = round(subtotal + resumen["tax"], 2)
+    resumen.update(totals)
     return _hydrate_quote_for_display(resumen)
 
 
@@ -181,6 +188,7 @@ def new_quote(project_id):
         quote_type = validation["quote_type"]
         date_str = validation["date"]
         quote_number = request.form.get("quote_number", "").strip() or next_quote_number(project, quotes, quote_type, date_str)
+        _totals = compute_quote_totals(validation["subtotal"], validation["tax_rate"], validation["discount_pct"])
         quote = {
             "id": new_id(),
             "project_id": project_id,
@@ -194,8 +202,11 @@ def new_quote(project_id):
             "items": validation["items"],
             "subtotal": validation["subtotal"],
             "tax_rate": validation["tax_rate"],
-            "tax": round(validation["subtotal"] * validation["tax_rate"] / 100, 2),
-            "total": round(validation["subtotal"] + validation["subtotal"] * validation["tax_rate"] / 100, 2),
+            "discount_pct": _totals["discount_pct"],
+            "discount_amount": _totals["discount_amount"],
+            "subtotal_after_discount": _totals["subtotal_after_discount"],
+            "tax": _totals["tax"],
+            "total": _totals["total"],
             "currency": validation["currency"],
             "default_pct_mo": validation["default_pct_mo"],
             "default_pct_indirectos": validation["default_pct_indirectos"],
@@ -306,6 +317,7 @@ def edit_quote(project_id, quote_id):
                 quote_id=quote_id,
             )
         _fill_bundle_snapshots(validation["items"])
+        _totals = compute_quote_totals(validation["subtotal"], validation["tax_rate"], validation["discount_pct"])
         quote.update({
             "quote_number": validation["quote_number"] or quote["quote_number"],
             "quote_type": validation["quote_type"],
@@ -315,8 +327,11 @@ def edit_quote(project_id, quote_id):
             "items": validation["items"],
             "subtotal": validation["subtotal"],
             "tax_rate": validation["tax_rate"],
-            "tax": round(validation["subtotal"] * validation["tax_rate"] / 100, 2),
-            "total": round(validation["subtotal"] + validation["subtotal"] * validation["tax_rate"] / 100, 2),
+            "discount_pct": _totals["discount_pct"],
+            "discount_amount": _totals["discount_amount"],
+            "subtotal_after_discount": _totals["subtotal_after_discount"],
+            "tax": _totals["tax"],
+            "total": _totals["total"],
             "currency": validation["currency"],
             "default_pct_mo": validation["default_pct_mo"],
             "default_pct_indirectos": validation["default_pct_indirectos"],
@@ -324,7 +339,11 @@ def edit_quote(project_id, quote_id):
             "notes": validation["notes"],
             "project_basis_note": validation["project_basis_note"] if validation["quote_type"] == "Extraordinaria" else "",
             "cover_discipline": validation["cover_discipline"] or "",
-            "specs": validation["specs"],
+            # Merge en vez de reemplazar: preserva campos que sólo se editan desde
+            # el editor de PDF (alcance_custom, nota_precio, portada_spacing,
+            # basis_note_override), que validate_quote_form no conoce y que de
+            # otro modo se borraban cada vez que se guardaba la cotización aquí.
+            "specs": {**(quote.get("specs") or {}), **validation["specs"]},
         })
         save("quotes", quotes)
         flash("Cotización actualizada.", "success")
@@ -342,7 +361,81 @@ def view_quote(project_id, quote_id):
             return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
         return redirect(url_for("dashboard"))
     hydrated = _hydrate_quote_for_display(quote)
-    return render_template("quote_project_detail.html", project=project, quote=hydrated)
+    quote_payments = get_payments_for_quote(quote_id)
+    return render_template(
+        "quote_project_detail.html",
+        project=project,
+        quote=hydrated,
+        payments=quote_payments,
+        payment_summary=payment_summary(hydrated.get("total", 0), quote_payments),
+        today=today(),
+        quote_status=quote_status_view(hydrated.get("approval_status")),
+    )
+
+
+def _clean_payment_form(form):
+    """Valida y limpia los campos de un pago (fecha, monto, concepto)."""
+    errors = []
+    date_value = (form.get("date") or "").strip()
+    if not date_value:
+        errors.append("La fecha del pago es requerida.")
+    concept = (form.get("concept") or "").strip()
+    amount_raw = (form.get("amount") or "").strip()
+    try:
+        amount = round(float(amount_raw.replace(",", ".")), 2)
+    except ValueError:
+        amount = None
+        errors.append("El monto debe ser un número válido.")
+    if amount is not None and amount <= 0:
+        errors.append("El monto debe ser mayor a 0.")
+    return date_value, amount, concept, errors
+
+
+@bp.route("/projects/<project_id>/payments/add", methods=["POST"], endpoint="add_payment")
+def add_payment_route(project_id):
+    quote_id = (request.form.get("quote_id") or "").strip()
+    quote = next((item for item in load("quotes") if item["id"] == quote_id), None)
+    if not quote or quote.get("project_id") != project_id:
+        flash("Selecciona una cotización válida para el pago.", "danger")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-pagos")
+    date_value, amount, concept, errors = _clean_payment_form(request.form)
+    if errors:
+        for error in errors:
+            flash(error, "warning")
+    else:
+        add_payment(project_id, quote_id, date_value, amount, concept)
+        flash("Pago registrado.", "success")
+    next_url = request.form.get("next") or (url_for("project_detail", project_id=project_id) + "#tab-pagos")
+    return redirect(next_url)
+
+
+@bp.route("/projects/<project_id>/payments/<payment_id>/edit", methods=["POST"], endpoint="edit_payment")
+def edit_payment_route(project_id, payment_id):
+    payment = get_payment_by_id(payment_id)
+    if not payment or payment.get("project_id") != project_id:
+        flash("Pago no encontrado.", "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-pagos")
+    date_value, amount, concept, errors = _clean_payment_form(request.form)
+    if errors:
+        for error in errors:
+            flash(error, "warning")
+    else:
+        update_payment(payment_id, date_value, amount, concept)
+        flash("Pago actualizado.", "success")
+    next_url = request.form.get("next") or (url_for("project_detail", project_id=project_id) + "#tab-pagos")
+    return redirect(next_url)
+
+
+@bp.route("/projects/<project_id>/payments/<payment_id>/delete", methods=["POST"], endpoint="delete_payment")
+def delete_payment_route(project_id, payment_id):
+    payment = get_payment_by_id(payment_id)
+    if not payment or payment.get("project_id") != project_id:
+        flash("Pago no encontrado.", "warning")
+    else:
+        delete_payment(payment_id)
+        flash("Pago eliminado.", "warning")
+    next_url = request.form.get("next") or (url_for("project_detail", project_id=project_id) + "#tab-pagos")
+    return redirect(next_url)
 
 
 @bp.route("/projects/<project_id>/quote/<quote_id>/delete", methods=["POST"], endpoint="delete_quote")
@@ -353,7 +446,6 @@ def delete_quote(project_id, quote_id):
 
 
 @bp.route("/projects/<project_id>/quote/<quote_id>/approve", methods=["POST"], endpoint="approve_quote")
-@admin_required
 def approve_quote_route(project_id, quote_id):
     """Aprueba/activa o desactiva una cotización.
 
@@ -823,6 +915,25 @@ def quote_duplicate(project_id, quote_id):
     return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=new_quote["id"]))
 
 
+@bp.route("/configuracion/nomenclatura-cotizaciones", methods=["GET", "POST"], endpoint="quote_status_labels_admin")
+def quote_status_labels_admin():
+    """Nomenclatura de estados de cotización (borrador/activa/obsoleta),
+    editable por cualquier usuario autenticado. Ver quote_status_labels.py."""
+    if request.method == "POST":
+        save_quote_status_labels({
+            "draft": request.form.get("draft", ""),
+            "active": request.form.get("active", ""),
+            "obsolete": request.form.get("obsolete", ""),
+        })
+        flash("Nomenclatura de cotizaciones guardada.", "success")
+        return redirect(url_for("quotes_bp.quote_status_labels_admin"))
+    return render_template(
+        "quote_status_labels.html",
+        labels=get_quote_status_labels(),
+        preview={key: quote_status_view(key) for key in ("draft", "active", "obsolete")},
+    )
+
+
 @bp.route("/cotizaciones", endpoint="all_quotes")
 def all_quotes():
     quotes = load("quotes")
@@ -844,21 +955,15 @@ def all_quotes():
     # Sort: most recent date first
     all_rows.sort(key=lambda r: r["quote"].get("date", ""), reverse=True)
 
-    # Compute approval view fields per quote
-    from ..catalog import APPROVAL_ACTIVE, APPROVAL_DRAFT, APPROVAL_OBSOLETE, is_base_quote_type
+    # Compute approval view fields per quote (nomenclatura unificada y editable)
+    from ..catalog import APPROVAL_ACTIVE, APPROVAL_DRAFT
+    from ..quote_status_labels import quote_status_view
     for row in all_rows:
         q = row["quote"]
         approval = q.get("approval_status", APPROVAL_DRAFT)
-        is_extra = not is_base_quote_type(q.get("quote_type"))
-        if approval == APPROVAL_ACTIVE:
-            row["approval_badge"] = "success"
-            row["approval_label"] = "Aprobada" if not is_extra else "Activa"
-        elif approval == APPROVAL_OBSOLETE:
-            row["approval_badge"] = "secondary"
-            row["approval_label"] = "Obsoleta" if not is_extra else "Inactiva"
-        else:
-            row["approval_badge"] = "warning"
-            row["approval_label"] = "Borrador"
+        status_view = quote_status_view(approval)
+        row["approval_badge"] = status_view["badge"]
+        row["approval_label"] = status_view["label"]
 
     total_aprobado = sum(
         r["quote"].get("total", 0)
@@ -927,13 +1032,16 @@ def quote_pdf_editor(project_id, quote_id):
         flash("Cambios guardados en el editor PDF.", "success")
         return redirect(url_for("quotes_bp.quote_pdf_editor", project_id=project_id, quote_id=quote_id))
 
-    from ..pdfs import quote_cover_copy, quote_scope_paragraphs, quote_terms
+    from ..pdfs import quote_cover_copy, quote_scope_paragraphs
+    from ..terms_templates_config import resolve_quote_terms
     from ..company_config import get_company
 
     hydrated = _hydrate_quote_for_display(quote)
     cover_title, cover_subtitle = quote_cover_copy(hydrated)
     qt = quote_type_key(quote.get("quote_type"))
     specs = quote.get("specs") or {}
+    _resolved_terms, _ = resolve_quote_terms(quote)
+    default_terms = [(t.get("title", ""), t.get("body", "")) for t in _resolved_terms if t.get("enabled", True)]
     if qt == "Extraordinaria":
         basis_note_edit = quote.get("project_basis_note") or ""
     else:
@@ -960,7 +1068,7 @@ def quote_pdf_editor(project_id, quote_id):
         basis_note_edit=basis_note_edit,
         specs=specs,
         default_scope=quote_scope_paragraphs(),
-        default_terms=quote_terms(),
+        default_terms=default_terms,
         quote_type=qt,
         company_name=company.get("name") or "Project Tracker",
         company_info=company_info,
@@ -973,7 +1081,6 @@ _QUOTE_TYPES = ("Proyecto", "Obra", "Servicio")
 
 @bp.route("/plantillas-cotizacion", methods=["GET", "POST"], endpoint="quote_templates")
 def quote_templates():
-    from ..pdfs import QUOTE_TERMS_DEFAULTS
     from ..quote_templates_config import MAX_QUOTE_TEMPLATE_CONTACTS, get_quote_templates, save_quote_templates
 
     current_data = get_quote_templates()
@@ -1003,10 +1110,7 @@ def quote_templates():
                         {"enabled": False, "name": "", "role": ""}
                         for _ in range(MAX_QUOTE_TEMPLATE_CONTACTS)
                     ],
-                    "terms_default": [
-                        {"key": key, "title": title, "body": default_body, "enabled": True}
-                        for key, title, default_body in QUOTE_TERMS_DEFAULTS
-                    ],
+                    "scope_default": "",
                 })
                 save_quote_templates(current_data)
                 flash(f"Plantilla '{name}' creada.", "success")
@@ -1050,6 +1154,7 @@ def quote_templates():
                             flash(f"No se pudieron leer las secciones de '{name}'.", "warning")
                         template["name"] = name
                         template["sections_default"] = sections if isinstance(sections, list) else []
+                        template["scope_default"] = (request.form.get(f"template_{template_id}_scope_default", "") or "").strip()
                         template["contacts_default"] = [
                             {
                                 "enabled": bool(request.form.get(f"template_{template_id}_contact_{i}_enabled")),
@@ -1057,15 +1162,6 @@ def quote_templates():
                                 "role": (request.form.get(f"template_{template_id}_contact_{i}_role", "") or "").strip(),
                             }
                             for i in range(MAX_QUOTE_TEMPLATE_CONTACTS)
-                        ]
-                        template["terms_default"] = [
-                            {
-                                "key": key,
-                                "title": title,
-                                "body": request.form.get(f"template_{template_id}_term_{key}_body", "").strip() or default_body,
-                                "enabled": bool(request.form.get(f"template_{template_id}_term_{key}_enabled")),
-                            }
-                            for key, title, default_body in QUOTE_TERMS_DEFAULTS
                         ]
                         save_quote_templates(current_data)
                         flash(f"Plantilla '{name}' guardada.", "success")
@@ -1090,5 +1186,73 @@ def quote_templates():
         quote_types=_QUOTE_TYPES,
         catalog=catalog,
         open_tab=open_tab,
+        open_template=open_template,
+    )
+
+
+@bp.route("/plantillas-terminos", methods=["GET", "POST"], endpoint="terms_templates")
+def terms_templates():
+    from ..terms_templates_config import get_terms_templates, save_terms_templates
+
+    current_data = get_terms_templates()
+
+    if request.method == "POST":
+        create_name = (request.form.get("create_name", "") or "").strip()
+        delete_target = request.form.get("delete_target", "")
+        action = "create" if create_name else "delete" if delete_target else "save"
+        template_id = request.form.get("template_id", "") or delete_target
+
+        if action == "create":
+            if any(t.get("name", "").casefold() == create_name.casefold() for t in current_data):
+                flash(f"Ya existe una plantilla '{create_name}'.", "warning")
+            else:
+                current_data.append({"id": new_id().lower(), "name": create_name, "terms": []})
+                save_terms_templates(current_data)
+                flash(f"Plantilla '{create_name}' creada.", "success")
+            template_id = ""
+
+        elif action == "delete":
+            if not template_id:
+                flash("No se pudo identificar la plantilla a eliminar.", "warning")
+            elif len(current_data) <= 1:
+                flash("No puedes eliminar la última plantilla de términos.", "warning")
+            else:
+                current_data = [t for t in current_data if str(t.get("id")) != template_id]
+                save_terms_templates(current_data)
+                flash("Plantilla eliminada.", "success")
+            template_id = ""
+
+        else:  # save
+            template = next((t for t in current_data if str(t.get("id")) == template_id), None)
+            if not template:
+                flash("Plantilla no encontrada.", "warning")
+            else:
+                name = (request.form.get(f"template_{template_id}_name", "") or "").strip()
+                dup = any(
+                    str(t.get("id")) != template_id and t.get("name", "").casefold() == name.casefold()
+                    for t in current_data
+                )
+                if not name:
+                    flash("El nombre de la plantilla es requerido.", "warning")
+                elif dup:
+                    flash(f"Ya existe una plantilla '{name}'.", "warning")
+                else:
+                    raw_terms = request.form.get(f"template_{template_id}_terms_json", "[]") or "[]"
+                    try:
+                        terms = json.loads(raw_terms)
+                    except json.JSONDecodeError:
+                        terms = []
+                        flash(f"No se pudieron leer los términos de '{name}'.", "warning")
+                    template["name"] = name
+                    template["terms"] = terms if isinstance(terms, list) else []
+                    save_terms_templates(current_data)
+                    flash(f"Plantilla '{name}' guardada.", "success")
+
+        return redirect(url_for("quotes_bp.terms_templates", open=template_id))
+
+    open_template = request.args.get("open", "")
+    return render_template(
+        "terms_templates.html",
+        templates=current_data,
         open_template=open_template,
     )

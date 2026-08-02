@@ -299,8 +299,7 @@
 {% endblock %}
 {% block content %}
 {% set fe = field_errors|default({}) %}
-<form method="post" id="quoteForm" action="{{ form_action|default('', true) }}"
-      data-can-add-catalog="{{ 'true' if current_user.role == 'admin' else 'false' }}">
+<form method="post" id="quoteForm" action="{{ form_action|default('', true) }}">
 {% if quote and quote.get('csv_origen') %}
 <input type="hidden" name="csv_origen" value="{{ quote.get('csv_origen') }}">
 {% for key, value in quote.get('csv_metadata', {}).items() %}
@@ -327,6 +326,10 @@
     <div>
       <div class="lbl">Subtotal</div>
       <div class="val" id="dSub">$0.00</div>
+    </div>
+    <div id="discountRow" style="display:none">
+      <div class="lbl">Descuento (<span id="dDiscountPct">0</span>%)</div>
+      <div class="val" id="dDiscount">-$0.00</div>
     </div>
     <div>
       <div class="lbl">IVA (<span id="dTaxPct">16</span>%)</div>
@@ -371,6 +374,10 @@
             <div class="form-text" id="quoteTemplateWarning"></div>
           </div>
           {% endif %}
+          <!-- Alcance: se precarga desde la plantilla aplicada; editable por cotización
+               desde el editor de PDF. Se preserva al guardar aunque no haya selector aquí. -->
+          <input type="hidden" name="specs_alcance_custom" id="specsAlcanceCustom"
+                 value="{{ (quote.specs.alcance_custom if quote and quote.specs else '') or '' }}">
           <!-- Número de cotización (auto-generado, editable) -->
           <div class="col-md-4">
             <label class="form-label d-flex justify-content-between">
@@ -413,10 +420,20 @@
             {% if fe.get('currency') %}<div class="invalid-feedback">{{ fe.get('currency') }}</div>{% endif %}
           </div>
           <div class="col-md-2">
-            <label class="form-label">IVA (%)</label>
-            <input type="number" name="tax_rate" class="form-control{% if fe.get('tax_rate') %} is-invalid{% endif %}" id="taxRate"
-                   value="{{ quote.tax_rate if quote else 16 }}" min="0" max="100" step="0.01">
-            {% if fe.get('tax_rate') %}<div class="invalid-feedback">{{ fe.get('tax_rate') }}</div>{% endif %}
+            <label class="form-label">Descuento (%)</label>
+            <input type="number" name="discount_pct" class="form-control{% if fe.get('discount_pct') %} is-invalid{% endif %}" id="discountPct"
+                   value="{{ quote.discount_pct if quote else 0 }}" min="0" max="100" step="0.01">
+            {% if fe.get('discount_pct') %}<div class="invalid-feedback">{{ fe.get('discount_pct') }}</div>{% endif %}
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">IVA</label>
+            <div class="form-check form-switch mt-2">
+              {% set _tax_on = (not quote) or ((quote.tax_rate if quote else 16) | float(0) > 0) %}
+              <input class="form-check-input" type="checkbox" role="switch" id="taxEnabled" name="tax_enabled"
+                     {% if _tax_on %}checked{% endif %}>
+              <label class="form-check-label" for="taxEnabled">Aplica IVA (16%)</label>
+            </div>
+            <input type="hidden" id="taxRate" value="{{ 16 if _tax_on else 0 }}">
           </div>
           {# ── Estructura de costos (collapsible) ── #}
           {% set _has_costs = quote and (quote.get('default_pct_mo') or quote.get('default_pct_indirectos') or quote.get('default_pct_utilidad')) %}
@@ -487,27 +504,23 @@
           </div>
           <div class="col-12 collapse" id="termsSection">
             <div class="card border-0 bg-body-secondary rounded-3 p-3">
-              <div class="row g-3">
-                {% for term in terms_config %}
-                <div class="col-12 border-bottom pb-2">
-                  <div class="d-flex align-items-center gap-2 mb-1">
-                    <input type="checkbox" class="form-check-input flex-shrink-0"
-                           name="term_{{ term.key }}_enabled"
-                           value="1"
-                           id="term_chk_{{ term.key }}"
-                           {% if term.enabled %}checked{% endif %}
-                           onchange="toggleTermBody('{{ term.key }}', this.checked)">
-                    <label class="fw-semibold mb-0" style="font-size:.85rem;cursor:pointer"
-                           for="term_chk_{{ term.key }}">{{ term.title }}</label>
-                  </div>
-                  <div id="term_body_{{ term.key }}" {% if not term.enabled %}style="display:none"{% endif %}>
-                    <textarea name="term_{{ term.key }}_body"
-                              class="form-control form-control-sm"
-                              rows="2">{{ term.body }}</textarea>
-                  </div>
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Plantilla de términos y condiciones</label>
+                <select name="terms_template_id" id="termsTemplateSelect" class="form-select"
+                        onchange="previewTermsTemplate()">
+                  {% for tmpl in terms_templates %}
+                  <option value="{{ tmpl.id }}" {% if tmpl.id == selected_terms_template_id %}selected{% endif %}>
+                    {{ tmpl.name }}
+                  </option>
+                  {% endfor %}
+                </select>
+                <div class="form-text">
+                  El contenido se edita en
+                  <a href="{{ url_for('quotes_bp.terms_templates') }}" target="_blank">Plantillas de Términos y Condiciones</a>
+                  — si corriges una plantilla, se actualiza en todas las cotizaciones que la usan.
                 </div>
-                {% endfor %}
               </div>
+              <div id="termsPreview" class="small text-muted" style="font-size:.8rem"></div>
             </div>
           </div>
           {# ── Integrantes ── #}
@@ -825,8 +838,7 @@
         <input type="text" id="catalogSearch" class="form-control mb-3"
                placeholder="Buscar por nombre o descripción…" autocomplete="off">
         <div id="catalogResults" class="list-group" style="max-height:320px;overflow-y:auto"></div>
-        {% if current_user.role == 'admin' %}
-        <!-- Agregar nuevo al catálogo — solo admins -->
+        <!-- Agregar nuevo al catálogo — disponible para todos los usuarios -->
         <div class="mt-3 border-top pt-3">
           <button type="button" class="btn btn-sm btn-outline-secondary w-100"
                   id="toggleAddForm" onclick="toggleAddForm()">
@@ -861,7 +873,6 @@
             <div id="addCatalogMsg" class="mt-2"></div>
           </div>
         </div>
-        {% endif %}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -1447,11 +1458,19 @@
   function updateTotals(){
     let s=0;
     document.querySelectorAll(".tot").forEach(i=>s+=parseFloat(i.value)||0);
+    let dp=parseFloat(document.getElementById("discountPct").value)||0;
+    dp=Math.min(Math.max(dp,0),100);
+    const discount=s*dp/100;
+    const sAfterDiscount=s-discount;
     const tr=parseFloat(document.getElementById("taxRate").value)||0;
-    const tax=s*tr/100;
+    const tax=sAfterDiscount*tr/100;
     document.getElementById("dSub").textContent=fmt(s);
+    const discountRow=document.getElementById("discountRow");
+    discountRow.style.display = dp > 0 ? "" : "none";
+    document.getElementById("dDiscount").textContent="-"+fmt(discount);
+    document.getElementById("dDiscountPct").textContent=dp;
     document.getElementById("dTax").textContent=fmt(tax);
-    document.getElementById("dTotal").textContent=fmt(s+tax);
+    document.getElementById("dTotal").textContent=fmt(sAfterDiscount+tax);
     document.getElementById("dTaxPct").textContent=tr;
   }
   function fmt(n){return"$"+n.toLocaleString("es-MX",{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -1511,7 +1530,8 @@
   {% endif %}
   const QUOTE_TEMPLATES_BY_ID = {{ templates_by_id | default({}) | tojson }};
   const CATALOG_BY_ID = {{ catalog_by_id | default({}) | tojson }};
-  const BASE_TERMS_DEFAULT = {{ terms_config | tojson }};
+  const TERMS_TEMPLATES_BY_ID = {{ terms_templates | default([]) | tojson }}
+    .reduce((acc, t) => { acc[t.id] = t; return acc; }, {});
   const BASE_INTEGRANTES_DEFAULT = {{ integrantes_config | tojson }};
 
   {% if not quote %}
@@ -1564,10 +1584,11 @@
     }
     clearQuoteRows();
     if (warning) warning.textContent = "";
+    const alcanceField = document.getElementById("specsAlcanceCustom");
     if (!template) {
       addRow();
-      applyTermsDefault({terms_default: BASE_TERMS_DEFAULT});
       applyIntegrantesDefault({contacts_default: BASE_INTEGRANTES_DEFAULT});
+      if (alcanceField) alcanceField.value = "";
       syncItemSections();
       updateTotals();
       return;
@@ -1594,8 +1615,8 @@
       }
     }
     if (!hasQuoteRows()) addRow();
-    applyTermsDefault(template);
     applyIntegrantesDefault(template);
+    if (alcanceField) alcanceField.value = template.scope_default || "";
     syncItemSections();
     updateTotals();
     if (warning && missing.length) {
@@ -1610,29 +1631,30 @@
     if (el) el.style.display = show ? "" : "none";
   }
 
-  function toggleTermBody(key, show) {
-    const el = document.getElementById(`term_body_${key}`);
-    if (el) el.style.display = show ? "" : "none";
-  }
-
   function toggleIntegranteBody(index, show) {
     const el = document.getElementById(`integrante_body_${index}`);
     if (el) el.style.display = show ? "" : "none";
   }
 
-  function applyTermsDefault(tmpl) {
-    const termsDefault = tmpl.terms_default || [];
-    for (const term of termsDefault) {
-      const chk = document.getElementById(`term_chk_${term.key}`);
-      const body = document.querySelector(`textarea[name="term_${term.key}_body"]`);
-      if (chk) {
-        chk.checked = term.enabled !== false;
-        toggleTermBody(term.key, chk.checked);
-      }
-      if (body && term.body !== undefined && term.body !== null) {
-        body.value = term.body;
-      }
+  function previewTermsTemplate() {
+    const select = document.getElementById("termsTemplateSelect");
+    const preview = document.getElementById("termsPreview");
+    if (!select || !preview) return;
+    const tmpl = TERMS_TEMPLATES_BY_ID[select.value];
+    const terms = (tmpl && tmpl.terms || []).filter(t => t.enabled !== false);
+    if (!terms.length) {
+      preview.innerHTML = "<em>Esta plantilla no tiene términos habilitados.</em>";
+      return;
     }
+    preview.innerHTML = terms
+      .map(t => `<div class="mb-2"><strong>${escapeHtml(t.title)}</strong><br>${escapeHtml(t.body)}</div>`)
+      .join("");
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text || "";
+    return div.innerHTML;
   }
 
   function applyIntegrantesDefault(tmpl) {
@@ -1667,7 +1689,11 @@
     }
   });
   document.getElementById("quoteForm").addEventListener("submit", syncItemSections);
-  document.getElementById("taxRate").addEventListener("input", updateTotals);
+  document.getElementById("taxEnabled").addEventListener("change", function () {
+    document.getElementById("taxRate").value = this.checked ? 16 : 0;
+    updateTotals();
+  });
+  document.getElementById("discountPct").addEventListener("input", updateTotals);
   window.addEventListener("DOMContentLoaded", () => {
     const tbody = document.getElementById("itemsBody");
     {% if not quote %}
@@ -1679,6 +1705,7 @@
     syncItemSections();
     updateTotals();
     updateProjectBasisNoteVisibility();
+    previewTermsTemplate();
     {% if not quote %}
     updateNum();
     {% endif %}
@@ -1858,22 +1885,19 @@
       dropdown.appendChild(hr);
     }
 
-    // ── Opción "Agregar nuevo" — solo para admins ──
-    const _canAddCatalog = document.getElementById("quoteForm")?.dataset.canAddCatalog === 'true';
-    if (_canAddCatalog) {
-      const addBtn = document.createElement("div");
-      addBtn.className = "ac-item ac-add d-flex align-items-center gap-2";
-      addBtn.setAttribute("role", "option");
-      addBtn.innerHTML =
-        `<i class="bi bi-plus-circle-fill flex-shrink-0"></i>` +
-        `<span>Agregar <strong>"${escHtml(query)}"</strong> como nuevo artículo</span>`;
-      addBtn.addEventListener("mousedown", e => {
-        e.preventDefault();
-        _acClose(dropdown);
-        _acOpenModalNew(row, query);
-      });
-      dropdown.appendChild(addBtn);
-    }
+    // ── Opción "Agregar nuevo" — disponible para todos los usuarios ──
+    const addBtn = document.createElement("div");
+    addBtn.className = "ac-item ac-add d-flex align-items-center gap-2";
+    addBtn.setAttribute("role", "option");
+    addBtn.innerHTML =
+      `<i class="bi bi-plus-circle-fill flex-shrink-0"></i>` +
+      `<span>Agregar <strong>"${escHtml(query)}"</strong> como nuevo artículo</span>`;
+    addBtn.addEventListener("mousedown", e => {
+      e.preventDefault();
+      _acClose(dropdown);
+      _acOpenModalNew(row, query);
+    });
+    dropdown.appendChild(addBtn);
 
     dropdown.classList.add("ac-open");
   }

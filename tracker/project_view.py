@@ -4,6 +4,7 @@ from .catalog import catalog_maps, hydrate_ldm, hydrate_quote
 from .catalog import APPROVAL_ACTIVE, is_base_quote_type
 from .consistency import compute_consistency
 from .domain import check_blocked, get_progress
+from .payments import get_payments_for_project, payment_summary
 from .storage import load, today
 
 
@@ -60,10 +61,8 @@ def build_ldm_row_views(ldms):
 
 
 def build_quote_row_views(quotes):
-    from .catalog import (
-        APPROVAL_ACTIVE, APPROVAL_DRAFT, APPROVAL_OBSOLETE,
-        is_base_quote_type,
-    )
+    from .catalog import APPROVAL_DRAFT, is_base_quote_type
+    from .quote_status_labels import quote_status_view
     rows = []
     for quote in quotes or []:
         items = quote.get("items", []) or []
@@ -71,19 +70,9 @@ def build_quote_row_views(quotes):
         approval = quote.get("approval_status", APPROVAL_DRAFT)
         is_extra = not is_base_quote_type(quote.get("quote_type"))
 
-        # Badge visual
-        if approval == APPROVAL_ACTIVE:
-            approval_badge = "success"
-            approval_label = "Aprobada" if not is_extra else "Activa"
-            approval_icon  = "check-circle"
-        elif approval == APPROVAL_OBSOLETE:
-            approval_badge = "secondary"
-            approval_label = "Obsoleta" if not is_extra else "Inactiva"
-            approval_icon  = "slash-circle"
-        else:  # draft
-            approval_badge = "warning"
-            approval_label = "Borrador"
-            approval_icon  = "pencil-square"
+        # Nomenclatura unificada (borrador/activa/obsoleta), sin distinguir
+        # cotización base vs. extraordinaria — editable, ver quote_status_labels.py.
+        status_view = quote_status_view(approval)
 
         rows.append({
             "quote": quote,
@@ -92,9 +81,9 @@ def build_quote_row_views(quotes):
             "deleted_catalog_items": deleted_catalog_items,
             "deleted_catalog_count": len(deleted_catalog_items),
             "approval": approval,
-            "approval_badge": approval_badge,
-            "approval_label": approval_label,
-            "approval_icon": approval_icon,
+            "approval_badge": status_view["badge"],
+            "approval_label": status_view["label"],
+            "approval_icon": status_view["icon"],
             "is_extra": is_extra,
         })
     return rows
@@ -239,6 +228,23 @@ def build_project_detail_context(project):
         catalog_by_id,
     )
 
+    # Pagos ligados a cotizaciones. Se consideran todas las cotizaciones del
+    # proyecto (no sólo las activas) — el pago le da seguimiento al cobro,
+    # independientemente del estado de aprobación de la cotización.
+    project_payments = get_payments_for_project(project_id)
+    payments_by_quote = {}
+    for _q in quotes:
+        _qid = _q.get("id")
+        _q_payments = [p for p in project_payments if p["quote_id"] == _qid]
+        payments_by_quote[_qid] = {
+            "payments": _q_payments,
+            "summary": payment_summary(_q.get("total", 0), _q_payments),
+        }
+    payments_overall_summary = payment_summary(
+        sum(q.get("total", 0) for q in quotes),
+        project_payments,
+    )
+
     from .company_config import get_company as _get_company
     _company = _get_company()
     _prefix = _company.get("prefix") or _company.get("name") or "PROY"
@@ -272,6 +278,9 @@ def build_project_detail_context(project):
         "today_short": date.today().strftime("%y%m%d"),
         "file_ie": _ie_fallback,
         "file_xref": _xref_fallback,
+        "payments": project_payments,
+        "payments_by_quote": payments_by_quote,
+        "payments_overall_summary": payments_overall_summary,
         "active_base_quote": _active_bases[0] if _active_bases else None,
         "active_bases_count": len(_active_bases),
         "active_extras_count": len(_active_extras),

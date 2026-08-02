@@ -113,7 +113,7 @@
             <div class="tpl-card-name">{{ tmpl.name }}</div>
             <div class="tpl-card-meta">
               {{ tmpl.sections_default|length }} sección(es)
-              · {{ tmpl.sections_default|sum(attribute='items')|list|length if tmpl.sections_default else 0 }} artículo(s)
+              · {{ tmpl.sections_default | map(attribute='items') | map('length') | sum }} artículo(s)
             </div>
           </div>
           <i class="bi bi-chevron-down tpl-chevron {% if is_open %}rotated{% endif %}" id="tplchev-{{ tid }}"></i>
@@ -137,6 +137,13 @@
                        value="{{ tmpl.name }}" placeholder="Ej. Ejecutivo completo" required>
               </div>
 
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Alcance</label>
+                <textarea name="template_{{ tid }}_scope_default" class="form-control" rows="4"
+                          placeholder="Dejar vacío para usar el alcance estándar de dos párrafos.&#10;&#10;Separa párrafos con una línea en blanco.">{{ tmpl.scope_default }}</textarea>
+                <div class="form-text">Se precarga como alcance de la cotización al aplicar esta plantilla; sigue siendo editable por cotización.</div>
+              </div>
+
               <!-- Secciones -->
               <label class="form-label fw-semibold">Secciones y artículos</label>
               <div id="sections-{{ tid }}" class="mb-2">
@@ -151,7 +158,7 @@
                     </button>
                   </div>
                   <div class="tpl-items">
-                    {% for item in section.items %}
+                    {% for item in section['items'] %}
                     <div class="tpl-item-row">
                       <div>
                         <input type="hidden" class="tpl-item-id"   value="{{ item.catalog_item_id }}">
@@ -215,41 +222,30 @@
                 {% endfor %}
               </div>
 
-              <!-- Términos -->
-              <h6 class="fw-semibold mb-3">Términos y condiciones</h6>
-              <div class="row g-3 mb-4">
-                {% for term in tmpl.terms_default %}
-                <div class="col-md-6">
-                  <div class="form-check mb-1">
-                    <input type="checkbox" class="form-check-input"
-                           name="template_{{ tid }}_term_{{ term.key }}_enabled"
-                           value="1"
-                           id="t-{{ tid }}-{{ term.key }}"
-                           {% if term.enabled %}checked{% endif %}>
-                    <label class="form-check-label fw-semibold" for="t-{{ tid }}-{{ term.key }}">
-                      {{ term.title }}
-                    </label>
-                  </div>
-                  <textarea name="template_{{ tid }}_term_{{ term.key }}_body"
-                            class="form-control form-control-sm" rows="2">{{ term.body }}</textarea>
-                </div>
-                {% endfor %}
+              <div class="form-text mb-3">
+                Los términos y condiciones ahora se gestionan por separado en
+                <a href="{{ url_for('quotes_bp.terms_templates') }}" target="_blank">Plantillas de Términos y Condiciones</a>.
               </div>
 
               <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-primary">
                   <i class="bi bi-check-lg me-1"></i>Guardar plantilla
                 </button>
-                <form method="post" action="{{ url_for('quotes_bp.quote_templates') }}"
-                      class="d-inline"
-                      onsubmit="return confirm('¿Eliminar la plantilla «{{ tmpl.name }}»?')">
-                  <input type="hidden" name="delete_target" value="{{ qtype }}:{{ tid }}">
-                  <button type="submit" class="btn btn-outline-danger">
-                    <i class="bi bi-trash me-1"></i>Eliminar
-                  </button>
-                </form>
+                <button type="submit" form="delete-form-{{ tid }}" class="btn btn-outline-danger"
+                        onclick="return confirm('¿Eliminar la plantilla «{{ tmpl.name }}»?')">
+                  <i class="bi bi-trash me-1"></i>Eliminar
+                </button>
               </div>
 
+            </form>
+            {# Formulario de eliminar independiente, fuera del formulario de guardar:
+               anidar un formulario dentro de otro es HTML inválido y el navegador
+               colapsa ambos en uno solo, así que al enviar "Guardar" también viajaba
+               el campo oculto delete_target y el backend interpretaba la acción como
+               "delete" en vez de "save". #}
+            <form method="post" action="{{ url_for('quotes_bp.quote_templates') }}"
+                  id="delete-form-{{ tid }}" class="d-none">
+              <input type="hidden" name="delete_target" value="{{ qtype }}:{{ tid }}">
             </form>
           </div>
         </div>

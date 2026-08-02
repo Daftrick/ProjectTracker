@@ -2,11 +2,12 @@ from datetime import date
 
 from flask import Blueprint, abort, flash, redirect, render_template, request, send_file, url_for
 
+from ..auth import admin_required
 from ..deletions import delete_project_data
+from ..domain import STAGES, get_progress, project_semaphore, project_stage
 from ..project_view import build_project_detail_context
 from ..services import create_project
 from ..pdfs import build_progress_pdf
-from ..auth import admin_required
 from ..storage import load, new_id, save, today
 from ..templates_config import get_project_templates
 from ..validators import validate_project_form
@@ -64,6 +65,52 @@ def dashboard():
             except Exception:
                 pass
     return render_template("dashboard.html", active=active, delivered=delivered, closed=closed, deadline_alerts=deadline_alerts)
+
+
+@bp.route("/kanban", endpoint="kanban")
+def kanban():
+    """Portafolio Kanban: agrupa proyectos activos por etapa derivada
+    (Cotización → Diseño → Entregado → Obra). 'Obra' es el único estado
+    manual (project['in_obra']); el resto se calcula en project_stage().
+    """
+    projects = load("projects")
+    tasks = load("tasks")
+    today_str = today()
+
+    by_stage = {stage: [] for stage in STAGES}
+    for project in projects:
+        if project.get("closed_at"):
+            continue
+        stage = project_stage(project, tasks)
+        progress = get_progress(project["id"], tasks)
+        by_stage.setdefault(stage, []).append({
+            "id": project["id"],
+            "name": project.get("name", ""),
+            "clave": project.get("clave", ""),
+            "client": project.get("client", ""),
+            "semaphore": project_semaphore(project, today_str),
+            "total": progress["total"],
+            "approved": progress["approved"],
+            "pct": progress["pct"],
+        })
+
+    return render_template("kanban.html", stages=STAGES, by_stage=by_stage)
+
+
+@bp.route("/projects/<project_id>/toggle_obra", methods=["POST"], endpoint="toggle_obra")
+@admin_required
+def toggle_obra(project_id):
+    """Flip project['in_obra']. Manual, admin-only: mueve el proyecto entre
+    'Entregado' y 'Obra' en el kanban (ver project_stage() en domain.py)."""
+    projects = load("projects")
+    project = next((p for p in projects if p["id"] == project_id), None)
+    if project:
+        project["in_obra"] = not project.get("in_obra", False)
+        save("projects", projects)
+        flash("Proyecto movido a Obra." if project["in_obra"] else "Proyecto regresado a Entregado.", "success")
+    else:
+        flash("Proyecto no encontrado.", "warning")
+    return redirect(url_for("kanban"))
 
 
 @bp.route("/projects/new", methods=["GET", "POST"], endpoint="new_project")
@@ -173,7 +220,6 @@ def reopen_project(project_id):
 
 
 @bp.route("/projects/<project_id>/delete", methods=["POST"], endpoint="delete_project")
-@admin_required
 def delete_project(project_id):
     result = delete_project_data(
         project_id,

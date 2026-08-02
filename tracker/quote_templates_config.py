@@ -1,6 +1,5 @@
 import uuid
 
-from .pdfs import QUOTE_TERMS_DEFAULTS
 from .storage import load as _load, save as _save
 
 MAX_QUOTE_TEMPLATE_CONTACTS = 4
@@ -55,18 +54,6 @@ _SEED_QUOTE_TEMPLATE = {
 }
 
 
-def _default_terms():
-    return [
-        {
-            "key": key,
-            "title": title,
-            "body": body,
-            "enabled": True,
-        }
-        for key, title, body in QUOTE_TERMS_DEFAULTS
-    ]
-
-
 def _default_contacts():
     return [
         {
@@ -81,45 +68,24 @@ def _default_contacts():
 QUOTE_TEMPLATE_DEFAULTS = {
     "Proyecto": {
         "sections_default": [],
-        "terms_default": _default_terms(),
         "contacts_default": _default_contacts(),
+        "scope_default": "",
     },
     "Obra": {
         "sections_default": [],
-        "terms_default": _default_terms(),
         "contacts_default": _default_contacts(),
+        "scope_default": "",
     },
     "Servicio": {
         "sections_default": [],
-        "terms_default": _default_terms(),
         "contacts_default": _default_contacts(),
+        "scope_default": "",
     },
 }
 
 
 def _new_id():
     return str(uuid.uuid4())[:8].upper()
-
-
-def _normalize_terms(stored_terms):
-    stored_by_key = {}
-    if isinstance(stored_terms, list):
-        stored_by_key = {
-            item.get("key"): item
-            for item in stored_terms
-            if isinstance(item, dict) and item.get("key")
-        }
-
-    normalized = []
-    for key, title, body in QUOTE_TERMS_DEFAULTS:
-        stored = stored_by_key.get(key, {})
-        normalized.append({
-            "key": key,
-            "title": title,
-            "body": stored.get("body") if stored.get("body") is not None else body,
-            "enabled": bool(stored.get("enabled", True)),
-        })
-    return normalized
 
 
 def _normalize_contacts(stored_contacts):
@@ -192,8 +158,8 @@ def _make_default_template(qtype, defaults):
         "id": _new_id(),
         "name": qtype,
         "sections_default": _normalize_sections(defaults["sections_default"], defaults),
-        "terms_default": _normalize_terms(defaults["terms_default"]),
         "contacts_default": _normalize_contacts(defaults["contacts_default"]),
+        "scope_default": str(defaults.get("scope_default") or "").strip(),
     }
 
 
@@ -205,8 +171,8 @@ def _normalize_template(template, qtype, defaults):
         "id": str(template.get("id") or _new_id()).strip() or _new_id(),
         "name": name,
         "sections_default": _normalize_sections(template.get("sections_default"), defaults),
-        "terms_default": _normalize_terms(template.get("terms_default")),
         "contacts_default": _normalize_contacts(template.get("contacts_default")),
+        "scope_default": str(template.get("scope_default") or "").strip(),
     }
 
 

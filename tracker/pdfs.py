@@ -734,7 +734,27 @@ def build_quote_pdf(project, quote, output_path=None):
         _ptax_rate = 16
     _ptax_rate_disp = int(_ptax_rate) if float(_ptax_rate) % 1 == 0 else _ptax_rate
     _ptax      = quote.get("tax", 0)
-    totals_box_h = 38 if (_ptax_rate and _ptax) else 20
+    _pdiscount_pct = quote.get("discount_pct", 0) or 0
+    _pdiscount_amount = quote.get("discount_amount", 0) or 0
+    _pdiscount_pct_disp = int(_pdiscount_pct) if float(_pdiscount_pct) % 1 == 0 else _pdiscount_pct
+    _has_discount = bool(_pdiscount_pct and _pdiscount_amount)
+    _has_tax_row = bool(_ptax_rate and _ptax)
+    # Filas de la caja de totales: Subtotal se muestra si hay descuento o IVA
+    # (si ninguno aplica, sólo se muestra el TOTAL). El descuento va antes del IVA.
+    _money_rows = []
+    if _has_discount or _has_tax_row:
+        _money_rows.append(("Subtotal", money_pdf(quote.get("subtotal", 0))))
+    if _has_discount:
+        _money_rows.append((f"Descuento ({_pdiscount_pct_disp}%)", f"-{money_pdf(_pdiscount_amount)}"))
+    if _has_tax_row:
+        _money_rows.append((f"IVA ({_ptax_rate_disp}%)", money_pdf(_ptax)))
+    if _money_rows:
+        _last_row_y = 5.5 + (len(_money_rows) - 1) * 8.2
+        _divider_y = _last_row_y + 8.1
+        _total_y_offset = _divider_y + 2.7
+    else:
+        _total_y_offset = 6.5
+    totals_box_h = round(_total_y_offset + 7.5 + 6, 1)
     totals_box_y = summary_y + (summary_h - totals_box_h) / 2
     pdf.set_fill_color(255, 255, 255)
     pdf.set_draw_color(*LINE)
@@ -823,21 +843,15 @@ def build_quote_pdf(project, quote, output_path=None):
 
     pdf.set_text_color(*INK)
     pdf.set_font("DejaVu", "B", 10.8)
-    if _ptax_rate and _ptax:
-        # Subtotal
-        pdf.set_xy(label_x, totals_box_y + 5.5)
-        pdf.cell(label_w, row_h, "Subtotal")
-        pdf.cell(value_w, row_h, money_pdf(quote.get("subtotal", 0)), align="R", ln=True)
-        # IVA
-        pdf.set_xy(label_x, totals_box_y + 13.7)
-        pdf.cell(label_w, row_h, f"IVA ({_ptax_rate_disp}%)")
-        pdf.cell(value_w, row_h, money_pdf(_ptax), align="R", ln=True)
+    for _i, (_row_label, _row_value) in enumerate(_money_rows):
+        pdf.set_xy(label_x, totals_box_y + 5.5 + _i * 8.2)
+        pdf.cell(label_w, row_h, _row_label)
+        pdf.cell(value_w, row_h, _row_value, align="R", ln=True)
+    if _money_rows:
         # Divisor
         pdf.set_draw_color(*LINE)
-        pdf.line(label_x, totals_box_y + 21.8, inner_right, totals_box_y + 21.8)
-        total_y = totals_box_y + 24.5
-    else:
-        total_y = totals_box_y + 6.5
+        pdf.line(label_x, totals_box_y + _divider_y, inner_right, totals_box_y + _divider_y)
+    total_y = totals_box_y + _total_y_offset
 
     # TOTAL
     pdf.set_xy(label_x, total_y)
@@ -855,7 +869,11 @@ def build_quote_pdf(project, quote, output_path=None):
     scope_inner_pad = 6
     scope_inner_left = pdf.l_margin + scope_inner_pad
     scope_inner_w = content_width - scope_inner_pad * 2
-    scope_paragraphs = quote_scope_paragraphs()
+    _alcance_custom = str(_specs.get("alcance_custom") or "").strip()
+    if _alcance_custom:
+        scope_paragraphs = [p.strip() for p in _alcance_custom.split("\n\n") if p.strip()] or quote_scope_paragraphs()
+    else:
+        scope_paragraphs = quote_scope_paragraphs()
     scope_text_h = sum(wrapped_height(paragraph, scope_inner_w, 4.3) for paragraph in scope_paragraphs)
     scope_h = 10 + scope_text_h + (len(scope_paragraphs) - 1) * 1.4 + 6
     scope_y = pdf.get_y()
@@ -1023,7 +1041,21 @@ def build_quote_pdf(project, quote, output_path=None):
     _tot_val_w = cols[-1]   # alinea con columna IMPORTE
     _tot_x     = pdf.l_margin + content_width - _tot_lbl_w - _tot_val_w
 
-    if _tax_rate == 0 or _tax == 0:
+    _discount_pct = quote.get("discount_pct", 0) or 0
+    _discount_amount = quote.get("discount_amount", 0) or 0
+    _discount_pct_disp = int(_discount_pct) if float(_discount_pct) % 1 == 0 else _discount_pct
+    _has_discount = bool(_discount_pct and _discount_amount)
+    _has_tax_row = bool(_tax_rate and _tax)
+    # Subtotal se muestra si hay descuento o IVA; el descuento va antes del IVA.
+    _total_rows = []
+    if _has_discount or _has_tax_row:
+        _total_rows.append(("Subtotal", money_pdf(_subtotal)))
+    if _has_discount:
+        _total_rows.append((f"Descuento ({_discount_pct_disp}%)", f"-{money_pdf(_discount_amount)}"))
+    if _has_tax_row:
+        _total_rows.append((f"IVA ({_tax_rate_disp}%)", money_pdf(_tax)))
+
+    if not _total_rows:
         ensure_space(13)
         pdf.ln(5)
         _gy = pdf.get_y()
@@ -1034,19 +1066,17 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.cell(_tot_val_w, 7, money_pdf(_total), border="T", align="R")
         pdf.set_y(_gy + 7)
     else:
-        ensure_space(26)
+        ensure_space(13 + 6.5 * len(_total_rows))
         pdf.ln(5)
         _gy = pdf.get_y()
         pdf.set_text_color(*MUTED)
         pdf.set_font("DejaVu", "", 8.6)
-        pdf.set_xy(_tot_x, _gy)
-        pdf.cell(_tot_lbl_w, 6.5, "Subtotal", border="T", align="R")
-        pdf.cell(_tot_val_w, 6.5, money_pdf(_subtotal), border="T", align="R")
-        _gy += 6.5
-        pdf.set_xy(_tot_x, _gy)
-        pdf.cell(_tot_lbl_w, 6.5, f"IVA ({_tax_rate_disp}%)", align="R")
-        pdf.cell(_tot_val_w, 6.5, money_pdf(_tax), align="R")
-        _gy += 6.5
+        for _i, (_row_label, _row_value) in enumerate(_total_rows):
+            pdf.set_xy(_tot_x, _gy)
+            _border = "T" if _i == 0 else ""
+            pdf.cell(_tot_lbl_w, 6.5, _row_label, border=_border, align="R")
+            pdf.cell(_tot_val_w, 6.5, _row_value, border=_border, align="R")
+            _gy += 6.5
         pdf.set_xy(_tot_x, _gy)
         pdf.set_text_color(*INK)
         pdf.set_font("DejaVu", "B", 9)
@@ -1071,7 +1101,8 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.set_text_color(*INK)
     _CONDICION_FIELDS = ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto")
     _has_specs = any(str(_specs.get(f) or "").strip() for f in _CONDICION_FIELDS)
-    _stored_terms = _specs.get("terms")
+    from .terms_templates_config import resolve_quote_terms
+    _resolved_terms, _ = resolve_quote_terms(quote)
     _SPECS_LABELS = [
         ("condiciones_pago", "Condiciones de pago."),
         ("exclusiones", "Exclusiones."),
@@ -1111,14 +1142,11 @@ def build_quote_pdf(project, quote, output_path=None):
             ],
         )
 
-    if _stored_terms is not None:
-        _active_terms = [
-            (QUOTE_TERM_TITLES.get(t.get("key"), t.get("title", "")), t.get("body", ""))
-            for t in _stored_terms
-            if t.get("enabled", True) and str(t.get("body") or "").strip()
-        ]
-    else:
-        _active_terms = quote_terms()
+    _active_terms = [
+        (t.get("title", ""), t.get("body", ""))
+        for t in _resolved_terms
+        if t.get("enabled", True) and str(t.get("body") or "").strip()
+    ] or quote_terms()
     render_text_blocks("Términos y Condiciones", _active_terms, pre_ln=0, post_ln=4, colon=True)
 
     notes = note_lines(quote.get("notes"))

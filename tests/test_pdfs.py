@@ -278,7 +278,6 @@ class QuotePdfSectionsTest(unittest.TestCase):
         quote_templates = {
             "Proyecto": {
                 "sections_default": [],
-                "terms_default": [],
                 "contacts_default": [
                     {"enabled": True, "name": "Plantilla", "role": "No debe salir"},
                     {"enabled": False, "name": "Oculto", "role": "No Render"},
@@ -315,6 +314,105 @@ class QuotePdfSectionsTest(unittest.TestCase):
         self.assertNotIn("Termino oculto", text)
         self.assertIn("Notas", text)
         self.assertIn("Nota visible", text)
+
+    def test_discount_renders_before_tax_in_both_totals_boxes(self):
+        import pdfplumber
+
+        project = {"name": "Proyecto Descuento", "client": "Cliente Descuento"}
+        # 1000 subtotal, 10% descuento = 900, IVA 16% sobre 900 = 144, total 1044.
+        quote = {
+            "quote_type": "Proyecto",
+            "quote_number": "COT-DESC-P01-20260801",
+            "date": "2026-08-01",
+            "currency": "MXN",
+            "tax_rate": 16,
+            "discount_pct": 10,
+            "discount_amount": 100,
+            "items": [
+                {
+                    "description": "Item de prueba",
+                    "unit": "pza",
+                    "qty": 1,
+                    "price": 1000,
+                    "precio_costo": 1000,
+                    "total": 1000,
+                }
+            ],
+            "subtotal": 1000,
+            "subtotal_after_discount": 900,
+            "tax": 144,
+            "total": 1044,
+        }
+        company = {
+            "name": "Empresa PDF",
+            "address": "",
+            "email": "",
+            "phone": "",
+            "rut": "",
+            "logo": "",
+            "portada_color": "#000000",
+        }
+
+        with tempfile.NamedTemporaryFile(suffix=".pdf") as tmp:
+            with patch("tracker.pdfs._load_company", return_value=company), \
+                    patch("tracker.pdfs.quote_logo_path", return_value=None):
+                build_quote_pdf(project, quote, tmp.name)
+            with pdfplumber.open(tmp.name) as pdf:
+                text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+
+        self.assertIn("Descuento (10%)", text)
+        self.assertIn("-$100.00", text)
+        self.assertIn("IVA (16%)", text)
+        self.assertIn("$144.00", text)
+        self.assertIn("$1,044.00", text)
+        # No debe aparecer el monto sin descontar como si fuera el IVA/total.
+        self.assertNotIn("$160.00", text)
+        self.assertNotIn("$1,160.00", text)
+
+    def test_no_discount_omits_discount_row(self):
+        import pdfplumber
+
+        project = {"name": "Proyecto PDF Base", "client": "Cliente"}
+        quote = {
+            "quote_type": "Proyecto",
+            "quote_number": "COT-NODESC-P01-20260801",
+            "date": "2026-08-01",
+            "currency": "MXN",
+            "tax_rate": 16,
+            "discount_pct": 0,
+            "items": [
+                {
+                    "description": "Item de prueba",
+                    "unit": "pza",
+                    "qty": 1,
+                    "price": 100,
+                    "precio_costo": 100,
+                    "total": 100,
+                }
+            ],
+            "subtotal": 100,
+            "tax": 16,
+            "total": 116,
+        }
+        company = {
+            "name": "Empresa PDF",
+            "address": "",
+            "email": "",
+            "phone": "",
+            "rut": "",
+            "logo": "",
+            "portada_color": "#000000",
+        }
+
+        with tempfile.NamedTemporaryFile(suffix=".pdf") as tmp:
+            with patch("tracker.pdfs._load_company", return_value=company), \
+                    patch("tracker.pdfs.quote_logo_path", return_value=None):
+                build_quote_pdf(project, quote, tmp.name)
+            with pdfplumber.open(tmp.name) as pdf:
+                text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+
+        self.assertNotIn("Descuento", text)
+        self.assertIn("$116.00", text)
 
 
 if __name__ == "__main__":

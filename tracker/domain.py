@@ -4,6 +4,10 @@ from .storage import load
 
 APP_VERSION = "v45.16"
 
+# IVA ya no es editable por cotización: sólo se activa/desactiva. Cuando está
+# activo se aplica esta tasa fija (ver validators.py / form_models.py).
+STANDARD_TAX_RATE = 16
+
 DEFAULT_ALCANCES = [
     {"id": "iluminacion",    "nombre": "IE - Iluminación",        "source": "externa", "dep_label": "Diseño de iluminación (otra área)", "blocked_by": [],                                                                          "info_ext": True},
     {"id": "contactos",      "nombre": "IE - Contactos",           "source": "propia",  "dep_label": None,                                "blocked_by": [],                                                                          "info_ext": True},
