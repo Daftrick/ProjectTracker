@@ -119,10 +119,11 @@
 
   /* ── Autocomplete inline ──────────────────────────────────────── */
   .ac-wrapper { position: relative; }
-  /* item_desc[] es un <textarea> para poder revisar conceptos largos en
-     varios renglones; crece automáticamente con el contenido (ver
-     _acAutoGrow en el JS) y además se puede redimensionar a mano. */
-  textarea.ac-input {
+  /* Campos de texto largo (item_desc[], buscador/alta de catálogo) que
+     crecen automáticamente con el contenido (ver _acAutoGrow en el JS) y
+     además se pueden redimensionar a mano, para revisar conceptos completos
+     en varios renglones. */
+  .autogrow-textarea {
     resize: vertical;
     overflow-y: hidden;
     min-height: 34px;
@@ -778,7 +779,7 @@
                 </td>
                 <td>
                   <div class="ac-wrapper">
-                    <textarea name="item_desc[]" class="form-control form-control-sm ac-input" rows="1" autocomplete="off" required>{{ item.description }}</textarea>
+                    <textarea name="item_desc[]" class="form-control form-control-sm ac-input autogrow-textarea" rows="1" autocomplete="off" required>{{ item.description }}</textarea>
                     <input type="hidden" name="item_catalog_id[]" value="{{ item.catalog_item_id or '' }}">
                     <input type="hidden" name="item_desc2[]" value="{{ item.catalog_description or item.description_secondary or '' }}">
                     <div class="ac-dropdown" role="listbox"></div>
@@ -874,8 +875,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <input type="text" id="catalogSearch" class="form-control mb-3"
-               placeholder="Buscar por nombre o descripción…" autocomplete="off">
+        <textarea id="catalogSearch" class="form-control mb-3 autogrow-textarea" rows="1"
+                  placeholder="Buscar por nombre o descripción…" autocomplete="off"></textarea>
         <div id="catalogResults" class="list-group" style="max-height:320px;overflow-y:auto"></div>
         <!-- Agregar nuevo al catálogo — disponible para todos los usuarios -->
         <div class="mt-3 border-top pt-3">
@@ -886,10 +887,10 @@
           <div id="addCatalogForm" class="d-none mt-3">
             <div class="row g-2">
               <div class="col-md-6">
-                <input type="text" id="newNombre" class="form-control form-control-sm" placeholder="Nombre *">
+                <textarea id="newNombre" class="form-control form-control-sm autogrow-textarea" rows="1" placeholder="Nombre *"></textarea>
               </div>
               <div class="col-md-6">
-                <input type="text" id="newDesc" class="form-control form-control-sm" placeholder="Descripción">
+                <textarea id="newDesc" class="form-control form-control-sm autogrow-textarea" rows="1" placeholder="Descripción"></textarea>
               </div>
               <div class="col-md-3">
                 <input type="text" id="newUnidad" class="form-control form-control-sm" value="pza" placeholder="Unidad">
@@ -984,7 +985,7 @@
       </td>
       <td>
         <div class="ac-wrapper">
-          <textarea name="item_desc[]" class="form-control form-control-sm ac-input" rows="1"
+          <textarea name="item_desc[]" class="form-control form-control-sm ac-input autogrow-textarea" rows="1"
                     placeholder="Descripción…" autocomplete="off" required>${escHtml(desc||'')}</textarea>
           <input type="hidden" name="item_catalog_id[]" value="${escHtml(catalogId||'')}">
           <input type="hidden" name="item_desc2[]" value="${escHtml(desc2||'')}">
@@ -1787,7 +1788,9 @@
     resetCatalogModal();
   }
   function resetCatalogModal() {
-    document.getElementById("catalogSearch").value = "";
+    const searchEl = document.getElementById("catalogSearch");
+    searchEl.value = "";
+    _acAutoGrow(searchEl);
     document.getElementById("catalogResults").innerHTML =
       '<p class="text-muted p-2 mb-0" style="font-size:.85rem">Escribe para buscar…</p>';
     document.getElementById("addCatalogForm").classList.add("d-none");
@@ -1825,7 +1828,10 @@
   document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("catalogSearch").addEventListener("input", function() {
       fetchCatalog(this.value);
+      _acAutoGrow(this);
     });
+    document.getElementById("newNombre").addEventListener("input", function() { _acAutoGrow(this); });
+    document.getElementById("newDesc").addEventListener("input", function() { _acAutoGrow(this); });
   });
 
   function selectItem(idx) {
@@ -1842,8 +1848,15 @@
 
   // ── Agregar al catálogo desde la cotización ─────────────────────────────────
   function toggleAddForm() {
-    document.getElementById("addCatalogForm").classList.toggle("d-none");
+    const addForm = document.getElementById("addCatalogForm");
+    addForm.classList.toggle("d-none");
     document.getElementById("addCatalogMsg").innerHTML = "";
+    if (!addForm.classList.contains("d-none")) {
+      // Al revelar el formulario hay que recalcular la altura: mientras
+      // estaba oculto (display:none) scrollHeight medía 0.
+      _acAutoGrow(document.getElementById("newNombre"));
+      _acAutoGrow(document.getElementById("newDesc"));
+    }
   }
 
   function addToCatalog() {
@@ -1864,8 +1877,12 @@
       if (item.error) { msgDiv.innerHTML=`<small class="text-danger">${item.error}</small>`; return; }
       msgDiv.innerHTML = `<small class="text-success"><i class="bi bi-check-circle me-1"></i>«${escHtml(item.nombre)}» agregado al catálogo.</small>`;
       // clear form
-      document.getElementById("newNombre").value = "";
-      document.getElementById("newDesc").value   = "";
+      const nombreEl = document.getElementById("newNombre");
+      const descEl   = document.getElementById("newDesc");
+      nombreEl.value = "";
+      descEl.value   = "";
+      _acAutoGrow(nombreEl);
+      _acAutoGrow(descEl);
       document.getElementById("newUnidad").value = "pza";
       document.getElementById("newPrecio").value = "0";
       // fill row and close
@@ -1897,7 +1914,12 @@
   function _acAutoGrow(el) {
     if (!el || el.tagName !== "TEXTAREA") return;
     el.style.height = "auto";
-    el.style.height = el.scrollHeight + "px";
+    const sh = el.scrollHeight;
+    // scrollHeight mide 0 si el textarea está oculto (ej. dentro de un modal
+    // aún no mostrado, o de un formulario con d-none). En ese caso se quita
+    // el alto en línea y se deja que el min-height del CSS decida, en vez de
+    // dejarlo colapsado a 0px cuando se vuelva a mostrar.
+    el.style.height = sh > 0 ? sh + "px" : "";
   }
 
   function _acSearch(input) {
@@ -1998,18 +2020,30 @@
    *  de "agregar nuevo" pre-relleno con el texto escrito */
   function _acOpenModalNew(row, text) {
     catalogTargetRow = row;
-    document.getElementById("catalogSearch").value  = text;
+    const searchEl = document.getElementById("catalogSearch");
+    searchEl.value = text;
     const addForm = document.getElementById("addCatalogForm");
+    let nombreEl, descEl;
     if (addForm) {
-      document.getElementById("newNombre").value       = text;
-      document.getElementById("newDesc").value         = "";
+      nombreEl = document.getElementById("newNombre");
+      descEl   = document.getElementById("newDesc");
+      nombreEl.value = text;
+      descEl.value   = "";
       document.getElementById("newUnidad").value       = "pza";
       document.getElementById("newPrecio").value       = "0";
       document.getElementById("addCatalogMsg").innerHTML = "";
       addForm.classList.remove("d-none");
     }
     bootstrap.Modal.getOrCreateInstance(document.getElementById("catalogModal")).show();
-    setTimeout(() => fetchCatalog(text), 380);
+    // El modal (y por tanto estos textarea) aún puede estar display:none en
+    // este punto — scrollHeight mide 0 mientras está oculto. Se recalcula la
+    // altura una vez que el modal ya se muestra.
+    setTimeout(() => {
+      _acAutoGrow(searchEl);
+      if (nombreEl) _acAutoGrow(nombreEl);
+      if (descEl) _acAutoGrow(descEl);
+      fetchCatalog(text);
+    }, 380);
   }
 
   // ── Event delegation para .ac-input ────────────────────────────────────────

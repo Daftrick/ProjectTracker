@@ -131,5 +131,48 @@ class QuoteDescTextareaRouteTest(unittest.TestCase):
         self.assertIn("white-space:pre-line", response.get_data(as_text=True))
 
 
+class CatalogQuickAddTextareaTest(unittest.TestCase):
+    """Buscador de catálogo (catalogSearch) y mini-formulario "Agregar nuevo
+    artículo al catálogo" (newNombre / newDesc) dentro del editor de
+    cotización, también convertidos a textarea auto-expandible."""
+
+    def test_form_uses_textarea_for_catalog_search_and_quick_add_fields(self):
+        template = Path("templates/quote_project_form.html").read_text(encoding="utf-8")
+        self.assertIn('<textarea id="catalogSearch"', template)
+        self.assertIn('<textarea id="newNombre"', template)
+        self.assertIn('<textarea id="newDesc"', template)
+        # Guarda contra una regresión a <input> de una sola línea.
+        self.assertNotIn('<input type="text" id="catalogSearch"', template)
+        self.assertNotIn('<input type="text" id="newNombre"', template)
+        self.assertNotIn('<input type="text" id="newDesc"', template)
+
+    def test_autogrow_helper_handles_hidden_elements_gracefully(self):
+        # _acAutoGrow debe manejar scrollHeight=0 (elemento oculto en un modal
+        # o formulario con d-none) sin dejarlo colapsado a 0px.
+        template = Path("templates/quote_project_form.html").read_text(encoding="utf-8")
+        self.assertIn('sh > 0 ? sh + "px" : ""', template)
+
+    def test_api_catalogo_add_accepts_multiline_nombre_and_descripcion(self):
+        app = create_app()
+        app.config["TESTING"] = True
+        app.config["LOGIN_DISABLED"] = True
+        app.config["WTF_CSRF_ENABLED"] = False
+        client = app.test_client()
+        saved_catalogo = load("catalogo")
+        try:
+            multiline_nombre = "Proyecto arquitectónico\nSe realizará un proyecto para una vivienda"
+            multiline_desc = "Detalle línea uno\nDetalle línea dos"
+            response = client.post(
+                "/api/catalogo/add",
+                json={"nombre": multiline_nombre, "descripcion": multiline_desc, "unidad": "pza", "precio": 100},
+            )
+            self.assertEqual(response.status_code, 201)
+            data = response.get_json()
+            self.assertEqual(data["nombre"], multiline_nombre)
+            self.assertEqual(data["descripcion"], multiline_desc)
+        finally:
+            save("catalogo", saved_catalogo)
+
+
 if __name__ == "__main__":
     unittest.main()
