@@ -2,7 +2,13 @@ import os
 import re
 from datetime import date, datetime
 
-from .catalog import catalog_description_lookup, catalog_name_key, quote_section_groups, quote_type_key
+from .catalog import (
+    catalog_description_lookup,
+    catalog_name_key,
+    quote_section_groups,
+    quote_type_key,
+    resolve_quote_proposal_for,
+)
 from .storage import BASE_DIR, today
 
 
@@ -293,7 +299,11 @@ def build_quote_pdf(project, quote, output_path=None):
     items = quote.get("items", [])
     currency = quote.get("currency") or "MXN"
     project_name = _safe_text(project.get("name", ""))
-    client_name = _safe_text(quote.get("client") or project.get("client") or "Cliente")
+    # "Propuesta para": override explícito de la cotización > cliente vivo del
+    # proyecto > snapshot histórico > oculto si no hay nada. Antes el PDF
+    # quedaba con el cliente viejo si se editaba el proyecto después
+    # (VERSIONES.md #11, #12).
+    proposal_for = resolve_quote_proposal_for(quote, project)
     quote_number = _safe_text(quote.get("quote_number", "Cotización"))
     quote_date = format_date_long(quote.get("date"))
     cover_title, cover_subtitle = quote_cover_copy(quote)
@@ -710,15 +720,19 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.set_text_color(*NAVY_2)
         pdf.set_font("DejaVu", "B", 10.5)
         pdf.cell(0, 5.5, _safe_text(cover_subtitle), ln=True)
-    proposal_y = max(168 + _spacing_delta, pdf.get_y() + 7)
-    pdf.set_xy(pdf.l_margin, proposal_y)
-    pdf.set_text_color(*MUTED)
-    pdf.set_font("DejaVu", "", 11)
-    pdf.cell(0, 6, "Propuesta para")
-    pdf.set_xy(pdf.l_margin, proposal_y + 9)
-    pdf.set_text_color(*INK)
-    pdf.set_font("DejaVu", "B", 15)
-    pdf.multi_cell(content_width, 7, client_name)
+    # "Propuesta para": editable en el editor de cotización (cliente,
+    # personalizado o vacío para ocultar la línea — ver resolve_quote_proposal_for).
+    if proposal_for:
+        proposal_label, proposal_value = proposal_for
+        proposal_y = max(168 + _spacing_delta, pdf.get_y() + 7)
+        pdf.set_xy(pdf.l_margin, proposal_y)
+        pdf.set_text_color(*MUTED)
+        pdf.set_font("DejaVu", "", 11)
+        pdf.cell(0, 6, _safe_text(proposal_label))
+        pdf.set_xy(pdf.l_margin, proposal_y + 9)
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "B", 15)
+        pdf.multi_cell(content_width, 7, _safe_text(proposal_value))
     summary_x = pdf.l_margin
     summary_y = max(215, min(250, round(221 + _spacing_delta)))
     summary_w = content_width

@@ -410,6 +410,37 @@
             <input name="version" class="form-control" id="verInput"
                    value="{{ quote.version if quote else '' }}" placeholder="V1">
           </div>
+          {# ── Cliente / Propuesta para ── #}
+          <div class="col-md-4">
+            <label class="form-label d-flex justify-content-between">
+              <span>Cliente</span>
+              <button type="button" class="btn btn-link p-0" style="font-size:.75rem"
+                      onclick="resetClienteOverride()" title="Usar el cliente del proyecto">
+                <i class="bi bi-arrow-counterclockwise me-1"></i>Del proyecto
+              </button>
+            </label>
+            <input name="client" class="form-control{% if fe.get('client') %} is-invalid{% endif %}" id="clientInput"
+                   value="{{ quote.client_override if (quote and quote.client_override) else project.client }}"
+                   placeholder="{{ project.client }}">
+            <div class="form-text">Por default es el cliente del proyecto. Si lo cambias aquí, queda fijo para esta cotización aunque el proyecto cambie después.</div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Propuesta para</label>
+            {% set _pf_mode = quote.get('proposal_for_mode') if quote else none %}
+            {% set _pf_mode = _pf_mode if _pf_mode is not none else 'cliente' %}
+            <select name="proposal_for_mode" class="form-select" id="proposalForMode" onchange="toggleProposalForCustom()">
+              <option value="cliente" {% if _pf_mode == 'cliente' %}selected{% endif %}>Cliente</option>
+              <option value="personalizado" {% if _pf_mode == 'personalizado' %}selected{% endif %}>Personalizado</option>
+              <option value="" {% if _pf_mode == '' %}selected{% endif %}>(vacío / no mostrar)</option>
+            </select>
+            <div class="form-text">A quién va dirigida la portada del PDF. "Cliente" usa el campo de arriba.</div>
+          </div>
+          <div class="col-md-4" id="proposalForCustomWrap" style="{% if _pf_mode != 'personalizado' %}display:none{% endif %}">
+            <label class="form-label">Dirigido a</label>
+            <input name="proposal_for_custom" class="form-control{% if fe.get('proposal_for_custom') %} is-invalid{% endif %}" id="proposalForCustomInput"
+                   value="{{ quote.proposal_for_custom if quote else '' }}" placeholder="Ej. Arq. Juan Pérez">
+            {% if fe.get('proposal_for_custom') %}<div class="invalid-feedback">{{ fe.get('proposal_for_custom') }}</div>{% endif %}
+          </div>
           <div class="col-md-2">
             <label class="form-label">Moneda</label>
             <select name="currency" class="form-select{% if fe.get('currency') %} is-invalid{% endif %}">
@@ -1504,6 +1535,15 @@
     updateNum();
   }
 
+  function resetClienteOverride() {
+    document.getElementById("clientInput").value = PROJECT_CLIENT;
+  }
+
+  function toggleProposalForCustom() {
+    const mode = document.getElementById("proposalForMode").value;
+    document.getElementById("proposalForCustomWrap").style.display = (mode === "personalizado") ? "" : "none";
+  }
+
   function updateProjectBasisNoteVisibility() {
     const group = document.getElementById("projectBasisNoteGroup");
     if (!group) return;
@@ -1533,6 +1573,7 @@
   const TERMS_TEMPLATES_BY_ID = {{ terms_templates | default([]) | tojson }}
     .reduce((acc, t) => { acc[t.id] = t; return acc; }, {});
   const BASE_INTEGRANTES_DEFAULT = {{ integrantes_config | tojson }};
+  const PROJECT_CLIENT = {{ project.client | default('') | tojson }};
 
   {% if not quote %}
   function hasQuoteRows() {

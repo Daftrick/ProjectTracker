@@ -2,10 +2,20 @@ import json as _json
 import re
 from datetime import datetime
 
-from .catalog import catalog_maps, hydrate_ldm_item, hydrate_quote_item, quote_type_key
+from .catalog import (
+    PROPOSAL_FOR_CLIENTE,
+    PROPOSAL_FOR_PERSONALIZADO,
+    PROPOSAL_FOR_VACIO,
+    catalog_maps,
+    hydrate_ldm_item,
+    hydrate_quote_item,
+    quote_type_key,
+)
 from .domain import STANDARD_TAX_RATE
 from .quote_templates_config import MAX_QUOTE_TEMPLATE_CONTACTS, normalize_contact_rows
 from .utils import clean as _clean, deleted_catalog_item_at as _deleted_catalog_item_at, parse_form_float as _parse_float
+
+_VALID_PROPOSAL_FOR_MODES = (PROPOSAL_FOR_CLIENTE, PROPOSAL_FOR_PERSONALIZADO, PROPOSAL_FOR_VACIO)
 
 VALID_CURRENCIES = {"MXN", "USD", "EUR"}
 PROJECT_DATE_RE = re.compile(r"^\d{6}$")
@@ -74,9 +84,35 @@ def validate_project_form(form):
     }
 
 
-def validate_quote_form(form):
+def validate_quote_form(form, project=None):
     errors = []
     field_errors = {}
+
+    # Cliente: campo de texto precargado con el cliente del proyecto en el
+    # editor. Si el usuario lo deja igual (o lo deja vacío), la cotización
+    # sigue sincronizada con el cliente vivo del proyecto; si lo cambia, ese
+    # texto queda fijo como override para esta cotización específica, aunque
+    # el proyecto cambie después (ver resolve_quote_client en catalog.py).
+    raw_client = _clean(form.get("client"))
+    project_client = _clean((project or {}).get("client")) if project else None
+    client_override = raw_client if (raw_client and raw_client != project_client) else ""
+
+    # Propuesta para: a quién va dirigida la cotización en la portada del PDF,
+    # independiente del campo Cliente. "cliente" (default, compat con
+    # formularios/cotizaciones viejas sin este campo) muestra el cliente
+    # resuelto; "personalizado" usa proposal_for_custom; "" (vacío) oculta la
+    # línea por completo.
+    raw_proposal_mode = form.get("proposal_for_mode")
+    if raw_proposal_mode is None:
+        proposal_for_mode = PROPOSAL_FOR_CLIENTE
+    else:
+        raw_proposal_mode = raw_proposal_mode.strip()
+        proposal_for_mode = raw_proposal_mode if raw_proposal_mode in _VALID_PROPOSAL_FOR_MODES else PROPOSAL_FOR_CLIENTE
+    proposal_for_custom = _clean(form.get("proposal_for_custom"))
+    if proposal_for_mode == PROPOSAL_FOR_PERSONALIZADO and not proposal_for_custom:
+        message = "Escribe a quién va dirigida la propuesta o cambia la opción."
+        errors.append(message)
+        field_errors.setdefault("proposal_for_custom", message)
     # El IVA ya no se edita como número libre: sólo se activa/desactiva.
     # Cualquier checkbox marcado (tax_enabled=on) aplica la tasa estándar;
     # si no viene, no lleva IVA.
@@ -158,6 +194,9 @@ def validate_quote_form(form):
         "currency": currency,
         "tax_rate": tax_rate,
         "discount_pct": discount_pct,
+        "client_override": client_override,
+        "proposal_for_mode": proposal_for_mode,
+        "proposal_for_custom": proposal_for_custom,
         "notes": _clean(form.get("notes")),
         "project_basis_note": _clean(form.get("project_basis_note")),
         "cover_discipline": _clean(form.get("cover_discipline")),

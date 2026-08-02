@@ -92,8 +92,8 @@
     <div class="row align-items-center">
       <div class="col">
         <h3 class="mb-1">{{ quote.quote_number }}</h3>
-        <div class="opacity-75">{{ quote.client }}</div>
-        <small class="opacity-50">{{ quote.project_name }}</small>
+        <div class="opacity-75">{{ resolve_quote_client(quote, project) }}</div>
+        <small class="opacity-50">{{ project.name or quote.project_name }}</small>
       </div>
       <div class="col-auto text-end">
         <div class="opacity-75" style="font-size:.85rem">Fecha: {{ quote.date | fdate }}</div>

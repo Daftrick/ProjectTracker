@@ -229,11 +229,14 @@
           </div>
 
           {# Client + summary box #}
+          {% set _proposal_for = resolve_quote_proposal_for(quote, project) %}
           <div id="prevPortadaCliente" style="padding:{{ specs.get('portada_spacing') or '40' }}px 16px 24px;">
-            <p style="color:#717e91;font-size:11px;margin:0 0 2px;">Propuesta para</p>
+            {% if _proposal_for %}
+            <p style="color:#717e91;font-size:11px;margin:0 0 2px;">{{ _proposal_for[0] }}</p>
             <h2 style="color:#25262c;font-size:20px;font-weight:bold;margin:0 0 16px;">
-              {{ quote.client or project.client }}
+              {{ _proposal_for[1] }}
             </h2>
+            {% endif %}
 
             <div style="background:#f4f7fb;padding:16px;display:flex;gap:16px;align-items:flex-start;">
               {# Left info #}

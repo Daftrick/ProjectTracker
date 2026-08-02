@@ -414,6 +414,103 @@ class QuotePdfSectionsTest(unittest.TestCase):
         self.assertNotIn("Descuento", text)
         self.assertIn("$116.00", text)
 
+    def test_pdf_reflects_project_client_over_stale_quote_snapshot(self):
+        """El cliente se guarda como snapshot en la cotización al crearla; si el
+        cliente del proyecto se edita después, el PDF debe mostrar el valor
+        actual del proyecto, no el snapshot viejo (VERSIONES.md #11)."""
+        import pdfplumber
+
+        project = {"name": "Proyecto Cliente Editado", "client": "Cliente Nuevo S.A."}
+        quote = {
+            "quote_type": "Proyecto",
+            "quote_number": "COT-CLI-P01-20260801",
+            "date": "2026-08-01",
+            "currency": "MXN",
+            "tax_rate": 16,
+            "discount_pct": 0,
+            # Snapshot histórico, capturado al crear la cotización — ya obsoleto.
+            "client": "Cliente Viejo Inc.",
+            "items": [
+                {
+                    "description": "Item de prueba",
+                    "unit": "pza",
+                    "qty": 1,
+                    "price": 100,
+                    "precio_costo": 100,
+                    "total": 100,
+                }
+            ],
+            "subtotal": 100,
+            "tax": 16,
+            "total": 116,
+        }
+        company = {
+            "name": "Empresa PDF",
+            "address": "",
+            "email": "",
+            "phone": "",
+            "rut": "",
+            "logo": "",
+            "portada_color": "#000000",
+        }
+
+        with tempfile.NamedTemporaryFile(suffix=".pdf") as tmp:
+            with patch("tracker.pdfs._load_company", return_value=company), \
+                    patch("tracker.pdfs.quote_logo_path", return_value=None):
+                build_quote_pdf(project, quote, tmp.name)
+            with pdfplumber.open(tmp.name) as pdf:
+                text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+
+        self.assertIn("Cliente Nuevo S.A.", text)
+        self.assertNotIn("Cliente Viejo Inc.", text)
+
+    def test_pdf_falls_back_to_quote_client_snapshot_when_project_has_none(self):
+        """Si el proyecto no tiene cliente asignado (dato incompleto/legacy),
+        se conserva el snapshot de la cotización en vez de mostrar vacío."""
+        import pdfplumber
+
+        project = {"name": "Proyecto Sin Cliente", "client": ""}
+        quote = {
+            "quote_type": "Proyecto",
+            "quote_number": "COT-CLI-P02-20260801",
+            "date": "2026-08-01",
+            "currency": "MXN",
+            "tax_rate": 16,
+            "discount_pct": 0,
+            "client": "Cliente Histórico",
+            "items": [
+                {
+                    "description": "Item de prueba",
+                    "unit": "pza",
+                    "qty": 1,
+                    "price": 100,
+                    "precio_costo": 100,
+                    "total": 100,
+                }
+            ],
+            "subtotal": 100,
+            "tax": 16,
+            "total": 116,
+        }
+        company = {
+            "name": "Empresa PDF",
+            "address": "",
+            "email": "",
+            "phone": "",
+            "rut": "",
+            "logo": "",
+            "portada_color": "#000000",
+        }
+
+        with tempfile.NamedTemporaryFile(suffix=".pdf") as tmp:
+            with patch("tracker.pdfs._load_company", return_value=company), \
+                    patch("tracker.pdfs.quote_logo_path", return_value=None):
+                build_quote_pdf(project, quote, tmp.name)
+            with pdfplumber.open(tmp.name) as pdf:
+                text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+
+        self.assertIn("Cliente Histórico", text)
+
 
 if __name__ == "__main__":
     unittest.main()

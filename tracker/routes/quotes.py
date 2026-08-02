@@ -7,7 +7,18 @@ from io import BytesIO
 from flask import Blueprint, Response, flash, redirect, render_template, request, send_file, url_for
 
 from ..bundles import bundle_by_catalog_item_id, capture_bundle_snapshot, hydrate_quote_bundle_breakdowns
-from ..catalog import aggregate_quote_items, approve_quote, catalog_maps, compute_quote_totals, hydrate_quote, next_quote_number, quote_type_key, safe_float
+from ..catalog import (
+    aggregate_quote_items,
+    approve_quote,
+    catalog_maps,
+    compute_quote_totals,
+    hydrate_quote,
+    next_quote_number,
+    quote_type_key,
+    resolve_quote_client,
+    resolve_quote_proposal_for,
+    safe_float,
+)
 from ..csv_catalog_validation import validate_csv_catalog_items
 from ..deletions import purge_deleted_catalog_items_from_record
 from ..form_models import quote_default_numbers, quote_from_form
@@ -175,7 +186,7 @@ def new_quote(project_id):
         return redirect(url_for("dashboard"))
     quotes = load("quotes")
     if request.method == "POST":
-        validation = validate_quote_form(request.form)
+        validation = validate_quote_form(request.form, project)
         if not validation["ok"]:
             for error in validation["errors"]:
                 flash(error, "warning")
@@ -196,6 +207,9 @@ def new_quote(project_id):
             "quote_type": quote_type,
             "version": validation["version"],
             "client": project.get("client", ""),
+            "client_override": validation["client_override"],
+            "proposal_for_mode": validation["proposal_for_mode"],
+            "proposal_for_custom": validation["proposal_for_custom"],
             "project_name": project.get("name", ""),
             "date": date_str,
             "valid_until": validation["valid_until"],
@@ -305,7 +319,7 @@ def edit_quote(project_id, quote_id):
     if not project or not quote:
         return redirect(url_for("project_detail", project_id=project_id))
     if request.method == "POST":
-        validation = validate_quote_form(request.form)
+        validation = validate_quote_form(request.form, project)
         if not validation["ok"]:
             for error in validation["errors"]:
                 flash(error, "warning")
@@ -324,6 +338,9 @@ def edit_quote(project_id, quote_id):
             "version": validation["version"],
             "date": validation["date"],
             "valid_until": validation["valid_until"],
+            "client_override": validation["client_override"],
+            "proposal_for_mode": validation["proposal_for_mode"],
+            "proposal_for_custom": validation["proposal_for_custom"],
             "items": validation["items"],
             "subtotal": validation["subtotal"],
             "tax_rate": validation["tax_rate"],
@@ -572,9 +589,14 @@ def _build_quote_workbook(project, quote, Workbook, Alignment, Font):
         ws.column_dimensions["F"].width = 16   # Total
 
     # ── Encabezado informativo ──────────────────────────────────────────────
+    # Cliente/proyecto: override de la cotización > dato vivo del proyecto >
+    # snapshot guardado al crear la cotización (VERSIONES.md #11, #12).
     ws.append(["Cotización:", hydrated.get("quote_number", "")])
-    ws.append(["Cliente:", hydrated.get("client", "")])
-    ws.append(["Proyecto:", hydrated.get("project_name", "")])
+    ws.append(["Cliente:", resolve_quote_client(hydrated, project)])
+    ws.append(["Proyecto:", project.get("name") or hydrated.get("project_name", "")])
+    _proposal_for = resolve_quote_proposal_for(hydrated, project)
+    if _proposal_for:
+        ws.append([f"{_proposal_for[0]}:", _proposal_for[1]])
     ws.append(["Fecha:", hydrated.get("date", "")])
     ws.append(["Moneda:", hydrated.get("currency", "")])
     ws.append([])  # fila vacía

@@ -24,8 +24,12 @@
         <div class="col-6 col-md-3"><strong>Fecha:</strong> {{ quote.date | fdate }}</div>
         <div class="col-6 col-md-3"><strong>Moneda:</strong> {{ quote.currency }}</div>
         <div class="col-6 col-md-3"><strong>Partidas:</strong> {{ quote['items']|length }}</div>
-        {% if quote.client %}<div class="col-12"><strong>Cliente:</strong> {{ quote.client }}</div>{% endif %}
-        {% if quote.project_name %}<div class="col-12"><strong>Proyecto:</strong> {{ quote.project_name }}</div>{% endif %}
+        {% set _client = resolve_quote_client(quote, project) %}
+        {% if _client %}<div class="col-12"><strong>Cliente:</strong> {{ _client }}</div>{% endif %}
+        {% set _pname = project.name or quote.project_name %}
+        {% if _pname %}<div class="col-12"><strong>Proyecto:</strong> {{ _pname }}</div>{% endif %}
+        {% set _proposal = resolve_quote_proposal_for(quote, project) %}
+        {% if _proposal %}<div class="col-12"><strong>{{ _proposal[0] }}:</strong> {{ _proposal[1] }}</div>{% endif %}
       </div>
     </div>
   </div>

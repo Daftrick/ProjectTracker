@@ -105,6 +105,126 @@ class ValidatorsTest(unittest.TestCase):
         self.assertIn("Descuento debe estar entre 0 y 100.", out_of_range["errors"])
         self.assertEqual(out_of_range["field_errors"]["discount_pct"], "Descuento debe estar entre 0 y 100.")
 
+    def test_quote_client_unchanged_from_project_yields_no_override(self):
+        base_fields = [
+            ("date", "2026-04-24"),
+            ("currency", "MXN"),
+            ("item_desc[]", "Interruptor"),
+            ("item_unit[]", "pza"),
+            ("item_qty[]", "1"),
+            ("item_precio_costo[]", "100"),
+            ("item_catalog_id[]", ""),
+            ("item_desc2[]", ""),
+        ]
+        project = {"client": "Cliente Original"}
+
+        # Campo igual al del proyecto (el editor lo precarga así): sin override.
+        same = validate_quote_form(MultiDict(base_fields + [("client", "Cliente Original")]), project)
+        self.assertEqual(same["client_override"], "")
+
+        # Campo vacío: tampoco hay override, sigue sincronizado.
+        blank = validate_quote_form(MultiDict(base_fields + [("client", "")]), project)
+        self.assertEqual(blank["client_override"], "")
+
+    def test_quote_client_changed_yields_override(self):
+        base_fields = [
+            ("date", "2026-04-24"),
+            ("currency", "MXN"),
+            ("item_desc[]", "Interruptor"),
+            ("item_unit[]", "pza"),
+            ("item_qty[]", "1"),
+            ("item_precio_costo[]", "100"),
+            ("item_catalog_id[]", ""),
+            ("item_desc2[]", ""),
+        ]
+        project = {"client": "Cliente Original"}
+        result = validate_quote_form(
+            MultiDict(base_fields + [("client", "Cliente Nuevo Editado")]), project
+        )
+        self.assertEqual(result["client_override"], "Cliente Nuevo Editado")
+
+    def test_quote_client_override_without_project_context(self):
+        # Sin project (ej. llamadas legacy/tests), cualquier texto no vacío es override.
+        base_fields = [
+            ("date", "2026-04-24"),
+            ("currency", "MXN"),
+            ("item_desc[]", "Interruptor"),
+            ("item_unit[]", "pza"),
+            ("item_qty[]", "1"),
+            ("item_precio_costo[]", "100"),
+            ("item_catalog_id[]", ""),
+            ("item_desc2[]", ""),
+        ]
+        result = validate_quote_form(MultiDict(base_fields + [("client", "Cualquier Cliente")]))
+        self.assertEqual(result["client_override"], "Cualquier Cliente")
+
+    def test_quote_proposal_for_defaults_to_cliente_when_absent(self):
+        base_fields = [
+            ("date", "2026-04-24"),
+            ("currency", "MXN"),
+            ("item_desc[]", "Interruptor"),
+            ("item_unit[]", "pza"),
+            ("item_qty[]", "1"),
+            ("item_precio_costo[]", "100"),
+            ("item_catalog_id[]", ""),
+            ("item_desc2[]", ""),
+        ]
+        result = validate_quote_form(MultiDict(base_fields))
+        self.assertEqual(result["proposal_for_mode"], "cliente")
+        self.assertEqual(result["proposal_for_custom"], "")
+
+    def test_quote_proposal_for_personalizado_requires_custom_text(self):
+        base_fields = [
+            ("date", "2026-04-24"),
+            ("currency", "MXN"),
+            ("item_desc[]", "Interruptor"),
+            ("item_unit[]", "pza"),
+            ("item_qty[]", "1"),
+            ("item_precio_costo[]", "100"),
+            ("item_catalog_id[]", ""),
+            ("item_desc2[]", ""),
+        ]
+        missing = validate_quote_form(MultiDict(base_fields + [("proposal_for_mode", "personalizado")]))
+        self.assertFalse(missing["ok"])
+        self.assertIn("proposal_for_custom", missing["field_errors"])
+
+        filled = validate_quote_form(MultiDict(base_fields + [
+            ("proposal_for_mode", "personalizado"),
+            ("proposal_for_custom", "Arq. Juan Pérez"),
+        ]))
+        self.assertTrue(filled["ok"])
+        self.assertEqual(filled["proposal_for_mode"], "personalizado")
+        self.assertEqual(filled["proposal_for_custom"], "Arq. Juan Pérez")
+
+    def test_quote_proposal_for_vacio_is_respected(self):
+        base_fields = [
+            ("date", "2026-04-24"),
+            ("currency", "MXN"),
+            ("item_desc[]", "Interruptor"),
+            ("item_unit[]", "pza"),
+            ("item_qty[]", "1"),
+            ("item_precio_costo[]", "100"),
+            ("item_catalog_id[]", ""),
+            ("item_desc2[]", ""),
+        ]
+        result = validate_quote_form(MultiDict(base_fields + [("proposal_for_mode", "")]))
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["proposal_for_mode"], "")
+
+    def test_quote_proposal_for_invalid_mode_falls_back_to_cliente(self):
+        base_fields = [
+            ("date", "2026-04-24"),
+            ("currency", "MXN"),
+            ("item_desc[]", "Interruptor"),
+            ("item_unit[]", "pza"),
+            ("item_qty[]", "1"),
+            ("item_precio_costo[]", "100"),
+            ("item_catalog_id[]", ""),
+            ("item_desc2[]", ""),
+        ]
+        result = validate_quote_form(MultiDict(base_fields + [("proposal_for_mode", "algo-raro")]))
+        self.assertEqual(result["proposal_for_mode"], "cliente")
+
     def test_quote_accepts_valid_item_and_computes_subtotal(self):
         result = validate_quote_form(
             MultiDict([

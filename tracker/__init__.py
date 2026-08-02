@@ -3,7 +3,13 @@ import os
 from flask import Flask, current_app, redirect, request, url_for
 from flask_login import current_user
 from .auth import init_auth
-from .catalog import migrate_catalog_disciplina, migrate_catalog_fields, migrate_quote_approval
+from .catalog import (
+    migrate_catalog_disciplina,
+    migrate_catalog_fields,
+    migrate_quote_approval,
+    resolve_quote_client,
+    resolve_quote_proposal_for,
+)
 from .company_config import get_company
 from .domain import APP_VERSION, TIPOS_FICHA, currency, fdate
 from .routes.admin import bp as admin_bp
@@ -66,6 +72,10 @@ def create_app():
 
     app.add_template_filter(fdate, "fdate")
     app.add_template_filter(currency, "currency")
+    # Resolución de cliente/"Propuesta para" compartida entre templates, PDF y
+    # Excel (misma lógica en todos lados — ver catalog.py, VERSIONES.md #11/#12).
+    app.add_template_global(resolve_quote_client, "resolve_quote_client")
+    app.add_template_global(resolve_quote_proposal_for, "resolve_quote_proposal_for")
 
     @app.context_processor
     def inject_globals():

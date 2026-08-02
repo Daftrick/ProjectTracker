@@ -116,6 +116,13 @@ def quote_from_form(form, fallback_quote=None):
         "currency": form.get("currency", "MXN").strip() or "MXN",
         "tax_rate": STANDARD_TAX_RATE if (form.get("tax_enabled") or "").strip() else 0.0,
         "discount_pct": min(max(_to_float(form.get("discount_pct", "0") or "0"), 0), 100),
+        # Re-render tal cual lo escribió el usuario (sin comparar contra el
+        # proyecto); la comparación real ocurre en validate_quote_form al
+        # guardar. Ver resolve_quote_client en catalog.py.
+        "client_override": (form.get("client") or "").strip(),
+        "proposal_for_mode": (form.get("proposal_for_mode")
+                               if form.get("proposal_for_mode") is not None else "cliente"),
+        "proposal_for_custom": (form.get("proposal_for_custom") or "").strip(),
         "default_pct_mo": _to_float(form.get("default_pct_mo", "0") or "0"),
         "default_pct_indirectos": _to_float(form.get("default_pct_indirectos", "0") or "0"),
         "default_pct_utilidad": _to_float(form.get("default_pct_utilidad", "0") or "0"),

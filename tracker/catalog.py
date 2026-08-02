@@ -336,6 +336,56 @@ def compute_quote_totals(subtotal, tax_rate, discount_pct=0):
     }
 
 
+PROPOSAL_FOR_CLIENTE = "cliente"
+PROPOSAL_FOR_PERSONALIZADO = "personalizado"
+PROPOSAL_FOR_VACIO = ""
+
+
+def resolve_quote_client(quote, project):
+    """Cliente a mostrar en PDF/Excel/vistas de una cotización.
+
+    Prioridad: 1) override explícito guardado en la cotización (client_override,
+    editado en el editor de cotización — queda fijo aunque el proyecto cambie
+    después); 2) cliente vivo del proyecto (se mantiene sincronizado mientras
+    no haya override); 3) snapshot histórico guardado en la cotización al
+    crearla, sólo como último recurso si el proyecto no tiene cliente (datos
+    viejos/huérfanos). Ver VERSIONES.md #11 y #12.
+    """
+    quote = quote or {}
+    project = project or {}
+    override = str(quote.get("client_override") or "").strip()
+    if override:
+        return override
+    project_client = str(project.get("client") or "").strip()
+    if project_client:
+        return project_client
+    return str(quote.get("client") or "").strip()
+
+
+def resolve_quote_proposal_for(quote, project):
+    """Etiqueta y valor de la línea "Propuesta para" de la portada.
+
+    proposal_for_mode: "cliente" (default, compat con cotizaciones viejas sin
+    el campo) muestra el cliente resuelto; "personalizado" muestra un texto
+    libre capturado en el editor; "" (vacío) oculta la línea por completo.
+    Devuelve None cuando no debe mostrarse nada.
+    """
+    quote = quote or {}
+    mode = quote.get("proposal_for_mode")
+    if mode is None:
+        mode = PROPOSAL_FOR_CLIENTE
+    mode = str(mode).strip()
+    if mode == PROPOSAL_FOR_PERSONALIZADO:
+        value = str(quote.get("proposal_for_custom") or "").strip()
+    elif mode == PROPOSAL_FOR_VACIO:
+        value = ""
+    else:
+        value = resolve_quote_client(quote, project)
+    if not value:
+        return None
+    return "Propuesta para", value
+
+
 def hydrate_quote(quote, catalog_by_id=None, catalog_by_name=None):
     catalog_by_id = catalog_by_id if catalog_by_id is not None else {}
     catalog_by_name = catalog_by_name if catalog_by_name is not None else {}
