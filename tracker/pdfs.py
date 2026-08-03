@@ -350,6 +350,10 @@ def build_quote_pdf(project, quote, output_path=None):
         words = normalize_wrap_text(text).split()
         if not words:
             return [""]
+        # Ver nota en smart_render_text: hay que restar el margen interno de
+        # celda (c_margin) o esta función arma líneas más anchas de lo que
+        # multi_cell realmente puede acomodar.
+        width = max(0, width - 2 * pdf.c_margin)
 
         groups = []
         index = 0
@@ -509,6 +513,14 @@ def build_quote_pdf(project, quote, output_path=None):
         ]
         if width is None:
             return " | ".join(" ".join(groups) for groups in rendered_sections)
+
+        # multi_cell resta su propio margen interno (c_margin, ~1mm por lado)
+        # del ancho de celda para decidir dónde parte línea; si aquí se compara
+        # contra el ancho "crudo" de la columna, esta función arma líneas más
+        # anchas de lo que multi_cell realmente puede acomodar y la última
+        # palabra se cae sola a la siguiente línea al renderizar (bug
+        # reportado: conceptos con saltos de línea a mitad de la descripción).
+        width = max(0, width - 2 * pdf.c_margin)
 
         def join_units(units):
             return " ".join(units)
@@ -1372,6 +1384,14 @@ def build_ldm_pdf(project, ldm, output_path=None):
         ]
         if width is None:
             return " | ".join(" ".join(groups) for groups in rendered_sections)
+
+        # multi_cell resta su propio margen interno (c_margin, ~1mm por lado)
+        # del ancho de celda para decidir dónde parte línea; si aquí se compara
+        # contra el ancho "crudo" de la columna, esta función arma líneas más
+        # anchas de lo que multi_cell realmente puede acomodar y la última
+        # palabra se cae sola a la siguiente línea al renderizar (bug
+        # reportado: conceptos con saltos de línea a mitad de la descripción).
+        width = max(0, width - 2 * pdf.c_margin)
 
         def join_units(units):
             return " ".join(units)

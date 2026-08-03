@@ -75,6 +75,9 @@
     margin:2px 0 0;
     padding-left:18px;
   }
+  /* Ancla al llegar desde el botón "Pagos" de la lista de cotizaciones —
+     el margen evita que la topbar fija tape el encabezado de la tarjeta. */
+  #pagos-cotizacion{ scroll-margin-top: 90px; }
 </style>
 {% endblock %}
 {% block content %}
@@ -152,7 +155,7 @@
   {% if quote.notes %}<div class="card mb-3"><div class="card-header">Notas y condiciones</div><div class="card-body">{{ quote.notes }}</div></div>{% endif %}
 
   <!-- ── Pagos de esta cotización ── -->
-  <div class="card mb-3">
+  <div class="card mb-3" id="pagos-cotizacion">
     <div class="card-header"><i class="bi bi-cash-stack me-2 text-primary"></i>Pagos</div>
     <div class="card-body">
       <div class="row g-3 mb-3">

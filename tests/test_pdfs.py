@@ -511,6 +511,69 @@ class QuotePdfSectionsTest(unittest.TestCase):
 
         self.assertIn("Cliente Histórico", text)
 
+    def test_long_description_does_not_orphan_words_after_wrap(self):
+        """Regresión: smart_render_text/wrap_word_groups no restaban el margen
+        interno de celda (c_margin) al calcular qué texto cabe por línea, así
+        que empacaban líneas más anchas de lo que multi_cell podía renderizar
+        realmente y la última palabra se caía sola a su propio renglón (bug
+        reportado: "gestión"/"Obtención" apareciendo solas, con la fila
+        siguiente superpuesta)."""
+        import pdfplumber
+
+        project = {"name": "Proyecto Wrap", "client": "Cliente Wrap"}
+        desc = (
+            "Gestoría de permisos. Se recomienda la gestión de los trámites "
+            "necesarios, Incluye; Obtención de Constancia de Alineamiento y "
+            "Número Oficial, Ingreso y seguimiento de Solicitud de Licencia de "
+            "Construcción (Ampliación), Gestión de Licencia de Uso de Suelo "
+            "(en caso de ser requerida)."
+        )
+        quote = {
+            "quote_type": "Proyecto",
+            "quote_number": "COT-WRAP-P01-20260801",
+            "date": "2026-08-01",
+            "currency": "MXN",
+            "tax_rate": 16,
+            "discount_pct": 0,
+            "items": [
+                {
+                    "description": desc,
+                    "unit": "pza",
+                    "qty": 1,
+                    "price": 30000,
+                    "precio_costo": 30000,
+                    "total": 30000,
+                }
+            ],
+            "subtotal": 30000,
+            "tax": 4800,
+            "total": 34800,
+        }
+        company = {
+            "name": "Empresa PDF",
+            "address": "",
+            "email": "",
+            "phone": "",
+            "rut": "",
+            "logo": "",
+            "portada_color": "#000000",
+        }
+
+        with tempfile.NamedTemporaryFile(suffix=".pdf") as tmp:
+            with patch("tracker.pdfs._load_company", return_value=company), \
+                    patch("tracker.pdfs.quote_logo_path", return_value=None):
+                build_quote_pdf(project, quote, tmp.name)
+            with pdfplumber.open(tmp.name) as pdf:
+                text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+
+        # Ninguna palabra corta del concepto debe quedar sola en su propio
+        # renglón — ese era el síntoma reportado.
+        self.assertNotIn("\ngestión\n", text)
+        self.assertNotIn("\nObtención\n", text)
+        # Las líneas deben llegar completas, no cortadas a media frase.
+        self.assertIn("Gestoría de permisos. Se recomienda la", text)
+        self.assertIn("gestión de los trámites necesarios, Incluye;", text)
+
 
 if __name__ == "__main__":
     unittest.main()

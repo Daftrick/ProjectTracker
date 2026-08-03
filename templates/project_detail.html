@@ -321,6 +321,9 @@
                class="btn btn-sm btn-outline-success me-1 action-btn" title="Descargar PDF"><i class="bi bi-file-earmark-pdf"></i></a>
             <a href="{{ url_for('quotes_bp.quote_excel', project_id=project.id, quote_id=q.id) }}"
                class="btn btn-sm btn-outline-success me-1 action-btn" title="Descargar Excel"><i class="bi bi-file-earmark-spreadsheet"></i></a>
+            {# Pagos de esta cotización — lleva directo a la tarjeta de pagos de quote_project_detail.html #}
+            <a href="{{ url_for('quotes_bp.view_quote', project_id=project.id, quote_id=q.id) }}#pagos-cotizacion"
+               class="btn btn-sm btn-outline-primary me-1 action-btn" title="Pagos de esta cotización"><i class="bi bi-cash-stack"></i></a>
             {% if not project.closed_at %}
             <a href="{{ url_for('edit_quote', project_id=project.id, quote_id=q.id) }}"
                class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Editar"><i class="bi bi-pencil"></i></a>
