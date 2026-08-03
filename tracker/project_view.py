@@ -233,6 +233,16 @@ def build_project_detail_context(project):
     # proyecto (no sólo las activas) — el pago le da seguimiento al cobro,
     # independientemente del estado de aprobación de la cotización.
     project_payments = get_payments_for_project(project_id)
+
+    # Pagado/saldo pendiente para la caja financiera del header — se calculan
+    # contra total_cotizado (sólo cotizaciones activas, lo que ya se muestra
+    # como "Cotizado cliente") para que las tres cifras sean consistentes
+    # entre sí, en vez de comparar contra el total de TODAS las cotizaciones
+    # (que es lo que usa payments_overall_summary más abajo, pensado para la
+    # pestaña de Pagos, no para esta caja).
+    total_pagado_proyecto = round(sum(p.get("amount", 0) for p in project_payments), 2)
+    saldo_pendiente_proyecto = round(total_cotizado - total_pagado_proyecto, 2)
+
     payments_by_quote = {}
     for _q in quotes:
         _qid = _q.get("id")
@@ -289,6 +299,8 @@ def build_project_detail_context(project):
         "total_cotizado": total_cotizado,
         "costo_proveedor": costo_proveedor,
         "margen": margen,
+        "total_pagado_proyecto": total_pagado_proyecto,
+        "saldo_pendiente_proyecto": saldo_pendiente_proyecto,
         "consistency": consistency,
         "consistency_view": build_consistency_view(consistency),
     }

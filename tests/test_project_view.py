@@ -118,6 +118,75 @@ class ProjectViewTest(unittest.TestCase):
         self.assertEqual(context["active_extras_count"], 1)
         self.assertEqual(context["active_base_quote"]["id"], "Q3")  # la más reciente de las bases
 
+    def test_build_project_detail_context_computes_total_pagado_and_saldo(self):
+        # La caja financiera del header también refleja los pagos totales
+        # hechos al proyecto (contra total_cotizado, que ya se muestra como
+        # "Cotizado cliente" — no contra el total de TODAS las cotizaciones).
+        project = {"id": "PRJ1", "clave": "OM001", "version": "V1", "fecha": "260428", "folder_num": "004"}
+        data = {
+            "tasks": [],
+            "deliveries": [],
+            "quotes": [
+                {"id": "Q1", "project_id": "PRJ1", "quote_type": "Proyecto",
+                 "approval_status": "active", "total": 1000, "date": "2026-01-01"},
+                {"id": "Q2", "project_id": "PRJ1", "quote_type": "Proyecto",
+                 "approval_status": "obsolete", "total": 9999, "date": "2026-01-15"},
+            ],
+            "materiales": [],
+            "fichas": [],
+            "team": [],
+            "bundles": [],
+        }
+
+        def fake_load(key):
+            return data[key]
+
+        with patch("tracker.project_view.load", side_effect=fake_load), \
+             patch("tracker.project_view.catalog_maps", return_value=({}, {})), \
+             patch("tracker.project_view.hydrate_quote", side_effect=lambda quote, *_: quote), \
+             patch("tracker.project_view.hydrate_ldm", side_effect=lambda ldm, *_: ldm), \
+             patch("tracker.project_view.get_payments_for_project",
+                   return_value=[
+                       {"quote_id": "Q1", "amount": 400},
+                       {"quote_id": "Q1", "amount": 100},
+                   ]), \
+             patch("tracker.project_view.today", return_value="2026-04-28"):
+            context = build_project_detail_context(project)
+
+        self.assertEqual(context["total_cotizado"], 1000)
+        self.assertEqual(context["total_pagado_proyecto"], 500)
+        self.assertEqual(context["saldo_pendiente_proyecto"], 500)
+
+    def test_build_project_detail_context_saldo_can_go_negative_when_overpaid(self):
+        project = {"id": "PRJ1", "clave": "OM001", "version": "V1", "fecha": "260428", "folder_num": "004"}
+        data = {
+            "tasks": [],
+            "deliveries": [],
+            "quotes": [
+                {"id": "Q1", "project_id": "PRJ1", "quote_type": "Proyecto",
+                 "approval_status": "active", "total": 1000, "date": "2026-01-01"},
+            ],
+            "materiales": [],
+            "fichas": [],
+            "team": [],
+            "bundles": [],
+        }
+
+        def fake_load(key):
+            return data[key]
+
+        with patch("tracker.project_view.load", side_effect=fake_load), \
+             patch("tracker.project_view.catalog_maps", return_value=({}, {})), \
+             patch("tracker.project_view.hydrate_quote", side_effect=lambda quote, *_: quote), \
+             patch("tracker.project_view.hydrate_ldm", side_effect=lambda ldm, *_: ldm), \
+             patch("tracker.project_view.get_payments_for_project",
+                   return_value=[{"quote_id": "Q1", "amount": 1200}]), \
+             patch("tracker.project_view.today", return_value="2026-04-28"):
+            context = build_project_detail_context(project)
+
+        self.assertEqual(context["total_pagado_proyecto"], 1200)
+        self.assertEqual(context["saldo_pendiente_proyecto"], -200)
+
     def test_build_task_row_views_precomputes_observation_values(self):
         task = {
             "id": "T1",
