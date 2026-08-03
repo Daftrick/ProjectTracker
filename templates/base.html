@@ -266,6 +266,10 @@
        data-label="Cotizaciones">
       <i class="bi bi-receipt"></i><span class="nav-label"> Cotizaciones</span>
     </a>
+    <a href="{{ url_for('quotes_bp.all_payments') }}" class="nav-link {% if request.endpoint=='quotes_bp.all_payments' %}active{% endif %}"
+       data-label="Pagos">
+      <i class="bi bi-cash-stack"></i><span class="nav-label"> Pagos</span>
+    </a>
     <a href="{{ url_for('quotes_bp.quote_templates') }}" class="nav-link {% if request.endpoint=='quotes_bp.quote_templates' %}active{% endif %}"
        data-label="Plantillas">
       <i class="bi bi-file-earmark-text"></i><span class="nav-label"> Plantillas</span>

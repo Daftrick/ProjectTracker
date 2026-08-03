@@ -28,6 +28,7 @@ from ..payments import (
     add_payment,
     delete_payment,
     get_payment_by_id,
+    get_payments,
     get_payments_for_quote,
     payment_summary,
     update_payment,
@@ -1022,6 +1023,32 @@ def all_quotes():
         "quotes_summary.html",
         rows=all_rows,
         total_aprobado=total_aprobado,
+    )
+
+
+@bp.route("/pagos", endpoint="all_payments")
+def all_payments():
+    """Acceso rápido desde el panel lateral: todos los pagos de todas las
+    cotizaciones/proyectos en una sola vista (análogo a "Cotizaciones" /
+    all_quotes), con enlace directo a la tarjeta de pagos de cada cotización."""
+    payments = get_payments()
+    quotes_by_id = {q["id"]: q for q in load("quotes")}
+    projects_by_id = {p["id"]: p for p in load("projects")}
+
+    rows = []
+    for payment in payments:
+        quote = quotes_by_id.get(payment["quote_id"], {})
+        project = projects_by_id.get(payment["project_id"], {})
+        rows.append({"payment": payment, "quote": quote, "project": project})
+
+    rows.sort(key=lambda r: (r["payment"].get("date", ""), r["payment"].get("created_at", "")), reverse=True)
+
+    total_pagado = sum(r["payment"].get("amount", 0) for r in rows)
+
+    return render_template(
+        "payments_summary.html",
+        rows=rows,
+        total_pagado=total_pagado,
     )
 
 

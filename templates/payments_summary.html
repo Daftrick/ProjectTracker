@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Pagos – Project Tracker{% endblock %}
+{% block page_title %}<i class="bi bi-cash-stack me-2 text-primary"></i>Pagos{% endblock %}
+
+{% block content %}
+
+{# ── Métricas rápidas ── #}
+<div class="d-flex gap-4 mb-4 px-1" style="font-size:.82rem">
+  <span><span class="text-muted">Total registros:</span> <span class="fw-semibold">{{ rows|length }}</span></span>
+  <span>
+    <span class="text-muted">Total pagado:</span>
+    <span class="fw-semibold text-success">{{ total_pagado | currency }}</span>
+  </span>
+</div>
+
+{# ── Filtro ── #}
+<div class="mb-3">
+  <input id="pFilter" type="search" class="form-control form-control-sm" style="max-width:360px"
+         placeholder="Filtrar por proyecto, cotización, concepto…">
+</div>
+
+{# ── Tabla ── #}
+{% if rows %}
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0 align-middle" id="paymentsTable" style="font-size:.85rem">
+      <thead style="font-size:.75rem;text-transform:uppercase;letter-spacing:.04em">
+        <tr>
+          <th class="px-3">Proyecto</th>
+          <th>Cotización</th>
+          <th>Fecha</th>
+          <th>Concepto</th>
+          <th class="text-end">Monto</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        {% set pay = row.payment %}
+        {% set q = row.quote %}
+        {% set p = row.project %}
+        <tr class="payment-row" data-search="{{ (p.name or '') ~ ' ' ~ (q.quote_number or '') ~ ' ' ~ (pay.concept or '') | lower }}">
+          <td class="px-3">
+            <span class="fw-semibold">{{ p.name or '—' }}</span>
+          </td>
+          <td class="font-monospace">{{ q.quote_number or '—' }}</td>
+          <td class="text-muted">
+            {% if pay.date %}{{ pay.date | fdate }}{% else %}—{% endif %}
+          </td>
+          <td><small class="text-muted">{{ pay.concept or '—' }}</small></td>
+          <td class="text-end fw-semibold text-success">{{ pay.amount | currency }}</td>
+          <td class="text-end pe-3">
+            {% if p.id and q.id %}
+            <a href="{{ url_for('quotes_bp.view_quote', project_id=p.id, quote_id=q.id) }}#pagos-cotizacion"
+               class="btn btn-sm btn-primary">
+              Ver pagos <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+<div class="text-center py-5">
+  <i class="bi bi-cash-stack fs-1 text-muted d-block mb-3" style="opacity:.3"></i>
+  <h5 class="text-muted">Sin pagos aún</h5>
+  <p class="text-muted mb-0" style="font-size:.88rem">
+    Registra el primero desde la tarjeta <strong>Pagos</strong> de cualquier cotización.
+  </p>
+</div>
+{% endif %}
+
+<script>
+document.getElementById('pFilter').addEventListener('input', function(){
+  const q = this.value.toLowerCase();
+  document.querySelectorAll('#paymentsTable .payment-row').forEach(tr => {
+    tr.style.display = tr.dataset.search.includes(q) ? '' : 'none';
+  });
+});
+</script>
+{% endblock %}
