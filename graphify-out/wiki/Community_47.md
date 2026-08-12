@@ -1,24 +1,28 @@
 # Community 47
 
-> 2 nodes · cohesion 1.00
+> 4 nodes · cohesion 0.50
 
 ## Key Concepts
 
-- [Fixed Bottom Summary Bar Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
-- [Sticky Table Header with Dynamic Offset Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
+- [Bundles Versioned System](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Consistency COT vs LDM Module](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Catalog Hydration Logic](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [Pending: Bundle Technical Consistency Audit](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 39]] (6 shared connections)
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
+- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 0 (0%)
-- INFERRED: 2 (100%)
+- EXTRACTED: 4 (67%)
+- INFERRED: 2 (33%)
 - AMBIGUOUS: 0 (0%)
 
 ---

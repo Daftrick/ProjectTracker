@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Con approval_status explícito, elige la marcada como active aunque no sea la más](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py#L96) (0 connections)
+- [Lista única de categorías existentes (para datalists/filtros).](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L349) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_consistency.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
 
 ## Audit Trail
 

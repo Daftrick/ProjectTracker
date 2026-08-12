@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1588) (0 connections)
+- [Indexa bundles por el artículo comercial de catálogo usado en COT.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L87) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 
 ## Audit Trail
 

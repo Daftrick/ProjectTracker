@@ -1,30 +1,22 @@
 # Community 29
 
-> 8 nodes · cohesion 0.25
+> 13 nodes · cohesion 0.31
 
 ## Key Concepts
 
-- [AdminBundlesRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L14) (5 connections)
-- [test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L1) (3 connections)
-- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L23) (1 connections)
-- [.test_bundles_page_loads()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L36) (1 connections)
-- [.test_comparison_rules_page_is_not_available()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L42) (1 connections)
-- [.test_create_bundle_persists_bundle()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L46) (1 connections)
-- [Smoke tests de UI Admin para bundles.](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L1) (1 connections)
-- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L16) (1 connections)
-
-## Class Diagram
-
-```mermaid
-classDiagram
-    class AdminBundlesRoutesTest {
-        +test_admin_bundles_routes.py()
-        +._fake_load()
-        +.test_bundles_page_loads()
-        +.test_comparison_rules_page_is_not_available()
-        +.test_create_bundle_persists_bundle()
-    }
-```
+- [terms_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L1) (12 connections)
+- [resolve_quote_terms()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L96) (8 connections)
+- [get_terms_templates()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L74) (7 connections)
+- [_normalize()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L64) (5 connections)
+- [terms_templates()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1275) (4 connections)
+- [_normalize_template()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L48) (4 connections)
+- [get_terms_template_by_id()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L88) (3 connections)
+- [_new_id()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L18) (3 connections)
+- [_normalize_term()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L33) (3 connections)
+- [save_terms_templates()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L84) (3 connections)
+- [_seed_terms_template()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L22) (3 connections)
+- [Plantillas de Términos y Condiciones — independientes de las plantillas de artíc](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L1) (1 connections)
+- [Devuelve (terms, template) para una cotización.      Orden de resolución:     1.](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L97) (1 connections)
 
 ## Relationships
 
@@ -32,12 +24,13 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/terms_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py)
 
 ## Audit Trail
 
-- EXTRACTED: 14 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 47 (82%)
+- INFERRED: 10 (18%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Aplica búsqueda por tokens y filtro de categoría, ordenado alfabéticamente.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py#L68) (0 connections)
+- [CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error         legib](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_csv_import.py#L112) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\catalog_search.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py)
+- [C:\Users\daftr\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_csv_import.py](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_csv_import.py)
 
 ## Audit Trail
 

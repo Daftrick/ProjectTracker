@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Comparison Ignored Item Entity](file:///Users/macbook/ProjectTracker/templates/comparison_rules.html) (0 connections)
+- [Separa agregados linked en (incluidos, ignorados).](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L61) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/comparison_rules.html](file:///Users/macbook/ProjectTracker/templates/comparison_rules.html)
+- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
 
 ## Audit Trail
 

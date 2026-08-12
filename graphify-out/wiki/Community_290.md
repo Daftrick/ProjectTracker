@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Calcula el siguiente número de versión para un bundle existente.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L97) (0 connections)
+- [Construye una lista de filas comparadas, ordenada por severidad.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cconsistency.py#L219) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\consistency.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cconsistency.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Normaliza una regla de artículo ignorado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L23) (0 connections)
+- [Restore a deleted catalog item by reconnecting it to a new catalog item](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L500) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

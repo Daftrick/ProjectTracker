@@ -1,52 +1,52 @@
 # Community 23
 
-> 14 nodes · cohesion 0.24
+> 16 nodes · cohesion 0.18
 
 ## Key Concepts
 
-- [validate_csv_catalog_items()](file:///Users/macbook/ProjectTracker/tracker/csv_catalog_validation.py#L21) (14 connections)
-- [CsvCatalogValidationTest](file:///Users/macbook/ProjectTracker/tests/test_csv_catalog_validation.py#L30) (7 connections)
-- [csv_catalog_validation.py](file:///Users/macbook/ProjectTracker/tracker/csv_catalog_validation.py#L1) (7 connections)
-- [_catalog_index()](file:///Users/macbook/ProjectTracker/tracker/csv_catalog_validation.py#L12) (3 connections)
-- [_clean()](file:///Users/macbook/ProjectTracker/tracker/csv_catalog_validation.py#L4) (3 connections)
-- [_unit_key()](file:///Users/macbook/ProjectTracker/tracker/csv_catalog_validation.py#L8) (3 connections)
-- [.test_accepts_normalized_name_and_matching_unit()](file:///Users/macbook/ProjectTracker/tests/test_csv_catalog_validation.py#L31) (2 connections)
-- [.test_accepts_unit_case_insensitive()](file:///Users/macbook/ProjectTracker/tests/test_csv_catalog_validation.py#L60) (2 connections)
-- [.test_blocks_catalog_item_without_unit()](file:///Users/macbook/ProjectTracker/tests/test_csv_catalog_validation.py#L77) (2 connections)
-- [.test_blocks_missing_catalog_name()](file:///Users/macbook/ProjectTracker/tests/test_csv_catalog_validation.py#L41) (2 connections)
-- [.test_blocks_unit_mismatch()](file:///Users/macbook/ProjectTracker/tests/test_csv_catalog_validation.py#L51) (2 connections)
-- [.test_rejects_m_and_ml_as_different_units()](file:///Users/macbook/ProjectTracker/tests/test_csv_catalog_validation.py#L68) (2 connections)
-- [Validate parsed CSV rows against catalog name and unit.      Matching intentiona](file:///Users/macbook/ProjectTracker/tracker/csv_catalog_validation.py#L22) (1 connections)
-- [test_csv_catalog_validation.py](file:///Users/macbook/ProjectTracker/tests/test_csv_catalog_validation.py#L1) (1 connections)
+- [utils.py](file:///Users/macbook/ProjectTracker/tracker/utils.py#L1) (10 connections)
+- [parse_csv_plano_filename()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L37) (6 connections)
+- [ParseCsvPlanoFilenameTest](file:///Users/macbook/ProjectTracker/tests/test_drive.py#L6) (5 connections)
+- [clean()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L6) (4 connections)
+- [deleted_catalog_item_at()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L60) (4 connections)
+- [parse_float()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L26) (4 connections)
+- [parse_form_float()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L10) (3 connections)
+- [.test_case_insensitive()](file:///Users/macbook/ProjectTracker/tests/test_drive.py#L22) (2 connections)
+- [.test_extracts_export_metadata()](file:///Users/macbook/ProjectTracker/tests/test_drive.py#L7) (2 connections)
+- [.test_rejects_cot_csv()](file:///Users/macbook/ProjectTracker/tests/test_drive.py#L16) (2 connections)
+- [.test_rejects_wrong_clave()](file:///Users/macbook/ProjectTracker/tests/test_drive.py#L19) (2 connections)
+- [test_drive.py](file:///Users/macbook/ProjectTracker/tests/test_drive.py#L1) (1 connections)
+- [Helpers compartidos entre validators, form_models, admin y rutas.](file:///Users/macbook/ProjectTracker/tracker/utils.py#L1) (1 connections)
+- [Convierte a float con reporte de errores en lista `errors`. Usado en validadores](file:///Users/macbook/ProjectTracker/tracker/utils.py#L11) (1 connections)
+- [Convierte a float silenciosamente. Usado donde no se necesita reporte de error.](file:///Users/macbook/ProjectTracker/tracker/utils.py#L27) (1 connections)
+- [Construye el snapshot de un artículo de catálogo eliminado desde listas de campo](file:///Users/macbook/ProjectTracker/tracker/utils.py#L61) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class CsvCatalogValidationTest {
-        +test_csv_catalog_validation.py()
-        +.test_accepts_normalized_name_and_matching_unit()
-        +.test_blocks_missing_catalog_name()
-        +.test_blocks_unit_mismatch()
-        +.test_accepts_unit_case_insensitive()
-        +.test_rejects_m_and_ml_as_different_units()
-        +.test_blocks_catalog_item_without_unit()
+    class ParseCsvPlanoFilenameTest {
+        +test_drive.py()
+        +.test_extracts_export_metadata()
+        +.test_rejects_cot_csv()
+        +.test_rejects_wrong_clave()
+        +.test_case_insensitive()
     }
 ```
 
 ## Relationships
 
-- [[Community 22]] (1 shared connections)
+- [[Community 19]] (4 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_csv_catalog_validation.py](file:///Users/macbook/ProjectTracker/tests/test_csv_catalog_validation.py)
-- [/Users/macbook/ProjectTracker/tracker/csv_catalog_validation.py](file:///Users/macbook/ProjectTracker/tracker/csv_catalog_validation.py)
+- [/Users/macbook/ProjectTracker/tests/test_drive.py](file:///Users/macbook/ProjectTracker/tests/test_drive.py)
+- [/Users/macbook/ProjectTracker/tracker/utils.py](file:///Users/macbook/ProjectTracker/tracker/utils.py)
 
 ## Audit Trail
 
-- EXTRACTED: 35 (69%)
-- INFERRED: 16 (31%)
+- EXTRACTED: 40 (82%)
+- INFERRED: 9 (18%)
 - AMBIGUOUS: 0 (0%)
 
 ---

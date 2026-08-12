@@ -1,11 +1,13 @@
 # Community 3
 
-> 69 nodes · cohesion 0.05
+> 81 nodes · cohesion 0.05
 
 ## Key Concepts
 
 - [services.py](file:///Users/macbook/ProjectTracker/tracker/services.py#L1) (20 connections)
+- [quotes_mobile.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L1) (16 connections)
 - [upsert_mobile_draft()](file:///Users/macbook/ProjectTracker/tracker/services.py#L49) (15 connections)
+- [mobile_generate_pdf()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L166) (12 connections)
 - [UpsertMobileDraftTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L81) (12 connections)
 - [IdFactory](file:///Users/macbook/ProjectTracker/tests/test_services.py#L12) (10 connections)
 - [._upsert()](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L82) (10 connections)
@@ -14,22 +16,20 @@
 - [filter_catalog_by_disciplina()](file:///Users/macbook/ProjectTracker/tracker/services.py#L9) (8 connections)
 - [finalize_mobile_draft()](file:///Users/macbook/ProjectTracker/tracker/services.py#L123) (8 connections)
 - [remove_item_from_draft()](file:///Users/macbook/ProjectTracker/tracker/services.py#L101) (8 connections)
+- [_hydrate_quote_for_display()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L31) (7 connections)
+- [mobile_items()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L69) (7 connections)
+- [_find_project()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L20) (6 connections)
+- [mobile_add_item()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L103) (6 connections)
 - [FilterCatalogTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L59) (6 connections)
 - [RemoveItemFromDraftTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L161) (6 connections)
+- [mobile_review()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L146) (5 connections)
 - [build_scope_task()](file:///Users/macbook/ProjectTracker/tracker/services.py#L166) (5 connections)
 - [create_project_with_tasks()](file:///Users/macbook/ProjectTracker/tracker/services.py#L184) (5 connections)
 - [test_services_mobile.py](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L1) (5 connections)
-- [create_project()](file:///Users/macbook/ProjectTracker/tracker/services.py#L150) (4 connections)
-- [_recalculate_totals()](file:///Users/macbook/ProjectTracker/tracker/services.py#L40) (4 connections)
-- [sync_project_alcances()](file:///Users/macbook/ProjectTracker/tracker/services.py#L209) (4 connections)
-- [update_observation_details()](file:///Users/macbook/ProjectTracker/tracker/services.py#L324) (4 connections)
-- [FinalizeMobileDraftTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L192) (4 connections)
-- [._setup()](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L162) (4 connections)
-- [_build_mobile_item()](file:///Users/macbook/ProjectTracker/tracker/services.py#L16) (3 connections)
-- [next_folder_number()](file:///Users/macbook/ProjectTracker/tracker/services.py#L145) (3 connections)
-- [update_observation_checklist_item()](file:///Users/macbook/ProjectTracker/tracker/services.py#L357) (3 connections)
-- [.test_finalize_assigns_quote_number()](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L201) (3 connections)
-- *... and 44 more nodes in this community*
+- [check_blocked()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L66) (4 connections)
+- [get_alcances_by_id()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L31) (4 connections)
+- [_find_draft()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L24) (4 connections)
+- *... and 56 more nodes in this community*
 
 ## Class Diagram
 
@@ -95,18 +95,20 @@ classDiagram
 
 ## Relationships
 
-- [[Community 2]] (6 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
 - [/Users/macbook/ProjectTracker/tests/test_services.py](file:///Users/macbook/ProjectTracker/tests/test_services.py)
 - [/Users/macbook/ProjectTracker/tests/test_services_mobile.py](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py)
+- [/Users/macbook/ProjectTracker/tracker/domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py)
 - [/Users/macbook/ProjectTracker/tracker/services.py](file:///Users/macbook/ProjectTracker/tracker/services.py)
 
 ## Audit Trail
 
-- EXTRACTED: 188 (71%)
-- INFERRED: 76 (29%)
+- EXTRACTED: 238 (70%)
+- INFERRED: 101 (30%)
 - AMBIGUOUS: 0 (0%)
 
 ---

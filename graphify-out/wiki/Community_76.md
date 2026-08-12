@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Mark a deleted catalog item as preserved (keep historical reference)](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L585) (0 connections)
+- [Agrega una versión al bundle y devuelve una copia actualizada.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L225) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Adds 'disciplina' field (default 'instalaciones') to all catalog items missing i](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L26) (0 connections)
+- [Tests for the deleted catalog audit route.](file:///Users/macbook/ProjectTracker/tests%5Ctest_audit_deleted_catalog_route.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
+- [tests\test_audit_deleted_catalog_route.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_audit_deleted_catalog_route.py)
 
 ## Audit Trail
 

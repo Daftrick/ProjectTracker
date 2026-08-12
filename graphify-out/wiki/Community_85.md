@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Pruebas para tracker.catalog_search y la API /api/catalogo.](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py#L1) (0 connections)
+- [Genera el PDF de una Lista de Materiales con la estética del PDF de     cotizaci](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1143) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py)
+- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 

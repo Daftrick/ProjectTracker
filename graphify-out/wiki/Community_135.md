@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Resumen visual entre cotización (COT) y listas de materiales (LDM).  El detalle](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L1) (0 connections)
+- [Pruebas de sincronizacion parcial LDM desde bundles.](file:///Users/macbook/ProjectTracker/tests%5Ctest_ldm_sync.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [tests\test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_ldm_sync.py)
 
 ## Audit Trail
 

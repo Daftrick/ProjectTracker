@@ -1,12 +1,25 @@
 # Community 42
 
-> 3 nodes · cohesion 0.67
+> 5 nodes · cohesion 0.40
 
 ## Key Concepts
 
-- [Tech Stack Declaration](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
-- [Flask Dependency](file:///Users/macbook/ProjectTracker/requirements.txt) (1 connections)
-- [openpyxl Dependency](file:///Users/macbook/ProjectTracker/requirements.txt) (1 connections)
+- [QuotePaymentsLinkTemplateSourceTest](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L50) (3 connections)
+- [test_quote_payments_link.py](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L1) (3 connections)
+- [.test_project_detail_has_payments_button_linking_to_view_quote_anchor()](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L51) (1 connections)
+- [.test_quote_project_detail_has_payments_card_anchor_id()](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L59) (1 connections)
+- [Botón "Pagos" en la fila de cada cotización (lista de cotizaciones, project_deta](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L1) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class QuotePaymentsLinkTemplateSourceTest {
+        +test_quote_payments_link.py()
+        +.test_project_detail_has_payments_button_linking_to_view_quote_anchor()
+        +.test_quote_project_detail_has_payments_card_anchor_id()
+    }
+```
 
 ## Relationships
 
@@ -14,12 +27,11 @@
 
 ## Source Files
 
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
-- [requirements.txt](file:///Users/macbook/ProjectTracker/requirements.txt)
+- [/Users/macbook/ProjectTracker/tests/test_quote_payments_link.py](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py)
 
 ## Audit Trail
 
-- EXTRACTED: 4 (100%)
+- EXTRACTED: 9 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

@@ -1,36 +1,42 @@
 # Community 35
 
-> 5 nodes · cohesion 0.40
+> 8 nodes · cohesion 0.25
 
 ## Key Concepts
 
-- [test_audit_deleted_catalog_route.py](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L1) (3 connections)
-- [AuditDeletedCatalogRouteTest](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L7) (2 connections)
-- [.test_audit_deleted_catalog_loads_materiales_for_ldms()](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L17) (1 connections)
-- [Tests for the deleted catalog audit route.](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L1) (1 connections)
-- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L9) (1 connections)
+- [AdminBundlesRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L14) (5 connections)
+- [test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L1) (3 connections)
+- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L23) (1 connections)
+- [.test_bundles_page_loads()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L36) (1 connections)
+- [.test_comparison_rules_page_is_not_available()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L42) (1 connections)
+- [.test_create_bundle_persists_bundle()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L46) (1 connections)
+- [Smoke tests de UI Admin para bundles.](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L1) (1 connections)
+- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L16) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AuditDeletedCatalogRouteTest {
-        +test_audit_deleted_catalog_route.py()
-        +.test_audit_deleted_catalog_loads_materiales_for_ldms()
+    class AdminBundlesRoutesTest {
+        +test_admin_bundles_routes.py()
+        +._fake_load()
+        +.test_bundles_page_loads()
+        +.test_comparison_rules_page_is_not_available()
+        +.test_create_bundle_persists_bundle()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 29]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py)
+- [/Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 8 (100%)
+- EXTRACTED: 14 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

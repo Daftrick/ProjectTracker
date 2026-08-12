@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Extraordinaria no puede ser cotización base aunque sea la única del proyecto.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py#L105) (0 connections)
+- [Aprueba/activa una cotización.      - General/Preliminar: marca la seleccionada](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L344) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_consistency.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

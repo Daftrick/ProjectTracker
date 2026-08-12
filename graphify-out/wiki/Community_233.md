@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Audit all quotes and LDMs for deleted catalog items](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L625) (0 connections)
+- [Migración idempotente: asigna approval_status a cotizaciones existentes.](file:///Users/macbook/ProjectTracker/tracker%5C__init__.py#L86) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker\__init__.py](file:///Users/macbook/ProjectTracker/tracker%5C__init__.py)
 
 ## Audit Trail
 

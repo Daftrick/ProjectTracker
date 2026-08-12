@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Lista única de categorías existentes (para datalists/filtros).](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py#L292) (0 connections)
+- [Derive the portfolio stage from existing task data + the in_obra flag.      Stag](file:///Users/macbook/ProjectTracker/tracker%5Cdomain.py#L36) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\admin.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py)
+- [tracker\domain.py](file:///Users/macbook/ProjectTracker/tracker%5Cdomain.py)
 
 ## Audit Trail
 

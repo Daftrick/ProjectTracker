@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos.](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py#L1352) (0 connections)
+- [Convierte un margen porcentual en un status discreto.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L42) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\pdfs.py](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py)
+- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Audit all quotes and LDMs for deleted catalog items](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L606) (0 connections)
+- [Scan multiple drive folders in parallel for better performance.      Args:](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdrive.py#L754) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\drive.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdrive.py)
 
 ## Audit Trail
 

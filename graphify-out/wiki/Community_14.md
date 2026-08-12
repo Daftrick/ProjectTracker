@@ -1,52 +1,58 @@
 # Community 14
 
-> 25 nodes · cohesion 0.12
+> 28 nodes · cohesion 0.13
 
 ## Key Concepts
 
-- [missing_ldm_items_from_bundles()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L52) (12 connections)
-- [ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L1) (10 connections)
-- [MaterialsSyncRouteTest](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L80) (6 connections)
-- [_aggregate_ldm_qty_by_catalog()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L25) (5 connections)
-- [selected_missing_bundle_items()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L95) (5 connections)
-- [append_missing_bundle_items_to_ldm()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L107) (4 connections)
-- [_clean()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L21) (4 connections)
-- [_safe_float()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L10) (4 connections)
-- [LdmSyncTest](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L50) (4 connections)
-- [test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L1) (4 connections)
-- [_round()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L17) (3 connections)
-- [.test_filters_missing_materials_by_explicit_selection()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L62) (3 connections)
-- [.test_appends_missing_items_to_copy()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L72) (2 connections)
-- [.test_builds_only_missing_bundle_materials_without_overwriting()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L51) (2 connections)
-- [Sincronizacion parcial de LDM desde bundles de COT.](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L1) (1 connections)
-- [Anexa faltantes a una LDM y devuelve (copia_actualizada, agregados).](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L114) (1 connections)
-- [Devuelve filas LDM faltantes derivadas de la expansion tecnica.      No modifica](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L58) (1 connections)
-- [Filtra faltantes por seleccion explicita de catalog_item_id.](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L96) (1 connections)
-- [.test_new_ldm_can_prefill_bundle_suggestions()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L165) (1 connections)
-- [.test_new_ldm_preserves_bundle_suggestion_origin_on_create()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L185) (1 connections)
-- [.test_route_appends_selected_bundle_materials_to_existing_ldm()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L112) (1 connections)
-- [.test_route_does_not_append_unselected_bundle_materials()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L141) (1 connections)
-- [.test_route_previews_missing_bundle_materials_for_existing_ldm()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L90) (1 connections)
-- [Pruebas de sincronizacion parcial LDM desde bundles.](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L1) (1 connections)
-- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L82) (1 connections)
+- [AdminRequiredTestCase](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L107) (17 connections)
+- [._login_as()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L133) (13 connections)
+- [get_company()](file:///Users/macbook/ProjectTracker/tracker/company_config.py#L15) (9 connections)
+- [._assert_no_admin_block()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L175) (6 connections)
+- [CompanyConfigTest](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py#L5) (5 connections)
+- [empresa()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L787) (4 connections)
+- [save_company()](file:///Users/macbook/ProjectTracker/tracker/company_config.py#L25) (4 connections)
+- [.test_cotizador_can_view_empresa_but_only_edit_address()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L255) (4 connections)
+- [company_config.py](file:///Users/macbook/ProjectTracker/tracker/company_config.py#L1) (4 connections)
+- [.test_admin_can_edit_all_empresa_fields()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L278) (3 connections)
+- [.test_cotizador_can_access_system_pages_except_admin_only_ones()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L230) (3 connections)
+- [.test_cotizador_can_delete_project_and_approve_quote()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L222) (3 connections)
+- [.test_cotizador_can_edit_and_delete_catalog_items()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L179) (3 connections)
+- [.test_cotizador_can_manage_proveedores_fichas_team()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L199) (3 connections)
+- [_company_logo_version()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L762) (2 connections)
+- [empresa_logo_file()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L774) (2 connections)
+- [.test_admin_can_access_empresa()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L144) (2 connections)
+- [.test_admin_can_access_export_and_reset_data()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L247) (2 connections)
+- [.test_admin_can_access_users()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L149) (2 connections)
+- [.test_cotizador_can_add_catalog_item_via_api()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L166) (2 connections)
+- [.test_cotizador_can_add_catalog_item_via_form()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L154) (2 connections)
+- [.test_cotizador_cannot_access_users()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L139) (2 connections)
+- [.test_merges_stored_values_over_defaults()](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py#L18) (2 connections)
+- [.test_non_dict_storage_returns_defaults()](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py#L28) (2 connections)
+- [.test_returns_defaults_when_no_file()](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py#L7) (2 connections)
+- *... and 3 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class LdmSyncTest {
-        +test_ldm_sync.py()
-        +.test_builds_only_missing_bundle_materials_without_overwriting()
-        +.test_filters_missing_materials_by_explicit_selection()
-        +.test_appends_missing_items_to_copy()
+    class AdminRequiredTestCase {
+        +test_auth.py()
+        +.setUp()
+        +.tearDown()
+        +._login_as()
+        +.test_cotizador_cannot_access_users()
+        +.test_admin_can_access_empresa()
+        +.test_admin_can_access_users()
+        +.test_cotizador_can_add_catalog_item_via_form()
+        +.test_cotizador_can_add_catalog_item_via_api()
+        +._assert_no_admin_block()
     }
-    class MaterialsSyncRouteTest {
-        +test_ldm_sync.py()
-        +.test_route_previews_missing_bundle_materials_for_existing_ldm()
-        +.test_route_appends_selected_bundle_materials_to_existing_ldm()
-        +.test_route_does_not_append_unselected_bundle_materials()
-        +.test_new_ldm_can_prefill_bundle_suggestions()
-        +.test_new_ldm_preserves_bundle_suggestion_origin_on_create()
+    class CompanyConfigTest {
+        +test_company_templates.py()
+        +.test_returns_defaults_when_no_file()
+        +.test_merges_stored_values_over_defaults()
+        +.test_non_dict_storage_returns_defaults()
+        +.test_save_company_calls_storage()
     }
 ```
 
@@ -56,13 +62,15 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py)
-- [/Users/macbook/ProjectTracker/tracker/ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py)
+- [/Users/macbook/ProjectTracker/tests/test_auth.py](file:///Users/macbook/ProjectTracker/tests/test_auth.py)
+- [/Users/macbook/ProjectTracker/tests/test_company_templates.py](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py)
+- [/Users/macbook/ProjectTracker/tracker/company_config.py](file:///Users/macbook/ProjectTracker/tracker/company_config.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
 
 ## Audit Trail
 
-- EXTRACTED: 66 (84%)
-- INFERRED: 13 (16%)
+- EXTRACTED: 88 (81%)
+- INFERRED: 20 (19%)
 - AMBIGUOUS: 0 (0%)
 
 ---

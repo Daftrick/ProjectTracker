@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Audit all quotes and LDMs for deleted catalog items](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L479) (0 connections)
+- [Severidad del renglón para colorear.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L188) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
 
 ## Audit Trail
 

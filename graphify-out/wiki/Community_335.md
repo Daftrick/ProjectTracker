@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Roadmap Completed Features](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (0 connections)
+- [Activa una versión y archiva la versión activa anterior.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L145) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

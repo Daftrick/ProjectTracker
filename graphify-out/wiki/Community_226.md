@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Crea la carpeta Drive del proyecto si aún no existe.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Croutes%5Cprojects.py#L454) (0 connections)
+- [Parse a LISP-exported client quote CSV into quote draft data.](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cquote_csv_import.py#L120) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\routes\projects.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Croutes%5Cprojects.py)
+- [C:\Users\daftr\My Drive\Omniious\Claude Code\ProjectTracker\tracker\quote_csv_import.py](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cquote_csv_import.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Conjunto de catalog_item_id ignorados para un scope.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L51) (0 connections)
+- [Purge a deleted catalog item from the quote](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L561) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convierte cantidades según una regla.      `to_expected=True` convierte la canti](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L86) (0 connections)
+- [Recibe el mapeo del usuario y crea la LDM.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L654) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_rules.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py)
+- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
 
 ## Audit Trail
 

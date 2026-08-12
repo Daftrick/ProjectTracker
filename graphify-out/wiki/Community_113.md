@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve una copia normalizada de un bundle.      La función tolera bundles inco](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L37) (0 connections)
+- [PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1588) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
+- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 

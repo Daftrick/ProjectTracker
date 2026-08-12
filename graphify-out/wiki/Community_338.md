@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Quote Bulk Row Selection & Actions Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
+- [Reglas de comparación entre COT y LDM.  Permiten relacionar artículos equivalent](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
+- [tracker\comparison_rules.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py)
 
 ## Audit Trail
 

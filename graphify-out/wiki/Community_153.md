@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [LRU cache for drive folder scans with TTL and mtime-based invalidation](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L40) (0 connections)
+- [Returns a User if credentials are valid and account is active, else None.](file:///Users/macbook/ProjectTracker/tracker%5Cauth.py#L118) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tracker\auth.py](file:///Users/macbook/ProjectTracker/tracker%5Cauth.py)
 
 ## Audit Trail
 

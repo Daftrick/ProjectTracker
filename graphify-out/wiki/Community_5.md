@@ -1,75 +1,96 @@
 # Community 5
 
-> 66 nodes · cohesion 0.07
+> 70 nodes · cohesion 0.05
 
 ## Key Concepts
 
-- [compute_consistency()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L408) (24 connections)
-- [consistency.py](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L1) (24 connections)
-- [_quote()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L19) (14 connections)
-- [pick_active_quote()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L52) (12 connections)
-- [test_consistency.py](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L1) (11 connections)
-- [is_base_quote_type()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L80) (10 connections)
-- [aggregate_quote_items()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L79) (10 connections)
-- [_q_item()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L35) (10 connections)
-- [compare_items()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L216) (9 connections)
-- [ComputeConsistencyTest](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L193) (9 connections)
-- [_round()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L37) (8 connections)
-- [.test_detects_all_issue_types()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L151) (8 connections)
-- [aggregate_ldm_items()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L120) (7 connections)
-- [_safe_float()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L30) (7 connections)
-- [.test_critical_when_ldm_exceeds_cot()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L231) (6 connections)
-- [.test_full_report_with_general_quote()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L194) (6 connections)
-- [.test_warning_threshold()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L222) (6 connections)
-- [_l_item()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L58) (6 connections)
-- [_ldm()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L46) (6 connections)
-- [PickActiveQuoteTest](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L80) (6 connections)
-- [_quote_visual_row()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L316) (5 connections)
-- [classify_margin()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L41) (4 connections)
-- [_ldm_visual_row()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L331) (4 connections)
-- [.test_aggregates_across_multiple_ldms()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L137) (4 connections)
-- [.test_groups_by_catalog_id_and_handles_unlinked()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L115) (4 connections)
-- *... and 41 more nodes in this community*
+- [add_payment()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L76) (16 connections)
+- [payments.py](file:///Users/macbook/ProjectTracker/tracker/payments.py#L1) (14 connections)
+- [PaymentsRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L109) (13 connections)
+- [PaymentsModelTest](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L52) (12 connections)
+- [get_payments()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L33) (9 connections)
+- [get_payments_for_quote()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L48) (9 connections)
+- [get_payment_by_id()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L113) (8 connections)
+- [._add_payment()](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L131) (8 connections)
+- [AllPaymentsRouteTest](file:///Users/macbook/ProjectTracker/tests/test_payments_summary.py#L55) (8 connections)
+- [DiscountFinancialCardRouteTest](file:///Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py#L134) (7 connections)
+- [delete_payment()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L104) (6 connections)
+- [_normalize_payment()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L11) (6 connections)
+- [payment_summary()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L66) (6 connections)
+- [update_payment()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L92) (6 connections)
+- [get_payments_for_project()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L57) (5 connections)
+- [save_payments()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L43) (5 connections)
+- [FinancialCardRouteTest](file:///Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py#L58) (5 connections)
+- [add_payment_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L416) (4 connections)
+- [all_payments()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1030) (4 connections)
+- [_clean_payment_form()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L397) (4 connections)
+- [edit_payment_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L434) (4 connections)
+- [.test_delete_payment()](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L88) (4 connections)
+- [.test_update_payment()](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L76) (4 connections)
+- [.test_delete_payment_via_route()](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L182) (4 connections)
+- [.test_edit_payment_via_route()](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L169) (4 connections)
+- *... and 45 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AggregateLdmItemsTest {
-        +test_consistency.py()
-        +.test_aggregates_across_multiple_ldms()
+    class PaymentsModelTest {
+        +test_payments.py()
+        +.setUp()
+        +.tearDown()
+        +.test_add_and_get_payments_for_quote()
+        +.test_get_payments_for_project_includes_all_quotes()
+        +.test_update_payment()
+        +.test_update_payment_unknown_id_returns_false()
+        +.test_delete_payment()
+        +.test_delete_payment_unknown_id_returns_false()
+        +.test_payment_summary_computes_balance()
     }
-    class AggregateQuoteItemsTest {
-        +test_consistency.py()
-        +.test_groups_by_catalog_id_and_handles_unlinked()
-        +.test_no_quote()
+    class PaymentsRoutesTest {
+        +test_payments.py()
+        +.setUp()
+        +.tearDown()
+        +._add_payment()
+        +.test_add_payment_via_project_route()
+        +.test_add_payment_rejects_invalid_amount()
+        +.test_add_payment_rejects_missing_date()
+        +.test_add_payment_rejects_unknown_quote()
+        +.test_edit_payment_via_route()
+        +.test_delete_payment_via_route()
     }
-    class ClassifyMarginTest {
-        +test_consistency.py()
-        +.test_thresholds()
+    class AllPaymentsRouteTest {
+        +test_payments_summary.py()
+        +.setUp()
+        +.tearDown()
+        +.test_all_payments_page_loads_and_lists_registered_payment()
+        +.test_all_payments_page_links_to_quote_payments_card()
+        +.test_all_payments_page_shows_empty_state_without_payments()
+        +.test_all_payments_page_sums_total_pagado()
+        +.test_sidebar_renders_pagos_link_on_dashboard()
     }
-    class CompareItemsTest {
-        +test_consistency.py()
-        +.test_detects_all_issue_types()
+    class SidebarPaymentsLinkTemplateSourceTest {
+        +test_payments_summary.py()
+        +.test_base_template_has_sidebar_payments_link()
     }
-    class ComputeConsistencyTest {
-        +test_consistency.py()
-        +.test_full_report_with_general_quote()
-        +.test_warning_threshold()
-        +.test_critical_when_ldm_exceeds_cot()
-        +.test_no_data_when_empty()
-        +.test_no_general_quote_uses_fallback()
-        +.test_filters_by_project_id()
-        +.test_visual_warnings_include_missing_data_and_unlinked_rows()
-        +.test_active_extras_are_included_in_visual_total()
+    class DiscountFinancialCardRouteTest {
+        +test_project_financial_card_payments.py()
+        +.setUp()
+        +.tearDown()
+        +.test_cotizado_cliente_reflects_discounted_total()
+        +.test_pagado_y_saldo_se_calculan_contra_el_total_con_descuento()
+        +.test_context_totals_match_discounted_quote()
     }
-    class PickActiveQuoteTest {
-        +test_consistency.py()
-        +.test_picks_most_recent_general()
-        +.test_falls_back_to_preliminar_when_no_general()
-        +.test_respects_approval_status_active()
-        +.test_extraordinaria_never_selected_as_base()
-        +.test_no_quotes()
+    class FinancialCardRouteTest {
+        +test_project_financial_card_payments.py()
+        +.setUp()
+        +.tearDown()
+        +.test_project_detail_page_shows_paid_amount_and_balance()
+        +.test_project_detail_page_shows_zero_paid_without_payments()
+    }
+    class FinancialCardTemplateSourceTest {
+        +test_project_financial_card_payments.py()
+        +.test_project_detail_shows_pagado_and_saldo_rows()
     }
 ```
 
@@ -79,15 +100,16 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_consistency.py](file:///Users/macbook/ProjectTracker/tests/test_consistency.py)
-- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
-- [/Users/macbook/ProjectTracker/tracker/consistency.py](file:///Users/macbook/ProjectTracker/tracker/consistency.py)
+- [/Users/macbook/ProjectTracker/tests/test_payments.py](file:///Users/macbook/ProjectTracker/tests/test_payments.py)
+- [/Users/macbook/ProjectTracker/tests/test_payments_summary.py](file:///Users/macbook/ProjectTracker/tests/test_payments_summary.py)
+- [/Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py](file:///Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py)
+- [/Users/macbook/ProjectTracker/tracker/payments.py](file:///Users/macbook/ProjectTracker/tracker/payments.py)
 - [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 249 (81%)
-- INFERRED: 60 (19%)
+- EXTRACTED: 177 (68%)
+- INFERRED: 82 (32%)
 - AMBIGUOUS: 0 (0%)
 
 ---

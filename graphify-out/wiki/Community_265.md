@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error         legib](file:///Users/macbook/ProjectTracker/tests%5Ctest_quote_csv_import.py#L86) (0 connections)
+- [Genera el PDF de una Lista de Materiales con la estética del PDF de     cotizaci](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdfs.py#L839) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_quote_csv_import.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_quote_csv_import.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\pdfs.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdfs.py)
 
 ## Audit Trail
 

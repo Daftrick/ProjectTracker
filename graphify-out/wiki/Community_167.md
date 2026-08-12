@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Decora archivos CSV COT con estado: importado/pendiente/desactualizado.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L518) (0 connections)
+- [Generales y Preliminares compiten entre sí; Extraordinarias son independientes.](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L74) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
 
 ## Audit Trail
 

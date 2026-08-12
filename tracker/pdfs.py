@@ -1167,13 +1167,13 @@ def build_quote_pdf(project, quote, output_path=None):
                 if (_val := str(_specs.get(_field) or "").strip())
             ],
         )
-
-    _active_terms = [
-        (t.get("title", ""), t.get("body", ""))
-        for t in _resolved_terms
-        if t.get("enabled", True) and str(t.get("body") or "").strip()
-    ] or quote_terms()
-    render_text_blocks("Términos y Condiciones", _active_terms, pre_ln=0, post_ln=4, colon=True)
+    else:
+        _active_terms = [
+            (t.get("title", ""), t.get("body", ""))
+            for t in _resolved_terms
+            if t.get("enabled", True) and str(t.get("body") or "").strip()
+        ] or quote_terms()
+        render_text_blocks("Términos y Condiciones", _active_terms, pre_ln=0, post_ln=4, colon=True)
 
     notes = note_lines(quote.get("notes"))
     if notes:

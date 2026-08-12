@@ -1095,6 +1095,9 @@ def quote_pdf_editor(project_id, quote_id):
         specs["alcance_custom"] = request.form.get("alcance_custom", "").strip()
         specs["nota_precio"] = request.form.get("nota_precio", "").strip()
         specs["portada_spacing"] = request.form.get("portada_spacing", "").strip()
+        new_terms_id = request.form.get("terms_template_id", "").strip()
+        if new_terms_id:
+            specs["terms_template_id"] = new_terms_id
         quote["specs"] = specs
         quote["notes"] = request.form.get("notes", "").strip()
         basis = request.form.get("project_basis_note", "").strip()
@@ -1107,15 +1110,17 @@ def quote_pdf_editor(project_id, quote_id):
         return redirect(url_for("quotes_bp.quote_pdf_editor", project_id=project_id, quote_id=quote_id))
 
     from ..pdfs import quote_cover_copy, quote_scope_paragraphs
-    from ..terms_templates_config import resolve_quote_terms
+    from ..terms_templates_config import get_terms_templates, resolve_quote_terms
     from ..company_config import get_company
 
     hydrated = _hydrate_quote_for_display(quote)
     cover_title, cover_subtitle = quote_cover_copy(hydrated)
     qt = quote_type_key(quote.get("quote_type"))
     specs = quote.get("specs") or {}
-    _resolved_terms, _ = resolve_quote_terms(quote)
+    _resolved_terms, _terms_tmpl = resolve_quote_terms(quote)
     default_terms = [(t.get("title", ""), t.get("body", "")) for t in _resolved_terms if t.get("enabled", True)]
+    selected_terms_template_id = (_terms_tmpl or {}).get("id", "")
+    terms_templates = get_terms_templates()
     if qt == "Extraordinaria":
         basis_note_edit = quote.get("project_basis_note") or ""
     else:
@@ -1143,6 +1148,8 @@ def quote_pdf_editor(project_id, quote_id):
         specs=specs,
         default_scope=quote_scope_paragraphs(),
         default_terms=default_terms,
+        terms_templates=terms_templates,
+        selected_terms_template_id=selected_terms_template_id,
         quote_type=qt,
         company_name=company.get("name") or "Project Tracker",
         company_info=company_info,

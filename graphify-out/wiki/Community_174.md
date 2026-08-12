@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convierte cualquier valor a str limpio, apto para fpdf2 con DejaVu (UTF-8).](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py#L35) (0 connections)
+- [¿El artículo cumple con todos los tokens y la categoría exigida?      Los tokens](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py#L48) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\pdfs.py](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\catalog_search.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py)
 
 ## Audit Trail
 

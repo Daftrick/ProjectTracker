@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Marca la cotización target_id como active.      Si es General/Preliminar, pasa l](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L113) (0 connections)
+- [Pruebas para tracker.catalog_search y la API /api/catalogo.](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
+- [tests\test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py)
 
 ## Audit Trail
 

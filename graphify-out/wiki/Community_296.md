@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Reglas de comparación entre COT y LDM.  Permiten relacionar artículos equivalent](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L1) (0 connections)
+- [Muestra la vista de mapeo ítem-PDF → catálogo.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L626) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_rules.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py)
+- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
 
 ## Audit Trail
 

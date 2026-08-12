@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Tests for exporting an existing LDM as CSV.](file:///Users/macbook/ProjectTracker/tests%5Ctest_materials_csv_export.py#L1) (0 connections)
+- [Mark a deleted catalog item as preserved (keep historical reference)](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L610) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_materials_csv_export.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

@@ -1,44 +1,62 @@
 # Community 17
 
-> 19 nodes · cohesion 0.17
+> 25 nodes · cohesion 0.12
 
 ## Key Concepts
 
-- [AvanceRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L25) (19 connections)
-- [._get_project()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L41) (13 connections)
-- [.test_update_stage_budget_skips_without_template()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L180) (4 connections)
-- [.tearDown()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L38) (2 connections)
-- [.test_add_doc_checklist_appends_item()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L83) (2 connections)
-- [.test_add_doc_checklist_ignores_empty_name()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L95) (2 connections)
-- [.test_add_multiple_docs_independent()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L137) (2 connections)
-- [.test_delete_doc_checklist_removes_item()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L125) (2 connections)
-- [.test_toggle_doc_checklist_flips_done()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L104) (2 connections)
-- [.test_update_stage_budget_handles_missing_values_as_zero()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L168) (2 connections)
-- [.test_update_stage_budget_persists_values()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L147) (2 connections)
-- [.test_update_stage_status_empty_date_stored_as_none()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L56) (2 connections)
-- [.test_update_stage_status_ignores_empty_stage()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L65) (2 connections)
-- [.test_update_stage_status_sets_stage()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L46) (2 connections)
-- [.test_progress_pdf_returns_pdf_content()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L201) (1 connections)
-- [.test_progress_pdf_unknown_project_404()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L207) (1 connections)
-- [.test_update_stage_budget_unknown_project_redirects()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L195) (1 connections)
-- [.test_update_stage_status_unknown_project_redirects()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L74) (1 connections)
-- [test_avance_routes.py](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L1) (1 connections)
+- [SetQuoteStatusRouteTest](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L108) (13 connections)
+- [set_quote_status()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L147) (11 connections)
+- [SetQuoteStatusModelTest](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L57) (10 connections)
+- [._status()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L124) (6 connections)
+- [test_quote_status_select.py](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L1) (3 connections)
+- [.test_active_to_draft_directly()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L66) (2 connections)
+- [.test_active_to_obsolete()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L72) (2 connections)
+- [.test_does_not_affect_other_quotes()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L96) (2 connections)
+- [.test_draft_to_active()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L61) (2 connections)
+- [.test_invalid_status_rejected()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L87) (2 connections)
+- [.test_obsolete_to_draft_directly()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L77) (2 connections)
+- [.test_same_status_is_a_noop()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L82) (2 connections)
+- [.test_unknown_quote_id_returns_false()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L92) (2 connections)
+- [.tearDown()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L120) (2 connections)
+- [.test_invalid_status_flashes_error_and_does_not_change()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L151) (2 connections)
+- [.test_set_status_back_to_draft_from_active()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L136) (2 connections)
+- [.test_set_status_to_active()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L127) (2 connections)
+- [.test_set_status_to_obsolete_directly_from_draft()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L142) (2 connections)
+- [Cambia el approval_status de una cotización a cualquiera de los 3     estados vá](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L148) (1 connections)
+- [Selector libre de estado de cotización en la columna Estado.  Antes sólo existía](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L1) (1 connections)
+- [.test_valid_statuses_constant()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L58) (1 connections)
+- [.test_project_detail_page_has_status_select_with_current_value()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L179) (1 connections)
+- [.test_quote_detail_page_has_status_select()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L185) (1 connections)
+- [.test_redirects_to_next_url_when_provided()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L170) (1 connections)
+- [.test_unknown_quote_flashes_not_found()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L161) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AvanceRoutesTest {
-        +test_avance_routes.py()
+    class SetQuoteStatusModelTest {
+        +test_quote_status_select.py()
+        +.test_valid_statuses_constant()
+        +.test_draft_to_active()
+        +.test_active_to_draft_directly()
+        +.test_active_to_obsolete()
+        +.test_obsolete_to_draft_directly()
+        +.test_same_status_is_a_noop()
+        +.test_invalid_status_rejected()
+        +.test_unknown_quote_id_returns_false()
+        +.test_does_not_affect_other_quotes()
+    }
+    class SetQuoteStatusRouteTest {
+        +test_quote_status_select.py()
         +.setUp()
         +.tearDown()
-        +._get_project()
-        +.test_update_stage_status_sets_stage()
-        +.test_update_stage_status_empty_date_stored_as_none()
-        +.test_update_stage_status_ignores_empty_stage()
-        +.test_update_stage_status_unknown_project_redirects()
-        +.test_add_doc_checklist_appends_item()
-        +.test_add_doc_checklist_ignores_empty_name()
+        +._status()
+        +.test_set_status_to_active()
+        +.test_set_status_back_to_draft_from_active()
+        +.test_set_status_to_obsolete_directly_from_draft()
+        +.test_invalid_status_flashes_error_and_does_not_change()
+        +.test_unknown_quote_flashes_not_found()
+        +.test_redirects_to_next_url_when_provided()
     }
 ```
 
@@ -48,12 +66,13 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_avance_routes.py](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_status_select.py](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 
-- EXTRACTED: 59 (94%)
-- INFERRED: 4 (6%)
+- EXTRACTED: 57 (75%)
+- INFERRED: 19 (25%)
 - AMBIGUOUS: 0 (0%)
 
 ---

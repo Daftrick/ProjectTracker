@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return catalog items filtered by disciplina. None / 'Todos' returns all.](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L10) (0 connections)
+- [Resumen financiero simple para inyectar en plantillas.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L405) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\services.py](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py)
+- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Genera la cotización como Excel y la sirve como descarga directa.](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L383) (0 connections)
+- [Attach non-priced bundle inclusions to hydrated quote items.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L175) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 
 ## Audit Trail
 

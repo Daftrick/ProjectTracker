@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Genera el PDF de una Lista de Materiales con la estética del PDF de     cotizaci](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py#L889) (0 connections)
+- [Resumen visual entre cotización (COT) y listas de materiales (LDM).  El detalle](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\pdfs.py](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py)
+- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
 
 ## Audit Trail
 

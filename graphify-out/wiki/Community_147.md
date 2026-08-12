@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parse a LISP-exported material list CSV into LDM draft data.      Args:](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccsv_import.py#L79) (0 connections)
+- [total = round(qty * price, 2) — sin acumulación de error flotante.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py#L374) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [C:\Users\daftr\My Drive\Omniious\Claude Code\ProjectTracker\tracker\csv_import.py](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccsv_import.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_tube_fixtures.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py)
 
 ## Audit Trail
 

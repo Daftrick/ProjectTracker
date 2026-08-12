@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Cobertura de los bundles reales en data/bundles.json.](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py#L74) (0 connections)
+- [Registra fuentes PDF bajo el nombre 'DejaVu'.     Prioriza Atkinson Hyperlegible](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L65) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_bundles.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py)
+- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Restore a deleted catalog item by reconnecting it to a new catalog item](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L521) (0 connections)
+- [Lazy loader for large files to avoid loading all file metadata at once](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L98) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Agrega artículos a través de TODAS las LDMs del proyecto.      Devuelve (linked_](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L121) (0 connections)
+- [CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error         legib](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_quote_csv_import.py#L87) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [C:\Users\daftr\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_quote_csv_import.py](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_quote_csv_import.py)
 
 ## Audit Trail
 

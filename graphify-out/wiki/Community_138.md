@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve (linked_by_id, unlinked_summary).      `linked_by_id` mapea catalog_ite](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L80) (0 connections)
+- [Integration tests for the mobile quote blueprint (Fase 10).](file:///Users/macbook/ProjectTracker/tests%5Ctest_quotes_mobile.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [tests\test_quotes_mobile.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_quotes_mobile.py)
 
 ## Audit Trail
 

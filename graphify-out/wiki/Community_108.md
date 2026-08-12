@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Valores únicos no vacíos de un campo, ordenados sin distinguir acentos.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cadmin_filters.py#L32) (0 connections)
+- [Agrega una versión al bundle y devuelve una copia actualizada.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L130) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\admin_filters.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cadmin_filters.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 
 ## Audit Trail
 

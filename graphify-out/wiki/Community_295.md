@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Expande las partidas COT con bundle a materiales esperados.      Retorna un dicc](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L178) (0 connections)
+- [Recibe el PDF, extrae ítems y redirige a la vista de mapeo.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L569) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
+- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
 
 ## Audit Trail
 

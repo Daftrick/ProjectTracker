@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve reglas activas aplicables al scope solicitado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L37) (0 connections)
+- [Mark a deleted catalog item as preserved (keep historical reference)](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L533) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

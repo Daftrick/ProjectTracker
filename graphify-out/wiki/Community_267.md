@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Get folder modification time for invalidation](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L46) (0 connections)
+- [Lista única de categorías existentes (para datalists/filtros).](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py#L264) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tracker\routes\admin.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Purge a deleted catalog item from the quote](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L613) (0 connections)
+- [Activa una versión y archiva la versión activa anterior.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L241) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 
 ## Audit Trail
 

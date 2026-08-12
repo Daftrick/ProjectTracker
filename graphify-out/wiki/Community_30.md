@@ -1,33 +1,34 @@
 # Community 30
 
-> 7 nodes · cohesion 0.43
+> 11 nodes · cohesion 0.20
 
 ## Key Concepts
 
-- [Catálogo Data Structure](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (4 connections)
-- [Cotización al Cliente (COT) Data Structure](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (3 connections)
-- [Lista de Materiales (LDM) Data Structure](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (3 connections)
-- [JSON Data Files (data/)](file:///Users/macbook/ProjectTracker/data) (3 connections)
-- [Deleted Catalog Audit System](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
-- [CSV→LDM Import Diff Algorithm](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
-- [Pending: Destructive Action Confirmations](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Roadmap de Mejoras (Backlog)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (7 connections)
+- [Historial de Cambios Recientes](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
+- [Version Actual v25.1](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
+- [Checklist de Cierre de Mejora](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (2 connections)
+- [Limpieza Residual de Templates (Media Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Funcionalidades Completadas](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Exportaciones y Reportes (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Filtros y Busqueda Adicionales (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Sincronizacion Parcial COT-Bundle-LDM (Diseno Pendiente)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Mejoras de UX General (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Convencion de Versionado](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 25]] (22 shared connections)
 
 ## Source Files
 
-- [REFERENCIA_ESTRUCTURAS_CSV.txt](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt)
 - [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
 - [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
-- [data/](file:///Users/macbook/ProjectTracker/data)
-- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 12 (67%)
-- INFERRED: 6 (33%)
+- EXTRACTED: 20 (91%)
+- INFERRED: 2 (9%)
 - AMBIGUOUS: 0 (0%)
 
 ---

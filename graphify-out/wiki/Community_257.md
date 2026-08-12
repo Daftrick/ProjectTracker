@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Genera la cotización como Excel y la guarda en la carpeta Drive del proyecto.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L318) (0 connections)
+- [Marca la cotización target_id como active.      Si es General/Preliminar, pasa l](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L98) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
 
 ## Audit Trail
 

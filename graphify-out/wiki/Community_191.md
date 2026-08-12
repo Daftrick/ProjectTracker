@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Migración idempotente: asigna approval_status a cotizaciones existentes.](file:///Users/macbook/ProjectTracker/tracker%5C__init__.py#L86) (0 connections)
+- [Mark a deleted catalog item as preserved (keep historical reference)](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdeletions.py#L95) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\__init__.py](file:///Users/macbook/ProjectTracker/tracker%5C__init__.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\deletions.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdeletions.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Migración idempotente: asigna approval_status a cotizaciones existentes.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5C__init__.py#L49) (0 connections)
+- [Lee un PDF de cotización de proveedor y extrae los ítems.      Devuelve:](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdf_ldm_import.py#L292) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\__init__.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5C__init__.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\pdf_ldm_import.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdf_ldm_import.py)
 
 ## Audit Trail
 

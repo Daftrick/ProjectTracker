@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Reconoce '1', 'true', 'yes', 'on' (case-insensitive) como verdadero.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Capp.py#L9) (0 connections)
+- [Expande las partidas COT con bundle a materiales esperados.      Retorna un dicc](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L274) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\app.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Capp.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 
 ## Audit Trail
 

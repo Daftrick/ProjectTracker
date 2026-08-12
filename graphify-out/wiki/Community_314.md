@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Mark a deleted catalog item as preserved (keep historical reference)](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L515) (0 connections)
+- [Lazy loader for large files to avoid loading all file metadata at once](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L97) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

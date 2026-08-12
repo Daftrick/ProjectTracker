@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return {nombre.lower(): id} for O(1) lookup during CSV parsing.](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py#L62) (0 connections)
+- [Recibe el mapeo del usuario y crea la LDM.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L708) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\csv_import.py](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py)
+- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
 
 ## Audit Trail
 

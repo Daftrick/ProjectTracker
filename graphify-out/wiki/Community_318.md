@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Asegura que cada artículo tenga el campo `categoria` (default '').      Migració](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L7) (0 connections)
+- [Clear the drive scan cache. Useful for testing or forcing fresh scans.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L157) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

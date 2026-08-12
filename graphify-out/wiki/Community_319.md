@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return {nombre.lower(): id} for O(1) lookup during CSV parsing.](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L52) (0 connections)
+- [Shutdown and clear the lazy loader thread pool.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L163) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker/csv_import.py](file:///Users/macbook/ProjectTracker/tracker/csv_import.py)
+- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

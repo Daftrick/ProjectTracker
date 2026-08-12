@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [scan_drive_folder Function](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (0 connections)
+- [Indexa bundles por el artículo comercial de catálogo usado en COT.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L86) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Returns a User if credentials are valid and account is active, else None.](file:///Users/macbook/ProjectTracker/tracker%5Cauth.py#L118) (0 connections)
+- [Expande las partidas COT con bundle a materiales esperados.      Retorna un dicc](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L179) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\auth.py](file:///Users/macbook/ProjectTracker/tracker%5Cauth.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 
 ## Audit Trail
 

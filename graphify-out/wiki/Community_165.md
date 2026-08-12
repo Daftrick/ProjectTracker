@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parsea nombre de archivo CSV COT: {CLAVE}-v{VER}-i{CONSEC}-COT-{YYYYMMDD}.csv](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L473) (0 connections)
+- [Asegura que cada artículo tenga el campo `categoria` (default '').      Migració](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L10) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
 
 ## Audit Trail
 

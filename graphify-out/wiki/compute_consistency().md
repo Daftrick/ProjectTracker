@@ -13,147 +13,186 @@ sequenceDiagram
     participant P4 as import_ldm_csv_upload()
     participant P5 as ._get_project()
     participant P6 as _hydrate_quote_for_display()
-    participant P7 as _find_project()
-    participant P8 as sync_ldm_bundles()
-    participant P9 as import_ldm_pdf_create()
-    participant P10 as add_bundle_version_route()
-    participant P11 as quote_pdf_editor()
-    participant P12 as new_ldm()
-    participant P13 as bundles()
-    participant P14 as export_data()
-    participant P15 as new_quote()
-    participant P16 as mobile_generate_pdf()
-    participant P17 as edit_ldm()
-    participant P18 as import_ldm_pdf_map()
-    participant P19 as catalogo()
-    participant P20 as update_bundle_version()
-    participant P21 as import_quote_csv()
-    participant P22 as _bundle_suggestion_ldm()
-    participant P23 as proveedores()
-    participant P24 as fichas()
-    participant P25 as team()
-    participant P26 as edit_quote()
-    participant P27 as _load_company()
-    participant P28 as _load_pdf_import()
-    participant P29 as update_bundle()
-    participant P30 as purge_quote_deleted_catalog_items()
-    participant P31 as purge_deleted_item()
-    participant P32 as new_project()
-    participant P33 as _hydrate_quote_for_display()
-    participant P34 as mobile_items()
-    participant P35 as main()
-    participant P36 as _migrate_quote_approval()
-    participant P37 as _render_ldm_form()
-    participant P38 as _bundle_sync_suggestions()
-    participant P39 as ldm_pdf()
-    participant P40 as _render_catalogo()
-    participant P41 as _render_proveedores()
-    participant P42 as activate_bundle_version_route()
-    participant P43 as delete_bundle_version_route()
-    participant P44 as empresa_logo()
-    participant P45 as quote_pdf()
-    participant P46 as update_stage_budget()
-    participant P47 as _find_project()
-    participant P48 as mobile_add_item()
-    participant P49 as migrate_catalog_fields()
-    participant P50 as migrate_catalog_disciplina()
-    participant P51 as catalog_description_lookup()
-    participant P52 as get_alcances()
-    participant P53 as purge_ldm_deleted_catalog_items()
-    participant P54 as _render_fichas()
-    participant P55 as edit_catalogo()
-    participant P56 as api_catalogo_add()
-    participant P57 as _render_bundles()
-    participant P58 as quote_templates()
-    participant P59 as view_quote()
-    participant P60 as approve_quote_route()
-    participant P61 as quote_excel()
-    participant P62 as restore_deleted_item()
-    participant P63 as preserve_deleted_item()
-    participant P64 as quote_resumen_excel()
-    participant P65 as quote_csv_export()
-    participant P66 as quote_duplicate()
-    participant P67 as add_doc_checklist()
-    participant P68 as mobile_review()
-    participant P69 as .setUp()
-    participant P70 as .test_update_stage_budget_skips_without_template()
-    participant P71 as _csv_already_imported()
-    participant P72 as ldm_csv()
-    participant P73 as delete_ldm()
-    participant P74 as set_ldm_cot()
-    participant P75 as _render_team()
-    participant P76 as delete_catalogo()
-    participant P77 as migrate_catalog_marca()
-    participant P78 as bulk_delete_catalogo()
-    participant P79 as api_catalogo_categorias()
-    participant P80 as _catalog_by_id()
-    participant P81 as edit_proveedor()
-    participant P82 as _find_project()
-    participant P83 as quote_resumen_pdf()
-    participant P84 as audit_deleted_catalog()
-    participant P85 as _find_project()
-    participant P86 as update_project()
-    participant P87 as update_project_status()
-    participant P88 as close_project()
-    participant P89 as delete_project()
-    participant P90 as update_stage_status()
-    participant P91 as toggle_doc_checklist()
-    participant P92 as delete_doc_checklist()
-    participant P93 as mobile_remove_item()
-    participant P94 as .test_upload_stores_pdf_import_payload_outside_cookie_session()
-    participant P95 as get_disciplinas()
-    participant P96 as get_progress()
-    participant P97 as api_ldm_set_costo()
-    participant P98 as bulk_edit_catalogo()
-    participant P99 as api_catalogo()
-    participant P100 as _catalog_sorted_by_name()
-    participant P101 as delete_bundle()
-    participant P102 as delete_proveedor()
-    participant P103 as link_ficha()
-    participant P104 as unlink_ficha()
-    participant P105 as delete_ficha()
-    participant P106 as delete_member()
-    participant P107 as delete_quote()
-    participant P108 as quote_resumen()
-    participant P109 as all_quotes()
-    participant P110 as dashboard()
-    participant P111 as reopen_project()
-    participant P112 as delete_delivery()
-    participant P113 as api_catalogo_impact()
-    participant P114 as mobile_projects()
-    participant P115 as today()
-    participant P116 as hydrate_quote()
-    participant P117 as pick_active_quote()
-    participant P118 as hydrate_ldm()
-    participant P119 as is_base_quote_type()
-    participant P120 as build_consistency_view()
-    participant P121 as build_quote_row_views()
-    participant P122 as build_task_row_views()
-    participant P123 as build_ldm_row_views()
-    participant P124 as check_blocked()
-    participant P125 as project_detail()
-    participant P126 as .test_build_project_detail_context_groups_and_calculates_totals()
-    participant P127 as quote_type_key()
-    participant P128 as aggregate_quote_items()
-    participant P129 as _round()
-    participant P130 as aggregate_ldm_items()
-    participant P131 as _safe_float()
-    participant P132 as .test_full_report_with_general_quote()
-    participant P133 as .test_warning_threshold()
-    participant P134 as .test_critical_when_ldm_exceeds_cot()
-    participant P135 as _quote_visual_row()
-    participant P136 as classify_margin()
-    participant P137 as _ldm_visual_row()
-    participant P138 as .test_no_general_quote_uses_fallback()
-    participant P139 as .test_filters_by_project_id()
-    participant P140 as .test_visual_warnings_include_missing_data_and_unlinked_rows()
-    participant P141 as .test_active_extras_are_included_in_visual_total()
-    participant P142 as _active_base_quotes()
-    participant P143 as _active_extra_quotes()
-    participant P144 as _catalog_coverage_pct()
-    participant P145 as _synthetic_quote()
-    participant P146 as _visual_warnings()
-    participant P147 as .test_no_data_when_empty()
+    participant P7 as quote_pdf_editor()
+    participant P8 as new_quote()
+    participant P9 as mobile_generate_pdf()
+    participant P10 as _find_project()
+    participant P11 as sync_ldm_bundles()
+    participant P12 as import_ldm_pdf_create()
+    participant P13 as add_bundle_version_route()
+    participant P14 as new_ldm()
+    participant P15 as bundles()
+    participant P16 as export_data()
+    participant P17 as edit_quote()
+    participant P18 as view_quote()
+    participant P19 as edit_ldm()
+    participant P20 as import_ldm_pdf_map()
+    participant P21 as update_bundle_version()
+    participant P22 as import_quote_csv()
+    participant P23 as _bundle_suggestion_ldm()
+    participant P24 as catalogo()
+    participant P25 as _load_company()
+    participant P26 as _load_pdf_import()
+    participant P27 as update_bundle()
+    participant P28 as proveedores()
+    participant P29 as fichas()
+    participant P30 as team()
+    participant P31 as _fill_bundle_snapshots()
+    participant P32 as purge_quote_deleted_catalog_items()
+    participant P33 as purge_deleted_item()
+    participant P34 as kanban()
+    participant P35 as new_project()
+    participant P36 as _hydrate_quote_for_display()
+    participant P37 as mobile_items()
+    participant P38 as main()
+    participant P39 as ._status()
+    participant P40 as _migrate_quote_approval()
+    participant P41 as _render_ldm_form()
+    participant P42 as _bundle_sync_suggestions()
+    participant P43 as ldm_pdf()
+    participant P44 as _render_catalogo()
+    participant P45 as _render_proveedores()
+    participant P46 as activate_bundle_version_route()
+    participant P47 as delete_bundle_version_route()
+    participant P48 as empresa_logo()
+    participant P49 as quote_pdf()
+    participant P50 as update_stage_budget()
+    participant P51 as _find_project()
+    participant P52 as mobile_add_item()
+    participant P53 as migrate_catalog_fields()
+    participant P54 as migrate_catalog_disciplina()
+    participant P55 as catalog_description_lookup()
+    participant P56 as get_alcances()
+    participant P57 as purge_ldm_deleted_catalog_items()
+    participant P58 as _render_fichas()
+    participant P59 as edit_catalogo()
+    participant P60 as api_catalogo_add()
+    participant P61 as _render_bundles()
+    participant P62 as approve_quote_route()
+    participant P63 as set_quote_status_route()
+    participant P64 as quote_excel()
+    participant P65 as restore_deleted_item()
+    participant P66 as preserve_deleted_item()
+    participant P67 as quote_resumen_excel()
+    participant P68 as quote_csv_export()
+    participant P69 as quote_duplicate()
+    participant P70 as quote_templates()
+    participant P71 as add_doc_checklist()
+    participant P72 as mobile_review()
+    participant P73 as quote_templates()
+    participant P74 as .setUp()
+    participant P75 as .setUp()
+    participant P76 as .setUp()
+    participant P77 as .setUp()
+    participant P78 as .test_update_stage_budget_skips_without_template()
+    participant P79 as .setUp()
+    participant P80 as .setUp()
+    participant P81 as .setUp()
+    participant P82 as .setUp()
+    participant P83 as .test_override_survives_later_project_client_change()
+    participant P84 as .setUp()
+    participant P85 as .test_api_catalogo_add_accepts_multiline_nombre_and_descripcion()
+    participant P86 as .setUp()
+    participant P87 as .setUp()
+    participant P88 as .setUp()
+    participant P89 as get_progress()
+    participant P90 as _csv_already_imported()
+    participant P91 as ldm_csv()
+    participant P92 as delete_ldm()
+    participant P93 as set_ldm_cot()
+    participant P94 as _render_team()
+    participant P95 as delete_catalogo()
+    participant P96 as migrate_catalog_marca()
+    participant P97 as bulk_delete_catalogo()
+    participant P98 as api_catalogo_categorias()
+    participant P99 as _catalog_by_id()
+    participant P100 as edit_proveedor()
+    participant P101 as _find_project()
+    participant P102 as add_payment_route()
+    participant P103 as quote_resumen_pdf()
+    participant P104 as all_quotes()
+    participant P105 as all_payments()
+    participant P106 as audit_deleted_catalog()
+    participant P107 as _find_project()
+    participant P108 as toggle_obra()
+    participant P109 as update_project()
+    participant P110 as update_project_status()
+    participant P111 as close_project()
+    participant P112 as delete_project()
+    participant P113 as update_stage_status()
+    participant P114 as toggle_doc_checklist()
+    participant P115 as delete_doc_checklist()
+    participant P116 as mobile_remove_item()
+    participant P117 as .test_closed_project_shows_readonly_badge_not_select()
+    participant P118 as .test_payments_button_visible_even_for_closed_project()
+    participant P119 as ._get_project()
+    participant P120 as .test_upload_stores_pdf_import_payload_outside_cookie_session()
+    participant P121 as .setUp()
+    participant P122 as .test_new_quote_with_client_unchanged_has_no_override()
+    participant P123 as .test_new_quote_with_edited_client_saves_override()
+    participant P124 as .test_edit_quote_updates_proposal_for()
+    participant P125 as .test_description_with_special_chars_is_escaped_as_text_content()
+    participant P126 as .setUp()
+    participant P127 as .setUp()
+    participant P128 as get_disciplinas()
+    participant P129 as api_ldm_set_costo()
+    participant P130 as bulk_edit_catalogo()
+    participant P131 as api_catalogo()
+    participant P132 as _catalog_sorted_by_name()
+    participant P133 as delete_bundle()
+    participant P134 as delete_proveedor()
+    participant P135 as link_ficha()
+    participant P136 as unlink_ficha()
+    participant P137 as delete_ficha()
+    participant P138 as delete_member()
+    participant P139 as delete_quote()
+    participant P140 as quote_resumen()
+    participant P141 as dashboard()
+    participant P142 as reopen_project()
+    participant P143 as delete_delivery()
+    participant P144 as .test_multiline_description_round_trips_through_save()
+    participant P145 as api_catalogo_impact()
+    participant P146 as mobile_projects()
+    participant P147 as today()
+    participant P148 as hydrate_quote()
+    participant P149 as pick_active_quote()
+    participant P150 as hydrate_ldm()
+    participant P151 as is_base_quote_type()
+    participant P152 as build_quote_row_views()
+    participant P153 as get_quote_status_labels()
+    participant P154 as build_consistency_view()
+    participant P155 as payment_summary()
+    participant P156 as get_payments_for_project()
+    participant P157 as build_task_row_views()
+    participant P158 as build_ldm_row_views()
+    participant P159 as check_blocked()
+    participant P160 as project_detail()
+    participant P161 as .test_context_totals_match_discounted_quote()
+    participant P162 as .test_build_project_detail_context_groups_and_calculates_totals()
+    participant P163 as .test_build_project_detail_context_sums_all_active_base_quotes()
+    participant P164 as .test_build_project_detail_context_computes_total_pagado_and_saldo()
+    participant P165 as .test_build_project_detail_context_saldo_can_go_negative_when_overpaid()
+    participant P166 as quote_type_key()
+    participant P167 as aggregate_quote_items()
+    participant P168 as _round()
+    participant P169 as aggregate_ldm_items()
+    participant P170 as _safe_float()
+    participant P171 as .test_full_report_with_general_quote()
+    participant P172 as .test_warning_threshold()
+    participant P173 as .test_critical_when_ldm_exceeds_cot()
+    participant P174 as _quote_visual_row()
+    participant P175 as classify_margin()
+    participant P176 as _ldm_visual_row()
+    participant P177 as .test_no_general_quote_uses_fallback()
+    participant P178 as .test_filters_by_project_id()
+    participant P179 as .test_visual_warnings_include_missing_data_and_unlinked_rows()
+    participant P180 as .test_active_extras_are_included_in_visual_total()
+    participant P181 as _active_base_quotes()
+    participant P182 as _active_extra_quotes()
+    participant P183 as _catalog_coverage_pct()
+    participant P184 as _synthetic_quote()
+    participant P185 as _visual_warnings()
+    participant P186 as .test_no_data_when_empty()
     P0->>+ P1: calls
     P1-->>- P0: return
     P1->>+ P2: calls
@@ -384,78 +423,156 @@ sequenceDiagram
     P113-->>- P2: return
     P2->>+ P114: calls
     P114-->>- P2: return
-    P1->>+ P115: calls
-    P115-->>- P1: return
+    P2->>+ P115: calls
+    P115-->>- P2: return
+    P2->>+ P116: calls
+    P116-->>- P2: return
+    P2->>+ P117: calls
+    P117-->>- P2: return
+    P2->>+ P118: calls
+    P118-->>- P2: return
+    P2->>+ P119: calls
+    P119-->>- P2: return
+    P2->>+ P120: calls
+    P120-->>- P2: return
+    P2->>+ P121: calls
+    P121-->>- P2: return
+    P2->>+ P122: calls
+    P122-->>- P2: return
+    P2->>+ P123: calls
+    P123-->>- P2: return
+    P2->>+ P124: calls
+    P124-->>- P2: return
+    P2->>+ P125: calls
+    P125-->>- P2: return
+    P2->>+ P126: calls
+    P126-->>- P2: return
+    P2->>+ P127: calls
+    P127-->>- P2: return
+    P2->>+ P128: calls
+    P128-->>- P2: return
+    P2->>+ P129: calls
+    P129-->>- P2: return
+    P2->>+ P130: calls
+    P130-->>- P2: return
+    P2->>+ P131: calls
+    P131-->>- P2: return
+    P2->>+ P132: calls
+    P132-->>- P2: return
+    P2->>+ P133: calls
+    P133-->>- P2: return
+    P2->>+ P134: calls
+    P134-->>- P2: return
+    P2->>+ P135: calls
+    P135-->>- P2: return
+    P2->>+ P136: calls
+    P136-->>- P2: return
+    P2->>+ P137: calls
+    P137-->>- P2: return
+    P2->>+ P138: calls
+    P138-->>- P2: return
+    P2->>+ P139: calls
+    P139-->>- P2: return
+    P2->>+ P140: calls
+    P140-->>- P2: return
+    P2->>+ P141: calls
+    P141-->>- P2: return
+    P2->>+ P142: calls
+    P142-->>- P2: return
+    P2->>+ P143: calls
+    P143-->>- P2: return
+    P2->>+ P144: calls
+    P144-->>- P2: return
+    P2->>+ P145: calls
+    P145-->>- P2: return
+    P2->>+ P146: calls
+    P146-->>- P2: return
+    P1->>+ P147: calls
+    P147-->>- P1: return
     P1->>+ P3: calls
     P3-->>- P1: return
+    P1->>+ P148: calls
+    P148-->>- P1: return
     P1->>+ P0: calls
     P0-->>- P1: return
-    P1->>+ P116: calls
-    P116-->>- P1: return
-    P1->>+ P117: calls
-    P117-->>- P1: return
-    P1->>+ P118: calls
-    P118-->>- P1: return
-    P1->>+ P119: calls
-    P119-->>- P1: return
-    P1->>+ P120: calls
-    P120-->>- P1: return
-    P1->>+ P121: calls
-    P121-->>- P1: return
-    P1->>+ P122: calls
-    P122-->>- P1: return
-    P1->>+ P123: calls
-    P123-->>- P1: return
-    P1->>+ P124: calls
-    P124-->>- P1: return
-    P1->>+ P125: calls
-    P125-->>- P1: return
-    P1->>+ P96: calls
-    P96-->>- P1: return
-    P1->>+ P126: calls
-    P126-->>- P1: return
-    P0->>+ P127: calls
-    P127-->>- P0: return
-    P0->>+ P128: calls
-    P128-->>- P0: return
-    P0->>+ P129: calls
-    P129-->>- P0: return
-    P0->>+ P130: calls
-    P130-->>- P0: return
-    P0->>+ P131: calls
-    P131-->>- P0: return
-    P0->>+ P132: calls
-    P132-->>- P0: return
-    P0->>+ P133: calls
-    P133-->>- P0: return
-    P0->>+ P134: calls
-    P134-->>- P0: return
-    P0->>+ P135: calls
-    P135-->>- P0: return
-    P0->>+ P136: calls
-    P136-->>- P0: return
-    P0->>+ P137: calls
-    P137-->>- P0: return
-    P0->>+ P138: calls
-    P138-->>- P0: return
-    P0->>+ P139: calls
-    P139-->>- P0: return
-    P0->>+ P140: calls
-    P140-->>- P0: return
-    P0->>+ P141: calls
-    P141-->>- P0: return
-    P0->>+ P142: calls
-    P142-->>- P0: return
-    P0->>+ P143: calls
-    P143-->>- P0: return
-    P0->>+ P144: calls
-    P144-->>- P0: return
-    P0->>+ P145: calls
-    P145-->>- P0: return
-    P0->>+ P146: calls
-    P146-->>- P0: return
-    P0->>+ P147: calls
-    P147-->>- P0: return
+    P1->>+ P149: calls
+    P149-->>- P1: return
+    P1->>+ P150: calls
+    P150-->>- P1: return
+    P1->>+ P151: calls
+    P151-->>- P1: return
+    P1->>+ P152: calls
+    P152-->>- P1: return
+    P1->>+ P153: calls
+    P153-->>- P1: return
+    P1->>+ P154: calls
+    P154-->>- P1: return
+    P1->>+ P155: calls
+    P155-->>- P1: return
+    P1->>+ P156: calls
+    P156-->>- P1: return
+    P1->>+ P157: calls
+    P157-->>- P1: return
+    P1->>+ P158: calls
+    P158-->>- P1: return
+    P1->>+ P159: calls
+    P159-->>- P1: return
+    P1->>+ P89: calls
+    P89-->>- P1: return
+    P1->>+ P160: calls
+    P160-->>- P1: return
+    P1->>+ P161: calls
+    P161-->>- P1: return
+    P1->>+ P162: calls
+    P162-->>- P1: return
+    P1->>+ P163: calls
+    P163-->>- P1: return
+    P1->>+ P164: calls
+    P164-->>- P1: return
+    P1->>+ P165: calls
+    P165-->>- P1: return
+    P0->>+ P166: calls
+    P166-->>- P0: return
+    P0->>+ P167: calls
+    P167-->>- P0: return
+    P0->>+ P168: calls
+    P168-->>- P0: return
+    P0->>+ P169: calls
+    P169-->>- P0: return
+    P0->>+ P170: calls
+    P170-->>- P0: return
+    P0->>+ P171: calls
+    P171-->>- P0: return
+    P0->>+ P172: calls
+    P172-->>- P0: return
+    P0->>+ P173: calls
+    P173-->>- P0: return
+    P0->>+ P174: calls
+    P174-->>- P0: return
+    P0->>+ P175: calls
+    P175-->>- P0: return
+    P0->>+ P176: calls
+    P176-->>- P0: return
+    P0->>+ P177: calls
+    P177-->>- P0: return
+    P0->>+ P178: calls
+    P178-->>- P0: return
+    P0->>+ P179: calls
+    P179-->>- P0: return
+    P0->>+ P180: calls
+    P180-->>- P0: return
+    P0->>+ P181: calls
+    P181-->>- P0: return
+    P0->>+ P182: calls
+    P182-->>- P0: return
+    P0->>+ P183: calls
+    P183-->>- P0: return
+    P0->>+ P184: calls
+    P184-->>- P0: return
+    P0->>+ P185: calls
+    P185-->>- P0: return
+    P0->>+ P186: calls
+    P186-->>- P0: return
 ```
 
 ## Connections by Relation

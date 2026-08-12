@@ -1,22 +1,24 @@
 # Community 53
 
-> 1 nodes · cohesion 1.00
+> 2 nodes · cohesion 1.00
 
 ## Key Concepts
 
-- [graphify_ast.py](file:///Users/macbook/ProjectTracker/graphify_ast.py#L1) (0 connections)
+- [Proyecto Entity](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [Drive Project Folder Naming](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 45]] (2 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/graphify_ast.py](file:///Users/macbook/ProjectTracker/graphify_ast.py)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 0 (0%)
+- EXTRACTED: 2 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

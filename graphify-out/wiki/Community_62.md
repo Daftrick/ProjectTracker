@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Cobertura de los bundles reales en data/bundles.json.](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L74) (0 connections)
+- [__init__.py](file:///Users/macbook/ProjectTracker/tracker/routes/__init__.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/__init__.py](file:///Users/macbook/ProjectTracker/tracker/routes/__init__.py)
 
 ## Audit Trail
 

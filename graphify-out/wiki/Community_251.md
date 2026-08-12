@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return catalog id if description matches a catalog nombre (case-insensitive).](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py#L72) (0 connections)
+- [Anexa faltantes a una LDM y devuelve (copia_actualizada, agregados).](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cldm_sync.py#L100) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\csv_import.py](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\ldm_sync.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cldm_sync.py)
 
 ## Audit Trail
 

@@ -1,11 +1,23 @@
 # Community 45
 
-> 2 nodes · cohesion 1.00
+> 4 nodes · cohesion 0.50
 
 ## Key Concepts
 
-- [Proyecto Entity](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
-- [Drive Project Folder Naming](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [LdmCsvImportRouteTest](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L14) (2 connections)
+- [test_ldm_csv_import_route.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L1) (2 connections)
+- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L24) (1 connections)
+- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L16) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class LdmCsvImportRouteTest {
+        +test_ldm_csv_import_route.py()
+        +._fake_load()
+    }
+```
 
 ## Relationships
 
@@ -13,12 +25,11 @@
 
 ## Source Files
 
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
-- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
+- [/Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py)
 
 ## Audit Trail
 
-- EXTRACTED: 2 (100%)
+- EXTRACTED: 6 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

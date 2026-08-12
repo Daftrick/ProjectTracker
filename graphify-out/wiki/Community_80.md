@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Smoke tests de UI Admin para bundles.](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_bundles_routes.py#L1) (0 connections)
+- [Migración idempotente: asigna approval_status a cotizaciones existentes.](file:///Users/macbook/ProjectTracker/tracker/__init__.py#L99) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_bundles_routes.py)
+- [/Users/macbook/ProjectTracker/tracker/__init__.py](file:///Users/macbook/ProjectTracker/tracker/__init__.py)
 
 ## Audit Trail
 

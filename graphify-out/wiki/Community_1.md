@@ -1,95 +1,122 @@
 # Community 1
 
-> 74 nodes · cohesion 0.06
+> 101 nodes · cohesion 0.04
 
 ## Key Concepts
 
-- [_clean()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L49) (27 connections)
-- [parse_quote_csv()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L131) (24 connections)
-- [quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L1) (21 connections)
-- [catalog_name_key()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L157) (17 connections)
-- [validate_quote_form()](file:///Users/macbook/ProjectTracker/tracker/validators.py#L76) (17 connections)
-- [validators.py](file:///Users/macbook/ProjectTracker/tracker/validators.py#L1) (15 connections)
-- [parse_quote_xlsx()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L277) (14 connections)
-- [ValidatorsTest](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L8) (12 connections)
-- [validate_ldm_form()](file:///Users/macbook/ProjectTracker/tracker/validators.py#L171) (10 connections)
-- [_parse_float()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L75) (9 connections)
-- [parse_quote_file()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L387) (8 connections)
-- [QuoteCsvImportTest](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import.py#L9) (7 connections)
-- [QuoteSymbolFixturesTest](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import.py#L136) (7 connections)
-- [_parse_ldm_items()](file:///Users/macbook/ProjectTracker/tracker/validators.py#L323) (7 connections)
-- [_parse_quote_items()](file:///Users/macbook/ProjectTracker/tracker/validators.py#L209) (7 connections)
-- [_header_key()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L53) (6 connections)
-- [.assert_symbol_ids()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import.py#L146) (6 connections)
-- [_metadata_value()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L88) (5 connections)
-- [_xlsx_metadata()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L265) (5 connections)
-- [_build_export_like_xlsx()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import.py#L189) (5 connections)
-- [_build_catalog_index()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L93) (4 connections)
-- [_column_index()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L106) (4 connections)
-- [_find_header_row()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L119) (4 connections)
-- [_find_table_header()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L254) (4 connections)
-- [_match_catalog()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L102) (4 connections)
-- *... and 49 more nodes in this community*
+- [quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1) (49 connections)
+- [catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L1) (42 connections)
+- [catalog_maps()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L180) (31 connections)
+- [hydrate_quote()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L410) (24 connections)
+- [quote_type_key()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L65) (14 connections)
+- [safe_float()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L193) (14 connections)
+- [_render_quote_form()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L66) (14 connections)
+- [compute_quote_totals()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L340) (13 connections)
+- [_hydrate_quote_for_display()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L49) (13 connections)
+- [quote_pdf_editor()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1083) (13 connections)
+- [next_quote_number()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L483) (12 connections)
+- [quote_from_form()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L26) (12 connections)
+- [_build_quote_workbook()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L587) (12 connections)
+- [new_quote()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L186) (12 connections)
+- [form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L1) (11 connections)
+- [export_data()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L954) (10 connections)
+- [hydrate_quote_item()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L279) (10 connections)
+- [is_base_quote_type()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L80) (10 connections)
+- [_build_resumen()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L172) (10 connections)
+- [edit_quote()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L318) (10 connections)
+- [view_quote()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L375) (10 connections)
+- [QuoteSectionsTest](file:///Users/macbook/ProjectTracker/tests/test_quote_sections.py#L7) (10 connections)
+- [quote_section_groups()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L236) (9 connections)
+- [import_quote_csv()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L257) (9 connections)
+- [FormModelsTest](file:///Users/macbook/ProjectTracker/tests/test_form_models.py#L8) (9 connections)
+- *... and 76 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class QuoteCsvImportTest {
-        +test_quote_csv_import.py()
-        +.test_catalog_name_key_normalizes_accents_and_special_separators()
-        +.test_parse_quote_csv_reads_items_metadata_and_links_catalog()
-        +.test_parse_quote_csv_accepts_spanish_headers_semicolon_and_missing_price()
-        +.test_parse_quote_csv_accepts_metadata_before_header()
-        +.test_parse_quote_csv_reports_missing_required_headers()
-        +.test_parse_quote_csv_returns_error_on_ansi_encoding()
+    class NextQuoteNumberTest {
+        +test_catalog_approval.py()
+        +._project()
+        +.test_no_collision_preliminar_then_proyecto()
+        +.test_first_proyecto_in_clean_project()
+        +.test_obra_independent_counter()
+        +.test_servicio_counter()
+        +.test_does_not_count_other_project_quotes()
     }
-    class QuoteSymbolFixturesTest {
-        +test_quote_csv_import.py()
-        +._parse_symbol_rows()
-        +.assert_symbol_ids()
-        +.test_smb01_links_luminaria_and_installation()
-        +.test_smb02_links_apagador_and_contacto()
-        +.test_smb03_led_links_luminaria_and_led_installation()
-        +.test_smb03_non_led_links_luminaria_and_installation()
+    class DeletionsTest {
+        +test_deletions.py()
+        +.test_delete_project_cascades_and_unlinks_fichas()
+        +.test_delete_catalog_items_marks_quote_and_ldm_refs_as_deleted_snapshots()
+        +.test_hydrate_items_flags_deleted_catalog_snapshot_without_relinking()
+        +.test_purge_deleted_catalog_items_removes_only_marked_rows()
     }
-    class QuoteXlsxImportTest {
-        +test_quote_csv_import.py()
-        +.test_parse_quote_file_reads_excel_renamed_to_csv()
-        +.test_parse_quote_xlsx_links_catalog()
-        +.test_old_xls_returns_clear_error()
+    class FormModelsTest {
+        +test_form_models.py()
+        +.test_quote_from_form_preserves_sections_and_items()
+        +.test_quote_from_form_preserves_section_without_items()
+        +.test_quote_from_form_preserves_deleted_catalog_snapshot()
+        +.test_quote_from_form_parses_specs()
+        +.test_quote_from_form_parses_integrantes()
+        +.test_quote_from_form_specs_defaults_to_empty_strings()
+        +.test_ldm_from_form_preserves_fallback_and_items()
+        +.test_ldm_from_form_preserves_deleted_catalog_snapshot()
     }
-    class ValidatorsTest {
-        +test_validators.py()
-        +.test_project_requires_name_and_clave()
-        +.test_quote_ignores_default_empty_row_but_requires_real_items()
-        +.test_quote_validates_numbers_and_tax_range()
-        +.test_quote_accepts_valid_item_and_computes_subtotal()
-        +.test_quote_parses_integrantes()
-        +.test_quote_preserves_deleted_catalog_snapshot()
-        +.test_quote_assigns_items_to_section_rows()
-        +.test_quote_allows_section_without_items()
-        +.test_ldm_requires_supplier_and_real_items()
+    class QuoteWorkbookClientSyncTest {
+        +test_quote_client_sync.py()
+        +.test_workbook_uses_live_project_client_and_name()
+        +.test_workbook_falls_back_to_snapshot_when_project_missing_data()
+    }
+    class ComputeQuoteTotalsTest {
+        +test_quote_discount.py()
+        +.test_no_discount_no_tax()
+        +.test_tax_only_no_discount()
+        +.test_discount_applied_before_tax()
+        +.test_discount_without_tax()
+        +.test_discount_pct_is_clamped_to_0_100()
+        +.test_full_discount_zeroes_total_even_with_tax()
+    }
+    class HydrateQuoteDiscountTest {
+        +test_quote_discount.py()
+        +.test_hydrate_quote_applies_discount_before_tax()
+        +.test_hydrate_quote_defaults_discount_to_zero()
+    }
+    class QuoteSectionsTest {
+        +test_quote_sections.py()
+        +.test_quote_section_groups_preserve_contiguous_order()
+        +.test_quote_section_groups_preserve_empty_section_markers()
+        +.test_hydrate_quote_keeps_section_markers_out_of_totals()
+        +.test_quote_form_rebuilds_repeated_section_headers()
+        +.test_quote_form_has_quick_copy_to_selected_section()
+        +.test_quote_form_has_integrantes_editor()
+        +.test_quote_views_render_bundle_breakdown_without_price_columns()
+        +.test_quote_form_has_named_template_selector_and_catalog_application()
+        +.test_quote_templates_admin_edits_items_without_prices()
     }
 ```
 
 ## Relationships
 
-- [[Community 3]] (9 shared connections)
+- [[Community 5]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_quote_csv_import.py](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import.py)
-- [/Users/macbook/ProjectTracker/tests/test_validators.py](file:///Users/macbook/ProjectTracker/tests/test_validators.py)
+- [/Users/macbook/ProjectTracker/tests/test_catalog_approval.py](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py)
+- [/Users/macbook/ProjectTracker/tests/test_deletions.py](file:///Users/macbook/ProjectTracker/tests/test_deletions.py)
+- [/Users/macbook/ProjectTracker/tests/test_form_models.py](file:///Users/macbook/ProjectTracker/tests/test_form_models.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_client_sync.py](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_discount.py](file:///Users/macbook/ProjectTracker/tests/test_quote_discount.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_sections.py](file:///Users/macbook/ProjectTracker/tests/test_quote_sections.py)
 - [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
-- [/Users/macbook/ProjectTracker/tracker/quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
-- [/Users/macbook/ProjectTracker/tracker/validators.py](file:///Users/macbook/ProjectTracker/tracker/validators.py)
+- [/Users/macbook/ProjectTracker/tracker/deletions.py](file:///Users/macbook/ProjectTracker/tracker/deletions.py)
+- [/Users/macbook/ProjectTracker/tracker/form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 250 (69%)
-- INFERRED: 111 (31%)
+- EXTRACTED: 354 (58%)
+- INFERRED: 253 (42%)
 - AMBIGUOUS: 0 (0%)
 
 ---

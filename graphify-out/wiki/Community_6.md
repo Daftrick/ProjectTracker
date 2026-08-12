@@ -1,92 +1,80 @@
 # Community 6
 
-> 62 nodes · cohesion 0.07
+> 67 nodes · cohesion 0.06
 
 ## Key Concepts
 
-- [bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L1) (23 connections)
-- [expand_quote_bundles()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L273) (19 connections)
-- [create_bundle()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L201) (18 connections)
-- [normalize_bundle()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L36) (13 connections)
-- [quote_item_bundle_breakdown()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L130) (11 connections)
-- [add_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L224) (10 connections)
-- [normalize_component()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L62) (10 connections)
-- [bundle_by_catalog_item_id()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L86) (9 connections)
-- [_clean()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L32) (9 connections)
-- [delete_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L257) (9 connections)
-- [get_active_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L72) (9 connections)
-- [hydrate_quote_bundle_breakdowns()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L174) (9 connections)
-- [_safe_float()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L21) (9 connections)
-- [BundleEdgeCasesTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L202) (9 connections)
-- [activate_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L240) (7 connections)
-- [SeededBundlesTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L150) (7 connections)
-- [_component_row()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L104) (6 connections)
-- [test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L1) (6 connections)
-- [.test_add_activate_and_delete_version()](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L15) (5 connections)
-- [QuoteItemBundleBreakdownTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L73) (5 connections)
-- [_display_qty()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L97) (4 connections)
-- [next_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L192) (4 connections)
-- [_round()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L28) (4 connections)
-- [.test_delete_nonexistent_version_raises()](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L239) (4 connections)
-- [BundleVersioningTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L8) (4 connections)
-- *... and 37 more nodes in this community*
+- [materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L1) (47 connections)
+- [import_ldm_csv_upload()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L266) (15 connections)
+- [missing_ldm_items_from_bundles()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L52) (12 connections)
+- [hydrate_ldm()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L470) (11 connections)
+- [_find_project()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L31) (11 connections)
+- [import_ldm_pdf_create()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L732) (11 connections)
+- [sync_ldm_bundles()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L442) (11 connections)
+- [new_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L219) (10 connections)
+- [ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L1) (10 connections)
+- [edit_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L379) (9 connections)
+- [import_ldm_pdf_map()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L704) (9 connections)
+- [_bundle_suggestion_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L157) (8 connections)
+- [_clear_pdf_import()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L609) (7 connections)
+- [import_ldm_pdf_upload()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L647) (7 connections)
+- [_load_pdf_import()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L626) (7 connections)
+- [ldm_from_form()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L138) (6 connections)
+- [_bundle_sync_suggestions()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L194) (6 connections)
+- [_ldm_csv_response()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L122) (6 connections)
+- [ldm_pdf()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L559) (6 connections)
+- [_pdf_import_path()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L602) (6 connections)
+- [_render_ldm_form()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L146) (6 connections)
+- [MaterialsSyncRouteTest](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L80) (6 connections)
+- [_aggregate_ldm_qty_by_catalog()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L25) (5 connections)
+- [selected_missing_bundle_items()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L95) (5 connections)
+- [_clean_form_text()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L27) (5 connections)
+- *... and 42 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class BundleEdgeCasesTest {
-        +test_bundles.py()
-        +.test_component_with_zero_qty_goes_to_invalid()
-        +.test_component_with_empty_catalog_item_id_goes_to_invalid()
-        +.test_bundle_with_no_versions_goes_to_invalid()
-        +.test_activate_nonexistent_version_raises()
-        +.test_delete_nonexistent_version_raises()
-        +.test_waste_pct_applied_correctly()
-        +.test_section_markers_are_skipped()
+    class LdmPdfImportRoutesTest {
+        +test_ldm_pdf_import_routes.py()
+        +.test_upload_stores_pdf_import_payload_outside_cookie_session()
+        +.test_upload_pdf_is_blocked_when_project_is_closed()
+        +.test_create_pdf_import_is_blocked_when_project_is_closed()
     }
-    class BundleVersioningTest {
-        +test_bundles.py()
-        +.test_create_bundle_has_active_v1()
-        +.test_add_activate_and_delete_version()
-        +.test_cannot_delete_only_version()
+    class LdmSyncTest {
+        +test_ldm_sync.py()
+        +.test_builds_only_missing_bundle_materials_without_overwriting()
+        +.test_filters_missing_materials_by_explicit_selection()
+        +.test_appends_missing_items_to_copy()
     }
-    class ExpandQuoteBundlesTest {
-        +test_bundles.py()
-        +.test_expands_quote_bundle_components()
-        +.test_unmapped_quote_items_are_preserved()
-        +.test_seeded_circuit_bundles_expand_catalog_materials()
-    }
-    class QuoteItemBundleBreakdownTest {
-        +test_bundles.py()
-        +.test_breakdown_multiplies_component_quantities_without_prices()
-        +.test_breakdown_prefers_snapshot_when_present()
-        +.test_breakdown_missing_bundle_returns_empty_list()
-        +.test_hydrate_quote_bundle_breakdowns_keeps_totals_and_sections()
-    }
-    class SeededBundlesTest {
-        +test_bundles.py()
-        +._expand()
-        +.test_tubo_conduit_16mm_expands_all_components()
-        +.test_salida_luminaria_expands_all_components()
-        +.test_all_seeded_bundles_have_valid_active_version()
-        +.test_no_duplicate_catalog_item_ids_in_index()
+    class MaterialsSyncRouteTest {
+        +test_ldm_sync.py()
+        +.test_route_previews_missing_bundle_materials_for_existing_ldm()
+        +.test_route_appends_selected_bundle_materials_to_existing_ldm()
+        +.test_route_does_not_append_unselected_bundle_materials()
+        +.test_new_ldm_can_prefill_bundle_suggestions()
+        +.test_new_ldm_preserves_bundle_suggestion_origin_on_create()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 14]] (5 shared connections)
+- [[Community 7]] (3 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py)
-- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
+- [/Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py)
+- [/Users/macbook/ProjectTracker/tests/test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tracker/form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py)
+- [/Users/macbook/ProjectTracker/tracker/ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
 
 ## Audit Trail
 
-- EXTRACTED: 209 (70%)
-- INFERRED: 88 (30%)
+- EXTRACTED: 247 (72%)
+- INFERRED: 97 (28%)
 - AMBIGUOUS: 0 (0%)
 
 ---

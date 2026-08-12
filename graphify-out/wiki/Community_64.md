@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Calcula el siguiente número de versión para un bundle existente.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L98) (0 connections)
+- [Casos borde de expand_quote_bundles y versionado.](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L203) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
+- [/Users/macbook/ProjectTracker/tests/test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py)
 
 ## Audit Trail
 

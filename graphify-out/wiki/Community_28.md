@@ -1,45 +1,36 @@
 # Community 28
 
-> 8 nodes · cohesion 0.39
+> 14 nodes · cohesion 0.27
 
 ## Key Concepts
 
-- [AdminFormsTest](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L6) (7 connections)
-- [.assert_invalid_form_preserved()](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L13) (5 connections)
-- [.test_catalogo_invalid_form_preserves_capture()](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L20) (2 connections)
-- [.test_fichas_invalid_form_preserves_capture()](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L34) (2 connections)
-- [.test_proveedores_invalid_form_preserves_capture()](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L27) (2 connections)
-- [.test_team_invalid_form_preserves_capture()](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L41) (2 connections)
-- [.setUp()](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L7) (1 connections)
-- [test_admin_forms.py](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py#L1) (1 connections)
-
-## Class Diagram
-
-```mermaid
-classDiagram
-    class AdminFormsTest {
-        +test_admin_forms.py()
-        +.setUp()
-        +.assert_invalid_form_preserved()
-        +.test_catalogo_invalid_form_preserves_capture()
-        +.test_proveedores_invalid_form_preserves_capture()
-        +.test_fichas_invalid_form_preserves_capture()
-        +.test_team_invalid_form_preserves_capture()
-    }
-```
+- [pdf_ldm_import.py](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L1) (11 connections)
+- [extract_items_from_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L291) (8 connections)
+- [_extract_from_tables()](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L202) (5 connections)
+- [_clean()](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L33) (4 connections)
+- [_extract_from_text()](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L260) (4 connections)
+- [_extract_procables()](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L56) (4 connections)
+- [_to_float()](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L19) (4 connections)
+- [_extract_procables_meta()](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L152) (3 connections)
+- [_header_map()](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L185) (3 connections)
+- [_is_procables()](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L47) (2 connections)
+- [Extracción de ítems desde PDFs de cotización de proveedores.  Estrategia en casc](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L1) (1 connections)
+- [Extrae número de cotización, fecha y proveedor del header de Procables.](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L153) (1 connections)
+- [Lee un PDF de cotización de proveedor y extrae los ítems.      Devuelve:](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L292) (1 connections)
+- [Extrae ítems de cotización Procables usando franjas de columna por coordenada x.](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L57) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 24]] (4 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_admin_forms.py](file:///Users/macbook/ProjectTracker/tests/test_admin_forms.py)
+- [/Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py)
 
 ## Audit Trail
 
-- EXTRACTED: 22 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 51 (98%)
+- INFERRED: 1 (2%)
 - AMBIGUOUS: 0 (0%)
 
 ---

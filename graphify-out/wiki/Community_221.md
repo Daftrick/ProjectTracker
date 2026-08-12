@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convierte cualquier valor a str limpio, apto para fpdf2 con DejaVu (UTF-8).](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdfs.py#L10) (0 connections)
+- [Extracción de ítems desde PDFs de cotización de proveedores.  Estrategia en casc](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdf_ldm_import.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\pdfs.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdfs.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\pdf_ldm_import.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdf_ldm_import.py)
 
 ## Audit Trail
 

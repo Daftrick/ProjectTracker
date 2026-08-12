@@ -1,23 +1,24 @@
 # Community 55
 
-> 1 nodes · cohesion 1.00
+> 2 nodes · cohesion 1.00
 
 ## Key Concepts
 
-- [Aprueba/activa una cotización.      - General/Preliminar: marca la seleccionada](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L326) (0 connections)
+- [Fixed Bottom Summary Bar Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
+- [Sticky Table Header with Dynamic Offset Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 47]] (2 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
 
 ## Audit Trail
 
 - EXTRACTED: 0 (0%)
-- INFERRED: 0 (0%)
+- INFERRED: 2 (100%)
 - AMBIGUOUS: 0 (0%)
 
 ---

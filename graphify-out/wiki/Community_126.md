@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L79) (0 connections)
+- [Casos borde de expand_quote_bundles y versionado.](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py#L126) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
+- [tests\test_bundles.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py)
 
 ## Audit Trail
 

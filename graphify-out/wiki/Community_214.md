@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L64) (0 connections)
+- [Filtra faltantes por seleccion explicita de catalog_item_id.](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py#L96) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
+- [tracker\ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py)
 
 ## Audit Trail
 

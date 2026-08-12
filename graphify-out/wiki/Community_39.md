@@ -1,28 +1,40 @@
 # Community 39
 
-> 4 nodes · cohesion 0.50
+> 6 nodes · cohesion 0.33
 
 ## Key Concepts
 
-- [Bundles Versioned System](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
-- [Consistency COT vs LDM Module](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
-- [Catalog Hydration Logic](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
-- [Pending: Bundle Technical Consistency Audit](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [ProjectDetailBundleUITest](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L7) (4 connections)
+- [test_project_detail_bundle_ui.py](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L1) (2 connections)
+- [.test_materials_tab_exposes_assisted_bundle_sync_review()](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L28) (1 connections)
+- [.test_materials_tab_exposes_csv_export_for_existing_ldms()](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L22) (1 connections)
+- [.test_template_contains_simple_cot_ldm_summary()](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L8) (1 connections)
+- [Smoke tests for simplified project detail COT/LDM UI.](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L1) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class ProjectDetailBundleUITest {
+        +test_project_detail_bundle_ui.py()
+        +.test_template_contains_simple_cot_ldm_summary()
+        +.test_materials_tab_exposes_csv_export_for_existing_ldms()
+        +.test_materials_tab_exposes_assisted_bundle_sync_review()
+    }
+```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 32]] (1 shared connections)
 
 ## Source Files
 
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
-- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
+- [/Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py)
 
 ## Audit Trail
 
-- EXTRACTED: 4 (67%)
-- INFERRED: 2 (33%)
+- EXTRACTED: 10 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

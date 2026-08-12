@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Calcula el siguiente número de versión para un bundle existente.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L98) (0 connections)
+- [Restore a deleted catalog item by reconnecting it to a new catalog item](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L552) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

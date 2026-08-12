@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Registra las fuentes DejaVu guardadas en .codex_tmp/fonts/ del proyecto.     Dev](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py#L54) (0 connections)
+- [Aplica búsqueda por tokens y filtro de categoría, ordenado alfabéticamente.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py#L68) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\pdfs.py](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\catalog_search.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py)
 
 ## Audit Trail
 

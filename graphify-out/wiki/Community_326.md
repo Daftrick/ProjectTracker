@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Purge a deleted catalog item from the quote](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L434) (0 connections)
+- [Etiquetas de problema para un artículo. La UI las traduce a colores.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L170) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
 
 ## Audit Trail
 

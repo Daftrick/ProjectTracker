@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Separa agregados linked en (incluidos, ignorados).](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L61) (0 connections)
+- [Lee un CSV COT directamente desde la carpeta Drive del proyecto y muestra previe](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L632) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

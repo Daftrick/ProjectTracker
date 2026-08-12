@@ -1,25 +1,32 @@
 # Community 31
 
-> 6 nodes · cohesion 0.33
+> 9 nodes · cohesion 0.36
 
 ## Key Concepts
 
-- [QuoteCsvImportRouteTest](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L17) (4 connections)
-- [test_quote_csv_import_route.py](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L1) (2 connections)
-- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L27) (1 connections)
-- [.test_import_quote_csv_blocks_unit_mismatch()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L68) (1 connections)
-- [.test_import_quote_csv_renders_editable_preview()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L42) (1 connections)
-- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L19) (1 connections)
+- [main()](file:///Users/macbook/ProjectTracker/scripts/migrate_add_deadline.py#L16) (7 connections)
+- [GraphifyTaskTest](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L10) (5 connections)
+- [Completed](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L6) (3 connections)
+- [.test_check_update_returns_success()](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L24) (3 connections)
+- [.test_update_returns_success()](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L12) (3 connections)
+- [.test_missing_graphify_returns_success()](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L36) (2 connections)
+- [.test_unknown_action_returns_success()](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L41) (2 connections)
+- [test_graphify_task.py](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L1) (2 connections)
+- [migrate_add_deadline.py](file:///Users/macbook/ProjectTracker/scripts/migrate_add_deadline.py#L1) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class QuoteCsvImportRouteTest {
-        +test_quote_csv_import_route.py()
-        +._fake_load()
-        +.test_import_quote_csv_renders_editable_preview()
-        +.test_import_quote_csv_blocks_unit_mismatch()
+    class Completed {
+        +test_graphify_task.py()
+    }
+    class GraphifyTaskTest {
+        +test_graphify_task.py()
+        +.test_update_returns_success()
+        +.test_check_update_returns_success()
+        +.test_missing_graphify_returns_success()
+        +.test_unknown_action_returns_success()
     }
 ```
 
@@ -29,12 +36,13 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py)
+- [/Users/macbook/ProjectTracker/scripts/migrate_add_deadline.py](file:///Users/macbook/ProjectTracker/scripts/migrate_add_deadline.py)
+- [/Users/macbook/ProjectTracker/tests/test_graphify_task.py](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py)
 
 ## Audit Trail
 
-- EXTRACTED: 10 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 18 (64%)
+- INFERRED: 10 (36%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Quote Sectioned Line Items Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
+- [Expande las partidas COT con bundle a materiales esperados.      Retorna un dicc](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L178) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

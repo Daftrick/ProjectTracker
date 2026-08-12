@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Smoke-test del endpoint JSON; no muta datos.](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py#L110) (0 connections)
+- [PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1613) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py)
+- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 

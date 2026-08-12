@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Agrega LDM convirtiendo artículos LDM al ID/unidad esperada de COT.      Si un a](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L102) (0 connections)
+- [Aprueba/activa una cotización.      - General/Preliminar: marca la seleccionada](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L246) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_rules.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

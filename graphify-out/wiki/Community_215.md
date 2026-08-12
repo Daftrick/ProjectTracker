@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Marca la cotización target_id como active.      Si es General/Preliminar, pasa l](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L98) (0 connections)
+- [Anexa faltantes a una LDM y devuelve (copia_actualizada, agregados).](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py#L114) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
+- [tracker\ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Recibe el PDF, extrae ítems y redirige a la vista de mapeo.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L638) (0 connections)
+- [Returns 'verde', 'amarillo', 'rojo', or 'gris' based on deadline and inactivity.](file:///Users/macbook/ProjectTracker/tracker%5Cdomain.py#L97) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
+- [tracker\domain.py](file:///Users/macbook/ProjectTracker/tracker%5Cdomain.py)
 
 ## Audit Trail
 

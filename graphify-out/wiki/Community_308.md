@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Anexa faltantes a una LDM y devuelve (copia_actualizada, agregados).](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py#L98) (0 connections)
+- [LRU cache for drive folder scans with TTL and mtime-based invalidation](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L39) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py)
+- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

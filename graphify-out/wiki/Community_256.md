@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Aprueba/activa una cotización.      - General/Preliminar: marca la seleccionada](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L246) (0 connections)
+- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L64) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
 
 ## Audit Trail
 

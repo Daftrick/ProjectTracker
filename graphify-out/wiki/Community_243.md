@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Elimina una versión si no es la única disponible.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py#L161) (0 connections)
+- [Restore a deleted catalog item by reconnecting it to a new catalog item](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L521) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\bundles.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

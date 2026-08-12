@@ -1,24 +1,38 @@
 # Community 40
 
-> 3 nodes · cohesion 0.67
+> 6 nodes · cohesion 0.33
 
 ## Key Concepts
 
-- [_is_truthy()](file:///Users/macbook/ProjectTracker/app.py#L8) (2 connections)
-- [Reconoce '1', 'true', 'yes', 'on' (case-insensitive) como verdadero.](file:///Users/macbook/ProjectTracker/app.py#L9) (1 connections)
-- [app.py](file:///Users/macbook/ProjectTracker/app.py#L1) (1 connections)
+- [MaterialsCsvExportTest](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L25) (3 connections)
+- [test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L1) (3 connections)
+- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L35) (1 connections)
+- [.test_exports_existing_ldm_without_creating_a_new_list()](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L42) (1 connections)
+- [Tests for exporting an existing LDM as CSV.](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L1) (1 connections)
+- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L27) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class MaterialsCsvExportTest {
+        +test_materials_csv_export.py()
+        +._fake_load()
+        +.test_exports_existing_ldm_without_creating_a_new_list()
+    }
+```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 33]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/app.py](file:///Users/macbook/ProjectTracker/app.py)
+- [/Users/macbook/ProjectTracker/tests/test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py)
 
 ## Audit Trail
 
-- EXTRACTED: 4 (100%)
+- EXTRACTED: 10 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

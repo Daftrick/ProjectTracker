@@ -1,13 +1,27 @@
 # Community 38
 
-> 4 nodes · cohesion 0.50
+> 6 nodes · cohesion 0.33
 
 ## Key Concepts
 
-- [AutoCAD/LISP to App Workflow](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (2 connections)
-- [CSV de Plano (AutoCAD Export) Entity](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (2 connections)
-- [CSV Import API Routes (Pending)](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (1 connections)
-- [CSV Plano Filename Convention](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [QuoteCsvImportRouteTest](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L17) (4 connections)
+- [test_quote_csv_import_route.py](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L1) (2 connections)
+- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L27) (1 connections)
+- [.test_import_quote_csv_blocks_unit_mismatch()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L68) (1 connections)
+- [.test_import_quote_csv_renders_editable_preview()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L42) (1 connections)
+- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py#L19) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class QuoteCsvImportRouteTest {
+        +test_quote_csv_import_route.py()
+        +._fake_load()
+        +.test_import_quote_csv_renders_editable_preview()
+        +.test_import_quote_csv_blocks_unit_mismatch()
+    }
+```
 
 ## Relationships
 
@@ -15,14 +29,12 @@
 
 ## Source Files
 
-- [REFERENCIA_ESTRUCTURAS_CSV.txt](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt)
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
-- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
+- [/Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import_route.py)
 
 ## Audit Trail
 
-- EXTRACTED: 4 (67%)
-- INFERRED: 2 (33%)
+- EXTRACTED: 10 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

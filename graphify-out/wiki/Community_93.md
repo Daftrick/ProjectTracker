@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Pruebas de sincronizacion parcial LDM desde bundles.](file:///Users/macbook/ProjectTracker/tests%5Ctest_ldm_sync.py#L1) (0 connections)
+- [Restore a deleted catalog item by reconnecting it to a new catalog item](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L577) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_ldm_sync.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

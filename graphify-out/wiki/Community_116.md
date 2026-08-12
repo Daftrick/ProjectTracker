@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Indexa bundles por el artículo comercial de catálogo usado en COT.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L87) (0 connections)
+- [Construye el workbook Excel de la cotización.      Devuelve (wb, filename) para](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L414) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

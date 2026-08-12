@@ -1,58 +1,63 @@
 # Community 22
 
-> 14 nodes · cohesion 0.16
+> 18 nodes · cohesion 0.23
 
 ## Key Concepts
 
-- [CompanyLogoUploadTests](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py#L8) (7 connections)
-- [_requires_configured_secret_key()](file:///Users/macbook/ProjectTracker/tracker/__init__.py#L43) (6 connections)
-- [AppConfigTests](file:///Users/macbook/ProjectTracker/tests/test_app_config.py#L8) (5 connections)
-- **TestCase** (3 connections)
-- [.test_custom_secret_is_allowed_in_production()](file:///Users/macbook/ProjectTracker/tests/test_app_config.py#L17) (2 connections)
-- [.test_default_secret_is_allowed_for_local_startup()](file:///Users/macbook/ProjectTracker/tests/test_app_config.py#L9) (2 connections)
-- [.test_default_secret_is_rejected_in_production()](file:///Users/macbook/ProjectTracker/tests/test_app_config.py#L13) (2 connections)
-- [.setUp()](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py#L9) (1 connections)
-- [.test_empresa_preview_uses_serve_route_with_logo_version()](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py#L33) (1 connections)
-- [.test_upload_accepts_real_png_and_saves_company_logo()](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py#L17) (1 connections)
-- [.test_upload_rejects_extension_that_does_not_match_content()](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py#L57) (1 connections)
-- [.test_upload_rejects_svg()](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py#L42) (1 connections)
-- [test_app_config.py](file:///Users/macbook/ProjectTracker/tests/test_app_config.py#L1) (1 connections)
-- [test_company_logo_upload.py](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py#L1) (1 connections)
+- [_q()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L13) (11 connections)
+- [approve_quote()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L126) (9 connections)
+- [migrate_quote_approval()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L88) (9 connections)
+- [ApproveQuoteTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L20) (7 connections)
+- [MigrateQuoteApprovalTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L84) (5 connections)
+- [test_catalog_approval.py](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L1) (4 connections)
+- [.test_approve_does_not_touch_other_project()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L74) (3 connections)
+- [.test_approving_active_base_quote_toggles_it_off()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L67) (3 connections)
+- [.test_approving_extraordinaria_toggles_only_itself()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L45) (3 connections)
+- [.test_approving_obra_does_not_affect_proyecto_or_other_obra()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L55) (3 connections)
+- [.test_approving_proyecto_does_not_affect_obra_or_servicio()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L21) (3 connections)
+- [.test_approving_proyecto_does_not_obsolete_other_proyecto()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L33) (3 connections)
+- [.test_already_has_status_not_touched()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L117) (3 connections)
+- [.test_each_type_migrates_independently()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L85) (3 connections)
+- [.test_extraordinaria_always_active()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L108) (3 connections)
+- [.test_two_proyecto_quotes_only_newest_active()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L98) (3 connections)
+- [Marca la cotización target_id como active.      Si es General/Preliminar, pasa l](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L127) (1 connections)
+- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L89) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AppConfigTests {
-        +test_app_config.py()
-        +.test_default_secret_is_allowed_for_local_startup()
-        +.test_default_secret_is_rejected_in_production()
-        +.test_custom_secret_is_allowed_in_production()
+    class ApproveQuoteTest {
+        +test_catalog_approval.py()
+        +.test_approving_proyecto_does_not_affect_obra_or_servicio()
+        +.test_approving_proyecto_does_not_obsolete_other_proyecto()
+        +.test_approving_extraordinaria_toggles_only_itself()
+        +.test_approving_obra_does_not_affect_proyecto_or_other_obra()
+        +.test_approving_active_base_quote_toggles_it_off()
+        +.test_approve_does_not_touch_other_project()
     }
-    class CompanyLogoUploadTests {
-        +test_company_logo_upload.py()
-        +.setUp()
-        +.test_upload_accepts_real_png_and_saves_company_logo()
-        +.test_empresa_preview_uses_serve_route_with_logo_version()
-        +.test_upload_rejects_svg()
-        +.test_upload_rejects_extension_that_does_not_match_content()
+    class MigrateQuoteApprovalTest {
+        +test_catalog_approval.py()
+        +.test_each_type_migrates_independently()
+        +.test_two_proyecto_quotes_only_newest_active()
+        +.test_extraordinaria_always_active()
+        +.test_already_has_status_not_touched()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 18]] (2 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_app_config.py](file:///Users/macbook/ProjectTracker/tests/test_app_config.py)
-- [/Users/macbook/ProjectTracker/tests/test_company_logo_upload.py](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py)
-- [/Users/macbook/ProjectTracker/tracker/__init__.py](file:///Users/macbook/ProjectTracker/tracker/__init__.py)
+- [/Users/macbook/ProjectTracker/tests/test_catalog_approval.py](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 
-- EXTRACTED: 28 (82%)
-- INFERRED: 6 (18%)
+- EXTRACTED: 55 (71%)
+- INFERRED: 22 (29%)
 - AMBIGUOUS: 0 (0%)
 
 ---

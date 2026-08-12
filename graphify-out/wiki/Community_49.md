@@ -1,10 +1,12 @@
 # Community 49
 
-> 1 nodes · cohesion 1.00
+> 3 nodes · cohesion 1.00
 
 ## Key Concepts
 
-- [save_all_chunks.py](file:///Users/macbook/ProjectTracker/save_all_chunks.py#L1) (0 connections)
+- [main()](file:///Users/macbook/ProjectTracker/tools/graphify_task.py#L26) (2 connections)
+- [_run_graphify()](file:///Users/macbook/ProjectTracker/tools/graphify_task.py#L12) (2 connections)
+- [graphify_task.py](file:///Users/macbook/ProjectTracker/tools/graphify_task.py#L1) (2 connections)
 
 ## Relationships
 
@@ -12,11 +14,11 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/save_all_chunks.py](file:///Users/macbook/ProjectTracker/save_all_chunks.py)
+- [/Users/macbook/ProjectTracker/tools/graphify_task.py](file:///Users/macbook/ProjectTracker/tools/graphify_task.py)
 
 ## Audit Trail
 
-- EXTRACTED: 0 (0%)
+- EXTRACTED: 6 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

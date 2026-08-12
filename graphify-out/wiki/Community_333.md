@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [APP_VERSION Constant](file:///Users/macbook/ProjectTracker/VERSIONES.md) (0 connections)
+- [Crea una estructura de bundle con versión 1 activa.      El ID final puede asign](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L106) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

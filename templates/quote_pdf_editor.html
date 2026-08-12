@@ -86,24 +86,53 @@
             </div>
           </div>
 
-          {# ── Panel: Condiciones ── #}
+          {# ── Panel: Términos ── #}
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed py-2" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#colTerminos">
+                <i class="bi bi-file-earmark-text me-2 text-primary"></i>
+                <span class="fw-semibold small">Términos y Condiciones</span>
+              </button>
+            </h2>
+            <div id="colTerminos" class="accordion-collapse collapse">
+              <div class="accordion-body pt-2">
+                <label class="form-label small fw-semibold mb-1">Plantilla de términos</label>
+                <select name="terms_template_id" id="edTermsTemplate" class="form-select form-select-sm mb-2">
+                  {% for tmpl in terms_templates %}
+                  <option value="{{ tmpl.id }}"
+                          data-terms="{{ tmpl.terms | tojson | e }}"
+                          {% if tmpl.id == selected_terms_template_id %}selected{% endif %}>
+                    {{ tmpl.name }}
+                  </option>
+                  {% endfor %}
+                </select>
+                <div class="form-text">Se edita en
+                  <a href="{{ url_for('quotes_bp.terms_templates') }}" target="_blank">Plantillas de Términos</a>.
+                  Cuando hay condiciones específicas (panel de abajo), estas reemplazan los términos.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {# ── Panel: Condiciones específicas ── #}
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed py-2" type="button"
                       data-bs-toggle="collapse" data-bs-target="#colCondiciones">
                 <i class="bi bi-file-text me-2 text-warning"></i>
-                <span class="fw-semibold small">Condiciones</span>
+                <span class="fw-semibold small">Condiciones específicas</span>
                 {% set _has_c = specs.get('condiciones_pago') or specs.get('exclusiones') or specs.get('validez') or specs.get('forma_entrega') or specs.get('contacto') %}
                 {% if _has_c %}
-                <span class="badge bg-warning text-dark ms-2" style="font-size:9px;">personalizadas</span>
+                <span class="badge bg-warning text-dark ms-2" style="font-size:9px;">activas</span>
                 {% endif %}
               </button>
             </h2>
             <div id="colCondiciones" class="accordion-collapse collapse">
               <div class="accordion-body pt-2">
                 <p class="small text-muted mb-2">
-                  Si algún campo tiene texto, los Términos estándar se reemplazan por estas condiciones.
-                  Deja todos vacíos para usar los Términos y Condiciones predeterminados.
+                  Si algún campo tiene texto, <strong>reemplazan</strong> la plantilla de términos en el PDF.
+                  Deja todos vacíos para usar la plantilla seleccionada arriba.
                 </p>
                 {% for field, label, placeholder in [
                   ('validez',          'Vigencia',             'Ej: 15 días naturales a partir de la fecha de emisión.'),
@@ -536,9 +565,25 @@
     forma_entrega:    "Forma de entrega.",
     contacto:         "Contacto."
   };
-  var defaultTerms = {{ default_terms | tojson }};
+  var ALL_TERMS_TEMPLATES = (function() {
+    var acc = {};
+    var sel = document.getElementById("edTermsTemplate");
+    if (sel) {
+      Array.prototype.forEach.call(sel.options, function(opt) {
+        try { acc[opt.value] = JSON.parse(opt.getAttribute("data-terms") || "[]"); } catch(e) { acc[opt.value] = []; }
+      });
+    }
+    return acc;
+  })();
   var prevTermsTitle = document.getElementById("prevTermsTitle");
   var prevTermsBody  = document.getElementById("prevTermsBody");
+
+  function activeTemplateTerms() {
+    var sel = document.getElementById("edTermsTemplate");
+    var id = sel ? sel.value : "";
+    var terms = (ALL_TERMS_TEMPLATES[id] || []).filter(function(t) { return t.enabled !== false && (t.body || "").trim(); });
+    return terms.map(function(t) { return [t.title || "", t.body || ""]; });
+  }
 
   function updateTermsPreview() {
     var vals = {};
@@ -564,7 +609,8 @@
                    '<p style="margin:0 0 8px;color:#717e91;">' + esc(vals[f]) + "</p>";
           }).join("");
       } else {
-        prevTermsBody.innerHTML = defaultTerms.map(function (pair) {
+        var pairs = activeTemplateTerms();
+        prevTermsBody.innerHTML = pairs.map(function (pair) {
           return '<p style="margin:0 0 2px;"><strong>' + esc(pair[0]) + "</strong></p>" +
                  '<p style="margin:0 0 8px;color:#717e91;">' + esc(pair[1]) + "</p>";
         }).join("");
@@ -576,6 +622,9 @@
     var el = document.getElementById("ed_" + f);
     if (el) el.addEventListener("input", debounce(updateTermsPreview, 250));
   });
+
+  var edTermsTemplate = document.getElementById("edTermsTemplate");
+  if (edTermsTemplate) edTermsTemplate.addEventListener("change", updateTermsPreview);
 
 })();
 </script>

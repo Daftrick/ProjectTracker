@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Get folder modification time for invalidation](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L47) (0 connections)
+- [Bundles versionados para comparar COT contra LDM técnica.  Un bundle permite que](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

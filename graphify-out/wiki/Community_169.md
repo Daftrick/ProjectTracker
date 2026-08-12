@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Scan multiple drive folders in parallel for better performance.      Args:](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L765) (0 connections)
+- [Marca la cotización target_id como active.      Si es General/Preliminar, pasa l](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L113) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
 
 ## Audit Trail
 

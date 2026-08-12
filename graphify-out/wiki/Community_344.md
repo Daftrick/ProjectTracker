@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Catalog Bulk Delete Pattern](file:///Users/macbook/ProjectTracker/templates/catalogo.html) (0 connections)
+- [Devuelve reglas activas aplicables al scope solicitado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L37) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/catalogo.html](file:///Users/macbook/ProjectTracker/templates/catalogo.html)
+- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
 
 ## Audit Trail
 

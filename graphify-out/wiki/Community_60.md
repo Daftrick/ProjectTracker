@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Purge a deleted catalog item from the quote](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L620) (0 connections)
+- [graphify_cache.py](file:///Users/macbook/ProjectTracker/graphify_cache.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/graphify_cache.py](file:///Users/macbook/ProjectTracker/graphify_cache.py)
 
 ## Audit Trail
 

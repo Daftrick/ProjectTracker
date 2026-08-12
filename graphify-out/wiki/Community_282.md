@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve (linked_by_id, unlinked_summary).      `linked_by_id` mapea catalog_ite](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L87) (0 connections)
+- [Crea una estructura de bundle con versión 1 activa.      El ID final puede asign](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py#L105) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\bundles.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py)
 
 ## Audit Trail
 

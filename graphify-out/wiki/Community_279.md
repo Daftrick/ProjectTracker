@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Scan multiple drive folders in parallel for better performance.      Args:](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L652) (0 connections)
+- [Obtiene la versión activa de un bundle.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py#L71) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\bundles.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py)
 
 ## Audit Trail
 

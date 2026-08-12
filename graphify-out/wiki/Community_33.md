@@ -1,24 +1,33 @@
 # Community 33
 
-> 6 nodes · cohesion 0.33
+> 9 nodes · cohesion 0.22
 
 ## Key Concepts
 
-- [MaterialsCsvExportTest](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L25) (3 connections)
-- [test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L1) (3 connections)
-- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L35) (1 connections)
-- [.test_exports_existing_ldm_without_creating_a_new_list()](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L42) (1 connections)
-- [Tests for exporting an existing LDM as CSV.](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L1) (1 connections)
-- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L27) (1 connections)
+- [CatalogQuickAddTextareaTest](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L134) (5 connections)
+- [test_quote_desc_textarea.py](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L1) (4 connections)
+- [QuoteDescTemplateSourceTest](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L52) (3 connections)
+- [.test_autogrow_helper_handles_hidden_elements_gracefully()](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L149) (1 connections)
+- [.test_form_uses_textarea_for_catalog_search_and_quick_add_fields()](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L139) (1 connections)
+- [.test_form_has_autogrow_wiring()](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L59) (1 connections)
+- [.test_form_uses_textarea_for_item_desc_not_input()](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L53) (1 connections)
+- [item_desc[] (columna "Nombre / Descripción" de cada partida) es un <textarea> au](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L1) (1 connections)
+- [Buscador de catálogo (catalogSearch) y mini-formulario "Agregar nuevo     artícu](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L135) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class MaterialsCsvExportTest {
-        +test_materials_csv_export.py()
-        +._fake_load()
-        +.test_exports_existing_ldm_without_creating_a_new_list()
+    class CatalogQuickAddTextareaTest {
+        +test_quote_desc_textarea.py()
+        +.test_form_uses_textarea_for_catalog_search_and_quick_add_fields()
+        +.test_autogrow_helper_handles_hidden_elements_gracefully()
+        +.test_api_catalogo_add_accepts_multiline_nombre_and_descripcion()
+    }
+    class QuoteDescTemplateSourceTest {
+        +test_quote_desc_textarea.py()
+        +.test_form_uses_textarea_for_item_desc_not_input()
+        +.test_form_has_autogrow_wiring()
     }
 ```
 
@@ -28,11 +37,11 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py)
 
 ## Audit Trail
 
-- EXTRACTED: 10 (100%)
+- EXTRACTED: 18 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

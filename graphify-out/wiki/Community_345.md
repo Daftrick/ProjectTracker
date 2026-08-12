@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Task Entity](file:///Users/macbook/ProjectTracker/templates/tasks.html) (0 connections)
+- [Conjunto de catalog_item_id ignorados para un scope.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L51) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/tasks.html](file:///Users/macbook/ProjectTracker/templates/tasks.html)
+- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
 
 ## Audit Trail
 

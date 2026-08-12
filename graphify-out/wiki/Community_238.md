@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Indexa bundles por el artículo comercial de catálogo usado en COT.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py#L85) (0 connections)
+- [Recibe el mapeo del usuario y crea la LDM.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L723) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\bundles.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py)
+- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
 
 ## Audit Trail
 

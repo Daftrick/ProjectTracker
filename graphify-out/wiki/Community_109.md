@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Filtra proveedores por búsqueda libre y categoría exacta.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cadmin_filters.py#L42) (0 connections)
+- [Activa una versión y archiva la versión activa anterior.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L146) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\admin_filters.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cadmin_filters.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 
 ## Audit Trail
 

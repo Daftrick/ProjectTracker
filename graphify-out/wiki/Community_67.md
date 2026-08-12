@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Activa una versión y archiva la versión activa anterior.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L146) (0 connections)
+- [Derive the portfolio stage from existing task data + the in_obra flag.      Stag](file:///Users/macbook/ProjectTracker/tracker/domain.py#L71) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
+- [/Users/macbook/ProjectTracker/tracker/domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py)
 
 ## Audit Trail
 

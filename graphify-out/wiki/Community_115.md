@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Obtiene la versión activa de un bundle.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L73) (0 connections)
+- [Genera la cotización como Excel y la sirve como descarga directa.](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L383) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

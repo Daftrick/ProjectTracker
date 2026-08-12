@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Google Drive Integration Settings](file:///Users/macbook/ProjectTracker/templates/settings.html) (0 connections)
+- [Construye resumen compacto para UI.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L74) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/settings.html](file:///Users/macbook/ProjectTracker/templates/settings.html)
+- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
 
 ## Audit Trail
 

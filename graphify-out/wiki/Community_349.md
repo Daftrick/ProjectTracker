@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convenciones de Nomenclatura de Archivos](file:///Users/macbook/ProjectTracker/VERSIONES.md) (0 connections)
+- [Devuelve filas LDM faltantes derivadas de la expansion tecnica.      No modifica](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py#L40) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [tracker\ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Recibe el mapeo del usuario y crea la LDM.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L654) (0 connections)
+- [Generales y Preliminares compiten entre sí; Extraordinarias son independientes.](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L59) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
+- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
 
 ## Audit Trail
 

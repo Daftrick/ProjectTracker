@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Extracción de ítems desde PDFs de cotización de proveedores.  Estrategia en casc](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdf_ldm_import.py#L1) (0 connections)
+- [Devuelve la cotización General/Preliminar activa del proyecto.      Orden de pre](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L53) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\pdf_ldm_import.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdf_ldm_import.py)
+- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
 
 ## Audit Trail
 

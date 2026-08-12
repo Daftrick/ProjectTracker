@@ -1,22 +1,25 @@
 # Community 50
 
-> 1 nodes · cohesion 1.00
+> 3 nodes · cohesion 0.67
 
 ## Key Concepts
 
-- [merge_extractions.py](file:///Users/macbook/ProjectTracker/merge_extractions.py#L1) (0 connections)
+- [Tech Stack Declaration](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Flask Dependency](file:///Users/macbook/ProjectTracker/requirements.txt) (1 connections)
+- [openpyxl Dependency](file:///Users/macbook/ProjectTracker/requirements.txt) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 42]] (4 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/merge_extractions.py](file:///Users/macbook/ProjectTracker/merge_extractions.py)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [requirements.txt](file:///Users/macbook/ProjectTracker/requirements.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 0 (0%)
+- EXTRACTED: 4 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

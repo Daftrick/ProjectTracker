@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Etiquetas de problema para un artículo. La UI las traduce a colores.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cconsistency.py#L163) (0 connections)
+- [Audit all quotes and LDMs for deleted catalog items](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L627) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\consistency.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cconsistency.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

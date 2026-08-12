@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Genera la cotización como Excel y la sirve como descarga directa.](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L390) (0 connections)
+- [graphify_detect.py](file:///Users/macbook/ProjectTracker/graphify_detect.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/graphify_detect.py](file:///Users/macbook/ProjectTracker/graphify_detect.py)
 
 ## Audit Trail
 

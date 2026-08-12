@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Crea la carpeta de proyecto en Drive si no existe.      Retorna (created: bool,](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L584) (0 connections)
+- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L79) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
 
 ## Audit Trail
 

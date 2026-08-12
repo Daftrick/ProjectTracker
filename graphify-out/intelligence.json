@@ -2,35 +2,35 @@
   "hotspots": [
     {
       "label": "build_quote_pdf()",
-      "risk": 0.813,
+      "risk": 0.709,
       "type": "FUNCTION"
     },
     {
       "label": "build_ldm_pdf()",
-      "risk": 0.504,
-      "type": "FUNCTION"
-    },
-    {
-      "label": "build_progress_pdf()",
-      "risk": 0.294,
-      "type": "FUNCTION"
-    },
-    {
-      "label": "project_semaphore()",
-      "risk": 0.269,
+      "risk": 0.368,
       "type": "FUNCTION"
     },
     {
       "label": "load()",
-      "risk": 0.244,
+      "risk": 0.23,
       "type": "FUNCTION"
+    },
+    {
+      "label": "_build_quote_workbook()",
+      "risk": 0.215,
+      "type": "FUNCTION"
+    },
+    {
+      "label": "Inline Catalog Autocomplete Pattern",
+      "risk": 0.205,
+      "type": "UNKNOWN"
     }
   ],
   "blast_radius": {
-    "load()": 114,
-    "save()": 74,
-    "today()": 53,
-    "catalog_maps()": 30,
-    "_clean()": 27
+    "load()": 146,
+    "save()": 109,
+    "today()": 57,
+    "catalog_maps()": 31,
+    "build_quote_pdf()": 31
   }
 }

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Quote Status Lifecycle (Borrador/Enviada/Aprobada/Rechazada)](file:///Users/macbook/ProjectTracker/templates/quotes.html) (0 connections)
+- [Elimina una versión si no es la única disponible.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L162) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/quotes.html](file:///Users/macbook/ProjectTracker/templates/quotes.html)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

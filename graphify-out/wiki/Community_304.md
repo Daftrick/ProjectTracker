@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Mapa catalog_item_id → regla de ignorado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L56) (0 connections)
+- [Audit all quotes and LDMs for deleted catalog items](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L606) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

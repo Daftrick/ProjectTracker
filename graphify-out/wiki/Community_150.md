@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Audit records for deleted catalog items and return summary statistics.      Args](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdeletions.py#L112) (0 connections)
+- [Valores únicos no vacíos de un campo, ordenados sin distinguir acentos.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cadmin_filters.py#L32) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\deletions.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdeletions.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\admin_filters.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cadmin_filters.py)
 
 ## Audit Trail
 

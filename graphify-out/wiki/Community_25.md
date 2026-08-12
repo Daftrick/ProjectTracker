@@ -1,34 +1,37 @@
 # Community 25
 
-> 11 nodes · cohesion 0.20
+> 15 nodes · cohesion 0.13
 
 ## Key Concepts
 
-- [Roadmap de Mejoras (Backlog)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (7 connections)
-- [Historial de Cambios Recientes](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
-- [Version Actual v25.1](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
-- [Checklist de Cierre de Mejora](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (2 connections)
-- [Limpieza Residual de Templates (Media Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Funcionalidades Completadas](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Exportaciones y Reportes (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Filtros y Busqueda Adicionales (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Sincronizacion Parcial COT-Bundle-LDM (Diseno Pendiente)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Mejoras de UX General (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Convencion de Versionado](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Entidades de Datos JSON](file:///Users/macbook/ProjectTracker/VERSIONES.md) (9 connections)
+- [Estructura de Archivos del Proyecto](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
+- [Entidad Proyecto](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Entidad Cotizacion](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Rutas HTTP Blueprints](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Alcances Disponibles](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Entidad Catalogo](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Entidad Entrega](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Entidad Ficha Tecnica](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Entidad LDM Lista de Materiales](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Entidad Proveedor](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Entidad Tarea](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Tabla de Funcionalidades Implementadas](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Tipos de Cotizacion P/G/E](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Stack Tecnico Python 3.14 Flask 3+ fpdf2 openpyxl](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 21]] (28 shared connections)
 
 ## Source Files
 
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
 - [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
 
 ## Audit Trail
 
-- EXTRACTED: 20 (91%)
-- INFERRED: 2 (9%)
+- EXTRACTED: 28 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -1,30 +1,41 @@
 # Community 27
 
-> 9 nodes · cohesion 0.22
+> 14 nodes · cohesion 0.16
 
 ## Key Concepts
 
-- [QuotePdfEditorTest](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L62) (6 connections)
-- [test_quote_pdf_editor.py](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L1) (3 connections)
-- [_fake_load()](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L58) (1 connections)
-- [.test_get_renders_editor()](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L72) (1 connections)
-- [.test_get_shows_pdf_preview_elements()](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L86) (1 connections)
-- [.test_get_unknown_quote_redirects()](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L155) (1 connections)
-- [.test_post_extraordinaria_saves_project_basis_note()](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L131) (1 connections)
-- [.test_post_saves_specs_and_notes()](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L97) (1 connections)
-- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L64) (1 connections)
+- [CompanyLogoUploadTests](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py#L8) (7 connections)
+- [_requires_configured_secret_key()](file:///Users/macbook/ProjectTracker/tracker/__init__.py#L49) (6 connections)
+- [AppConfigTests](file:///Users/macbook/ProjectTracker/tests/test_app_config.py#L8) (5 connections)
+- **TestCase** (3 connections)
+- [.test_custom_secret_is_allowed_in_production()](file:///Users/macbook/ProjectTracker/tests/test_app_config.py#L17) (2 connections)
+- [.test_default_secret_is_allowed_for_local_startup()](file:///Users/macbook/ProjectTracker/tests/test_app_config.py#L9) (2 connections)
+- [.test_default_secret_is_rejected_in_production()](file:///Users/macbook/ProjectTracker/tests/test_app_config.py#L13) (2 connections)
+- [.setUp()](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py#L9) (1 connections)
+- [.test_empresa_preview_uses_serve_route_with_logo_version()](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py#L33) (1 connections)
+- [.test_upload_accepts_real_png_and_saves_company_logo()](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py#L17) (1 connections)
+- [.test_upload_rejects_extension_that_does_not_match_content()](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py#L57) (1 connections)
+- [.test_upload_rejects_svg()](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py#L42) (1 connections)
+- [test_app_config.py](file:///Users/macbook/ProjectTracker/tests/test_app_config.py#L1) (1 connections)
+- [test_company_logo_upload.py](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py#L1) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class QuotePdfEditorTest {
-        +test_quote_pdf_editor.py()
-        +.test_get_renders_editor()
-        +.test_get_shows_pdf_preview_elements()
-        +.test_post_saves_specs_and_notes()
-        +.test_post_extraordinaria_saves_project_basis_note()
-        +.test_get_unknown_quote_redirects()
+    class AppConfigTests {
+        +test_app_config.py()
+        +.test_default_secret_is_allowed_for_local_startup()
+        +.test_default_secret_is_rejected_in_production()
+        +.test_custom_secret_is_allowed_in_production()
+    }
+    class CompanyLogoUploadTests {
+        +test_company_logo_upload.py()
+        +.setUp()
+        +.test_upload_accepts_real_png_and_saves_company_logo()
+        +.test_empresa_preview_uses_serve_route_with_logo_version()
+        +.test_upload_rejects_svg()
+        +.test_upload_rejects_extension_that_does_not_match_content()
     }
 ```
 
@@ -34,12 +45,14 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py)
+- [/Users/macbook/ProjectTracker/tests/test_app_config.py](file:///Users/macbook/ProjectTracker/tests/test_app_config.py)
+- [/Users/macbook/ProjectTracker/tests/test_company_logo_upload.py](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py)
+- [/Users/macbook/ProjectTracker/tracker/__init__.py](file:///Users/macbook/ProjectTracker/tracker/__init__.py)
 
 ## Audit Trail
 
-- EXTRACTED: 16 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 28 (82%)
+- INFERRED: 6 (18%)
 - AMBIGUOUS: 0 (0%)
 
 ---

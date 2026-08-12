@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Create cache key from folder path and parameters](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L53) (0 connections)
+- [Crea la carpeta Drive del proyecto si aún no existe.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Croutes%5Cprojects.py#L454) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\routes\projects.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Croutes%5Cprojects.py)
 
 ## Audit Trail
 

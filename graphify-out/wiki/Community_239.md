@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Calcula el siguiente número de versión para un bundle existente.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py#L96) (0 connections)
+- [Crea la carpeta Drive del proyecto si aún no existe.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cprojects.py#L533) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\bundles.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py)
+- [tracker\routes\projects.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cprojects.py)
 
 ## Audit Trail
 

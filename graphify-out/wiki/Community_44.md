@@ -1,23 +1,25 @@
 # Community 44
 
-> 2 nodes · cohesion 1.00
+> 4 nodes · cohesion 0.67
 
 ## Key Concepts
 
-- [Data Integrity Rules (R1-R7)](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
-- [ProjectTracker System Rationale](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [check_syntax.py](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L1) (3 connections)
+- [iter_python_files()](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L12) (2 connections)
+- [main()](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L22) (2 connections)
+- [Parse project Python files without writing bytecode.](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L1) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 36]] (1 shared connections)
 
 ## Source Files
 
-- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
+- [/Users/macbook/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/ProjectTracker/tools/check_syntax.py)
 
 ## Audit Trail
 
-- EXTRACTED: 2 (100%)
+- EXTRACTED: 8 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

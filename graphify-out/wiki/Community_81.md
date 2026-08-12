@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Pruebas de filtros administrativos para proveedores y fichas.](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_filters.py#L1) (0 connections)
+- [Parse #RRGGBB hex string to (r, g, b) int tuple.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L35) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_admin_filters.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_filters.py)
+- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 

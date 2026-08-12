@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Compara materiales esperados por bundles contra LDM real convertida.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L159) (0 connections)
+- [Genera la cotización como Excel y la guarda en la carpeta Drive del proyecto.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L318) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_rules.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

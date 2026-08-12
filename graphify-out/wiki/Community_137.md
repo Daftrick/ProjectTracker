@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve la cotización General/Preliminar activa del proyecto.      Orden de pre](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L53) (0 connections)
+- [Smoke tests for simplified project detail COT/LDM UI.](file:///Users/macbook/ProjectTracker/tests%5Ctest_project_detail_bundle_ui.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [tests\test_project_detail_bundle_ui.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_project_detail_bundle_ui.py)
 
 ## Audit Trail
 

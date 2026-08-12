@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Validate parsed CSV rows against catalog name and unit.      Matching intentiona](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccsv_catalog_validation.py#L22) (0 connections)
+- [Metadata #proveedor y #fecha post-header (formato real del LISP).](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py#L214) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [C:\Users\daftr\My Drive\Omniious\Claude Code\ProjectTracker\tracker\csv_catalog_validation.py](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccsv_catalog_validation.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_tube_fixtures.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py)
 
 ## Audit Trail
 

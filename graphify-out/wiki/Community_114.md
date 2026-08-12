@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Normaliza un componente de bundle.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L63) (0 connections)
+- [Aprueba/activa una cotización.      - General/Preliminar: marca la seleccionada](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L319) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

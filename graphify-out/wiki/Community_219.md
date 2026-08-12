@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Crea la carpeta de proyecto en Drive si no existe.      Retorna (created: bool,](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdrive.py#L573) (0 connections)
+- [Genera el PDF de una Lista de Materiales con la estética del PDF de     cotizaci](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py#L889) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\drive.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdrive.py)
+- [tracker\pdfs.py](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py)
 
 ## Audit Trail
 

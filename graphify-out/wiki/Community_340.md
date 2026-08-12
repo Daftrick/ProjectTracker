@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Drag-and-Drop Row Reorder Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
+- [Agrega LDM convirtiendo artículos LDM al ID/unidad esperada de COT.      Si un a](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L102) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
+- [tracker\comparison_rules.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py)
 
 ## Audit Trail
 

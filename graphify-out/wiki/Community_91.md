@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error         legib](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_csv_import.py#L112) (0 connections)
+- [Genera la cotización como Excel y la sirve como descarga directa.](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L408) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [C:\Users\daftr\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_csv_import.py](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_csv_import.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

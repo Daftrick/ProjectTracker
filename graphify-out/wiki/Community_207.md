@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Muestra la vista de mapeo ítem-PDF → catálogo.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L680) (0 connections)
+- [Parsea nombre de archivo CSV COT: {CLAVE}-v{VER}-i{CONSEC}-COT-{YYYYMMDD}.csv](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L473) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
+- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

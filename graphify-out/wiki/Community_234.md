@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Lee un CSV COT directamente desde la carpeta Drive del proyecto y muestra previe](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L651) (0 connections)
+- [Returns a redirect Response if the current POST is not from an admin, else None.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py#L35) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker\routes\admin.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py)
 
 ## Audit Trail
 

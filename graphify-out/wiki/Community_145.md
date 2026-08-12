@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return {catalog_name_key(nombre): id} for O(1) lookup during CSV parsing.](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccsv_import.py#L64) (0 connections)
+- [Metadata #proyecto_clave y #quote_type del archivo COT LISP.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py#L338) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [C:\Users\daftr\My Drive\Omniious\Claude Code\ProjectTracker\tracker\csv_import.py](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccsv_import.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_tube_fixtures.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py)
 
 ## Audit Trail
 

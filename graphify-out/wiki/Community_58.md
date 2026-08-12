@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Restore a deleted catalog item by reconnecting it to a new catalog item](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L559) (0 connections)
+- [merge_extractions.py](file:///Users/macbook/ProjectTracker/merge_extractions.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/merge_extractions.py](file:///Users/macbook/ProjectTracker/merge_extractions.py)
 
 ## Audit Trail
 

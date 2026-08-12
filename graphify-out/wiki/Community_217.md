@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve un dict de nombres de archivo CSV ya importados como cotización.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdrive.py#L493) (0 connections)
+- [Registra las fuentes DejaVu guardadas en .codex_tmp/fonts/ del proyecto.     Dev](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py#L54) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\drive.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdrive.py)
+- [tracker\pdfs.py](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py)
 
 ## Audit Trail
 

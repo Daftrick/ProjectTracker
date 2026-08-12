@@ -1,61 +1,63 @@
 # Community 18
 
-> 17 nodes · cohesion 0.24
+> 23 nodes · cohesion 0.15
 
 ## Key Concepts
 
-- [_q()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L13) (10 connections)
-- [approve_quote()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L126) (9 connections)
-- [migrate_quote_approval()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L88) (9 connections)
-- [ApproveQuoteTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L20) (6 connections)
-- [MigrateQuoteApprovalTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L75) (5 connections)
-- [test_catalog_approval.py](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L1) (4 connections)
-- [.test_approve_does_not_touch_other_project()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L65) (3 connections)
-- [.test_approving_extraordinaria_toggles_only_itself()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L43) (3 connections)
-- [.test_approving_obra_does_not_affect_proyecto()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L53) (3 connections)
-- [.test_approving_proyecto_does_not_affect_obra_or_servicio()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L21) (3 connections)
-- [.test_approving_proyecto_obsoletes_other_proyecto_only()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L33) (3 connections)
-- [.test_already_has_status_not_touched()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L108) (3 connections)
-- [.test_each_type_migrates_independently()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L76) (3 connections)
-- [.test_extraordinaria_always_active()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L99) (3 connections)
-- [.test_two_proyecto_quotes_only_newest_active()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L89) (3 connections)
-- [Marca la cotización target_id como active.      Si es General/Preliminar, pasa l](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L127) (1 connections)
-- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L89) (1 connections)
+- [CotTubeFixturesTest](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L282) (16 connections)
+- [._run_cot_case()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L284) (14 connections)
+- [_write_cot()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L67) (6 connections)
+- [test_tube_fixtures.py](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L1) (5 connections)
+- [.test_cot_mixed_tubes_single_file()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L353) (4 connections)
+- [.test_cot_total_rounding_two_decimals()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L373) (4 connections)
+- [.test_cot_with_metadata_proyecto_clave_and_quote_type()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L337) (4 connections)
+- [.test_cot_flexible_licuatite_35mm_con_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L331) (2 connections)
+- [.test_cot_flexible_licuatite_63mm_con_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L334) (2 connections)
+- [.test_cot_galvanizado_pared_delgada_27mm_sin_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L304) (2 connections)
+- [.test_cot_galvanizado_pared_delgada_63mm_con_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L307) (2 connections)
+- [.test_cot_galvanizado_pared_gruesa_27mm_sin_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L310) (2 connections)
+- [.test_cot_galvanizado_pared_gruesa_63mm_con_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L313) (2 connections)
+- [.test_cot_metalico_flexible_35mm_con_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L325) (2 connections)
+- [.test_cot_metalico_flexible_63mm_sin_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L328) (2 connections)
+- [.test_cot_pad_flexible_corrugado_63mm_con_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L322) (2 connections)
+- [.test_cot_pvc_sp_27mm_con_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L316) (2 connections)
+- [.test_cot_pvc_sp_63mm_sin_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L319) (2 connections)
+- [Tests parametrizados para importación CSV de tubería conduit.  Cubre los 6 tipos](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L1) (1 connections)
+- [Metadata #proyecto_clave y #quote_type del archivo COT LISP.](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L338) (1 connections)
+- [Múltiples tipos y diámetros en un solo archivo COT.](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L354) (1 connections)
+- [total = round(qty * price, 2) — sin acumulación de error flotante.](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L374) (1 connections)
+- [Escribe un CSV COT con header estándar y filas dadas (price vacío = LISP sin cot](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L68) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class ApproveQuoteTest {
-        +test_catalog_approval.py()
-        +.test_approving_proyecto_does_not_affect_obra_or_servicio()
-        +.test_approving_proyecto_obsoletes_other_proyecto_only()
-        +.test_approving_extraordinaria_toggles_only_itself()
-        +.test_approving_obra_does_not_affect_proyecto()
-        +.test_approve_does_not_touch_other_project()
-    }
-    class MigrateQuoteApprovalTest {
-        +test_catalog_approval.py()
-        +.test_each_type_migrates_independently()
-        +.test_two_proyecto_quotes_only_newest_active()
-        +.test_extraordinaria_always_active()
-        +.test_already_has_status_not_touched()
+    class CotTubeFixturesTest {
+        +test_tube_fixtures.py()
+        +._run_cot_case()
+        +.test_cot_galvanizado_pared_delgada_27mm_sin_precio()
+        +.test_cot_galvanizado_pared_delgada_63mm_con_precio()
+        +.test_cot_galvanizado_pared_gruesa_27mm_sin_precio()
+        +.test_cot_galvanizado_pared_gruesa_63mm_con_precio()
+        +.test_cot_pvc_sp_27mm_con_precio()
+        +.test_cot_pvc_sp_63mm_sin_precio()
+        +.test_cot_pad_flexible_corrugado_63mm_con_precio()
+        +.test_cot_metalico_flexible_35mm_con_precio()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 15]] (5 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_catalog_approval.py](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py)
-- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tests/test_tube_fixtures.py](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py)
 
 ## Audit Trail
 
-- EXTRACTED: 52 (72%)
-- INFERRED: 20 (28%)
+- EXTRACTED: 76 (95%)
+- INFERRED: 4 (5%)
 - AMBIGUOUS: 0 (0%)
 
 ---

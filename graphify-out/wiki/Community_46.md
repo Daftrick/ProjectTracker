@@ -1,24 +1,28 @@
 # Community 46
 
-> 2 nodes · cohesion 1.00
+> 4 nodes · cohesion 0.50
 
 ## Key Concepts
 
-- [Inline Catalog Autocomplete Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
-- [Client-side Partida Filter Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
+- [AutoCAD/LISP to App Workflow](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (2 connections)
+- [CSV de Plano (AutoCAD Export) Entity](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (2 connections)
+- [CSV Import API Routes (Pending)](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (1 connections)
+- [CSV Plano Filename Convention](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 38]] (6 shared connections)
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
+- [REFERENCIA_ESTRUCTURAS_CSV.txt](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 0 (0%)
-- INFERRED: 2 (100%)
+- EXTRACTED: 4 (67%)
+- INFERRED: 2 (33%)
 - AMBIGUOUS: 0 (0%)
 
 ---

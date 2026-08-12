@@ -1,26 +1,33 @@
 # Community 36
 
-> 4 nodes · cohesion 0.67
+> 7 nodes · cohesion 0.43
 
 ## Key Concepts
 
-- [check_syntax.py](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L1) (3 connections)
-- [iter_python_files()](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L12) (2 connections)
-- [main()](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L22) (2 connections)
-- [Parse project Python files without writing bytecode.](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L1) (1 connections)
+- [Catálogo Data Structure](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (4 connections)
+- [Cotización al Cliente (COT) Data Structure](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (3 connections)
+- [Lista de Materiales (LDM) Data Structure](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (3 connections)
+- [JSON Data Files (data/)](file:///Users/macbook/ProjectTracker/data) (3 connections)
+- [Deleted Catalog Audit System](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
+- [CSV→LDM Import Diff Algorithm](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [Pending: Destructive Action Confirmations](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 30]] (18 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/ProjectTracker/tools/check_syntax.py)
+- [REFERENCIA_ESTRUCTURAS_CSV.txt](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt)
+- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [data/](file:///Users/macbook/ProjectTracker/data)
+- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 8 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 12 (67%)
+- INFERRED: 6 (33%)
 - AMBIGUOUS: 0 (0%)
 
 ---

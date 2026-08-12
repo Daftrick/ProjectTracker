@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Expande las partidas COT con bundle a materiales esperados.      Retorna un dicc](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L179) (0 connections)
+- [Smoke tests de UI Admin para bundles.](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_bundles_routes.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
+- [tests\test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_bundles_routes.py)
 
 ## Audit Trail
 
