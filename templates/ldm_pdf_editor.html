@@ -2,7 +2,6 @@
 {% block title %}Editor PDF — {{ ldm.ldm_number }}{% endblock %}
 
 {% block content %}
-{% set with_prices = ldm.items | selectattr('precio_cot') | list | length > 0 %}
 {% set display_name = ldm.project_name_override or project.name %}
 {% set portada_color = company.portada_color or '#000000' %}
 
@@ -154,7 +153,7 @@
             <div style="font-size:15px;font-weight:bold;color:#25262c;">Detalle de partidas</div>
             <div style="font-size:8.5px;color:#717e91;font-family:monospace;margin-top:2px;">
               {{ ldm.ldm_number }} —
-              {% if with_prices %}Conceptos cotizados por el proveedor.{% else %}Conceptos solicitados al proveedor.{% endif %}
+              {% if with_prices %}Conceptos cotizados por el proveedor.{% else %}Conceptos solicitados al proveedor.{% endif %}{# with_prices from route #}
             </div>
           </div>
 
@@ -174,7 +173,7 @@
                 </tr>
               </thead>
               <tbody>
-                {% for item in ldm.items %}
+                {% for item in ldm_items %}
                 {% set loop_idx = loop.index %}
                 <tr style="background:{{ '#f9fafc' if loop.index % 2 == 0 else '#fff' }};border-bottom:1px solid #e8ecf0;">
                   <td style="padding:4px;text-align:center;color:#717e91;vertical-align:top;font-family:monospace;">{{ loop_idx }}</td>
@@ -185,7 +184,7 @@
                     {% endif %}
                   </td>
                   <td style="padding:4px;text-align:center;color:#25262c;vertical-align:top;font-family:monospace;">{{ item.unit or 'pza' }}</td>
-                  <td style="padding:4px;text-align:right;color:#25262c;vertical-align:top;font-family:monospace;">{{ item.qty | int if item.qty == item.qty | int else item.qty }}</td>
+                  <td style="padding:4px;text-align:right;color:#25262c;vertical-align:top;font-family:monospace;">{{ item.qty }}</td>
                   {% if with_prices %}
                   <td style="padding:4px;text-align:right;color:#25262c;vertical-align:top;font-family:monospace;">
                     {{ item.precio_cot | currency if item.precio_cot else '—' }}

@@ -613,10 +613,15 @@ def ldm_pdf_editor(project_id, ldm_id):
         if _os.path.isfile(logo_abs):
             logo_url = "/static/" + logo_rel
 
+    ldm_items = hydrated.get("items", [])
+    with_prices = any(float(item.get("precio_cot") or 0) for item in ldm_items)
+
     return render_template(
         "ldm_pdf_editor.html",
         project=project,
         ldm=hydrated,
+        ldm_items=ldm_items,
+        with_prices=with_prices,
         company=company,
         logo_url=logo_url,
     )
