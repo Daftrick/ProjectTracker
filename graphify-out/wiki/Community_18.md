@@ -1,63 +1,78 @@
 # Community 18
 
-> 23 nodes · cohesion 0.15
+> 25 nodes · cohesion 0.12
 
 ## Key Concepts
 
-- [CotTubeFixturesTest](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L282) (16 connections)
-- [._run_cot_case()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L284) (14 connections)
-- [_write_cot()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L67) (6 connections)
-- [test_tube_fixtures.py](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L1) (5 connections)
-- [.test_cot_mixed_tubes_single_file()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L353) (4 connections)
-- [.test_cot_total_rounding_two_decimals()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L373) (4 connections)
-- [.test_cot_with_metadata_proyecto_clave_and_quote_type()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L337) (4 connections)
-- [.test_cot_flexible_licuatite_35mm_con_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L331) (2 connections)
-- [.test_cot_flexible_licuatite_63mm_con_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L334) (2 connections)
-- [.test_cot_galvanizado_pared_delgada_27mm_sin_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L304) (2 connections)
-- [.test_cot_galvanizado_pared_delgada_63mm_con_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L307) (2 connections)
-- [.test_cot_galvanizado_pared_gruesa_27mm_sin_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L310) (2 connections)
-- [.test_cot_galvanizado_pared_gruesa_63mm_con_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L313) (2 connections)
-- [.test_cot_metalico_flexible_35mm_con_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L325) (2 connections)
-- [.test_cot_metalico_flexible_63mm_sin_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L328) (2 connections)
-- [.test_cot_pad_flexible_corrugado_63mm_con_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L322) (2 connections)
-- [.test_cot_pvc_sp_27mm_con_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L316) (2 connections)
-- [.test_cot_pvc_sp_63mm_sin_precio()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L319) (2 connections)
-- [Tests parametrizados para importación CSV de tubería conduit.  Cubre los 6 tipos](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L1) (1 connections)
-- [Metadata #proyecto_clave y #quote_type del archivo COT LISP.](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L338) (1 connections)
-- [Múltiples tipos y diámetros en un solo archivo COT.](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L354) (1 connections)
-- [total = round(qty * price, 2) — sin acumulación de error flotante.](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L374) (1 connections)
-- [Escribe un CSV COT con header estándar y filas dadas (price vacío = LISP sin cot](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L68) (1 connections)
+- [SetQuoteStatusRouteTest](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L108) (13 connections)
+- [set_quote_status()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L147) (11 connections)
+- [SetQuoteStatusModelTest](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L57) (10 connections)
+- [._status()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L124) (6 connections)
+- [test_quote_status_select.py](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L1) (3 connections)
+- [.test_active_to_draft_directly()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L66) (2 connections)
+- [.test_active_to_obsolete()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L72) (2 connections)
+- [.test_does_not_affect_other_quotes()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L96) (2 connections)
+- [.test_draft_to_active()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L61) (2 connections)
+- [.test_invalid_status_rejected()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L87) (2 connections)
+- [.test_obsolete_to_draft_directly()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L77) (2 connections)
+- [.test_same_status_is_a_noop()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L82) (2 connections)
+- [.test_unknown_quote_id_returns_false()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L92) (2 connections)
+- [.tearDown()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L120) (2 connections)
+- [.test_invalid_status_flashes_error_and_does_not_change()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L151) (2 connections)
+- [.test_set_status_back_to_draft_from_active()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L136) (2 connections)
+- [.test_set_status_to_active()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L127) (2 connections)
+- [.test_set_status_to_obsolete_directly_from_draft()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L142) (2 connections)
+- [Cambia el approval_status de una cotización a cualquiera de los 3     estados vá](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L148) (1 connections)
+- [Selector libre de estado de cotización en la columna Estado.  Antes sólo existía](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L1) (1 connections)
+- [.test_valid_statuses_constant()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L58) (1 connections)
+- [.test_project_detail_page_has_status_select_with_current_value()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L179) (1 connections)
+- [.test_quote_detail_page_has_status_select()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L185) (1 connections)
+- [.test_redirects_to_next_url_when_provided()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L170) (1 connections)
+- [.test_unknown_quote_flashes_not_found()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L161) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class CotTubeFixturesTest {
-        +test_tube_fixtures.py()
-        +._run_cot_case()
-        +.test_cot_galvanizado_pared_delgada_27mm_sin_precio()
-        +.test_cot_galvanizado_pared_delgada_63mm_con_precio()
-        +.test_cot_galvanizado_pared_gruesa_27mm_sin_precio()
-        +.test_cot_galvanizado_pared_gruesa_63mm_con_precio()
-        +.test_cot_pvc_sp_27mm_con_precio()
-        +.test_cot_pvc_sp_63mm_sin_precio()
-        +.test_cot_pad_flexible_corrugado_63mm_con_precio()
-        +.test_cot_metalico_flexible_35mm_con_precio()
+    class SetQuoteStatusModelTest {
+        +test_quote_status_select.py()
+        +.test_valid_statuses_constant()
+        +.test_draft_to_active()
+        +.test_active_to_draft_directly()
+        +.test_active_to_obsolete()
+        +.test_obsolete_to_draft_directly()
+        +.test_same_status_is_a_noop()
+        +.test_invalid_status_rejected()
+        +.test_unknown_quote_id_returns_false()
+        +.test_does_not_affect_other_quotes()
+    }
+    class SetQuoteStatusRouteTest {
+        +test_quote_status_select.py()
+        +.setUp()
+        +.tearDown()
+        +._status()
+        +.test_set_status_to_active()
+        +.test_set_status_back_to_draft_from_active()
+        +.test_set_status_to_obsolete_directly_from_draft()
+        +.test_invalid_status_flashes_error_and_does_not_change()
+        +.test_unknown_quote_flashes_not_found()
+        +.test_redirects_to_next_url_when_provided()
     }
 ```
 
 ## Relationships
 
-- [[Community 15]] (5 shared connections)
+- [[Community 17]] (2 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_tube_fixtures.py](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_status_select.py](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 
-- EXTRACTED: 76 (95%)
-- INFERRED: 4 (5%)
+- EXTRACTED: 57 (75%)
+- INFERRED: 19 (25%)
 - AMBIGUOUS: 0 (0%)
 
 ---

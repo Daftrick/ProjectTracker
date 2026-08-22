@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Tests for the deleted catalog audit route.](file:///Users/macbook/ProjectTracker/tests%5Ctest_audit_deleted_catalog_route.py#L1) (0 connections)
+- [Expande las partidas COT con bundle a materiales esperados.      Retorna un dicc](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L179) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_audit_deleted_catalog_route.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_audit_deleted_catalog_route.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 
 ## Audit Trail
 

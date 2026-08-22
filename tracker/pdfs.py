@@ -106,6 +106,18 @@ def format_date_long(value):
     return f"{dt.day} de {months[dt.month - 1]} de {dt.year}"
 
 
+def format_date_short(value):
+    """Retorna la fecha en formato dd-mm-aa (ej: 22-08-26). Usado en campos
+    compactos del PDF de LDM donde el texto largo no cabe."""
+    if not value:
+        return "-"
+    try:
+        dt = datetime.strptime(value, "%Y-%m-%d")
+        return dt.strftime("%d-%m-%y")
+    except Exception:
+        return _safe_text(value)
+
+
 def money_pdf(value, currency=None):
     try:
         amount = float(value or 0)
@@ -1219,7 +1231,7 @@ def build_ldm_pdf(project, ldm, output_path=None):
     project_name = _safe_text(project.get("name", ""))
     proveedor_name = _safe_text(ldm.get("proveedor", "") or "Proveedor")
     ldm_number = _safe_text(ldm.get("ldm_number", "Lista de Materiales"))
-    ldm_date = format_date_long(ldm.get("fecha"))
+    ldm_date = format_date_short(ldm.get("fecha"))
     logo_path = quote_logo_path()
     catalog_lookup = catalog_description_lookup()
     with_prices = any(float(item.get("precio_cot", 0) or 0) for item in items)

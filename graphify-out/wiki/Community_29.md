@@ -1,22 +1,34 @@
 # Community 29
 
-> 13 nodes · cohesion 0.31
+> 9 nodes · cohesion 0.36
 
 ## Key Concepts
 
-- [terms_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L1) (12 connections)
-- [resolve_quote_terms()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L96) (8 connections)
-- [get_terms_templates()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L74) (7 connections)
-- [_normalize()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L64) (5 connections)
-- [terms_templates()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1275) (4 connections)
-- [_normalize_template()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L48) (4 connections)
-- [get_terms_template_by_id()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L88) (3 connections)
-- [_new_id()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L18) (3 connections)
-- [_normalize_term()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L33) (3 connections)
-- [save_terms_templates()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L84) (3 connections)
-- [_seed_terms_template()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L22) (3 connections)
-- [Plantillas de Términos y Condiciones — independientes de las plantillas de artíc](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L1) (1 connections)
-- [Devuelve (terms, template) para una cotización.      Orden de resolución:     1.](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L97) (1 connections)
+- [main()](file:///Users/macbook/ProjectTracker/scripts/migrate_add_deadline.py#L16) (7 connections)
+- [GraphifyTaskTest](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L10) (5 connections)
+- [Completed](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L6) (3 connections)
+- [.test_check_update_returns_success()](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L24) (3 connections)
+- [.test_update_returns_success()](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L12) (3 connections)
+- [.test_missing_graphify_returns_success()](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L36) (2 connections)
+- [.test_unknown_action_returns_success()](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L41) (2 connections)
+- [test_graphify_task.py](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L1) (2 connections)
+- [migrate_add_deadline.py](file:///Users/macbook/ProjectTracker/scripts/migrate_add_deadline.py#L1) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class Completed {
+        +test_graphify_task.py()
+    }
+    class GraphifyTaskTest {
+        +test_graphify_task.py()
+        +.test_update_returns_success()
+        +.test_check_update_returns_success()
+        +.test_missing_graphify_returns_success()
+        +.test_unknown_action_returns_success()
+    }
+```
 
 ## Relationships
 
@@ -24,13 +36,13 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
-- [/Users/macbook/ProjectTracker/tracker/terms_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py)
+- [/Users/macbook/ProjectTracker/scripts/migrate_add_deadline.py](file:///Users/macbook/ProjectTracker/scripts/migrate_add_deadline.py)
+- [/Users/macbook/ProjectTracker/tests/test_graphify_task.py](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py)
 
 ## Audit Trail
 
-- EXTRACTED: 47 (82%)
-- INFERRED: 10 (18%)
+- EXTRACTED: 18 (64%)
+- INFERRED: 10 (36%)
 - AMBIGUOUS: 0 (0%)
 
 ---

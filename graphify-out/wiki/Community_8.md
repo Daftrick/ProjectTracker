@@ -1,91 +1,98 @@
 # Community 8
 
-> 63 nodes · cohesion 0.07
+> 64 nodes · cohesion 0.06
 
 ## Key Concepts
 
-- [compute_consistency()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L408) (24 connections)
-- [consistency.py](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L1) (24 connections)
-- [_quote()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L19) (14 connections)
-- [pick_active_quote()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L52) (12 connections)
-- [test_consistency.py](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L1) (11 connections)
-- [aggregate_quote_items()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L79) (10 connections)
-- [_q_item()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L35) (10 connections)
-- [compare_items()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L216) (9 connections)
-- [ComputeConsistencyTest](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L193) (9 connections)
-- [_round()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L37) (8 connections)
-- [.test_detects_all_issue_types()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L151) (8 connections)
-- [aggregate_ldm_items()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L120) (7 connections)
-- [_safe_float()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L30) (7 connections)
-- [.test_critical_when_ldm_exceeds_cot()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L231) (6 connections)
-- [.test_full_report_with_general_quote()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L194) (6 connections)
-- [.test_warning_threshold()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L222) (6 connections)
-- [_l_item()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L58) (6 connections)
-- [_ldm()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L46) (6 connections)
-- [PickActiveQuoteTest](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L80) (6 connections)
-- [_quote_visual_row()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L316) (5 connections)
-- [classify_margin()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L41) (4 connections)
-- [_ldm_visual_row()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L331) (4 connections)
-- [.test_aggregates_across_multiple_ldms()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L137) (4 connections)
-- [.test_groups_by_catalog_id_and_handles_unlinked()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L115) (4 connections)
-- [.test_active_extras_are_included_in_visual_total()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L275) (4 connections)
-- *... and 38 more nodes in this community*
+- [build_quote_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L252) (31 connections)
+- [pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1) (26 connections)
+- [build_ldm_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1208) (13 connections)
+- [quote_cover_copy()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L209) (12 connections)
+- [_safe_text()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L51) (10 connections)
+- [build_progress_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1686) (9 connections)
+- [quote_sequence_from_number()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L204) (9 connections)
+- [quote_project_basis_note()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L229) (8 connections)
+- [QuoteCoverCopyTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L13) (8 connections)
+- [QuotePdfSectionsTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L147) (8 connections)
+- [QuoteSequenceFromNumberTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L77) (8 connections)
+- [_load_company()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L137) (7 connections)
+- [QuoteProjectBasisNoteTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L52) (6 connections)
+- [catalog_description_lookup()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L171) (5 connections)
+- [quote_logo_path()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L151) (5 connections)
+- [_register_dejavu()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L70) (5 connections)
+- [test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L1) (5 connections)
+- [format_date_long()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L95) (4 connections)
+- [format_date_short()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L109) (4 connections)
+- [_hex_to_rgb()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L40) (4 connections)
+- [money_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L121) (4 connections)
+- [note_lines()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L130) (4 connections)
+- [quote_catalog_description()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L245) (4 connections)
+- [_company_name()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L174) (3 connections)
+- [quote_scope_paragraphs()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L178) (3 connections)
+- *... and 39 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AggregateLdmItemsTest {
-        +test_consistency.py()
-        +.test_aggregates_across_multiple_ldms()
+    class BundleBreakdownPdfRenderTest {
+        +test_pdfs.py()
+        +.test_pdf_with_bundle_item_renders_without_error()
     }
-    class AggregateQuoteItemsTest {
-        +test_consistency.py()
-        +.test_groups_by_catalog_id_and_handles_unlinked()
-        +.test_no_quote()
+    class QuoteCoverCopyTest {
+        +test_pdfs.py()
+        +.test_proyecto()
+        +.test_obra()
+        +.test_servicio()
+        +.test_extraordinaria_with_sequence()
+        +.test_extraordinaria_no_sequence()
+        +.test_preliminar()
+        +.test_general_fallback()
     }
-    class ClassifyMarginTest {
-        +test_consistency.py()
-        +.test_thresholds()
+    class QuotePdfSectionsTest {
+        +test_pdfs.py()
+        +.test_bundle_breakdown_renders_quantities_without_component_prices()
+        +.test_specs_terms_and_notes_render_as_independent_sections()
+        +.test_discount_renders_before_tax_in_both_totals_boxes()
+        +.test_no_discount_omits_discount_row()
+        +.test_pdf_reflects_project_client_over_stale_quote_snapshot()
+        +.test_pdf_falls_back_to_quote_client_snapshot_when_project_has_none()
+        +.test_long_description_does_not_orphan_words_after_wrap()
     }
-    class CompareItemsTest {
-        +test_consistency.py()
-        +.test_detects_all_issue_types()
+    class QuoteProjectBasisNoteTest {
+        +test_pdfs.py()
+        +.test_proyecto_with_source()
+        +.test_proyecto_without_source()
+        +.test_obra_returns_empty()
+        +.test_servicio_returns_empty()
+        +.test_extraordinaria_uses_note_field()
     }
-    class ComputeConsistencyTest {
-        +test_consistency.py()
-        +.test_full_report_with_general_quote()
-        +.test_warning_threshold()
-        +.test_critical_when_ldm_exceeds_cot()
-        +.test_no_data_when_empty()
-        +.test_no_general_quote_uses_fallback()
-        +.test_filters_by_project_id()
-        +.test_visual_warnings_include_missing_data_and_unlinked_rows()
-        +.test_active_extras_are_included_in_visual_total()
-    }
-    class PickActiveQuoteTest {
-        +test_consistency.py()
-        +.test_picks_most_recent_general()
-        +.test_falls_back_to_preliminar_when_no_general()
-        +.test_respects_approval_status_active()
-        +.test_extraordinaria_never_selected_as_base()
-        +.test_no_quotes()
+    class QuoteSequenceFromNumberTest {
+        +test_pdfs.py()
+        +.test_proyecto_code()
+        +.test_obra_code()
+        +.test_servicio_code()
+        +.test_extraordinaria_code()
+        +.test_general_code()
+        +.test_no_match()
+        +.test_empty()
     }
 ```
 
 ## Relationships
 
-- [[Community 5]] (13 shared connections)
+- [[Community 9]] (6 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_consistency.py](file:///Users/macbook/ProjectTracker/tests/test_consistency.py)
-- [/Users/macbook/ProjectTracker/tracker/consistency.py](file:///Users/macbook/ProjectTracker/tracker/consistency.py)
+- [/Users/macbook/ProjectTracker/tests/test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 
-- EXTRACTED: 243 (82%)
-- INFERRED: 52 (18%)
+- EXTRACTED: 199 (72%)
+- INFERRED: 78 (28%)
 - AMBIGUOUS: 0 (0%)
 
 ---

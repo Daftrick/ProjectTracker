@@ -1,6 +1,6 @@
 # Community 4
 
-> 77 nodes · cohesion 0.06
+> 75 nodes · cohesion 0.06
 
 ## Key Concepts
 
@@ -16,7 +16,6 @@
 - [_clean()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L42) (10 connections)
 - [get_active_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L82) (10 connections)
 - [delete_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L323) (9 connections)
-- [hydrate_quote_bundle_breakdowns()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L193) (9 connections)
 - [_safe_float()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L31) (9 connections)
 - [BundleEdgeCasesTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L217) (9 connections)
 - [CaptureBundleSnapshotTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L318) (8 connections)
@@ -29,7 +28,8 @@
 - [.test_add_activate_and_delete_version()](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L15) (5 connections)
 - [_display_qty()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L113) (4 connections)
 - [next_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L258) (4 connections)
-- *... and 52 more nodes in this community*
+- [_round()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L38) (4 connections)
+- *... and 50 more nodes in this community*
 
 ## Class Diagram
 
@@ -93,7 +93,7 @@ classDiagram
 
 ## Relationships
 
-- [[Community 6]] (2 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
@@ -102,8 +102,8 @@ classDiagram
 
 ## Audit Trail
 
-- EXTRACTED: 253 (65%)
-- INFERRED: 134 (35%)
+- EXTRACTED: 248 (66%)
+- INFERRED: 129 (34%)
 - AMBIGUOUS: 0 (0%)
 
 ---

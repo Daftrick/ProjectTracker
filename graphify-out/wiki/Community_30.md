@@ -1,34 +1,45 @@
 # Community 30
 
-> 11 nodes · cohesion 0.20
+> 9 nodes · cohesion 0.22
 
 ## Key Concepts
 
-- [Roadmap de Mejoras (Backlog)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (7 connections)
-- [Historial de Cambios Recientes](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
-- [Version Actual v25.1](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
-- [Checklist de Cierre de Mejora](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (2 connections)
-- [Limpieza Residual de Templates (Media Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Funcionalidades Completadas](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Exportaciones y Reportes (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Filtros y Busqueda Adicionales (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Sincronizacion Parcial COT-Bundle-LDM (Diseno Pendiente)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Mejoras de UX General (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Convencion de Versionado](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [QuotePdfEditorTest](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L62) (6 connections)
+- [test_quote_pdf_editor.py](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L1) (3 connections)
+- [_fake_load()](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L58) (1 connections)
+- [.test_get_renders_editor()](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L72) (1 connections)
+- [.test_get_shows_pdf_preview_elements()](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L86) (1 connections)
+- [.test_get_unknown_quote_redirects()](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L155) (1 connections)
+- [.test_post_extraordinaria_saves_project_basis_note()](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L131) (1 connections)
+- [.test_post_saves_specs_and_notes()](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L97) (1 connections)
+- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L64) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class QuotePdfEditorTest {
+        +test_quote_pdf_editor.py()
+        +.test_get_renders_editor()
+        +.test_get_shows_pdf_preview_elements()
+        +.test_post_saves_specs_and_notes()
+        +.test_post_extraordinaria_saves_project_basis_note()
+        +.test_get_unknown_quote_redirects()
+    }
+```
 
 ## Relationships
 
-- [[Community 25]] (22 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [/Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py)
 
 ## Audit Trail
 
-- EXTRACTED: 20 (91%)
-- INFERRED: 2 (9%)
+- EXTRACTED: 16 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

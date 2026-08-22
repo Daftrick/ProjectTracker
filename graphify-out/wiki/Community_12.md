@@ -1,17 +1,20 @@
 # Community 12
 
-> 35 nodes · cohesion 0.08
+> 41 nodes · cohesion 0.08
 
 ## Key Concepts
 
 - [filter_catalog()](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py#L63) (13 connections)
 - [match_item()](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py#L47) (11 connections)
 - [tokenize()](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py#L32) (8 connections)
+- [catalog_search.py](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py#L1) (8 connections)
+- [_normalize()](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py#L25) (7 connections)
 - [FilterCatalogTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L57) (7 connections)
 - [MatchItemTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L23) (7 connections)
 - [test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L1) (7 connections)
 - [ApiCatalogoTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L114) (5 connections)
 - [TokenizeTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L8) (5 connections)
+- [_indexable_text()](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py#L37) (4 connections)
 - [.test_combined_tokens_and_category()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L88) (2 connections)
 - [.test_filter_by_category()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L81) (2 connections)
 - [.test_filters_by_token_and_returns_alphabetical()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L65) (2 connections)
@@ -26,10 +29,7 @@
 - [.test_marca_field_is_searchable()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L51) (2 connections)
 - [.test_no_tokens_means_match()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L39) (2 connections)
 - [.test_tokens_can_match_across_fields()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L47) (2 connections)
-- [.test_collapses_extra_whitespace()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L15) (2 connections)
-- [.test_empty_query_yields_empty_list()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L18) (2 connections)
-- [.test_splits_by_whitespace_and_normalizes()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L9) (2 connections)
-- *... and 10 more nodes in this community*
+- *... and 16 more nodes in this community*
 
 ## Class Diagram
 
@@ -74,7 +74,7 @@ classDiagram
 
 ## Relationships
 
-- [[Community 11]] (5 shared connections)
+- [[Community 0]] (3 shared connections)
 
 ## Source Files
 
@@ -83,8 +83,8 @@ classDiagram
 
 ## Audit Trail
 
-- EXTRACTED: 73 (68%)
-- INFERRED: 35 (32%)
+- EXTRACTED: 95 (73%)
+- INFERRED: 35 (27%)
 - AMBIGUOUS: 0 (0%)
 
 ---

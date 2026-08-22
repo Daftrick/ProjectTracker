@@ -2,12 +2,17 @@
   "hotspots": [
     {
       "label": "build_quote_pdf()",
-      "risk": 0.709,
+      "risk": 0.731,
       "type": "FUNCTION"
     },
     {
       "label": "build_ldm_pdf()",
-      "risk": 0.368,
+      "risk": 0.391,
+      "type": "FUNCTION"
+    },
+    {
+      "label": "_build_quote_workbook()",
+      "risk": 0.238,
       "type": "FUNCTION"
     },
     {
@@ -16,14 +21,9 @@
       "type": "FUNCTION"
     },
     {
-      "label": "_build_quote_workbook()",
-      "risk": 0.215,
+      "label": "quote_templates()",
+      "risk": 0.207,
       "type": "FUNCTION"
-    },
-    {
-      "label": "Inline Catalog Autocomplete Pattern",
-      "risk": 0.205,
-      "type": "UNKNOWN"
     }
   ],
   "blast_radius": {

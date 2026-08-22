@@ -1,35 +1,35 @@
 # Community 1
 
-> 101 nodes · cohesion 0.04
+> 124 nodes · cohesion 0.03
 
 ## Key Concepts
 
 - [quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1) (49 connections)
 - [catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L1) (42 connections)
 - [catalog_maps()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L180) (31 connections)
+- [storage.py](file:///Users/macbook/ProjectTracker/tracker/storage.py#L1) (25 connections)
 - [hydrate_quote()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L410) (24 connections)
+- [quotes_mobile.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L1) (16 connections)
 - [quote_type_key()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L65) (14 connections)
 - [safe_float()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L193) (14 connections)
 - [_render_quote_form()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L66) (14 connections)
 - [compute_quote_totals()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L340) (13 connections)
 - [_hydrate_quote_for_display()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L49) (13 connections)
-- [quote_pdf_editor()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1083) (13 connections)
+- [quote_pdf_editor()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1084) (13 connections)
 - [next_quote_number()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L483) (12 connections)
 - [quote_from_form()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L26) (12 connections)
-- [_build_quote_workbook()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L587) (12 connections)
+- [_build_quote_workbook()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L588) (12 connections)
+- [mobile_generate_pdf()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L166) (12 connections)
 - [new_quote()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L186) (12 connections)
+- [deletions.py](file:///Users/macbook/ProjectTracker/tracker/deletions.py#L1) (12 connections)
 - [form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L1) (11 connections)
-- [export_data()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L954) (10 connections)
 - [hydrate_quote_item()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L279) (10 connections)
-- [is_base_quote_type()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L80) (10 connections)
 - [_build_resumen()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L172) (10 connections)
 - [edit_quote()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L318) (10 connections)
-- [view_quote()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L375) (10 connections)
+- [view_quote()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L376) (10 connections)
 - [QuoteSectionsTest](file:///Users/macbook/ProjectTracker/tests/test_quote_sections.py#L7) (10 connections)
-- [quote_section_groups()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L236) (9 connections)
-- [import_quote_csv()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L257) (9 connections)
-- [FormModelsTest](file:///Users/macbook/ProjectTracker/tests/test_form_models.py#L8) (9 connections)
-- *... and 76 more nodes in this community*
+- [hydrate_quote_bundle_breakdowns()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L193) (9 connections)
+- *... and 99 more nodes in this community*
 
 ## Class Diagram
 
@@ -97,7 +97,9 @@ classDiagram
 
 ## Relationships
 
-- [[Community 5]] (1 shared connections)
+- [[Community 0]] (3 shared connections)
+- [[Community 4]] (1 shared connections)
+- [[Community 10]] (1 shared connections)
 
 ## Source Files
 
@@ -107,16 +109,20 @@ classDiagram
 - [/Users/macbook/ProjectTracker/tests/test_quote_client_sync.py](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py)
 - [/Users/macbook/ProjectTracker/tests/test_quote_discount.py](file:///Users/macbook/ProjectTracker/tests/test_quote_discount.py)
 - [/Users/macbook/ProjectTracker/tests/test_quote_sections.py](file:///Users/macbook/ProjectTracker/tests/test_quote_sections.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 - [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 - [/Users/macbook/ProjectTracker/tracker/deletions.py](file:///Users/macbook/ProjectTracker/tracker/deletions.py)
 - [/Users/macbook/ProjectTracker/tracker/form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
+- [/Users/macbook/ProjectTracker/tracker/quote_status_labels.py](file:///Users/macbook/ProjectTracker/tracker/quote_status_labels.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
 - [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py)
+- [/Users/macbook/ProjectTracker/tracker/storage.py](file:///Users/macbook/ProjectTracker/tracker/storage.py)
 
 ## Audit Trail
 
-- EXTRACTED: 354 (58%)
-- INFERRED: 253 (42%)
+- EXTRACTED: 455 (62%)
+- INFERRED: 280 (38%)
 - AMBIGUOUS: 0 (0%)
 
 ---

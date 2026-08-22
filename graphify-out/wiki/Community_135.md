@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Pruebas de sincronizacion parcial LDM desde bundles.](file:///Users/macbook/ProjectTracker/tests%5Ctest_ldm_sync.py#L1) (0 connections)
+- [Smoke tests de UI Admin para bundles.](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_bundles_routes.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_ldm_sync.py)
+- [tests\test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_bundles_routes.py)
 
 ## Audit Trail
 

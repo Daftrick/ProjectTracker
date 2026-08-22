@@ -1,80 +1,112 @@
 # Community 6
 
-> 67 nodes · cohesion 0.06
+> 69 nodes · cohesion 0.05
 
 ## Key Concepts
 
-- [materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L1) (47 connections)
-- [import_ldm_csv_upload()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L266) (15 connections)
-- [missing_ldm_items_from_bundles()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L52) (12 connections)
-- [hydrate_ldm()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L470) (11 connections)
-- [_find_project()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L31) (11 connections)
-- [import_ldm_pdf_create()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L732) (11 connections)
-- [sync_ldm_bundles()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L442) (11 connections)
-- [new_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L219) (10 connections)
-- [ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L1) (10 connections)
-- [edit_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L379) (9 connections)
-- [import_ldm_pdf_map()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L704) (9 connections)
-- [_bundle_suggestion_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L157) (8 connections)
-- [_clear_pdf_import()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L609) (7 connections)
-- [import_ldm_pdf_upload()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L647) (7 connections)
-- [_load_pdf_import()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L626) (7 connections)
-- [ldm_from_form()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L138) (6 connections)
-- [_bundle_sync_suggestions()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L194) (6 connections)
-- [_ldm_csv_response()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L122) (6 connections)
-- [ldm_pdf()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L559) (6 connections)
-- [_pdf_import_path()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L602) (6 connections)
-- [_render_ldm_form()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L146) (6 connections)
-- [MaterialsSyncRouteTest](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L80) (6 connections)
-- [_aggregate_ldm_qty_by_catalog()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L25) (5 connections)
-- [selected_missing_bundle_items()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L95) (5 connections)
-- [_clean_form_text()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L27) (5 connections)
-- *... and 42 more nodes in this community*
+- [services.py](file:///Users/macbook/ProjectTracker/tracker/services.py#L1) (20 connections)
+- [upsert_mobile_draft()](file:///Users/macbook/ProjectTracker/tracker/services.py#L49) (15 connections)
+- [UpsertMobileDraftTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L81) (12 connections)
+- [IdFactory](file:///Users/macbook/ProjectTracker/tests/test_services.py#L12) (10 connections)
+- [._upsert()](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L82) (10 connections)
+- [ProjectServicesTest](file:///Users/macbook/ProjectTracker/tests/test_services.py#L21) (10 connections)
+- [apply_task_status_change()](file:///Users/macbook/ProjectTracker/tracker/services.py#L263) (9 connections)
+- [filter_catalog_by_disciplina()](file:///Users/macbook/ProjectTracker/tracker/services.py#L9) (8 connections)
+- [finalize_mobile_draft()](file:///Users/macbook/ProjectTracker/tracker/services.py#L123) (8 connections)
+- [remove_item_from_draft()](file:///Users/macbook/ProjectTracker/tracker/services.py#L101) (8 connections)
+- [FilterCatalogTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L59) (6 connections)
+- [RemoveItemFromDraftTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L161) (6 connections)
+- [build_scope_task()](file:///Users/macbook/ProjectTracker/tracker/services.py#L166) (5 connections)
+- [create_project_with_tasks()](file:///Users/macbook/ProjectTracker/tracker/services.py#L184) (5 connections)
+- [test_services_mobile.py](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L1) (5 connections)
+- [create_project()](file:///Users/macbook/ProjectTracker/tracker/services.py#L150) (4 connections)
+- [_recalculate_totals()](file:///Users/macbook/ProjectTracker/tracker/services.py#L40) (4 connections)
+- [sync_project_alcances()](file:///Users/macbook/ProjectTracker/tracker/services.py#L209) (4 connections)
+- [update_observation_details()](file:///Users/macbook/ProjectTracker/tracker/services.py#L324) (4 connections)
+- [FinalizeMobileDraftTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L192) (4 connections)
+- [._setup()](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L162) (4 connections)
+- [_build_mobile_item()](file:///Users/macbook/ProjectTracker/tracker/services.py#L16) (3 connections)
+- [next_folder_number()](file:///Users/macbook/ProjectTracker/tracker/services.py#L145) (3 connections)
+- [update_observation_checklist_item()](file:///Users/macbook/ProjectTracker/tracker/services.py#L357) (3 connections)
+- [.test_finalize_assigns_quote_number()](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L201) (3 connections)
+- *... and 44 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class LdmPdfImportRoutesTest {
-        +test_ldm_pdf_import_routes.py()
-        +.test_upload_stores_pdf_import_payload_outside_cookie_session()
-        +.test_upload_pdf_is_blocked_when_project_is_closed()
-        +.test_create_pdf_import_is_blocked_when_project_is_closed()
+    class IdFactory {
+        +test_services.py()
+        +.__init__()
+        +.__call__()
     }
-    class LdmSyncTest {
-        +test_ldm_sync.py()
-        +.test_builds_only_missing_bundle_materials_without_overwriting()
-        +.test_filters_missing_materials_by_explicit_selection()
-        +.test_appends_missing_items_to_copy()
+    class FilterCatalogTest {
+        +test_services_mobile.py()
+        +.test_none_returns_all()
+        +.test_todos_returns_all()
+        +.test_filters_by_disciplina()
+        +.test_unknown_disciplina_returns_empty()
+        +.test_empty_catalog()
     }
-    class MaterialsSyncRouteTest {
-        +test_ldm_sync.py()
-        +.test_route_previews_missing_bundle_materials_for_existing_ldm()
-        +.test_route_appends_selected_bundle_materials_to_existing_ldm()
-        +.test_route_does_not_append_unselected_bundle_materials()
-        +.test_new_ldm_can_prefill_bundle_suggestions()
-        +.test_new_ldm_preserves_bundle_suggestion_origin_on_create()
+    class FinalizeMobileDraftTest {
+        +test_services_mobile.py()
+        +.test_finalize_removes_status_field()
+        +.test_finalize_assigns_quote_number()
+        +.test_finalize_returns_none_for_unknown_id()
+    }
+    class IdFactory {
+        +test_services_mobile.py()
+        +.__init__()
+        +.__call__()
+    }
+    class RemoveItemFromDraftTest {
+        +test_services_mobile.py()
+        +._setup()
+        +.test_removes_item_and_recalculates()
+        +.test_no_op_when_item_not_in_draft()
+        +.test_returns_none_when_no_draft_exists()
+        +.test_empty_items_after_last_removal()
+    }
+    class UpsertMobileDraftTest {
+        +test_services_mobile.py()
+        +._upsert()
+        +.test_creates_draft_when_none_exists()
+        +.test_item_fields_populated_from_catalog()
+        +.test_totals_calculated()
+        +.test_second_item_appended_to_existing_draft()
+        +.test_re_adding_same_item_updates_qty()
+        +.test_unknown_item_id_is_no_op()
+        +.test_draft_defaults()
+        +.test_original_quotes_list_not_mutated()
+    }
+    class ProjectServicesTest {
+        +test_services.py()
+        +.test_create_project_assigns_next_folder_and_tasks()
+        +.test_sync_project_alcances_adds_and_removes_tasks_with_children()
+        +.test_apply_task_status_blocks_dependency()
+        +.test_apply_task_status_creates_observation_child()
+        +.test_apply_task_status_creates_observation_checklist()
+        +.test_apply_task_status_does_not_generate_checklist_from_note()
+        +.test_apply_task_status_creates_new_observation_when_already_in_observations()
+        +.test_update_observation_details_edits_note_and_checklist()
+        +.test_update_observation_checklist_item_updates_status()
     }
 ```
 
 ## Relationships
 
-- [[Community 14]] (5 shared connections)
-- [[Community 7]] (3 shared connections)
+- [[Community 3]] (6 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py)
-- [/Users/macbook/ProjectTracker/tests/test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py)
-- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
-- [/Users/macbook/ProjectTracker/tracker/form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py)
-- [/Users/macbook/ProjectTracker/tracker/ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
+- [/Users/macbook/ProjectTracker/tests/test_services.py](file:///Users/macbook/ProjectTracker/tests/test_services.py)
+- [/Users/macbook/ProjectTracker/tests/test_services_mobile.py](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py)
+- [/Users/macbook/ProjectTracker/tracker/services.py](file:///Users/macbook/ProjectTracker/tracker/services.py)
 
 ## Audit Trail
 
-- EXTRACTED: 247 (72%)
-- INFERRED: 97 (28%)
+- EXTRACTED: 188 (71%)
+- INFERRED: 76 (29%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -1,47 +1,42 @@
 # Community 33
 
-> 9 nodes · cohesion 0.22
+> 8 nodes · cohesion 0.25
 
 ## Key Concepts
 
-- [CatalogQuickAddTextareaTest](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L134) (5 connections)
-- [test_quote_desc_textarea.py](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L1) (4 connections)
-- [QuoteDescTemplateSourceTest](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L52) (3 connections)
-- [.test_autogrow_helper_handles_hidden_elements_gracefully()](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L149) (1 connections)
-- [.test_form_uses_textarea_for_catalog_search_and_quick_add_fields()](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L139) (1 connections)
-- [.test_form_has_autogrow_wiring()](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L59) (1 connections)
-- [.test_form_uses_textarea_for_item_desc_not_input()](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L53) (1 connections)
-- [item_desc[] (columna "Nombre / Descripción" de cada partida) es un <textarea> au](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L1) (1 connections)
-- [Buscador de catálogo (catalogSearch) y mini-formulario "Agregar nuevo     artícu](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L135) (1 connections)
+- [AdminBundlesRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L14) (5 connections)
+- [test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L1) (3 connections)
+- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L23) (1 connections)
+- [.test_bundles_page_loads()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L36) (1 connections)
+- [.test_comparison_rules_page_is_not_available()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L42) (1 connections)
+- [.test_create_bundle_persists_bundle()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L46) (1 connections)
+- [Smoke tests de UI Admin para bundles.](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L1) (1 connections)
+- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L16) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class CatalogQuickAddTextareaTest {
-        +test_quote_desc_textarea.py()
-        +.test_form_uses_textarea_for_catalog_search_and_quick_add_fields()
-        +.test_autogrow_helper_handles_hidden_elements_gracefully()
-        +.test_api_catalogo_add_accepts_multiline_nombre_and_descripcion()
-    }
-    class QuoteDescTemplateSourceTest {
-        +test_quote_desc_textarea.py()
-        +.test_form_uses_textarea_for_item_desc_not_input()
-        +.test_form_has_autogrow_wiring()
+    class AdminBundlesRoutesTest {
+        +test_admin_bundles_routes.py()
+        +._fake_load()
+        +.test_bundles_page_loads()
+        +.test_comparison_rules_page_is_not_available()
+        +.test_create_bundle_persists_bundle()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 35]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py)
+- [/Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 18 (100%)
+- EXTRACTED: 14 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

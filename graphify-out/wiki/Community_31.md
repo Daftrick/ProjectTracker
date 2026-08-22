@@ -1,48 +1,48 @@
 # Community 31
 
-> 9 nodes · cohesion 0.36
+> 9 nodes · cohesion 0.22
 
 ## Key Concepts
 
-- [main()](file:///Users/macbook/ProjectTracker/scripts/migrate_add_deadline.py#L16) (7 connections)
-- [GraphifyTaskTest](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L10) (5 connections)
-- [Completed](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L6) (3 connections)
-- [.test_check_update_returns_success()](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L24) (3 connections)
-- [.test_update_returns_success()](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L12) (3 connections)
-- [.test_missing_graphify_returns_success()](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L36) (2 connections)
-- [.test_unknown_action_returns_success()](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L41) (2 connections)
-- [test_graphify_task.py](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py#L1) (2 connections)
-- [migrate_add_deadline.py](file:///Users/macbook/ProjectTracker/scripts/migrate_add_deadline.py#L1) (1 connections)
+- [CatalogQuickAddTextareaTest](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L134) (5 connections)
+- [test_quote_desc_textarea.py](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L1) (4 connections)
+- [QuoteDescTemplateSourceTest](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L52) (3 connections)
+- [.test_autogrow_helper_handles_hidden_elements_gracefully()](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L149) (1 connections)
+- [.test_form_uses_textarea_for_catalog_search_and_quick_add_fields()](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L139) (1 connections)
+- [.test_form_has_autogrow_wiring()](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L59) (1 connections)
+- [.test_form_uses_textarea_for_item_desc_not_input()](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L53) (1 connections)
+- [item_desc[] (columna "Nombre / Descripción" de cada partida) es un <textarea> au](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L1) (1 connections)
+- [Buscador de catálogo (catalogSearch) y mini-formulario "Agregar nuevo     artícu](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L135) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class Completed {
-        +test_graphify_task.py()
+    class CatalogQuickAddTextareaTest {
+        +test_quote_desc_textarea.py()
+        +.test_form_uses_textarea_for_catalog_search_and_quick_add_fields()
+        +.test_autogrow_helper_handles_hidden_elements_gracefully()
+        +.test_api_catalogo_add_accepts_multiline_nombre_and_descripcion()
     }
-    class GraphifyTaskTest {
-        +test_graphify_task.py()
-        +.test_update_returns_success()
-        +.test_check_update_returns_success()
-        +.test_missing_graphify_returns_success()
-        +.test_unknown_action_returns_success()
+    class QuoteDescTemplateSourceTest {
+        +test_quote_desc_textarea.py()
+        +.test_form_uses_textarea_for_item_desc_not_input()
+        +.test_form_has_autogrow_wiring()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 33]] (2 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/scripts/migrate_add_deadline.py](file:///Users/macbook/ProjectTracker/scripts/migrate_add_deadline.py)
-- [/Users/macbook/ProjectTracker/tests/test_graphify_task.py](file:///Users/macbook/ProjectTracker/tests/test_graphify_task.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py)
 
 ## Audit Trail
 
-- EXTRACTED: 18 (64%)
-- INFERRED: 10 (36%)
+- EXTRACTED: 18 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

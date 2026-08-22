@@ -4,75 +4,65 @@
 
 ## Key Concepts
 
-- [SetQuoteStatusRouteTest](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L108) (13 connections)
-- [set_quote_status()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L147) (11 connections)
-- [SetQuoteStatusModelTest](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L57) (10 connections)
-- [._status()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L124) (6 connections)
-- [test_quote_status_select.py](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L1) (3 connections)
-- [.test_active_to_draft_directly()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L66) (2 connections)
-- [.test_active_to_obsolete()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L72) (2 connections)
-- [.test_does_not_affect_other_quotes()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L96) (2 connections)
-- [.test_draft_to_active()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L61) (2 connections)
-- [.test_invalid_status_rejected()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L87) (2 connections)
-- [.test_obsolete_to_draft_directly()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L77) (2 connections)
-- [.test_same_status_is_a_noop()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L82) (2 connections)
-- [.test_unknown_quote_id_returns_false()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L92) (2 connections)
-- [.tearDown()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L120) (2 connections)
-- [.test_invalid_status_flashes_error_and_does_not_change()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L151) (2 connections)
-- [.test_set_status_back_to_draft_from_active()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L136) (2 connections)
-- [.test_set_status_to_active()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L127) (2 connections)
-- [.test_set_status_to_obsolete_directly_from_draft()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L142) (2 connections)
-- [Cambia el approval_status de una cotización a cualquiera de los 3     estados vá](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L148) (1 connections)
-- [Selector libre de estado de cotización en la columna Estado.  Antes sólo existía](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L1) (1 connections)
-- [.test_valid_statuses_constant()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L58) (1 connections)
-- [.test_project_detail_page_has_status_select_with_current_value()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L179) (1 connections)
-- [.test_quote_detail_page_has_status_select()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L185) (1 connections)
-- [.test_redirects_to_next_url_when_provided()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L170) (1 connections)
-- [.test_unknown_quote_flashes_not_found()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L161) (1 connections)
+- [missing_ldm_items_from_bundles()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L52) (12 connections)
+- [ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L1) (10 connections)
+- [MaterialsSyncRouteTest](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L80) (6 connections)
+- [_aggregate_ldm_qty_by_catalog()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L25) (5 connections)
+- [selected_missing_bundle_items()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L95) (5 connections)
+- [append_missing_bundle_items_to_ldm()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L107) (4 connections)
+- [_clean()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L21) (4 connections)
+- [_safe_float()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L10) (4 connections)
+- [LdmSyncTest](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L50) (4 connections)
+- [test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L1) (4 connections)
+- [_round()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L17) (3 connections)
+- [.test_filters_missing_materials_by_explicit_selection()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L62) (3 connections)
+- [.test_appends_missing_items_to_copy()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L72) (2 connections)
+- [.test_builds_only_missing_bundle_materials_without_overwriting()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L51) (2 connections)
+- [Sincronizacion parcial de LDM desde bundles de COT.](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L1) (1 connections)
+- [Anexa faltantes a una LDM y devuelve (copia_actualizada, agregados).](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L114) (1 connections)
+- [Devuelve filas LDM faltantes derivadas de la expansion tecnica.      No modifica](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L58) (1 connections)
+- [Filtra faltantes por seleccion explicita de catalog_item_id.](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L96) (1 connections)
+- [.test_new_ldm_can_prefill_bundle_suggestions()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L165) (1 connections)
+- [.test_new_ldm_preserves_bundle_suggestion_origin_on_create()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L185) (1 connections)
+- [.test_route_appends_selected_bundle_materials_to_existing_ldm()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L112) (1 connections)
+- [.test_route_does_not_append_unselected_bundle_materials()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L141) (1 connections)
+- [.test_route_previews_missing_bundle_materials_for_existing_ldm()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L90) (1 connections)
+- [Pruebas de sincronizacion parcial LDM desde bundles.](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L1) (1 connections)
+- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L82) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class SetQuoteStatusModelTest {
-        +test_quote_status_select.py()
-        +.test_valid_statuses_constant()
-        +.test_draft_to_active()
-        +.test_active_to_draft_directly()
-        +.test_active_to_obsolete()
-        +.test_obsolete_to_draft_directly()
-        +.test_same_status_is_a_noop()
-        +.test_invalid_status_rejected()
-        +.test_unknown_quote_id_returns_false()
-        +.test_does_not_affect_other_quotes()
+    class LdmSyncTest {
+        +test_ldm_sync.py()
+        +.test_builds_only_missing_bundle_materials_without_overwriting()
+        +.test_filters_missing_materials_by_explicit_selection()
+        +.test_appends_missing_items_to_copy()
     }
-    class SetQuoteStatusRouteTest {
-        +test_quote_status_select.py()
-        +.setUp()
-        +.tearDown()
-        +._status()
-        +.test_set_status_to_active()
-        +.test_set_status_back_to_draft_from_active()
-        +.test_set_status_to_obsolete_directly_from_draft()
-        +.test_invalid_status_flashes_error_and_does_not_change()
-        +.test_unknown_quote_flashes_not_found()
-        +.test_redirects_to_next_url_when_provided()
+    class MaterialsSyncRouteTest {
+        +test_ldm_sync.py()
+        +.test_route_previews_missing_bundle_materials_for_existing_ldm()
+        +.test_route_appends_selected_bundle_materials_to_existing_ldm()
+        +.test_route_does_not_append_unselected_bundle_materials()
+        +.test_new_ldm_can_prefill_bundle_suggestions()
+        +.test_new_ldm_preserves_bundle_suggestion_origin_on_create()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 6]] (5 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_quote_status_select.py](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py)
-- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tests/test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py)
+- [/Users/macbook/ProjectTracker/tracker/ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py)
 
 ## Audit Trail
 
-- EXTRACTED: 57 (75%)
-- INFERRED: 19 (25%)
+- EXTRACTED: 66 (84%)
+- INFERRED: 13 (16%)
 - AMBIGUOUS: 0 (0%)
 
 ---

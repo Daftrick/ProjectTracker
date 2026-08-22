@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Catalog Inline AJAX Edit Pattern](file:///Users/macbook/ProjectTracker/templates/catalogo.html) (0 connections)
+- [fpdf2 Dependency](file:///Users/macbook/ProjectTracker/requirements.txt) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/catalogo.html](file:///Users/macbook/ProjectTracker/templates/catalogo.html)
+- [requirements.txt](file:///Users/macbook/ProjectTracker/requirements.txt)
 
 ## Audit Trail
 

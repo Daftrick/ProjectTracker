@@ -1,6 +1,6 @@
 # Community 0
 
-> 182 nodes · cohesion 0.03
+> 177 nodes · cohesion 0.03
 
 ## Key Concepts
 
@@ -8,41 +8,33 @@
 - [save()](file:///Users/macbook/ProjectTracker/tracker/storage.py#L49) (109 connections)
 - [admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L1) (66 connections)
 - [today()](file:///Users/macbook/ProjectTracker/tracker/storage.py#L66) (57 connections)
+- [materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L1) (47 connections)
 - [projects.py](file:///Users/macbook/ProjectTracker/tracker/routes/projects.py#L1) (29 connections)
-- [storage.py](file:///Users/macbook/ProjectTracker/tracker/storage.py#L1) (25 connections)
 - [create_app()](file:///Users/macbook/ProjectTracker/tracker/__init__.py#L53) (20 connections)
 - [new_id()](file:///Users/macbook/ProjectTracker/tracker/storage.py#L62) (20 connections)
-- [domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py#L1) (19 connections)
-- [__init__.py](file:///Users/macbook/ProjectTracker/tracker/__init__.py#L1) (18 connections)
-- [deletions.py](file:///Users/macbook/ProjectTracker/tracker/deletions.py#L1) (12 connections)
+- [import_ldm_csv_upload()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L266) (15 connections)
 - [add_bundle_version_route()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L513) (11 connections)
+- [hydrate_ldm()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L470) (11 connections)
+- [_find_project()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L31) (11 connections)
+- [import_ldm_pdf_create()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L732) (11 connections)
+- [sync_ldm_bundles()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L442) (11 connections)
 - [bundles()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L428) (10 connections)
+- [export_data()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L954) (10 connections)
+- [new_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L219) (10 connections)
 - [update_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L491) (9 connections)
+- [edit_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L379) (9 connections)
+- [import_ldm_pdf_map()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L704) (9 connections)
 - [QuoteClientOverrideRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L95) (9 connections)
 - [catalogo()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L165) (8 connections)
-- [get_project_templates()](file:///Users/macbook/ProjectTracker/tracker/templates_config.py#L17) (8 connections)
+- [_bundle_suggestion_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L157) (8 connections)
 - [QuoteDescTextareaRouteTest](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L64) (8 connections)
-- [catalog_search.py](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py#L1) (8 connections)
 - [fichas()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L628) (7 connections)
-- [proveedores()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L570) (7 connections)
-- [team()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L699) (7 connections)
-- [update_bundle()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L458) (7 connections)
-- [_normalize()](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py#L25) (7 connections)
-- [kanban()](file:///Users/macbook/ProjectTracker/tracker/routes/projects.py#L71) (7 connections)
-- *... and 157 more nodes in this community*
+- *... and 152 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class ProjectTemplatesTest {
-        +test_company_templates.py()
-        +.test_returns_defaults_when_no_file()
-        +.test_returns_defaults_when_empty_list()
-        +.test_returns_stored_templates()
-        +.test_default_templates_have_stages_list()
-        +.test_save_templates_calls_storage()
-    }
     class QuoteClientOverrideRoutesTest {
         +test_quote_client_override.py()
         +.setUp()
@@ -76,13 +68,11 @@ classDiagram
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 6]] (3 shared connections)
 
 ## Source Files
 
 - [/Users/macbook/ProjectTracker/tests/test_avance_routes.py](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py)
-- [/Users/macbook/ProjectTracker/tests/test_company_templates.py](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py)
-- [/Users/macbook/ProjectTracker/tests/test_deletions.py](file:///Users/macbook/ProjectTracker/tests/test_deletions.py)
 - [/Users/macbook/ProjectTracker/tests/test_kanban.py](file:///Users/macbook/ProjectTracker/tests/test_kanban.py)
 - [/Users/macbook/ProjectTracker/tests/test_payments.py](file:///Users/macbook/ProjectTracker/tests/test_payments.py)
 - [/Users/macbook/ProjectTracker/tests/test_payments_summary.py](file:///Users/macbook/ProjectTracker/tests/test_payments_summary.py)
@@ -100,11 +90,13 @@ classDiagram
 - [/Users/macbook/ProjectTracker/tracker/domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py)
 - [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
 - [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/projects.py](file:///Users/macbook/ProjectTracker/tracker/routes/projects.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 497 (43%)
-- INFERRED: 650 (57%)
+- EXTRACTED: 522 (43%)
+- INFERRED: 701 (57%)
 - AMBIGUOUS: 0 (0%)
 
 ---

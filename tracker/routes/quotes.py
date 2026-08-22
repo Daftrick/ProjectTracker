@@ -339,6 +339,7 @@ def edit_quote(project_id, quote_id):
             "quote_number": validation["quote_number"] or quote["quote_number"],
             "quote_type": validation["quote_type"],
             "version": validation["version"],
+            "project_name": project.get("name", ""),
             "date": validation["date"],
             "valid_until": validation["valid_until"],
             "client_override": validation["client_override"],

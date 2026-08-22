@@ -1,6 +1,6 @@
 # build_quote_pdf()
 
-> God node · 31 connections · [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L240)
+> God node · 31 connections · [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L252)
 
 ## Call Trace Diagram
 
@@ -31,17 +31,17 @@ sequenceDiagram
     participant P22 as .test_general_fallback()
     participant P23 as mobile_generate_pdf()
     participant P24 as resolve_quote_proposal_for()
-    participant P25 as export_data()
-    participant P26 as _safe_text()
+    participant P25 as _safe_text()
+    participant P26 as export_data()
     participant P27 as quote_section_groups()
     participant P28 as resolve_quote_terms()
     participant P29 as _load_company()
     participant P30 as ._render_text()
     participant P31 as quote_pdf()
-    participant P32 as format_date_long()
-    participant P33 as quote_logo_path()
-    participant P34 as _register_dejavu()
-    participant P35 as catalog_description_lookup()
+    participant P32 as quote_logo_path()
+    participant P33 as _register_dejavu()
+    participant P34 as catalog_description_lookup()
+    participant P35 as format_date_long()
     participant P36 as _hex_to_rgb()
     participant P37 as money_pdf()
     participant P38 as quote_catalog_description()
@@ -173,18 +173,18 @@ sequenceDiagram
 - [[quote_cover_copy()]] `EXTRACTED`
 - [[mobile_generate_pdf()]] `INFERRED`
 - [[resolve_quote_proposal_for()]] `INFERRED`
-- [[export_data()]] `INFERRED`
 - [[_safe_text()]] `EXTRACTED`
+- [[export_data()]] `INFERRED`
 - [[quote_section_groups()]] `INFERRED`
 - [[quote_project_basis_note()]] `EXTRACTED`
 - [[resolve_quote_terms()]] `INFERRED`
 - [[_load_company()]] `EXTRACTED`
 - [[._render_text()]] `INFERRED`
 - [[quote_pdf()]] `INFERRED`
-- [[format_date_long()]] `EXTRACTED`
 - [[quote_logo_path()]] `EXTRACTED`
 - [[_register_dejavu()]] `EXTRACTED`
 - [[catalog_description_lookup()]] `INFERRED`
+- [[format_date_long()]] `EXTRACTED`
 - [[_hex_to_rgb()]] `EXTRACTED`
 - [[money_pdf()]] `EXTRACTED`
 - [[quote_catalog_description()]] `EXTRACTED`

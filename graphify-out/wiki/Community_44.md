@@ -1,25 +1,35 @@
 # Community 44
 
-> 4 nodes · cohesion 0.67
+> 4 nodes · cohesion 0.50
 
 ## Key Concepts
 
-- [check_syntax.py](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L1) (3 connections)
-- [iter_python_files()](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L12) (2 connections)
-- [main()](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L22) (2 connections)
-- [Parse project Python files without writing bytecode.](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L1) (1 connections)
+- [LdmCsvImportRouteTest](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L14) (2 connections)
+- [test_ldm_csv_import_route.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L1) (2 connections)
+- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L24) (1 connections)
+- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L16) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class LdmCsvImportRouteTest {
+        +test_ldm_csv_import_route.py()
+        +._fake_load()
+    }
+```
 
 ## Relationships
 
-- [[Community 36]] (1 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/ProjectTracker/tools/check_syntax.py)
+- [/Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py)
 
 ## Audit Trail
 
-- EXTRACTED: 8 (100%)
+- EXTRACTED: 6 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

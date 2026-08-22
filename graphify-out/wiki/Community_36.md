@@ -1,33 +1,41 @@
 # Community 36
 
-> 7 nodes · cohesion 0.43
+> 6 nodes · cohesion 0.33
 
 ## Key Concepts
 
-- [Catálogo Data Structure](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (4 connections)
-- [Cotización al Cliente (COT) Data Structure](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (3 connections)
-- [Lista de Materiales (LDM) Data Structure](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (3 connections)
-- [JSON Data Files (data/)](file:///Users/macbook/ProjectTracker/data) (3 connections)
-- [Deleted Catalog Audit System](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
-- [CSV→LDM Import Diff Algorithm](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
-- [Pending: Destructive Action Confirmations](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [QuoteClientSyncRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py#L82) (5 connections)
+- [test_quote_client_sync.py](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py#L1) (3 connections)
+- [.tearDown()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py#L95) (2 connections)
+- [.test_quote_detail_page_shows_current_client()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py#L99) (1 connections)
+- [.test_quote_resumen_page_shows_current_client()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py#L109) (1 connections)
+- [El cliente (y el nombre de proyecto) se guardan como snapshot dentro de la cotiz](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py#L1) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class QuoteClientSyncRoutesTest {
+        +test_quote_client_sync.py()
+        +.setUp()
+        +.tearDown()
+        +.test_quote_detail_page_shows_current_client()
+        +.test_quote_resumen_page_shows_current_client()
+    }
+```
 
 ## Relationships
 
-- [[Community 30]] (18 shared connections)
+- [[Community 37]] (1 shared connections)
 
 ## Source Files
 
-- [REFERENCIA_ESTRUCTURAS_CSV.txt](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt)
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
-- [data/](file:///Users/macbook/ProjectTracker/data)
-- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
+- [/Users/macbook/ProjectTracker/tests/test_quote_client_sync.py](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py)
 
 ## Audit Trail
 
-- EXTRACTED: 12 (67%)
-- INFERRED: 6 (33%)
+- EXTRACTED: 12 (92%)
+- INFERRED: 1 (8%)
 - AMBIGUOUS: 0 (0%)
 
 ---

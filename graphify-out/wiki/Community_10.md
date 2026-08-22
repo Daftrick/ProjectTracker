@@ -1,6 +1,6 @@
 # Community 10
 
-> 51 nodes · cohesion 0.07
+> 49 nodes · cohesion 0.07
 
 ## Key Concepts
 
@@ -14,12 +14,11 @@
 - [build_consistency_view()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L124) (7 connections)
 - [save_quote_status_labels()](file:///Users/macbook/ProjectTracker/tracker/quote_status_labels.py#L48) (7 connections)
 - [QuoteRowNomenclatureUnificationTest](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py#L85) (7 connections)
-- [quote_status_labels.py](file:///Users/macbook/ProjectTracker/tracker/quote_status_labels.py#L1) (7 connections)
 - [QuoteStatusLabelsRouteTest](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py#L121) (6 connections)
-- [quote_status_labels_admin()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L967) (5 connections)
+- [quote_status_labels_admin()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L968) (5 connections)
 - [build_ldm_row_views()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L49) (4 connections)
 - [build_task_row_views()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L104) (4 connections)
-- [all_quotes()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L986) (4 connections)
+- [all_quotes()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L987) (4 connections)
 - [_deleted_catalog_items()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L33) (3 connections)
 - [.test_custom_label_reflected_in_row_views()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py#L113) (3 connections)
 - [.test_blank_values_fall_back_to_defaults()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py#L65) (3 connections)
@@ -29,7 +28,8 @@
 - [_coverage_color()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L145) (2 connections)
 - [_observation_view()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L93) (2 connections)
 - [_status_color()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L24) (2 connections)
-- *... and 26 more nodes in this community*
+- [_status_icon()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L28) (2 connections)
+- *... and 24 more nodes in this community*
 
 ## Class Diagram
 
@@ -89,8 +89,8 @@ classDiagram
 
 ## Audit Trail
 
-- EXTRACTED: 127 (61%)
-- INFERRED: 80 (39%)
+- EXTRACTED: 119 (60%)
+- INFERRED: 80 (40%)
 - AMBIGUOUS: 0 (0%)
 
 ---

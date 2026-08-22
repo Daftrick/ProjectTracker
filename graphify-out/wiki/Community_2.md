@@ -1,6 +1,6 @@
 # Community 2
 
-> 83 nodes · cohesion 0.05
+> 84 nodes · cohesion 0.05
 
 ## Key Concepts
 
@@ -29,7 +29,7 @@
 - [_find_header_row()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L119) (4 connections)
 - [_find_table_header()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L254) (4 connections)
 - [_match_catalog()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L102) (4 connections)
-- *... and 58 more nodes in this community*
+- *... and 59 more nodes in this community*
 
 ## Class Diagram
 
@@ -75,7 +75,7 @@ classDiagram
 
 ## Relationships
 
-- [[Community 1]] (9 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
@@ -88,7 +88,7 @@ classDiagram
 
 ## Audit Trail
 
-- EXTRACTED: 268 (68%)
+- EXTRACTED: 270 (68%)
 - INFERRED: 129 (32%)
 - AMBIGUOUS: 0 (0%)
 

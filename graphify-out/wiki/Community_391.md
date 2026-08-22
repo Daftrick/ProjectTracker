@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convenciones de Nomenclatura de Archivos](file:///Users/macbook/ProjectTracker/VERSIONES.md) (0 connections)
+- [Quote Status Lifecycle (Borrador/Enviada/Aprobada/Rechazada)](file:///Users/macbook/ProjectTracker/templates/quotes.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [templates/quotes.html](file:///Users/macbook/ProjectTracker/templates/quotes.html)
 
 ## Audit Trail
 

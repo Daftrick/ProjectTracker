@@ -1,84 +1,93 @@
 # Community 7
 
-> 65 nodes · cohesion 0.05
+> 65 nodes · cohesion 0.07
 
 ## Key Concepts
 
-- [auth.py](file:///Users/macbook/ProjectTracker/tracker/auth.py#L1) (29 connections)
-- [auth_routes.py](file:///Users/macbook/ProjectTracker/tracker/routes/auth_routes.py#L1) (16 connections)
-- [AuthTestCase](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L7) (12 connections)
-- [_db_execute()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L154) (9 connections)
-- [init_db()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L25) (9 connections)
-- [DefaultAdminTests](file:///Users/macbook/ProjectTracker/tests/test_auth_defaults.py#L12) (8 connections)
-- [verify_credentials()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L175) (6 connections)
-- [._create_user()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L35) (6 connections)
-- [create_user()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L190) (5 connections)
-- [User](file:///Users/macbook/ProjectTracker/tracker/auth.py#L101) (5 connections)
-- [_db_query()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L148) (4 connections)
-- [get_user_by_username()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L167) (4 connections)
-- [reset_user_password()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L201) (4 connections)
-- [set_user_active()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L197) (4 connections)
-- [.test_inactive_user_cannot_login()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L82) (4 connections)
-- [._admin_row()](file:///Users/macbook/ProjectTracker/tests/test_auth_defaults.py#L29) (4 connections)
-- [_default_admin_config()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L56) (3 connections)
-- [delete_user()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L226) (3 connections)
-- [_ensure_default_admin()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L63) (3 connections)
-- [get_all_users()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L161) (3 connections)
-- [init_auth()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L249) (3 connections)
-- [record_login()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L212) (3 connections)
-- [change_own_password()](file:///Users/macbook/ProjectTracker/tracker/routes/auth_routes.py#L175) (3 connections)
-- [edit_username_view()](file:///Users/macbook/ProjectTracker/tracker/routes/auth_routes.py#L138) (3 connections)
-- [login()](file:///Users/macbook/ProjectTracker/tracker/routes/auth_routes.py#L31) (3 connections)
+- [compute_consistency()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L408) (24 connections)
+- [consistency.py](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L1) (24 connections)
+- [_quote()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L19) (14 connections)
+- [pick_active_quote()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L52) (12 connections)
+- [test_consistency.py](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L1) (11 connections)
+- [is_base_quote_type()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L80) (10 connections)
+- [aggregate_quote_items()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L79) (10 connections)
+- [_q_item()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L35) (10 connections)
+- [compare_items()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L216) (9 connections)
+- [ComputeConsistencyTest](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L193) (9 connections)
+- [_round()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L37) (8 connections)
+- [.test_detects_all_issue_types()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L151) (8 connections)
+- [aggregate_ldm_items()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L120) (7 connections)
+- [_safe_float()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L30) (7 connections)
+- [.test_critical_when_ldm_exceeds_cot()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L231) (6 connections)
+- [.test_full_report_with_general_quote()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L194) (6 connections)
+- [.test_warning_threshold()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L222) (6 connections)
+- [_l_item()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L58) (6 connections)
+- [_ldm()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L46) (6 connections)
+- [PickActiveQuoteTest](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L80) (6 connections)
+- [_quote_visual_row()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L316) (5 connections)
+- [classify_margin()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L41) (4 connections)
+- [_ldm_visual_row()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L331) (4 connections)
+- [.test_aggregates_across_multiple_ldms()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L137) (4 connections)
+- [.test_groups_by_catalog_id_and_handles_unlinked()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L115) (4 connections)
 - *... and 40 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class User {
-        +auth.py()
-        +.__init__()
+    class AggregateLdmItemsTest {
+        +test_consistency.py()
+        +.test_aggregates_across_multiple_ldms()
     }
-    class AuthTestCase {
-        +test_auth.py()
-        +.setUp()
-        +.tearDown()
-        +._create_user()
-        +._login()
-        +.test_login_page_returns_200()
-        +.test_unauthenticated_redirect_to_login()
-        +.test_login_success_redirects_to_dashboard()
-        +.test_login_wrong_password_shows_error()
-        +.test_login_unknown_user_same_error()
+    class AggregateQuoteItemsTest {
+        +test_consistency.py()
+        +.test_groups_by_catalog_id_and_handles_unlinked()
+        +.test_no_quote()
     }
-    class DefaultAdminTests {
-        +test_auth_defaults.py()
-        +.setUp()
-        +.tearDown()
-        +._admin_row()
-        +.test_configured_default_admin_credentials_are_used_on_first_init()
-        +.test_configured_password_does_not_reset_existing_admin_by_default()
-        +.test_configured_password_can_reset_existing_admin_when_enabled()
+    class ClassifyMarginTest {
+        +test_consistency.py()
+        +.test_thresholds()
+    }
+    class CompareItemsTest {
+        +test_consistency.py()
+        +.test_detects_all_issue_types()
+    }
+    class ComputeConsistencyTest {
+        +test_consistency.py()
+        +.test_full_report_with_general_quote()
+        +.test_warning_threshold()
+        +.test_critical_when_ldm_exceeds_cot()
+        +.test_no_data_when_empty()
+        +.test_no_general_quote_uses_fallback()
+        +.test_filters_by_project_id()
+        +.test_visual_warnings_include_missing_data_and_unlinked_rows()
+        +.test_active_extras_are_included_in_visual_total()
+    }
+    class PickActiveQuoteTest {
+        +test_consistency.py()
+        +.test_picks_most_recent_general()
+        +.test_falls_back_to_preliminar_when_no_general()
+        +.test_respects_approval_status_active()
+        +.test_extraordinaria_never_selected_as_base()
+        +.test_no_quotes()
     }
 ```
 
 ## Relationships
 
-- [[Community 2]] (1 shared connections)
+- [[Community 8]] (13 shared connections)
+- [[Community 1]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_auth.py](file:///Users/macbook/ProjectTracker/tests/test_auth.py)
-- [/Users/macbook/ProjectTracker/tests/test_auth_defaults.py](file:///Users/macbook/ProjectTracker/tests/test_auth_defaults.py)
-- [/Users/macbook/ProjectTracker/tracker/auth.py](file:///Users/macbook/ProjectTracker/tracker/auth.py)
-- [/Users/macbook/ProjectTracker/tracker/extensions.py](file:///Users/macbook/ProjectTracker/tracker/extensions.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/auth_routes.py](file:///Users/macbook/ProjectTracker/tracker/routes/auth_routes.py)
+- [/Users/macbook/ProjectTracker/tests/test_consistency.py](file:///Users/macbook/ProjectTracker/tests/test_consistency.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tracker/consistency.py](file:///Users/macbook/ProjectTracker/tracker/consistency.py)
 
 ## Audit Trail
 
-- EXTRACTED: 183 (79%)
-- INFERRED: 48 (21%)
+- EXTRACTED: 248 (81%)
+- INFERRED: 58 (19%)
 - AMBIGUOUS: 0 (0%)
 
 ---

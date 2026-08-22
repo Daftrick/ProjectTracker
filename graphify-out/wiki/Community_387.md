@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Task Entity](file:///Users/macbook/ProjectTracker/templates/tasks.html) (0 connections)
+- [Quote Sections Feature](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/tasks.html](file:///Users/macbook/ProjectTracker/templates/tasks.html)
+- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
