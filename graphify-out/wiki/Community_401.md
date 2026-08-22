@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Quote Bulk Row Selection & Actions Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
+- [Roadmap Completed Features](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
+- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
 
 ## Audit Trail
 

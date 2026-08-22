@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Agrega una versión al bundle y devuelve una copia actualizada.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L225) (0 connections)
+- [Attach non-priced bundle inclusions to hydrated quote items.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L175) (0 connections)
 
 ## Relationships
 

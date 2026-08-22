@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Agrega artículos a través de TODAS las LDMs del proyecto.      Devuelve (linked_](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L121) (0 connections)
+- [Convierte un margen porcentual en un status discreto.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L42) (0 connections)
 
 ## Relationships
 

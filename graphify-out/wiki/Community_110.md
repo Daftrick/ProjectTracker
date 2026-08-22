@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Lista única de categorías existentes (para datalists/filtros).](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L349) (0 connections)
+- [PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1613) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
+- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 

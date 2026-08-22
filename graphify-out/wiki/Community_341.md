@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Crea la carpeta de proyecto en Drive si no existe.      Retorna (created: bool,](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L492) (0 connections)
+- [Shutdown the thread pool](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L146) (0 connections)
 
 ## Relationships
 

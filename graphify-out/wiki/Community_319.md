@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Aprueba/activa una cotización.      - General/Preliminar: marca la seleccionada](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L246) (0 connections)
+- [Recibe el PDF, extrae ítems y redirige a la vista de mapeo.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L569) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
 
 ## Audit Trail
 

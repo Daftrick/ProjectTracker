@@ -1108,7 +1108,7 @@ def quote_pdf_editor(project_id, quote_id):
             specs["basis_note_override"] = basis
         save("quotes", quotes)
         flash("Cambios guardados en el editor PDF.", "success")
-        return redirect(url_for("quotes_bp.quote_pdf_editor", project_id=project_id, quote_id=quote_id))
+        return redirect(url_for("quotes_bp.quote_pdf_editor", project_id=project_id, quote_id=quote_id, preview="pdf"))
 
     from ..pdfs import quote_cover_copy, quote_scope_paragraphs
     from ..terms_templates_config import get_terms_templates, resolve_quote_terms
@@ -1155,6 +1155,7 @@ def quote_pdf_editor(project_id, quote_id):
         company_name=company.get("name") or "Project Tracker",
         company_info=company_info,
         logo_url=logo_url,
+        auto_pdf_preview=request.args.get("preview") == "pdf",
     )
 
 

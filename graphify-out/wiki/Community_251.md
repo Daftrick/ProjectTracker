@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Add or update an item in the mobile draft for the given project.      Finds the](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L50) (0 connections)
+- [Return catalog items filtered by disciplina. None / 'Todos' returns all.](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L10) (0 connections)
 
 ## Relationships
 

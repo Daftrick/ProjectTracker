@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Promote a draft quote to a real quote (status removed, quote_number assigned).](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L124) (0 connections)
+- [Recompute subtotal/tax/total from draft items in-place.](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L41) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Sin General, usa la Preliminar más reciente. Las Extraordinarias no son base.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py#L89) (0 connections)
+- [Pruebas para tracker.catalog_search y la API /api/catalogo.](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_consistency.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py)
+- [tests\test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py)
 
 ## Audit Trail
 

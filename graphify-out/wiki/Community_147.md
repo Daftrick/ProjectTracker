@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Casos borde de expand_quote_bundles y versionado.](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py#L126) (0 connections)
+- [Pruebas de filtros administrativos para proveedores y fichas.](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_filters.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_bundles.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py)
+- [tests\test_admin_filters.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_filters.py)
 
 ## Audit Trail
 

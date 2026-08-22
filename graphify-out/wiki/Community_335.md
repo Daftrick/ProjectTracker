@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Lazy loader for large files to avoid loading all file metadata at once](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L97) (0 connections)
+- [Check if cached result is still valid](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L57) (0 connections)
 
 ## Relationships
 

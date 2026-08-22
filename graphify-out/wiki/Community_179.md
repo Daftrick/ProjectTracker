@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Indexa bundles por el artículo comercial de catálogo usado en COT.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L87) (0 connections)
+- [Devuelve una copia normalizada de un bundle.      La función tolera bundles inco](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L37) (0 connections)
 
 ## Relationships
 

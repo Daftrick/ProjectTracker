@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Lee un PDF de cotización de proveedor y extrae los ítems.      Devuelve:](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdf_ldm_import.py#L292) (0 connections)
+- [Extracción de ítems desde PDFs de cotización de proveedores.  Estrategia en casc](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdf_ldm_import.py#L1) (0 connections)
 
 ## Relationships
 

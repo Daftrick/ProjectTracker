@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Obtiene la versión activa de un bundle.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L73) (0 connections)
+- [Bundles versionados para comparar COT contra LDM técnica.  Un bundle permite que](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L1) (0 connections)
 
 ## Relationships
 

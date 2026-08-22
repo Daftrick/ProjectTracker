@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Filtra fichas por texto, tipo y estado de vinculación a proyectos.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cadmin_filters.py#L55) (0 connections)
+- [Filtros puros para vistas administrativas con listas largas.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cadmin_filters.py#L1) (0 connections)
 
 ## Relationships
 

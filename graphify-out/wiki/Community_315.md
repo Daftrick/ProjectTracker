@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parse a LISP-exported material list CSV into LDM draft data.      Args:](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py#L77) (0 connections)
+- [Resumen financiero simple para inyectar en plantillas.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cconsistency.py#L403) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\csv_import.py](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\consistency.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cconsistency.py)
 
 ## Audit Trail
 

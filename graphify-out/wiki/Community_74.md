@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Aprueba/activa o desactiva una cotización.      Toggle libre e independiente par](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L471) (0 connections)
+- [Genera el PDF de una Lista de Materiales con la estética del PDF de     cotizaci](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1197) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 

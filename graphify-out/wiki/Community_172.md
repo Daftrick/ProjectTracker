@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Filtra proveedores por búsqueda libre y categoría exacta.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cadmin_filters.py#L42) (0 connections)
+- [Parse project Python files without writing bytecode.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctools%5Ccheck_syntax.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\admin_filters.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cadmin_filters.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tools\check_syntax.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctools%5Ccheck_syntax.py)
 
 ## Audit Trail
 

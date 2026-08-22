@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parse a LISP-exported client quote CSV into quote draft data.](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L111) (0 connections)
+- [Asegura que cada artículo tenga el campo `categoria` (default '').      Migració](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L7) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker/quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py)
+- [tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

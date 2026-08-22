@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Deleted Catalog Item Handling Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
+- [Quote Status Lifecycle (Borrador/Enviada/Aprobada/Rechazada)](file:///Users/macbook/ProjectTracker/templates/quotes.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
+- [templates/quotes.html](file:///Users/macbook/ProjectTracker/templates/quotes.html)
 
 ## Audit Trail
 

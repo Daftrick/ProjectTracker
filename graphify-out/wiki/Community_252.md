@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Remove an item by catalog_item_id from the mobile draft.      Returns (updated_q](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L102) (0 connections)
+- [Build a quote item dict from a catalog item + qty (int or str).](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L17) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Returns a redirect Response if the current POST is not from an admin, else None.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py#L35) (0 connections)
+- [Remove an item by catalog_item_id from the mobile draft.      Returns (updated_q](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L102) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\admin.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py)
+- [tracker\services.py](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py)
 
 ## Audit Trail
 

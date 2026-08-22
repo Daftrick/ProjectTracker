@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Smoke-test del endpoint JSON; no muta datos.](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py#L110) (0 connections)
+- [Cobertura de los bundles reales en data/bundles.json.](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py#L74) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py)
+- [tests\test_bundles.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py)
 
 ## Audit Trail
 

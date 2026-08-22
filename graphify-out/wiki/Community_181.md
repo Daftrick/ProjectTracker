@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Crea una estructura de bundle con versión 1 activa.      El ID final puede asign](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L107) (0 connections)
+- [Obtiene la versión activa de un bundle.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L73) (0 connections)
 
 ## Relationships
 

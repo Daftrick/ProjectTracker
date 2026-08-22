@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Auto-generated Quote Number Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
+- [Quote Bulk Row Selection & Actions Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
 
 ## Relationships
 

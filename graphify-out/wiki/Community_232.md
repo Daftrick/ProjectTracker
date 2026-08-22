@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Scan multiple drive folders in parallel for better performance.      Args:](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L765) (0 connections)
+- [Devuelve un dict de nombres de archivo CSV ya importados como cotización.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L504) (0 connections)
 
 ## Relationships
 

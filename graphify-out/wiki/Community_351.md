@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Obtiene la versión activa de un bundle.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L72) (0 connections)
+- [Severidad del renglón para colorear.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L188) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
+- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
 
 ## Audit Trail
 

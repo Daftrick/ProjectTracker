@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Metadata #proveedor y #fecha post-header (formato real del LISP).](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py#L214) (0 connections)
+- [Escribe un CSV LDM con header estándar y filas dadas.      meta_rows: lista de t](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py#L53) (0 connections)
 
 ## Relationships
 

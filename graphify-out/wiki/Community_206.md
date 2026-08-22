@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Resumen financiero simple para inyectar en plantillas.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L405) (0 connections)
+- [Etiquetas de problema para un artículo. La UI las traduce a colores.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L165) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error         legib](file:///Users/macbook/ProjectTracker/tests%5Ctest_csv_import.py#L100) (0 connections)
+- [Purge a deleted catalog item from the quote](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L561) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_csv_import.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_csv_import.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

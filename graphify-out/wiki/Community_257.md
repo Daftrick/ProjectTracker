@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Recibe el PDF, extrae ítems y redirige a la vista de mapeo.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L638) (0 connections)
+- [Migración idempotente: asigna approval_status a cotizaciones existentes.](file:///Users/macbook/ProjectTracker/tracker%5C__init__.py#L86) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
+- [tracker\__init__.py](file:///Users/macbook/ProjectTracker/tracker%5C__init__.py)
 
 ## Audit Trail
 

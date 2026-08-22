@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Mark a deleted catalog item as preserved (keep historical reference)](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L585) (0 connections)
+- [Genera la cotización como Excel y la sirve como descarga directa.](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L383) (0 connections)
 
 ## Relationships
 

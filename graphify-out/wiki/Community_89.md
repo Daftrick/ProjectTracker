@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Returns 'verde', 'amarillo', 'rojo', or 'gris' based on deadline and inactivity.](file:///Users/macbook/ProjectTracker/tracker/domain.py#L132) (0 connections)
+- [precio_venta = costo × (1+%mo) × (1+%ind) / (1−%util). Utilidad sobre precio de](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L193) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

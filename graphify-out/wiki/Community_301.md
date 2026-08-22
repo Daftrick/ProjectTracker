@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Indexa bundles por el artículo comercial de catálogo usado en COT.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py#L85) (0 connections)
+- [Devuelve una copia normalizada de un bundle.      La función tolera bundles inco](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py#L35) (0 connections)
 
 ## Relationships
 

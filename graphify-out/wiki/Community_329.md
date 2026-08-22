@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [LRU cache for drive folder scans with TTL and mtime-based invalidation](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L39) (0 connections)
+- [Lee un CSV COT directamente desde la carpeta Drive del proyecto y muestra previe](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L632) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

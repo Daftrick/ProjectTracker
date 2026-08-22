@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Crea la carpeta Drive del proyecto si aún no existe.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cprojects.py#L533) (0 connections)
+- [Recibe el PDF, extrae ítems y redirige a la vista de mapeo.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L638) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\projects.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cprojects.py)
+- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
 
 ## Audit Trail
 

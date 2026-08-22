@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convierte cualquier valor a str limpio, apto para fpdf2 con DejaVu (UTF-8).](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L46) (0 connections)
+- [Expande las partidas COT con bundle a materiales esperados.      Retorna un dicc](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L274) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [precio_venta = costo × (1+%mo) × (1+%ind) / (1−%util). Utilidad sobre precio de](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L193) (0 connections)
+- [Audit all quotes and LDMs for deleted catalog items](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1057) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Aprueba/activa una cotización.      - General/Preliminar: marca la seleccionada](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L344) (0 connections)
+- [Returns a redirect Response if the current POST is not from an admin, else None.](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L39) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
 
 ## Audit Trail
 

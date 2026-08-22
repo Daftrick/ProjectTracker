@@ -18,7 +18,7 @@
 - [_normalize()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L179) (5 connections)
 - [normalize_contact_rows()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L104) (5 connections)
 - [save_quote_templates()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L206) (5 connections)
-- [quote_templates()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1165) (5 connections)
+- [quote_templates()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1166) (5 connections)
 - [ParseCsvPlanoFilenameTest](file:///Users/macbook/ProjectTracker/tests/test_drive.py#L6) (5 connections)
 - [_normalize_contacts()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L91) (4 connections)
 - [_normalize_sections()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L143) (4 connections)
@@ -69,7 +69,7 @@ classDiagram
 
 ## Relationships
 
-- [[Community 23]] (4 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 

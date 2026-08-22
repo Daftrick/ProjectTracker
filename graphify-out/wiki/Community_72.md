@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1675) (0 connections)
+- [Recibe el mapeo del usuario y crea la LDM.](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L733) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
 
 ## Audit Trail
 

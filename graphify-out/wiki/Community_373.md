@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Crea la carpeta Drive del proyecto si aún no existe.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cprojects.py#L452) (0 connections)
+- [Devuelve filas LDM faltantes derivadas de la expansion tecnica.      No modifica](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py#L40) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\projects.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cprojects.py)
+- [tracker\ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py)
 
 ## Audit Trail
 

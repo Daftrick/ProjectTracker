@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parsea nombre de archivo CSV COT: {CLAVE}-v{VER}-i{CONSEC}-COT-{YYYYMMDD}.csv](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L473) (0 connections)
+- [Shutdown the thread pool](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L147) (0 connections)
 
 ## Relationships
 

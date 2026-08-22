@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Activa una versión y archiva la versión activa anterior.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L241) (0 connections)
+- [Calcula el siguiente número de versión para un bundle existente.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L193) (0 connections)
 
 ## Relationships
 

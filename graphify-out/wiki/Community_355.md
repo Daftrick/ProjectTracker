@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Agrega una versión al bundle y devuelve una copia actualizada.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L129) (0 connections)
+- [Indexa bundles por el artículo comercial de catálogo usado en COT.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L86) (0 connections)
 
 ## Relationships
 

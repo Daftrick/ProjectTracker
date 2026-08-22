@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convierte cantidades según una regla.      `to_expected=True` convierte la canti](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L86) (0 connections)
+- [Elimina una versión si no es la única disponible.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L162) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_rules.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

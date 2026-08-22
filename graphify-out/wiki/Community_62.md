@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Migración idempotente: asigna approval_status a cotizaciones existentes.](file:///Users/macbook/ProjectTracker/tracker/__init__.py#L109) (0 connections)
+- [Muestra la vista de mapeo ítem-PDF → catálogo.](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L746) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/__init__.py](file:///Users/macbook/ProjectTracker/tracker/__init__.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
 
 ## Audit Trail
 

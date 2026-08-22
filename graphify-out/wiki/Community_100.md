@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Expande las partidas COT con bundle a materiales esperados.      Retorna un dicc](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L274) (0 connections)
+- [Agrega una versión al bundle y devuelve una copia actualizada.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L225) (0 connections)
 
 ## Relationships
 

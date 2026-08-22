@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Construye el workbook Excel de la cotización.      Devuelve (wb, filename) para](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L414) (0 connections)
+- [PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1588) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 

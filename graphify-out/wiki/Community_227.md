@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Shutdown and clear the lazy loader thread pool.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L164) (0 connections)
+- [Load file information in parallel for better performance](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L118) (0 connections)
 
 ## Relationships
 

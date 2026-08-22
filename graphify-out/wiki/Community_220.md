@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Get cached result if valid](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L74) (0 connections)
+- [Get folder modification time for invalidation](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L47) (0 connections)
 
 ## Relationships
 

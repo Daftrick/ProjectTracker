@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Purge a deleted catalog item from the quote](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L638) (0 connections)
+- [Construye el workbook Excel de la cotización.      Devuelve (wb, filename) para](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L439) (0 connections)
 
 ## Relationships
 

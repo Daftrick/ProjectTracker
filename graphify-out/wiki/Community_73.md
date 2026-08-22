@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Valida y limpia los campos de un pago (fecha, monto, concepto).](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L398) (0 connections)
+- [Return the company dict from company.json, or {} on any error.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L126) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 

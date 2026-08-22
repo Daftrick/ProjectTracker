@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Check if cached result is still valid](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L57) (0 connections)
+- [LRU cache for drive folder scans with TTL and mtime-based invalidation](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L39) (0 connections)
 
 ## Relationships
 

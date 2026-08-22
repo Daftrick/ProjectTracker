@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve (linked_by_id, unlinked_summary).      `linked_by_id` mapea catalog_ite](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L80) (0 connections)
+- [Resumen visual entre cotización (COT) y listas de materiales (LDM).  El detalle](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L1) (0 connections)
 
 ## Relationships
 

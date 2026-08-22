@@ -11,7 +11,7 @@
 
 ## Relationships
 
-- [[Community 46]] (6 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 

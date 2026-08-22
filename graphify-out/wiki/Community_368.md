@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Separa agregados linked en (incluidos, ignorados).](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L61) (0 connections)
+- [Devuelve reglas activas aplicables al scope solicitado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L37) (0 connections)
 
 ## Relationships
 

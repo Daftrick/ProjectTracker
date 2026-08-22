@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Recibe el mapeo del usuario y crea la LDM.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L654) (0 connections)
+- [Parse a LISP-exported material list CSV into LDM draft data.      Args:](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py#L77) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
+- [tracker\csv_import.py](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py)
 
 ## Audit Trail
 

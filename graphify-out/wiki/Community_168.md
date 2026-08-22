@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [total = round(qty * price, 2) — sin acumulación de error flotante.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py#L374) (0 connections)
+- [Metadata #proveedor y #fecha post-header (formato real del LISP).](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py#L214) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Recibe el mapeo del usuario y crea la LDM.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L708) (0 connections)
+- [Lee un CSV COT directamente desde la carpeta Drive del proyecto y muestra previe](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L653) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

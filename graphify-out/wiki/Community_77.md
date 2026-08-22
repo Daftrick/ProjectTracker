@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Construye el workbook Excel de la cotización.      Devuelve (wb, filename) para](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L588) (0 connections)
+- [Aprueba/activa o desactiva una cotización.      Toggle libre e independiente par](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L471) (0 connections)
 
 ## Relationships
 

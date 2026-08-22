@@ -75,8 +75,7 @@ classDiagram
 
 ## Relationships
 
-- [[Community 2]] (9 shared connections)
-- [[Community 19]] (5 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Cobertura de los bundles reales en data/bundles.json.](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L151) (0 connections)
+- [Nomenclatura de estados de cotización (borrador/activa/obsoleta),     editable p](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L968) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Etiquetas de problema para un artículo. La UI las traduce a colores.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L165) (0 connections)
+- [Devuelve la cotización General/Preliminar activa del proyecto.      Orden de pre](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L53) (0 connections)
 
 ## Relationships
 

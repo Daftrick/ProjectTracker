@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Múltiples tipos de tubería en un mismo archivo LDM.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py#L196) (0 connections)
+- [Tests parametrizados para importación CSV de tubería conduit.  Cubre los 6 tipos](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py#L1) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Elimina una versión si no es la única disponible.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py#L161) (0 connections)
+- [Crea una estructura de bundle con versión 1 activa.      El ID final puede asign](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py#L105) (0 connections)
 
 ## Relationships
 

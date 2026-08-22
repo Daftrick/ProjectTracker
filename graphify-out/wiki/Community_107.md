@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1613) (0 connections)
+- [Registra fuentes PDF bajo el nombre 'DejaVu'.     Prioriza Atkinson Hyperlegible](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L65) (0 connections)
 
 ## Relationships
 

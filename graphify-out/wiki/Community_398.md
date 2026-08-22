@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Roadmap Completed Features](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (0 connections)
+- [Quote Sections Feature](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
+- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 

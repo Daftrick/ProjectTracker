@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Registra fuentes PDF bajo el nombre 'DejaVu'.     Prioriza Atkinson Hyperlegible](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L65) (0 connections)
+- [Migración idempotente: asigna approval_status a cotizaciones existentes.](file:///Users/macbook/ProjectTracker/tracker/__init__.py#L99) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tracker/__init__.py](file:///Users/macbook/ProjectTracker/tracker/__init__.py)
 
 ## Audit Trail
 

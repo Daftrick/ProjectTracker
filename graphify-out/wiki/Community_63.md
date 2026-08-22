@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Recibe el PDF, extrae ítems y redirige a la vista de mapeo.](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L650) (0 connections)
+- [Recibe el mapeo del usuario y crea la LDM.](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L774) (0 connections)
 
 ## Relationships
 

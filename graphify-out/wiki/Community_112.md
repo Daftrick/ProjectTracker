@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Genera la cotización como Excel y la sirve como descarga directa.](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L408) (0 connections)
+- [One-time migration: split 'Marca | Nombre' items into separate marca + nombre fi](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L267) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
 
 ## Audit Trail
 

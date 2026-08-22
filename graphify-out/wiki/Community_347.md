@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Etiquetas de problema para un artículo. La UI las traduce a colores.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L170) (0 connections)
+- [La cotización General más reciente; si no hay, la más reciente de cualquier tipo](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L77) (0 connections)
 
 ## Relationships
 

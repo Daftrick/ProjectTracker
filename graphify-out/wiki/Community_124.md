@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Audit all quotes and LDMs for deleted catalog items](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L840) (0 connections)
+- [Restore a deleted catalog item by reconnecting it to a new catalog item](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L559) (0 connections)
 
 ## Relationships
 

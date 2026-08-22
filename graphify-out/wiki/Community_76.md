@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Genera la cotización como Excel y la sirve como descarga directa.](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L557) (0 connections)
+- [Valida y limpia los campos de un pago (fecha, monto, concepto).](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L398) (0 connections)
 
 ## Relationships
 

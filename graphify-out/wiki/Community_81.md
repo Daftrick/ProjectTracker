@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Nomenclatura de estados de cotización (borrador/activa/obsoleta),     editable p](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L968) (0 connections)
+- [Restore a deleted catalog item by reconnecting it to a new catalog item](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L737) (0 connections)
 
 ## Relationships
 

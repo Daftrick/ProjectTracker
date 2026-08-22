@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Filtra faltantes por seleccion explicita de catalog_item_id.](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py#L96) (0 connections)
+- [Scan multiple drive folders in parallel for better performance.      Args:](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L765) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py)
+- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

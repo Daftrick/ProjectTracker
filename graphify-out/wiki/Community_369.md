@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Construye resumen compacto para UI.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L74) (0 connections)
+- [Conjunto de catalog_item_id ignorados para un scope.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L51) (0 connections)
 
 ## Relationships
 

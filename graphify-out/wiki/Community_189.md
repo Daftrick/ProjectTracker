@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L79) (0 connections)
+- [Asegura que cada artículo tenga el campo `categoria` (default '').      Migració](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L10) (0 connections)
 
 ## Relationships
 

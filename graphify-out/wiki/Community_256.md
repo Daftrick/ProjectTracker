@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Lista única de categorías existentes (para datalists/filtros).](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py#L292) (0 connections)
+- [Promote a draft quote to a real quote (status removed, quote_number assigned).](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L124) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\admin.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py)
+- [tracker\services.py](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py)
 
 ## Audit Trail
 

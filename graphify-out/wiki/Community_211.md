@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Reconnect a deleted catalog item to a new catalog item](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdeletions.py#L77) (0 connections)
+- [Return {catalog_name_key(nombre): id} for O(1) lookup during CSV parsing.](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccsv_import.py#L64) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\deletions.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdeletions.py)
+- [C:\Users\daftr\My Drive\Omniious\Claude Code\ProjectTracker\tracker\csv_import.py](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccsv_import.py)
 
 ## Audit Trail
 

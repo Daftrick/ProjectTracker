@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Activa una versión y archiva la versión activa anterior.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py#L144) (0 connections)
+- [Calcula el siguiente número de versión para un bundle existente.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cbundles.py#L96) (0 connections)
 
 ## Relationships
 

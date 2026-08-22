@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Genera el PDF de una Lista de Materiales con la estética del PDF de     cotizaci](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1143) (0 connections)
+- [Convierte cualquier valor a str limpio, apto para fpdf2 con DejaVu (UTF-8).](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L46) (0 connections)
 
 ## Relationships
 

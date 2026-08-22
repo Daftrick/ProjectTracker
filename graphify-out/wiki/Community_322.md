@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Restore a deleted catalog item by reconnecting it to a new catalog item](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L500) (0 connections)
+- [Aprueba/activa una cotización.      - General/Preliminar: marca la seleccionada](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L246) (0 connections)
 
 ## Relationships
 

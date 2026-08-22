@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos.](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py#L1352) (0 connections)
+- [Registra las fuentes DejaVu guardadas en .codex_tmp/fonts/ del proyecto.     Dev](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py#L54) (0 connections)
 
 ## Relationships
 

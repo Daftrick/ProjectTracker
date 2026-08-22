@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Calcula el siguiente número de versión para un bundle existente.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L98) (0 connections)
+- [Normaliza un componente de bundle.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L63) (0 connections)
 
 ## Relationships
 

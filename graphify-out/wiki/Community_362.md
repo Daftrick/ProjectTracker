@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Compara materiales esperados por bundles contra LDM real convertida.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L159) (0 connections)
+- [Reglas de comparación entre COT y LDM.  Permiten relacionar artículos equivalent](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L1) (0 connections)
 
 ## Relationships
 

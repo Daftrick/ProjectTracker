@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Lista única de categorías existentes (para datalists/filtros).](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py#L264) (0 connections)
+- [Registra las fuentes DejaVu guardadas en .codex_tmp/fonts/ del proyecto.     Dev](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdfs.py#L29) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\admin.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\pdfs.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdfs.py)
 
 ## Audit Trail
 

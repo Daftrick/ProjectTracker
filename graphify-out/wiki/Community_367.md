@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Mapa catalog_item_id → regla de ignorado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L56) (0 connections)
+- [Normaliza una regla de artículo ignorado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L23) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Construye una lista de filas comparadas, ordenada por severidad.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cconsistency.py#L219) (0 connections)
+- [Agrega artículos a través de TODAS las LDMs del proyecto.      Devuelve (linked_](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cconsistency.py#L119) (0 connections)
 
 ## Relationships
 

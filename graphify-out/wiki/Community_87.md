@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Flattens sections and merges duplicate items (same catalog ID or description+uni](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L244) (0 connections)
+- [Cobertura de los bundles reales en data/bundles.json.](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L151) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tests/test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py)
 
 ## Audit Trail
 

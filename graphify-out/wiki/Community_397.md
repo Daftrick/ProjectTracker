@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Drive Integration (Multiplataforma)](file:///Users/macbook/ProjectTracker/VERSIONES.md) (0 connections)
+- [scan_drive_folder Function](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return the company dict from company.json, or {} on any error.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L120) (0 connections)
+- [Parse #RRGGBB hex string to (r, g, b) int tuple.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L35) (0 connections)
 
 ## Relationships
 

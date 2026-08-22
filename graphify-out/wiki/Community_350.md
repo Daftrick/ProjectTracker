@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Reporte completo de consistencia para un proyecto.      Retorna un diccionario l](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L298) (0 connections)
+- [Etiquetas de problema para un artículo. La UI las traduce a colores.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L170) (0 connections)
 
 ## Relationships
 

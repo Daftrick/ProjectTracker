@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Restore a deleted catalog item by reconnecting it to a new catalog item](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L737) (0 connections)
+- [Cambia el estado de una cotización libremente a borrador/activa/obsoleta,     el](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L489) (0 connections)
 
 ## Relationships
 
