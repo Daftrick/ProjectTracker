@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Construye una lista de filas comparadas, ordenada por severidad.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L226) (0 connections)
+- [Devuelve (linked_by_id, unlinked_summary).      `linked_by_id` mapea catalog_ite](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L87) (0 connections)
 
 ## Relationships
 

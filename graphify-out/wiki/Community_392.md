@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Quote Sectioned Line Items Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
+- [APP_VERSION Constant](file:///Users/macbook/ProjectTracker/VERSIONES.md) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
 
 ## Audit Trail
 

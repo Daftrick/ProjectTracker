@@ -1228,7 +1228,7 @@ def build_ldm_pdf(project, ldm, output_path=None):
     _cached_company_name = _safe_text(_ldm_company_data.get("name") or "Project Tracker")
 
     items = ldm.get("items", [])
-    project_name = _safe_text(project.get("name", ""))
+    project_name = _safe_text(ldm.get("project_name_override") or project.get("name", ""))
     proveedor_name = _safe_text(ldm.get("proveedor", "") or "Proveedor")
     ldm_number = _safe_text(ldm.get("ldm_number", "Lista de Materiales"))
     ldm_date = format_date_short(ldm.get("fecha"))
@@ -1551,7 +1551,15 @@ def build_ldm_pdf(project, ldm, output_path=None):
     pdf.set_xy(col_x[0], info_y + 9)
     pdf.set_text_color(*INK)
     pdf.set_font("DejaVu", "", 10.4)
-    pdf.cell(col_w[0], 7, project_name)
+    _pn_max = col_w[0] - 2
+    _pn_disp = project_name
+    while _pn_disp and pdf.get_string_width(_pn_disp) > _pn_max:
+        _pn_disp = _pn_disp[:-1]
+    if _pn_disp != project_name:
+        while _pn_disp and pdf.get_string_width(_pn_disp + "…") > _pn_max:
+            _pn_disp = _pn_disp[:-1]
+        _pn_disp = _pn_disp + "…"
+    pdf.cell(col_w[0], 7, _pn_disp)
     pdf.set_x(col_x[1])
     pdf.cell(col_w[1], 7, proveedor_name)
     pdf.set_x(col_x[2])

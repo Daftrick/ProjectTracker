@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return catalog items filtered by disciplina. None / 'Todos' returns all.](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L10) (0 connections)
+- [Extrae número de cotización, fecha y proveedor del header de Procables.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdf_ldm_import.py#L153) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\services.py](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\pdf_ldm_import.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdf_ldm_import.py)
 
 ## Audit Trail
 

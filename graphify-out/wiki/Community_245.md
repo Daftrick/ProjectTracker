@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Promote a draft quote to a real quote (status removed, quote_number assigned).](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L124) (0 connections)
+- [Build a quote item dict from a catalog item + qty (int or str).](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L17) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Recibe el PDF, extrae ítems y redirige a la vista de mapeo.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L638) (0 connections)
+- [Promote a draft quote to a real quote (status removed, quote_number assigned).](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L124) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
+- [tracker\services.py](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py)
 
 ## Audit Trail
 

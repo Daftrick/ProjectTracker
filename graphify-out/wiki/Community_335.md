@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convierte un margen porcentual en un status discreto.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L66) (0 connections)
+- [Clear the drive scan cache. Useful for testing or forcing fresh scans.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L157) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

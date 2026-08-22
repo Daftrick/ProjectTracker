@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Extraordinaria no puede ser cotización base aunque sea la única del proyecto.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py#L105) (0 connections)
+- [Smoke-test del endpoint JSON; no muta datos.](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py#L110) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_consistency.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py)
+- [tests\test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py)
 
 ## Audit Trail
 

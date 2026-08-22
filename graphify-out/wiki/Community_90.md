@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Activa una versión y archiva la versión activa anterior.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L241) (0 connections)
+- [Attach non-priced bundle inclusions to hydrated quote items.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L175) (0 connections)
 
 ## Relationships
 

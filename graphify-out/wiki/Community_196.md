@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Severidad del renglón para colorear.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L183) (0 connections)
+- [Devuelve la cotización General/Preliminar activa del proyecto.      Orden de pre](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L53) (0 connections)
 
 ## Relationships
 

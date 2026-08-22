@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Elimina una versión si no es la única disponible.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L258) (0 connections)
+- [Calcula el siguiente número de versión para un bundle existente.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L193) (0 connections)
 
 ## Relationships
 

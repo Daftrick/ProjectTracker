@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Agrega artículos a través de TODAS las LDMs del proyecto.      Devuelve (linked_](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L121) (0 connections)
+- [Resumen visual entre cotización (COT) y listas de materiales (LDM).  El detalle](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L1) (0 connections)
 
 ## Relationships
 

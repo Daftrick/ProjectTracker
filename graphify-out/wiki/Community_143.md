@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Sin General, usa la Preliminar más reciente. Las Extraordinarias no son base.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py#L89) (0 connections)
+- [Casos borde de expand_quote_bundles y versionado.](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py#L126) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_consistency.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py)
+- [tests\test_bundles.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py)
 
 ## Audit Trail
 

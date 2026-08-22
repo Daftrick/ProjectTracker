@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Acceso rápido desde el panel lateral: todos los pagos de todas las     cotizacio](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1031) (0 connections)
+- [Restore a deleted catalog item by reconnecting it to a new catalog item](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L737) (0 connections)
 
 ## Relationships
 

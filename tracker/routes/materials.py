@@ -246,6 +246,7 @@ def new_ldm(project_id):
             "subtotal_cot": validation["subtotal_cot"],
             "cot_proveedor": validation["cot_proveedor"],
             "notes": validation["notes"],
+            "project_name_override": validation["project_name_override"],
             "created_at": today(),
         }
         all_ldms.append(ldm)
@@ -398,6 +399,7 @@ def edit_ldm(project_id, ldm_id):
         ldm["subtotal_cot"] = validation["subtotal_cot"]
         ldm["cot_proveedor"] = validation["cot_proveedor"]
         ldm["notes"] = validation["notes"]
+        ldm["project_name_override"] = validation["project_name_override"]
         save("materiales", all_ldms)
         flash("Lista de materiales actualizada.", "success")
         return redirect(url_for("materials_bp.edit_ldm", project_id=project_id, ldm_id=ldm_id))

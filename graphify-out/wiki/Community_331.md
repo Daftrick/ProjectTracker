@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Clear the drive scan cache. Useful for testing or forcing fresh scans.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L157) (0 connections)
+- [Lazy loader for large files to avoid loading all file metadata at once](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L97) (0 connections)
 
 ## Relationships
 

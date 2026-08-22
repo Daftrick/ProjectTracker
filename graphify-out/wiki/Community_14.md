@@ -94,7 +94,7 @@ classDiagram
 
 ## Relationships
 
-- [[Community 13]] (1 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 

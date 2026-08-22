@@ -341,6 +341,16 @@
             {% if fe.get('fecha') %}<div class="invalid-feedback">{{ fe.get('fecha') }}</div>{% endif %}
           </div>
           <div class="col-12">
+            <label class="form-label">
+              Nombre del proyecto en PDF
+              <span class="text-muted ms-1" style="font-size:.8rem">— opcional, para abreviar en la portada</span>
+            </label>
+            <input name="project_name_override" class="form-control"
+                   placeholder="{{ project.name }}"
+                   value="{{ ldm.project_name_override if ldm and ldm.project_name_override else '' }}">
+            <div class="form-text">Déjalo vacío para usar el nombre completo del proyecto. Útil cuando el nombre es largo y se encima con el proveedor.</div>
+          </div>
+          <div class="col-12">
             <label class="form-label">Notas / instrucciones</label>
             <textarea name="notes" class="form-control" rows="2"
                       placeholder="Condiciones, tiempo de entrega esperado, especificaciones adicionales…">{{ ldm.notes if ldm else '' }}</textarea>

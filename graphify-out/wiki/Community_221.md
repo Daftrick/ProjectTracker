@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve un dict de nombres de archivo CSV ya importados como cotización.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L504) (0 connections)
+- [Shutdown the thread pool](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L147) (0 connections)
 
 ## Relationships
 

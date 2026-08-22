@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Pruebas de sincronizacion parcial LDM desde bundles.](file:///Users/macbook/ProjectTracker/tests%5Ctest_ldm_sync.py#L1) (0 connections)
+- [Con approval_status explícito, elige la marcada como active aunque no sea la más](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py#L96) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_ldm_sync.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_consistency.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py)
 
 ## Audit Trail
 

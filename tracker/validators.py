@@ -244,6 +244,7 @@ def validate_ldm_form(form):
         "subtotal_cot": round(subtotal_cot, 2),
         "cot_proveedor": _clean(form.get("cot_proveedor")) or None,
         "notes": _clean(form.get("notes")),
+        "project_name_override": _clean(form.get("project_name_override")) or "",
     }
 
 

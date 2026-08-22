@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Catalog Bulk Delete Pattern](file:///Users/macbook/ProjectTracker/templates/catalogo.html) (0 connections)
+- [Drag-and-Drop Row Reorder Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/catalogo.html](file:///Users/macbook/ProjectTracker/templates/catalogo.html)
+- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
 
 ## Audit Trail
 

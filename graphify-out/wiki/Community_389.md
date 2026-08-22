@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Drive Integration (Multiplataforma)](file:///Users/macbook/ProjectTracker/VERSIONES.md) (0 connections)
+- [fpdf2 Dependency](file:///Users/macbook/ProjectTracker/requirements.txt) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [requirements.txt](file:///Users/macbook/ProjectTracker/requirements.txt)
 
 ## Audit Trail
 

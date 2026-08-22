@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Comparison Ignored Item Entity](file:///Users/macbook/ProjectTracker/templates/comparison_rules.html) (0 connections)
+- [Catalog Inline AJAX Edit Pattern](file:///Users/macbook/ProjectTracker/templates/catalogo.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/comparison_rules.html](file:///Users/macbook/ProjectTracker/templates/comparison_rules.html)
+- [templates/catalogo.html](file:///Users/macbook/ProjectTracker/templates/catalogo.html)
 
 ## Audit Trail
 

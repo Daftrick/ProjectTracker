@@ -2,17 +2,17 @@
   "hotspots": [
     {
       "label": "build_quote_pdf()",
-      "risk": 0.731,
+      "risk": 0.754,
       "type": "FUNCTION"
     },
     {
       "label": "build_ldm_pdf()",
-      "risk": 0.391,
+      "risk": 0.424,
       "type": "FUNCTION"
     },
     {
       "label": "_build_quote_workbook()",
-      "risk": 0.238,
+      "risk": 0.26,
       "type": "FUNCTION"
     },
     {
@@ -22,7 +22,7 @@
     },
     {
       "label": "quote_templates()",
-      "risk": 0.207,
+      "risk": 0.229,
       "type": "FUNCTION"
     }
   ],

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Agrega una versión al bundle y devuelve una copia actualizada.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L129) (0 connections)
+- [Obtiene la versión activa de un bundle.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L72) (0 connections)
 
 ## Relationships
 

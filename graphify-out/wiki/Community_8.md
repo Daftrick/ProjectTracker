@@ -9,7 +9,7 @@
 - [build_ldm_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1208) (13 connections)
 - [quote_cover_copy()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L209) (12 connections)
 - [_safe_text()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L51) (10 connections)
-- [build_progress_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1686) (9 connections)
+- [build_progress_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1694) (9 connections)
 - [quote_sequence_from_number()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L204) (9 connections)
 - [quote_project_basis_note()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L229) (8 connections)
 - [QuoteCoverCopyTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L13) (8 connections)
@@ -81,7 +81,7 @@ classDiagram
 
 ## Relationships
 
-- [[Community 9]] (6 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 

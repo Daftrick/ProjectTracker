@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Check if cached result is still valid](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L57) (0 connections)
+- [CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error         legib](file:///Users/macbook/ProjectTracker/tests%5Ctest_quote_csv_import.py#L86) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tests\test_quote_csv_import.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_quote_csv_import.py)
 
 ## Audit Trail
 

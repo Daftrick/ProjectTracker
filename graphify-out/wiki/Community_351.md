@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Reglas de comparación entre COT y LDM.  Permiten relacionar artículos equivalent](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L1) (0 connections)
+- [Agrega una versión al bundle y devuelve una copia actualizada.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L129) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_rules.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

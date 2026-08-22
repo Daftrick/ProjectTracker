@@ -12,18 +12,18 @@
 - [projects.py](file:///Users/macbook/ProjectTracker/tracker/routes/projects.py#L1) (29 connections)
 - [create_app()](file:///Users/macbook/ProjectTracker/tracker/__init__.py#L53) (20 connections)
 - [new_id()](file:///Users/macbook/ProjectTracker/tracker/storage.py#L62) (20 connections)
-- [import_ldm_csv_upload()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L266) (15 connections)
+- [import_ldm_csv_upload()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L267) (15 connections)
 - [add_bundle_version_route()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L513) (11 connections)
 - [hydrate_ldm()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L470) (11 connections)
 - [_find_project()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L31) (11 connections)
-- [import_ldm_pdf_create()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L732) (11 connections)
-- [sync_ldm_bundles()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L442) (11 connections)
+- [import_ldm_pdf_create()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L734) (11 connections)
+- [sync_ldm_bundles()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L444) (11 connections)
 - [bundles()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L428) (10 connections)
 - [export_data()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L954) (10 connections)
 - [new_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L219) (10 connections)
 - [update_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L491) (9 connections)
-- [edit_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L379) (9 connections)
-- [import_ldm_pdf_map()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L704) (9 connections)
+- [edit_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L380) (9 connections)
+- [import_ldm_pdf_map()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L706) (9 connections)
 - [QuoteClientOverrideRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L95) (9 connections)
 - [catalogo()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L165) (8 connections)
 - [_bundle_suggestion_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L157) (8 connections)
@@ -68,7 +68,7 @@ classDiagram
 
 ## Relationships
 
-- [[Community 6]] (3 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 

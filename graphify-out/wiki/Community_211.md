@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Check if cached result is still valid](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L58) (0 connections)
+- [Returns 'verde', 'amarillo', 'rojo', or 'gris' based on deadline and inactivity.](file:///Users/macbook/ProjectTracker/tracker%5Cdomain.py#L97) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tracker\domain.py](file:///Users/macbook/ProjectTracker/tracker%5Cdomain.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Reporte completo de consistencia para un proyecto.      Retorna un diccionario l](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L298) (0 connections)
+- [Agrega artículos a través de TODAS las LDMs del proyecto.      Devuelve (linked_](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L126) (0 connections)
 
 ## Relationships
 
