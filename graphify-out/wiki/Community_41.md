@@ -4,34 +4,33 @@
 
 ## Key Concepts
 
-- [QuotePaymentsLinkTemplateSourceTest](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L50) (3 connections)
-- [test_quote_payments_link.py](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L1) (3 connections)
-- [.test_project_detail_has_payments_button_linking_to_view_quote_anchor()](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L51) (1 connections)
-- [.test_quote_project_detail_has_payments_card_anchor_id()](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L59) (1 connections)
-- [Botón "Pagos" en la fila de cada cotización (lista de cotizaciones, project_deta](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L1) (1 connections)
+- [test_audit_deleted_catalog_route.py](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L1) (3 connections)
+- [AuditDeletedCatalogRouteTest](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L7) (2 connections)
+- [.test_audit_deleted_catalog_loads_materiales_for_ldms()](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L17) (1 connections)
+- [Tests for the deleted catalog audit route.](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L1) (1 connections)
+- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L9) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class QuotePaymentsLinkTemplateSourceTest {
-        +test_quote_payments_link.py()
-        +.test_project_detail_has_payments_button_linking_to_view_quote_anchor()
-        +.test_quote_project_detail_has_payments_card_anchor_id()
+    class AuditDeletedCatalogRouteTest {
+        +test_audit_deleted_catalog_route.py()
+        +.test_audit_deleted_catalog_loads_materiales_for_ldms()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 42]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_quote_payments_link.py](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py)
+- [/Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py)
 
 ## Audit Trail
 
-- EXTRACTED: 9 (100%)
+- EXTRACTED: 8 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

@@ -1,59 +1,73 @@
 # Community 21
 
-> 19 nodes · cohesion 0.17
+> 23 nodes · cohesion 0.16
 
 ## Key Concepts
 
-- [AvanceRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L25) (19 connections)
-- [._get_project()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L41) (13 connections)
-- [.test_update_stage_budget_skips_without_template()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L180) (4 connections)
-- [.tearDown()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L38) (2 connections)
-- [.test_add_doc_checklist_appends_item()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L83) (2 connections)
-- [.test_add_doc_checklist_ignores_empty_name()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L95) (2 connections)
-- [.test_add_multiple_docs_independent()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L137) (2 connections)
-- [.test_delete_doc_checklist_removes_item()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L125) (2 connections)
-- [.test_toggle_doc_checklist_flips_done()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L104) (2 connections)
-- [.test_update_stage_budget_handles_missing_values_as_zero()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L168) (2 connections)
-- [.test_update_stage_budget_persists_values()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L147) (2 connections)
-- [.test_update_stage_status_empty_date_stored_as_none()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L56) (2 connections)
-- [.test_update_stage_status_ignores_empty_stage()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L65) (2 connections)
-- [.test_update_stage_status_sets_stage()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L46) (2 connections)
-- [.test_progress_pdf_returns_pdf_content()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L201) (1 connections)
-- [.test_progress_pdf_unknown_project_404()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L207) (1 connections)
-- [.test_update_stage_budget_unknown_project_redirects()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L195) (1 connections)
-- [.test_update_stage_status_unknown_project_redirects()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L74) (1 connections)
-- [test_avance_routes.py](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L1) (1 connections)
+- [project_stage()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L74) (13 connections)
+- [ProjectStageTest](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L39) (11 connections)
+- [_task()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L23) (9 connections)
+- [KanbanRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L95) (8 connections)
+- [.setUp()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L99) (4 connections)
+- [._get_project()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L112) (3 connections)
+- [.test_all_aprobado_returns_entregado()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L71) (3 connections)
+- [.test_cot_aprobado_design_en_progreso_returns_diseno()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L63) (3 connections)
+- [.test_cot_aprobado_design_pending_returns_diseno()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L56) (3 connections)
+- [.test_cot_aprobado_only_returns_entregado()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L52) (3 connections)
+- [.test_cot_en_progreso_returns_cotizacion()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L48) (3 connections)
+- [.test_cot_pendiente_returns_cotizacion()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L44) (3 connections)
+- [.test_in_obra_true_overrides_derived_stage()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L79) (3 connections)
+- [.test_subtasks_not_counted()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L88) (3 connections)
+- [test_kanban.py](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L1) (3 connections)
+- [.tearDown()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L109) (2 connections)
+- [.test_toggle_obra_moves_project_to_obra_and_back()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L122) (2 connections)
+- [.test_in_obra_true_even_with_no_tasks()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L84) (2 connections)
+- [.test_no_tasks_returns_cotizacion()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L41) (2 connections)
+- [Derive the portfolio stage from existing task data + the in_obra flag.      Stag](file:///Users/macbook/ProjectTracker/tracker/domain.py#L75) (1 connections)
+- [.test_kanban_page_loads_and_lists_project_in_cotizacion()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L115) (1 connections)
+- [.test_toggle_obra_unknown_project_does_not_crash()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L134) (1 connections)
+- [Cubre las rutas /kanban y toggle_obra restauradas (el template     kanban.html h](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L96) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AvanceRoutesTest {
-        +test_avance_routes.py()
+    class KanbanRoutesTest {
+        +test_kanban.py()
         +.setUp()
         +.tearDown()
         +._get_project()
-        +.test_update_stage_status_sets_stage()
-        +.test_update_stage_status_empty_date_stored_as_none()
-        +.test_update_stage_status_ignores_empty_stage()
-        +.test_update_stage_status_unknown_project_redirects()
-        +.test_add_doc_checklist_appends_item()
-        +.test_add_doc_checklist_ignores_empty_name()
+        +.test_kanban_page_loads_and_lists_project_in_cotizacion()
+        +.test_toggle_obra_moves_project_to_obra_and_back()
+        +.test_toggle_obra_unknown_project_does_not_crash()
+    }
+    class ProjectStageTest {
+        +test_kanban.py()
+        +.test_no_tasks_returns_cotizacion()
+        +.test_cot_pendiente_returns_cotizacion()
+        +.test_cot_en_progreso_returns_cotizacion()
+        +.test_cot_aprobado_only_returns_entregado()
+        +.test_cot_aprobado_design_pending_returns_diseno()
+        +.test_cot_aprobado_design_en_progreso_returns_diseno()
+        +.test_all_aprobado_returns_entregado()
+        +.test_in_obra_true_overrides_derived_stage()
+        +.test_in_obra_true_even_with_no_tasks()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 9]] (2 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_avance_routes.py](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py)
+- [/Users/macbook/ProjectTracker/tests/test_kanban.py](file:///Users/macbook/ProjectTracker/tests/test_kanban.py)
+- [/Users/macbook/ProjectTracker/tracker/domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py)
 
 ## Audit Trail
 
-- EXTRACTED: 59 (94%)
-- INFERRED: 4 (6%)
+- EXTRACTED: 61 (70%)
+- INFERRED: 26 (30%)
 - AMBIGUOUS: 0 (0%)
 
 ---

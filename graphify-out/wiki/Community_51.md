@@ -4,15 +4,16 @@
 
 ## Key Concepts
 
-- [Data Integrity Rules (R1-R7)](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
-- [ProjectTracker System Rationale](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [Proyecto Entity](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [Drive Project Folder Naming](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 52]] (2 shared connections)
 
 ## Source Files
 
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
 - [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail

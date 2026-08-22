@@ -4,33 +4,25 @@
 
 ## Key Concepts
 
-- [LdmCsvImportRouteTest](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L14) (2 connections)
-- [test_ldm_csv_import_route.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L1) (2 connections)
-- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L24) (1 connections)
-- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py#L16) (1 connections)
-
-## Class Diagram
-
-```mermaid
-classDiagram
-    class LdmCsvImportRouteTest {
-        +test_ldm_csv_import_route.py()
-        +._fake_load()
-    }
-```
+- [Bundles Versioned System](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Consistency COT vs LDM Module](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Catalog Hydration Logic](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [Pending: Bundle Technical Consistency Audit](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 46]] (6 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_csv_import_route.py)
+- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 6 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 4 (67%)
+- INFERRED: 2 (33%)
 - AMBIGUOUS: 0 (0%)
 
 ---

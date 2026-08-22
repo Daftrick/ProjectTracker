@@ -1,109 +1,115 @@
 # Community 4
 
-> 75 nodes · cohesion 0.06
+> 74 nodes · cohesion 0.04
 
 ## Key Concepts
 
-- [bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L1) (24 connections)
-- [create_bundle()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L267) (22 connections)
-- [expand_quote_bundles()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L339) (19 connections)
-- [bundle_by_catalog_item_id()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L96) (18 connections)
-- [quote_item_bundle_breakdown()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L148) (15 connections)
-- [capture_bundle_snapshot()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L211) (13 connections)
-- [normalize_bundle()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L46) (13 connections)
-- [normalize_component()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L72) (11 connections)
-- [add_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L290) (10 connections)
-- [_clean()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L42) (10 connections)
-- [get_active_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L82) (10 connections)
-- [delete_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L323) (9 connections)
-- [_safe_float()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L31) (9 connections)
-- [BundleEdgeCasesTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L217) (9 connections)
-- [CaptureBundleSnapshotTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L318) (8 connections)
-- [test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L1) (8 connections)
-- [activate_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L306) (7 connections)
-- [SeededBundlesTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L165) (7 connections)
-- [_component_row()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L120) (6 connections)
-- [._make_bundle()](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L319) (6 connections)
-- [QuoteItemBundleBreakdownTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L73) (6 connections)
-- [.test_add_activate_and_delete_version()](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L15) (5 connections)
-- [_display_qty()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L113) (4 connections)
-- [next_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L258) (4 connections)
-- [_round()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L38) (4 connections)
-- *... and 50 more nodes in this community*
+- [add_payment()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L76) (16 connections)
+- [payments.py](file:///Users/macbook/ProjectTracker/tracker/payments.py#L1) (14 connections)
+- [PaymentsRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L109) (13 connections)
+- [PaymentsModelTest](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L52) (12 connections)
+- [get_payments()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L33) (9 connections)
+- [get_payments_for_quote()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L48) (9 connections)
+- [get_payment_by_id()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L113) (8 connections)
+- [._add_payment()](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L131) (8 connections)
+- [AllPaymentsRouteTest](file:///Users/macbook/ProjectTracker/tests/test_payments_summary.py#L55) (8 connections)
+- [DiscountFinancialCardRouteTest](file:///Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py#L134) (7 connections)
+- [delete_payment()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L104) (6 connections)
+- [_normalize_payment()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L11) (6 connections)
+- [payment_summary()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L66) (6 connections)
+- [update_payment()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L92) (6 connections)
+- [get_payments_for_project()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L57) (5 connections)
+- [save_payments()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L43) (5 connections)
+- [FinancialCardRouteTest](file:///Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py#L58) (5 connections)
+- [add_payment_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L417) (4 connections)
+- [all_payments()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1031) (4 connections)
+- [_clean_payment_form()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L398) (4 connections)
+- [edit_payment_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L435) (4 connections)
+- [.test_delete_payment()](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L88) (4 connections)
+- [.test_update_payment()](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L76) (4 connections)
+- [.test_delete_payment_via_route()](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L182) (4 connections)
+- [.test_edit_payment_via_route()](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L169) (4 connections)
+- *... and 49 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class BreakdownQtyRulesTest {
-        +test_bundles.py()
-        +.test_no_waste_pct_in_live_breakdown()
-        +.test_discrete_unit_ceil()
-        +.test_continuous_unit_not_ceiled()
+    class PaymentsModelTest {
+        +test_payments.py()
+        +.setUp()
+        +.tearDown()
+        +.test_add_and_get_payments_for_quote()
+        +.test_get_payments_for_project_includes_all_quotes()
+        +.test_update_payment()
+        +.test_update_payment_unknown_id_returns_false()
+        +.test_delete_payment()
+        +.test_delete_payment_unknown_id_returns_false()
+        +.test_payment_summary_computes_balance()
     }
-    class BundleEdgeCasesTest {
-        +test_bundles.py()
-        +.test_component_with_zero_qty_goes_to_invalid()
-        +.test_component_with_empty_catalog_item_id_goes_to_invalid()
-        +.test_bundle_with_no_versions_goes_to_invalid()
-        +.test_activate_nonexistent_version_raises()
-        +.test_delete_nonexistent_version_raises()
-        +.test_waste_pct_applied_correctly()
-        +.test_section_markers_are_skipped()
+    class PaymentsRoutesTest {
+        +test_payments.py()
+        +.setUp()
+        +.tearDown()
+        +._add_payment()
+        +.test_add_payment_via_project_route()
+        +.test_add_payment_rejects_invalid_amount()
+        +.test_add_payment_rejects_missing_date()
+        +.test_add_payment_rejects_unknown_quote()
+        +.test_edit_payment_via_route()
+        +.test_delete_payment_via_route()
     }
-    class BundleVersioningTest {
-        +test_bundles.py()
-        +.test_create_bundle_has_active_v1()
-        +.test_add_activate_and_delete_version()
-        +.test_cannot_delete_only_version()
+    class AllPaymentsRouteTest {
+        +test_payments_summary.py()
+        +.setUp()
+        +.tearDown()
+        +.test_all_payments_page_loads_and_lists_registered_payment()
+        +.test_all_payments_page_links_to_quote_payments_card()
+        +.test_all_payments_page_shows_empty_state_without_payments()
+        +.test_all_payments_page_sums_total_pagado()
+        +.test_sidebar_renders_pagos_link_on_dashboard()
     }
-    class CaptureBundleSnapshotTest {
-        +test_bundles.py()
-        +._make_bundle()
-        +.test_returns_none_when_no_bundle()
-        +.test_returns_none_when_no_catalog_item_id()
-        +.test_captures_description_and_unit_from_catalog()
-        +.test_snapshot_has_bundle_id_and_version()
-        +.test_skips_zero_qty_components()
-        +.test_returns_none_when_all_components_filtered()
+    class SidebarPaymentsLinkTemplateSourceTest {
+        +test_payments_summary.py()
+        +.test_base_template_has_sidebar_payments_link()
     }
-    class ExpandQuoteBundlesTest {
-        +test_bundles.py()
-        +.test_expands_quote_bundle_components()
-        +.test_unmapped_quote_items_are_preserved()
-        +.test_seeded_circuit_bundles_expand_catalog_materials()
+    class DiscountFinancialCardRouteTest {
+        +test_project_financial_card_payments.py()
+        +.setUp()
+        +.tearDown()
+        +.test_cotizado_cliente_reflects_discounted_total()
+        +.test_pagado_y_saldo_se_calculan_contra_el_total_con_descuento()
+        +.test_context_totals_match_discounted_quote()
     }
-    class QuoteItemBundleBreakdownTest {
-        +test_bundles.py()
-        +.test_breakdown_multiplies_component_quantities_without_prices()
-        +.test_breakdown_prefers_snapshot_when_present()
-        +.test_snapshot_qty_scales_by_quote_item_qty()
-        +.test_breakdown_missing_bundle_returns_empty_list()
-        +.test_hydrate_quote_bundle_breakdowns_keeps_totals_and_sections()
+    class FinancialCardRouteTest {
+        +test_project_financial_card_payments.py()
+        +.setUp()
+        +.tearDown()
+        +.test_project_detail_page_shows_paid_amount_and_balance()
+        +.test_project_detail_page_shows_zero_paid_without_payments()
     }
-    class SeededBundlesTest {
-        +test_bundles.py()
-        +._expand()
-        +.test_tubo_conduit_16mm_expands_all_components()
-        +.test_salida_luminaria_expands_all_components()
-        +.test_all_seeded_bundles_have_valid_active_version()
-        +.test_no_duplicate_catalog_item_ids_in_index()
+    class FinancialCardTemplateSourceTest {
+        +test_project_financial_card_payments.py()
+        +.test_project_detail_shows_pagado_and_saldo_rows()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 5]] (10 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py)
-- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
+- [/Users/macbook/ProjectTracker/tests/test_payments.py](file:///Users/macbook/ProjectTracker/tests/test_payments.py)
+- [/Users/macbook/ProjectTracker/tests/test_payments_summary.py](file:///Users/macbook/ProjectTracker/tests/test_payments_summary.py)
+- [/Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py](file:///Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py)
+- [/Users/macbook/ProjectTracker/tracker/payments.py](file:///Users/macbook/ProjectTracker/tracker/payments.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 248 (66%)
-- INFERRED: 129 (34%)
+- EXTRACTED: 181 (66%)
+- INFERRED: 93 (34%)
 - AMBIGUOUS: 0 (0%)
 
 ---

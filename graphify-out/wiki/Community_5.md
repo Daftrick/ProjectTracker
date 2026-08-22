@@ -4,112 +4,110 @@
 
 ## Key Concepts
 
-- [add_payment()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L76) (16 connections)
-- [payments.py](file:///Users/macbook/ProjectTracker/tracker/payments.py#L1) (14 connections)
-- [PaymentsRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L109) (13 connections)
-- [PaymentsModelTest](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L52) (12 connections)
-- [get_payments()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L33) (9 connections)
-- [get_payments_for_quote()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L48) (9 connections)
-- [get_payment_by_id()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L113) (8 connections)
-- [._add_payment()](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L131) (8 connections)
-- [AllPaymentsRouteTest](file:///Users/macbook/ProjectTracker/tests/test_payments_summary.py#L55) (8 connections)
-- [DiscountFinancialCardRouteTest](file:///Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py#L134) (7 connections)
-- [delete_payment()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L104) (6 connections)
-- [_normalize_payment()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L11) (6 connections)
-- [payment_summary()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L66) (6 connections)
-- [update_payment()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L92) (6 connections)
-- [get_payments_for_project()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L57) (5 connections)
-- [save_payments()](file:///Users/macbook/ProjectTracker/tracker/payments.py#L43) (5 connections)
-- [FinancialCardRouteTest](file:///Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py#L58) (5 connections)
-- [add_payment_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L417) (4 connections)
-- [all_payments()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1031) (4 connections)
-- [_clean_payment_form()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L398) (4 connections)
-- [edit_payment_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L435) (4 connections)
-- [.test_delete_payment()](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L88) (4 connections)
-- [.test_update_payment()](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L76) (4 connections)
-- [.test_delete_payment_via_route()](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L182) (4 connections)
-- [.test_edit_payment_via_route()](file:///Users/macbook/ProjectTracker/tests/test_payments.py#L169) (4 connections)
+- [services.py](file:///Users/macbook/ProjectTracker/tracker/services.py#L1) (20 connections)
+- [upsert_mobile_draft()](file:///Users/macbook/ProjectTracker/tracker/services.py#L49) (15 connections)
+- [UpsertMobileDraftTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L81) (12 connections)
+- [IdFactory](file:///Users/macbook/ProjectTracker/tests/test_services.py#L12) (10 connections)
+- [._upsert()](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L82) (10 connections)
+- [ProjectServicesTest](file:///Users/macbook/ProjectTracker/tests/test_services.py#L21) (10 connections)
+- [apply_task_status_change()](file:///Users/macbook/ProjectTracker/tracker/services.py#L263) (9 connections)
+- [filter_catalog_by_disciplina()](file:///Users/macbook/ProjectTracker/tracker/services.py#L9) (8 connections)
+- [finalize_mobile_draft()](file:///Users/macbook/ProjectTracker/tracker/services.py#L123) (8 connections)
+- [remove_item_from_draft()](file:///Users/macbook/ProjectTracker/tracker/services.py#L101) (8 connections)
+- [FilterCatalogTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L59) (6 connections)
+- [RemoveItemFromDraftTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L161) (6 connections)
+- [build_scope_task()](file:///Users/macbook/ProjectTracker/tracker/services.py#L166) (5 connections)
+- [create_project_with_tasks()](file:///Users/macbook/ProjectTracker/tracker/services.py#L184) (5 connections)
+- [test_services_mobile.py](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L1) (5 connections)
+- [mobile_remove_item()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L132) (4 connections)
+- [create_project()](file:///Users/macbook/ProjectTracker/tracker/services.py#L150) (4 connections)
+- [_recalculate_totals()](file:///Users/macbook/ProjectTracker/tracker/services.py#L40) (4 connections)
+- [sync_project_alcances()](file:///Users/macbook/ProjectTracker/tracker/services.py#L209) (4 connections)
+- [update_observation_details()](file:///Users/macbook/ProjectTracker/tracker/services.py#L324) (4 connections)
+- [FinalizeMobileDraftTest](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L192) (4 connections)
+- [._setup()](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py#L162) (4 connections)
+- [_build_mobile_item()](file:///Users/macbook/ProjectTracker/tracker/services.py#L16) (3 connections)
+- [next_folder_number()](file:///Users/macbook/ProjectTracker/tracker/services.py#L145) (3 connections)
+- [update_observation_checklist_item()](file:///Users/macbook/ProjectTracker/tracker/services.py#L357) (3 connections)
 - *... and 45 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class PaymentsModelTest {
-        +test_payments.py()
-        +.setUp()
-        +.tearDown()
-        +.test_add_and_get_payments_for_quote()
-        +.test_get_payments_for_project_includes_all_quotes()
-        +.test_update_payment()
-        +.test_update_payment_unknown_id_returns_false()
-        +.test_delete_payment()
-        +.test_delete_payment_unknown_id_returns_false()
-        +.test_payment_summary_computes_balance()
+    class IdFactory {
+        +test_services.py()
+        +.__init__()
+        +.__call__()
     }
-    class PaymentsRoutesTest {
-        +test_payments.py()
-        +.setUp()
-        +.tearDown()
-        +._add_payment()
-        +.test_add_payment_via_project_route()
-        +.test_add_payment_rejects_invalid_amount()
-        +.test_add_payment_rejects_missing_date()
-        +.test_add_payment_rejects_unknown_quote()
-        +.test_edit_payment_via_route()
-        +.test_delete_payment_via_route()
+    class FilterCatalogTest {
+        +test_services_mobile.py()
+        +.test_none_returns_all()
+        +.test_todos_returns_all()
+        +.test_filters_by_disciplina()
+        +.test_unknown_disciplina_returns_empty()
+        +.test_empty_catalog()
     }
-    class AllPaymentsRouteTest {
-        +test_payments_summary.py()
-        +.setUp()
-        +.tearDown()
-        +.test_all_payments_page_loads_and_lists_registered_payment()
-        +.test_all_payments_page_links_to_quote_payments_card()
-        +.test_all_payments_page_shows_empty_state_without_payments()
-        +.test_all_payments_page_sums_total_pagado()
-        +.test_sidebar_renders_pagos_link_on_dashboard()
+    class FinalizeMobileDraftTest {
+        +test_services_mobile.py()
+        +.test_finalize_removes_status_field()
+        +.test_finalize_assigns_quote_number()
+        +.test_finalize_returns_none_for_unknown_id()
     }
-    class SidebarPaymentsLinkTemplateSourceTest {
-        +test_payments_summary.py()
-        +.test_base_template_has_sidebar_payments_link()
+    class IdFactory {
+        +test_services_mobile.py()
+        +.__init__()
+        +.__call__()
     }
-    class DiscountFinancialCardRouteTest {
-        +test_project_financial_card_payments.py()
-        +.setUp()
-        +.tearDown()
-        +.test_cotizado_cliente_reflects_discounted_total()
-        +.test_pagado_y_saldo_se_calculan_contra_el_total_con_descuento()
-        +.test_context_totals_match_discounted_quote()
+    class RemoveItemFromDraftTest {
+        +test_services_mobile.py()
+        +._setup()
+        +.test_removes_item_and_recalculates()
+        +.test_no_op_when_item_not_in_draft()
+        +.test_returns_none_when_no_draft_exists()
+        +.test_empty_items_after_last_removal()
     }
-    class FinancialCardRouteTest {
-        +test_project_financial_card_payments.py()
-        +.setUp()
-        +.tearDown()
-        +.test_project_detail_page_shows_paid_amount_and_balance()
-        +.test_project_detail_page_shows_zero_paid_without_payments()
+    class UpsertMobileDraftTest {
+        +test_services_mobile.py()
+        +._upsert()
+        +.test_creates_draft_when_none_exists()
+        +.test_item_fields_populated_from_catalog()
+        +.test_totals_calculated()
+        +.test_second_item_appended_to_existing_draft()
+        +.test_re_adding_same_item_updates_qty()
+        +.test_unknown_item_id_is_no_op()
+        +.test_draft_defaults()
+        +.test_original_quotes_list_not_mutated()
     }
-    class FinancialCardTemplateSourceTest {
-        +test_project_financial_card_payments.py()
-        +.test_project_detail_shows_pagado_and_saldo_rows()
+    class ProjectServicesTest {
+        +test_services.py()
+        +.test_create_project_assigns_next_folder_and_tasks()
+        +.test_sync_project_alcances_adds_and_removes_tasks_with_children()
+        +.test_apply_task_status_blocks_dependency()
+        +.test_apply_task_status_creates_observation_child()
+        +.test_apply_task_status_creates_observation_checklist()
+        +.test_apply_task_status_does_not_generate_checklist_from_note()
+        +.test_apply_task_status_creates_new_observation_when_already_in_observations()
+        +.test_update_observation_details_edits_note_and_checklist()
+        +.test_update_observation_checklist_item_updates_status()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 6]] (6 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_payments.py](file:///Users/macbook/ProjectTracker/tests/test_payments.py)
-- [/Users/macbook/ProjectTracker/tests/test_payments_summary.py](file:///Users/macbook/ProjectTracker/tests/test_payments_summary.py)
-- [/Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py](file:///Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py)
-- [/Users/macbook/ProjectTracker/tracker/payments.py](file:///Users/macbook/ProjectTracker/tracker/payments.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tests/test_services.py](file:///Users/macbook/ProjectTracker/tests/test_services.py)
+- [/Users/macbook/ProjectTracker/tests/test_services_mobile.py](file:///Users/macbook/ProjectTracker/tests/test_services_mobile.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py)
+- [/Users/macbook/ProjectTracker/tracker/services.py](file:///Users/macbook/ProjectTracker/tracker/services.py)
 
 ## Audit Trail
 
-- EXTRACTED: 177 (68%)
-- INFERRED: 82 (32%)
+- EXTRACTED: 189 (71%)
+- INFERRED: 79 (29%)
 - AMBIGUOUS: 0 (0%)
 
 ---

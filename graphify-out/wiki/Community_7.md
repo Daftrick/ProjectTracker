@@ -1,6 +1,6 @@
 # Community 7
 
-> 65 nodes · cohesion 0.07
+> 66 nodes · cohesion 0.07
 
 ## Key Concepts
 
@@ -14,6 +14,7 @@
 - [_q_item()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L35) (10 connections)
 - [compare_items()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L216) (9 connections)
 - [ComputeConsistencyTest](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L193) (9 connections)
+- [is_quote_section_marker()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L232) (8 connections)
 - [_round()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L37) (8 connections)
 - [.test_detects_all_issue_types()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L151) (8 connections)
 - [aggregate_ldm_items()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L120) (7 connections)
@@ -28,8 +29,7 @@
 - [classify_margin()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L41) (4 connections)
 - [_ldm_visual_row()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L331) (4 connections)
 - [.test_aggregates_across_multiple_ldms()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L137) (4 connections)
-- [.test_groups_by_catalog_id_and_handles_unlinked()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L115) (4 connections)
-- *... and 40 more nodes in this community*
+- *... and 41 more nodes in this community*
 
 ## Class Diagram
 
@@ -85,8 +85,8 @@ classDiagram
 
 ## Audit Trail
 
-- EXTRACTED: 248 (81%)
-- INFERRED: 58 (19%)
+- EXTRACTED: 252 (80%)
+- INFERRED: 62 (20%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -1,52 +1,51 @@
 # Community 17
 
-> 25 nodes · cohesion 0.12
+> 26 nodes · cohesion 0.12
 
 ## Key Concepts
 
-- [missing_ldm_items_from_bundles()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L52) (12 connections)
-- [ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L1) (10 connections)
-- [MaterialsSyncRouteTest](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L80) (6 connections)
-- [_aggregate_ldm_qty_by_catalog()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L25) (5 connections)
-- [selected_missing_bundle_items()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L95) (5 connections)
-- [append_missing_bundle_items_to_ldm()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L107) (4 connections)
-- [_clean()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L21) (4 connections)
-- [_safe_float()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L10) (4 connections)
-- [LdmSyncTest](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L50) (4 connections)
-- [test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L1) (4 connections)
-- [_round()](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L17) (3 connections)
-- [.test_filters_missing_materials_by_explicit_selection()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L62) (3 connections)
-- [.test_appends_missing_items_to_copy()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L72) (2 connections)
-- [.test_builds_only_missing_bundle_materials_without_overwriting()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L51) (2 connections)
-- [Sincronizacion parcial de LDM desde bundles de COT.](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L1) (1 connections)
-- [Anexa faltantes a una LDM y devuelve (copia_actualizada, agregados).](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L114) (1 connections)
-- [Devuelve filas LDM faltantes derivadas de la expansion tecnica.      No modifica](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L58) (1 connections)
-- [Filtra faltantes por seleccion explicita de catalog_item_id.](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L96) (1 connections)
-- [.test_new_ldm_can_prefill_bundle_suggestions()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L165) (1 connections)
-- [.test_new_ldm_preserves_bundle_suggestion_origin_on_create()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L185) (1 connections)
-- [.test_route_appends_selected_bundle_materials_to_existing_ldm()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L112) (1 connections)
-- [.test_route_does_not_append_unselected_bundle_materials()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L141) (1 connections)
-- [.test_route_previews_missing_bundle_materials_for_existing_ldm()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L90) (1 connections)
-- [Pruebas de sincronizacion parcial LDM desde bundles.](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L1) (1 connections)
-- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L82) (1 connections)
+- [domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py#L1) (20 connections)
+- [project_semaphore()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L145) (14 connections)
+- [SemaphoreTest](file:///Users/macbook/ProjectTracker/tests/test_semaphore.py#L8) (12 connections)
+- [get_alcances()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L24) (5 connections)
+- [check_blocked()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L66) (4 connections)
+- [get_alcances_by_id()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L31) (4 connections)
+- [alcances_admin()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L1046) (2 connections)
+- [fdate_short()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L124) (2 connections)
+- [get_info_ext_excluded()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L35) (2 connections)
+- [today_short()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L141) (2 connections)
+- [.test_active_with_future_deadline_returns_verde()](file:///Users/macbook/ProjectTracker/tests/test_semaphore.py#L33) (2 connections)
+- [.test_deadline_exactly_3_days_returns_rojo()](file:///Users/macbook/ProjectTracker/tests/test_semaphore.py#L17) (2 connections)
+- [.test_deadline_in_2_days_returns_rojo()](file:///Users/macbook/ProjectTracker/tests/test_semaphore.py#L13) (2 connections)
+- [.test_deadline_in_5_days_returns_amarillo()](file:///Users/macbook/ProjectTracker/tests/test_semaphore.py#L21) (2 connections)
+- [.test_inactive_3_days_returns_amarillo()](file:///Users/macbook/ProjectTracker/tests/test_semaphore.py#L29) (2 connections)
+- [.test_inactive_7_days_returns_rojo()](file:///Users/macbook/ProjectTracker/tests/test_semaphore.py#L25) (2 connections)
+- [.test_inactive_overrides_far_deadline()](file:///Users/macbook/ProjectTracker/tests/test_semaphore.py#L37) (2 connections)
+- [.test_invalid_deadline_falls_back_to_inactivity()](file:///Users/macbook/ProjectTracker/tests/test_semaphore.py#L46) (2 connections)
+- [.test_invalid_today_str_returns_gris()](file:///Users/macbook/ProjectTracker/tests/test_semaphore.py#L42) (2 connections)
+- [.test_no_fields_returns_gris()](file:///Users/macbook/ProjectTracker/tests/test_semaphore.py#L10) (2 connections)
+- [.test_only_updated_at_no_deadline_active_returns_gris()](file:///Users/macbook/ProjectTracker/tests/test_semaphore.py#L50) (2 connections)
+- [currency()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L134) (1 connections)
+- [fdate()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L115) (1 connections)
+- [dd-mm-aa — para campos compactos (ej: 22-08-26).](file:///Users/macbook/ProjectTracker/tracker/domain.py#L125) (1 connections)
+- [Returns 'verde', 'amarillo', 'rojo', or 'gris' based on deadline and inactivity.](file:///Users/macbook/ProjectTracker/tracker/domain.py#L146) (1 connections)
+- *... and 1 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class LdmSyncTest {
-        +test_ldm_sync.py()
-        +.test_builds_only_missing_bundle_materials_without_overwriting()
-        +.test_filters_missing_materials_by_explicit_selection()
-        +.test_appends_missing_items_to_copy()
-    }
-    class MaterialsSyncRouteTest {
-        +test_ldm_sync.py()
-        +.test_route_previews_missing_bundle_materials_for_existing_ldm()
-        +.test_route_appends_selected_bundle_materials_to_existing_ldm()
-        +.test_route_does_not_append_unselected_bundle_materials()
-        +.test_new_ldm_can_prefill_bundle_suggestions()
-        +.test_new_ldm_preserves_bundle_suggestion_origin_on_create()
+    class SemaphoreTest {
+        +test_semaphore.py()
+        +.test_no_fields_returns_gris()
+        +.test_deadline_in_2_days_returns_rojo()
+        +.test_deadline_exactly_3_days_returns_rojo()
+        +.test_deadline_in_5_days_returns_amarillo()
+        +.test_inactive_7_days_returns_rojo()
+        +.test_inactive_3_days_returns_amarillo()
+        +.test_active_with_future_deadline_returns_verde()
+        +.test_inactive_overrides_far_deadline()
+        +.test_invalid_today_str_returns_gris()
     }
 ```
 
@@ -56,13 +55,14 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py)
-- [/Users/macbook/ProjectTracker/tracker/ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py)
+- [/Users/macbook/ProjectTracker/tests/test_semaphore.py](file:///Users/macbook/ProjectTracker/tests/test_semaphore.py)
+- [/Users/macbook/ProjectTracker/tracker/domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
 
 ## Audit Trail
 
-- EXTRACTED: 66 (84%)
-- INFERRED: 13 (16%)
+- EXTRACTED: 64 (68%)
+- INFERRED: 30 (32%)
 - AMBIGUOUS: 0 (0%)
 
 ---

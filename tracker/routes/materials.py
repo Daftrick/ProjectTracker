@@ -570,17 +570,56 @@ def ldm_pdf(project_id, ldm_id):
     except Exception:
         date_token = date.today().strftime("%y%m%d")
     pdf_name = f"LDM-{project['clave']}-{hydrated.get('seq', 1):02d}-{date_token}.pdf"
+    inline = request.args.get("inline") == "1"
     try:
         pdf_bytes = build_ldm_pdf(project, hydrated)
         return send_file(
             BytesIO(pdf_bytes),
-            as_attachment=True,
+            as_attachment=not inline,
             download_name=pdf_name,
             mimetype="application/pdf",
         )
     except Exception as exc:
         flash(f"Error al generar PDF: {exc}", "danger")
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+
+
+@bp.route("/projects/<project_id>/ldm/<ldm_id>/editor", methods=["GET", "POST"], endpoint="ldm_pdf_editor")
+def ldm_pdf_editor(project_id, ldm_id):
+    from ..company_config import get_company
+    from ..storage import BASE_DIR
+    import os as _os
+
+    project = _find_project(project_id)
+    all_ldms = load("materiales")
+    ldm = next((item for item in all_ldms if item["id"] == ldm_id), None)
+    if not project or not ldm:
+        flash("Lista no encontrada.", "danger")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-materiales")
+
+    if request.method == "POST":
+        ldm["project_name_override"] = request.form.get("project_name_override", "").strip()
+        ldm["notes"] = request.form.get("notes", "").strip()
+        save("materiales", all_ldms)
+        flash("Cambios guardados en el editor PDF.", "success")
+        return redirect(url_for("materials_bp.ldm_pdf_editor", project_id=project_id, ldm_id=ldm_id))
+
+    hydrated = hydrate_ldm(ldm, *catalog_maps())
+    company = get_company()
+    logo_rel = company.get("logo") or ""
+    logo_url = None
+    if logo_rel:
+        logo_abs = _os.path.join(BASE_DIR, "static", logo_rel)
+        if _os.path.isfile(logo_abs):
+            logo_url = "/static/" + logo_rel
+
+    return render_template(
+        "ldm_pdf_editor.html",
+        project=project,
+        ldm=hydrated,
+        company=company,
+        logo_url=logo_url,
+    )
 
 
 # ── Importación de LDM desde PDF de proveedor ────────────────────────────────

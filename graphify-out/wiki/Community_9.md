@@ -1,91 +1,90 @@
 # Community 9
 
-> 49 nodes · cohesion 0.07
+> 56 nodes · cohesion 0.06
 
 ## Key Concepts
 
-- [domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py#L1) (19 connections)
-- [project_semaphore()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L135) (14 connections)
-- [project_stage()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L74) (13 connections)
-- [SemaphoreTest](file:///Users/macbook/ProjectTracker/tests/test_semaphore.py#L8) (12 connections)
-- [ProjectStageTest](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L39) (11 connections)
-- [_task()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L23) (9 connections)
-- [KanbanRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L95) (8 connections)
-- [kanban()](file:///Users/macbook/ProjectTracker/tracker/routes/projects.py#L71) (7 connections)
-- [get_alcances()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L24) (5 connections)
-- [check_blocked()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L66) (4 connections)
-- [get_alcances_by_id()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L31) (4 connections)
-- [get_progress()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L98) (4 connections)
-- [._get_project()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L112) (3 connections)
-- [.test_all_aprobado_returns_entregado()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L71) (3 connections)
-- [.test_cot_aprobado_design_en_progreso_returns_diseno()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L63) (3 connections)
-- [.test_cot_aprobado_design_pending_returns_diseno()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L56) (3 connections)
-- [.test_cot_aprobado_only_returns_entregado()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L52) (3 connections)
-- [.test_cot_en_progreso_returns_cotizacion()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L48) (3 connections)
-- [.test_cot_pendiente_returns_cotizacion()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L44) (3 connections)
-- [.test_in_obra_true_overrides_derived_stage()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L79) (3 connections)
-- [.test_subtasks_not_counted()](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L88) (3 connections)
-- [test_kanban.py](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L1) (3 connections)
-- [alcances_admin()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L1046) (2 connections)
-- [get_info_ext_excluded()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L35) (2 connections)
-- [today_short()](file:///Users/macbook/ProjectTracker/tracker/domain.py#L131) (2 connections)
-- *... and 24 more nodes in this community*
+- [quote_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L1) (17 connections)
+- [quote_from_form()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L26) (12 connections)
+- [get_quote_templates()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L196) (12 connections)
+- [form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L1) (11 connections)
+- [QuoteTemplatesConfigTest](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py#L5) (10 connections)
+- [utils.py](file:///Users/macbook/ProjectTracker/tracker/utils.py#L1) (10 connections)
+- [FormModelsTest](file:///Users/macbook/ProjectTracker/tests/test_form_models.py#L8) (9 connections)
+- [_make_default_template()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L153) (6 connections)
+- [_normalize_template()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L166) (6 connections)
+- [parse_csv_plano_filename()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L37) (6 connections)
+- [get_template_for_type()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L210) (5 connections)
+- [_normalize()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L179) (5 connections)
+- [normalize_contact_rows()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L104) (5 connections)
+- [save_quote_templates()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L206) (5 connections)
+- [quote_templates()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1165) (5 connections)
+- [ParseCsvPlanoFilenameTest](file:///Users/macbook/ProjectTracker/tests/test_drive.py#L6) (5 connections)
+- [_normalize_contacts()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L91) (4 connections)
+- [_normalize_sections()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L143) (4 connections)
+- [clean()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L6) (4 connections)
+- [deleted_catalog_item_at()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L60) (4 connections)
+- [parse_float()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L26) (4 connections)
+- [get_template_by_id()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L215) (3 connections)
+- [_new_id()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L87) (3 connections)
+- [_normalize_section()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L126) (3 connections)
+- [parse_form_float()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L10) (3 connections)
+- *... and 31 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class KanbanRoutesTest {
-        +test_kanban.py()
-        +.setUp()
-        +.tearDown()
-        +._get_project()
-        +.test_kanban_page_loads_and_lists_project_in_cotizacion()
-        +.test_toggle_obra_moves_project_to_obra_and_back()
-        +.test_toggle_obra_unknown_project_does_not_crash()
+    class ParseCsvPlanoFilenameTest {
+        +test_drive.py()
+        +.test_extracts_export_metadata()
+        +.test_rejects_cot_csv()
+        +.test_rejects_wrong_clave()
+        +.test_case_insensitive()
     }
-    class ProjectStageTest {
-        +test_kanban.py()
-        +.test_no_tasks_returns_cotizacion()
-        +.test_cot_pendiente_returns_cotizacion()
-        +.test_cot_en_progreso_returns_cotizacion()
-        +.test_cot_aprobado_only_returns_entregado()
-        +.test_cot_aprobado_design_pending_returns_diseno()
-        +.test_cot_aprobado_design_en_progreso_returns_diseno()
-        +.test_all_aprobado_returns_entregado()
-        +.test_in_obra_true_overrides_derived_stage()
-        +.test_in_obra_true_even_with_no_tasks()
+    class FormModelsTest {
+        +test_form_models.py()
+        +.test_quote_from_form_preserves_sections_and_items()
+        +.test_quote_from_form_preserves_section_without_items()
+        +.test_quote_from_form_preserves_deleted_catalog_snapshot()
+        +.test_quote_from_form_parses_specs()
+        +.test_quote_from_form_parses_integrantes()
+        +.test_quote_from_form_specs_defaults_to_empty_strings()
+        +.test_ldm_from_form_preserves_fallback_and_items()
+        +.test_ldm_from_form_preserves_deleted_catalog_snapshot()
     }
-    class SemaphoreTest {
-        +test_semaphore.py()
-        +.test_no_fields_returns_gris()
-        +.test_deadline_in_2_days_returns_rojo()
-        +.test_deadline_exactly_3_days_returns_rojo()
-        +.test_deadline_in_5_days_returns_amarillo()
-        +.test_inactive_7_days_returns_rojo()
-        +.test_inactive_3_days_returns_amarillo()
-        +.test_active_with_future_deadline_returns_verde()
-        +.test_inactive_overrides_far_deadline()
-        +.test_invalid_today_str_returns_gris()
+    class QuoteTemplatesConfigTest {
+        +test_quote_templates.py()
+        +.test_returns_all_types_when_no_file()
+        +.test_default_structure_has_required_fields()
+        +.test_migrates_legacy_dict_and_sections_to_named_list()
+        +.test_normalizes_template_items_without_prices()
+        +.test_non_dict_storage_returns_defaults()
+        +.test_save_normalizes_before_storage()
+        +.test_get_template_for_type_returns_first_template()
+        +.test_get_template_by_id()
+        +.test_get_template_for_unknown_type_returns_empty()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 23]] (4 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_kanban.py](file:///Users/macbook/ProjectTracker/tests/test_kanban.py)
-- [/Users/macbook/ProjectTracker/tests/test_semaphore.py](file:///Users/macbook/ProjectTracker/tests/test_semaphore.py)
-- [/Users/macbook/ProjectTracker/tracker/domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/projects.py](file:///Users/macbook/ProjectTracker/tracker/routes/projects.py)
+- [/Users/macbook/ProjectTracker/tests/test_drive.py](file:///Users/macbook/ProjectTracker/tests/test_drive.py)
+- [/Users/macbook/ProjectTracker/tests/test_form_models.py](file:///Users/macbook/ProjectTracker/tests/test_form_models.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_templates.py](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py)
+- [/Users/macbook/ProjectTracker/tracker/form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py)
+- [/Users/macbook/ProjectTracker/tracker/quote_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/utils.py](file:///Users/macbook/ProjectTracker/tracker/utils.py)
 
 ## Audit Trail
 
-- EXTRACTED: 124 (67%)
-- INFERRED: 61 (33%)
+- EXTRACTED: 157 (73%)
+- INFERRED: 58 (27%)
 - AMBIGUOUS: 0 (0%)
 
 ---

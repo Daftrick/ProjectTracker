@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convenciones de Nomenclatura de Archivos](file:///Users/macbook/ProjectTracker/VERSIONES.md) (0 connections)
+- [Task Entity](file:///Users/macbook/ProjectTracker/templates/tasks.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [templates/tasks.html](file:///Users/macbook/ProjectTracker/templates/tasks.html)
 
 ## Audit Trail
 

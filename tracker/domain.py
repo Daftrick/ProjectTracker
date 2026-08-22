@@ -121,6 +121,16 @@ def fdate(v):
         return v
 
 
+def fdate_short(v):
+    """dd-mm-aa — para campos compactos (ej: 22-08-26)."""
+    if not v:
+        return "—"
+    try:
+        return datetime.strptime(v, "%Y-%m-%d").strftime("%d-%m-%y")
+    except Exception:
+        return v
+
+
 def currency(v):
     try:
         return f"${float(v):,.2f}"

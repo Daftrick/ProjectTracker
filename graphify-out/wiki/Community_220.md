@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Load file information in parallel for better performance](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L118) (0 connections)
+- [Get cached result if valid](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L74) (0 connections)
 
 ## Relationships
 

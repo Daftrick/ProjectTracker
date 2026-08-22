@@ -1,81 +1,81 @@
 # Community 16
 
-> 26 nodes · cohesion 0.13
+> 29 nodes · cohesion 0.10
 
 ## Key Concepts
 
-- [resolve_quote_proposal_for()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L386) (11 connections)
-- [resolve_quote_client()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L365) (8 connections)
-- [QuoteProposalForPdfTest](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L205) (8 connections)
-- [._render_text()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L229) (7 connections)
-- [ResolveQuoteProposalForTest](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L60) (7 connections)
-- [._base_quote()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L212) (5 connections)
-- [ResolveQuoteClientTest](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L39) (5 connections)
-- [test_quote_client_override.py](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L1) (5 connections)
-- [.test_cliente_mode_with_override_shows_override()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L253) (3 connections)
-- [.test_legacy_quote_without_proposal_fields_behaves_like_before()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L261) (3 connections)
-- [.test_personalizado_shows_custom_addressee_not_client()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L238) (3 connections)
-- [.test_vacio_hides_propuesta_para_block()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L246) (3 connections)
-- [._company()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L206) (2 connections)
-- [.test_falls_back_to_snapshot_when_no_override_and_no_project_client()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L50) (2 connections)
-- [.test_handles_missing_quote_and_project()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L55) (2 connections)
-- [.test_override_wins_over_project()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L40) (2 connections)
-- [.test_project_wins_when_no_override()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L45) (2 connections)
-- [.test_default_mode_missing_field_uses_client()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L61) (2 connections)
-- [.test_mode_cliente_explicit_uses_resolved_client()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L67) (2 connections)
-- [.test_mode_cliente_without_any_client_hides_line()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L89) (2 connections)
-- [.test_mode_personalizado_uses_custom_text()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L73) (2 connections)
-- [.test_mode_personalizado_without_text_hides_line()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L79) (2 connections)
-- [.test_mode_vacio_hides_line_even_with_client()](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py#L84) (2 connections)
-- [Cliente a mostrar en PDF/Excel/vistas de una cotización.      Prioridad: 1) over](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L366) (1 connections)
-- [Etiqueta y valor de la línea "Propuesta para" de la portada.      proposal_for_m](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L387) (1 connections)
-- *... and 1 more nodes in this community*
+- [SetQuoteStatusRouteTest](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L108) (13 connections)
+- [set_quote_status()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L147) (11 connections)
+- [SetQuoteStatusModelTest](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L57) (10 connections)
+- [._status()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L124) (6 connections)
+- [set_quote_status_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L489) (5 connections)
+- [.setUp()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L109) (4 connections)
+- [.test_closed_project_shows_readonly_badge_not_select()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L190) (3 connections)
+- [test_quote_status_select.py](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L1) (3 connections)
+- [.test_active_to_draft_directly()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L66) (2 connections)
+- [.test_active_to_obsolete()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L72) (2 connections)
+- [.test_does_not_affect_other_quotes()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L96) (2 connections)
+- [.test_draft_to_active()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L61) (2 connections)
+- [.test_invalid_status_rejected()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L87) (2 connections)
+- [.test_obsolete_to_draft_directly()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L77) (2 connections)
+- [.test_same_status_is_a_noop()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L82) (2 connections)
+- [.test_unknown_quote_id_returns_false()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L92) (2 connections)
+- [.tearDown()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L120) (2 connections)
+- [.test_invalid_status_flashes_error_and_does_not_change()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L151) (2 connections)
+- [.test_set_status_back_to_draft_from_active()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L136) (2 connections)
+- [.test_set_status_to_active()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L127) (2 connections)
+- [.test_set_status_to_obsolete_directly_from_draft()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L142) (2 connections)
+- [Cambia el approval_status de una cotización a cualquiera de los 3     estados vá](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L148) (1 connections)
+- [Cambia el estado de una cotización libremente a borrador/activa/obsoleta,     el](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L490) (1 connections)
+- [Selector libre de estado de cotización en la columna Estado.  Antes sólo existía](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L1) (1 connections)
+- [.test_valid_statuses_constant()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L58) (1 connections)
+- *... and 4 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class QuoteProposalForPdfTest {
-        +test_quote_client_override.py()
-        +._company()
-        +._base_quote()
-        +._render_text()
-        +.test_personalizado_shows_custom_addressee_not_client()
-        +.test_vacio_hides_propuesta_para_block()
-        +.test_cliente_mode_with_override_shows_override()
-        +.test_legacy_quote_without_proposal_fields_behaves_like_before()
+    class SetQuoteStatusModelTest {
+        +test_quote_status_select.py()
+        +.test_valid_statuses_constant()
+        +.test_draft_to_active()
+        +.test_active_to_draft_directly()
+        +.test_active_to_obsolete()
+        +.test_obsolete_to_draft_directly()
+        +.test_same_status_is_a_noop()
+        +.test_invalid_status_rejected()
+        +.test_unknown_quote_id_returns_false()
+        +.test_does_not_affect_other_quotes()
     }
-    class ResolveQuoteClientTest {
-        +test_quote_client_override.py()
-        +.test_override_wins_over_project()
-        +.test_project_wins_when_no_override()
-        +.test_falls_back_to_snapshot_when_no_override_and_no_project_client()
-        +.test_handles_missing_quote_and_project()
-    }
-    class ResolveQuoteProposalForTest {
-        +test_quote_client_override.py()
-        +.test_default_mode_missing_field_uses_client()
-        +.test_mode_cliente_explicit_uses_resolved_client()
-        +.test_mode_personalizado_uses_custom_text()
-        +.test_mode_personalizado_without_text_hides_line()
-        +.test_mode_vacio_hides_line_even_with_client()
-        +.test_mode_cliente_without_any_client_hides_line()
+    class SetQuoteStatusRouteTest {
+        +test_quote_status_select.py()
+        +.setUp()
+        +.tearDown()
+        +._status()
+        +.test_set_status_to_active()
+        +.test_set_status_back_to_draft_from_active()
+        +.test_set_status_to_obsolete_directly_from_draft()
+        +.test_invalid_status_flashes_error_and_does_not_change()
+        +.test_unknown_quote_flashes_not_found()
+        +.test_redirects_to_next_url_when_provided()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 18]] (2 shared connections)
+- [[Community 0]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_quote_client_override.py](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_status_select.py](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py)
 - [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 69 (74%)
-- INFERRED: 24 (26%)
+- EXTRACTED: 62 (70%)
+- INFERRED: 27 (30%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -1,6 +1,6 @@
 # Community 12
 
-> 41 nodes · cohesion 0.08
+> 44 nodes · cohesion 0.07
 
 ## Key Concepts
 
@@ -12,9 +12,11 @@
 - [FilterCatalogTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L57) (7 connections)
 - [MatchItemTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L23) (7 connections)
 - [test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L1) (7 connections)
+- [list_categories()](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py#L75) (6 connections)
 - [ApiCatalogoTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L114) (5 connections)
 - [TokenizeTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L8) (5 connections)
 - [_indexable_text()](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py#L37) (4 connections)
+- [api_catalogo()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L325) (3 connections)
 - [.test_combined_tokens_and_category()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L88) (2 connections)
 - [.test_filter_by_category()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L81) (2 connections)
 - [.test_filters_by_token_and_returns_alphabetical()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L65) (2 connections)
@@ -27,9 +29,7 @@
 - [.test_categoria_filter_matches_normalized()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L42) (2 connections)
 - [.test_diacritics_and_case_ignored()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L35) (2 connections)
 - [.test_marca_field_is_searchable()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L51) (2 connections)
-- [.test_no_tokens_means_match()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L39) (2 connections)
-- [.test_tokens_can_match_across_fields()](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py#L47) (2 connections)
-- *... and 16 more nodes in this community*
+- *... and 19 more nodes in this community*
 
 ## Class Diagram
 
@@ -74,17 +74,18 @@ classDiagram
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 0]] (1 shared connections)
 
 ## Source Files
 
 - [/Users/macbook/ProjectTracker/tests/test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py)
 - [/Users/macbook/ProjectTracker/tracker/catalog_search.py](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
 
 ## Audit Trail
 
-- EXTRACTED: 95 (73%)
-- INFERRED: 35 (27%)
+- EXTRACTED: 100 (71%)
+- INFERRED: 40 (29%)
 - AMBIGUOUS: 0 (0%)
 
 ---

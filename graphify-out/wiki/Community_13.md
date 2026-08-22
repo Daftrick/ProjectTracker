@@ -1,12 +1,12 @@
 # Community 13
 
-> 37 nodes · cohesion 0.09
+> 36 nodes · cohesion 0.09
 
 ## Key Concepts
 
 - [AdminRequiredTestCase](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L107) (17 connections)
 - [._login_as()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L133) (13 connections)
-- [get_company()](file:///Users/macbook/ProjectTracker/tracker/company_config.py#L15) (9 connections)
+- [get_company()](file:///Users/macbook/ProjectTracker/tracker/company_config.py#L15) (10 connections)
 - [get_project_templates()](file:///Users/macbook/ProjectTracker/tracker/templates_config.py#L17) (8 connections)
 - [._assert_no_admin_block()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L175) (6 connections)
 - [ProjectTemplatesTest](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py#L41) (6 connections)
@@ -14,7 +14,6 @@
 - [empresa()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L787) (4 connections)
 - [save_company()](file:///Users/macbook/ProjectTracker/tracker/company_config.py#L25) (4 connections)
 - [.test_cotizador_can_view_empresa_but_only_edit_address()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L255) (4 connections)
-- [company_config.py](file:///Users/macbook/ProjectTracker/tracker/company_config.py#L1) (4 connections)
 - [templates_config.py](file:///Users/macbook/ProjectTracker/tracker/templates_config.py#L1) (4 connections)
 - [save_project_templates()](file:///Users/macbook/ProjectTracker/tracker/templates_config.py#L27) (3 connections)
 - [.test_admin_can_edit_all_empresa_fields()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L278) (3 connections)
@@ -29,7 +28,8 @@
 - [.test_admin_can_access_users()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L149) (2 connections)
 - [.test_cotizador_can_add_catalog_item_via_api()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L166) (2 connections)
 - [.test_cotizador_can_add_catalog_item_via_form()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L154) (2 connections)
-- *... and 12 more nodes in this community*
+- [.test_cotizador_cannot_access_users()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L139) (2 connections)
+- *... and 11 more nodes in this community*
 
 ## Class Diagram
 
@@ -78,8 +78,8 @@ classDiagram
 
 ## Audit Trail
 
-- EXTRACTED: 105 (76%)
-- INFERRED: 33 (24%)
+- EXTRACTED: 101 (75%)
+- INFERRED: 34 (25%)
 - AMBIGUOUS: 0 (0%)
 
 ---

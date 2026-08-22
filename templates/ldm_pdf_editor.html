@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+{% block title %}Editor PDF — {{ ldm.ldm_number }}{% endblock %}
+
+{% block content %}
+{% set with_prices = ldm.items | selectattr('precio_cot') | list | length > 0 %}
+{% set display_name = ldm.project_name_override or project.name %}
+{% set portada_color = company.portada_color or '#000000' %}
+
+<div class="d-flex" style="height:calc(100vh - 56px);overflow:hidden;">
+
+  {# ── SIDEBAR ─────────────────────────────────────────────────────────────── #}
+  <div class="border-end bg-body d-flex flex-column" style="width:340px;min-width:340px;overflow:hidden;">
+
+    {# Header #}
+    <div class="p-3 border-bottom d-flex align-items-center justify-content-between flex-shrink-0">
+      <div>
+        <small class="text-muted">Editor PDF · LDM</small>
+        <h6 class="mb-0 text-truncate" style="max-width:240px;">{{ ldm.ldm_number }}</h6>
+      </div>
+      <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-materiales"
+         class="btn btn-sm btn-outline-secondary" title="Volver al proyecto">
+        <i class="bi bi-arrow-left"></i>
+      </a>
+    </div>
+
+    {# Form #}
+    <div class="overflow-auto flex-grow-1">
+      <form method="post" id="ldmEditorForm">
+
+        <div class="accordion accordion-flush" id="editorAccordion">
+
+          {# ── Panel Portada ── #}
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button py-2" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#colPortada">
+                <i class="bi bi-file-earmark-image me-2 text-primary"></i>
+                <span class="fw-semibold small">Portada</span>
+              </button>
+            </h2>
+            <div id="colPortada" class="accordion-collapse collapse show">
+              <div class="accordion-body pt-2">
+                <label class="form-label small fw-semibold mb-1">
+                  Nombre del proyecto en PDF
+                  <span class="text-muted fw-normal">— opcional</span>
+                </label>
+                <input id="edProjectName" name="project_name_override"
+                       class="form-control form-control-sm mb-1"
+                       placeholder="{{ project.name }}"
+                       value="{{ ldm.project_name_override or '' }}">
+                <div class="form-text mb-3">Déjalo vacío para usar el nombre completo del proyecto.</div>
+
+                <div class="row g-2 small text-muted mb-1">
+                  <div class="col-6">
+                    <span class="fw-semibold d-block">Proveedor</span>
+                    {{ ldm.proveedor or '—' }}
+                  </div>
+                  <div class="col-6">
+                    <span class="fw-semibold d-block">Fecha</span>
+                    {{ ldm.fecha | fdate if ldm.fecha else '—' }}
+                  </div>
+                </div>
+                <a href="{{ url_for('materials_bp.edit_ldm', project_id=project.id, ldm_id=ldm.id) }}"
+                   class="btn btn-outline-secondary btn-sm mt-1 w-100">
+                  <i class="bi bi-pencil me-1"></i>Editar proveedor, fecha y artículos
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {# ── Panel Notas ── #}
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed py-2" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#colNotas">
+                <i class="bi bi-chat-left-text me-2 text-primary"></i>
+                <span class="fw-semibold small">Notas / instrucciones</span>
+              </button>
+            </h2>
+            <div id="colNotas" class="accordion-collapse collapse">
+              <div class="accordion-body pt-2">
+                <textarea name="notes" id="edNotes" class="form-control form-control-sm" rows="4"
+                          placeholder="Condiciones, tiempo de entrega esperado…">{{ ldm.notes or '' }}</textarea>
+              </div>
+            </div>
+          </div>
+
+        </div>{# /accordion #}
+      </form>
+    </div>{# /overflow-auto #}
+
+    {# Footer actions #}
+    <div class="p-3 border-top flex-shrink-0 d-grid gap-2">
+      <button type="submit" form="ldmEditorForm" class="btn btn-primary btn-sm">
+        <i class="bi bi-floppy me-1"></i>Guardar cambios
+      </button>
+      <a href="{{ url_for('materials_bp.ldm_pdf', project_id=project.id, ldm_id=ldm.id) }}"
+         class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-file-pdf me-1"></i>Descargar PDF
+      </a>
+    </div>
+
+  </div>{# /sidebar #}
+
+  {# ── PREVIEW ──────────────────────────────────────────────────────────────── #}
+  <div class="flex-grow-1 overflow-auto" style="background:#0b1020;">
+    <div class="d-flex justify-content-center py-4 px-2">
+
+      {# Wrapper A4 #}
+      <div style="width:210mm;font-family:Arial,sans-serif;font-size:13px;">
+
+        {# ── Página 1 ── #}
+        <div class="mb-4"
+             style="background:#fff;box-shadow:0 2px 16px rgba(0,0,0,.35);overflow:hidden;">
+
+          {# Banner con logo/nombre empresa #}
+          <div style="background:{{ portada_color }};height:112px;display:flex;align-items:center;justify-content:center;">
+            {% if logo_url %}
+            <img src="{{ logo_url }}" style="max-height:80px;max-width:200px;object-fit:contain;"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+            <span style="color:#fff;font-size:22px;font-weight:bold;display:none;">{{ company.name or 'Project Tracker' }}</span>
+            {% else %}
+            <span style="color:#fff;font-size:22px;font-weight:bold;">{{ company.name or 'Project Tracker' }}</span>
+            {% endif %}
+          </div>
+
+          {# Bloque PROYECTO / PROVEEDOR / FECHA #}
+          <div style="margin:8px 5mm;background:#f4f7fb;padding:8px 6mm;">
+            <div style="display:flex;gap:0;">
+              <div style="flex:0 0 42%;padding-right:4mm;">
+                <div style="font-size:7.5px;color:#717e91;font-weight:bold;letter-spacing:.5px;margin-bottom:2px;">PROYECTO</div>
+                <div id="prevProjectName"
+                     style="font-size:10.4px;color:#25262c;font-family:monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                  {{ display_name }}
+                </div>
+              </div>
+              <div style="flex:0 0 42%;padding-right:4mm;">
+                <div style="font-size:7.5px;color:#717e91;font-weight:bold;letter-spacing:.5px;margin-bottom:2px;">PROVEEDOR</div>
+                <div style="font-size:10.4px;color:#25262c;font-family:monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                  {{ ldm.proveedor or '—' }}
+                </div>
+              </div>
+              <div style="flex:0 0 16%;">
+                <div style="font-size:7.5px;color:#717e91;font-weight:bold;letter-spacing:.5px;margin-bottom:2px;">FECHA</div>
+                <div style="font-size:10.4px;color:#25262c;font-family:monospace;">
+                  {% if ldm.fecha %}{{ ldm.fecha | fdate_short }}{% else %}—{% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {# Detalle de partidas #}
+          <div style="margin:12px 5mm 4px;">
+            <div style="font-size:15px;font-weight:bold;color:#25262c;">Detalle de partidas</div>
+            <div style="font-size:8.5px;color:#717e91;font-family:monospace;margin-top:2px;">
+              {{ ldm.ldm_number }} —
+              {% if with_prices %}Conceptos cotizados por el proveedor.{% else %}Conceptos solicitados al proveedor.{% endif %}
+            </div>
+          </div>
+
+          {# Tabla de artículos #}
+          <div style="margin:6px 5mm 10mm;">
+            <table style="width:100%;border-collapse:collapse;font-size:8px;">
+              <thead>
+                <tr style="background:#182746;color:#fff;">
+                  <th style="width:28px;padding:5px 4px;text-align:center;">#</th>
+                  <th style="padding:5px 4px;text-align:left;">DESCRIPCIÓN</th>
+                  <th style="width:50px;padding:5px 4px;text-align:center;">UNIDAD</th>
+                  <th style="width:40px;padding:5px 4px;text-align:right;">CANT.</th>
+                  {% if with_prices %}
+                  <th style="width:65px;padding:5px 4px;text-align:right;">PRECIO COT.</th>
+                  <th style="width:65px;padding:5px 4px;text-align:right;">TOTAL</th>
+                  {% endif %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in ldm.items %}
+                {% set loop_idx = loop.index %}
+                <tr style="background:{{ '#f9fafc' if loop.index % 2 == 0 else '#fff' }};border-bottom:1px solid #e8ecf0;">
+                  <td style="padding:4px;text-align:center;color:#717e91;vertical-align:top;font-family:monospace;">{{ loop_idx }}</td>
+                  <td style="padding:4px;vertical-align:top;">
+                    <div style="color:#25262c;font-family:monospace;">{{ item.description or '—' }}</div>
+                    {% if item.description_secondary %}
+                    <div style="color:#717e91;font-size:7.5px;margin-top:1px;font-family:monospace;">{{ item.description_secondary }}</div>
+                    {% endif %}
+                  </td>
+                  <td style="padding:4px;text-align:center;color:#25262c;vertical-align:top;font-family:monospace;">{{ item.unit or 'pza' }}</td>
+                  <td style="padding:4px;text-align:right;color:#25262c;vertical-align:top;font-family:monospace;">{{ item.qty | int if item.qty == item.qty | int else item.qty }}</td>
+                  {% if with_prices %}
+                  <td style="padding:4px;text-align:right;color:#25262c;vertical-align:top;font-family:monospace;">
+                    {{ item.precio_cot | currency if item.precio_cot else '—' }}
+                  </td>
+                  <td style="padding:4px;text-align:right;color:#228b5e;font-weight:bold;vertical-align:top;font-family:monospace;">
+                    {{ (item.precio_cot * item.qty) | currency if item.precio_cot else '—' }}
+                  </td>
+                  {% endif %}
+                </tr>
+                {% else %}
+                <tr><td colspan="{{ 6 if with_prices else 4 }}" style="padding:12px;text-align:center;color:#717e91;">Sin artículos</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          {% if ldm.notes %}
+          <div style="margin:4px 5mm 8mm;padding:5px 6px;background:#f4f7fb;font-size:8px;color:#4a5568;font-family:monospace;white-space:pre-wrap;">{{ ldm.notes }}</div>
+          {% endif %}
+
+        </div>{# /page #}
+
+      </div>{# /A4 wrapper #}
+    </div>
+  </div>{# /preview #}
+
+</div>{# /flex #}
+
+<script>
+(function () {
+  var inp = document.getElementById("edProjectName");
+  var prev = document.getElementById("prevProjectName");
+  var placeholder = {{ project.name | tojson }};
+  if (inp && prev) {
+    inp.addEventListener("input", function () {
+      prev.textContent = inp.value.trim() || placeholder;
+    });
+  }
+})();
+</script>
+{% endblock %}

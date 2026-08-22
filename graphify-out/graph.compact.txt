@@ -941,11 +941,13 @@ n domain_check_blocked FUNCTION check_blocked()
 n domain_project_stage FUNCTION project_stage()
 n domain_get_progress FUNCTION get_progress()
 n domain_fdate FUNCTION fdate()
+n domain_fdate_short FUNCTION fdate_short()
 n domain_currency FUNCTION currency()
 n domain_today_short FUNCTION today_short()
 n domain_project_semaphore FUNCTION project_semaphore()
 n domain_rationale_75 UNKNOWN Derive_the_portfolio_stage_from_existing_task_data_+_the_in_obra_flag.______Stag
-n domain_rationale_136 UNKNOWN Returns_'verde',_'amarillo',_'rojo',_or_'gris'_based_on_deadline_and_inactivity.
+n domain_rationale_125 UNKNOWN dd-mm-aa_—_para_campos_compactos_(ej:_22-08-26).
+n domain_rationale_146 UNKNOWN Returns_'verde',_'amarillo',_'rojo',_or_'gris'_based_on_deadline_and_inactivity.
 n users_macbook_projecttracker_tracker_bundles_py FUNCTION bundles.py
 n bundles_safe_float FUNCTION _safe_float()
 n bundles_round FUNCTION _round()
@@ -1057,7 +1059,7 @@ n init_requires_configured_secret_key FUNCTION _requires_configured_secret_key()
 n init_create_app FUNCTION create_app()
 n init_migrate_quote_approval FUNCTION _migrate_quote_approval()
 n init_register_legacy_endpoint_aliases FUNCTION _register_legacy_endpoint_aliases()
-n init_rationale_109 UNKNOWN Migración_idempotente:_asigna_approval_status_a_cotizaciones_existentes.
+n init_rationale_110 UNKNOWN Migración_idempotente:_asigna_approval_status_a_cotizaciones_existentes.
 n users_macbook_projecttracker_tracker_admin_filters_py FUNCTION admin_filters.py
 n admin_filters_normalize FUNCTION _normalize()
 n admin_filters_tokens FUNCTION _tokens()
@@ -1237,6 +1239,7 @@ n materials_delete_ldm FUNCTION delete_ldm()
 n materials_purge_ldm_deleted_catalog_items FUNCTION purge_ldm_deleted_catalog_items()
 n materials_set_ldm_cot FUNCTION set_ldm_cot()
 n materials_ldm_pdf FUNCTION ldm_pdf()
+n materials_ldm_pdf_editor FUNCTION ldm_pdf_editor()
 n materials_pdf_import_session_key FUNCTION _pdf_import_session_key()
 n materials_pdf_import_dir FUNCTION _pdf_import_dir()
 n materials_pdf_import_path FUNCTION _pdf_import_path()
@@ -1247,9 +1250,9 @@ n materials_redirect_closed_pdf_import FUNCTION _redirect_closed_pdf_import()
 n materials_import_ldm_pdf_upload FUNCTION import_ldm_pdf_upload()
 n materials_import_ldm_pdf_map FUNCTION import_ldm_pdf_map()
 n materials_import_ldm_pdf_create FUNCTION import_ldm_pdf_create()
-n materials_rationale_650 UNKNOWN Recibe_el_PDF,_extrae_ítems_y_redirige_a_la_vista_de_mapeo.
-n materials_rationale_707 UNKNOWN Muestra_la_vista_de_mapeo_ítem-PDF_→_catálogo.
-n materials_rationale_735 UNKNOWN Recibe_el_mapeo_del_usuario_y_crea_la_LDM.
+n materials_rationale_689 UNKNOWN Recibe_el_PDF,_extrae_ítems_y_redirige_a_la_vista_de_mapeo.
+n materials_rationale_746 UNKNOWN Muestra_la_vista_de_mapeo_ítem-PDF_→_catálogo.
+n materials_rationale_774 UNKNOWN Recibe_el_mapeo_del_usuario_y_crea_la_LDM.
 n users_macbook_projecttracker_tracker_routes_init_py FUNCTION __init__.py
 n users_macbook_projecttracker_tracker_routes_auth_routes_py FUNCTION auth_routes.py
 n auth_routes_login FUNCTION login()
@@ -1408,6 +1411,11 @@ n quotes_mobile_mobile_review FUNCTION mobile_review()
 n quotes_mobile_mobile_generate_pdf FUNCTION mobile_generate_pdf()
 n users_macbook_projecttracker_scripts_migrate_add_deadline_py FUNCTION migrate_add_deadline.py
 n migrate_add_deadline_main FUNCTION main()
+n domain_rationale_136 UNKNOWN Returns_'verde',_'amarillo',_'rojo',_or_'gris'_based_on_deadline_and_inactivity.
+n init_rationale_109 UNKNOWN Migración_idempotente:_asigna_approval_status_a_cotizaciones_existentes.
+n materials_rationale_650 UNKNOWN Recibe_el_PDF,_extrae_ítems_y_redirige_a_la_vista_de_mapeo.
+n materials_rationale_707 UNKNOWN Muestra_la_vista_de_mapeo_ítem-PDF_→_catálogo.
+n materials_rationale_735 UNKNOWN Recibe_el_mapeo_del_usuario_y_crea_la_LDM.
 n pdfs_rationale_1687 UNKNOWN PDF_de_avance_de_obra:_etapas_con_estado/presupuesto_+_checklist_de_documentos.
 n materials_rationale_648 UNKNOWN Recibe_el_PDF,_extrae_ítems_y_redirige_a_la_vista_de_mapeo.
 n materials_rationale_705 UNKNOWN Muestra_la_vista_de_mapeo_ítem-PDF_→_catálogo.
@@ -3328,6 +3336,7 @@ e catalog_catalog_maps materials_bundle_suggestion_ldm calls
 e catalog_catalog_maps materials_edit_ldm calls
 e catalog_catalog_maps materials_sync_ldm_bundles calls
 e catalog_catalog_maps materials_ldm_pdf calls
+e catalog_catalog_maps materials_ldm_pdf_editor calls
 e catalog_catalog_maps materials_import_ldm_pdf_map calls
 e catalog_catalog_maps materials_import_ldm_pdf_create calls
 e catalog_catalog_maps admin_export_data calls
@@ -3416,6 +3425,7 @@ e catalog_hydrate_ldm materials_bundle_sync_suggestions calls
 e catalog_hydrate_ldm materials_edit_ldm calls
 e catalog_hydrate_ldm materials_sync_ldm_bundles calls
 e catalog_hydrate_ldm materials_ldm_pdf calls
+e catalog_hydrate_ldm materials_ldm_pdf_editor calls
 e catalog_hydrate_ldm admin_export_data calls
 e catalog_next_quote_number storage_today calls
 e catalog_next_quote_number services_finalize_mobile_draft calls
@@ -3642,6 +3652,7 @@ e users_macbook_projecttracker_tracker_domain_py domain_check_blocked contains
 e users_macbook_projecttracker_tracker_domain_py domain_project_stage contains
 e users_macbook_projecttracker_tracker_domain_py domain_get_progress contains
 e users_macbook_projecttracker_tracker_domain_py domain_fdate contains
+e users_macbook_projecttracker_tracker_domain_py domain_fdate_short contains
 e users_macbook_projecttracker_tracker_domain_py domain_currency contains
 e users_macbook_projecttracker_tracker_domain_py domain_today_short contains
 e users_macbook_projecttracker_tracker_domain_py domain_project_semaphore contains
@@ -3664,8 +3675,9 @@ e domain_project_stage projects_kanban calls
 e domain_get_progress storage_load calls
 e domain_get_progress project_view_build_project_detail_context calls
 e domain_get_progress projects_kanban calls
+e domain_fdate_short domain_rationale_125 rationale_for
 e domain_today_short storage_today calls
-e domain_project_semaphore domain_rationale_136 rationale_for
+e domain_project_semaphore domain_rationale_146 rationale_for
 e domain_project_semaphore projects_kanban calls
 e users_macbook_projecttracker_tracker_bundles_py bundles_safe_float contains
 e users_macbook_projecttracker_tracker_bundles_py bundles_round contains
@@ -3909,6 +3921,7 @@ e users_macbook_projecttracker_tracker_company_config_py users_macbook_projecttr
 e users_macbook_projecttracker_tracker_company_config_py company_config_get_company contains
 e users_macbook_projecttracker_tracker_company_config_py company_config_save_company contains
 e users_macbook_projecttracker_tracker_company_config_py users_macbook_projecttracker_tracker_init_py imports_from
+e company_config_get_company materials_ldm_pdf_editor calls
 e company_config_get_company admin_empresa_logo_file calls
 e company_config_get_company admin_empresa calls
 e company_config_get_company quotes_quote_pdf_editor calls
@@ -3958,7 +3971,7 @@ e init_is_production_environment init_requires_configured_secret_key calls
 e init_requires_configured_secret_key init_create_app calls
 e init_create_app init_migrate_quote_approval calls
 e init_create_app init_register_legacy_endpoint_aliases calls
-e init_migrate_quote_approval init_rationale_109 rationale_for
+e init_migrate_quote_approval init_rationale_110 rationale_for
 e init_migrate_quote_approval storage_load calls
 e init_migrate_quote_approval storage_save calls
 e users_macbook_projecttracker_tracker_admin_filters_py admin_filters_normalize contains
@@ -4150,6 +4163,7 @@ e storage_load materials_delete_ldm calls
 e storage_load materials_purge_ldm_deleted_catalog_items calls
 e storage_load materials_set_ldm_cot calls
 e storage_load materials_ldm_pdf calls
+e storage_load materials_ldm_pdf_editor calls
 e storage_load materials_load_pdf_import calls
 e storage_load materials_import_ldm_pdf_map calls
 e storage_load materials_import_ldm_pdf_create calls
@@ -4249,6 +4263,7 @@ e storage_save materials_sync_ldm_bundles calls
 e storage_save materials_delete_ldm calls
 e storage_save materials_purge_ldm_deleted_catalog_items calls
 e storage_save materials_set_ldm_cot calls
+e storage_save materials_ldm_pdf_editor calls
 e storage_save materials_import_ldm_pdf_upload calls
 e storage_save materials_import_ldm_pdf_create calls
 e storage_save admin_catalogo calls
@@ -4575,6 +4590,7 @@ e users_macbook_projecttracker_tracker_routes_materials_py materials_delete_ldm 
 e users_macbook_projecttracker_tracker_routes_materials_py materials_purge_ldm_deleted_catalog_items contains
 e users_macbook_projecttracker_tracker_routes_materials_py materials_set_ldm_cot contains
 e users_macbook_projecttracker_tracker_routes_materials_py materials_ldm_pdf contains
+e users_macbook_projecttracker_tracker_routes_materials_py materials_ldm_pdf_editor contains
 e users_macbook_projecttracker_tracker_routes_materials_py materials_pdf_import_session_key contains
 e users_macbook_projecttracker_tracker_routes_materials_py materials_pdf_import_dir contains
 e users_macbook_projecttracker_tracker_routes_materials_py materials_pdf_import_path contains
@@ -4595,6 +4611,7 @@ e materials_find_project materials_edit_ldm calls
 e materials_find_project materials_ldm_csv calls
 e materials_find_project materials_sync_ldm_bundles calls
 e materials_find_project materials_delete_ldm calls
+e materials_find_project materials_ldm_pdf_editor calls
 e materials_find_project materials_import_ldm_pdf_upload calls
 e materials_find_project materials_import_ldm_pdf_map calls
 e materials_find_project materials_import_ldm_pdf_create calls
@@ -4628,9 +4645,9 @@ e materials_load_pdf_import materials_import_ldm_pdf_create calls
 e materials_redirect_closed_pdf_import materials_import_ldm_pdf_upload calls
 e materials_redirect_closed_pdf_import materials_import_ldm_pdf_map calls
 e materials_redirect_closed_pdf_import materials_import_ldm_pdf_create calls
-e materials_import_ldm_pdf_upload materials_rationale_650 rationale_for
-e materials_import_ldm_pdf_map materials_rationale_707 rationale_for
-e materials_import_ldm_pdf_create materials_rationale_735 rationale_for
+e materials_import_ldm_pdf_upload materials_rationale_689 rationale_for
+e materials_import_ldm_pdf_map materials_rationale_746 rationale_for
+e materials_import_ldm_pdf_create materials_rationale_774 rationale_for
 e users_macbook_projecttracker_tracker_routes_auth_routes_py auth_routes_login contains
 e users_macbook_projecttracker_tracker_routes_auth_routes_py auth_routes_logout contains
 e users_macbook_projecttracker_tracker_routes_auth_routes_py auth_routes_users contains

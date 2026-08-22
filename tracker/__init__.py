@@ -11,7 +11,7 @@ from .catalog import (
     resolve_quote_proposal_for,
 )
 from .company_config import get_company
-from .domain import APP_VERSION, TIPOS_FICHA, currency, fdate
+from .domain import APP_VERSION, TIPOS_FICHA, currency, fdate, fdate_short
 from .routes.admin import bp as admin_bp
 from .routes.auth_routes import bp as auth_bp
 from .routes.materials import bp as materials_bp
@@ -71,6 +71,7 @@ def create_app():
     _migrate_quote_approval()
 
     app.add_template_filter(fdate, "fdate")
+    app.add_template_filter(fdate_short, "fdate_short")
     app.add_template_filter(currency, "currency")
     # Resolución de cliente/"Propuesta para" compartida entre templates, PDF y
     # Excel (misma lógica en todos lados — ver catalog.py, VERSIONES.md #11/#12).

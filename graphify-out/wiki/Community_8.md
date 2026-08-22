@@ -1,6 +1,6 @@
 # Community 8
 
-> 64 nodes · cohesion 0.06
+> 63 nodes · cohesion 0.06
 
 ## Key Concepts
 
@@ -17,7 +17,6 @@
 - [QuoteSequenceFromNumberTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L77) (8 connections)
 - [_load_company()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L137) (7 connections)
 - [QuoteProjectBasisNoteTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L52) (6 connections)
-- [catalog_description_lookup()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L171) (5 connections)
 - [quote_logo_path()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L151) (5 connections)
 - [_register_dejavu()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L70) (5 connections)
 - [test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L1) (5 connections)
@@ -29,7 +28,8 @@
 - [quote_catalog_description()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L245) (4 connections)
 - [_company_name()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L174) (3 connections)
 - [quote_scope_paragraphs()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L178) (3 connections)
-- *... and 39 more nodes in this community*
+- [quote_terms()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L200) (3 connections)
+- *... and 38 more nodes in this community*
 
 ## Class Diagram
 
@@ -86,13 +86,12 @@ classDiagram
 ## Source Files
 
 - [/Users/macbook/ProjectTracker/tests/test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py)
-- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 - [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 
-- EXTRACTED: 199 (72%)
-- INFERRED: 78 (28%)
+- EXTRACTED: 197 (72%)
+- INFERRED: 75 (28%)
 - AMBIGUOUS: 0 (0%)
 
 ---

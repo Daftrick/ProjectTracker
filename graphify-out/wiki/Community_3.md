@@ -1,101 +1,111 @@
 # Community 3
 
-> 83 nodes · cohesion 0.04
+> 87 nodes · cohesion 0.05
 
 ## Key Concepts
 
-- [auth.py](file:///Users/macbook/ProjectTracker/tracker/auth.py#L1) (29 connections)
-- [__init__.py](file:///Users/macbook/ProjectTracker/tracker/__init__.py#L1) (18 connections)
-- [auth_routes.py](file:///Users/macbook/ProjectTracker/tracker/routes/auth_routes.py#L1) (16 connections)
-- [AuthTestCase](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L7) (12 connections)
-- [_db_execute()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L154) (9 connections)
-- [init_db()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L25) (9 connections)
-- [DefaultAdminTests](file:///Users/macbook/ProjectTracker/tests/test_auth_defaults.py#L12) (8 connections)
-- [CompanyLogoUploadTests](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py#L8) (7 connections)
-- [verify_credentials()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L175) (6 connections)
-- [_requires_configured_secret_key()](file:///Users/macbook/ProjectTracker/tracker/__init__.py#L49) (6 connections)
-- [._create_user()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L35) (6 connections)
-- [create_user()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L190) (5 connections)
-- [User](file:///Users/macbook/ProjectTracker/tracker/auth.py#L101) (5 connections)
-- [AppConfigTests](file:///Users/macbook/ProjectTracker/tests/test_app_config.py#L8) (5 connections)
-- [_db_query()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L148) (4 connections)
-- [get_user_by_username()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L167) (4 connections)
-- [reset_user_password()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L201) (4 connections)
-- [set_user_active()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L197) (4 connections)
-- [.test_inactive_user_cannot_login()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L82) (4 connections)
-- [._admin_row()](file:///Users/macbook/ProjectTracker/tests/test_auth_defaults.py#L29) (4 connections)
-- [_default_admin_config()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L56) (3 connections)
-- [delete_user()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L226) (3 connections)
-- [_ensure_default_admin()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L63) (3 connections)
-- [get_all_users()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L161) (3 connections)
-- [init_auth()](file:///Users/macbook/ProjectTracker/tracker/auth.py#L249) (3 connections)
-- *... and 58 more nodes in this community*
+- [bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L1) (24 connections)
+- [create_bundle()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L267) (22 connections)
+- [expand_quote_bundles()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L339) (19 connections)
+- [bundle_by_catalog_item_id()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L96) (18 connections)
+- [quotes_mobile.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L1) (16 connections)
+- [quote_item_bundle_breakdown()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L148) (15 connections)
+- [capture_bundle_snapshot()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L211) (13 connections)
+- [normalize_bundle()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L46) (13 connections)
+- [mobile_generate_pdf()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L166) (12 connections)
+- [normalize_component()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L72) (11 connections)
+- [add_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L290) (10 connections)
+- [_clean()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L42) (10 connections)
+- [get_active_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L82) (10 connections)
+- [delete_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L323) (9 connections)
+- [hydrate_quote_bundle_breakdowns()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L193) (9 connections)
+- [_safe_float()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L31) (9 connections)
+- [BundleEdgeCasesTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L217) (9 connections)
+- [CaptureBundleSnapshotTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L318) (8 connections)
+- [test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L1) (8 connections)
+- [activate_bundle_version()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L306) (7 connections)
+- [_hydrate_quote_for_display()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L31) (7 connections)
+- [mobile_items()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L69) (7 connections)
+- [SeededBundlesTest](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L165) (7 connections)
+- [_component_row()](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L120) (6 connections)
+- [_find_project()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L20) (6 connections)
+- *... and 62 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class User {
-        +auth.py()
-        +.__init__()
+    class BreakdownQtyRulesTest {
+        +test_bundles.py()
+        +.test_no_waste_pct_in_live_breakdown()
+        +.test_discrete_unit_ceil()
+        +.test_continuous_unit_not_ceiled()
     }
-    class AppConfigTests {
-        +test_app_config.py()
-        +.test_default_secret_is_allowed_for_local_startup()
-        +.test_default_secret_is_rejected_in_production()
-        +.test_custom_secret_is_allowed_in_production()
+    class BundleEdgeCasesTest {
+        +test_bundles.py()
+        +.test_component_with_zero_qty_goes_to_invalid()
+        +.test_component_with_empty_catalog_item_id_goes_to_invalid()
+        +.test_bundle_with_no_versions_goes_to_invalid()
+        +.test_activate_nonexistent_version_raises()
+        +.test_delete_nonexistent_version_raises()
+        +.test_waste_pct_applied_correctly()
+        +.test_section_markers_are_skipped()
     }
-    class AuthTestCase {
-        +test_auth.py()
-        +.setUp()
-        +.tearDown()
-        +._create_user()
-        +._login()
-        +.test_login_page_returns_200()
-        +.test_unauthenticated_redirect_to_login()
-        +.test_login_success_redirects_to_dashboard()
-        +.test_login_wrong_password_shows_error()
-        +.test_login_unknown_user_same_error()
+    class BundleVersioningTest {
+        +test_bundles.py()
+        +.test_create_bundle_has_active_v1()
+        +.test_add_activate_and_delete_version()
+        +.test_cannot_delete_only_version()
     }
-    class DefaultAdminTests {
-        +test_auth_defaults.py()
-        +.setUp()
-        +.tearDown()
-        +._admin_row()
-        +.test_configured_default_admin_credentials_are_used_on_first_init()
-        +.test_configured_password_does_not_reset_existing_admin_by_default()
-        +.test_configured_password_can_reset_existing_admin_when_enabled()
+    class CaptureBundleSnapshotTest {
+        +test_bundles.py()
+        +._make_bundle()
+        +.test_returns_none_when_no_bundle()
+        +.test_returns_none_when_no_catalog_item_id()
+        +.test_captures_description_and_unit_from_catalog()
+        +.test_snapshot_has_bundle_id_and_version()
+        +.test_skips_zero_qty_components()
+        +.test_returns_none_when_all_components_filtered()
     }
-    class CompanyLogoUploadTests {
-        +test_company_logo_upload.py()
-        +.setUp()
-        +.test_upload_accepts_real_png_and_saves_company_logo()
-        +.test_empresa_preview_uses_serve_route_with_logo_version()
-        +.test_upload_rejects_svg()
-        +.test_upload_rejects_extension_that_does_not_match_content()
+    class ExpandQuoteBundlesTest {
+        +test_bundles.py()
+        +.test_expands_quote_bundle_components()
+        +.test_unmapped_quote_items_are_preserved()
+        +.test_seeded_circuit_bundles_expand_catalog_materials()
+    }
+    class QuoteItemBundleBreakdownTest {
+        +test_bundles.py()
+        +.test_breakdown_multiplies_component_quantities_without_prices()
+        +.test_breakdown_prefers_snapshot_when_present()
+        +.test_snapshot_qty_scales_by_quote_item_qty()
+        +.test_breakdown_missing_bundle_returns_empty_list()
+        +.test_hydrate_quote_bundle_breakdowns_keeps_totals_and_sections()
+    }
+    class SeededBundlesTest {
+        +test_bundles.py()
+        +._expand()
+        +.test_tubo_conduit_16mm_expands_all_components()
+        +.test_salida_luminaria_expands_all_components()
+        +.test_all_seeded_bundles_have_valid_active_version()
+        +.test_no_duplicate_catalog_item_ids_in_index()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 4]] (15 shared connections)
+- [[Community 1]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_app_config.py](file:///Users/macbook/ProjectTracker/tests/test_app_config.py)
-- [/Users/macbook/ProjectTracker/tests/test_auth.py](file:///Users/macbook/ProjectTracker/tests/test_auth.py)
-- [/Users/macbook/ProjectTracker/tests/test_auth_defaults.py](file:///Users/macbook/ProjectTracker/tests/test_auth_defaults.py)
-- [/Users/macbook/ProjectTracker/tests/test_company_logo_upload.py](file:///Users/macbook/ProjectTracker/tests/test_company_logo_upload.py)
-- [/Users/macbook/ProjectTracker/tracker/__init__.py](file:///Users/macbook/ProjectTracker/tracker/__init__.py)
-- [/Users/macbook/ProjectTracker/tracker/auth.py](file:///Users/macbook/ProjectTracker/tracker/auth.py)
-- [/Users/macbook/ProjectTracker/tracker/extensions.py](file:///Users/macbook/ProjectTracker/tracker/extensions.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/auth_routes.py](file:///Users/macbook/ProjectTracker/tracker/routes/auth_routes.py)
+- [/Users/macbook/ProjectTracker/tests/test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py)
 
 ## Audit Trail
 
-- EXTRACTED: 236 (81%)
-- INFERRED: 54 (19%)
+- EXTRACTED: 298 (66%)
+- INFERRED: 156 (34%)
 - AMBIGUOUS: 0 (0%)
 
 ---

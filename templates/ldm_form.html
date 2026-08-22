@@ -246,6 +246,12 @@
   <div class="d-flex gap-2 align-items-center">
     <a href="{{ url_for('project_detail', project_id=project.id) }}#tab-materiales"
        class="btn btn-outline-secondary btn-sm">Cancelar</a>
+    {% if existing_ldm %}
+    <a href="{{ url_for('materials_bp.ldm_pdf_editor', project_id=project.id, ldm_id=ldm.id) }}"
+       class="btn btn-outline-primary btn-sm">
+      <i class="bi bi-eye me-1"></i>Editor PDF
+    </a>
+    {% endif %}
     <button type="submit" class="btn btn-warning btn-sm px-4 text-dark">
       <i class="bi bi-check-lg me-1"></i>{% if import_preview %}Crear LDM{% elif existing_ldm %}Guardar cambios{% else %}Crear lista{% endif %}
     </button>

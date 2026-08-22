@@ -2,12 +2,12 @@
   "hotspots": [
     {
       "label": "build_quote_pdf()",
-      "risk": 0.754,
+      "risk": 0.776,
       "type": "FUNCTION"
     },
     {
       "label": "build_ldm_pdf()",
-      "risk": 0.424,
+      "risk": 0.446,
       "type": "FUNCTION"
     },
     {
@@ -16,21 +16,21 @@
       "type": "FUNCTION"
     },
     {
-      "label": "load()",
-      "risk": 0.23,
+      "label": "build_progress_pdf()",
+      "risk": 0.241,
       "type": "FUNCTION"
     },
     {
-      "label": "quote_templates()",
-      "risk": 0.229,
+      "label": "load()",
+      "risk": 0.23,
       "type": "FUNCTION"
     }
   ],
   "blast_radius": {
-    "load()": 146,
-    "save()": 109,
+    "load()": 147,
+    "save()": 110,
     "today()": 57,
-    "catalog_maps()": 31,
+    "catalog_maps()": 32,
     "build_quote_pdf()": 31
   }
 }

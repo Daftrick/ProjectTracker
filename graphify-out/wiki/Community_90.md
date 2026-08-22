@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Attach non-priced bundle inclusions to hydrated quote items.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L175) (0 connections)
+- [Devuelve una copia normalizada de un bundle.      La función tolera bundles inco](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L37) (0 connections)
 
 ## Relationships
 

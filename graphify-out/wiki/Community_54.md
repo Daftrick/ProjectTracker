@@ -1,11 +1,10 @@
 # Community 54
 
-> 2 nodes · cohesion 1.00
+> 1 nodes · cohesion 1.00
 
 ## Key Concepts
 
-- [Fixed Bottom Summary Bar Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
-- [Sticky Table Header with Dynamic Offset Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
+- [graphify_detect.py](file:///Users/macbook/ProjectTracker/graphify_detect.py#L1) (0 connections)
 
 ## Relationships
 
@@ -13,12 +12,12 @@
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
+- [/Users/macbook/ProjectTracker/graphify_detect.py](file:///Users/macbook/ProjectTracker/graphify_detect.py)
 
 ## Audit Trail
 
 - EXTRACTED: 0 (0%)
-- INFERRED: 2 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

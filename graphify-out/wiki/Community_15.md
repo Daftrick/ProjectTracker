@@ -1,51 +1,51 @@
 # Community 15
 
-> 26 nodes · cohesion 0.15
+> 31 nodes · cohesion 0.12
 
 ## Key Concepts
 
-- [quote_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L1) (17 connections)
-- [get_quote_templates()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L196) (12 connections)
-- [QuoteTemplatesConfigTest](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py#L5) (10 connections)
-- [_make_default_template()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L153) (6 connections)
-- [_normalize_template()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L166) (6 connections)
-- [get_template_for_type()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L210) (5 connections)
-- [_normalize()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L179) (5 connections)
-- [normalize_contact_rows()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L104) (5 connections)
-- [save_quote_templates()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L206) (5 connections)
-- [_normalize_contacts()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L91) (4 connections)
-- [_normalize_sections()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L143) (4 connections)
-- [get_template_by_id()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L215) (3 connections)
-- [_new_id()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L87) (3 connections)
-- [_normalize_section()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L126) (3 connections)
-- [_normalize_template_item()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L108) (2 connections)
-- [.test_default_structure_has_required_fields()](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py#L15) (2 connections)
-- [.test_get_template_by_id()](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py#L133) (2 connections)
-- [.test_get_template_for_type_returns_first_template()](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py#L117) (2 connections)
-- [.test_get_template_for_unknown_type_returns_empty()](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py#L145) (2 connections)
-- [.test_migrates_legacy_dict_and_sections_to_named_list()](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py#L38) (2 connections)
-- [.test_non_dict_storage_returns_defaults()](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py#L102) (2 connections)
-- [.test_normalizes_template_items_without_prices()](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py#L69) (2 connections)
-- [.test_returns_all_types_when_no_file()](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py#L7) (2 connections)
-- [.test_save_normalizes_before_storage()](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py#L109) (2 connections)
-- [_default_contacts()](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py#L57) (1 connections)
-- *... and 1 more nodes in this community*
+- [validate_quote_form()](file:///Users/macbook/ProjectTracker/tracker/validators.py#L87) (26 connections)
+- [ValidatorsTest](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L8) (21 connections)
+- [validators.py](file:///Users/macbook/ProjectTracker/tracker/validators.py#L1) (15 connections)
+- [validate_ldm_form()](file:///Users/macbook/ProjectTracker/tracker/validators.py#L212) (10 connections)
+- [_parse_ldm_items()](file:///Users/macbook/ProjectTracker/tracker/validators.py#L372) (7 connections)
+- [_parse_quote_items()](file:///Users/macbook/ProjectTracker/tracker/validators.py#L251) (7 connections)
+- [_is_blank()](file:///Users/macbook/ProjectTracker/tracker/validators.py#L24) (4 connections)
+- [_validate_iso_date()](file:///Users/macbook/ProjectTracker/tracker/validators.py#L28) (4 connections)
+- [validate_project_form()](file:///Users/macbook/ProjectTracker/tracker/validators.py#L60) (4 connections)
+- [_validate_optional_iso_date()](file:///Users/macbook/ProjectTracker/tracker/validators.py#L46) (3 connections)
+- [.test_ldm_accepts_valid_item()](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L375) (2 connections)
+- [.test_ldm_preserves_deleted_catalog_snapshot()](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L390) (2 connections)
+- [.test_ldm_requires_supplier_and_real_items()](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L356) (2 connections)
+- [.test_project_requires_name_and_clave()](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L9) (2 connections)
+- [.test_quote_accepts_valid_item_and_computes_subtotal()](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L228) (2 connections)
+- [.test_quote_allows_section_without_items()](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L335) (2 connections)
+- [.test_quote_assigns_items_to_section_rows()](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L305) (2 connections)
+- [.test_quote_client_changed_yields_override()](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L129) (2 connections)
+- [.test_quote_client_override_without_project_context()](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L146) (2 connections)
+- [.test_quote_client_unchanged_from_project_yields_no_override()](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L108) (2 connections)
+- [.test_quote_discount_pct_parsed_and_range_validated()](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L84) (2 connections)
+- [.test_quote_ignores_default_empty_row_but_requires_real_items()](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L20) (2 connections)
+- [.test_quote_parses_integrantes()](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L249) (2 connections)
+- [.test_quote_preserves_deleted_catalog_snapshot()](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L279) (2 connections)
+- [.test_quote_proposal_for_defaults_to_cliente_when_absent()](file:///Users/macbook/ProjectTracker/tests/test_validators.py#L161) (2 connections)
+- *... and 6 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class QuoteTemplatesConfigTest {
-        +test_quote_templates.py()
-        +.test_returns_all_types_when_no_file()
-        +.test_default_structure_has_required_fields()
-        +.test_migrates_legacy_dict_and_sections_to_named_list()
-        +.test_normalizes_template_items_without_prices()
-        +.test_non_dict_storage_returns_defaults()
-        +.test_save_normalizes_before_storage()
-        +.test_get_template_for_type_returns_first_template()
-        +.test_get_template_by_id()
-        +.test_get_template_for_unknown_type_returns_empty()
+    class ValidatorsTest {
+        +test_validators.py()
+        +.test_project_requires_name_and_clave()
+        +.test_quote_ignores_default_empty_row_but_requires_real_items()
+        +.test_quote_validates_numbers()
+        +.test_quote_tax_rate_is_toggle_not_free_number()
+        +.test_quote_discount_pct_parsed_and_range_validated()
+        +.test_quote_client_unchanged_from_project_yields_no_override()
+        +.test_quote_client_changed_yields_override()
+        +.test_quote_client_override_without_project_context()
+        +.test_quote_proposal_for_defaults_to_cliente_when_absent()
     }
 ```
 
@@ -55,13 +55,13 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_quote_templates.py](file:///Users/macbook/ProjectTracker/tests/test_quote_templates.py)
-- [/Users/macbook/ProjectTracker/tracker/quote_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/quote_templates_config.py)
+- [/Users/macbook/ProjectTracker/tests/test_validators.py](file:///Users/macbook/ProjectTracker/tests/test_validators.py)
+- [/Users/macbook/ProjectTracker/tracker/validators.py](file:///Users/macbook/ProjectTracker/tracker/validators.py)
 
 ## Audit Trail
 
-- EXTRACTED: 83 (75%)
-- INFERRED: 27 (25%)
+- EXTRACTED: 79 (56%)
+- INFERRED: 63 (44%)
 - AMBIGUOUS: 0 (0%)
 
 ---
