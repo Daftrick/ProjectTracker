@@ -951,7 +951,15 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.set_fill_color(*INK)
             pdf.set_text_color(255, 255, 255)
             pdf.set_font("DejaVu", "B", 13.2)
-            pdf.cell(sum(cols), 7, section_name.upper(), fill=True)
+            _sec_label = section_name.upper()
+            _sec_max_w = sum(cols) - 4
+            while _sec_label and pdf.get_string_width(_sec_label) > _sec_max_w:
+                _sec_label = _sec_label[:-1]
+            if _sec_label != section_name.upper():
+                while _sec_label and pdf.get_string_width(_sec_label + "…") > _sec_max_w:
+                    _sec_label = _sec_label[:-1]
+                _sec_label = _sec_label + "…"
+            pdf.cell(sum(cols), 7, _sec_label, fill=True)
             pdf.ln()
             pdf.set_text_color(*INK)
             pdf.set_font("DejaVu", "", 12.9)
@@ -1071,7 +1079,7 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.set_draw_color(*LINE)
             pdf.set_text_color(*INK)
             pdf.set_font("DejaVu", "B", 12.0)
-            pdf.cell(label_width, 6.6, f"{section_name.upper()} TOTAL", border="T", align="R")
+            pdf.cell(label_width, 6.6, "SUBTOTAL SECCIÓN", border="T", align="R")
             pdf.cell(value_width, 6.6, money_pdf(section.get("subtotal", 0)), border="T", align="C", ln=True)
             pdf.set_font("DejaVu", "", 12.9)
 
