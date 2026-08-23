@@ -1014,7 +1014,7 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.cell(_r_left_w, 3.5, "COTIZACIÓN", ln=True)
         pdf.set_x(_r_left_x)
         pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "", 11.5)
+        pdf.set_font("DejaVu", "", 14.5)
         pdf.cell(_r_left_w, 5.5, quote_number, ln=True)
 
         # FECHA / MONEDA / VERSIÓN — columnas proporcionales (FECHA más ancha)
