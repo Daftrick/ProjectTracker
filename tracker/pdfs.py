@@ -1122,27 +1122,6 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.set_x(scope_inner_left)
     pdf.set_y(scope_y + scope_h + 4)
 
-    # En Reducido: aprovechar espacio de portada con T&C y notas
-    if _cover_mode == "reducido":
-        if _has_specs:
-            render_text_blocks(
-                "Especificaciones técnicas",
-                [(_label, _val) for _field, _label in _SPECS_LABELS
-                 if (_val := str(_specs.get(_field) or "").strip())],
-            )
-        else:
-            render_text_blocks("Términos y Condiciones", _active_terms, pre_ln=0, post_ln=4, colon=True)
-        _r_notes = note_lines(quote.get("notes"))
-        if _r_notes:
-            pdf.ln(2)
-            pdf.set_font("DejaVu", "B", 16.4)
-            pdf.cell(content_width, 6, "Notas", ln=True)
-            pdf.set_font("DejaVu", "", 13.8)
-            for _rn in _r_notes:
-                pdf.set_x(pdf.l_margin)
-                pdf.multi_cell(content_width, 5, _safe_text(f"- {_rn}"))
-        pdf.ln(4)
-
     # 2. Titulo "Detalle de Partidas"
     section_title("Detalle de Partidas", "Desglose económico de conceptos incluidos en la propuesta.")
     cols = table_header()
@@ -1349,7 +1328,27 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.multi_cell(content_width, 4.5, _safe_text(_nota_precio), align="R")
         pdf.ln(1)
 
-    if _cover_mode != "reducido":
+    if _cover_mode == "reducido":
+        # Aprovechar espacio después de artículos: T&C sin salto de página
+        pdf.set_text_color(*INK)
+        if _has_specs:
+            render_text_blocks(
+                "Especificaciones técnicas",
+                [(_label, _val) for _field, _label in _SPECS_LABELS
+                 if (_val := str(_specs.get(_field) or "").strip())],
+            )
+        else:
+            render_text_blocks("Términos y Condiciones", _active_terms, pre_ln=6, post_ln=4, colon=True)
+        notes = note_lines(quote.get("notes"))
+        if notes:
+            pdf.ln(2)
+            pdf.set_font("DejaVu", "B", 16.4)
+            pdf.cell(content_width, 6, "Notas", ln=True)
+            pdf.set_font("DejaVu", "", 13.8)
+            for line in notes:
+                pdf.set_x(pdf.l_margin)
+                pdf.multi_cell(content_width, 5, _safe_text(f"- {line}"))
+    else:
         pdf.add_page()
         pdf.set_y(16)
         pdf.set_text_color(*INK)
