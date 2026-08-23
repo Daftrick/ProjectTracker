@@ -572,6 +572,35 @@
     }, 200));
   });
 
+  // ── Cambio de plantilla: reconstruye preview en tiempo real ───────
+  (function() {
+    var sel = document.getElementById("edTermsTemplate");
+    if (!sel) return;
+    var TMPL_TERMS = {};
+    Array.prototype.forEach.call(sel.options, function(opt) {
+      try { TMPL_TERMS[opt.value] = JSON.parse(opt.getAttribute("data-terms") || "[]"); }
+      catch(e) { TMPL_TERMS[opt.value] = []; }
+    });
+
+    sel.addEventListener("change", function() {
+      var terms = (TMPL_TERMS[this.value] || []).filter(function(t) {
+        return t.enabled !== false && (t.body || "").trim();
+      });
+      var container = document.getElementById("prevTermsTemplate");
+      if (!container) return;
+      container.innerHTML = terms.map(function(t) {
+        return '<div id="prevTerm_' + esc(t.id || "") + '">' +
+          '<p style="margin:0 0 2px;"><strong>' + esc(t.title || "") + ':</strong></p>' +
+          '<p id="prevTermBody_' + esc(t.id || "") + '" style="margin:0 0 8px;color:#717e91;">' +
+          esc(t.body || "") + '</p></div>';
+      }).join("");
+      // Limpia los overrides en el sidebar (los IDs del template anterior ya no aplican)
+      document.querySelectorAll(".term-body-override").forEach(function(ta) {
+        ta.value = "";
+      });
+    });
+  })();
+
   // ── Toggle HTML / PDF real ──────────────────────────────────────────────────
   var PDF_INLINE_URL = {{ url_for('quotes_bp.quote_pdf', project_id=project.id, quote_id=quote.id, inline='1') | tojson }};
   var pdfIframeLoaded = false;
