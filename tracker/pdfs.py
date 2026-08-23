@@ -637,13 +637,13 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.line(right_x, line_y, right_x + line_w, line_y)
 
         pdf.set_text_color(*MUTED)
-        pdf.set_font("DejaVu", "", 12.9)
+        pdf.set_font("DejaVu", "", 11.0)
         pdf.set_xy(left_x, line_y + 2.5)
         pdf.cell(line_w, 4.5, "Cliente / Aceptación", align="C")
         pdf.set_xy(right_x, line_y + 2.5)
         pdf.cell(line_w, 4.5, _cached_company_name, align="C")
 
-        pdf.set_font("DejaVu", "", 11.7)
+        pdf.set_font("DejaVu", "", 10.0)
         pdf.set_xy(left_x, line_y + 7.2)
         pdf.cell(line_w, 4, "Nombre, Firma y Fecha", align="C")
         pdf.set_xy(right_x, line_y + 7.2)
