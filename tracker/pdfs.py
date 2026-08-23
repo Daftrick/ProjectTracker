@@ -1184,7 +1184,7 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.set_x(pdf.l_margin)
             pdf.set_font("DejaVu", "", 13.8)
             pdf.multi_cell(content_width, 5, _safe_text(body))
-            pdf.ln(1.2)
+            pdf.ln(round(13.8 * 25.4 / 72 / 2, 1))  # mitad del tamaño del título en mm
 
     if _has_specs:
         render_text_blocks(
