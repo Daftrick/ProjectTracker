@@ -682,6 +682,9 @@ def build_quote_pdf(project, quote, output_path=None):
     _cover_mode = "compacto" if _portada_spacing <= 8 else ("reducido" if _portada_spacing <= 24 else "normal")
 
     _portada_fill = _hex_to_rgb(_company_data.get("portada_color"), default=(0, 0, 0))
+    _p_luma = 0.299 * _portada_fill[0] + 0.587 * _portada_fill[1] + 0.114 * _portada_fill[2]
+    _banner_ink = (255, 255, 255) if _p_luma < 140 else (25, 35, 65)
+    _banner_sub = (200, 220, 245) if _p_luma < 140 else (80, 100, 140)
 
     _caddr = str(_company_data.get("address") or "").strip()
     _crut = str(_company_data.get("rut") or "").strip()
@@ -731,7 +734,7 @@ def build_quote_pdf(project, quote, output_path=None):
             contact_y = 88
             _contacts_on_dark = False
         else:
-            pdf.set_text_color(255, 255, 255)
+            pdf.set_text_color(*_banner_ink)
             pdf.set_xy(pdf.l_margin, 28)
             pdf.set_font("DejaVu", "B", 27.0)
             pdf.cell(0, 8, _cached_company_name)
@@ -917,25 +920,25 @@ def build_quote_pdf(project, quote, output_path=None):
         if logo_path:
             pdf.image(logo_path, x=pdf.l_margin, y=5, w=_logo_col_w - 2)
         else:
-            pdf.set_text_color(255, 255, 255)
+            pdf.set_text_color(*_banner_ink)
             pdf.set_xy(pdf.l_margin, 18)
             pdf.set_font("DejaVu", "B", 18.7)
             pdf.cell(_logo_col_w, 7, _cached_company_name)
 
-        # Columna derecha: etiqueta + título + cliente (texto blanco sobre fondo de color)
+        # Columna derecha: etiqueta + título + cliente
         pdf.set_xy(_txt_x, 7)
-        pdf.set_text_color(255, 255, 255)
+        pdf.set_text_color(*_banner_ink)
         pdf.set_font("DejaVu", "B", 10.0)
         pdf.cell(_txt_w, 4.0, "PROPUESTA ECONÓMICA")
 
         pdf.set_xy(_txt_x, 14)
-        pdf.set_text_color(255, 255, 255)
+        pdf.set_text_color(*_banner_ink)
         pdf.set_font("DejaVu", "B", 20.0)
         pdf.multi_cell(_txt_w, 6.5, _safe_text(cover_title))
 
         if cover_basis_note:
             pdf.set_x(_txt_x)
-            pdf.set_text_color(200, 220, 245)
+            pdf.set_text_color(*_banner_sub)
             pdf.set_font("DejaVu", "", 11.0)
             pdf.multi_cell(_txt_w, 4.0, _safe_text(cover_basis_note))
 
@@ -943,11 +946,11 @@ def build_quote_pdf(project, quote, output_path=None):
             proposal_label, proposal_value = proposal_for
             _prop_y = min(pdf.get_y() + 2, _banner_h - 12)
             pdf.set_xy(_txt_x, _prop_y)
-            pdf.set_text_color(200, 220, 245)
+            pdf.set_text_color(*_banner_sub)
             pdf.set_font("DejaVu", "", 11.0)
             pdf.cell(_txt_w, 4.0, _safe_text(proposal_label))
             pdf.set_xy(_txt_x, _prop_y + 5)
-            pdf.set_text_color(255, 255, 255)
+            pdf.set_text_color(*_banner_ink)
             pdf.set_font("DejaVu", "B", 14.7)
             pdf.multi_cell(_txt_w, 5.0, _safe_text(proposal_value))
 
@@ -1068,37 +1071,37 @@ def build_quote_pdf(project, quote, output_path=None):
         if logo_path:
             pdf.image(logo_path, x=pdf.l_margin, y=3, w=_logo_col_w - 2)
         else:
-            pdf.set_text_color(255, 255, 255)
+            pdf.set_text_color(*_banner_ink)
             pdf.set_xy(pdf.l_margin, 8)
             pdf.set_font("DejaVu", "B", 13.4)
             pdf.cell(_logo_col_w, 6, _cached_company_name)
 
         # Columna derecha: etiqueta PROPUESTA ECONÓMICA
         pdf.set_xy(_txt_x, 4)
-        pdf.set_text_color(255, 255, 255)
+        pdf.set_text_color(*_banner_ink)
         pdf.set_font("DejaVu", "B", 9.0)
         pdf.cell(_txt_w, 3.5, "PROPUESTA ECONÓMICA")
 
         # Título (izq de columna derecha) y cliente (der de columna derecha)
         pdf.set_xy(_txt_x, 9)
-        pdf.set_text_color(255, 255, 255)
+        pdf.set_text_color(*_banner_ink)
         pdf.set_font("DejaVu", "B", 15.8)
         pdf.multi_cell(_c_title_w, 5.5, _safe_text(cover_title))
 
         if proposal_for:
             _, _c_proposal_value = proposal_for
             pdf.set_xy(_c_client_x, 9)
-            pdf.set_text_color(200, 220, 245)
+            pdf.set_text_color(*_banner_sub)
             pdf.set_font("DejaVu", "", 8.5)
             pdf.cell(_c_client_w, 3.5, "PARA", align="R")
             pdf.set_xy(_c_client_x, 13)
-            pdf.set_text_color(255, 255, 255)
+            pdf.set_text_color(*_banner_ink)
             pdf.set_font("DejaVu", "B", 11.5)
             pdf.multi_cell(_c_client_w, 4.2, _safe_text(_c_proposal_value), align="R")
 
         if cover_basis_note:
             pdf.set_xy(_txt_x, max(pdf.get_y(), 21))
-            pdf.set_text_color(200, 220, 245)
+            pdf.set_text_color(*_banner_sub)
             pdf.set_font("DejaVu", "", 9.0)
             pdf.cell(_txt_w, 3.5, _safe_text(cover_basis_note))
 
