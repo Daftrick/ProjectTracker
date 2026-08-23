@@ -1085,8 +1085,8 @@ def build_quote_pdf(project, quote, output_path=None):
         if pdf.get_y() > 24:
             pdf.ln(pre_ln)
         pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "B", 25.4)
-        pdf.cell(content_width, 8, section_title_str, ln=True)
+        pdf.set_font("DejaVu", "B", 19.0)
+        pdf.cell(content_width, 7, section_title_str, ln=True)
         pdf.set_x(pdf.l_margin)
         pdf.set_font("DejaVu", "", 14.1)
         pdf.ln(post_ln)
