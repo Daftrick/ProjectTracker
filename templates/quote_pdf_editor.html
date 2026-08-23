@@ -48,9 +48,8 @@
                 <label class="form-label small fw-semibold mb-1 mt-3">Espaciado portada</label>
                 <select class="form-select form-select-sm" name="portada_spacing" id="edPortadaSpacing">
                   {% set _sp = specs.get('portada_spacing') or '40' %}
-                  <option value="8"  {% if _sp == '8'  %}selected{% endif %}>Compacto</option>
                   <option value="24" {% if _sp == '24' %}selected{% endif %}>Reducido</option>
-                  <option value="40" {% if _sp not in ('8', '24') %}selected{% endif %}>Normal</option>
+                  <option value="40" {% if _sp != '24' %}selected{% endif %}>Normal</option>
                 </select>
                 <div class="form-text">Tamaño de la portada en el PDF.</div>
               </div>
@@ -227,7 +226,7 @@
 
         {# ── PAGE 1: PORTADA ── #}
         {% set _sp  = specs.get('portada_spacing') or '40' %}
-        {% set _pm  = 'compacto' if _sp == '8' else ('reducido' if _sp == '24' else 'normal') %}
+        {% set _pm  = 'reducido' if _sp == '24' else 'normal' %}
         {% set _pf  = resolve_quote_proposal_for(quote, project) %}
         <div class="pdf-pg mb-4"
              style="background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.18);overflow:hidden;min-height:297mm;">
@@ -311,46 +310,6 @@
               </div>
             </div>
           </div>{# /prevCoverReducido #}
-
-          {# ── Portada Compacto: logo izq + info der en el banner ── #}
-          <div id="prevCoverCompacto" style="{{ '' if _pm == 'compacto' else 'display:none;' }}">
-            <div style="background:{{ portada_color }};height:36px;display:flex;align-items:stretch;">
-              <div style="flex-shrink:0;width:60px;padding:3px 4px;display:flex;align-items:center;">
-                {% if logo_url %}<img src="{{ logo_url }}" style="max-height:30px;max-width:56px;object-fit:contain;">
-                {% else %}<span style="color:#fff;font-size:8px;font-weight:bold;line-height:1.2;word-break:break-word;">{{ company_name }}</span>{% endif %}
-              </div>
-              <div style="flex:1;padding:4px 8px;overflow:hidden;">
-                <div style="color:rgba(255,255,255,.8);font-size:7px;font-weight:bold;letter-spacing:.8px;margin-bottom:2px;">PROPUESTA ECONÓMICA</div>
-                <div style="display:flex;gap:8px;align-items:flex-start;">
-                  <div style="flex:1;color:#fff;font-size:12px;font-weight:bold;line-height:1.2;">{{ cover_title | replace('\n','<br>') | safe }}</div>
-                  {% if _pf %}
-                  <div style="text-align:right;flex-shrink:0;max-width:40%;">
-                    <div style="color:rgba(200,220,245,.85);font-size:6px;">PARA</div>
-                    <div style="color:#fff;font-size:9px;font-weight:bold;word-break:break-word;">{{ _pf[1] }}</div>
-                  </div>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-            <div style="padding:5px 16px 10px;">
-              <div style="background:#f4f7fb;padding:8px 12px;display:flex;gap:12px;align-items:center;">
-                <div style="flex:1;min-width:0;">
-                  <div style="margin-bottom:4px;"><div style="font-size:7px;color:#717e91;font-weight:bold;letter-spacing:.5px;">COTIZACIÓN</div><div style="font-size:9px;color:#25262c;">{{ quote.quote_number }}</div></div>
-                  <div style="display:flex;gap:8px;">
-                    <div><div style="font-size:6px;color:#717e91;font-weight:bold;">FECHA</div><div style="font-size:8px;color:#25262c;">{{ quote.date | fdate }}</div></div>
-                    <div><div style="font-size:6px;color:#717e91;font-weight:bold;">MONEDA</div><div style="font-size:8px;color:#25262c;">{{ quote.currency or 'MXN' }}</div></div>
-                    <div><div style="font-size:6px;color:#717e91;font-weight:bold;">VERSIÓN</div><div style="font-size:8px;color:#25262c;">{{ quote.version or project.version or 'V1' }}</div></div>
-                  </div>
-                </div>
-                <div style="background:#fff;border:1px solid #d7dde6;padding:7px 10px;min-width:120px;flex-shrink:0;">
-                  {% if quote.discount_pct or quote.tax %}<div style="display:flex;justify-content:space-between;margin-bottom:3px;font-size:9px;font-weight:bold;color:#25262c;"><span>Subtotal</span><span>{{ quote.subtotal | currency }}</span></div>{% endif %}
-                  {% if quote.tax %}<div style="display:flex;justify-content:space-between;margin-bottom:3px;font-size:9px;font-weight:bold;color:#25262c;"><span>IVA ({{ quote.tax_rate or 16 }}%)</span><span>{{ quote.tax | currency }}</span></div>{% endif %}
-                  {% if quote.discount_pct or quote.tax %}<hr style="border-color:#d7dde6;margin:3px 0;">{% endif %}
-                  <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:bold;"><span style="color:#25262c;">TOTAL</span><span style="color:#228b5e;">{{ quote.total | currency }}</span></div>
-                </div>
-              </div>
-            </div>
-          </div>{# /prevCoverCompacto #}
 
         </div>{# /page 1 #}
 
@@ -525,11 +484,9 @@
   // ── Portada: modo de portada ─────────────────────────────────
   var edSpacing = document.getElementById("edPortadaSpacing");
   function updatePortadaMode(val) {
-    var isC = val === "8", isR = val === "24", isN = !isC && !isR;
-    var el;
-    el = document.getElementById("prevCoverNormal");    if (el) el.style.display = isN ? "" : "none";
-    el = document.getElementById("prevCoverReducido");  if (el) el.style.display = isR ? "" : "none";
-    el = document.getElementById("prevCoverCompacto");  if (el) el.style.display = isC ? "" : "none";
+    var isR = val === "24", el;
+    el = document.getElementById("prevCoverNormal");   if (el) el.style.display = isR ? "none" : "";
+    el = document.getElementById("prevCoverReducido"); if (el) el.style.display = isR ? "" : "none";
   }
   if (edSpacing) {
     edSpacing.addEventListener("change", function () { updatePortadaMode(this.value); });
