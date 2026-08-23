@@ -683,6 +683,7 @@ def build_quote_pdf(project, quote, output_path=None):
 
     _portada_fill = _hex_to_rgb(_company_data.get("portada_color"), default=(0, 0, 0))
 
+    pdf.set_auto_page_break(False)
     pdf.add_page()
     pdf.set_fill_color(255, 255, 255)
     pdf.rect(0, 0, 210, 297, style="F")
@@ -906,6 +907,7 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.set_text_color(*GREEN)
     pdf.cell(value_w, 7.5, money_pdf(quote.get("total", 0)), align="R", ln=True)
 
+    pdf.set_auto_page_break(True, margin=18)
     pdf.add_page()
     pdf.set_y(22)
 
