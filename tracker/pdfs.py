@@ -1335,6 +1335,9 @@ def build_quote_pdf(project, quote, output_path=None):
 
     if _cover_mode == "reducido":
         # Aprovechar espacio después de artículos: T&C sin salto de página
+        pdf.ln(6)
+        pdf.set_draw_color(*LINE)
+        pdf.line(pdf.l_margin, pdf.get_y(), pdf.l_margin + content_width, pdf.get_y())
         pdf.set_text_color(*INK)
         if _has_specs:
             render_text_blocks(
