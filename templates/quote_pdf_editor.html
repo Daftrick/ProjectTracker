@@ -86,19 +86,23 @@
             </div>
           </div>
 
-          {# ── Panel: Términos ── #}
+          {# ── Panel: Términos y Condiciones ── #}
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed py-2" type="button"
                       data-bs-toggle="collapse" data-bs-target="#colTerminos">
                 <i class="bi bi-file-earmark-text me-2 text-primary"></i>
                 <span class="fw-semibold small">Términos y Condiciones</span>
+                {% set _has_overrides = specs.get('term_body_overrides') and specs.get('term_body_overrides').values() | select | list %}
+                {% if _has_overrides %}
+                <span class="badge bg-primary ms-2" style="font-size:9px;">personalizados</span>
+                {% endif %}
               </button>
             </h2>
             <div id="colTerminos" class="accordion-collapse collapse">
               <div class="accordion-body pt-2">
-                <label class="form-label small fw-semibold mb-1">Plantilla de términos</label>
-                <select name="terms_template_id" id="edTermsTemplate" class="form-select form-select-sm mb-2">
+                <label class="form-label small fw-semibold mb-1">Plantilla base</label>
+                <select name="terms_template_id" id="edTermsTemplate" class="form-select form-select-sm mb-1">
                   {% for tmpl in terms_templates %}
                   <option value="{{ tmpl.id }}"
                           data-terms="{{ tmpl.terms | tojson | e }}"
@@ -107,44 +111,27 @@
                   </option>
                   {% endfor %}
                 </select>
-                <div class="form-text">Se edita en
-                  <a href="{{ url_for('quotes_bp.terms_templates') }}" target="_blank">Plantillas de Términos</a>.
-                  Cuando hay condiciones específicas (panel de abajo), estas reemplazan los términos.
+                <div class="form-text mb-3">
+                  <a href="{{ url_for('quotes_bp.terms_templates') }}" target="_blank">Gestionar plantillas</a>.
+                  Al cambiar plantilla guarda para recargar los términos.
                 </div>
-              </div>
-            </div>
-          </div>
-
-          {# ── Panel: Condiciones específicas ── #}
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed py-2" type="button"
-                      data-bs-toggle="collapse" data-bs-target="#colCondiciones">
-                <i class="bi bi-file-text me-2 text-warning"></i>
-                <span class="fw-semibold small">Condiciones específicas</span>
-                {% set _has_c = specs.get('condiciones_pago') or specs.get('exclusiones') or specs.get('validez') or specs.get('forma_entrega') or specs.get('contacto') %}
-                {% if _has_c %}
-                <span class="badge bg-warning text-dark ms-2" style="font-size:9px;">activas</span>
-                {% endif %}
-              </button>
-            </h2>
-            <div id="colCondiciones" class="accordion-collapse collapse">
-              <div class="accordion-body pt-2">
-                <p class="small text-muted mb-2">
-                  Si algún campo tiene texto, <strong>reemplazan</strong> la plantilla de términos en el PDF.
-                  Deja todos vacíos para usar la plantilla seleccionada arriba.
-                </p>
-                {% for field, label, placeholder in [
-                  ('validez',          'Vigencia',             'Ej: 15 días naturales a partir de la fecha de emisión.'),
-                  ('condiciones_pago', 'Condiciones de pago',  'Ej: 50% anticipo, 50% contra entrega.'),
-                  ('exclusiones',      'Exclusiones',          'Ej: Obra civil, permisos, acometidas exteriores...'),
-                  ('forma_entrega',    'Forma de entrega',     'Ej: Entrega en sitio de obra.'),
-                  ('contacto',         'Contacto',             'Ej: Ricardo — contacto@empresa.com'),
-                ] %}
-                <label class="form-label small fw-semibold mb-1 mt-2">{{ label }}</label>
-                <textarea class="form-control form-control-sm" name="{{ field }}"
-                          id="ed_{{ field }}" rows="2"
-                          placeholder="{{ placeholder }}">{{ specs.get(field) or '' }}</textarea>
+                {# Términos individuales editables #}
+                {% for t in terms_for_editor %}
+                <div class="mb-2 pb-2 border-bottom">
+                  <div class="d-flex align-items-center justify-content-between mb-1">
+                    <label class="form-label small fw-semibold mb-0">{{ t.title }}</label>
+                    {% if t.body_override %}
+                    <span class="badge bg-primary" style="font-size:8px;">editado</span>
+                    {% endif %}
+                  </div>
+                  <textarea name="term_body_{{ t.id }}"
+                            id="edTerm_{{ t.id }}"
+                            class="form-control form-control-sm term-body-override"
+                            data-term-id="{{ t.id }}"
+                            data-term-default="{{ t.body_default | e }}"
+                            rows="2"
+                            placeholder="{{ t.body_default | e }}">{{ t.body_override }}</textarea>
+                </div>
                 {% endfor %}
               </div>
             </div>
@@ -424,26 +411,20 @@
 
           <h3 id="prevTermsTitle"
               style="font-size:18px;font-weight:bold;color:#25262c;margin:0 0 10px;">
-            {% set _hc = specs.get('condiciones_pago') or specs.get('exclusiones') or specs.get('validez') or specs.get('forma_entrega') or specs.get('contacto') %}
-            {{ 'Condiciones y especificaciones' if _hc else 'Términos y Condiciones' }}
+            Términos y Condiciones
           </h3>
 
-          <div id="prevTermsBody" style="font-size:10px;color:#25262c;line-height:1.5;">
-            {% if _hc %}
-              {% for fld, lbl in [('validez','Vigencia.'),('condiciones_pago','Condiciones de pago.'),('exclusiones','Exclusiones.'),('forma_entrega','Forma de entrega.'),('contacto','Contacto.')] %}
-                {% set _v = specs.get(fld,'') %}
-                {% if _v %}
-                <p style="margin:0 0 2px;"><strong>{{ lbl }}</strong></p>
-                <p style="margin:0 0 8px;color:#717e91;">{{ _v }}</p>
-                {% endif %}
-              {% endfor %}
-            {% else %}
-              {% for ttl, body in default_terms %}
-              <p style="margin:0 0 2px;"><strong>{{ ttl }}</strong></p>
-              <p style="margin:0 0 8px;color:#717e91;">{{ body }}</p>
-              {% endfor %}
-            {% endif %}
+          {# preview por término individual #}
+          <div id="prevTermsTemplate" style="font-size:10px;color:#25262c;line-height:1.5;">
+            {% for t in terms_for_editor %}
+            <div id="prevTerm_{{ t.id }}">
+              <p style="margin:0 0 2px;"><strong>{{ t.title }}:</strong></p>
+              <p id="prevTermBody_{{ t.id }}" style="margin:0 0 8px;color:#717e91;">{{ t.body_current }}</p>
+            </div>
+            {% endfor %}
           </div>
+          {# condiciones específicas legacy (sólo visible si aplica) #}
+          <div id="prevCondicionesEspecificas" style="display:none;font-size:10px;color:#25262c;line-height:1.5;"></div>
 
           {# Notas #}
           {% set _nlines = quote.notes.splitlines() | select | list if quote.notes else [] %}
@@ -580,75 +561,16 @@
     }, 250));
   }
 
-  // ── Condiciones: live preview ─────────────────────────────────
-  var specFields = ["condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto"];
-  var specLabels = {
-    validez:          "Vigencia.",
-    condiciones_pago: "Condiciones de pago.",
-    exclusiones:      "Exclusiones.",
-    forma_entrega:    "Forma de entrega.",
-    contacto:         "Contacto."
-  };
-  var ALL_TERMS_TEMPLATES = (function() {
-    var acc = {};
-    var sel = document.getElementById("edTermsTemplate");
-    if (sel) {
-      Array.prototype.forEach.call(sel.options, function(opt) {
-        try { acc[opt.value] = JSON.parse(opt.getAttribute("data-terms") || "[]"); } catch(e) { acc[opt.value] = []; }
-      });
-    }
-    return acc;
-  })();
-  var prevTermsTitle = document.getElementById("prevTermsTitle");
-  var prevTermsBody  = document.getElementById("prevTermsBody");
-
-  function activeTemplateTerms() {
-    var sel = document.getElementById("edTermsTemplate");
-    var id = sel ? sel.value : "";
-    var terms = (ALL_TERMS_TEMPLATES[id] || []).filter(function(t) { return t.enabled !== false && (t.body || "").trim(); });
-    return terms.map(function(t) { return [t.title || "", t.body || ""]; });
-  }
-
-  function updateTermsPreview() {
-    var vals = {};
-    specFields.forEach(function (f) {
-      var el = document.getElementById("ed_" + f);
-      vals[f] = el ? el.value.trim() : "";
-    });
-    var hasCustom = specFields.some(function (f) { return vals[f]; });
-
-    if (prevTermsTitle) {
-      prevTermsTitle.textContent = hasCustom
-        ? "Condiciones y especificaciones"
-        : "Términos y Condiciones";
-    }
-
-    if (prevTermsBody) {
-      if (hasCustom) {
-        var order = ["validez", "condiciones_pago", "exclusiones", "forma_entrega", "contacto"];
-        prevTermsBody.innerHTML = order
-          .filter(function (f) { return vals[f]; })
-          .map(function (f) {
-            return '<p style="margin:0 0 2px;"><strong>' + esc(specLabels[f]) + "</strong></p>" +
-                   '<p style="margin:0 0 8px;color:#717e91;">' + esc(vals[f]) + "</p>";
-          }).join("");
-      } else {
-        var pairs = activeTemplateTerms();
-        prevTermsBody.innerHTML = pairs.map(function (pair) {
-          return '<p style="margin:0 0 2px;"><strong>' + esc(pair[0]) + "</strong></p>" +
-                 '<p style="margin:0 0 8px;color:#717e91;">' + esc(pair[1]) + "</p>";
-        }).join("");
-      }
-    }
-  }
-
-  specFields.forEach(function (f) {
-    var el = document.getElementById("ed_" + f);
-    if (el) el.addEventListener("input", debounce(updateTermsPreview, 250));
+  // ── Términos: override por término individual ──────────────────────
+  document.querySelectorAll(".term-body-override").forEach(function(ta) {
+    ta.addEventListener("input", debounce(function() {
+      var termId = this.getAttribute("data-term-id");
+      var val = this.value.trim();
+      var def = this.getAttribute("data-term-default");
+      var prevEl = document.getElementById("prevTermBody_" + termId);
+      if (prevEl) prevEl.textContent = val || def;
+    }, 200));
   });
-
-  var edTermsTemplate = document.getElementById("edTermsTemplate");
-  if (edTermsTemplate) edTermsTemplate.addEventListener("change", updateTermsPreview);
 
   // ── Toggle HTML / PDF real ──────────────────────────────────────────────────
   var PDF_INLINE_URL = {{ url_for('quotes_bp.quote_pdf', project_id=project.id, quote_id=quote.id, inline='1') | tojson }};

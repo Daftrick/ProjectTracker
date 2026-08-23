@@ -1189,8 +1189,10 @@ def build_quote_pdf(project, quote, output_path=None):
             ],
         )
     else:
+        _term_overrides = _specs.get("term_body_overrides") or {}
         _active_terms = [
-            (t.get("title", ""), t.get("body", ""))
+            (t.get("title", ""),
+             _term_overrides.get(t.get("id", ""), "") or t.get("body", ""))
             for t in _resolved_terms
             if t.get("enabled", True) and str(t.get("body") or "").strip()
         ] or quote_terms()

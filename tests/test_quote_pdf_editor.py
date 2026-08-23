@@ -90,7 +90,7 @@ class QuotePdfEditorTest(unittest.TestCase):
         body = resp.data.decode("utf-8")
         self.assertIn("prevBasisNote", body)
         self.assertIn("prevAlcanceBody", body)
-        self.assertIn("prevTermsBody", body)
+        self.assertIn("prevTermsTemplate", body)
         self.assertIn("prevNotesSection", body)
         self.assertIn("PROPUESTA ECONÓMICA", body)
 
@@ -104,11 +104,8 @@ class QuotePdfEditorTest(unittest.TestCase):
         form = {
             "notes": "Nota de prueba",
             "alcance_custom": "Párrafo personalizado de alcance.",
-            "condiciones_pago": "50% anticipo.",
-            "exclusiones": "Obra civil.",
-            "validez": "30 días.",
-            "forma_entrega": "En sitio.",
-            "contacto": "ricardo@test.com",
+            "term_body_vigencia": "30 días.",       # override de término individual
+            "term_body_condpago": "50% anticipo.",  # override de término individual
             "project_basis_note": "IE-OM001-V2",
         }
         with patch("tracker.routes.quotes.load", side_effect=_fake_load), \
@@ -125,7 +122,8 @@ class QuotePdfEditorTest(unittest.TestCase):
         q = next(item for item in saved[0] if item["id"] == "Q1")
         self.assertEqual(q["notes"], "Nota de prueba")
         self.assertEqual(q["specs"]["alcance_custom"], "Párrafo personalizado de alcance.")
-        self.assertEqual(q["specs"]["condiciones_pago"], "50% anticipo.")
+        self.assertEqual(q["specs"]["term_body_overrides"]["vigencia"], "30 días.")
+        self.assertEqual(q["specs"]["term_body_overrides"]["condpago"], "50% anticipo.")
         self.assertEqual(q["specs"]["basis_note_override"], "IE-OM001-V2")
 
     def test_post_extraordinaria_saves_project_basis_note(self):

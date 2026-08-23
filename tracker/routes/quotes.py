@@ -1090,15 +1090,24 @@ def quote_pdf_editor(project_id, quote_id):
         return redirect(url_for("dashboard"))
 
     if request.method == "POST":
+        from ..terms_templates_config import resolve_quote_terms as _rqt
         specs = dict(quote.get("specs") or {})
-        for field in ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto"):
-            specs[field] = request.form.get(field, "").strip()
         specs["alcance_custom"] = request.form.get("alcance_custom", "").strip()
         specs["nota_precio"] = request.form.get("nota_precio", "").strip()
         specs["portada_spacing"] = request.form.get("portada_spacing", "").strip()
         new_terms_id = request.form.get("terms_template_id", "").strip()
         if new_terms_id:
             specs["terms_template_id"] = new_terms_id
+        # Per-term body overrides (new model — each término editable individualmente)
+        raw_terms, _ = _rqt(quote)
+        term_overrides = {}
+        for t in raw_terms:
+            tid = t.get("id", "")
+            if tid:
+                val = request.form.get(f"term_body_{tid}", "").strip()
+                if val:
+                    term_overrides[tid] = val
+        specs["term_body_overrides"] = term_overrides
         quote["specs"] = specs
         quote["notes"] = request.form.get("notes", "").strip()
         basis = request.form.get("project_basis_note", "").strip()
@@ -1119,8 +1128,20 @@ def quote_pdf_editor(project_id, quote_id):
     qt = quote_type_key(quote.get("quote_type"))
     specs = quote.get("specs") or {}
     _resolved_terms, _terms_tmpl = resolve_quote_terms(quote)
-    default_terms = [(t.get("title", ""), t.get("body", "")) for t in _resolved_terms if t.get("enabled", True)]
     selected_terms_template_id = (_terms_tmpl or {}).get("id", "")
+    _term_overrides = specs.get("term_body_overrides") or {}
+    terms_for_editor = [
+        {
+            "id": t.get("id", ""),
+            "title": t.get("title", ""),
+            "body_default": t.get("body", ""),
+            "body_current": _term_overrides.get(t.get("id", ""), "") or t.get("body", ""),
+            "body_override": _term_overrides.get(t.get("id", ""), ""),
+        }
+        for t in _resolved_terms
+        if t.get("enabled", True) and str(t.get("body") or t.get("title") or "").strip()
+    ]
+    default_terms = [(t["title"], t["body_current"]) for t in terms_for_editor]
     terms_templates = get_terms_templates()
     if qt == "Extraordinaria":
         basis_note_edit = quote.get("project_basis_note") or ""
@@ -1148,6 +1169,7 @@ def quote_pdf_editor(project_id, quote_id):
         basis_note_edit=basis_note_edit,
         specs=specs,
         default_scope=quote_scope_paragraphs(),
+        terms_for_editor=terms_for_editor,
         default_terms=default_terms,
         terms_templates=terms_templates,
         selected_terms_template_id=selected_terms_template_id,
