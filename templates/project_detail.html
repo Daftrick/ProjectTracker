@@ -333,6 +333,9 @@
             <a href="{{ url_for('quote_pdf', project_id=project.id, quote_id=q.id) }}?inline=1"
                target="_blank"
                class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Ver PDF"><i class="bi bi-eye"></i></a>
+            {# Editor PDF #}
+            <a href="{{ url_for('quotes_bp.quote_pdf_editor', project_id=project.id, quote_id=q.id) }}"
+               class="btn btn-sm btn-outline-info me-1 action-btn" title="Editor PDF"><i class="bi bi-layout-text-window"></i></a>
             {# Resumen #}
             <a href="{{ url_for('quotes_bp.quote_resumen', project_id=project.id, quote_id=q.id) }}"
                class="btn btn-sm btn-outline-secondary me-1 action-btn" title="Resumen sin secciones"><i class="bi bi-list-ul"></i></a>
