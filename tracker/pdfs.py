@@ -287,7 +287,7 @@ def build_quote_pdf(project, quote, output_path=None):
             self.set_font(FONT, "", 12.8)
             date_w = self.get_string_width(_safe_text(self.quote_date)) + 5
             name_w = cw - date_w
-            self.set_font(FONT, "B", 13.4)
+            self.set_font(FONT, "", 13.4)
             self.set_text_color(*NAVY)
             self.cell(name_w, 6, _safe_text(self.project_name))
             self.set_font(FONT, "", 12.8)
