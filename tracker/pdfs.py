@@ -951,16 +951,9 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.set_fill_color(*INK)
             pdf.set_text_color(255, 255, 255)
             pdf.set_font("DejaVu", "B", 13.2)
-            _sec_label = section_name.upper()
-            _sec_max_w = sum(cols) - 4
-            while _sec_label and pdf.get_string_width(_sec_label) > _sec_max_w:
-                _sec_label = _sec_label[:-1]
-            if _sec_label != section_name.upper():
-                while _sec_label and pdf.get_string_width(_sec_label + "…") > _sec_max_w:
-                    _sec_label = _sec_label[:-1]
-                _sec_label = _sec_label + "…"
-            pdf.cell(sum(cols), 7, _sec_label, fill=True)
-            pdf.ln()
+            pdf.set_x(pdf.l_margin)
+            pdf.multi_cell(sum(cols), 7, section_name.upper(), fill=True, align="L")
+            pdf.set_x(pdf.l_margin)
             pdf.set_text_color(*INK)
             pdf.set_font("DejaVu", "", 12.9)
 
