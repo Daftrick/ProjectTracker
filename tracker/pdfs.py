@@ -678,109 +678,23 @@ def build_quote_pdf(project, quote, output_path=None):
             table_header()
 
     _specs = quote.get("specs") or {}
-    _portada_spacing = max(8, min(88, int(str(_specs.get("portada_spacing") or "40") or "40")))
-    _spacing_delta = (_portada_spacing - 40) * 0.45
+    _portada_spacing = max(8, min(64, int(str(_specs.get("portada_spacing") or "40") or "40")))
+    _cover_mode = "compacto" if _portada_spacing <= 8 else ("reducido" if _portada_spacing <= 24 else "normal")
 
     _portada_fill = _hex_to_rgb(_company_data.get("portada_color"), default=(0, 0, 0))
 
-    pdf.set_auto_page_break(False)
-    pdf.add_page()
-    pdf.set_fill_color(255, 255, 255)
-    pdf.rect(0, 0, 210, 297, style="F")
-    pdf.set_fill_color(*_portada_fill)
-    pdf.rect(0, 0, 210, 85, style="F")
-    if logo_path:
-        pdf.image(logo_path, x=60, y=10, w=90)
-        contact_y = 88
-        _contacts_on_dark = False
-    else:
-        pdf.set_text_color(255, 255, 255)
-        pdf.set_xy(pdf.l_margin, 28)
-        pdf.set_font("DejaVu", "B", 27.0)
-        pdf.cell(0, 8, _cached_company_name)
-        contact_y = 48
-        _contacts_on_dark = True
-    cover_contact_lines = quote_template_contact_lines()
-    if cover_contact_lines:
-        if _contacts_on_dark:
-            pdf.set_text_color(255, 255, 255)
-        else:
-            pdf.set_text_color(*MUTED)
-        pdf.set_font("DejaVu", "", 12.7)
-        for line in cover_contact_lines:
-            pdf.set_xy(pdf.l_margin, contact_y)
-            pdf.cell(content_width, 4.6, _safe_text(line), align="R")
-            contact_y += 5
-    pdf.set_draw_color(*LINE)
     _caddr = str(_company_data.get("address") or "").strip()
     _crut = str(_company_data.get("rut") or "").strip()
     _cemail = str(_company_data.get("email") or "").strip()
     _cphone = str(_company_data.get("phone") or "").strip()
     _cinfo = "  ·  ".join(p for p in [_caddr, _crut] if p)
     _ccontact = " - ".join(p for p in [_cemail, _cphone] if p)
-    _caddr_y = max(contact_y + 2, 88) if not _contacts_on_dark else 115
-    if _cinfo:
-        pdf.set_text_color(*MUTED)
-        pdf.set_font("DejaVu", "", 12.0)
-        pdf.set_xy(pdf.l_margin, _caddr_y)
-        pdf.cell(content_width, 4.5, _safe_text(_cinfo), align="R")
-        _caddr_y += 5
-    if _ccontact:
-        pdf.set_text_color(*MUTED)
-        pdf.set_font("DejaVu", "", 12.0)
-        pdf.set_xy(pdf.l_margin, _caddr_y)
-        pdf.cell(content_width, 4.5, _safe_text(_ccontact), align="R")
-        _caddr_y += 5
-    _sep_y = _caddr_y + 3
-    pdf.line(pdf.l_margin, _sep_y, pdf.l_margin + content_width, _sep_y)
-    pdf.set_xy(pdf.l_margin, _sep_y + 10)
-    pdf.set_text_color(*NAVY)
-    pdf.set_font("DejaVu", "B", 13.4)
-    pdf.cell(0, 5, "PROPUESTA ECONÓMICA")
-    pdf.set_xy(pdf.l_margin, _sep_y + 20)
-    pdf.set_text_color(*INK)
-    pdf.set_font("DejaVu", "B", 27.0)
-    pdf.multi_cell(content_width, 8, _safe_text(cover_title))
-    if cover_basis_note:
-        pdf.ln(1)
-        pdf.set_x(pdf.l_margin)
-        pdf.set_text_color(*NAVY_2)
-        pdf.set_font("DejaVu", "", 15.8)
-        pdf.multi_cell(content_width, 5.3, _safe_text(cover_basis_note))
-    if cover_subtitle:
-        pdf.ln(1)
-        pdf.set_x(pdf.l_margin)
-        pdf.set_text_color(*NAVY_2)
-        pdf.set_font("DejaVu", "B", 15.8)
-        pdf.cell(0, 5.5, _safe_text(cover_subtitle), ln=True)
-    # "Propuesta para": editable en el editor de cotización (cliente,
-    # personalizado o vacío para ocultar la línea — ver resolve_quote_proposal_for).
-    if proposal_for:
-        proposal_label, proposal_value = proposal_for
-        proposal_y = max(168 + _spacing_delta, pdf.get_y() + 7)
-        pdf.set_xy(pdf.l_margin, proposal_y)
-        pdf.set_text_color(*MUTED)
-        pdf.set_font("DejaVu", "", 16.4)
-        pdf.cell(0, 6, _safe_text(proposal_label))
-        pdf.set_xy(pdf.l_margin, proposal_y + 9)
-        pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "B", 22.4)
-        pdf.multi_cell(content_width, 7, _safe_text(proposal_value))
-    summary_x = pdf.l_margin
-    summary_y = max(215, min(250, round(221 + _spacing_delta)))
-    summary_w = content_width
-    summary_h = 53
-    pdf.set_xy(summary_x, summary_y)
-    pdf.set_fill_color(*SOFT)
-    pdf.rect(summary_x, summary_y, summary_w, summary_h, style="F")
 
-    totals_box_x = 107
-    totals_box_w = 96
     _ptax_rate = quote.get("tax_rate", 16)
     if _ptax_rate is None:
         _ptax_rate = 16
     _ptax_rate_disp = int(_ptax_rate) if float(_ptax_rate) % 1 == 0 else _ptax_rate
-    _ptax      = quote.get("tax", 0)
+    _ptax = quote.get("tax", 0)
     _pdiscount_pct = quote.get("discount_pct", 0) or 0
     _pdiscount_amount = quote.get("discount_amount", 0) or 0
     _pdiscount_pct_disp = int(_pdiscount_pct) if float(_pdiscount_pct) % 1 == 0 else _pdiscount_pct
@@ -802,114 +716,461 @@ def build_quote_pdf(project, quote, output_path=None):
     else:
         _total_y_offset = 6.5
     totals_box_h = round(_total_y_offset + 7.5 + 6, 1)
-    totals_box_y = summary_y + (summary_h - totals_box_h) / 2
+
+    pdf.set_auto_page_break(False)
+    pdf.add_page()
     pdf.set_fill_color(255, 255, 255)
-    pdf.set_draw_color(*LINE)
-    pdf.rect(totals_box_x, totals_box_y, totals_box_w, totals_box_h, style="DF")
+    pdf.rect(0, 0, 210, 297, style="F")
 
-    left_x = 7
-    left_w = totals_box_x - left_x - 6
-    label_h = 3.8
-    value_h = 5.8
-
-    def info_label(text, width=None, ln=False, size=8):
-        pdf.set_text_color(*MUTED)
-        pdf.set_font("DejaVu", "B", size)
-        pdf.cell(width if width is not None else left_w, label_h, text, ln=ln)
-
-    def info_value(text, width=None, ln=False, size=9.8):
-        pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "", size)
-        pdf.cell(width if width is not None else left_w, value_h, text, ln=ln)
-
-    # Renglón 1: Proyecto
-    pdf.set_xy(left_x, summary_y + 5)
-    info_label("PROYECTO", ln=True)
-    pdf.set_x(left_x)
-    pdf.set_text_color(*INK)
-    pdf.set_font("DejaVu", "", 14.7)
-    _pname_safe = _safe_text(project_name)
-    _l1, _l2 = [], []
-    _filling = _l1
-    for _tok in _pname_safe.split():
-        _test = " ".join(_filling + [_tok])
-        if pdf.get_string_width(_test) <= left_w:
-            _filling.append(_tok)
+    if _cover_mode == "normal":
+        # ── Portada completa (página entera) ────────────────────────────────
+        pdf.set_fill_color(*_portada_fill)
+        pdf.rect(0, 0, 210, 85, style="F")
+        if logo_path:
+            pdf.image(logo_path, x=60, y=10, w=90)
+            contact_y = 88
+            _contacts_on_dark = False
         else:
-            if _filling is _l1:
-                _filling = _l2
+            pdf.set_text_color(255, 255, 255)
+            pdf.set_xy(pdf.l_margin, 28)
+            pdf.set_font("DejaVu", "B", 27.0)
+            pdf.cell(0, 8, _cached_company_name)
+            contact_y = 48
+            _contacts_on_dark = True
+        cover_contact_lines = quote_template_contact_lines()
+        if cover_contact_lines:
+            if _contacts_on_dark:
+                pdf.set_text_color(255, 255, 255)
+            else:
+                pdf.set_text_color(*MUTED)
+            pdf.set_font("DejaVu", "", 12.7)
+            for line in cover_contact_lines:
+                pdf.set_xy(pdf.l_margin, contact_y)
+                pdf.cell(content_width, 4.6, _safe_text(line), align="R")
+                contact_y += 5
+        pdf.set_draw_color(*LINE)
+        _caddr_y = max(contact_y + 2, 88) if not _contacts_on_dark else 115
+        if _cinfo:
+            pdf.set_text_color(*MUTED)
+            pdf.set_font("DejaVu", "", 12.0)
+            pdf.set_xy(pdf.l_margin, _caddr_y)
+            pdf.cell(content_width, 4.5, _safe_text(_cinfo), align="R")
+            _caddr_y += 5
+        if _ccontact:
+            pdf.set_text_color(*MUTED)
+            pdf.set_font("DejaVu", "", 12.0)
+            pdf.set_xy(pdf.l_margin, _caddr_y)
+            pdf.cell(content_width, 4.5, _safe_text(_ccontact), align="R")
+            _caddr_y += 5
+        _sep_y = _caddr_y + 3
+        pdf.line(pdf.l_margin, _sep_y, pdf.l_margin + content_width, _sep_y)
+        pdf.set_xy(pdf.l_margin, _sep_y + 10)
+        pdf.set_text_color(*NAVY)
+        pdf.set_font("DejaVu", "B", 13.4)
+        pdf.cell(0, 5, "PROPUESTA ECONÓMICA")
+        pdf.set_xy(pdf.l_margin, _sep_y + 20)
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "B", 27.0)
+        pdf.multi_cell(content_width, 8, _safe_text(cover_title))
+        if cover_basis_note:
+            pdf.ln(1)
+            pdf.set_x(pdf.l_margin)
+            pdf.set_text_color(*NAVY_2)
+            pdf.set_font("DejaVu", "", 15.8)
+            pdf.multi_cell(content_width, 5.3, _safe_text(cover_basis_note))
+        if cover_subtitle:
+            pdf.ln(1)
+            pdf.set_x(pdf.l_margin)
+            pdf.set_text_color(*NAVY_2)
+            pdf.set_font("DejaVu", "B", 15.8)
+            pdf.cell(0, 5.5, _safe_text(cover_subtitle), ln=True)
+        if proposal_for:
+            proposal_label, proposal_value = proposal_for
+            proposal_y = max(168, pdf.get_y() + 7)
+            pdf.set_xy(pdf.l_margin, proposal_y)
+            pdf.set_text_color(*MUTED)
+            pdf.set_font("DejaVu", "", 16.4)
+            pdf.cell(0, 6, _safe_text(proposal_label))
+            pdf.set_xy(pdf.l_margin, proposal_y + 9)
+            pdf.set_text_color(*INK)
+            pdf.set_font("DejaVu", "B", 22.4)
+            pdf.multi_cell(content_width, 7, _safe_text(proposal_value))
+        summary_x = pdf.l_margin
+        summary_y = 221
+        summary_w = content_width
+        summary_h = 53
+        pdf.set_fill_color(*SOFT)
+        pdf.rect(summary_x, summary_y, summary_w, summary_h, style="F")
+
+        totals_box_x = 107
+        totals_box_w = 96
+        totals_box_y = summary_y + (summary_h - totals_box_h) / 2
+        pdf.set_fill_color(255, 255, 255)
+        pdf.set_draw_color(*LINE)
+        pdf.rect(totals_box_x, totals_box_y, totals_box_w, totals_box_h, style="DF")
+
+        left_x = 7
+        left_w = totals_box_x - left_x - 6
+        label_h = 3.8
+        value_h = 5.8
+
+        def info_label(text, width=None, ln=False, size=8):
+            pdf.set_text_color(*MUTED)
+            pdf.set_font("DejaVu", "B", size)
+            pdf.cell(width if width is not None else left_w, label_h, text, ln=ln)
+
+        def info_value(text, width=None, ln=False, size=9.8):
+            pdf.set_text_color(*INK)
+            pdf.set_font("DejaVu", "", size)
+            pdf.cell(width if width is not None else left_w, value_h, text, ln=ln)
+
+        pdf.set_xy(left_x, summary_y + 5)
+        info_label("PROYECTO", ln=True)
+        pdf.set_x(left_x)
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "", 14.7)
+        _pname_safe = _safe_text(project_name)
+        _l1, _l2 = [], []
+        _filling = _l1
+        for _tok in _pname_safe.split():
+            _test = " ".join(_filling + [_tok])
+            if pdf.get_string_width(_test) <= left_w:
                 _filling.append(_tok)
             else:
-                break
-    for _pline in (_l1, _l2):
-        if _pline:
-            pdf.set_x(left_x)
-            pdf.cell(left_w, value_h, " ".join(_pline), ln=True)
+                if _filling is _l1:
+                    _filling = _l2
+                    _filling.append(_tok)
+                else:
+                    break
+        for _pline in (_l1, _l2):
+            if _pline:
+                pdf.set_x(left_x)
+                pdf.cell(left_w, value_h, " ".join(_pline), ln=True)
 
-    # Renglón 2: Cotización
-    pdf.set_xy(left_x, summary_y + 24)
-    info_label("COTIZACIÓN", ln=True)
-    pdf.set_x(left_x)
-    info_value(quote_number, ln=True)
+        pdf.set_xy(left_x, summary_y + 24)
+        info_label("COTIZACIÓN", ln=True)
+        pdf.set_x(left_x)
+        info_value(quote_number, ln=True)
 
-    # Renglón 3: Moneda / Fecha / Versión
-    # Anchos fijos; si la fecha no cabe a 9.8pt (fuente monoespaciada más ancha),
-    # se escala el tamaño de fuente hacia abajo hasta que quepa.
-    pdf.set_font("DejaVu", "", 14.7)
-    moneda_w       = 14
-    fecha_w        = 55
-    version_w      = left_w - moneda_w - fecha_w
-    _date_str_w    = pdf.get_string_width(quote_date)
-    fecha_font_sz  = 9.8 if _date_str_w + 1 <= fecha_w else max(7.0, round(9.8 * fecha_w / (_date_str_w + 1), 1))
-    moneda_x  = left_x
-    fecha_x   = moneda_x + moneda_w
-    version_x = fecha_x + fecha_w
+        pdf.set_font("DejaVu", "", 14.7)
+        moneda_w = 14
+        fecha_w = 55
+        version_w = left_w - moneda_w - fecha_w
+        _date_str_w = pdf.get_string_width(quote_date)
+        fecha_font_sz = 9.8 if _date_str_w + 1 <= fecha_w else max(7.0, round(9.8 * fecha_w / (_date_str_w + 1), 1))
+        moneda_x = left_x
+        fecha_x = moneda_x + moneda_w
+        version_x = fecha_x + fecha_w
 
-    label_y = summary_y + 43
-    label_size = 7
-    pdf.set_xy(moneda_x, label_y)
-    info_label("MONEDA", width=moneda_w, size=label_size)
-    pdf.set_x(fecha_x)
-    info_label("FECHA", width=fecha_w, size=label_size)
-    pdf.set_x(version_x)
-    info_label("VERSIÓN", width=version_w, size=label_size, ln=True)
+        label_y = summary_y + 43
+        label_size = 7
+        pdf.set_xy(moneda_x, label_y)
+        info_label("MONEDA", width=moneda_w, size=label_size)
+        pdf.set_x(fecha_x)
+        info_label("FECHA", width=fecha_w, size=label_size)
+        pdf.set_x(version_x)
+        info_label("VERSIÓN", width=version_w, size=label_size, ln=True)
 
-    pdf.set_xy(moneda_x, label_y + label_h)
-    info_value(_safe_text(currency), width=moneda_w)
-    pdf.set_x(fecha_x)
-    info_value(quote_date, width=fecha_w, size=fecha_font_sz)
-    pdf.set_x(version_x)
-    info_value(_safe_text(quote.get("version") or project.get("version") or "V1"), width=version_w, ln=True)
+        pdf.set_xy(moneda_x, label_y + label_h)
+        info_value(_safe_text(currency), width=moneda_w)
+        pdf.set_x(fecha_x)
+        info_value(quote_date, width=fecha_w, size=fecha_font_sz)
+        pdf.set_x(version_x)
+        info_value(_safe_text(quote.get("version") or project.get("version") or "V1"), width=version_w, ln=True)
 
-    # --- Caja de totales (más espaciada y con jerarquía clara) ---
-    label_x = totals_box_x + 8
-    inner_right = totals_box_x + totals_box_w - 8
-    label_w = 30
-    value_w = inner_right - label_x - label_w
-    row_h = 6.6
+        label_x = totals_box_x + 8
+        inner_right = totals_box_x + totals_box_w - 8
+        label_w = 30
+        value_w = inner_right - label_x - label_w
+        row_h = 6.6
 
-    pdf.set_text_color(*INK)
-    pdf.set_font("DejaVu", "B", 16.2)
-    for _i, (_row_label, _row_value) in enumerate(_money_rows):
-        pdf.set_xy(label_x, totals_box_y + 5.5 + _i * 8.2)
-        pdf.cell(label_w, row_h, _row_label)
-        pdf.cell(value_w, row_h, _row_value, align="R", ln=True)
-    if _money_rows:
-        # Divisor
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "B", 16.2)
+        for _i, (_row_label, _row_value) in enumerate(_money_rows):
+            pdf.set_xy(label_x, totals_box_y + 5.5 + _i * 8.2)
+            pdf.cell(label_w, row_h, _row_label)
+            pdf.cell(value_w, row_h, _row_value, align="R", ln=True)
+        if _money_rows:
+            pdf.set_draw_color(*LINE)
+            pdf.line(label_x, totals_box_y + _divider_y, inner_right, totals_box_y + _divider_y)
+        pdf.set_xy(label_x, totals_box_y + _total_y_offset)
+        pdf.set_font("DejaVu", "B", 19.8)
+        pdf.cell(label_w, 7.5, "TOTAL")
+        pdf.set_text_color(*GREEN)
+        pdf.cell(value_w, 7.5, money_pdf(quote.get("total", 0)), align="R", ln=True)
+
+        pdf.set_auto_page_break(True, margin=18)
+        pdf.add_page()
+        pdf.set_y(22)
+
+    elif _cover_mode == "reducido":
+        # ── Portada Reducido: ~mitad de página; alcance sigue en la misma hoja ──
+        _banner_h = 40
+        pdf.set_fill_color(*_portada_fill)
+        pdf.rect(0, 0, 210, _banner_h, style="F")
+        if logo_path:
+            pdf.image(logo_path, x=65, y=6, w=80)
+            contact_y = _banner_h + 2
+            _contacts_on_dark = False
+        else:
+            pdf.set_text_color(255, 255, 255)
+            pdf.set_xy(pdf.l_margin, 14)
+            pdf.set_font("DejaVu", "B", 22.4)
+            pdf.cell(0, 7, _cached_company_name)
+            contact_y = 28
+            _contacts_on_dark = True
+        cover_contact_lines = quote_template_contact_lines()
+        if cover_contact_lines:
+            if _contacts_on_dark:
+                pdf.set_text_color(255, 255, 255)
+            else:
+                pdf.set_text_color(*MUTED)
+            pdf.set_font("DejaVu", "", 11.0)
+            for line in cover_contact_lines:
+                pdf.set_xy(pdf.l_margin, contact_y)
+                pdf.cell(content_width, 4.0, _safe_text(line), align="R")
+                contact_y += 4.2
         pdf.set_draw_color(*LINE)
-        pdf.line(label_x, totals_box_y + _divider_y, inner_right, totals_box_y + _divider_y)
-    total_y = totals_box_y + _total_y_offset
+        _caddr_y = max(contact_y + 1, _banner_h + 2) if not _contacts_on_dark else _banner_h + 12
+        if _cinfo:
+            pdf.set_text_color(*MUTED)
+            pdf.set_font("DejaVu", "", 11.0)
+            pdf.set_xy(pdf.l_margin, _caddr_y)
+            pdf.cell(content_width, 4.0, _safe_text(_cinfo), align="R")
+            _caddr_y += 4.5
+        _sep_y = _caddr_y + 2
+        pdf.line(pdf.l_margin, _sep_y, pdf.l_margin + content_width, _sep_y)
+        pdf.set_xy(pdf.l_margin, _sep_y + 5)
+        pdf.set_text_color(*NAVY)
+        pdf.set_font("DejaVu", "B", 12.0)
+        pdf.cell(0, 4.5, "PROPUESTA ECONÓMICA")
+        pdf.set_xy(pdf.l_margin, _sep_y + 13)
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "B", 22.4)
+        pdf.multi_cell(content_width, 7, _safe_text(cover_title))
+        if cover_basis_note:
+            pdf.ln(0.5)
+            pdf.set_x(pdf.l_margin)
+            pdf.set_text_color(*NAVY_2)
+            pdf.set_font("DejaVu", "", 13.4)
+            pdf.multi_cell(content_width, 4.5, _safe_text(cover_basis_note))
+        if cover_subtitle:
+            pdf.ln(0.5)
+            pdf.set_x(pdf.l_margin)
+            pdf.set_text_color(*NAVY_2)
+            pdf.set_font("DejaVu", "B", 13.4)
+            pdf.cell(0, 4.5, _safe_text(cover_subtitle), ln=True)
+        if proposal_for:
+            proposal_label, proposal_value = proposal_for
+            pdf.set_xy(pdf.l_margin, pdf.get_y() + 3)
+            pdf.set_text_color(*MUTED)
+            pdf.set_font("DejaVu", "", 13.4)
+            pdf.cell(0, 4.5, _safe_text(proposal_label))
+            pdf.set_xy(pdf.l_margin, pdf.get_y() + 7)
+            pdf.set_text_color(*INK)
+            pdf.set_font("DejaVu", "B", 17.8)
+            pdf.multi_cell(content_width, 6, _safe_text(proposal_value))
 
-    # TOTAL
-    pdf.set_xy(label_x, total_y)
-    pdf.set_font("DejaVu", "B", 19.8)
-    pdf.cell(label_w, 7.5, "TOTAL")
-    pdf.set_text_color(*GREEN)
-    pdf.cell(value_w, 7.5, money_pdf(quote.get("total", 0)), align="R", ln=True)
+        _r_summary_h = max(44, totals_box_h + 4)
+        _r_summary_y = max(pdf.get_y() + 5, 90)
+        pdf.set_fill_color(*SOFT)
+        pdf.rect(pdf.l_margin, _r_summary_y, content_width, _r_summary_h, style="F")
 
-    pdf.set_auto_page_break(True, margin=18)
-    pdf.add_page()
-    pdf.set_y(22)
+        _r_totals_x = 107
+        _r_totals_w = 96
+        _r_totals_y = _r_summary_y + (_r_summary_h - totals_box_h) / 2
+        pdf.set_fill_color(255, 255, 255)
+        pdf.set_draw_color(*LINE)
+        pdf.rect(_r_totals_x, _r_totals_y, _r_totals_w, totals_box_h, style="DF")
+
+        _r_left_x = 7
+        _r_left_w = _r_totals_x - _r_left_x - 6
+
+        pdf.set_xy(_r_left_x, _r_summary_y + 4)
+        pdf.set_text_color(*MUTED)
+        pdf.set_font("DejaVu", "B", 7.0)
+        pdf.cell(_r_left_w, 3.2, "PROYECTO", ln=True)
+        pdf.set_x(_r_left_x)
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "", 12.0)
+        _pname_safe = _safe_text(project_name)
+        _l1, _l2 = [], []
+        _filling = _l1
+        for _tok in _pname_safe.split():
+            _test = " ".join(_filling + [_tok])
+            if pdf.get_string_width(_test) <= _r_left_w:
+                _filling.append(_tok)
+            else:
+                if _filling is _l1:
+                    _filling = _l2
+                    _filling.append(_tok)
+                else:
+                    break
+        for _pline in (_l1, _l2):
+            if _pline:
+                pdf.set_x(_r_left_x)
+                pdf.cell(_r_left_w, 5.0, " ".join(_pline), ln=True)
+
+        pdf.set_xy(_r_left_x, _r_summary_y + 20)
+        pdf.set_text_color(*MUTED)
+        pdf.set_font("DejaVu", "B", 7.0)
+        pdf.cell(_r_left_w, 3.2, "COTIZACIÓN", ln=True)
+        pdf.set_x(_r_left_x)
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "", 9.8)
+        pdf.cell(_r_left_w, 5.0, quote_number, ln=True)
+
+        _r_meta_y = _r_summary_y + 32
+        _r_col_w = _r_left_w / 3
+        pdf.set_xy(_r_left_x, _r_meta_y)
+        pdf.set_text_color(*MUTED)
+        pdf.set_font("DejaVu", "B", 6.5)
+        for _lbl in ("FECHA", "MONEDA", "VERSIÓN"):
+            pdf.cell(_r_col_w, 3.0, _lbl)
+        pdf.ln(3.0)
+        pdf.set_x(_r_left_x)
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "", 9.0)
+        _r_ver = _safe_text(quote.get("version") or project.get("version") or "V1")
+        for _val in (quote_date, _safe_text(currency), _r_ver):
+            pdf.cell(_r_col_w, 4.5, _val)
+
+        _r_lbl_x = _r_totals_x + 8
+        _r_inner_right = _r_totals_x + _r_totals_w - 8
+        _r_lbl_w = 30
+        _r_val_w = _r_inner_right - _r_lbl_x - _r_lbl_w
+
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "B", 16.2)
+        for _i, (_rl, _rv) in enumerate(_money_rows):
+            pdf.set_xy(_r_lbl_x, _r_totals_y + 5.5 + _i * 8.2)
+            pdf.cell(_r_lbl_w, 6.6, _rl)
+            pdf.cell(_r_val_w, 6.6, _rv, align="R", ln=True)
+        if _money_rows:
+            pdf.set_draw_color(*LINE)
+            pdf.line(_r_lbl_x, _r_totals_y + _divider_y, _r_inner_right, _r_totals_y + _divider_y)
+        pdf.set_xy(_r_lbl_x, _r_totals_y + _total_y_offset)
+        pdf.set_font("DejaVu", "B", 19.8)
+        pdf.cell(_r_lbl_w, 7.5, "TOTAL")
+        pdf.set_text_color(*GREEN)
+        pdf.cell(_r_val_w, 7.5, money_pdf(quote.get("total", 0)), align="R", ln=True)
+
+        pdf.set_auto_page_break(True, margin=18)
+        pdf.set_y(_r_summary_y + _r_summary_h + 6)
+
+    else:
+        # ── Portada Compacto: ~cuarto de página; alcance sigue en la misma hoja ──
+        _banner_h = 18
+        pdf.set_fill_color(*_portada_fill)
+        pdf.rect(0, 0, 210, _banner_h, style="F")
+        if logo_path:
+            pdf.image(logo_path, x=65, y=2, h=14)
+        else:
+            pdf.set_text_color(255, 255, 255)
+            pdf.set_xy(pdf.l_margin, 5)
+            pdf.set_font("DejaVu", "B", 17.8)
+            pdf.cell(0, 6, _cached_company_name)
+
+        pdf.set_draw_color(*LINE)
+        _sep_y = _banner_h + 3
+        pdf.line(pdf.l_margin, _sep_y, pdf.l_margin + content_width, _sep_y)
+
+        _c_title_w = content_width * 0.62
+        _c_client_x = pdf.l_margin + _c_title_w + 4
+        _c_client_w = content_width - _c_title_w - 4
+
+        pdf.set_xy(pdf.l_margin, _sep_y + 4)
+        pdf.set_text_color(*NAVY)
+        pdf.set_font("DejaVu", "B", 10.0)
+        pdf.cell(_c_title_w, 3.8, "PROPUESTA ECONÓMICA")
+        if proposal_for:
+            _, _c_proposal_value = proposal_for
+            pdf.set_xy(_c_client_x, _sep_y + 4)
+            pdf.set_text_color(*MUTED)
+            pdf.set_font("DejaVu", "B", 7.5)
+            pdf.cell(_c_client_w, 3.8, "PARA", align="R")
+
+        pdf.set_xy(pdf.l_margin, _sep_y + 9)
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "B", 17.8)
+        pdf.multi_cell(_c_title_w, 5.5, _safe_text(cover_title))
+
+        if proposal_for:
+            _, _c_proposal_value = proposal_for
+            pdf.set_xy(_c_client_x, _sep_y + 9)
+            pdf.set_text_color(*INK)
+            pdf.set_font("DejaVu", "B", 13.4)
+            pdf.multi_cell(_c_client_w, 4.5, _safe_text(_c_proposal_value), align="R")
+
+        if cover_basis_note:
+            pdf.set_xy(pdf.l_margin, pdf.get_y() + 1)
+            pdf.set_text_color(*NAVY_2)
+            pdf.set_font("DejaVu", "", 10.5)
+            pdf.cell(_c_title_w, 4.0, _safe_text(cover_basis_note))
+
+        _c_summary_h = max(24, totals_box_h + 4)
+        _c_summary_y = max(pdf.get_y() + 5, _banner_h + 16)
+
+        pdf.set_fill_color(*SOFT)
+        pdf.rect(pdf.l_margin, _c_summary_y, content_width, _c_summary_h, style="F")
+
+        _c_meta_w = content_width * 0.5
+        _c_col_w = _c_meta_w / 3
+        _c_meta_left = pdf.l_margin
+
+        pdf.set_xy(_c_meta_left, _c_summary_y + 4)
+        pdf.set_text_color(*MUTED)
+        pdf.set_font("DejaVu", "B", 6.5)
+        pdf.cell(_c_meta_w, 3.0, "COTIZACIÓN")
+        pdf.ln(3.0)
+        pdf.set_x(_c_meta_left)
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "", 9.0)
+        pdf.cell(_c_meta_w, 4.5, quote_number)
+
+        pdf.set_xy(_c_meta_left, _c_summary_y + 13)
+        pdf.set_text_color(*MUTED)
+        pdf.set_font("DejaVu", "B", 6.0)
+        for _lbl in ("FECHA", "MONEDA", "VERSIÓN"):
+            pdf.cell(_c_col_w, 2.8, _lbl)
+        pdf.ln(2.8)
+        pdf.set_x(_c_meta_left)
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "", 8.5)
+        _c_ver = _safe_text(quote.get("version") or project.get("version") or "V1")
+        for _val in (quote_date, _safe_text(currency), _c_ver):
+            pdf.cell(_c_col_w, 4.0, _val)
+
+        _c_totals_x = pdf.l_margin + content_width * 0.52
+        _c_totals_w = content_width * 0.48
+        _c_totals_y = _c_summary_y + (_c_summary_h - totals_box_h) / 2
+
+        pdf.set_fill_color(255, 255, 255)
+        pdf.set_draw_color(*LINE)
+        pdf.rect(_c_totals_x, _c_totals_y, _c_totals_w, totals_box_h, style="DF")
+
+        _c_lbl_x = _c_totals_x + 5
+        _c_inner_right = _c_totals_x + _c_totals_w - 5
+        _c_lbl_w = 22
+        _c_val_w = _c_inner_right - _c_lbl_x - _c_lbl_w
+
+        pdf.set_text_color(*INK)
+        pdf.set_font("DejaVu", "B", 14.7)
+        for _i, (_cl, _cv) in enumerate(_money_rows):
+            pdf.set_xy(_c_lbl_x, _c_totals_y + 5.5 + _i * 8.2)
+            pdf.cell(_c_lbl_w, 6.6, _cl)
+            pdf.cell(_c_val_w, 6.6, _cv, align="R", ln=True)
+        if _money_rows:
+            pdf.set_draw_color(*LINE)
+            pdf.line(_c_lbl_x, _c_totals_y + _divider_y, _c_inner_right, _c_totals_y + _divider_y)
+        pdf.set_xy(_c_lbl_x, _c_totals_y + _total_y_offset)
+        pdf.set_font("DejaVu", "B", 17.8)
+        pdf.cell(_c_lbl_w, 7.5, "TOTAL")
+        pdf.set_text_color(*GREEN)
+        pdf.cell(_c_val_w, 7.5, money_pdf(quote.get("total", 0)), align="R", ln=True)
+
+        pdf.set_auto_page_break(True, margin=18)
+        pdf.set_y(_c_summary_y + _c_summary_h + 6)
 
     # 1. Bloque de Alcance (va antes que el titulo "Detalle de partidas")
     pdf.set_fill_color(*SOFT)
