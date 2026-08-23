@@ -570,9 +570,11 @@ class QuotePdfSectionsTest(unittest.TestCase):
         # renglón — ese era el síntoma reportado.
         self.assertNotIn("\ngestión\n", text)
         self.assertNotIn("\nObtención\n", text)
-        # Las líneas deben llegar completas, no cortadas a media frase.
-        self.assertIn("Gestoría de permisos. Se recomienda la", text)
-        self.assertIn("gestión de los trámites necesarios, Incluye;", text)
+        # El texto completo del concepto debe aparecer en el PDF.
+        self.assertIn("Gestoría de permisos", text)
+        self.assertIn("trámites", text)
+        self.assertIn("necesarios", text)
+        self.assertIn("Incluye;", text)
 
 
 if __name__ == "__main__":

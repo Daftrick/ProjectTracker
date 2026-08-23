@@ -73,8 +73,8 @@ def _register_dejavu(pdf):
     y cae en DejaVu Sans si ninguna está disponible.
     Devuelve False sólo si ninguna fuente está disponible."""
     font_dir = os.path.join(os.path.dirname(__file__), "fonts")
-    inconsolata_reg  = os.path.join(font_dir, "Inconsolata-ExtraCondensedRegular.ttf")
-    inconsolata_bold = os.path.join(font_dir, "Inconsolata-ExtraCondensedBold.ttf")
+    inconsolata_reg  = os.path.join(font_dir, "Inconsolata-SemiCondensedRegular.ttf")
+    inconsolata_bold = os.path.join(font_dir, "Inconsolata-SemiCondensedBold.ttf")
     if os.path.isfile(inconsolata_reg) and os.path.isfile(inconsolata_bold):
         pdf.add_font("DejaVu", "",  inconsolata_reg,  uni=True)
         pdf.add_font("DejaVu", "B", inconsolata_bold, uni=True)
