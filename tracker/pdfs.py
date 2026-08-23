@@ -1178,10 +1178,10 @@ def build_quote_pdf(project, quote, output_path=None):
     else:
         scope_paragraphs = quote_scope_paragraphs()
     scope_text_h = sum(wrapped_height(paragraph, scope_inner_w, 4.3) for paragraph in scope_paragraphs)
-    scope_h = 10 + scope_text_h + (len(scope_paragraphs) - 1) * 1.4 + 6
+    scope_h = 8 + scope_text_h + (len(scope_paragraphs) - 1) * 1.4 + 3
     scope_y = pdf.get_y()
     pdf.rect(pdf.l_margin, scope_y, content_width, scope_h, style="DF")
-    pdf.set_xy(scope_inner_left, scope_y + 5)
+    pdf.set_xy(scope_inner_left, scope_y + 3)
     pdf.set_text_color(*INK)
     pdf.set_font("DejaVu", "B", 15.0)
     pdf.cell(0, 5, "Alcance", ln=True)
@@ -1192,7 +1192,7 @@ def build_quote_pdf(project, quote, output_path=None):
         if index != len(scope_paragraphs) - 1:
             pdf.ln(1.4)
             pdf.set_x(scope_inner_left)
-    pdf.set_y(scope_y + scope_h + 6)
+    pdf.set_y(scope_y + scope_h + 4)
 
     # 2. Titulo "Detalle de Partidas"
     section_title("Detalle de Partidas", "Desglose económico de conceptos incluidos en la propuesta.")

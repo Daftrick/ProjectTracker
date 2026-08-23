@@ -1159,6 +1159,8 @@ def quote_pdf_editor(project_id, quote_id):
             logo_url = "/static/" + logo_rel
     company_info_parts = [p for p in [company.get("address", ""), company.get("rut", "")] if p]
     company_info = "  ·  ".join(company_info_parts)
+    _ph = (company.get("portada_color") or "000000").lstrip("#")
+    portada_color_css = "#" + _ph
 
     return render_template(
         "quote_pdf_editor.html",
@@ -1177,6 +1179,7 @@ def quote_pdf_editor(project_id, quote_id):
         company_name=company.get("name") or "Project Tracker",
         company_info=company_info,
         logo_url=logo_url,
+        portada_color=portada_color_css,
         auto_pdf_preview=request.args.get("preview") == "pdf",
     )
 
