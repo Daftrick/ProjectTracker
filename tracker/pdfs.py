@@ -69,15 +69,23 @@ def _safe_text(text):
 
 def _register_dejavu(pdf):
     """Registra fuentes PDF bajo el nombre 'DejaVu'.
-    Prioriza Atkinson Hyperlegible Mono; cae en DejaVu Sans si no está disponible.
+    Prioriza Inconsolata ExtraCondensed, luego Atkinson Hyperlegible Mono,
+    y cae en DejaVu Sans si ninguna está disponible.
     Devuelve False sólo si ninguna fuente está disponible."""
     font_dir = os.path.join(os.path.dirname(__file__), "fonts")
+    inconsolata_reg  = os.path.join(font_dir, "Inconsolata-ExtraCondensedRegular.ttf")
+    inconsolata_bold = os.path.join(font_dir, "Inconsolata-ExtraCondensedBold.ttf")
+    if os.path.isfile(inconsolata_reg) and os.path.isfile(inconsolata_bold):
+        pdf.add_font("DejaVu", "",  inconsolata_reg,  uni=True)
+        pdf.add_font("DejaVu", "B", inconsolata_bold, uni=True)
+        pdf.add_font("DejaVu", "I", inconsolata_reg,  uni=True)
+        return True
     atkinson_reg  = os.path.join(font_dir, "AtkinsonHyperlegibleMono-Regular.ttf")
     atkinson_bold = os.path.join(font_dir, "AtkinsonHyperlegibleMono-Bold.ttf")
     if os.path.isfile(atkinson_reg) and os.path.isfile(atkinson_bold):
         pdf.add_font("DejaVu", "",  atkinson_reg,  uni=True)
         pdf.add_font("DejaVu", "B", atkinson_bold, uni=True)
-        pdf.add_font("DejaVu", "I", atkinson_reg,  uni=True)  # sin italic → usa regular
+        pdf.add_font("DejaVu", "I", atkinson_reg,  uni=True)
         return True
     regular = os.path.join(font_dir, "DejaVuSans.ttf")
     bold    = os.path.join(font_dir, "DejaVuSans-Bold.ttf")
