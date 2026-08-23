@@ -50,10 +50,9 @@
                   {% set _sp = specs.get('portada_spacing') or '40' %}
                   <option value="8"  {% if _sp == '8'  %}selected{% endif %}>Compacto</option>
                   <option value="24" {% if _sp == '24' %}selected{% endif %}>Reducido</option>
-                  <option value="40" {% if _sp == '40' or not specs.get('portada_spacing') %}selected{% endif %}>Normal</option>
-
+                  <option value="40" {% if _sp not in ('8', '24') %}selected{% endif %}>Normal</option>
                 </select>
-                <div class="form-text">Espacio vertical antes de los datos del cliente.</div>
+                <div class="form-text">Tamaño de la portada en el PDF.</div>
               </div>
             </div>
           </div>
