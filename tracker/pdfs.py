@@ -621,13 +621,13 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.ln(2)
 
     def add_signature_section():
-        block_h = 28
-        top = max(pdf.get_y() + 8, pdf.h - pdf.b_margin - block_h)
+        block_h = 22
+        top = max(pdf.get_y() + 4, pdf.h - pdf.b_margin - block_h)
         if top + block_h > pdf.h - pdf.b_margin:
             pdf.add_page()
             top = pdf.h - pdf.b_margin - block_h
 
-        line_y = top + 10
+        line_y = top + 6
         left_x = 24
         right_x = 116
         line_w = 70
