@@ -966,7 +966,7 @@ def build_quote_pdf(project, quote, output_path=None):
         _sep_y = _info_y + 1
         pdf.line(pdf.l_margin, _sep_y, pdf.l_margin + content_width, _sep_y)
 
-        _r_summary_h = max(44, totals_box_h + 4)
+        _r_summary_h = max(50, totals_box_h + 4)
         _r_summary_y = _sep_y + 4
         pdf.set_fill_color(*SOFT)
         pdf.rect(pdf.l_margin, _r_summary_y, content_width, _r_summary_h, style="F")
@@ -981,13 +981,14 @@ def build_quote_pdf(project, quote, output_path=None):
         _r_left_x = 7
         _r_left_w = _r_totals_x - _r_left_x - 6
 
+        # PROYECTO
         pdf.set_xy(_r_left_x, _r_summary_y + 4)
         pdf.set_text_color(*MUTED)
-        pdf.set_font("DejaVu", "B", 7.0)
-        pdf.cell(_r_left_w, 3.2, "PROYECTO", ln=True)
+        pdf.set_font("DejaVu", "B", 8.5)
+        pdf.cell(_r_left_w, 3.5, "PROYECTO", ln=True)
         pdf.set_x(_r_left_x)
         pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "", 12.0)
+        pdf.set_font("DejaVu", "", 13.5)
         _pname_safe = _safe_text(project_name)
         _l1, _l2 = [], []
         _filling = _l1
@@ -1004,31 +1005,35 @@ def build_quote_pdf(project, quote, output_path=None):
         for _pline in (_l1, _l2):
             if _pline:
                 pdf.set_x(_r_left_x)
-                pdf.cell(_r_left_w, 5.0, " ".join(_pline), ln=True)
+                pdf.cell(_r_left_w, 5.5, " ".join(_pline), ln=True)
 
-        pdf.set_xy(_r_left_x, _r_summary_y + 20)
+        # COTIZACIÓN
+        pdf.set_xy(_r_left_x, _r_summary_y + 22)
         pdf.set_text_color(*MUTED)
-        pdf.set_font("DejaVu", "B", 7.0)
-        pdf.cell(_r_left_w, 3.2, "COTIZACIÓN", ln=True)
+        pdf.set_font("DejaVu", "B", 8.5)
+        pdf.cell(_r_left_w, 3.5, "COTIZACIÓN", ln=True)
         pdf.set_x(_r_left_x)
         pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "", 9.8)
-        pdf.cell(_r_left_w, 5.0, quote_number, ln=True)
+        pdf.set_font("DejaVu", "", 11.5)
+        pdf.cell(_r_left_w, 5.5, quote_number, ln=True)
 
-        _r_meta_y = _r_summary_y + 32
-        _r_col_w = _r_left_w / 3
+        # FECHA / MONEDA / VERSIÓN — columnas proporcionales (FECHA más ancha)
+        _r_meta_y = _r_summary_y + 35
+        _r_fecha_w = _r_left_w * 0.50
+        _r_moneda_w = _r_left_w * 0.25
+        _r_version_w = _r_left_w - _r_fecha_w - _r_moneda_w
         pdf.set_xy(_r_left_x, _r_meta_y)
         pdf.set_text_color(*MUTED)
-        pdf.set_font("DejaVu", "B", 6.5)
-        for _lbl in ("FECHA", "MONEDA", "VERSIÓN"):
-            pdf.cell(_r_col_w, 3.0, _lbl)
-        pdf.ln(3.0)
+        pdf.set_font("DejaVu", "B", 7.5)
+        for _lbl, _cw in (("FECHA", _r_fecha_w), ("MONEDA", _r_moneda_w), ("VERSIÓN", _r_version_w)):
+            pdf.cell(_cw, 3.2, _lbl)
+        pdf.ln(3.2)
         pdf.set_x(_r_left_x)
         pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "", 9.0)
+        pdf.set_font("DejaVu", "", 10.5)
         _r_ver = _safe_text(quote.get("version") or project.get("version") or "V1")
-        for _val in (quote_date, _safe_text(currency), _r_ver):
-            pdf.cell(_r_col_w, 4.5, _val)
+        for _val, _cw in ((quote_date, _r_fecha_w), (_safe_text(currency), _r_moneda_w), (_r_ver, _r_version_w)):
+            pdf.cell(_cw, 5.0, _val)
 
         _r_lbl_x = _r_totals_x + 8
         _r_inner_right = _r_totals_x + _r_totals_w - 8
