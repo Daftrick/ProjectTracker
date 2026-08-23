@@ -622,7 +622,7 @@ def build_quote_pdf(project, quote, output_path=None):
 
     def add_signature_section():
         block_h = 20
-        _sig_bottom = pdf.h - 16.5   # 2mm sobre la línea del footer (~pdf.h-14.5)
+        _sig_bottom = pdf.h - 15.5   # 1mm sobre la línea del footer (~pdf.h-14.5)
         top = max(pdf.get_y() + 4, _sig_bottom - block_h)
         if top + block_h > _sig_bottom:
             pdf.add_page()
