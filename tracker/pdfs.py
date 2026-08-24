@@ -905,7 +905,7 @@ def build_quote_pdf(project, quote, output_path=None):
 
         pdf.set_auto_page_break(True, margin=18)
         pdf.add_page()
-        pdf.set_y(13.5)
+        pdf.set_y(13.75)
 
     elif _cover_mode == "reducido":
         # ── Portada Reducido: logo izq, info der dentro del banner; alcance misma hoja ──
