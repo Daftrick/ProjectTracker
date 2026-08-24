@@ -284,13 +284,13 @@ def build_quote_pdf(project, quote, output_path=None):
             self.set_draw_color(*LINE)
             self.line(left, 13, right, 13)
             self.set_xy(left, 6)
-            self.set_font(FONT, "", 12.8)
+            self.set_font(FONT, "", 10.0)
             date_w = self.get_string_width(_safe_text(self.quote_date)) + 5
             name_w = cw - date_w
-            self.set_font(FONT, "", 13.4)
+            self.set_font(FONT, "", 10.0)
             self.set_text_color(*NAVY)
             self.cell(name_w, 6, _safe_text(self.project_name))
-            self.set_font(FONT, "", 12.8)
+            self.set_font(FONT, "", 10.0)
             self.set_text_color(*MUTED)
             self.cell(date_w, 6, _safe_text(self.quote_date), align="R")
             self.ln(10)
@@ -301,7 +301,7 @@ def build_quote_pdf(project, quote, output_path=None):
             self.set_y(-13)
             self.set_draw_color(*LINE)
             self.line(left, self.get_y() - 1.5, right, self.get_y() - 1.5)
-            self.set_font(FONT, "", 12.0)
+            self.set_font(FONT, "", 10.0)
             self.set_text_color(*MUTED)
             self.cell(0, 5, f"{_cached_company_name}  ·  Página {self.page_no()}/{{nb}}", align="C")
 
@@ -611,11 +611,11 @@ def build_quote_pdf(project, quote, output_path=None):
     def section_title(title, subtitle=None):
         pdf.set_x(pdf.l_margin)
         pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "B", 18.0)
+        pdf.set_font("DejaVu", "B", 20.0)
         pdf.cell(content_width, 7, _safe_text(title), ln=True)
         if subtitle:
             pdf.set_x(pdf.l_margin)
-            pdf.set_font("DejaVu", "", 13.4)
+            pdf.set_font("DejaVu", "", 15.0)
             pdf.set_text_color(*MUTED)
             pdf.multi_cell(content_width, 4.5, _safe_text(subtitle))
         pdf.ln(2)
@@ -638,13 +638,13 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.line(right_x, line_y, right_x + line_w, line_y)
 
         pdf.set_text_color(*MUTED)
-        pdf.set_font("DejaVu", "", 11.0)
+        pdf.set_font("DejaVu", "", 10.0)
         pdf.set_xy(left_x, line_y + 2.5)
         pdf.cell(line_w, 4.5, "Cliente / Aceptación", align="C")
         pdf.set_xy(right_x, line_y + 2.5)
         pdf.cell(line_w, 4.5, _cached_company_name, align="C")
 
-        pdf.set_font("DejaVu", "", 10.0)
+        pdf.set_font("DejaVu", "", 8.0)
         pdf.set_xy(left_x, line_y + 7.2)
         pdf.cell(line_w, 4, "Nombre, Firma y Fecha", align="C")
         pdf.set_xy(right_x, line_y + 7.2)
@@ -737,7 +737,7 @@ def build_quote_pdf(project, quote, output_path=None):
         else:
             pdf.set_text_color(*_banner_ink)
             pdf.set_xy(pdf.l_margin, 28)
-            pdf.set_font("DejaVu", "B", 27.0)
+            pdf.set_font("DejaVu", "B", 25.0)
             pdf.cell(0, 8, _cached_company_name)
             contact_y = 48
             _contacts_on_dark = True
@@ -747,7 +747,7 @@ def build_quote_pdf(project, quote, output_path=None):
                 pdf.set_text_color(255, 255, 255)
             else:
                 pdf.set_text_color(*MUTED)
-            pdf.set_font("DejaVu", "", 12.7)
+            pdf.set_font("DejaVu", "", 12.5)
             for line in cover_contact_lines:
                 pdf.set_xy(pdf.l_margin, contact_y)
                 pdf.cell(content_width, 4.6, _safe_text(line), align="R")
@@ -756,13 +756,13 @@ def build_quote_pdf(project, quote, output_path=None):
         _caddr_y = max(contact_y + 2, 88) if not _contacts_on_dark else 115
         if _cinfo:
             pdf.set_text_color(*MUTED)
-            pdf.set_font("DejaVu", "", 12.0)
+            pdf.set_font("DejaVu", "", 10.0)
             pdf.set_xy(pdf.l_margin, _caddr_y)
             pdf.cell(content_width, 4.5, _safe_text(_cinfo), align="R")
             _caddr_y += 5
         if _ccontact:
             pdf.set_text_color(*MUTED)
-            pdf.set_font("DejaVu", "", 12.0)
+            pdf.set_font("DejaVu", "", 10.0)
             pdf.set_xy(pdf.l_margin, _caddr_y)
             pdf.cell(content_width, 4.5, _safe_text(_ccontact), align="R")
             _caddr_y += 5
@@ -770,34 +770,34 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.line(pdf.l_margin, _sep_y, pdf.l_margin + content_width, _sep_y)
         pdf.set_xy(pdf.l_margin, _sep_y + 10)
         pdf.set_text_color(*NAVY)
-        pdf.set_font("DejaVu", "B", 13.4)
+        pdf.set_font("DejaVu", "B", 15.0)
         pdf.cell(0, 5, "PROPUESTA ECONÓMICA")
         pdf.set_xy(pdf.l_margin, _sep_y + 20)
         pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "B", 27.0)
+        pdf.set_font("DejaVu", "B", 30.0)
         pdf.multi_cell(content_width, 8, _safe_text(cover_title))
         if cover_basis_note:
             pdf.ln(1)
             pdf.set_x(pdf.l_margin)
             pdf.set_text_color(*NAVY_2)
-            pdf.set_font("DejaVu", "", 15.8)
+            pdf.set_font("DejaVu", "", 15.0)
             pdf.multi_cell(content_width, 5.3, _safe_text(cover_basis_note))
         if cover_subtitle:
             pdf.ln(1)
             pdf.set_x(pdf.l_margin)
             pdf.set_text_color(*NAVY_2)
-            pdf.set_font("DejaVu", "B", 15.8)
+            pdf.set_font("DejaVu", "B", 15.0)
             pdf.cell(0, 5.5, _safe_text(cover_subtitle), ln=True)
         if proposal_for:
             proposal_label, proposal_value = proposal_for
             proposal_y = max(168, pdf.get_y() + 7)
             pdf.set_xy(pdf.l_margin, proposal_y)
             pdf.set_text_color(*MUTED)
-            pdf.set_font("DejaVu", "", 16.4)
+            pdf.set_font("DejaVu", "", 17.5)
             pdf.cell(0, 6, _safe_text(proposal_label))
             pdf.set_xy(pdf.l_margin, proposal_y + 9)
             pdf.set_text_color(*INK)
-            pdf.set_font("DejaVu", "B", 22.4)
+            pdf.set_font("DejaVu", "B", 20.0)
             pdf.multi_cell(content_width, 7, _safe_text(proposal_value))
         summary_x = pdf.l_margin
         summary_y = 221
@@ -818,12 +818,12 @@ def build_quote_pdf(project, quote, output_path=None):
         label_h = 3.8
         value_h = 5.8
 
-        def info_label(text, width=None, ln=False, size=8):
+        def info_label(text, width=None, ln=False, size=10):
             pdf.set_text_color(*MUTED)
             pdf.set_font("DejaVu", "B", size)
             pdf.cell(width if width is not None else left_w, label_h, text, ln=ln)
 
-        def info_value(text, width=None, ln=False, size=9.8):
+        def info_value(text, width=None, ln=False, size=10):
             pdf.set_text_color(*INK)
             pdf.set_font("DejaVu", "", size)
             pdf.cell(width if width is not None else left_w, value_h, text, ln=ln)
@@ -832,7 +832,7 @@ def build_quote_pdf(project, quote, output_path=None):
         info_label("PROYECTO", ln=True)
         pdf.set_x(left_x)
         pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "", 14.7)
+        pdf.set_font("DejaVu", "", 15.0)
         _pname_safe = _safe_text(project_name)
         _l1, _l2 = [], []
         _filling = _l1
@@ -854,20 +854,20 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.set_xy(left_x, summary_y + 24)
         info_label("COTIZACIÓN", ln=True)
         pdf.set_x(left_x)
-        info_value(quote_number, ln=True)
+        info_value(quote_number, size=15, ln=True)
 
         pdf.set_font("DejaVu", "", 14.7)
         moneda_w = 14
         fecha_w = 55
         version_w = left_w - moneda_w - fecha_w
         _date_str_w = pdf.get_string_width(quote_date)
-        fecha_font_sz = 9.8 if _date_str_w + 1 <= fecha_w else max(7.0, round(9.8 * fecha_w / (_date_str_w + 1), 1))
+        fecha_font_sz = 10.0 if _date_str_w + 1 <= fecha_w else max(7.0, round(10.0 * fecha_w / (_date_str_w + 1), 1))
         moneda_x = left_x
         fecha_x = moneda_x + moneda_w
         version_x = fecha_x + fecha_w
 
         label_y = summary_y + 43
-        label_size = 7
+        label_size = 7.5
         pdf.set_xy(moneda_x, label_y)
         info_label("MONEDA", width=moneda_w, size=label_size)
         pdf.set_x(fecha_x)
@@ -889,7 +889,7 @@ def build_quote_pdf(project, quote, output_path=None):
         row_h = 6.6
 
         pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "B", 16.2)
+        pdf.set_font("DejaVu", "B", 17.5)
         for _i, (_row_label, _row_value) in enumerate(_money_rows):
             pdf.set_xy(label_x, totals_box_y + 5.5 + _i * 8.2)
             pdf.cell(label_w, row_h, _row_label)
@@ -898,7 +898,7 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.set_draw_color(*LINE)
             pdf.line(label_x, totals_box_y + _divider_y, inner_right, totals_box_y + _divider_y)
         pdf.set_xy(label_x, totals_box_y + _total_y_offset)
-        pdf.set_font("DejaVu", "B", 19.8)
+        pdf.set_font("DejaVu", "B", 20.0)
         pdf.cell(label_w, 7.5, "TOTAL")
         pdf.set_text_color(*GREEN)
         pdf.cell(value_w, 7.5, money_pdf(quote.get("total", 0)), align="R", ln=True)
@@ -923,7 +923,7 @@ def build_quote_pdf(project, quote, output_path=None):
         else:
             pdf.set_text_color(*_banner_ink)
             pdf.set_xy(pdf.l_margin, 18)
-            pdf.set_font("DejaVu", "B", 18.7)
+            pdf.set_font("DejaVu", "B", 17.5)
             pdf.cell(_logo_col_w, 7, _cached_company_name)
 
         # Columna derecha: etiqueta + título + cliente
@@ -940,7 +940,7 @@ def build_quote_pdf(project, quote, output_path=None):
         if cover_basis_note:
             pdf.set_x(_txt_x)
             pdf.set_text_color(*_banner_sub)
-            pdf.set_font("DejaVu", "", 11.0)
+            pdf.set_font("DejaVu", "", 10.0)
             pdf.multi_cell(_txt_w, 4.0, _safe_text(cover_basis_note))
 
         if proposal_for:
@@ -948,11 +948,11 @@ def build_quote_pdf(project, quote, output_path=None):
             _prop_y = min(pdf.get_y() + 2, _banner_h - 12)
             pdf.set_xy(_txt_x, _prop_y)
             pdf.set_text_color(*_banner_sub)
-            pdf.set_font("DejaVu", "", 11.0)
+            pdf.set_font("DejaVu", "", 10.0)
             pdf.cell(_txt_w, 4.0, _safe_text(proposal_label))
             pdf.set_xy(_txt_x, _prop_y + 5)
             pdf.set_text_color(*_banner_ink)
-            pdf.set_font("DejaVu", "B", 14.7)
+            pdf.set_font("DejaVu", "B", 12.5)
             pdf.multi_cell(_txt_w, 5.0, _safe_text(proposal_value))
 
         # Franja de info debajo del banner + separador
@@ -960,7 +960,7 @@ def build_quote_pdf(project, quote, output_path=None):
         _info_y = _banner_h + 2
         if _cinfo:
             pdf.set_text_color(*MUTED)
-            pdf.set_font("DejaVu", "", 11.0)
+            pdf.set_font("DejaVu", "", 10.0)
             pdf.set_xy(pdf.l_margin, _info_y)
             pdf.cell(content_width, 4.0, _safe_text(_cinfo), align="R")
             _info_y += 4.5
@@ -985,11 +985,11 @@ def build_quote_pdf(project, quote, output_path=None):
         # PROYECTO
         pdf.set_xy(_r_left_x, _r_summary_y + 4)
         pdf.set_text_color(*MUTED)
-        pdf.set_font("DejaVu", "B", 8.5)
+        pdf.set_font("DejaVu", "B", 10.0)
         pdf.cell(_r_left_w, 3.5, "PROYECTO", ln=True)
         pdf.set_x(_r_left_x)
         pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "", 13.5)
+        pdf.set_font("DejaVu", "", 15.0)
         _pname_safe = _safe_text(project_name)
         _l1, _l2 = [], []
         _filling = _l1
@@ -1011,11 +1011,11 @@ def build_quote_pdf(project, quote, output_path=None):
         # COTIZACIÓN
         pdf.set_xy(_r_left_x, _r_summary_y + 22)
         pdf.set_text_color(*MUTED)
-        pdf.set_font("DejaVu", "B", 8.5)
+        pdf.set_font("DejaVu", "B", 10.0)
         pdf.cell(_r_left_w, 3.5, "COTIZACIÓN", ln=True)
         pdf.set_x(_r_left_x)
         pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "", 14.5)
+        pdf.set_font("DejaVu", "", 15.0)
         pdf.cell(_r_left_w, 5.5, quote_number, ln=True)
 
         # FECHA / MONEDA / VERSIÓN — columnas proporcionales (FECHA más ancha)
@@ -1031,7 +1031,7 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.ln(3.2)
         pdf.set_x(_r_left_x)
         pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "", 10.5)
+        pdf.set_font("DejaVu", "", 10.0)
         _r_ver = _safe_text(quote.get("version") or project.get("version") or "V1")
         for _val, _cw in ((quote_date, _r_fecha_w), (_safe_text(currency), _r_moneda_w), (_r_ver, _r_version_w)):
             pdf.cell(_cw, 5.0, _val)
@@ -1042,7 +1042,7 @@ def build_quote_pdf(project, quote, output_path=None):
         _r_val_w = _r_inner_right - _r_lbl_x - _r_lbl_w
 
         pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "B", 16.2)
+        pdf.set_font("DejaVu", "B", 17.5)
         for _i, (_rl, _rv) in enumerate(_money_rows):
             pdf.set_xy(_r_lbl_x, _r_totals_y + 5.5 + _i * 8.2)
             pdf.cell(_r_lbl_w, 6.6, _rl)
@@ -1051,7 +1051,7 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.set_draw_color(*LINE)
             pdf.line(_r_lbl_x, _r_totals_y + _divider_y, _r_inner_right, _r_totals_y + _divider_y)
         pdf.set_xy(_r_lbl_x, _r_totals_y + _total_y_offset)
-        pdf.set_font("DejaVu", "B", 19.8)
+        pdf.set_font("DejaVu", "B", 20.0)
         pdf.cell(_r_lbl_w, 7.5, "TOTAL")
         pdf.set_text_color(*GREEN)
         pdf.cell(_r_val_w, 7.5, money_pdf(quote.get("total", 0)), align="R", ln=True)
@@ -1086,17 +1086,17 @@ def build_quote_pdf(project, quote, output_path=None):
         if pdf.get_y() > 24:
             pdf.ln(pre_ln)
         pdf.set_text_color(*INK)
-        pdf.set_font("DejaVu", "B", 19.0)
+        pdf.set_font("DejaVu", "B", 20.0)
         pdf.cell(content_width, 7, section_title_str, ln=True)
         pdf.set_x(pdf.l_margin)
-        pdf.set_font("DejaVu", "", 14.1)
+        pdf.set_font("DejaVu", "", 15.0)
         pdf.ln(post_ln)
         for title, body in blocks:
             pdf.set_x(pdf.l_margin)
-            pdf.set_font("DejaVu", "B", 13.8)
+            pdf.set_font("DejaVu", "B", 15.0)
             pdf.multi_cell(content_width, 5, _safe_text(title) + (":" if colon else ""))
             pdf.set_x(pdf.l_margin)
-            pdf.set_font("DejaVu", "", 13.8)
+            pdf.set_font("DejaVu", "", 15.0)
             pdf.multi_cell(content_width, 5, _safe_text(body))
             pdf.ln(round(13.8 * 25.4 / 72 / 2, 1))
 
@@ -1120,7 +1120,7 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.set_font("DejaVu", "B", 15.0)
     pdf.cell(0, 5, "Alcance", ln=True)
     pdf.set_x(scope_inner_left)
-    pdf.set_font("DejaVu", "", 13.2)
+    pdf.set_font("DejaVu", "", 12.5)
     for index, paragraph in enumerate(scope_paragraphs):
         pdf.multi_cell(scope_inner_w, 4.3, _safe_text(paragraph))
         if index != len(scope_paragraphs) - 1:
@@ -1132,7 +1132,7 @@ def build_quote_pdf(project, quote, output_path=None):
     section_title("Detalle de Partidas", "Desglose económico de conceptos incluidos en la propuesta.")
     cols = table_header()
     pdf.set_text_color(*INK)
-    pdf.set_font("DejaVu", "", 12.9)
+    pdf.set_font("DejaVu", "", 12.5)
     item_index = 0
 
     for section in quote_section_groups(items):
@@ -1141,12 +1141,12 @@ def build_quote_pdf(project, quote, output_path=None):
             ensure_space(10, with_table_header=True)
             pdf.set_fill_color(*INK)
             pdf.set_text_color(255, 255, 255)
-            pdf.set_font("DejaVu", "B", 13.2)
+            pdf.set_font("DejaVu", "B", 12.5)
             pdf.set_x(pdf.l_margin)
             pdf.multi_cell(sum(cols), 7, section_name.upper(), fill=True, align="L")
             pdf.set_x(pdf.l_margin)
             pdf.set_text_color(*INK)
-            pdf.set_font("DejaVu", "", 12.9)
+            pdf.set_font("DejaVu", "", 12.5)
 
         for item in section.get("items", []):
             item_index += 1
@@ -1252,7 +1252,7 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.set_font("DejaVu", "B", 15.0)  # numero de fila
             pdf.set_text_color(*INK)
             pdf.cell(cols[0], 5.5, str(item_index), align="C")
-            pdf.set_font("DejaVu", "", 12.9)
+            pdf.set_font("DejaVu", "", 12.5)
             pdf.set_y(row_y + row_h)
 
         if section_name:
@@ -1265,7 +1265,7 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.set_font("DejaVu", "B", 12.0)
             pdf.cell(label_width, 6.6, "SUBTOTAL SECCIÓN", border="T", align="R")
             pdf.cell(value_width, 6.6, money_pdf(section.get("subtotal", 0)), border="T", align="C", ln=True)
-            pdf.set_font("DejaVu", "", 12.9)
+            pdf.set_font("DejaVu", "", 12.5)
 
     # ── Totales generales ──────────────────────────────────────────
     _subtotal  = quote.get("subtotal", 0)
@@ -1308,7 +1308,7 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.ln(5)
         _gy = pdf.get_y()
         pdf.set_text_color(*MUTED)
-        pdf.set_font("DejaVu", "", 12.9)
+        pdf.set_font("DejaVu", "", 12.5)
         for _i, (_row_label, _row_value) in enumerate(_total_rows):
             pdf.set_xy(_tot_x, _gy)
             _border = "T" if _i == 0 else ""
@@ -1321,7 +1321,7 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.cell(_tot_lbl_w, 7, "TOTAL", align="R")
         pdf.cell(_tot_val_w, 7, money_pdf(_total), align="R")
         pdf.set_y(_gy + 7)
-    pdf.set_font("DejaVu", "", 12.9)
+    pdf.set_font("DejaVu", "", 12.5)
     pdf.set_text_color(*INK)
 
     _nota_precio = str(_specs.get("nota_precio") or "").strip()
@@ -1329,7 +1329,7 @@ def build_quote_pdf(project, quote, output_path=None):
         ensure_space(8)
         pdf.ln(2)
         pdf.set_text_color(*MUTED)
-        pdf.set_font("DejaVu", "", 12.3)
+        pdf.set_font("DejaVu", "", 12.5)
         pdf.set_x(pdf.l_margin)
         pdf.multi_cell(content_width, 4.5, _safe_text(_nota_precio), align="R")
         pdf.ln(1)
@@ -1761,7 +1761,7 @@ def build_ldm_pdf(project, ldm, output_path=None):
 
     table_header()
     pdf.set_text_color(*INK)
-    pdf.set_font("DejaVu", "", 12.9)
+    pdf.set_font("DejaVu", "", 12.5)
 
     for item_index, item in enumerate(items, start=1):
         # 1. Smart render text con NBSP (atomos no-breakeables; fpdf2 solo
@@ -1837,7 +1837,7 @@ def build_ldm_pdf(project, ldm, output_path=None):
         pdf.set_font("DejaVu", "B", 15.0)  # numero de fila
         pdf.set_text_color(*INK)
         pdf.cell(cols[0], 5.5, str(item_index), align="C")
-        pdf.set_font("DejaVu", "", 12.9)
+        pdf.set_font("DejaVu", "", 12.5)
         pdf.set_y(row_y + row_h)
 
     # Subtotal cotizado (solo cuando hay precios)
