@@ -1113,11 +1113,12 @@ def build_quote_pdf(project, quote, output_path=None):
         scope_paragraphs = quote_scope_paragraphs()
     pdf.set_font("DejaVu", "", 12.5)  # fijar fuente antes de medir para wrapping correcto
     scope_text_h = sum(wrapped_height(paragraph, scope_inner_w, 4.3) for paragraph in scope_paragraphs)
-    _scope_pad = 4.3   # padding simétrico: arriba, abajo e inter-párrafo = interlineado
-    scope_h = (_scope_pad + 10.0) + scope_text_h + (len(scope_paragraphs) - 1) * _scope_pad + _scope_pad
+    _scope_pad = 4.3   # inter-párrafo y padding inferior = interlineado
+    _scope_top = 2.0   # padding superior (más compacto)
+    scope_h = (_scope_top + 10.0) + scope_text_h + (len(scope_paragraphs) - 1) * _scope_pad + _scope_pad
     scope_y = pdf.get_y()
     pdf.rect(pdf.l_margin, scope_y, content_width, scope_h, style="DF")
-    pdf.set_xy(scope_inner_left, scope_y + _scope_pad)
+    pdf.set_xy(scope_inner_left, scope_y + _scope_top)
     pdf.set_text_color(*INK)
     pdf.set_font("DejaVu", "B", 15.0)
     pdf.cell(0, 10.0, "Alcance", ln=True)
