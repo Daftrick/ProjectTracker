@@ -1112,7 +1112,7 @@ def build_quote_pdf(project, quote, output_path=None):
     else:
         scope_paragraphs = quote_scope_paragraphs()
     scope_text_h = sum(wrapped_height(paragraph, scope_inner_w, 4.3) for paragraph in scope_paragraphs)
-    scope_h = 8 + scope_text_h + (len(scope_paragraphs) - 1) * 1.4 + 3
+    scope_h = 8 + scope_text_h + (len(scope_paragraphs) - 1) * 1.5 + 3
     scope_y = pdf.get_y()
     pdf.rect(pdf.l_margin, scope_y, content_width, scope_h, style="DF")
     pdf.set_xy(scope_inner_left, scope_y + 3)
