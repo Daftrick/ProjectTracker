@@ -207,18 +207,10 @@
     <div class="d-flex align-items-center justify-content-between px-3 py-2 flex-shrink-0"
          style="background:#131c33;border-bottom:1px solid rgba(255,255,255,.12);">
       <span class="text-muted" style="font-size:.78rem;">Vista previa</span>
-      <div class="btn-group btn-group-sm" role="group">
-        <button id="btnToggleHtml" type="button" class="btn btn-primary btn-sm">
-          <i class="bi bi-layout-text-sidebar me-1"></i>HTML
-        </button>
-        <button id="btnTogglePdf" type="button" class="btn btn-outline-secondary btn-sm">
-          <i class="bi bi-file-pdf me-1"></i>PDF real
-        </button>
-      </div>
     </div>
 
-    {# HTML preview wrapper #}
-    <div id="htmlPreviewOuter" class="overflow-auto flex-grow-1">
+    {# HTML preview wrapper (oculto) #}
+    <div id="htmlPreviewOuter" class="overflow-auto flex-grow-1" style="display:none">
     <div class="d-flex justify-content-center py-4 px-2">
 
       {# Wrapper A4 #}
@@ -439,8 +431,8 @@
     </div>{# /htmlPreviewOuter #}
 
     {# PDF iframe wrapper (oculto por defecto) #}
-    <div id="pdfIframeOuter" class="flex-grow-1" style="display:none;">
-      <iframe id="pdfIframe" style="width:100%;height:100%;border:none;" src=""></iframe>
+    <div id="pdfIframeOuter" class="flex-grow-1">
+      <iframe id="pdfIframe" style="width:100%;height:100%;border:none;" src="{{ url_for('quotes_bp.quote_pdf', project_id=project.id, quote_id=quote.id, inline='1') }}"></iframe>
     </div>
 
   </div>{# /preview panel #}
@@ -596,34 +588,7 @@
     });
   })();
 
-  // ── Toggle HTML / PDF real ──────────────────────────────────────────────────
-  var PDF_INLINE_URL = {{ url_for('quotes_bp.quote_pdf', project_id=project.id, quote_id=quote.id, inline='1') | tojson }};
-  var pdfIframeLoaded = false;
-
-  function showHtmlPreview() {
-    document.getElementById("htmlPreviewOuter").style.display = "";
-    document.getElementById("pdfIframeOuter").style.display = "none";
-    document.getElementById("btnToggleHtml").className = "btn btn-primary btn-sm";
-    document.getElementById("btnTogglePdf").className = "btn btn-outline-secondary btn-sm";
-  }
-
-  function showPdfPreview() {
-    document.getElementById("htmlPreviewOuter").style.display = "none";
-    document.getElementById("pdfIframeOuter").style.display = "";
-    document.getElementById("btnToggleHtml").className = "btn btn-outline-secondary btn-sm";
-    document.getElementById("btnTogglePdf").className = "btn btn-primary btn-sm";
-    if (!pdfIframeLoaded) {
-      document.getElementById("pdfIframe").src = PDF_INLINE_URL;
-      pdfIframeLoaded = true;
-    }
-  }
-
-  document.getElementById("btnToggleHtml").addEventListener("click", showHtmlPreview);
-  document.getElementById("btnTogglePdf").addEventListener("click", showPdfPreview);
-
-  if ({{ auto_pdf_preview | tojson }}) {
-    showPdfPreview();
-  }
+  // PDF siempre visible — visor HTML eliminado
 
 })();
 </script>
