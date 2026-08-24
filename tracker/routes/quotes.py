@@ -542,12 +542,14 @@ def quote_pdf(project_id, quote_id):
     inline = request.args.get("inline") == "1"
     try:
         pdf_bytes = build_quote_pdf(project, hydrated)
-        return send_file(
+        resp = send_file(
             BytesIO(pdf_bytes),
             as_attachment=not inline,
             download_name=pdf_name,
             mimetype="application/pdf",
         )
+        resp.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
+        return resp
     except Exception as exc:
         flash(f"Error al generar PDF: {exc}", "danger")
         return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
@@ -1181,6 +1183,7 @@ def quote_pdf_editor(project_id, quote_id):
         logo_url=logo_url,
         portada_color=portada_color_css,
         auto_pdf_preview=request.args.get("preview") == "pdf",
+        pdf_ts=int(__import__("time").time()),
     )
 
 

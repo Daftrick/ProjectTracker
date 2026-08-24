@@ -432,7 +432,7 @@
 
     {# PDF iframe wrapper (oculto por defecto) #}
     <div id="pdfIframeOuter" class="flex-grow-1">
-      <iframe id="pdfIframe" style="width:100%;height:100%;border:none;" src="{{ url_for('quotes_bp.quote_pdf', project_id=project.id, quote_id=quote.id, inline='1') }}"></iframe>
+      <iframe id="pdfIframe" style="width:100%;height:100%;border:none;" src="{{ url_for('quotes_bp.quote_pdf', project_id=project.id, quote_id=quote.id, inline='1') }}&t={{ pdf_ts }}"></iframe>
     </div>
 
   </div>{# /preview panel #}
