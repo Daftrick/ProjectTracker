@@ -1,85 +1,90 @@
 # Community 13
 
-> 36 nodes · cohesion 0.09
+> 35 nodes · cohesion 0.11
 
 ## Key Concepts
 
-- [AdminRequiredTestCase](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L107) (17 connections)
-- [._login_as()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L133) (13 connections)
-- [get_company()](file:///Users/macbook/ProjectTracker/tracker/company_config.py#L15) (10 connections)
-- [get_project_templates()](file:///Users/macbook/ProjectTracker/tracker/templates_config.py#L17) (8 connections)
-- [._assert_no_admin_block()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L175) (6 connections)
-- [ProjectTemplatesTest](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py#L41) (6 connections)
-- [CompanyConfigTest](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py#L5) (5 connections)
-- [empresa()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L787) (4 connections)
-- [save_company()](file:///Users/macbook/ProjectTracker/tracker/company_config.py#L25) (4 connections)
-- [.test_cotizador_can_view_empresa_but_only_edit_address()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L255) (4 connections)
-- [templates_config.py](file:///Users/macbook/ProjectTracker/tracker/templates_config.py#L1) (4 connections)
-- [save_project_templates()](file:///Users/macbook/ProjectTracker/tracker/templates_config.py#L27) (3 connections)
-- [.test_admin_can_edit_all_empresa_fields()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L278) (3 connections)
-- [.test_cotizador_can_access_system_pages_except_admin_only_ones()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L230) (3 connections)
-- [.test_cotizador_can_delete_project_and_approve_quote()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L222) (3 connections)
-- [.test_cotizador_can_edit_and_delete_catalog_items()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L179) (3 connections)
-- [.test_cotizador_can_manage_proveedores_fichas_team()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L199) (3 connections)
-- [_company_logo_version()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L762) (2 connections)
-- [empresa_logo_file()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L774) (2 connections)
-- [.test_admin_can_access_empresa()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L144) (2 connections)
-- [.test_admin_can_access_export_and_reset_data()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L247) (2 connections)
-- [.test_admin_can_access_users()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L149) (2 connections)
-- [.test_cotizador_can_add_catalog_item_via_api()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L166) (2 connections)
-- [.test_cotizador_can_add_catalog_item_via_form()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L154) (2 connections)
-- [.test_cotizador_cannot_access_users()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L139) (2 connections)
-- *... and 11 more nodes in this community*
+- [next_quote_number()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L494) (13 connections)
+- [_q()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L16) (12 connections)
+- [approve_quote()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L137) (10 connections)
+- [migrate_quote_approval()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L99) (9 connections)
+- [NextQuoteNumberTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L129) (8 connections)
+- [ApproveQuoteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L23) (7 connections)
+- [._project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L130) (7 connections)
+- [quote_type_code()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L77) (5 connections)
+- [approve_quote_route()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L471) (5 connections)
+- [MigrateQuoteApprovalTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L87) (5 connections)
+- [ProyectoEjecutivoQuoteTypeTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L171) (5 connections)
+- [test_catalog_approval.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L1) (5 connections)
+- [quote_type_has_quantities()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L81) (4 connections)
+- [.test_approve_does_not_touch_other_project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L77) (3 connections)
+- [.test_approving_active_base_quote_toggles_it_off()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L70) (3 connections)
+- [.test_approving_extraordinaria_toggles_only_itself()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L48) (3 connections)
+- [.test_approving_obra_does_not_affect_proyecto_or_other_obra()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L58) (3 connections)
+- [.test_approving_proyecto_does_not_affect_obra_or_servicio()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L24) (3 connections)
+- [.test_approving_proyecto_does_not_obsolete_other_proyecto()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L36) (3 connections)
+- [.test_already_has_status_not_touched()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L120) (3 connections)
+- [.test_each_type_migrates_independently()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L88) (3 connections)
+- [.test_extraordinaria_always_active()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L111) (3 connections)
+- [.test_two_proyecto_quotes_only_newest_active()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L101) (3 connections)
+- [.test_does_not_count_other_project_quotes()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L159) (3 connections)
+- [.test_first_proyecto_in_clean_project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L141) (3 connections)
+- *... and 10 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AdminRequiredTestCase {
-        +test_auth.py()
-        +.setUp()
-        +.tearDown()
-        +._login_as()
-        +.test_cotizador_cannot_access_users()
-        +.test_admin_can_access_empresa()
-        +.test_admin_can_access_users()
-        +.test_cotizador_can_add_catalog_item_via_form()
-        +.test_cotizador_can_add_catalog_item_via_api()
-        +._assert_no_admin_block()
+    class ApproveQuoteTest {
+        +test_catalog_approval.py()
+        +.test_approving_proyecto_does_not_affect_obra_or_servicio()
+        +.test_approving_proyecto_does_not_obsolete_other_proyecto()
+        +.test_approving_extraordinaria_toggles_only_itself()
+        +.test_approving_obra_does_not_affect_proyecto_or_other_obra()
+        +.test_approving_active_base_quote_toggles_it_off()
+        +.test_approve_does_not_touch_other_project()
     }
-    class CompanyConfigTest {
-        +test_company_templates.py()
-        +.test_returns_defaults_when_no_file()
-        +.test_merges_stored_values_over_defaults()
-        +.test_non_dict_storage_returns_defaults()
-        +.test_save_company_calls_storage()
+    class MigrateQuoteApprovalTest {
+        +test_catalog_approval.py()
+        +.test_each_type_migrates_independently()
+        +.test_two_proyecto_quotes_only_newest_active()
+        +.test_extraordinaria_always_active()
+        +.test_already_has_status_not_touched()
     }
-    class ProjectTemplatesTest {
-        +test_company_templates.py()
-        +.test_returns_defaults_when_no_file()
-        +.test_returns_defaults_when_empty_list()
-        +.test_returns_stored_templates()
-        +.test_default_templates_have_stages_list()
-        +.test_save_templates_calls_storage()
+    class NextQuoteNumberTest {
+        +test_catalog_approval.py()
+        +._project()
+        +.test_no_collision_preliminar_then_proyecto()
+        +.test_first_proyecto_in_clean_project()
+        +.test_obra_independent_counter()
+        +.test_servicio_counter()
+        +.test_does_not_count_other_project_quotes()
+        +.test_proyecto_ejecutivo_counter()
+    }
+    class ProyectoEjecutivoQuoteTypeTest {
+        +test_catalog_approval.py()
+        +.test_code_is_j_and_distinct_from_proyecto()
+        +.test_has_no_quantities()
+        +.test_is_a_base_quote_type()
+        +.test_approving_does_not_affect_other_types()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 22]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_auth.py](file:///Users/macbook/ProjectTracker/tests/test_auth.py)
-- [/Users/macbook/ProjectTracker/tests/test_company_templates.py](file:///Users/macbook/ProjectTracker/tests/test_company_templates.py)
-- [/Users/macbook/ProjectTracker/tracker/company_config.py](file:///Users/macbook/ProjectTracker/tracker/company_config.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
-- [/Users/macbook/ProjectTracker/tracker/templates_config.py](file:///Users/macbook/ProjectTracker/tracker/templates_config.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 101 (75%)
-- INFERRED: 34 (25%)
+- EXTRACTED: 104 (68%)
+- INFERRED: 49 (32%)
 - AMBIGUOUS: 0 (0%)
 
 ---

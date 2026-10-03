@@ -1,13 +1,12 @@
 # Community 45
 
-> 4 nodes · cohesion 0.50
+> 3 nodes · cohesion 1.00
 
 ## Key Concepts
 
-- [AutoCAD/LISP to App Workflow](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (2 connections)
-- [CSV de Plano (AutoCAD Export) Entity](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (2 connections)
-- [CSV Import API Routes (Pending)](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (1 connections)
-- [CSV Plano Filename Convention](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [main()](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py#L26) (2 connections)
+- [_run_graphify()](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py#L12) (2 connections)
+- [graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py#L1) (2 connections)
 
 ## Relationships
 
@@ -15,14 +14,12 @@
 
 ## Source Files
 
-- [REFERENCIA_ESTRUCTURAS_CSV.txt](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt)
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
-- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
+- [/Users/macbook/Documents/ProjectTracker/tools/graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py)
 
 ## Audit Trail
 
-- EXTRACTED: 4 (67%)
-- INFERRED: 2 (33%)
+- EXTRACTED: 6 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

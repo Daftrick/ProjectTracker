@@ -2,7 +2,7 @@ from datetime import date, datetime
 
 from .storage import load
 
-APP_VERSION = "v45.16"
+APP_VERSION = "v46.0"
 
 # IVA ya no es editable por cotización: sólo se activa/desactiva. Cuando está
 # activo se aplica esta tasa fija (ver validators.py / form_models.py).

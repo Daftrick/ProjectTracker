@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convierte un margen porcentual en un status discreto.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L66) (0 connections)
+- [Construye el workbook Excel de la cotización.      Devuelve (wb, filename) para](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py#L362) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

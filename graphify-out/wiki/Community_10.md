@@ -4,31 +4,31 @@
 
 ## Key Concepts
 
-- [build_project_detail_context()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L153) (24 connections)
-- [project_view.py](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L1) (18 connections)
-- [ProjectViewTest](file:///Users/macbook/ProjectTracker/tests/test_project_view.py#L13) (10 connections)
-- [build_quote_row_views()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L64) (9 connections)
-- [get_quote_status_labels()](file:///Users/macbook/ProjectTracker/tracker/quote_status_labels.py#L33) (9 connections)
-- [quote_status_view()](file:///Users/macbook/ProjectTracker/tracker/quote_status_labels.py#L56) (9 connections)
-- [QuoteStatusLabelsModelTest](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py#L47) (8 connections)
-- [build_consistency_view()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L124) (7 connections)
-- [save_quote_status_labels()](file:///Users/macbook/ProjectTracker/tracker/quote_status_labels.py#L48) (7 connections)
-- [QuoteRowNomenclatureUnificationTest](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py#L85) (7 connections)
-- [quote_status_labels.py](file:///Users/macbook/ProjectTracker/tracker/quote_status_labels.py#L1) (7 connections)
-- [QuoteStatusLabelsRouteTest](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py#L121) (6 connections)
-- [quote_status_labels_admin()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L968) (5 connections)
-- [build_ldm_row_views()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L49) (4 connections)
-- [build_task_row_views()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L104) (4 connections)
-- [all_quotes()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L987) (4 connections)
-- [.setUp()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py#L122) (4 connections)
-- [_deleted_catalog_items()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L33) (3 connections)
-- [.setUp()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py#L90) (3 connections)
-- [.test_custom_label_reflected_in_row_views()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py#L113) (3 connections)
-- [.setUp()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py#L48) (3 connections)
-- [.test_blank_values_fall_back_to_defaults()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py#L65) (3 connections)
-- [.test_quote_status_view_uses_saved_label()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py#L77) (3 connections)
-- [.test_save_and_get_roundtrip()](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py#L58) (3 connections)
-- [test_quote_status_labels.py](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py#L1) (3 connections)
+- [build_project_detail_context()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L153) (24 connections)
+- [project_view.py](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L1) (18 connections)
+- [ProjectViewTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_view.py#L13) (10 connections)
+- [build_quote_row_views()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L64) (9 connections)
+- [get_quote_status_labels()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L33) (9 connections)
+- [quote_status_view()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L56) (9 connections)
+- [QuoteStatusLabelsModelTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L47) (8 connections)
+- [build_consistency_view()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L124) (7 connections)
+- [save_quote_status_labels()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L48) (7 connections)
+- [QuoteRowNomenclatureUnificationTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L85) (7 connections)
+- [quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L1) (7 connections)
+- [QuoteStatusLabelsRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L121) (6 connections)
+- [quote_status_labels_admin()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L970) (5 connections)
+- [build_ldm_row_views()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L49) (4 connections)
+- [build_task_row_views()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L104) (4 connections)
+- [all_quotes()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L989) (4 connections)
+- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L122) (4 connections)
+- [_deleted_catalog_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L33) (3 connections)
+- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L90) (3 connections)
+- [.test_custom_label_reflected_in_row_views()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L113) (3 connections)
+- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L48) (3 connections)
+- [.test_blank_values_fall_back_to_defaults()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L65) (3 connections)
+- [.test_quote_status_view_uses_saved_label()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L77) (3 connections)
+- [.test_save_and_get_roundtrip()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L58) (3 connections)
+- [test_quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L1) (3 connections)
 - *... and 29 more nodes in this community*
 
 ## Class Diagram
@@ -81,11 +81,13 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_project_view.py](file:///Users/macbook/ProjectTracker/tests/test_project_view.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_project_view.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_view.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/project_view.py](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py)
 - [/Users/macbook/ProjectTracker/tests/test_quote_status_labels.py](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py)
-- [/Users/macbook/ProjectTracker/tracker/project_view.py](file:///Users/macbook/ProjectTracker/tracker/project_view.py)
 - [/Users/macbook/ProjectTracker/tracker/quote_status_labels.py](file:///Users/macbook/ProjectTracker/tracker/quote_status_labels.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

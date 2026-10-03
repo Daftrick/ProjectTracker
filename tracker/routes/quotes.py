@@ -1187,7 +1187,7 @@ def quote_pdf_editor(project_id, quote_id):
     )
 
 
-_QUOTE_TYPES = ("Proyecto", "Obra", "Servicio")
+_QUOTE_TYPES = ("Proyecto", "Obra", "Servicio", "Proyecto Ejecutivo")
 
 
 @bp.route("/plantillas-cotizacion", methods=["GET", "POST"], endpoint="quote_templates")

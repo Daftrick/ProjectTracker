@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Muestra la vista de mapeo ítem-PDF → catálogo.](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Croutes%5Cmaterials.py#L645) (0 connections)
+- [Remove an item by catalog_item_id from the mobile draft.      Returns (updated_q](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cservices.py#L102) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [C:\Users\daftr\My Drive\Omniious\Claude Code\ProjectTracker\tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Croutes%5Cmaterials.py)
+- [tracker\services.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cservices.py)
 
 ## Audit Trail
 

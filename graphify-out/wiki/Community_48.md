@@ -1,25 +1,23 @@
 # Community 48
 
-> 3 nodes · cohesion 0.67
+> 2 nodes · cohesion 1.00
 
 ## Key Concepts
 
-- [Tech Stack Declaration](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
-- [Flask Dependency](file:///Users/macbook/ProjectTracker/requirements.txt) (1 connections)
-- [openpyxl Dependency](file:///Users/macbook/ProjectTracker/requirements.txt) (1 connections)
+- [Data Integrity Rules (R1-R7)](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [ProjectTracker System Rationale](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 50]] (2 shared connections)
 
 ## Source Files
 
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
-- [requirements.txt](file:///Users/macbook/ProjectTracker/requirements.txt)
+- [logica_cuantificaciones.txt](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 4 (100%)
+- EXTRACTED: 2 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

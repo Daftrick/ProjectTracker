@@ -41,6 +41,7 @@ QUOTE_TYPE_EXTRAORDINARIA = "Extraordinaria"
 QUOTE_TYPE_PROYECTO = "Proyecto"
 QUOTE_TYPE_OBRA = "Obra"
 QUOTE_TYPE_SERVICIO = "Servicio"
+QUOTE_TYPE_PROYECTO_EJECUTIVO = "Proyecto Ejecutivo"
 
 QUOTE_TYPE_ALIASES = {
     "general": QUOTE_TYPE_GENERAL,
@@ -50,6 +51,7 @@ QUOTE_TYPE_ALIASES = {
     "proyecto": QUOTE_TYPE_PROYECTO,
     "obra": QUOTE_TYPE_OBRA,
     "servicio": QUOTE_TYPE_SERVICIO,
+    "proyecto ejecutivo": QUOTE_TYPE_PROYECTO_EJECUTIVO,
 }
 
 QUOTE_TYPE_CODES = {
@@ -59,7 +61,12 @@ QUOTE_TYPE_CODES = {
     QUOTE_TYPE_PROYECTO: "P",
     QUOTE_TYPE_OBRA: "O",
     QUOTE_TYPE_SERVICIO: "S",
+    QUOTE_TYPE_PROYECTO_EJECUTIVO: "J",
 }
+
+# Tipos de cotización cuyos artículos no requieren cantidad ni unidad: el
+# renglón se vende a precio fijo tomado directo del catálogo (qty=1 implícito).
+QUOTE_TYPES_WITHOUT_QUANTITIES = (QUOTE_TYPE_PROYECTO_EJECUTIVO,)
 
 
 def quote_type_key(value):
@@ -71,6 +78,10 @@ def quote_type_code(value):
     return QUOTE_TYPE_CODES[quote_type_key(value)]
 
 
+def quote_type_has_quantities(value):
+    return quote_type_key(value) not in QUOTE_TYPES_WITHOUT_QUANTITIES
+
+
 # ── Estados de aprobación de cotizaciones ─────────────────────────────────────
 APPROVAL_DRAFT    = "draft"      # recién creada, sin decisión
 APPROVAL_ACTIVE   = "active"     # aprobada / en uso
@@ -80,7 +91,7 @@ APPROVAL_OBSOLETE = "obsolete"   # reemplazada por otra versión
 def is_base_quote_type(qtype):
     """Tipos base compiten entre sí (una activa por proyecto); Extraordinarias son independientes."""
     return quote_type_key(qtype) in (
-        QUOTE_TYPE_PROYECTO, QUOTE_TYPE_OBRA, QUOTE_TYPE_SERVICIO,
+        QUOTE_TYPE_PROYECTO, QUOTE_TYPE_OBRA, QUOTE_TYPE_SERVICIO, QUOTE_TYPE_PROYECTO_EJECUTIVO,
         QUOTE_TYPE_GENERAL, QUOTE_TYPE_PRELIMINAR,  # backward compat
     )
 

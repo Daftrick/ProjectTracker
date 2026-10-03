@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Mapa catalog_item_id → regla de ignorado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L56) (0 connections)
+- [Devuelve (linked_by_id, unlinked_summary).      `linked_by_id` mapea catalog_ite](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cconsistency.py#L87) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
+- [tracker\consistency.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cconsistency.py)
 
 ## Audit Trail
 

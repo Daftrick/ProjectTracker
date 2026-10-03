@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [__init__.py](file:///Users/macbook/ProjectTracker/tracker/routes/__init__.py#L1) (0 connections)
+- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L89) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/__init__.py](file:///Users/macbook/ProjectTracker/tracker/routes/__init__.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

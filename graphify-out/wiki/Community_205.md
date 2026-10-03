@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Agrega artículos a través de TODAS las LDMs del proyecto.      Devuelve (linked_](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L121) (0 connections)
+- [Calcula el siguiente número de versión para un bundle existente.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cbundles.py#L98) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [tracker\bundles.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

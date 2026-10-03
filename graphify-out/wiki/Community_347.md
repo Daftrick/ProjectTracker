@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [La cotización General más reciente; si no hay, la más reciente de cualquier tipo](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L77) (0 connections)
+- [Restore a deleted catalog item by reconnecting it to a new catalog item](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py#L500) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

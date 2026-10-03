@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [LDM CSV Import Preview Mode](file:///Users/macbook/ProjectTracker/templates/ldm_form.html) (0 connections)
+- [Parse a LISP-exported material list CSV into LDM draft data.      Args:](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py#L67) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/ldm_form.html](file:///Users/macbook/ProjectTracker/templates/ldm_form.html)
+- [tracker/csv_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py)
 
 ## Audit Trail
 

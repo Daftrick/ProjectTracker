@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [total = round(qty * price, 2) — sin acumulación de error flotante.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py#L374) (0 connections)
+- [Cobertura de los bundles reales en data/bundles.json.](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_bundles.py#L74) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_tube_fixtures.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py)
+- [tests\test_bundles.py](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_bundles.py)
 
 ## Audit Trail
 

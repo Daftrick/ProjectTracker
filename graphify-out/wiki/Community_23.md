@@ -1,59 +1,53 @@
 # Community 23
 
-> 19 nodes · cohesion 0.17
+> 16 nodes · cohesion 0.18
 
 ## Key Concepts
 
-- [AvanceRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L25) (19 connections)
-- [._get_project()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L41) (13 connections)
-- [.test_update_stage_budget_skips_without_template()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L180) (4 connections)
-- [.tearDown()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L38) (2 connections)
-- [.test_add_doc_checklist_appends_item()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L83) (2 connections)
-- [.test_add_doc_checklist_ignores_empty_name()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L95) (2 connections)
-- [.test_add_multiple_docs_independent()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L137) (2 connections)
-- [.test_delete_doc_checklist_removes_item()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L125) (2 connections)
-- [.test_toggle_doc_checklist_flips_done()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L104) (2 connections)
-- [.test_update_stage_budget_handles_missing_values_as_zero()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L168) (2 connections)
-- [.test_update_stage_budget_persists_values()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L147) (2 connections)
-- [.test_update_stage_status_empty_date_stored_as_none()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L56) (2 connections)
-- [.test_update_stage_status_ignores_empty_stage()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L65) (2 connections)
-- [.test_update_stage_status_sets_stage()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L46) (2 connections)
-- [.test_progress_pdf_returns_pdf_content()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L201) (1 connections)
-- [.test_progress_pdf_unknown_project_404()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L207) (1 connections)
-- [.test_update_stage_budget_unknown_project_redirects()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L195) (1 connections)
-- [.test_update_stage_status_unknown_project_redirects()](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L74) (1 connections)
-- [test_avance_routes.py](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py#L1) (1 connections)
+- [utils.py](file:///Users/macbook/Documents/ProjectTracker/tracker/utils.py#L1) (10 connections)
+- [parse_csv_plano_filename()](file:///Users/macbook/Documents/ProjectTracker/tracker/utils.py#L37) (6 connections)
+- [ParseCsvPlanoFilenameTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L6) (5 connections)
+- [clean()](file:///Users/macbook/Documents/ProjectTracker/tracker/utils.py#L6) (4 connections)
+- [deleted_catalog_item_at()](file:///Users/macbook/Documents/ProjectTracker/tracker/utils.py#L60) (4 connections)
+- [parse_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/utils.py#L26) (4 connections)
+- [parse_form_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/utils.py#L10) (3 connections)
+- [.test_case_insensitive()](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L22) (2 connections)
+- [.test_extracts_export_metadata()](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L7) (2 connections)
+- [.test_rejects_cot_csv()](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L16) (2 connections)
+- [.test_rejects_wrong_clave()](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L19) (2 connections)
+- [test_drive.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L1) (1 connections)
+- [Helpers compartidos entre validators, form_models, admin y rutas.](file:///Users/macbook/ProjectTracker/tracker/utils.py#L1) (1 connections)
+- [Convierte a float con reporte de errores en lista `errors`. Usado en validadores](file:///Users/macbook/ProjectTracker/tracker/utils.py#L11) (1 connections)
+- [Convierte a float silenciosamente. Usado donde no se necesita reporte de error.](file:///Users/macbook/ProjectTracker/tracker/utils.py#L27) (1 connections)
+- [Construye el snapshot de un artículo de catálogo eliminado desde listas de campo](file:///Users/macbook/ProjectTracker/tracker/utils.py#L61) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AvanceRoutesTest {
-        +test_avance_routes.py()
-        +.setUp()
-        +.tearDown()
-        +._get_project()
-        +.test_update_stage_status_sets_stage()
-        +.test_update_stage_status_empty_date_stored_as_none()
-        +.test_update_stage_status_ignores_empty_stage()
-        +.test_update_stage_status_unknown_project_redirects()
-        +.test_add_doc_checklist_appends_item()
-        +.test_add_doc_checklist_ignores_empty_name()
+    class ParseCsvPlanoFilenameTest {
+        +test_drive.py()
+        +.test_extracts_export_metadata()
+        +.test_rejects_cot_csv()
+        +.test_rejects_wrong_clave()
+        +.test_case_insensitive()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 9]] (4 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_avance_routes.py](file:///Users/macbook/ProjectTracker/tests/test_avance_routes.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_drive.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/utils.py](file:///Users/macbook/Documents/ProjectTracker/tracker/utils.py)
+- [/Users/macbook/ProjectTracker/tracker/utils.py](file:///Users/macbook/ProjectTracker/tracker/utils.py)
 
 ## Audit Trail
 
-- EXTRACTED: 59 (94%)
-- INFERRED: 4 (6%)
+- EXTRACTED: 40 (82%)
+- INFERRED: 9 (18%)
 - AMBIGUOUS: 0 (0%)
 
 ---

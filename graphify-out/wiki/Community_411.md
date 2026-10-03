@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Task Entity](file:///Users/macbook/ProjectTracker/templates/tasks.html) (0 connections)
+- [Construye el workbook Excel de la cotización.      Devuelve (wb, filename) para](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py#L235) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/tasks.html](file:///Users/macbook/ProjectTracker/templates/tasks.html)
+- [tracker\routes\quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

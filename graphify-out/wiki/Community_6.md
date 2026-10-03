@@ -1,92 +1,111 @@
 # Community 6
 
-> 70 nodes · cohesion 0.05
+> 77 nodes · cohesion 0.06
 
 ## Key Concepts
 
-- [parse_quote_csv()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L131) (24 connections)
-- [quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L1) (21 connections)
-- [CotTubeFixturesTest](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L282) (16 connections)
-- [parse_quote_xlsx()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L277) (14 connections)
-- [._run_cot_case()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L284) (14 connections)
-- [parse_quote_file()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L387) (8 connections)
-- [QuoteCsvImportTest](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import.py#L9) (7 connections)
-- [QuoteSymbolFixturesTest](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import.py#L136) (7 connections)
-- [_header_key()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L53) (6 connections)
-- [.assert_symbol_ids()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import.py#L146) (6 connections)
-- [_write_cot()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L67) (6 connections)
-- [_metadata_value()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L88) (5 connections)
-- [_xlsx_metadata()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L265) (5 connections)
-- [_build_export_like_xlsx()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import.py#L189) (5 connections)
-- [test_tube_fixtures.py](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L1) (5 connections)
-- [_build_catalog_index()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L93) (4 connections)
-- [_column_index()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L106) (4 connections)
-- [_find_header_row()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L119) (4 connections)
-- [_find_table_header()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L254) (4 connections)
-- [_match_catalog()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L102) (4 connections)
-- [_row_value()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L113) (4 connections)
-- [_xlsx_rows()](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L240) (4 connections)
-- [QuoteXlsxImportTest](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import.py#L222) (4 connections)
-- [.test_parse_quote_file_reads_excel_renamed_to_csv()](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import.py#L223) (4 connections)
-- [.test_cot_mixed_tubes_single_file()](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L353) (4 connections)
-- *... and 45 more nodes in this community*
+- [bundles.py](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L1) (24 connections)
+- [create_bundle()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L267) (22 connections)
+- [expand_quote_bundles()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L339) (19 connections)
+- [bundle_by_catalog_item_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L96) (18 connections)
+- [quote_item_bundle_breakdown()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L148) (15 connections)
+- [capture_bundle_snapshot()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L211) (13 connections)
+- [normalize_bundle()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L46) (13 connections)
+- [normalize_component()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L72) (11 connections)
+- [add_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L290) (10 connections)
+- [_clean()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L42) (10 connections)
+- [get_active_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L82) (10 connections)
+- [delete_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L323) (9 connections)
+- [hydrate_quote_bundle_breakdowns()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L193) (9 connections)
+- [_safe_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L31) (9 connections)
+- [BundleEdgeCasesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L217) (9 connections)
+- [CaptureBundleSnapshotTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L318) (8 connections)
+- [test_bundles.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L1) (8 connections)
+- [activate_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L306) (7 connections)
+- [SeededBundlesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L165) (7 connections)
+- [_component_row()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L120) (6 connections)
+- [._make_bundle()](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L319) (6 connections)
+- [QuoteItemBundleBreakdownTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L73) (6 connections)
+- [.test_add_activate_and_delete_version()](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L15) (5 connections)
+- [_display_qty()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L113) (4 connections)
+- [next_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L258) (4 connections)
+- *... and 52 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class QuoteCsvImportTest {
-        +test_quote_csv_import.py()
-        +.test_catalog_name_key_normalizes_accents_and_special_separators()
-        +.test_parse_quote_csv_reads_items_metadata_and_links_catalog()
-        +.test_parse_quote_csv_accepts_spanish_headers_semicolon_and_missing_price()
-        +.test_parse_quote_csv_accepts_metadata_before_header()
-        +.test_parse_quote_csv_reports_missing_required_headers()
-        +.test_parse_quote_csv_returns_error_on_ansi_encoding()
+    class BreakdownQtyRulesTest {
+        +test_bundles.py()
+        +.test_no_waste_pct_in_live_breakdown()
+        +.test_discrete_unit_ceil()
+        +.test_continuous_unit_not_ceiled()
     }
-    class QuoteSymbolFixturesTest {
-        +test_quote_csv_import.py()
-        +._parse_symbol_rows()
-        +.assert_symbol_ids()
-        +.test_smb01_links_luminaria_and_installation()
-        +.test_smb02_links_apagador_and_contacto()
-        +.test_smb03_led_links_luminaria_and_led_installation()
-        +.test_smb03_non_led_links_luminaria_and_installation()
+    class BundleEdgeCasesTest {
+        +test_bundles.py()
+        +.test_component_with_zero_qty_goes_to_invalid()
+        +.test_component_with_empty_catalog_item_id_goes_to_invalid()
+        +.test_bundle_with_no_versions_goes_to_invalid()
+        +.test_activate_nonexistent_version_raises()
+        +.test_delete_nonexistent_version_raises()
+        +.test_waste_pct_applied_correctly()
+        +.test_section_markers_are_skipped()
     }
-    class QuoteXlsxImportTest {
-        +test_quote_csv_import.py()
-        +.test_parse_quote_file_reads_excel_renamed_to_csv()
-        +.test_parse_quote_xlsx_links_catalog()
-        +.test_old_xls_returns_clear_error()
+    class BundleVersioningTest {
+        +test_bundles.py()
+        +.test_create_bundle_has_active_v1()
+        +.test_add_activate_and_delete_version()
+        +.test_cannot_delete_only_version()
     }
-    class CotTubeFixturesTest {
-        +test_tube_fixtures.py()
-        +._run_cot_case()
-        +.test_cot_galvanizado_pared_delgada_27mm_sin_precio()
-        +.test_cot_galvanizado_pared_delgada_63mm_con_precio()
-        +.test_cot_galvanizado_pared_gruesa_27mm_sin_precio()
-        +.test_cot_galvanizado_pared_gruesa_63mm_con_precio()
-        +.test_cot_pvc_sp_27mm_con_precio()
-        +.test_cot_pvc_sp_63mm_sin_precio()
-        +.test_cot_pad_flexible_corrugado_63mm_con_precio()
-        +.test_cot_metalico_flexible_35mm_con_precio()
+    class CaptureBundleSnapshotTest {
+        +test_bundles.py()
+        +._make_bundle()
+        +.test_returns_none_when_no_bundle()
+        +.test_returns_none_when_no_catalog_item_id()
+        +.test_captures_description_and_unit_from_catalog()
+        +.test_snapshot_has_bundle_id_and_version()
+        +.test_skips_zero_qty_components()
+        +.test_returns_none_when_all_components_filtered()
+    }
+    class ExpandQuoteBundlesTest {
+        +test_bundles.py()
+        +.test_expands_quote_bundle_components()
+        +.test_unmapped_quote_items_are_preserved()
+        +.test_seeded_circuit_bundles_expand_catalog_materials()
+    }
+    class QuoteItemBundleBreakdownTest {
+        +test_bundles.py()
+        +.test_breakdown_multiplies_component_quantities_without_prices()
+        +.test_breakdown_prefers_snapshot_when_present()
+        +.test_snapshot_qty_scales_by_quote_item_qty()
+        +.test_breakdown_missing_bundle_returns_empty_list()
+        +.test_hydrate_quote_bundle_breakdowns_keeps_totals_and_sections()
+    }
+    class SeededBundlesTest {
+        +test_bundles.py()
+        +._expand()
+        +.test_tubo_conduit_16mm_expands_all_components()
+        +.test_salida_luminaria_expands_all_components()
+        +.test_all_seeded_bundles_have_valid_active_version()
+        +.test_no_duplicate_catalog_item_ids_in_index()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 3]] (16 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_quote_csv_import.py](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import.py)
-- [/Users/macbook/ProjectTracker/tests/test_tube_fixtures.py](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py)
-- [/Users/macbook/ProjectTracker/tracker/quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_bundles.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/bundles.py](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py)
+- [/Users/macbook/ProjectTracker/tests/test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 
 ## Audit Trail
 
-- EXTRACTED: 243 (88%)
-- INFERRED: 33 (12%)
+- EXTRACTED: 253 (65%)
+- INFERRED: 134 (35%)
 - AMBIGUOUS: 0 (0%)
 
 ---

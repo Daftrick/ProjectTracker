@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Metadata #proveedor y #fecha post-header (formato real del LISP).](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py#L214) (0 connections)
+- [Smoke tests de UI Admin para bundles.](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_admin_bundles_routes.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_tube_fixtures.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py)
+- [tests\test_admin_bundles_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_admin_bundles_routes.py)
 
 ## Audit Trail
 

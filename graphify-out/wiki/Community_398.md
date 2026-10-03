@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Quote Sections Feature](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (0 connections)
+- [Crea la carpeta Drive del proyecto si aún no existe.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cprojects.py#L452) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
+- [tracker\routes\projects.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cprojects.py)
 
 ## Audit Trail
 

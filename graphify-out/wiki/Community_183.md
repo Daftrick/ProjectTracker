@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Calcula el siguiente número de versión para un bundle existente.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L98) (0 connections)
+- [Smoke tests for simplified project detail COT/LDM UI.](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_project_detail_bundle_ui.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
+- [tests\test_project_detail_bundle_ui.py](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_project_detail_bundle_ui.py)
 
 ## Audit Trail
 

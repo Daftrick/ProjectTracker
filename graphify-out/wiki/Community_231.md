@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parsea nombre de archivo CSV COT: {CLAVE}-v{VER}-i{CONSEC}-COT-{YYYYMMDD}.csv](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L473) (0 connections)
+- [Resumen financiero simple para inyectar en plantillas.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cconsistency.py#L405) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tracker\consistency.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cconsistency.py)
 
 ## Audit Trail
 

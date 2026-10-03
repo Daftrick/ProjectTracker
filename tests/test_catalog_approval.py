@@ -5,8 +5,11 @@ from tracker.catalog import (
     APPROVAL_DRAFT,
     APPROVAL_OBSOLETE,
     approve_quote,
+    is_base_quote_type,
     migrate_quote_approval,
     next_quote_number,
+    quote_type_code,
+    quote_type_has_quantities,
 )
 
 
@@ -158,6 +161,36 @@ class NextQuoteNumberTest(unittest.TestCase):
         other = [{"project_id": "OTHER", "quote_type": "Proyecto"}]
         number = next_quote_number(project, other, "Proyecto", "2026-06-18")
         self.assertIn("P01", number)
+
+    def test_proyecto_ejecutivo_counter(self):
+        project = self._project()
+        number = next_quote_number(project, [], "Proyecto Ejecutivo", "2026-06-18")
+        self.assertIn("J01", number)
+
+
+class ProyectoEjecutivoQuoteTypeTest(unittest.TestCase):
+    def test_code_is_j_and_distinct_from_proyecto(self):
+        self.assertEqual(quote_type_code("Proyecto Ejecutivo"), "J")
+        self.assertNotEqual(quote_type_code("Proyecto Ejecutivo"), quote_type_code("Proyecto"))
+
+    def test_has_no_quantities(self):
+        self.assertFalse(quote_type_has_quantities("Proyecto Ejecutivo"))
+        self.assertTrue(quote_type_has_quantities("Proyecto"))
+        self.assertTrue(quote_type_has_quantities("Obra"))
+        self.assertTrue(quote_type_has_quantities("Servicio"))
+
+    def test_is_a_base_quote_type(self):
+        self.assertTrue(is_base_quote_type("Proyecto Ejecutivo"))
+
+    def test_approving_does_not_affect_other_types(self):
+        quotes = [
+            _q("je1", "proj", "Proyecto Ejecutivo", APPROVAL_DRAFT),
+            _q("p1", "proj", "Proyecto", APPROVAL_ACTIVE),
+        ]
+        approve_quote("je1", quotes)
+        by_id = {q["id"]: q for q in quotes}
+        self.assertEqual(by_id["je1"]["approval_status"], APPROVAL_ACTIVE)
+        self.assertEqual(by_id["p1"]["approval_status"], APPROVAL_ACTIVE)
 
 
 if __name__ == "__main__":

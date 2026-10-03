@@ -98,16 +98,23 @@
   </div>
   <div class="card mb-3">
     <div class="card-body p-0">
+      {% set _no_qty = quote.quote_type == 'Proyecto Ejecutivo' %}
+      {% set _colspan_full = 4 if _no_qty else 6 %}
+      {% set _colspan_label = 3 if _no_qty else 5 %}
       <table class="table mb-0">
         <thead class="table-light">
-          <tr><th>#</th><th>Descripción</th><th class="text-center">Unidad</th><th class="text-end">Cantidad</th><th class="text-end">Precio unit.</th><th class="text-end">Total</th></tr>
+          <tr>
+            <th>#</th><th>Descripción</th>
+            {% if not _no_qty %}<th class="text-center">Unidad</th><th class="text-end">Cantidad</th>{% endif %}
+            <th class="text-end">Precio unit.</th><th class="text-end">Total</th>
+          </tr>
         </thead>
         <tbody>
           {% set row_ns = namespace(index=0) %}
           {% for section in quote.sections %}
             {% if section['name'] %}
             <tr class="quote-section-heading">
-              <td colspan="6">{{ section['name'] }}</td>
+              <td colspan="{{ _colspan_full }}">{{ section['name'] }}</td>
             </tr>
             {% endif %}
             {% for item in section['items'] %}
@@ -127,27 +134,29 @@
                 </div>
                 {% endif %}
               </td>
+              {% if not _no_qty %}
               <td class="text-center">{{ item.unit }}</td>
               <td class="text-end">{{ item.qty }}</td>
+              {% endif %}
               <td class="text-end">{{ item.price | currency }}</td>
               <td class="text-end fw-semibold">{{ item.total | currency }}</td>
             </tr>
             {% endfor %}
             {% if section['name'] %}
             <tr class="quote-section-total">
-              <td colspan="5" class="text-end fw-semibold">{{ section['name'] }} total</td>
+              <td colspan="{{ _colspan_label }}" class="text-end fw-semibold">{{ section['name'] }} total</td>
               <td class="text-end fw-bold">{{ section['subtotal'] | currency }}</td>
             </tr>
             {% endif %}
           {% endfor %}
         </tbody>
         <tfoot class="quote-summary">
-          <tr><td colspan="5" class="text-end">Subtotal</td><td class="text-end fw-semibold">{{ quote.subtotal | currency }} {{ quote.currency }}</td></tr>
+          <tr><td colspan="{{ _colspan_label }}" class="text-end">Subtotal</td><td class="text-end fw-semibold">{{ quote.subtotal | currency }} {{ quote.currency }}</td></tr>
           {% if quote.discount_pct %}
-          <tr><td colspan="5" class="text-end">Descuento ({{ quote.discount_pct | int }}%)</td><td class="text-end">-{{ quote.discount_amount | currency }} {{ quote.currency }}</td></tr>
+          <tr><td colspan="{{ _colspan_label }}" class="text-end">Descuento ({{ quote.discount_pct | int }}%)</td><td class="text-end">-{{ quote.discount_amount | currency }} {{ quote.currency }}</td></tr>
           {% endif %}
-          <tr><td colspan="5" class="text-end">IVA ({{ quote.tax_rate }}%)</td><td class="text-end">{{ quote.tax | currency }} {{ quote.currency }}</td></tr>
-          <tr class="quote-summary-total"><td colspan="5" class="text-end fw-bold fs-6">TOTAL</td><td class="text-end fw-bold fs-5 quote-summary-total-value">{{ quote.total | currency }} {{ quote.currency }}</td></tr>
+          <tr><td colspan="{{ _colspan_label }}" class="text-end">IVA ({{ quote.tax_rate }}%)</td><td class="text-end">{{ quote.tax | currency }} {{ quote.currency }}</td></tr>
+          <tr class="quote-summary-total"><td colspan="{{ _colspan_label }}" class="text-end fw-bold fs-6">TOTAL</td><td class="text-end fw-bold fs-5 quote-summary-total-value">{{ quote.total | currency }} {{ quote.currency }}</td></tr>
         </tfoot>
       </table>
     </div>

@@ -1,66 +1,75 @@
 # Community 22
 
-> 20 nodes · cohesion 0.19
+> 23 nodes · cohesion 0.16
 
 ## Key Concepts
 
-- [_q()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L13) (11 connections)
-- [approve_quote()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L126) (9 connections)
-- [migrate_quote_approval()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L88) (9 connections)
-- [ApproveQuoteTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L20) (7 connections)
-- [approve_quote_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L471) (5 connections)
-- [MigrateQuoteApprovalTest](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L84) (5 connections)
-- [test_catalog_approval.py](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L1) (4 connections)
-- [.test_approve_does_not_touch_other_project()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L74) (3 connections)
-- [.test_approving_active_base_quote_toggles_it_off()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L67) (3 connections)
-- [.test_approving_extraordinaria_toggles_only_itself()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L45) (3 connections)
-- [.test_approving_obra_does_not_affect_proyecto_or_other_obra()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L55) (3 connections)
-- [.test_approving_proyecto_does_not_affect_obra_or_servicio()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L21) (3 connections)
-- [.test_approving_proyecto_does_not_obsolete_other_proyecto()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L33) (3 connections)
-- [.test_already_has_status_not_touched()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L117) (3 connections)
-- [.test_each_type_migrates_independently()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L85) (3 connections)
-- [.test_extraordinaria_always_active()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L108) (3 connections)
-- [.test_two_proyecto_quotes_only_newest_active()](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py#L98) (3 connections)
-- [Marca la cotización target_id como active.      Si es General/Preliminar, pasa l](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L127) (1 connections)
-- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L89) (1 connections)
-- [Aprueba/activa o desactiva una cotización.      Toggle libre e independiente par](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L472) (1 connections)
+- [project_stage()](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py#L74) (13 connections)
+- [ProjectStageTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L39) (11 connections)
+- [_task()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L23) (9 connections)
+- [KanbanRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L95) (8 connections)
+- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L99) (4 connections)
+- [._get_project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L112) (3 connections)
+- [.test_all_aprobado_returns_entregado()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L71) (3 connections)
+- [.test_cot_aprobado_design_en_progreso_returns_diseno()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L63) (3 connections)
+- [.test_cot_aprobado_design_pending_returns_diseno()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L56) (3 connections)
+- [.test_cot_aprobado_only_returns_entregado()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L52) (3 connections)
+- [.test_cot_en_progreso_returns_cotizacion()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L48) (3 connections)
+- [.test_cot_pendiente_returns_cotizacion()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L44) (3 connections)
+- [.test_in_obra_true_overrides_derived_stage()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L79) (3 connections)
+- [.test_subtasks_not_counted()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L88) (3 connections)
+- [test_kanban.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L1) (3 connections)
+- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L109) (2 connections)
+- [.test_toggle_obra_moves_project_to_obra_and_back()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L122) (2 connections)
+- [.test_in_obra_true_even_with_no_tasks()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L84) (2 connections)
+- [.test_no_tasks_returns_cotizacion()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L41) (2 connections)
+- [Derive the portfolio stage from existing task data + the in_obra flag.      Stag](file:///Users/macbook/ProjectTracker/tracker/domain.py#L75) (1 connections)
+- [.test_kanban_page_loads_and_lists_project_in_cotizacion()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L115) (1 connections)
+- [.test_toggle_obra_unknown_project_does_not_crash()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L134) (1 connections)
+- [Cubre las rutas /kanban y toggle_obra restauradas (el template     kanban.html h](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L96) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class ApproveQuoteTest {
-        +test_catalog_approval.py()
-        +.test_approving_proyecto_does_not_affect_obra_or_servicio()
-        +.test_approving_proyecto_does_not_obsolete_other_proyecto()
-        +.test_approving_extraordinaria_toggles_only_itself()
-        +.test_approving_obra_does_not_affect_proyecto_or_other_obra()
-        +.test_approving_active_base_quote_toggles_it_off()
-        +.test_approve_does_not_touch_other_project()
+    class KanbanRoutesTest {
+        +test_kanban.py()
+        +.setUp()
+        +.tearDown()
+        +._get_project()
+        +.test_kanban_page_loads_and_lists_project_in_cotizacion()
+        +.test_toggle_obra_moves_project_to_obra_and_back()
+        +.test_toggle_obra_unknown_project_does_not_crash()
     }
-    class MigrateQuoteApprovalTest {
-        +test_catalog_approval.py()
-        +.test_each_type_migrates_independently()
-        +.test_two_proyecto_quotes_only_newest_active()
-        +.test_extraordinaria_always_active()
-        +.test_already_has_status_not_touched()
+    class ProjectStageTest {
+        +test_kanban.py()
+        +.test_no_tasks_returns_cotizacion()
+        +.test_cot_pendiente_returns_cotizacion()
+        +.test_cot_en_progreso_returns_cotizacion()
+        +.test_cot_aprobado_only_returns_entregado()
+        +.test_cot_aprobado_design_pending_returns_diseno()
+        +.test_cot_aprobado_design_en_progreso_returns_diseno()
+        +.test_all_aprobado_returns_entregado()
+        +.test_in_obra_true_overrides_derived_stage()
+        +.test_in_obra_true_even_with_no_tasks()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 21]] (2 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_catalog_approval.py](file:///Users/macbook/ProjectTracker/tests/test_catalog_approval.py)
-- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_kanban.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/domain.py](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py)
+- [/Users/macbook/ProjectTracker/tests/test_kanban.py](file:///Users/macbook/ProjectTracker/tests/test_kanban.py)
+- [/Users/macbook/ProjectTracker/tracker/domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py)
 
 ## Audit Trail
 
-- EXTRACTED: 58 (70%)
-- INFERRED: 25 (30%)
+- EXTRACTED: 61 (70%)
+- INFERRED: 26 (30%)
 - AMBIGUOUS: 0 (0%)
 
 ---

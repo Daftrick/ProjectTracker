@@ -4,6 +4,16 @@ from pathlib import Path
 
 from tracker import bundles as b
 
+# data/bundles.json es dato de producción (vive en el volumen de Railway,
+# nunca en git — ver .gitignore: "data/*.json"). En una máquina sin ese
+# archivo copiado localmente, estas pruebas no tienen nada que validar.
+_BUNDLES_JSON_PATH = Path(__file__).resolve().parents[1] / "data" / "bundles.json"
+_SKIP_MSG = (
+    "data/bundles.json no existe en esta máquina (es dato de producción del "
+    "volumen de Railway, no versionado en git); copia el archivo real para "
+    "correr esta prueba."
+)
+
 
 class BundleVersioningTest(unittest.TestCase):
     def test_create_bundle_has_active_v1(self):
@@ -51,8 +61,9 @@ class ExpandQuoteBundlesTest(unittest.TestCase):
         self.assertEqual(result["items"], {})
 
     def test_seeded_circuit_bundles_expand_catalog_materials(self):
-        root = Path(__file__).resolve().parents[1]
-        bundles = json.loads((root / "data" / "bundles.json").read_text(encoding="utf-8"))
+        if not _BUNDLES_JSON_PATH.exists():
+            self.skipTest(_SKIP_MSG)
+        bundles = json.loads(_BUNDLES_JSON_PATH.read_text(encoding="utf-8"))
         quote = {
             "items": [
                 {"catalog_item_id": "6CA7BF58", "description": "Circuito iluminación", "qty": 1},
@@ -167,8 +178,9 @@ class SeededBundlesTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        root = Path(__file__).resolve().parents[1]
-        cls.bundles = json.loads((root / "data" / "bundles.json").read_text(encoding="utf-8"))
+        if not _BUNDLES_JSON_PATH.exists():
+            raise unittest.SkipTest(_SKIP_MSG)
+        cls.bundles = json.loads(_BUNDLES_JSON_PATH.read_text(encoding="utf-8"))
 
     def _expand(self, catalog_item_id, qty):
         quote = {"items": [{"catalog_item_id": catalog_item_id, "qty": qty}]}

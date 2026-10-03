@@ -6,6 +6,7 @@ from .catalog import (
     catalog_description_lookup,
     catalog_name_key,
     quote_section_groups,
+    quote_type_has_quantities,
     quote_type_key,
     resolve_quote_proposal_for,
 )
@@ -654,18 +655,28 @@ def build_quote_pdf(project, quote, output_path=None):
 
     # Columnas de tabla: UNIDAD/CANT. comparten ancho y P.UNIT/IMPORTE comparten ancho.
     # Descripcion absorbe el resto para que la suma == content_width.
+    # Tipos sin cantidades (Proyecto Ejecutivo): se omiten UNIDAD y CANT.,
+    # Descripcion absorbe ese espacio y solo quedan P.UNIT/IMPORTE.
+    _has_qty = quote_type_has_quantities(quote.get("quote_type"))
     NUM_W = 8
     UNIT_QTY_W = 14   # compacto para dar mas aire a DESCRIPCION
     PRICE_W = 28      # P.UNIT e IMPORTE - suficiente para montos comunes en 10pt
-    DESC_W = content_width - (NUM_W + UNIT_QTY_W * 2 + PRICE_W * 2)
-    QUOTE_COLS = [NUM_W, DESC_W, UNIT_QTY_W, UNIT_QTY_W, PRICE_W, PRICE_W]
+    if _has_qty:
+        DESC_W = content_width - (NUM_W + UNIT_QTY_W * 2 + PRICE_W * 2)
+        QUOTE_COLS = [NUM_W, DESC_W, UNIT_QTY_W, UNIT_QTY_W, PRICE_W, PRICE_W]
+    else:
+        DESC_W = content_width - (NUM_W + PRICE_W * 2)
+        QUOTE_COLS = [NUM_W, DESC_W, PRICE_W, PRICE_W]
 
     def table_header():
         pdf.set_fill_color(*NAVY)
         pdf.set_text_color(255, 255, 255)
         pdf.set_font("DejaVu", "B", 12.0)
-        heads = ["#", "DESCRIPCIÓN", "UNIDAD", "CANT.", "P. UNIT.", "IMPORTE"]
-        aligns = ["C", "L", "C", "C", "C", "C"]
+        if _has_qty:
+            heads = ["#", "DESCRIPCIÓN", "UNIDAD", "CANT.", "P. UNIT.", "IMPORTE"]
+        else:
+            heads = ["#", "DESCRIPCIÓN", "P. UNIT.", "IMPORTE"]
+        aligns = ["C", "L"] + ["C"] * (len(heads) - 2)
         for width, text, align in zip(QUOTE_COLS, heads, aligns):
             pdf.cell(width, 7, text, fill=True, align=align)
         pdf.ln()
@@ -1234,23 +1245,24 @@ def build_quote_pdf(project, quote, output_path=None):
                 pdf.multi_cell(cols[1] - 4, 3.7, detail_text, align="L")
             x += cols[1]
 
-            pdf.set_xy(x, row_y)
             pdf.set_font("DejaVu", "", 15.0)  # datos numericos
             pdf.set_text_color(*INK)
-            pdf.cell(cols[2], row_h, _safe_text(item.get("unit", "")), align="C")
-            x += cols[2]
+            if _has_qty:
+                pdf.set_xy(x, row_y)
+                pdf.cell(cols[2], row_h, _safe_text(item.get("unit", "")), align="C")
+                x += cols[2]
+
+                pdf.set_xy(x, row_y)
+                pdf.cell(cols[3], row_h, f"{float(item.get('qty', 0)):,.2f}", align="C")
+                x += cols[3]
 
             pdf.set_xy(x, row_y)
-            pdf.cell(cols[3], row_h, f"{float(item.get('qty', 0)):,.2f}", align="C")
-            x += cols[3]
-
-            pdf.set_xy(x, row_y)
-            pdf.cell(cols[4], row_h, money_pdf(item.get("price", 0)), align="C")
-            x += cols[4]
+            pdf.cell(cols[-2], row_h, money_pdf(item.get("price", 0)), align="C")
+            x += cols[-2]
 
             pdf.set_xy(x, row_y)
             pdf.set_font("DejaVu", "B", 15.0)  # importe (bold)
-            pdf.cell(cols[5], row_h, money_pdf(item.get("total", 0)), align="C")
+            pdf.cell(cols[-1], row_h, money_pdf(item.get("total", 0)), align="C")
             pdf.set_xy(number_x, row_y + max((row_h - 5.5) / 2, 1))
             pdf.set_font("DejaVu", "B", 15.0)  # numero de fila
             pdf.set_text_color(*INK)

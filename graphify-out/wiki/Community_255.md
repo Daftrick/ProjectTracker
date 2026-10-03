@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Remove an item by catalog_item_id from the mobile draft.      Returns (updated_q](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L102) (0 connections)
+- [Decora archivos CSV COT con estado: importado/pendiente/desactualizado.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py#L518) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\services.py](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py)
+- [tracker\drive.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

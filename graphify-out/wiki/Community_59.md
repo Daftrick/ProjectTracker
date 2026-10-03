@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [graphify_ast.py](file:///Users/macbook/ProjectTracker/graphify_ast.py#L1) (0 connections)
+- [Tipos base compiten entre sí (una activa por proyecto); Extraordinarias son inde](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L81) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/graphify_ast.py](file:///Users/macbook/ProjectTracker/graphify_ast.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

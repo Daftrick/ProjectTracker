@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Store result in cache](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L81) (0 connections)
+- [Convierte un margen porcentual en un status discreto.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cconsistency.py#L42) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tracker\consistency.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cconsistency.py)
 
 ## Audit Trail
 

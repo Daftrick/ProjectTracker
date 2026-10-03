@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Resumen visual entre cotización (COT) y listas de materiales (LDM).  El detalle](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L1) (0 connections)
+- [Devuelve una copia normalizada de un bundle.      La función tolera bundles inco](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cbundles.py#L37) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [tracker\bundles.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

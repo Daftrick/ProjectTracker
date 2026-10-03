@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Google Drive Integration Settings](file:///Users/macbook/ProjectTracker/templates/settings.html) (0 connections)
+- [Purge a deleted catalog item from the quote](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py#L434) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/settings.html](file:///Users/macbook/ProjectTracker/templates/settings.html)
+- [tracker\routes\quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

@@ -2,35 +2,35 @@
   "hotspots": [
     {
       "label": "build_quote_pdf()",
-      "risk": 0.776,
+      "risk": 0.644,
       "type": "FUNCTION"
     },
     {
       "label": "build_ldm_pdf()",
-      "risk": 0.446,
-      "type": "FUNCTION"
-    },
-    {
-      "label": "_build_quote_workbook()",
-      "risk": 0.26,
-      "type": "FUNCTION"
-    },
-    {
-      "label": "build_progress_pdf()",
-      "risk": 0.241,
+      "risk": 0.264,
       "type": "FUNCTION"
     },
     {
       "label": "load()",
-      "risk": 0.23,
+      "risk": 0.207,
       "type": "FUNCTION"
+    },
+    {
+      "label": "save()",
+      "risk": 0.153,
+      "type": "FUNCTION"
+    },
+    {
+      "label": "ValidatorsTest",
+      "risk": 0.101,
+      "type": "CLASS"
     }
   ],
   "blast_radius": {
-    "load()": 147,
-    "save()": 110,
+    "load()": 151,
+    "save()": 112,
     "today()": 57,
-    "catalog_maps()": 32,
-    "build_quote_pdf()": 31
+    "build_quote_pdf()": 33,
+    "catalog_maps()": 32
   }
 }

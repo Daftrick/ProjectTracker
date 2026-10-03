@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Shutdown and clear the lazy loader thread pool.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L163) (0 connections)
+- [Recibe el mapeo del usuario y crea la LDM.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L654) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tracker\routes\materials.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
 
 ## Audit Trail
 

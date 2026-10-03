@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [graphify_detect.py](file:///Users/macbook/ProjectTracker/graphify_detect.py#L1) (0 connections)
+- [merge_extractions.py](file:///Users/macbook/Documents/ProjectTracker/merge_extractions.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/graphify_detect.py](file:///Users/macbook/ProjectTracker/graphify_detect.py)
+- [/Users/macbook/Documents/ProjectTracker/merge_extractions.py](file:///Users/macbook/Documents/ProjectTracker/merge_extractions.py)
 
 ## Audit Trail
 

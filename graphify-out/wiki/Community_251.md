@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return catalog items filtered by disciplina. None / 'Todos' returns all.](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L10) (0 connections)
+- [Clear the drive scan cache. Useful for testing or forcing fresh scans.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py#L158) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\services.py](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py)
+- [tracker\drive.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

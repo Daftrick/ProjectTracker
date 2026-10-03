@@ -1,6 +1,17 @@
 # ProjectTracker — Estado y Versiones
 
-## Versión actual: v45.16 — 28-Jun-2026
+## Versión actual: v46.0 — 03-Oct-2026
+
+### v46.0 — Nuevo tipo de cotización "Proyecto Ejecutivo" (sin cantidad ni unidad)
+- **Nueva entidad de tipo de cotización**: `Proyecto Ejecutivo` (código `J`, numeración `COT-{clave}-J{NN}-{fecha}`), independiente de `Proyecto`; compite por `approval_status` igual que Proyecto/Obra/Servicio (`is_base_quote_type`)
+- **Sin cantidad ni unidad**: para este tipo cada artículo se cotiza a precio fijo tomado directo del catálogo (qty=1 implícito); nuevo helper `quote_type_has_quantities()` en `catalog.py` centraliza la regla
+- **Plantillas**: pestaña "Proyecto Ejecutivo" en `/plantillas-cotizacion` oculta los controles de cantidad/unidad al elegir artículos del catálogo
+- **Editor de cotización**: al seleccionar el tipo se ocultan las columnas Unidad/Cantidad y el bloque "Estructura de costos" (márgenes forzados a 0%); las filas existentes se recalculan con qty=1
+- **Vista de detalle y PDF**: tabla e `IMPORTE`/`P. UNIT.` sin columnas Unidad/Cantidad cuando el tipo es Proyecto Ejecutivo; el PDF recalcula el ancho de columnas (`build_quote_pdf`)
+- **Tests de bundles tolerantes a datos locales**: `test_bundles.py` (`test_seeded_circuit_bundles_expand_catalog_materials` y `SeededBundlesTest`) hacían `skip` en vez de fallar cuando falta `data/bundles.json` — ese archivo es dato de producción del volumen de Railway, nunca versionado en git (`data/*.json` en `.gitignore`), así que una máquina sin ese dato copiado localmente no tiene nada que validar
+- 506 tests pasan (2 se saltan si falta `data/bundles.json` localmente)
+
+## Versión anterior: v45.16 — 28-Jun-2026
 
 ### v45.16 — Plantillas de cotización: UI de tarjetas y acceso para cotizadores
 - **Ruta movida a cotizadores**: `/plantillas-cotizacion` en el blueprint de quotes; accesible por todos los roles (no requiere admin). La ruta admin `/quote-templates` redirige automáticamente
@@ -382,7 +393,8 @@ ProjectTracker/
     ├── test_kanban.py                    # unittest: project_stage (10 unit) + rutas kanban (4 integration)
     ├── test_semaphore.py                 # unittest: project_semaphore (11 unit tests)
     ├── test_company_templates.py         # unittest: company_config + templates_config (9 unit tests)
-    └── test_avance_routes.py             # unittest: rutas tab Avance (15 integration tests)
+    ├── test_avance_routes.py             # unittest: rutas tab Avance (15 integration tests)
+    └── test_proyecto_ejecutivo_quote.py  # unittest: alta/numeración/vista del tipo Proyecto Ejecutivo (4 integration tests)
 ```
 
 ---

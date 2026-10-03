@@ -4,21 +4,21 @@
 
 ## Key Concepts
 
-- [Data Integrity Rules (R1-R7)](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
-- [ProjectTracker System Rationale](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [Inline Catalog Autocomplete Pattern](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html) (1 connections)
+- [Client-side Partida Filter Pattern](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 53]] (2 shared connections)
 
 ## Source Files
 
-- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
+- [templates/quote_project_form.html](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html)
 
 ## Audit Trail
 
-- EXTRACTED: 2 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 0 (0%)
+- INFERRED: 2 (100%)
 - AMBIGUOUS: 0 (0%)
 
 ---

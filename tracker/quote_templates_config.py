@@ -81,6 +81,11 @@ QUOTE_TEMPLATE_DEFAULTS = {
         "contacts_default": _default_contacts(),
         "scope_default": "",
     },
+    "Proyecto Ejecutivo": {
+        "sections_default": [],
+        "contacts_default": _default_contacts(),
+        "scope_default": "",
+    },
 }
 
 

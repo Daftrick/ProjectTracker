@@ -1,37 +1,26 @@
 # Community 40
 
-> 5 nodes · cohesion 0.40
+> 4 nodes · cohesion 0.67
 
 ## Key Concepts
 
-- [QuotePaymentsLinkTemplateSourceTest](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L50) (3 connections)
-- [test_quote_payments_link.py](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L1) (3 connections)
-- [.test_project_detail_has_payments_button_linking_to_view_quote_anchor()](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L51) (1 connections)
-- [.test_quote_project_detail_has_payments_card_anchor_id()](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L59) (1 connections)
-- [Botón "Pagos" en la fila de cada cotización (lista de cotizaciones, project_deta](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L1) (1 connections)
-
-## Class Diagram
-
-```mermaid
-classDiagram
-    class QuotePaymentsLinkTemplateSourceTest {
-        +test_quote_payments_link.py()
-        +.test_project_detail_has_payments_button_linking_to_view_quote_anchor()
-        +.test_quote_project_detail_has_payments_card_anchor_id()
-    }
-```
+- [check_syntax.py](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L1) (3 connections)
+- [iter_python_files()](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L12) (2 connections)
+- [main()](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L22) (2 connections)
+- [Parse project Python files without writing bytecode.](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L1) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 42]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_quote_payments_link.py](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py)
+- [/Users/macbook/Documents/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py)
+- [/Users/macbook/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/ProjectTracker/tools/check_syntax.py)
 
 ## Audit Trail
 
-- EXTRACTED: 9 (100%)
+- EXTRACTED: 8 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

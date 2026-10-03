@@ -4,37 +4,38 @@
 
 ## Key Concepts
 
-- [LdmPdfImportRoutesTest](file:///Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L14) (4 connections)
-- [.test_upload_stores_pdf_import_payload_outside_cookie_session()](file:///Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L24) (3 connections)
-- [test_ldm_pdf_import_routes.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L1) (2 connections)
-- [.test_create_pdf_import_is_blocked_when_project_is_closed()](file:///Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L83) (1 connections)
-- [.test_upload_pdf_is_blocked_when_project_is_closed()](file:///Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L68) (1 connections)
-- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L16) (1 connections)
+- [ProjectDetailBundleUITest](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py#L7) (4 connections)
+- [test_project_detail_bundle_ui.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py#L1) (2 connections)
+- [.test_materials_tab_exposes_assisted_bundle_sync_review()](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py#L28) (1 connections)
+- [.test_materials_tab_exposes_csv_export_for_existing_ldms()](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py#L22) (1 connections)
+- [.test_template_contains_simple_cot_ldm_summary()](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py#L8) (1 connections)
+- [Smoke tests for simplified project detail COT/LDM UI.](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L1) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class LdmPdfImportRoutesTest {
-        +test_ldm_pdf_import_routes.py()
-        +.test_upload_stores_pdf_import_payload_outside_cookie_session()
-        +.test_upload_pdf_is_blocked_when_project_is_closed()
-        +.test_create_pdf_import_is_blocked_when_project_is_closed()
+    class ProjectDetailBundleUITest {
+        +test_project_detail_bundle_ui.py()
+        +.test_template_contains_simple_cot_ldm_summary()
+        +.test_materials_tab_exposes_csv_export_for_existing_ldms()
+        +.test_materials_tab_exposes_assisted_bundle_sync_review()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 37]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_pdf_import_routes.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py)
+- [/Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py)
 
 ## Audit Trail
 
-- EXTRACTED: 10 (83%)
-- INFERRED: 2 (17%)
+- EXTRACTED: 10 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

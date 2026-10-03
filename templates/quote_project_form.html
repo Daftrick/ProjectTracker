@@ -78,6 +78,10 @@
 {% endblock %}
 {% block extra_head %}
 <style>
+  /* ── Proyecto Ejecutivo: sin columnas Unidad/Cantidad ─────────── */
+  #itemsTable.hide-qty-unit .col-unit,
+  #itemsTable.hide-qty-unit .col-qty { display: none; }
+
   /* ── Barra de resumen fija en la parte inferior ─────────────── */
   .quote-bar {
     position: fixed;
@@ -372,6 +376,7 @@
               <option value="Proyecto" {% if not quote or quote.get('quote_type','Proyecto')=='Proyecto' %}selected{% endif %}>Proyecto</option>
               <option value="Obra" {% if quote and quote.get('quote_type')=='Obra' %}selected{% endif %}>Obra</option>
               <option value="Servicio" {% if quote and quote.get('quote_type')=='Servicio' %}selected{% endif %}>Servicio</option>
+              <option value="Proyecto Ejecutivo" {% if quote and quote.get('quote_type')=='Proyecto Ejecutivo' %}selected{% endif %}>Proyecto Ejecutivo</option>
               <option value="Extraordinaria" {% if quote and quote.get('quote_type') in ['Extraordinaria','Extraordinario'] %}selected{% endif %}>Extraordinaria</option>
             </select>
           </div>
@@ -704,8 +709,8 @@
                        onclick="toggleSelectAll(this)" title="Seleccionar/deseleccionar todas las partidas visibles">
               </th>
               <th style="width:29%">Descripción</th>
-              <th style="width:9%">Unidad</th>
-              <th style="width:10%">Cantidad</th>
+              <th style="width:9%" class="col-unit">Unidad</th>
+              <th style="width:10%" class="col-qty">Cantidad</th>
               <th style="width:12%">Costo</th>
               <th style="width:12%">P. Venta</th>
               <th style="width:12%">Total</th>
@@ -802,8 +807,8 @@
                     {% endif %}
                   </div>
                 </td>
-                <td><input name="item_unit[]" class="form-control form-control-sm" value="{{ item.unit }}"></td>
-                <td><input type="number" name="item_qty[]" class="form-control form-control-sm qty" value="{{ item.qty }}" step="0.01" min="0" oninput="calcRow(this)"></td>
+                <td class="col-unit"><input name="item_unit[]" class="form-control form-control-sm" value="{{ item.unit }}"></td>
+                <td class="col-qty"><input type="number" name="item_qty[]" class="form-control form-control-sm qty" value="{{ item.qty }}" step="0.01" min="0" oninput="calcRow(this)"></td>
                 <td>
                   <div class="input-group input-group-sm">
                     <span class="input-group-text">$</span>
@@ -992,8 +997,8 @@
           <div class="ac-dropdown" role="listbox"></div>
         </div>
       </td>
-      <td><input name="item_unit[]" class="form-control form-control-sm" value="${escHtml(unit||'pza')}"></td>
-      <td><input type="number" name="item_qty[]" class="form-control form-control-sm qty" value="${qty||1}" step="0.01" min="0" oninput="calcRow(this)"></td>
+      <td class="col-unit"><input name="item_unit[]" class="form-control form-control-sm" value="${escHtml(unit||'pza')}"></td>
+      <td class="col-qty"><input type="number" name="item_qty[]" class="form-control form-control-sm qty" value="${qty||1}" step="0.01" min="0" oninput="calcRow(this)"></td>
       <td>
         <div class="input-group input-group-sm">
           <span class="input-group-text">$</span>
@@ -1522,6 +1527,7 @@
   const NUM_O  = "{{ default_num_o }}";
   const NUM_S  = "{{ default_num_s }}";
   const NUM_E  = "{{ default_num_e }}";
+  const NUM_JE = "{{ default_num_je }}";
   let userEditedNum = false;   // si el usuario tocó el campo, no se auto-actualiza
 
   function updateNum() {
@@ -1534,11 +1540,31 @@
     if (tipo === "Obra") base = NUM_O;
     if (tipo === "Servicio") base = NUM_S;
     if (tipo === "Extraordinaria") base = NUM_E;
+    if (tipo === "Proyecto Ejecutivo") base = NUM_JE;
     // Reemplazar la porción de fecha en el número (últimos 8 dígitos)
     if (dateFmt.length === 8) {
       base = base.replace(/\d{8}$/, dateFmt);
     }
     document.getElementById("quoteNumInput").value = base;
+  }
+
+  // ── Proyecto Ejecutivo: sin cantidad/unidad ni estructura de costos ───────
+  // El precio viene directo del catálogo (qty=1 implícito en todas las filas).
+  function updateQtyUnitVisibility() {
+    const tipo = document.getElementById("quoteType").value;
+    const hide = tipo === "Proyecto Ejecutivo";
+    document.getElementById("itemsTable")?.classList.toggle("hide-qty-unit", hide);
+    document.querySelector('[data-bs-target="#costsCollapse"]')?.closest(".col-12")
+      ?.classList.toggle("d-none", hide);
+    document.getElementById("costsCollapse")?.closest(".col-12")?.classList.toggle("d-none", hide);
+    if (hide) {
+      document.querySelectorAll("#itemsBody .qty").forEach(q => { q.value = 1; });
+      ["defaultPctMo", "defaultPctIndirectos", "defaultPctUtilidad"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = 0;
+      });
+      recalcAllRows();
+    }
   }
 
   function resetNum() {
@@ -1565,6 +1591,7 @@
   function updateQuoteType() {
     updateNum();
     updateProjectBasisNoteVisibility();
+    updateQtyUnitVisibility();
     {% if not quote %}
     updateTemplateOptions(true);
     {% endif %}
@@ -1757,6 +1784,7 @@
     syncItemSections();
     updateTotals();
     updateProjectBasisNoteVisibility();
+    updateQtyUnitVisibility();
     previewTermsTemplate();
     {% if not quote %}
     updateNum();

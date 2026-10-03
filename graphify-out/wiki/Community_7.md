@@ -1,35 +1,35 @@
 # Community 7
 
-> 66 nodes · cohesion 0.07
+> 67 nodes · cohesion 0.07
 
 ## Key Concepts
 
-- [compute_consistency()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L408) (24 connections)
-- [consistency.py](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L1) (24 connections)
-- [_quote()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L19) (14 connections)
-- [pick_active_quote()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L52) (12 connections)
-- [test_consistency.py](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L1) (11 connections)
-- [is_base_quote_type()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L80) (10 connections)
-- [aggregate_quote_items()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L79) (10 connections)
-- [_q_item()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L35) (10 connections)
-- [compare_items()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L216) (9 connections)
-- [ComputeConsistencyTest](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L193) (9 connections)
-- [is_quote_section_marker()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L232) (8 connections)
-- [_round()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L37) (8 connections)
-- [.test_detects_all_issue_types()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L151) (8 connections)
-- [aggregate_ldm_items()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L120) (7 connections)
-- [_safe_float()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L30) (7 connections)
-- [.test_critical_when_ldm_exceeds_cot()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L231) (6 connections)
-- [.test_full_report_with_general_quote()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L194) (6 connections)
-- [.test_warning_threshold()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L222) (6 connections)
-- [_l_item()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L58) (6 connections)
-- [_ldm()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L46) (6 connections)
-- [PickActiveQuoteTest](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L80) (6 connections)
-- [_quote_visual_row()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L316) (5 connections)
-- [classify_margin()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L41) (4 connections)
-- [_ldm_visual_row()](file:///Users/macbook/ProjectTracker/tracker/consistency.py#L331) (4 connections)
-- [.test_aggregates_across_multiple_ldms()](file:///Users/macbook/ProjectTracker/tests/test_consistency.py#L137) (4 connections)
-- *... and 41 more nodes in this community*
+- [compute_consistency()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L408) (24 connections)
+- [consistency.py](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L1) (24 connections)
+- [_quote()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L19) (14 connections)
+- [pick_active_quote()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L52) (12 connections)
+- [is_base_quote_type()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L91) (11 connections)
+- [test_consistency.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L1) (11 connections)
+- [aggregate_quote_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L79) (10 connections)
+- [_q_item()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L35) (10 connections)
+- [compare_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L216) (9 connections)
+- [ComputeConsistencyTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L193) (9 connections)
+- [is_quote_section_marker()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L243) (8 connections)
+- [_round()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L37) (8 connections)
+- [.test_detects_all_issue_types()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L151) (8 connections)
+- [aggregate_ldm_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L120) (7 connections)
+- [_safe_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L30) (7 connections)
+- [.test_critical_when_ldm_exceeds_cot()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L231) (6 connections)
+- [.test_full_report_with_general_quote()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L194) (6 connections)
+- [.test_warning_threshold()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L222) (6 connections)
+- [_l_item()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L58) (6 connections)
+- [_ldm()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L46) (6 connections)
+- [PickActiveQuoteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L80) (6 connections)
+- [_quote_visual_row()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L316) (5 connections)
+- [classify_margin()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L41) (4 connections)
+- [_ldm_visual_row()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L331) (4 connections)
+- [.test_aggregates_across_multiple_ldms()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L137) (4 connections)
+- *... and 42 more nodes in this community*
 
 ## Class Diagram
 
@@ -79,14 +79,17 @@ classDiagram
 
 ## Source Files
 
+- [/Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_consistency.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/consistency.py](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py)
 - [/Users/macbook/ProjectTracker/tests/test_consistency.py](file:///Users/macbook/ProjectTracker/tests/test_consistency.py)
-- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 - [/Users/macbook/ProjectTracker/tracker/consistency.py](file:///Users/macbook/ProjectTracker/tracker/consistency.py)
 
 ## Audit Trail
 
-- EXTRACTED: 252 (80%)
-- INFERRED: 62 (20%)
+- EXTRACTED: 253 (80%)
+- INFERRED: 64 (20%)
 - AMBIGUOUS: 0 (0%)
 
 ---

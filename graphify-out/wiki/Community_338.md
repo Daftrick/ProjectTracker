@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Lazy loader for large files to avoid loading all file metadata at once](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L97) (0 connections)
+- [Return {nombre.lower(): id} for O(1) lookup during CSV parsing.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccsv_import.py#L62) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tracker\csv_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccsv_import.py)
 
 ## Audit Trail
 

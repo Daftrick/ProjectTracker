@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Audit all quotes and LDMs for deleted catalog items](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L588) (0 connections)
+- [Elimina una versión si no es la única disponible.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cbundles.py#L162) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker\bundles.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

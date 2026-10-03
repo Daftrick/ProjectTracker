@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Team Member Entity](file:///Users/macbook/ProjectTracker/templates/team.html) (0 connections)
+- [Restore a deleted catalog item by reconnecting it to a new catalog item](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py#L373) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/team.html](file:///Users/macbook/ProjectTracker/templates/team.html)
+- [tracker\routes\quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

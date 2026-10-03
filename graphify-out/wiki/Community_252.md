@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Build a quote item dict from a catalog item + qty (int or str).](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L17) (0 connections)
+- [Shutdown and clear the lazy loader thread pool.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py#L164) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\services.py](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py)
+- [tracker\drive.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

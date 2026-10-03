@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Audit all quotes and LDMs for deleted catalog items](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L479) (0 connections)
+- [Separa agregados linked en (incluidos, ignorados).](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_ignored.py#L61) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker\comparison_ignored.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_ignored.py)
 
 ## Audit Trail
 

@@ -1,14 +1,14 @@
-# Architectural Compass - /Users/macbook/ProjectTracker (2026-08-22)
+# Architectural Compass - /Users/macbook/Documents/ProjectTracker (2026-10-03)
 
 > [!NOTE]
 > This is a token-optimized summary. For deep logic, see GRAPH_REPORT.md.
 
 ## Core Abstractions (God Nodes)
-1. `load()` (147 edges)
-2. `save()` (110 edges)
+1. `load()` (151 edges)
+2. `save()` (112 edges)
 3. `today()` (57 edges)
-4. `catalog_maps()` (32 edges)
-5. `build_quote_pdf()` (31 edges)
+4. `build_quote_pdf()` (33 edges)
+5. `catalog_maps()` (32 edges)
 6. `_clean()` (27 edges)
 7. `validate_quote_form()` (26 edges)
 8. `hydrate_quote()` (24 edges)

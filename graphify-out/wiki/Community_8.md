@@ -1,97 +1,85 @@
 # Community 8
 
-> 63 nodes · cohesion 0.06
+> 65 nodes · cohesion 0.05
 
 ## Key Concepts
 
-- [build_quote_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L252) (31 connections)
-- [pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1) (26 connections)
-- [build_ldm_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1208) (13 connections)
-- [quote_cover_copy()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L209) (12 connections)
-- [_safe_text()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L51) (10 connections)
-- [build_progress_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1694) (9 connections)
-- [quote_sequence_from_number()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L204) (9 connections)
-- [quote_project_basis_note()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L229) (8 connections)
-- [QuoteCoverCopyTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L13) (8 connections)
-- [QuotePdfSectionsTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L147) (8 connections)
-- [QuoteSequenceFromNumberTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L77) (8 connections)
-- [_load_company()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L137) (7 connections)
-- [QuoteProjectBasisNoteTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L52) (6 connections)
-- [quote_logo_path()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L151) (5 connections)
-- [_register_dejavu()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L70) (5 connections)
-- [test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L1) (5 connections)
-- [format_date_long()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L95) (4 connections)
-- [format_date_short()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L109) (4 connections)
-- [_hex_to_rgb()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L40) (4 connections)
-- [money_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L121) (4 connections)
-- [note_lines()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L130) (4 connections)
-- [quote_catalog_description()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L245) (4 connections)
-- [_company_name()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L174) (3 connections)
-- [quote_scope_paragraphs()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L178) (3 connections)
-- [quote_terms()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L200) (3 connections)
-- *... and 38 more nodes in this community*
+- [auth.py](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L1) (29 connections)
+- [auth_routes.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/auth_routes.py#L1) (16 connections)
+- [AuthTestCase](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L7) (12 connections)
+- [_db_execute()](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L154) (9 connections)
+- [init_db()](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L25) (9 connections)
+- [DefaultAdminTests](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth_defaults.py#L12) (8 connections)
+- [verify_credentials()](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L175) (6 connections)
+- [._create_user()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L35) (6 connections)
+- [create_user()](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L190) (5 connections)
+- [User](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L101) (5 connections)
+- [_db_query()](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L148) (4 connections)
+- [get_user_by_username()](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L167) (4 connections)
+- [reset_user_password()](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L201) (4 connections)
+- [set_user_active()](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L197) (4 connections)
+- [.test_inactive_user_cannot_login()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L82) (4 connections)
+- [._admin_row()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth_defaults.py#L29) (4 connections)
+- [_default_admin_config()](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L56) (3 connections)
+- [delete_user()](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L226) (3 connections)
+- [_ensure_default_admin()](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L63) (3 connections)
+- [get_all_users()](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L161) (3 connections)
+- [init_auth()](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L249) (3 connections)
+- [record_login()](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py#L212) (3 connections)
+- [change_own_password()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/auth_routes.py#L175) (3 connections)
+- [edit_username_view()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/auth_routes.py#L138) (3 connections)
+- [login()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/auth_routes.py#L31) (3 connections)
+- *... and 40 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class BundleBreakdownPdfRenderTest {
-        +test_pdfs.py()
-        +.test_pdf_with_bundle_item_renders_without_error()
+    class User {
+        +auth.py()
+        +.__init__()
     }
-    class QuoteCoverCopyTest {
-        +test_pdfs.py()
-        +.test_proyecto()
-        +.test_obra()
-        +.test_servicio()
-        +.test_extraordinaria_with_sequence()
-        +.test_extraordinaria_no_sequence()
-        +.test_preliminar()
-        +.test_general_fallback()
+    class AuthTestCase {
+        +test_auth.py()
+        +.setUp()
+        +.tearDown()
+        +._create_user()
+        +._login()
+        +.test_login_page_returns_200()
+        +.test_unauthenticated_redirect_to_login()
+        +.test_login_success_redirects_to_dashboard()
+        +.test_login_wrong_password_shows_error()
+        +.test_login_unknown_user_same_error()
     }
-    class QuotePdfSectionsTest {
-        +test_pdfs.py()
-        +.test_bundle_breakdown_renders_quantities_without_component_prices()
-        +.test_specs_terms_and_notes_render_as_independent_sections()
-        +.test_discount_renders_before_tax_in_both_totals_boxes()
-        +.test_no_discount_omits_discount_row()
-        +.test_pdf_reflects_project_client_over_stale_quote_snapshot()
-        +.test_pdf_falls_back_to_quote_client_snapshot_when_project_has_none()
-        +.test_long_description_does_not_orphan_words_after_wrap()
-    }
-    class QuoteProjectBasisNoteTest {
-        +test_pdfs.py()
-        +.test_proyecto_with_source()
-        +.test_proyecto_without_source()
-        +.test_obra_returns_empty()
-        +.test_servicio_returns_empty()
-        +.test_extraordinaria_uses_note_field()
-    }
-    class QuoteSequenceFromNumberTest {
-        +test_pdfs.py()
-        +.test_proyecto_code()
-        +.test_obra_code()
-        +.test_servicio_code()
-        +.test_extraordinaria_code()
-        +.test_general_code()
-        +.test_no_match()
-        +.test_empty()
+    class DefaultAdminTests {
+        +test_auth_defaults.py()
+        +.setUp()
+        +.tearDown()
+        +._admin_row()
+        +.test_configured_default_admin_credentials_are_used_on_first_init()
+        +.test_configured_password_does_not_reset_existing_admin_by_default()
+        +.test_configured_password_can_reset_existing_admin_when_enabled()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 2]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py)
-- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_auth.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_auth_defaults.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth_defaults.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/auth.py](file:///Users/macbook/Documents/ProjectTracker/tracker/auth.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/extensions.py](file:///Users/macbook/Documents/ProjectTracker/tracker/extensions.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/routes/auth_routes.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/auth_routes.py)
+- [/Users/macbook/ProjectTracker/tracker/auth.py](file:///Users/macbook/ProjectTracker/tracker/auth.py)
 
 ## Audit Trail
 
-- EXTRACTED: 197 (72%)
-- INFERRED: 75 (28%)
+- EXTRACTED: 183 (79%)
+- INFERRED: 48 (21%)
 - AMBIGUOUS: 0 (0%)
 
 ---

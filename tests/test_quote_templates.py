@@ -11,12 +11,20 @@ class QuoteTemplatesConfigTest(unittest.TestCase):
         self.assertIn("Proyecto", result)
         self.assertIn("Obra", result)
         self.assertIn("Servicio", result)
+        self.assertIn("Proyecto Ejecutivo", result)
+
+    def test_proyecto_ejecutivo_starts_without_seeded_items(self):
+        from tracker.quote_templates_config import get_quote_templates
+        with patch("tracker.quote_templates_config._load", side_effect=Exception("no file")):
+            result = get_quote_templates()
+        tmpl = result["Proyecto Ejecutivo"][0]
+        self.assertEqual(tmpl["sections_default"], [])
 
     def test_default_structure_has_required_fields(self):
         from tracker.quote_templates_config import get_quote_templates
         with patch("tracker.quote_templates_config._load", side_effect=Exception("no file")):
             result = get_quote_templates()
-        for qtype in ("Proyecto", "Obra", "Servicio"):
+        for qtype in ("Proyecto", "Obra", "Servicio", "Proyecto Ejecutivo"):
             self.assertEqual(len(result[qtype]), 1)
             tmpl = result[qtype][0]
             self.assertIn("id", tmpl)

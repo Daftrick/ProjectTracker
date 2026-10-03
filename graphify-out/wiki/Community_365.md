@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Compara materiales esperados por bundles contra LDM real convertida.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L159) (0 connections)
+- [Shutdown and clear the lazy loader thread pool.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py#L163) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_rules.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py)
+- [tracker\drive.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

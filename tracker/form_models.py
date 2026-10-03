@@ -14,12 +14,14 @@ def quote_default_numbers(project, quotes, quote_id=None):
     obra_quotes = [item for item in project_others if quote_type_code(item.get("quote_type", "")) == "O"]
     servicio_quotes = [item for item in project_others if quote_type_code(item.get("quote_type", "")) == "S"]
     extraordinary_quotes = [item for item in project_others if quote_type_code(item.get("quote_type", "")) == "E"]
+    ejecutivo_quotes = [item for item in project_others if quote_type_code(item.get("quote_type", "")) == "J"]
     date_token = today().replace("-", "")
     return {
         "default_num_pr": f"COT-{project['clave']}-P{len(proyecto_quotes) + 1:02d}-{date_token}",
         "default_num_o": f"COT-{project['clave']}-O{len(obra_quotes) + 1:02d}-{date_token}",
         "default_num_s": f"COT-{project['clave']}-S{len(servicio_quotes) + 1:02d}-{date_token}",
         "default_num_e": f"COT-{project['clave']}-E{len(extraordinary_quotes) + 1:02d}-{date_token}",
+        "default_num_je": f"COT-{project['clave']}-J{len(ejecutivo_quotes) + 1:02d}-{date_token}",
     }
 
 

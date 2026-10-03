@@ -45,6 +45,7 @@
     align-items: center;
     margin-bottom: .4rem;
   }
+  .tpl-item-row-noqty { grid-template-columns: 1fr auto; }
   .tpl-item-muted { color: var(--bs-secondary-color); font-size: .76rem; }
   .tpl-search { position: relative; }
   .tpl-search-results {
@@ -79,8 +80,11 @@
 {% block content %}
 <div class="tpl-shell">
   <p class="text-muted mb-4">
-    Las plantillas definen secciones, artículos y cantidades por defecto al crear una cotización.
-    Los precios se toman del catálogo en el momento de crear la cotización.
+    Las plantillas definen secciones y artículos por defecto al crear una cotización
+    (en Proyecto, Obra y Servicio, también cantidades). Los precios se toman del
+    catálogo en el momento de crear la cotización. Las plantillas de
+    <strong>Proyecto Ejecutivo</strong> no usan cantidad ni unidad: cada artículo se
+    cotiza a precio fijo de catálogo.
   </p>
 
   <ul class="nav nav-tabs mb-3" id="qtTypeTabs">
@@ -98,7 +102,8 @@
 
   <div class="tab-content">
     {% for qtype in quote_types %}
-    <div class="tab-pane fade {% if qtype == open_tab %}show active{% endif %}" id="tab-{{ qtype }}">
+    <div class="tab-pane fade {% if qtype == open_tab %}show active{% endif %}" id="tab-{{ qtype }}"
+         data-needs-qty="{{ '0' if qtype == 'Proyecto Ejecutivo' else '1' }}">
 
       {% for tmpl in templates[qtype] %}
       {% set tid = tmpl.id %}
@@ -158,17 +163,20 @@
                     </button>
                   </div>
                   <div class="tpl-items">
+                    {% set needs_qty = qtype != 'Proyecto Ejecutivo' %}
                     {% for item in section['items'] %}
-                    <div class="tpl-item-row">
+                    <div class="tpl-item-row {% if not needs_qty %}tpl-item-row-noqty{% endif %}">
                       <div>
                         <input type="hidden" class="tpl-item-id"   value="{{ item.catalog_item_id }}">
                         <input type="hidden" class="tpl-item-desc" value="{{ item.description }}">
-                        <input type="hidden" class="tpl-item-unit" value="{{ item.unit }}">
+                        <input type="hidden" class="tpl-item-unit" value="{{ item.unit if needs_qty else '' }}">
                         <div class="fw-semibold">{{ item.description }}</div>
-                        <div class="tpl-item-muted">{{ item.unit }}</div>
+                        {% if needs_qty %}<div class="tpl-item-muted">{{ item.unit }}</div>{% endif %}
                       </div>
+                      {% if needs_qty %}
                       <input class="form-control form-control-sm tpl-item-qty tpl-item-qty"
                              type="number" value="{{ item.qty }}" min="0" step="0.01" aria-label="Qty">
+                      {% endif %}
                       <button type="button" class="btn btn-sm btn-outline-danger"
                               onclick="removeItem(this)">
                         <i class="bi bi-x"></i>
@@ -318,18 +326,22 @@
   function removeSection(btn) { btn.closest(".tpl-section")?.remove(); }
   function removeItem(btn)    { btn.closest(".tpl-item-row")?.remove(); }
 
-  function itemRowHTML(item) {
+  function sectionNeedsQty(el) {
+    return el.closest("[data-needs-qty]")?.dataset.needsQty !== "0";
+  }
+
+  function itemRowHTML(item, needsQty = true) {
     return `
-      <div class="tpl-item-row">
+      <div class="tpl-item-row ${needsQty ? "" : "tpl-item-row-noqty"}">
         <div>
           <input type="hidden" class="tpl-item-id"   value="${esc(item.id || item.catalog_item_id || "")}">
           <input type="hidden" class="tpl-item-desc" value="${esc(item.nombre || item.description || "")}">
-          <input type="hidden" class="tpl-item-unit" value="${esc(item.unidad || item.unit || "")}">
+          <input type="hidden" class="tpl-item-unit" value="${needsQty ? esc(item.unidad || item.unit || "") : ""}">
           <div class="fw-semibold">${esc(item.nombre || item.description || "")}</div>
-          <div class="tpl-item-muted">${esc(item.unidad || item.unit || "")}</div>
+          ${needsQty ? `<div class="tpl-item-muted">${esc(item.unidad || item.unit || "")}</div>` : ""}
         </div>
-        <input class="form-control form-control-sm tpl-item-qty"
-               type="number" value="${esc(item.qty || 1)}" min="0" step="0.01" aria-label="Qty">
+        ${needsQty ? `<input class="form-control form-control-sm tpl-item-qty"
+               type="number" value="${esc(item.qty || 1)}" min="0" step="0.01" aria-label="Qty">` : ""}
         <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeItem(this)">
           <i class="bi bi-x"></i>
         </button>
@@ -337,9 +349,10 @@
   }
 
   function renderSearch(input) {
-    const section = input.closest(".tpl-section");
-    const box     = section.querySelector(".tpl-search-results");
-    const q       = input.value.trim().toLowerCase();
+    const section  = input.closest(".tpl-section");
+    const needsQty = sectionNeedsQty(section);
+    const box      = section.querySelector(".tpl-search-results");
+    const q        = input.value.trim().toLowerCase();
     if (!q) { box.classList.remove("is-open"); box.innerHTML = ""; return; }
     const hits = TPL_CATALOG
       .filter(i => `${i.nombre||""} ${i.descripcion||""} ${i.unidad||""}`.toLowerCase().includes(q))
@@ -351,12 +364,14 @@
     box.innerHTML = hits.map(i => `
       <button type="button" class="tpl-search-result">
         <div class="fw-semibold">${esc(i.nombre)}</div>
-        <div class="tpl-item-muted">${esc(i.unidad)}${i.descripcion ? ` · ${esc(i.descripcion)}` : ""}</div>
+        ${needsQty
+          ? `<div class="tpl-item-muted">${esc(i.unidad)}${i.descripcion ? ` · ${esc(i.descripcion)}` : ""}</div>`
+          : (i.descripcion ? `<div class="tpl-item-muted">${esc(i.descripcion)}</div>` : "")}
       </button>`).join("");
     box.querySelectorAll(".tpl-search-result").forEach((btn, idx) => {
       btn.addEventListener("mousedown", e => {
         e.preventDefault();
-        section.querySelector(".tpl-items").insertAdjacentHTML("beforeend", itemRowHTML(hits[idx]));
+        section.querySelector(".tpl-items").insertAdjacentHTML("beforeend", itemRowHTML(hits[idx], needsQty));
         input.value = "";
         box.classList.remove("is-open"); box.innerHTML = "";
       });

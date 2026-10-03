@@ -577,5 +577,54 @@ class QuotePdfSectionsTest(unittest.TestCase):
         self.assertIn("Incluye;", text)
 
 
+class ProyectoEjecutivoPdfTest(unittest.TestCase):
+    def test_no_unit_or_qty_columns_rendered(self):
+        import pdfplumber
+
+        project = {"name": "Proyecto PDF", "client": "Cliente PDF"}
+        quote = {
+            "quote_type": "Proyecto Ejecutivo",
+            "quote_number": "COT-PDF-J01-20261003",
+            "date": "2026-10-03",
+            "currency": "MXN",
+            "tax_rate": 16,
+            "items": [
+                {
+                    "description": "Diseno ejecutivo de instalaciones",
+                    "unit": "",
+                    "qty": 1,
+                    "price": 50000,
+                    "precio_costo": 50000,
+                    "total": 50000,
+                }
+            ],
+            "subtotal": 50000,
+            "tax": 8000,
+            "total": 58000,
+            "specs": {},
+        }
+        company = {
+            "name": "Empresa PDF",
+            "address": "",
+            "email": "",
+            "phone": "",
+            "rut": "",
+            "logo": "",
+            "portada_color": "#000000",
+        }
+
+        with tempfile.NamedTemporaryFile(suffix=".pdf") as tmp:
+            with patch("tracker.pdfs._load_company", return_value=company), \
+                    patch("tracker.pdfs.quote_logo_path", return_value=None):
+                build_quote_pdf(project, quote, tmp.name)
+            with pdfplumber.open(tmp.name) as pdf:
+                text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+
+        self.assertNotIn("UNIDAD", text)
+        self.assertNotIn("CANT.", text)
+        self.assertIn("IMPORTE", text)
+        self.assertIn("$50,000.00", text)
+
+
 if __name__ == "__main__":
     unittest.main()

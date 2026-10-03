@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parse a LISP-exported client quote CSV into quote draft data.](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L111) (0 connections)
+- [Compara materiales esperados por bundles contra LDM real convertida.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_rules.py#L159) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker/quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py)
+- [tracker\comparison_rules.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_rules.py)
 
 ## Audit Trail
 

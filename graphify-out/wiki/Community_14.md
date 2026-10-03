@@ -1,95 +1,66 @@
 # Community 14
 
-> 32 nodes · cohesion 0.07
+> 33 nodes · cohesion 0.08
 
 ## Key Concepts
 
-- [test_quotes_mobile.py](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L1) (9 connections)
-- [MobileItemsTest](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L122) (8 connections)
-- [MobileReviewTest](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L305) (7 connections)
-- [MobileRouteTestBase](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L69) (7 connections)
-- [MobileProjectsTest](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L83) (6 connections)
-- [MobileAddItemTest](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L209) (5 connections)
-- [MobileGeneratePdfTest](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L376) (5 connections)
-- [MobileRemoveItemTest](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L274) (3 connections)
-- [.test_add_item_creates_draft_and_redirects()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L210) (1 connections)
-- [.test_add_item_empty_item_id_no_save()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L248) (1 connections)
-- [.test_add_item_unknown_project_redirects_to_projects()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L239) (1 connections)
-- [.test_generate_pdf_no_draft_redirects()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L402) (1 connections)
-- [.test_generate_pdf_returns_pdf_bytes()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L377) (1 connections)
-- [.test_generate_pdf_unknown_project_redirects()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L415) (1 connections)
-- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L123) (1 connections)
-- [.test_discipline_filter_shows_only_matching_items()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L183) (1 connections)
-- [.test_draft_banner_shown_when_draft_exists()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L144) (1 connections)
-- [.test_items_page_200_no_draft()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L132) (1 connections)
-- [.test_nueva_param_discards_draft_and_redirects()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L159) (1 connections)
-- [.test_unknown_project_redirects()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L138) (1 connections)
-- [._fake_load()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L84) (1 connections)
-- [.test_closed_projects_not_shown()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L110) (1 connections)
-- [.test_draft_badge_shown_when_draft_exists()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L97) (1 connections)
-- [.test_projects_page_200()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L91) (1 connections)
-- [.test_remove_item_updates_draft_and_redirects_to_review()](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py#L275) (1 connections)
-- *... and 7 more nodes in this community*
+- [AvanceRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L25) (19 connections)
+- [._get_project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L41) (13 connections)
+- [CompanyLogoUploadTests](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L8) (7 connections)
+- [_requires_configured_secret_key()](file:///Users/macbook/Documents/ProjectTracker/tracker/__init__.py#L49) (6 connections)
+- [AppConfigTests](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L8) (5 connections)
+- [.test_update_stage_budget_skips_without_template()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L180) (4 connections)
+- **TestCase** (3 connections)
+- [.test_custom_secret_is_allowed_in_production()](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L17) (2 connections)
+- [.test_default_secret_is_allowed_for_local_startup()](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L9) (2 connections)
+- [.test_default_secret_is_rejected_in_production()](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L13) (2 connections)
+- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L38) (2 connections)
+- [.test_add_doc_checklist_appends_item()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L83) (2 connections)
+- [.test_add_doc_checklist_ignores_empty_name()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L95) (2 connections)
+- [.test_add_multiple_docs_independent()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L137) (2 connections)
+- [.test_delete_doc_checklist_removes_item()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L125) (2 connections)
+- [.test_toggle_doc_checklist_flips_done()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L104) (2 connections)
+- [.test_update_stage_budget_handles_missing_values_as_zero()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L168) (2 connections)
+- [.test_update_stage_budget_persists_values()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L147) (2 connections)
+- [.test_update_stage_status_empty_date_stored_as_none()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L56) (2 connections)
+- [.test_update_stage_status_ignores_empty_stage()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L65) (2 connections)
+- [.test_update_stage_status_sets_stage()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L46) (2 connections)
+- [.test_progress_pdf_returns_pdf_content()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L201) (1 connections)
+- [.test_progress_pdf_unknown_project_404()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L207) (1 connections)
+- [.test_update_stage_budget_unknown_project_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L195) (1 connections)
+- [.test_update_stage_status_unknown_project_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L74) (1 connections)
+- *... and 8 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class MobileAddItemTest {
-        +test_quotes_mobile.py()
-        +.test_add_item_creates_draft_and_redirects()
-        +.test_add_item_unknown_project_redirects_to_projects()
-        +.test_add_item_empty_item_id_no_save()
+    class AppConfigTests {
+        +test_app_config.py()
+        +.test_default_secret_is_allowed_for_local_startup()
+        +.test_default_secret_is_rejected_in_production()
+        +.test_custom_secret_is_allowed_in_production()
     }
-    class MobileGeneratePdfTest {
-        +test_quotes_mobile.py()
-        +.test_generate_pdf_returns_pdf_bytes()
-        +.test_generate_pdf_no_draft_redirects()
-        +.test_generate_pdf_unknown_project_redirects()
+    class AvanceRoutesTest {
+        +test_avance_routes.py()
+        +.setUp()
+        +.tearDown()
+        +._get_project()
+        +.test_update_stage_status_sets_stage()
+        +.test_update_stage_status_empty_date_stored_as_none()
+        +.test_update_stage_status_ignores_empty_stage()
+        +.test_update_stage_status_unknown_project_redirects()
+        +.test_add_doc_checklist_appends_item()
+        +.test_add_doc_checklist_ignores_empty_name()
     }
-    class MobileItemsTest {
-        +test_quotes_mobile.py()
-        +._fake_load()
-        +.test_items_page_200_no_draft()
-        +.test_unknown_project_redirects()
-        +.test_draft_banner_shown_when_draft_exists()
-        +.test_nueva_param_discards_draft_and_redirects()
-        +.test_discipline_filter_shows_only_matching_items()
+    class CompanyLogoUploadTests {
+        +test_company_logo_upload.py()
+        +.setUp()
+        +.test_upload_accepts_real_png_and_saves_company_logo()
+        +.test_empresa_preview_uses_serve_route_with_logo_version()
+        +.test_upload_rejects_svg()
+        +.test_upload_rejects_extension_that_does_not_match_content()
     }
-    class MobileProjectsTest {
-        +test_quotes_mobile.py()
-        +._fake_load()
-        +.test_projects_page_200()
-        +.test_draft_badge_shown_when_draft_exists()
-        +.test_closed_projects_not_shown()
-    }
-    class MobileRemoveItemTest {
-        +test_quotes_mobile.py()
-        +.test_remove_item_updates_draft_and_redirects_to_review()
-    }
-    class MobileReviewTest {
-        +test_quotes_mobile.py()
-        +._fake_load()
-        +.test_review_page_200_with_draft()
-        +.test_review_shows_bundle_breakdown()
-        +.test_review_no_draft_redirects_to_items()
-        +.test_review_unknown_project_redirects()
-    }
-    class MobileRouteTestBase {
-        +test_quotes_mobile.py()
-    }
-    MobileRouteTestBase <|-- MobileAddItemTest
-    MobileRouteTestBase <|-- MobileGeneratePdfTest
-    MobileRouteTestBase <|-- MobileItemsTest
-    MobileRouteTestBase <|-- MobileProjectsTest
-    MobileRouteTestBase <|-- MobileRemoveItemTest
-    MobileRouteTestBase <|-- MobileReviewTest
-    MobileProjectsTest <|-- MobileRouteTestBase
-    MobileItemsTest <|-- MobileRouteTestBase
-    MobileAddItemTest <|-- MobileRouteTestBase
-    MobileRemoveItemTest <|-- MobileRouteTestBase
-    MobileReviewTest <|-- MobileRouteTestBase
-    MobileGeneratePdfTest <|-- MobileRouteTestBase
 ```
 
 ## Relationships
@@ -98,12 +69,15 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_quotes_mobile.py](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_app_config.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/__init__.py)
 
 ## Audit Trail
 
-- EXTRACTED: 74 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 87 (90%)
+- INFERRED: 10 (10%)
 - AMBIGUOUS: 0 (0%)
 
 ---

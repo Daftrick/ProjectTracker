@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parse a LISP-exported material list CSV into LDM draft data.      Args:](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L67) (0 connections)
+- [Agrega LDM convirtiendo artículos LDM al ID/unidad esperada de COT.      Si un a](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_rules.py#L102) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker/csv_import.py](file:///Users/macbook/ProjectTracker/tracker/csv_import.py)
+- [tracker\comparison_rules.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_rules.py)
 
 ## Audit Trail
 

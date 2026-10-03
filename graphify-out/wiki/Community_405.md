@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Deleted Catalog Item Handling Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
+- [CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error         legib](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_csv_import.py#L75) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
+- [tests/test_quote_csv_import.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_csv_import.py)
 
 ## Audit Trail
 

@@ -1,22 +1,21 @@
 # Community 41
 
-> 5 nodes · cohesion 0.40
+> 4 nodes · cohesion 0.50
 
 ## Key Concepts
 
-- [test_audit_deleted_catalog_route.py](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L1) (3 connections)
-- [AuditDeletedCatalogRouteTest](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L7) (2 connections)
-- [.test_audit_deleted_catalog_loads_materiales_for_ldms()](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L17) (1 connections)
-- [Tests for the deleted catalog audit route.](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L1) (1 connections)
-- [setUpClass()](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L9) (1 connections)
+- [LdmCsvImportRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_csv_import_route.py#L14) (2 connections)
+- [test_ldm_csv_import_route.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_csv_import_route.py#L1) (2 connections)
+- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_csv_import_route.py#L24) (1 connections)
+- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_csv_import_route.py#L16) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AuditDeletedCatalogRouteTest {
-        +test_audit_deleted_catalog_route.py()
-        +.test_audit_deleted_catalog_loads_materiales_for_ldms()
+    class LdmCsvImportRouteTest {
+        +test_ldm_csv_import_route.py()
+        +._fake_load()
     }
 ```
 
@@ -26,11 +25,11 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_ldm_csv_import_route.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_csv_import_route.py)
 
 ## Audit Trail
 
-- EXTRACTED: 8 (100%)
+- EXTRACTED: 6 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
