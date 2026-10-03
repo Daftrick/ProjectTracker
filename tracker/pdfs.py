@@ -817,14 +817,14 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.set_fill_color(*SOFT)
         pdf.rect(summary_x, summary_y, summary_w, summary_h, style="F")
 
-        totals_box_x = 107
         totals_box_w = 96
+        totals_box_x = pdf.l_margin + content_width - totals_box_w - 2  # 2mm del borde derecho del recuadro gris
         totals_box_y = summary_y + (summary_h - totals_box_h) / 2
         pdf.set_fill_color(255, 255, 255)
         pdf.set_draw_color(*LINE)
         pdf.rect(totals_box_x, totals_box_y, totals_box_w, totals_box_h, style="DF")
 
-        left_x = 7
+        left_x = pdf.l_margin + 2  # padding lateral de 2mm desde el borde del recuadro gris
         left_w = totals_box_x - left_x - 6
         label_h = 3.8
         value_h = 5.8
@@ -983,14 +983,14 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.set_fill_color(*SOFT)
         pdf.rect(pdf.l_margin, _r_summary_y, content_width, _r_summary_h, style="F")
 
-        _r_totals_x = 107
         _r_totals_w = 96
+        _r_totals_x = pdf.l_margin + content_width - _r_totals_w - 2  # 2mm del borde derecho del recuadro gris
         _r_totals_y = _r_summary_y + (_r_summary_h - totals_box_h) / 2
         pdf.set_fill_color(255, 255, 255)
         pdf.set_draw_color(*LINE)
         pdf.rect(_r_totals_x, _r_totals_y, _r_totals_w, totals_box_h, style="DF")
 
-        _r_left_x = 7
+        _r_left_x = pdf.l_margin + 2  # padding lateral de 2mm desde el borde del recuadro gris
         _r_left_w = _r_totals_x - _r_left_x - 6
 
         # PROYECTO
