@@ -99,14 +99,14 @@
   <div class="card mb-3">
     <div class="card-body p-0">
       {% set _no_qty = quote.quote_type == 'Proyecto Ejecutivo' %}
-      {% set _colspan_full = 4 if _no_qty else 6 %}
-      {% set _colspan_label = 3 if _no_qty else 5 %}
+      {% set _colspan_full = 3 if _no_qty else 6 %}
+      {% set _colspan_label = 2 if _no_qty else 5 %}
       <table class="table mb-0">
         <thead class="table-light">
           <tr>
             <th>#</th><th>Descripción</th>
-            {% if not _no_qty %}<th class="text-center">Unidad</th><th class="text-end">Cantidad</th>{% endif %}
-            <th class="text-end">Precio unit.</th><th class="text-end">Total</th>
+            {% if not _no_qty %}<th class="text-center">Unidad</th><th class="text-end">Cantidad</th><th class="text-end">Precio unit.</th>{% endif %}
+            <th class="text-end">{{ 'Importe' if _no_qty else 'Total' }}</th>
           </tr>
         </thead>
         <tbody>
@@ -137,8 +137,8 @@
               {% if not _no_qty %}
               <td class="text-center">{{ item.unit }}</td>
               <td class="text-end">{{ item.qty }}</td>
-              {% endif %}
               <td class="text-end">{{ item.price | currency }}</td>
+              {% endif %}
               <td class="text-end fw-semibold">{{ item.total | currency }}</td>
             </tr>
             {% endfor %}

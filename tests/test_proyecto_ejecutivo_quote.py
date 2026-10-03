@@ -91,6 +91,8 @@ class ProyectoEjecutivoQuoteRoutesTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotIn(">Unidad<", text)
         self.assertNotIn(">Cantidad<", text)
+        self.assertNotIn("Precio unit.", text)
+        self.assertIn(">Importe<", text)
         self.assertIn("Diseño ejecutivo de instalaciones", text)
         self._saved_quotes = [q for q in load("quotes") if q["id"] != quote_id]
 

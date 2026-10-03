@@ -622,6 +622,7 @@ class ProyectoEjecutivoPdfTest(unittest.TestCase):
 
         self.assertNotIn("UNIDAD", text)
         self.assertNotIn("CANT.", text)
+        self.assertNotIn("P. UNIT.", text)
         self.assertIn("IMPORTE", text)
         self.assertIn("$50,000.00", text)
 

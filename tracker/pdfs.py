@@ -655,8 +655,8 @@ def build_quote_pdf(project, quote, output_path=None):
 
     # Columnas de tabla: UNIDAD/CANT. comparten ancho y P.UNIT/IMPORTE comparten ancho.
     # Descripcion absorbe el resto para que la suma == content_width.
-    # Tipos sin cantidades (Proyecto Ejecutivo): se omiten UNIDAD y CANT.,
-    # Descripcion absorbe ese espacio y solo quedan P.UNIT/IMPORTE.
+    # Tipos sin cantidades (Proyecto Ejecutivo): se omiten UNIDAD, CANT. y
+    # P.UNIT — solo queda nombre/descripcion del articulo e IMPORTE.
     _has_qty = quote_type_has_quantities(quote.get("quote_type"))
     NUM_W = 8
     UNIT_QTY_W = 14   # compacto para dar mas aire a DESCRIPCION
@@ -665,8 +665,8 @@ def build_quote_pdf(project, quote, output_path=None):
         DESC_W = content_width - (NUM_W + UNIT_QTY_W * 2 + PRICE_W * 2)
         QUOTE_COLS = [NUM_W, DESC_W, UNIT_QTY_W, UNIT_QTY_W, PRICE_W, PRICE_W]
     else:
-        DESC_W = content_width - (NUM_W + PRICE_W * 2)
-        QUOTE_COLS = [NUM_W, DESC_W, PRICE_W, PRICE_W]
+        DESC_W = content_width - (NUM_W + PRICE_W)
+        QUOTE_COLS = [NUM_W, DESC_W, PRICE_W]
 
     def table_header():
         pdf.set_fill_color(*NAVY)
@@ -675,7 +675,7 @@ def build_quote_pdf(project, quote, output_path=None):
         if _has_qty:
             heads = ["#", "DESCRIPCIÓN", "UNIDAD", "CANT.", "P. UNIT.", "IMPORTE"]
         else:
-            heads = ["#", "DESCRIPCIÓN", "P. UNIT.", "IMPORTE"]
+            heads = ["#", "DESCRIPCIÓN", "IMPORTE"]
         aligns = ["C", "L"] + ["C"] * (len(heads) - 2)
         for width, text, align in zip(QUOTE_COLS, heads, aligns):
             pdf.cell(width, 7, text, fill=True, align=align)
@@ -1256,9 +1256,10 @@ def build_quote_pdf(project, quote, output_path=None):
                 pdf.cell(cols[3], row_h, f"{float(item.get('qty', 0)):,.2f}", align="C")
                 x += cols[3]
 
-            pdf.set_xy(x, row_y)
-            pdf.cell(cols[-2], row_h, money_pdf(item.get("price", 0)), align="C")
-            x += cols[-2]
+            if _has_qty:
+                pdf.set_xy(x, row_y)
+                pdf.cell(cols[-2], row_h, money_pdf(item.get("price", 0)), align="C")
+                x += cols[-2]
 
             pdf.set_xy(x, row_y)
             pdf.set_font("DejaVu", "B", 15.0)  # importe (bold)

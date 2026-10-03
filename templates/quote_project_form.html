@@ -78,9 +78,11 @@
 {% endblock %}
 {% block extra_head %}
 <style>
-  /* ── Proyecto Ejecutivo: sin columnas Unidad/Cantidad ─────────── */
+  /* ── Proyecto Ejecutivo: solo nombre/descripción + importe ─────── */
   #itemsTable.hide-qty-unit .col-unit,
-  #itemsTable.hide-qty-unit .col-qty { display: none; }
+  #itemsTable.hide-qty-unit .col-qty,
+  #itemsTable.hide-qty-unit .col-venta,
+  #itemsTable.hide-qty-unit .col-total-money { display: none; }
 
   /* ── Barra de resumen fija en la parte inferior ─────────────── */
   .quote-bar {
@@ -711,9 +713,9 @@
               <th style="width:29%">Descripción</th>
               <th style="width:9%" class="col-unit">Unidad</th>
               <th style="width:10%" class="col-qty">Cantidad</th>
-              <th style="width:12%">Costo</th>
-              <th style="width:12%">P. Venta</th>
-              <th style="width:12%">Total</th>
+              <th style="width:12%" id="thCosto">Costo</th>
+              <th style="width:12%" class="col-venta">P. Venta</th>
+              <th style="width:12%" class="col-total-money">Total</th>
               <th style="width:8%"></th>
             </tr>
           </thead>
@@ -815,13 +817,13 @@
                     <input type="number" name="item_precio_costo[]" class="form-control form-control-sm costo" value="{{ item.precio_costo }}" step="0.01" min="0" oninput="calcRow(this)">
                   </div>
                 </td>
-                <td>
+                <td class="col-venta">
                   <div class="input-group input-group-sm">
                     <span class="input-group-text">$</span>
                     <input type="number" class="form-control form-control-sm pventa" value="{{ item.price }}" readonly tabindex="-1" style="background:#0a0f1c;color:#8a9298">
                   </div>
                 </td>
-                <td>
+                <td class="col-total-money">
                   <div class="input-group input-group-sm">
                     <span class="input-group-text">$</span>
                     <input type="number" name="item_total[]" class="form-control form-control-sm tot" value="{{ item.total }}" readonly tabindex="-1" style="background:#0a0f1c;color:#8a9298">
@@ -1005,13 +1007,13 @@
           <input type="number" name="item_precio_costo[]" class="form-control form-control-sm costo" value="${costo||0}" step="0.01" min="0" oninput="calcRow(this)">
         </div>
       </td>
-      <td>
+      <td class="col-venta">
         <div class="input-group input-group-sm">
           <span class="input-group-text">$</span>
           <input type="number" class="form-control form-control-sm pventa" value="${total||0}" readonly tabindex="-1" style="background:#0a0f1c;color:#8a9298">
         </div>
       </td>
-      <td>
+      <td class="col-total-money">
         <div class="input-group input-group-sm">
           <span class="input-group-text">$</span>
           <input type="number" name="item_total[]" class="form-control form-control-sm tot" value="${total||0}" readonly tabindex="-1" style="background:#0a0f1c;color:#8a9298">
@@ -1554,6 +1556,8 @@
     const tipo = document.getElementById("quoteType").value;
     const hide = tipo === "Proyecto Ejecutivo";
     document.getElementById("itemsTable")?.classList.toggle("hide-qty-unit", hide);
+    const thCosto = document.getElementById("thCosto");
+    if (thCosto) thCosto.textContent = hide ? "Importe" : "Costo";
     document.querySelector('[data-bs-target="#costsCollapse"]')?.closest(".col-12")
       ?.classList.toggle("d-none", hide);
     document.getElementById("costsCollapse")?.closest(".col-12")?.classList.toggle("d-none", hide);
