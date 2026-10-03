@@ -264,7 +264,7 @@ def build_quote_pdf(project, quote, output_path=None):
     except ImportError as exc:
         raise RuntimeError("fpdf2 no instalado. Ejecuta: pip install fpdf2 --break-system-packages") from exc
 
-    LATERAL_MARGIN = 5  # margen izq/der (mm) - mismo criterio que build_ldm_pdf
+    LATERAL_MARGIN = 10  # margen izq/der (mm) - mismo criterio que build_ldm_pdf
 
     class QuotePDF(FPDF):
         def __init__(self, project_name, quote_number, quote_date):
