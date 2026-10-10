@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Pruebas de sincronizacion parcial LDM desde bundles.](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_ldm_sync.py#L1) (0 connections)
+- [CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error         legib](file:///Users/macbook/Documents/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_csv_import.py#L112) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_ldm_sync.py](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_ldm_sync.py)
+- [C:\Users\daftr\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_csv_import.py](file:///Users/macbook/Documents/ProjectTracker/C%3A%5CUsers%5Cdaftr%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_csv_import.py)
 
 ## Audit Trail
 

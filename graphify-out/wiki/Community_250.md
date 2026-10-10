@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Shutdown the thread pool](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py#L147) (0 connections)
+- [Get file information for a single file](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py#L105) (0 connections)
 
 ## Relationships
 

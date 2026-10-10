@@ -1,26 +1,28 @@
 # Community 44
 
-> 3 nodes · cohesion 0.67
+> 4 nodes · cohesion 0.50
 
 ## Key Concepts
 
-- [_is_truthy()](file:///Users/macbook/Documents/ProjectTracker/app.py#L8) (2 connections)
-- [Reconoce '1', 'true', 'yes', 'on' (case-insensitive) como verdadero.](file:///Users/macbook/ProjectTracker/app.py#L9) (1 connections)
-- [app.py](file:///Users/macbook/Documents/ProjectTracker/app.py#L1) (1 connections)
+- [AutoCAD/LISP to App Workflow](file:///Users/macbook/Documents/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (2 connections)
+- [CSV de Plano (AutoCAD Export) Entity](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt) (2 connections)
+- [CSV Import API Routes (Pending)](file:///Users/macbook/Documents/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (1 connections)
+- [CSV Plano Filename Convention](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (1 connections)
 
 ## Relationships
 
-- [[Community 46]] (1 shared connections)
+- [[Community 42]] (6 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/app.py](file:///Users/macbook/Documents/ProjectTracker/app.py)
-- [/Users/macbook/ProjectTracker/app.py](file:///Users/macbook/ProjectTracker/app.py)
+- [REFERENCIA_ESTRUCTURAS_CSV.txt](file:///Users/macbook/Documents/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt)
+- [VERSIONES.md](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md)
+- [logica_cuantificaciones.txt](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 4 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 4 (67%)
+- INFERRED: 2 (33%)
 - AMBIGUOUS: 0 (0%)
 
 ---

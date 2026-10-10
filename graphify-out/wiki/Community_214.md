@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccatalog.py#L79) (0 connections)
+- [Adds 'disciplina' field (default 'instalaciones') to all catalog items missing i](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccatalog.py#L26) (0 connections)
 
 ## Relationships
 

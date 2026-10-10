@@ -1,48 +1,34 @@
 # Community 29
 
-> 9 nodes · cohesion 0.36
+> 11 nodes · cohesion 0.20
 
 ## Key Concepts
 
-- [main()](file:///Users/macbook/Documents/ProjectTracker/scripts/migrate_add_deadline.py#L16) (7 connections)
-- [GraphifyTaskTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L10) (5 connections)
-- [Completed](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L6) (3 connections)
-- [.test_check_update_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L24) (3 connections)
-- [.test_update_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L12) (3 connections)
-- [.test_missing_graphify_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L36) (2 connections)
-- [.test_unknown_action_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L41) (2 connections)
-- [test_graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L1) (2 connections)
-- [migrate_add_deadline.py](file:///Users/macbook/Documents/ProjectTracker/scripts/migrate_add_deadline.py#L1) (1 connections)
-
-## Class Diagram
-
-```mermaid
-classDiagram
-    class Completed {
-        +test_graphify_task.py()
-    }
-    class GraphifyTaskTest {
-        +test_graphify_task.py()
-        +.test_update_returns_success()
-        +.test_check_update_returns_success()
-        +.test_missing_graphify_returns_success()
-        +.test_unknown_action_returns_success()
-    }
-```
+- [Roadmap de Mejoras (Backlog)](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (7 connections)
+- [Historial de Cambios Recientes](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (3 connections)
+- [Version Actual v25.1](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (3 connections)
+- [Checklist de Cierre de Mejora](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (2 connections)
+- [Limpieza Residual de Templates (Media Prioridad)](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Funcionalidades Completadas](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Exportaciones y Reportes (Baja Prioridad)](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Filtros y Busqueda Adicionales (Baja Prioridad)](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Sincronizacion Parcial COT-Bundle-LDM (Diseno Pendiente)](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Mejoras de UX General (Baja Prioridad)](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Convencion de Versionado](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 27]] (22 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/scripts/migrate_add_deadline.py](file:///Users/macbook/Documents/ProjectTracker/scripts/migrate_add_deadline.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py)
+- [ROADMAP_MEJORAS.md](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md)
+- [VERSIONES.md](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md)
 
 ## Audit Trail
 
-- EXTRACTED: 18 (64%)
-- INFERRED: 10 (36%)
+- EXTRACTED: 20 (91%)
+- INFERRED: 2 (9%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Anexa faltantes a una LDM y devuelve (copia_actualizada, agregados).](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cldm_sync.py#L98) (0 connections)
+- [Construye resumen compacto para UI.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_ignored.py#L74) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\ldm_sync.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cldm_sync.py)
+- [tracker\comparison_ignored.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_ignored.py)
 
 ## Audit Trail
 

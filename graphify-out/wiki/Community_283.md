@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Muestra la vista de mapeo ítem-PDF → catálogo.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L695) (0 connections)
+- [Lista única de categorías existentes (para datalists/filtros).](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cadmin.py#L292) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\materials.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
+- [tracker\routes\admin.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cadmin.py)
 
 ## Audit Trail
 

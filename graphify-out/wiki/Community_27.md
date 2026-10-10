@@ -1,34 +1,37 @@
 # Community 27
 
-> 11 nodes · cohesion 0.20
+> 13 nodes · cohesion 0.31
 
 ## Key Concepts
 
-- [Roadmap de Mejoras (Backlog)](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (7 connections)
-- [Historial de Cambios Recientes](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (3 connections)
-- [Version Actual v25.1](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (3 connections)
-- [Checklist de Cierre de Mejora](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (2 connections)
-- [Limpieza Residual de Templates (Media Prioridad)](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Funcionalidades Completadas](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Exportaciones y Reportes (Baja Prioridad)](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Filtros y Busqueda Adicionales (Baja Prioridad)](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Sincronizacion Parcial COT-Bundle-LDM (Diseno Pendiente)](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Mejoras de UX General (Baja Prioridad)](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Convencion de Versionado](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (1 connections)
+- [terms_templates_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L1) (12 connections)
+- [resolve_quote_terms()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L96) (8 connections)
+- [get_terms_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L74) (7 connections)
+- [_normalize()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L64) (5 connections)
+- [terms_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L1305) (4 connections)
+- [_normalize_template()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L48) (4 connections)
+- [get_terms_template_by_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L88) (3 connections)
+- [_new_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L18) (3 connections)
+- [_normalize_term()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L33) (3 connections)
+- [save_terms_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L84) (3 connections)
+- [_seed_terms_template()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L22) (3 connections)
+- [Plantillas de Términos y Condiciones — independientes de las plantillas de artíc](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L1) (1 connections)
+- [Devuelve (terms, template) para una cotización.      Orden de resolución:     1.](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L97) (1 connections)
 
 ## Relationships
 
-- [[Community 28]] (22 shared connections)
+- [[Community 5]] (2 shared connections)
 
 ## Source Files
 
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md)
-- [VERSIONES.md](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md)
+- [/Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py)
+- [/Users/macbook/ProjectTracker/tracker/terms_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py)
 
 ## Audit Trail
 
-- EXTRACTED: 20 (91%)
-- INFERRED: 2 (9%)
+- EXTRACTED: 47 (82%)
+- INFERRED: 10 (18%)
 - AMBIGUOUS: 0 (0%)
 
 ---

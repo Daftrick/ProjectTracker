@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Construye el workbook Excel de la cotización.      Devuelve (wb, filename) para](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py#L235) (0 connections)
+- [Parse a LISP-exported client quote CSV into quote draft data.](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_csv_import.py#L111) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker/quote_csv_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_csv_import.py)
 
 ## Audit Trail
 

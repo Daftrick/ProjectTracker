@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [LRU cache for drive folder scans with TTL and mtime-based invalidation](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py#L39) (0 connections)
+- [CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error         legib](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_csv_import.py#L100) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py)
+- [tests\test_csv_import.py](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_csv_import.py)
 
 ## Audit Trail
 

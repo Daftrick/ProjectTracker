@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Audit records for deleted catalog items and return summary statistics.      Args](file:///Users/macbook/Documents/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdeletions.py#L112) (0 connections)
+- [Reconnect a deleted catalog item to a new catalog item](file:///Users/macbook/Documents/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdeletions.py#L77) (0 connections)
 
 ## Relationships
 

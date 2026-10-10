@@ -1,33 +1,44 @@
 # Community 33
 
-> 7 nodes · cohesion 0.43
+> 8 nodes · cohesion 0.25
 
 ## Key Concepts
 
-- [Catálogo Data Structure](file:///Users/macbook/Documents/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (4 connections)
-- [Cotización al Cliente (COT) Data Structure](file:///Users/macbook/Documents/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (3 connections)
-- [Lista de Materiales (LDM) Data Structure](file:///Users/macbook/Documents/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (3 connections)
-- [JSON Data Files (data/)](file:///Users/macbook/Documents/ProjectTracker/data) (3 connections)
-- [Deleted Catalog Audit System](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (3 connections)
-- [CSV→LDM Import Diff Algorithm](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
-- [Pending: Destructive Action Confirmations](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [AdminBundlesRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L14) (5 connections)
+- [test_admin_bundles_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L1) (3 connections)
+- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L23) (1 connections)
+- [.test_bundles_page_loads()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L36) (1 connections)
+- [.test_comparison_rules_page_is_not_available()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L42) (1 connections)
+- [.test_create_bundle_persists_bundle()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L46) (1 connections)
+- [Smoke tests de UI Admin para bundles.](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L1) (1 connections)
+- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L16) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class AdminBundlesRoutesTest {
+        +test_admin_bundles_routes.py()
+        +._fake_load()
+        +.test_bundles_page_loads()
+        +.test_comparison_rules_page_is_not_available()
+        +.test_create_bundle_persists_bundle()
+    }
+```
 
 ## Relationships
 
-- [[Community 34]] (18 shared connections)
+- [[Community 32]] (1 shared connections)
 
 ## Source Files
 
-- [REFERENCIA_ESTRUCTURAS_CSV.txt](file:///Users/macbook/Documents/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt)
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md)
-- [VERSIONES.md](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md)
-- [data/](file:///Users/macbook/Documents/ProjectTracker/data)
-- [logica_cuantificaciones.txt](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py)
+- [/Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 12 (67%)
-- INFERRED: 6 (33%)
+- EXTRACTED: 14 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -1,53 +1,37 @@
 # Community 26
 
-> 12 nodes · cohesion 0.17
+> 14 nodes · cohesion 0.27
 
 ## Key Concepts
 
-- [DiscountFinancialCardRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py#L134) (7 connections)
-- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py#L139) (4 connections)
-- [test_project_financial_card_payments.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py#L1) (4 connections)
-- [.test_context_totals_match_discounted_quote()](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py#L174) (3 connections)
-- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py#L152) (2 connections)
-- [.test_pagado_y_saldo_se_calculan_contra_el_total_con_descuento()](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py#L165) (2 connections)
-- [FinancialCardTemplateSourceTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py#L49) (2 connections)
-- [.test_cotizado_cliente_reflects_discounted_total()](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py#L157) (1 connections)
-- [.test_project_detail_shows_pagado_and_saldo_rows()](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py#L50) (1 connections)
-- [La caja financiera del header de project_detail.html ("Cotizado cliente" / "Cost](file:///Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py#L1) (1 connections)
-- [La cotización de este proyecto tiene descuento_pct=10 — la tarjeta debe     usar](file:///Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py#L135) (1 connections)
-- [Verifica los mismos números a nivel de contexto (sin depender del         render](file:///Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py#L175) (1 connections)
-
-## Class Diagram
-
-```mermaid
-classDiagram
-    class DiscountFinancialCardRouteTest {
-        +test_project_financial_card_payments.py()
-        +.setUp()
-        +.tearDown()
-        +.test_cotizado_cliente_reflects_discounted_total()
-        +.test_pagado_y_saldo_se_calculan_contra_el_total_con_descuento()
-        +.test_context_totals_match_discounted_quote()
-    }
-    class FinancialCardTemplateSourceTest {
-        +test_project_financial_card_payments.py()
-        +.test_project_detail_shows_pagado_and_saldo_rows()
-    }
-```
+- [pdf_ldm_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L1) (11 connections)
+- [extract_items_from_pdf()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L291) (8 connections)
+- [_extract_from_tables()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L202) (5 connections)
+- [_clean()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L33) (4 connections)
+- [_extract_from_text()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L260) (4 connections)
+- [_extract_procables()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L56) (4 connections)
+- [_to_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L19) (4 connections)
+- [_extract_procables_meta()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L152) (3 connections)
+- [_header_map()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L185) (3 connections)
+- [_is_procables()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L47) (2 connections)
+- [Extracción de ítems desde PDFs de cotización de proveedores.  Estrategia en casc](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L1) (1 connections)
+- [Extrae número de cotización, fecha y proveedor del header de Procables.](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L153) (1 connections)
+- [Lee un PDF de cotización de proveedor y extrae los ítems.      Devuelve:](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L292) (1 connections)
+- [Extrae ítems de cotización Procables usando franjas de columna por coordenada x.](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L57) (1 connections)
 
 ## Relationships
 
-- [[Community 4]] (3 shared connections)
+- [[Community 1]] (4 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py)
-- [/Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py](file:///Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py)
+- [/Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py)
 
 ## Audit Trail
 
-- EXTRACTED: 23 (79%)
-- INFERRED: 6 (21%)
+- EXTRACTED: 51 (98%)
+- INFERRED: 1 (2%)
 - AMBIGUOUS: 0 (0%)
 
 ---

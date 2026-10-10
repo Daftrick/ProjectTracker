@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Tests parametrizados para importación CSV de tubería conduit.  Cubre los 6 tipos](file:///Users/macbook/Documents/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py#L1) (0 connections)
+- [Integration tests for the mobile quote blueprint (Fase 10).](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_quotes_mobile.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_tube_fixtures.py](file:///Users/macbook/Documents/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py)
+- [tests\test_quotes_mobile.py](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_quotes_mobile.py)
 
 ## Audit Trail
 

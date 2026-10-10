@@ -1,23 +1,24 @@
 # Community 53
 
-> 1 nodes · cohesion 1.00
+> 2 nodes · cohesion 1.00
 
 ## Key Concepts
 
-- [save_all_chunks.py](file:///Users/macbook/Documents/ProjectTracker/save_all_chunks.py#L1) (0 connections)
+- [Fixed Bottom Summary Bar Pattern](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html) (1 connections)
+- [Sticky Table Header with Dynamic Offset Pattern](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 51]] (2 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/save_all_chunks.py](file:///Users/macbook/Documents/ProjectTracker/save_all_chunks.py)
+- [templates/quote_project_form.html](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html)
 
 ## Audit Trail
 
 - EXTRACTED: 0 (0%)
-- INFERRED: 0 (0%)
+- INFERRED: 2 (100%)
 - AMBIGUOUS: 0 (0%)
 
 ---

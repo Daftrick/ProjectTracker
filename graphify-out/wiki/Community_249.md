@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Load file information in parallel for better performance](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py#L118) (0 connections)
+- [Lazy loader for large files to avoid loading all file metadata at once](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py#L98) (0 connections)
 
 ## Relationships
 

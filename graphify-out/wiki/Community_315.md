@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Aprueba/activa una cotización.      - General/Preliminar: marca la seleccionada](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py#L265) (0 connections)
+- [Lista única de categorías existentes (para datalists/filtros).](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cadmin.py#L264) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker\routes\admin.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cadmin.py)
 
 ## Audit Trail
 

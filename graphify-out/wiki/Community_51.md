@@ -4,21 +4,22 @@
 
 ## Key Concepts
 
-- [Fixed Bottom Summary Bar Pattern](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html) (1 connections)
-- [Sticky Table Header with Dynamic Offset Pattern](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html) (1 connections)
+- [Proyecto Entity](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [Drive Project Folder Naming](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (1 connections)
 
 ## Relationships
 
-- [[Community 52]] (2 shared connections)
+- [[Community 49]] (2 shared connections)
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html)
+- [VERSIONES.md](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md)
+- [logica_cuantificaciones.txt](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 0 (0%)
-- INFERRED: 2 (100%)
+- EXTRACTED: 2 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

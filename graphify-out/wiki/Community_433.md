@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Task Entity](file:///Users/macbook/Documents/ProjectTracker/templates/tasks.html) (0 connections)
+- [Catalog Inline AJAX Edit Pattern](file:///Users/macbook/Documents/ProjectTracker/templates/catalogo.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/tasks.html](file:///Users/macbook/Documents/ProjectTracker/templates/tasks.html)
+- [templates/catalogo.html](file:///Users/macbook/Documents/ProjectTracker/templates/catalogo.html)
 
 ## Audit Trail
 

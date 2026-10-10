@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Crea una estructura de bundle con versión 1 activa.      El ID final puede asign](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cbundles.py#L107) (0 connections)
+- [Indexa bundles por el artículo comercial de catálogo usado en COT.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cbundles.py#L87) (0 connections)
 
 ## Relationships
 

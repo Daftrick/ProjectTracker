@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parse a LISP-exported client quote CSV into quote draft data.](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_csv_import.py#L111) (0 connections)
+- [Return {nombre.lower(): id} for O(1) lookup during CSV parsing.](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py#L52) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker/quote_csv_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_csv_import.py)
+- [tracker/csv_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py)
 
 ## Audit Trail
 

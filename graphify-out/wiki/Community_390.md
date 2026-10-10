@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve reglas activas aplicables al scope solicitado.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_ignored.py#L37) (0 connections)
+- [Artículos ignorados en comparación COT/LDM.  Los artículos ignorados siguen form](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_ignored.py#L1) (0 connections)
 
 ## Relationships
 

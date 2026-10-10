@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Indexa bundles por el artículo comercial de catálogo usado en COT.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cbundles.py#L87) (0 connections)
+- [Normaliza un componente de bundle.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cbundles.py#L63) (0 connections)
 
 ## Relationships
 

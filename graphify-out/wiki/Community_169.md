@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Pruebas de filtros administrativos para proveedores y fichas.](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_admin_filters.py#L1) (0 connections)
+- [Reconoce '1', 'true', 'yes', 'on' (case-insensitive) como verdadero.](file:///Users/macbook/Documents/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Capp.py#L9) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_admin_filters.py](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_admin_filters.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\app.py](file:///Users/macbook/Documents/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Capp.py)
 
 ## Audit Trail
 

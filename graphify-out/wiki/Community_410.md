@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Genera la cotización como Excel y la guarda en la carpeta Drive del proyecto.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py#L191) (0 connections)
+- [Parse a LISP-exported material list CSV into LDM draft data.      Args:](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py#L67) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker/csv_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py)
 
 ## Audit Trail
 

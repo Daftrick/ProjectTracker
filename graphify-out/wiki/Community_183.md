@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Smoke tests for simplified project detail COT/LDM UI.](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_project_detail_bundle_ui.py#L1) (0 connections)
+- [Pruebas de sincronizacion parcial LDM desde bundles.](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_ldm_sync.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_project_detail_bundle_ui.py](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_project_detail_bundle_ui.py)
+- [tests\test_ldm_sync.py](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_ldm_sync.py)
 
 ## Audit Trail
 

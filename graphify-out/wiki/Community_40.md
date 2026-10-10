@@ -1,27 +1,33 @@
 # Community 40
 
-> 4 nodes · cohesion 0.67
+> 6 nodes · cohesion 0.47
 
 ## Key Concepts
 
-- [check_syntax.py](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L1) (3 connections)
-- [iter_python_files()](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L12) (2 connections)
-- [main()](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L22) (2 connections)
-- [Parse project Python files without writing bytecode.](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L1) (1 connections)
+- [LDM (Lista de Materiales) Entity](file:///Users/macbook/Documents/ProjectTracker/templates/ldm_form.html) (4 connections)
+- [Bundle Entity (COT Commercial Item + LDM Components)](file:///Users/macbook/Documents/ProjectTracker/templates/bundles.html) (3 connections)
+- [Catalog Item Entity](file:///Users/macbook/Documents/ProjectTracker/templates/catalogo.html) (3 connections)
+- [Quote (Cotización) Entity](file:///Users/macbook/Documents/ProjectTracker/templates/quotes.html) (2 connections)
+- [COT/LDM Comparison Rule Entity](file:///Users/macbook/Documents/ProjectTracker/templates/comparison_rules.html) (1 connections)
+- [Supplier (Proveedor) Entity](file:///Users/macbook/Documents/ProjectTracker/templates/proveedores.html) (1 connections)
 
 ## Relationships
 
-- [[Community 42]] (1 shared connections)
+- [[Community 37]] (14 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py)
-- [/Users/macbook/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/ProjectTracker/tools/check_syntax.py)
+- [templates/bundles.html](file:///Users/macbook/Documents/ProjectTracker/templates/bundles.html)
+- [templates/catalogo.html](file:///Users/macbook/Documents/ProjectTracker/templates/catalogo.html)
+- [templates/comparison_rules.html](file:///Users/macbook/Documents/ProjectTracker/templates/comparison_rules.html)
+- [templates/ldm_form.html](file:///Users/macbook/Documents/ProjectTracker/templates/ldm_form.html)
+- [templates/proveedores.html](file:///Users/macbook/Documents/ProjectTracker/templates/proveedores.html)
+- [templates/quotes.html](file:///Users/macbook/Documents/ProjectTracker/templates/quotes.html)
 
 ## Audit Trail
 
-- EXTRACTED: 8 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 2 (14%)
+- INFERRED: 12 (86%)
 - AMBIGUOUS: 0 (0%)
 
 ---

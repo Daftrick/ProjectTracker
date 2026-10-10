@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convenciones de Nomenclatura de Archivos](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (0 connections)
+- [Comparison Ignored Item Entity](file:///Users/macbook/Documents/ProjectTracker/templates/comparison_rules.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [VERSIONES.md](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md)
+- [templates/comparison_rules.html](file:///Users/macbook/Documents/ProjectTracker/templates/comparison_rules.html)
 
 ## Audit Trail
 

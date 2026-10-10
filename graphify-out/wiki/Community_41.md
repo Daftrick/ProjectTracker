@@ -1,35 +1,38 @@
 # Community 41
 
-> 4 nodes · cohesion 0.50
+> 5 nodes · cohesion 0.40
 
 ## Key Concepts
 
-- [LdmCsvImportRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_csv_import_route.py#L14) (2 connections)
-- [test_ldm_csv_import_route.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_csv_import_route.py#L1) (2 connections)
-- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_csv_import_route.py#L24) (1 connections)
-- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_csv_import_route.py#L16) (1 connections)
+- [QuotePaymentsLinkTemplateSourceTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L50) (3 connections)
+- [test_quote_payments_link.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L1) (3 connections)
+- [.test_project_detail_has_payments_button_linking_to_view_quote_anchor()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L51) (1 connections)
+- [.test_quote_project_detail_has_payments_card_anchor_id()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L59) (1 connections)
+- [Botón "Pagos" en la fila de cada cotización (lista de cotizaciones, project_deta](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L1) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class LdmCsvImportRouteTest {
-        +test_ldm_csv_import_route.py()
-        +._fake_load()
+    class QuotePaymentsLinkTemplateSourceTest {
+        +test_quote_payments_link.py()
+        +.test_project_detail_has_payments_button_linking_to_view_quote_anchor()
+        +.test_quote_project_detail_has_payments_card_anchor_id()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 38]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_ldm_csv_import_route.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_csv_import_route.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_payments_link.py](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py)
 
 ## Audit Trail
 
-- EXTRACTED: 6 (100%)
+- EXTRACTED: 9 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

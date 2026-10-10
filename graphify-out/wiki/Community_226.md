@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve (linked_by_id, unlinked_summary).      `linked_by_id` mapea catalog_ite](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cconsistency.py#L80) (0 connections)
+- [Convierte un margen porcentual en un status discreto.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cconsistency.py#L42) (0 connections)
 
 ## Relationships
 

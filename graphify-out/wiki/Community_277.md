@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Remove an item by catalog_item_id from the mobile draft.      Returns (updated_q](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cservices.py#L102) (0 connections)
+- [Recompute subtotal/tax/total from draft items in-place.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cservices.py#L41) (0 connections)
 
 ## Relationships
 

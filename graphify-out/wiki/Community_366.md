@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Crea la carpeta de proyecto en Drive si no existe.      Retorna (created: bool,](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py#L492) (0 connections)
+- [Clear the drive scan cache. Useful for testing or forcing fresh scans.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py#L157) (0 connections)
 
 ## Relationships
 

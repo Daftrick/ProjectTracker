@@ -1,67 +1,70 @@
 # Community 17
 
-> 27 nodes · cohesion 0.15
+> 25 nodes · cohesion 0.12
 
 ## Key Concepts
 
-- [quote_templates_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L1) (17 connections)
-- [get_quote_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L201) (13 connections)
-- [QuoteTemplatesConfigTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L5) (11 connections)
-- [_make_default_template()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L158) (6 connections)
-- [_normalize_template()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L171) (6 connections)
-- [get_template_for_type()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L215) (5 connections)
-- [_normalize()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L184) (5 connections)
-- [normalize_contact_rows()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L109) (5 connections)
-- [save_quote_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L211) (5 connections)
-- [_normalize_contacts()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L96) (4 connections)
-- [_normalize_sections()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L148) (4 connections)
-- [get_template_by_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L220) (3 connections)
-- [_new_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L92) (3 connections)
-- [_normalize_section()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L131) (3 connections)
-- [_normalize_template_item()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L113) (2 connections)
-- [.test_default_structure_has_required_fields()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L23) (2 connections)
-- [.test_get_template_by_id()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L141) (2 connections)
-- [.test_get_template_for_type_returns_first_template()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L125) (2 connections)
-- [.test_get_template_for_unknown_type_returns_empty()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L153) (2 connections)
-- [.test_migrates_legacy_dict_and_sections_to_named_list()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L46) (2 connections)
-- [.test_non_dict_storage_returns_defaults()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L110) (2 connections)
-- [.test_normalizes_template_items_without_prices()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L77) (2 connections)
-- [.test_proyecto_ejecutivo_starts_without_seeded_items()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L16) (2 connections)
-- [.test_returns_all_types_when_no_file()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L7) (2 connections)
-- [.test_save_normalizes_before_storage()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L117) (2 connections)
-- *... and 2 more nodes in this community*
+- [missing_ldm_items_from_bundles()](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L52) (12 connections)
+- [ldm_sync.py](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L1) (10 connections)
+- [MaterialsSyncRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L80) (6 connections)
+- [_aggregate_ldm_qty_by_catalog()](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L25) (5 connections)
+- [selected_missing_bundle_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L95) (5 connections)
+- [append_missing_bundle_items_to_ldm()](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L107) (4 connections)
+- [_clean()](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L21) (4 connections)
+- [_safe_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L10) (4 connections)
+- [LdmSyncTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L50) (4 connections)
+- [test_ldm_sync.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L1) (4 connections)
+- [_round()](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L17) (3 connections)
+- [.test_filters_missing_materials_by_explicit_selection()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L62) (3 connections)
+- [.test_appends_missing_items_to_copy()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L72) (2 connections)
+- [.test_builds_only_missing_bundle_materials_without_overwriting()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L51) (2 connections)
+- [Sincronizacion parcial de LDM desde bundles de COT.](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L1) (1 connections)
+- [Anexa faltantes a una LDM y devuelve (copia_actualizada, agregados).](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L114) (1 connections)
+- [Devuelve filas LDM faltantes derivadas de la expansion tecnica.      No modifica](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L58) (1 connections)
+- [Filtra faltantes por seleccion explicita de catalog_item_id.](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L96) (1 connections)
+- [.test_new_ldm_can_prefill_bundle_suggestions()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L165) (1 connections)
+- [.test_new_ldm_preserves_bundle_suggestion_origin_on_create()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L185) (1 connections)
+- [.test_route_appends_selected_bundle_materials_to_existing_ldm()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L112) (1 connections)
+- [.test_route_does_not_append_unselected_bundle_materials()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L141) (1 connections)
+- [.test_route_previews_missing_bundle_materials_for_existing_ldm()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L90) (1 connections)
+- [Pruebas de sincronizacion parcial LDM desde bundles.](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L1) (1 connections)
+- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L82) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class QuoteTemplatesConfigTest {
-        +test_quote_templates.py()
-        +.test_returns_all_types_when_no_file()
-        +.test_proyecto_ejecutivo_starts_without_seeded_items()
-        +.test_default_structure_has_required_fields()
-        +.test_migrates_legacy_dict_and_sections_to_named_list()
-        +.test_normalizes_template_items_without_prices()
-        +.test_non_dict_storage_returns_defaults()
-        +.test_save_normalizes_before_storage()
-        +.test_get_template_for_type_returns_first_template()
-        +.test_get_template_by_id()
+    class LdmSyncTest {
+        +test_ldm_sync.py()
+        +.test_builds_only_missing_bundle_materials_without_overwriting()
+        +.test_filters_missing_materials_by_explicit_selection()
+        +.test_appends_missing_items_to_copy()
+    }
+    class MaterialsSyncRouteTest {
+        +test_ldm_sync.py()
+        +.test_route_previews_missing_bundle_materials_for_existing_ldm()
+        +.test_route_appends_selected_bundle_materials_to_existing_ldm()
+        +.test_route_does_not_append_unselected_bundle_materials()
+        +.test_new_ldm_can_prefill_bundle_suggestions()
+        +.test_new_ldm_preserves_bundle_suggestion_origin_on_create()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 19]] (5 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py)
+- [/Users/macbook/ProjectTracker/tests/test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py)
+- [/Users/macbook/ProjectTracker/tracker/ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py)
 
 ## Audit Trail
 
-- EXTRACTED: 85 (75%)
-- INFERRED: 29 (25%)
+- EXTRACTED: 66 (84%)
+- INFERRED: 13 (16%)
 - AMBIGUOUS: 0 (0%)
 
 ---

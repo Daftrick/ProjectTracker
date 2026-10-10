@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convierte cualquier valor a str limpio, apto para fpdf2 con DejaVu (UTF-8).](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cpdfs.py#L35) (0 connections)
+- [Filtra faltantes por seleccion explicita de catalog_item_id.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cldm_sync.py#L96) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\pdfs.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cpdfs.py)
+- [tracker\ldm_sync.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cldm_sync.py)
 
 ## Audit Trail
 

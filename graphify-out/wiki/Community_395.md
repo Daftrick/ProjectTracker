@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve filas LDM faltantes derivadas de la expansion tecnica.      No modifica](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cldm_sync.py#L40) (0 connections)
+- [Separa agregados linked en (incluidos, ignorados).](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_ignored.py#L61) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\ldm_sync.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cldm_sync.py)
+- [tracker\comparison_ignored.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_ignored.py)
 
 ## Audit Trail
 

@@ -18,15 +18,15 @@
 - [delete_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L323) (9 connections)
 - [hydrate_quote_bundle_breakdowns()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L193) (9 connections)
 - [_safe_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L31) (9 connections)
-- [BundleEdgeCasesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L217) (9 connections)
-- [CaptureBundleSnapshotTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L318) (8 connections)
+- [BundleEdgeCasesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L229) (9 connections)
+- [CaptureBundleSnapshotTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L330) (8 connections)
 - [test_bundles.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L1) (8 connections)
 - [activate_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L306) (7 connections)
-- [SeededBundlesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L165) (7 connections)
+- [SeededBundlesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L176) (7 connections)
 - [_component_row()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L120) (6 connections)
-- [._make_bundle()](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L319) (6 connections)
-- [QuoteItemBundleBreakdownTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L73) (6 connections)
-- [.test_add_activate_and_delete_version()](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L15) (5 connections)
+- [._make_bundle()](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L331) (6 connections)
+- [QuoteItemBundleBreakdownTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L84) (6 connections)
+- [.test_add_activate_and_delete_version()](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L25) (5 connections)
 - [_display_qty()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L113) (4 connections)
 - [next_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L258) (4 connections)
 - *... and 52 more nodes in this community*
@@ -93,13 +93,12 @@ classDiagram
 
 ## Relationships
 
-- [[Community 3]] (16 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
 - [/Users/macbook/Documents/ProjectTracker/tests/test_bundles.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py)
 - [/Users/macbook/Documents/ProjectTracker/tracker/bundles.py](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py)
-- [/Users/macbook/ProjectTracker/tests/test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py)
 - [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 
 ## Audit Trail

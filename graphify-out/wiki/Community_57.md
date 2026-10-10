@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [graphify_ast.py](file:///Users/macbook/Documents/ProjectTracker/graphify_ast.py#L1) (0 connections)
+- [Retorna la fecha en formato dd-mm-aa (ej: 22-08-26). Usado en campos     compact](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py#L119) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/graphify_ast.py](file:///Users/macbook/Documents/ProjectTracker/graphify_ast.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 

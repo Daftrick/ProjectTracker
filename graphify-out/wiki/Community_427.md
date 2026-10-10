@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Deleted Catalog Item Handling Pattern](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html) (0 connections)
+- [Quote Sectioned Line Items Pattern](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html) (0 connections)
 
 ## Relationships
 

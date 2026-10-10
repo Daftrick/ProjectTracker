@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Catalog Inline AJAX Edit Pattern](file:///Users/macbook/Documents/ProjectTracker/templates/catalogo.html) (0 connections)
+- [Auto-generated Quote Number Pattern](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/catalogo.html](file:///Users/macbook/Documents/ProjectTracker/templates/catalogo.html)
+- [templates/quote_project_form.html](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html)
 
 ## Audit Trail
 

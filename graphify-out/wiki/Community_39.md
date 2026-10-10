@@ -1,37 +1,39 @@
 # Community 39
 
-> 5 nodes · cohesion 0.40
+> 6 nodes · cohesion 0.33
 
 ## Key Concepts
 
-- [test_audit_deleted_catalog_route.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L1) (3 connections)
-- [AuditDeletedCatalogRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L7) (2 connections)
-- [.test_audit_deleted_catalog_loads_materiales_for_ldms()](file:///Users/macbook/Documents/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L17) (1 connections)
-- [Tests for the deleted catalog audit route.](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L1) (1 connections)
-- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L9) (1 connections)
+- [MaterialsCsvExportTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py#L25) (3 connections)
+- [test_materials_csv_export.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py#L1) (3 connections)
+- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py#L35) (1 connections)
+- [.test_exports_existing_ldm_without_creating_a_new_list()](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py#L42) (1 connections)
+- [Tests for exporting an existing LDM as CSV.](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L1) (1 connections)
+- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py#L27) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AuditDeletedCatalogRouteTest {
-        +test_audit_deleted_catalog_route.py()
-        +.test_audit_deleted_catalog_loads_materiales_for_ldms()
+    class MaterialsCsvExportTest {
+        +test_materials_csv_export.py()
+        +._fake_load()
+        +.test_exports_existing_ldm_without_creating_a_new_list()
     }
 ```
 
 ## Relationships
 
-- [[Community 41]] (1 shared connections)
+- [[Community 36]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_audit_deleted_catalog_route.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_audit_deleted_catalog_route.py)
-- [/Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py)
+- [/Users/macbook/ProjectTracker/tests/test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py)
 
 ## Audit Trail
 
-- EXTRACTED: 8 (100%)
+- EXTRACTED: 10 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

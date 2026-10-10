@@ -1,6 +1,6 @@
 # Community 13
 
-> 35 nodes · cohesion 0.11
+> 29 nodes · cohesion 0.15
 
 ## Key Concepts
 
@@ -11,12 +11,9 @@
 - [NextQuoteNumberTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L129) (8 connections)
 - [ApproveQuoteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L23) (7 connections)
 - [._project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L130) (7 connections)
-- [quote_type_code()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L77) (5 connections)
-- [approve_quote_route()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L471) (5 connections)
 - [MigrateQuoteApprovalTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L87) (5 connections)
 - [ProyectoEjecutivoQuoteTypeTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L171) (5 connections)
 - [test_catalog_approval.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L1) (5 connections)
-- [quote_type_has_quantities()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L81) (4 connections)
 - [.test_approve_does_not_touch_other_project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L77) (3 connections)
 - [.test_approving_active_base_quote_toggles_it_off()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L70) (3 connections)
 - [.test_approving_extraordinaria_toggles_only_itself()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L48) (3 connections)
@@ -29,7 +26,10 @@
 - [.test_two_proyecto_quotes_only_newest_active()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L101) (3 connections)
 - [.test_does_not_count_other_project_quotes()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L159) (3 connections)
 - [.test_first_proyecto_in_clean_project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L141) (3 connections)
-- *... and 10 more nodes in this community*
+- [.test_no_collision_preliminar_then_proyecto()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L133) (3 connections)
+- [.test_obra_independent_counter()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L146) (3 connections)
+- [.test_proyecto_ejecutivo_counter()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L165) (3 connections)
+- *... and 4 more nodes in this community*
 
 ## Class Diagram
 
@@ -72,19 +72,17 @@ classDiagram
 
 ## Relationships
 
-- [[Community 22]] (1 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
 - [/Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py)
 - [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 104 (68%)
-- INFERRED: 49 (32%)
+- EXTRACTED: 94 (70%)
+- INFERRED: 40 (30%)
 - AMBIGUOUS: 0 (0%)
 
 ---

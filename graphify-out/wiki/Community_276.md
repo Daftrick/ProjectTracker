@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Add or update an item in the mobile draft for the given project.      Finds the](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cservices.py#L50) (0 connections)
+- [Build a quote item dict from a catalog item + qty (int or str).](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cservices.py#L17) (0 connections)
 
 ## Relationships
 

@@ -1,25 +1,28 @@
 # Community 45
 
-> 3 nodes · cohesion 1.00
+> 4 nodes · cohesion 0.50
 
 ## Key Concepts
 
-- [main()](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py#L26) (2 connections)
-- [_run_graphify()](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py#L12) (2 connections)
-- [graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py#L1) (2 connections)
+- [Bundles Versioned System](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (2 connections)
+- [Consistency COT vs LDM Module](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (2 connections)
+- [Catalog Hydration Logic](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [Pending: Bundle Technical Consistency Audit](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 43]] (6 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tools/graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py)
+- [ROADMAP_MEJORAS.md](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md)
+- [VERSIONES.md](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md)
+- [logica_cuantificaciones.txt](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 6 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 4 (67%)
+- INFERRED: 2 (33%)
 - AMBIGUOUS: 0 (0%)
 
 ---

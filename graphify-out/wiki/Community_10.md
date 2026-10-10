@@ -1,98 +1,82 @@
 # Community 10
 
-> 54 nodes · cohesion 0.06
+> 45 nodes · cohesion 0.08
 
 ## Key Concepts
 
-- [build_project_detail_context()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L153) (24 connections)
-- [project_view.py](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L1) (18 connections)
-- [ProjectViewTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_view.py#L13) (10 connections)
-- [build_quote_row_views()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L64) (9 connections)
-- [get_quote_status_labels()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L33) (9 connections)
-- [quote_status_view()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L56) (9 connections)
-- [QuoteStatusLabelsModelTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L47) (8 connections)
-- [build_consistency_view()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L124) (7 connections)
-- [save_quote_status_labels()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L48) (7 connections)
-- [QuoteRowNomenclatureUnificationTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L85) (7 connections)
-- [quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L1) (7 connections)
-- [QuoteStatusLabelsRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L121) (6 connections)
-- [quote_status_labels_admin()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L970) (5 connections)
-- [build_ldm_row_views()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L49) (4 connections)
-- [build_task_row_views()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L104) (4 connections)
-- [all_quotes()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L989) (4 connections)
-- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L122) (4 connections)
-- [_deleted_catalog_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L33) (3 connections)
-- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L90) (3 connections)
-- [.test_custom_label_reflected_in_row_views()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L113) (3 connections)
-- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L48) (3 connections)
-- [.test_blank_values_fall_back_to_defaults()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L65) (3 connections)
-- [.test_quote_status_view_uses_saved_label()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L77) (3 connections)
-- [.test_save_and_get_roundtrip()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L58) (3 connections)
-- [test_quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L1) (3 connections)
-- *... and 29 more nodes in this community*
+- [parse_ldm_csv()](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py#L78) (21 connections)
+- [LdmTubeFixturesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L139) (17 connections)
+- [._run_ldm_case()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L141) (16 connections)
+- [csv_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py#L1) (11 connections)
+- [LdmCsvImportTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py#L8) (9 connections)
+- [_clean()](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py#L11) (5 connections)
+- [_write_ldm()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L52) (5 connections)
+- [_build_catalog_index()](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py#L63) (4 connections)
+- [_first_value()](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py#L19) (4 connections)
+- [_header_key()](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py#L15) (4 connections)
+- [_match_catalog()](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py#L73) (4 connections)
+- [.test_ldm_mixed_tubes_single_file()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L195) (4 connections)
+- [.test_ldm_with_metadata_proveedor_fecha()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L213) (4 connections)
+- [_detect_dialect()](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py#L53) (3 connections)
+- [_parse_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py#L26) (3 connections)
+- [.test_parse_ldm_csv_returns_error_on_ansi_encoding()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py#L111) (3 connections)
+- [_read_sample()](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py#L45) (2 connections)
+- [.test_parse_ldm_csv_accepts_spanish_headers_and_semicolon()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py#L30) (2 connections)
+- [.test_parse_ldm_csv_auto_links_catalog_item_id()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py#L54) (2 connections)
+- [.test_parse_ldm_csv_catalog_match_is_case_insensitive()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py#L74) (2 connections)
+- [.test_parse_ldm_csv_catalog_match_uses_catalog_name_key()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py#L88) (2 connections)
+- [.test_parse_ldm_csv_reads_items_and_metadata()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py#L9) (2 connections)
+- [.test_parse_ldm_csv_reports_missing_required_headers()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py#L43) (2 connections)
+- [.test_parse_ldm_csv_without_catalog_sets_empty_catalog_item_id()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py#L99) (2 connections)
+- [.test_ldm_flexible_licuatite_35mm()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L189) (2 connections)
+- *... and 20 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class ProjectViewTest {
-        +test_project_view.py()
-        +.test_build_project_detail_context_groups_and_calculates_totals()
-        +.test_build_project_detail_context_sums_all_active_base_quotes()
-        +.test_build_project_detail_context_computes_total_pagado_and_saldo()
-        +.test_build_project_detail_context_saldo_can_go_negative_when_overpaid()
-        +.test_build_task_row_views_precomputes_observation_values()
-        +.test_build_ldm_row_views_precomputes_materials_template_values()
-        +.test_build_quote_row_views_precomputes_deleted_catalog_values()
-        +.test_build_consistency_view_prepares_template_rows()
-        +.test_build_consistency_view_prepares_visual_review_helpers()
+    class LdmCsvImportTest {
+        +test_csv_import.py()
+        +.test_parse_ldm_csv_reads_items_and_metadata()
+        +.test_parse_ldm_csv_accepts_spanish_headers_and_semicolon()
+        +.test_parse_ldm_csv_reports_missing_required_headers()
+        +.test_parse_ldm_csv_auto_links_catalog_item_id()
+        +.test_parse_ldm_csv_catalog_match_is_case_insensitive()
+        +.test_parse_ldm_csv_catalog_match_uses_catalog_name_key()
+        +.test_parse_ldm_csv_without_catalog_sets_empty_catalog_item_id()
+        +.test_parse_ldm_csv_returns_error_on_ansi_encoding()
     }
-    class QuoteRowNomenclatureUnificationTest {
-        +test_quote_status_labels.py()
-        +.setUp()
-        +.tearDown()
-        +.test_base_and_extra_quote_share_label_for_same_status()
-        +.test_base_and_extra_quote_share_label_for_obsolete()
-        +.test_custom_label_reflected_in_row_views()
-    }
-    class QuoteStatusLabelsModelTest {
-        +test_quote_status_labels.py()
-        +.setUp()
-        +.tearDown()
-        +.test_defaults_when_nothing_saved()
-        +.test_save_and_get_roundtrip()
-        +.test_blank_values_fall_back_to_defaults()
-        +.test_quote_status_view_unknown_status_defaults_to_draft()
-        +.test_quote_status_view_uses_saved_label()
-    }
-    class QuoteStatusLabelsRouteTest {
-        +test_quote_status_labels.py()
-        +.setUp()
-        +.tearDown()
-        +.test_settings_page_loads_with_defaults()
-        +.test_post_saves_custom_labels()
-        +.test_quote_detail_page_reflects_custom_active_label()
+    class LdmTubeFixturesTest {
+        +test_tube_fixtures.py()
+        +._run_ldm_case()
+        +.test_ldm_galvanizado_pared_delgada_27mm()
+        +.test_ldm_galvanizado_pared_delgada_41mm()
+        +.test_ldm_galvanizado_pared_delgada_63mm()
+        +.test_ldm_galvanizado_pared_gruesa_27mm()
+        +.test_ldm_galvanizado_pared_gruesa_63mm()
+        +.test_ldm_pvc_sp_27mm()
+        +.test_ldm_pvc_sp_63mm()
+        +.test_ldm_pad_flexible_corrugado_35mm()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 11]] (7 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_project_view.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_view.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/project_view.py](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py)
-- [/Users/macbook/ProjectTracker/tests/test_quote_status_labels.py](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py)
-- [/Users/macbook/ProjectTracker/tracker/quote_status_labels.py](file:///Users/macbook/ProjectTracker/tracker/quote_status_labels.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/csv_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_import.py)
+- [/Users/macbook/ProjectTracker/tests/test_csv_import.py](file:///Users/macbook/ProjectTracker/tests/test_csv_import.py)
+- [/Users/macbook/ProjectTracker/tests/test_tube_fixtures.py](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py)
+- [/Users/macbook/ProjectTracker/tracker/csv_import.py](file:///Users/macbook/ProjectTracker/tracker/csv_import.py)
 
 ## Audit Trail
 
-- EXTRACTED: 130 (60%)
-- INFERRED: 87 (40%)
+- EXTRACTED: 142 (85%)
+- INFERRED: 25 (15%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -4,37 +4,39 @@
 
 ## Key Concepts
 
-- [MaterialsCsvExportTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py#L25) (3 connections)
-- [test_materials_csv_export.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py#L1) (3 connections)
-- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py#L35) (1 connections)
-- [.test_exports_existing_ldm_without_creating_a_new_list()](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py#L42) (1 connections)
-- [Tests for exporting an existing LDM as CSV.](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L1) (1 connections)
-- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py#L27) (1 connections)
+- [QuoteClientSyncRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L82) (5 connections)
+- [test_quote_client_sync.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L1) (3 connections)
+- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L95) (2 connections)
+- [.test_quote_detail_page_shows_current_client()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L99) (1 connections)
+- [.test_quote_resumen_page_shows_current_client()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L109) (1 connections)
+- [El cliente (y el nombre de proyecto) se guardan como snapshot dentro de la cotiz](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py#L1) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class MaterialsCsvExportTest {
-        +test_materials_csv_export.py()
-        +._fake_load()
-        +.test_exports_existing_ldm_without_creating_a_new_list()
+    class QuoteClientSyncRoutesTest {
+        +test_quote_client_sync.py()
+        +.setUp()
+        +.tearDown()
+        +.test_quote_detail_page_shows_current_client()
+        +.test_quote_resumen_page_shows_current_client()
     }
 ```
 
 ## Relationships
 
-- [[Community 38]] (1 shared connections)
+- [[Community 5]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py)
-- [/Users/macbook/ProjectTracker/tests/test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_client_sync.py](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py)
 
 ## Audit Trail
 
-- EXTRACTED: 10 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 12 (92%)
+- INFERRED: 1 (8%)
 - AMBIGUOUS: 0 (0%)
 
 ---

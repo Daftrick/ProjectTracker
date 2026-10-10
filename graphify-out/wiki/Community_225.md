@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve la cotización General/Preliminar activa del proyecto.      Orden de pre](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cconsistency.py#L53) (0 connections)
+- [Resumen visual entre cotización (COT) y listas de materiales (LDM).  El detalle](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cconsistency.py#L1) (0 connections)
 
 ## Relationships
 

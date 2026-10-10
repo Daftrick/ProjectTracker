@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Etiquetas de problema para un artículo. La UI las traduce a colores.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cconsistency.py#L170) (0 connections)
+- [Devuelve (linked_by_id, unlinked_summary).      `linked_by_id` mapea catalog_ite](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cconsistency.py#L87) (0 connections)
 
 ## Relationships
 

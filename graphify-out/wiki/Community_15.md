@@ -1,110 +1,82 @@
 # Community 15
 
-> 32 nodes · cohesion 0.07
+> 26 nodes · cohesion 0.13
 
 ## Key Concepts
 
-- [test_quotes_mobile.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L1) (9 connections)
-- [MobileItemsTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L122) (8 connections)
-- [MobileReviewTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L305) (7 connections)
-- [MobileRouteTestBase](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L69) (7 connections)
-- [MobileProjectsTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L83) (6 connections)
-- [MobileAddItemTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L209) (5 connections)
-- [MobileGeneratePdfTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L376) (5 connections)
-- [MobileRemoveItemTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L274) (3 connections)
-- [.test_add_item_creates_draft_and_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L210) (1 connections)
-- [.test_add_item_empty_item_id_no_save()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L248) (1 connections)
-- [.test_add_item_unknown_project_redirects_to_projects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L239) (1 connections)
-- [.test_generate_pdf_no_draft_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L402) (1 connections)
-- [.test_generate_pdf_returns_pdf_bytes()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L377) (1 connections)
-- [.test_generate_pdf_unknown_project_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L415) (1 connections)
-- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L123) (1 connections)
-- [.test_discipline_filter_shows_only_matching_items()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L183) (1 connections)
-- [.test_draft_banner_shown_when_draft_exists()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L144) (1 connections)
-- [.test_items_page_200_no_draft()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L132) (1 connections)
-- [.test_nueva_param_discards_draft_and_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L159) (1 connections)
-- [.test_unknown_project_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L138) (1 connections)
-- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L84) (1 connections)
-- [.test_closed_projects_not_shown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L110) (1 connections)
-- [.test_draft_badge_shown_when_draft_exists()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L97) (1 connections)
-- [.test_projects_page_200()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L91) (1 connections)
-- [.test_remove_item_updates_draft_and_redirects_to_review()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L275) (1 connections)
-- *... and 7 more nodes in this community*
+- [resolve_quote_proposal_for()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L397) (11 connections)
+- [resolve_quote_client()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L376) (8 connections)
+- [QuoteProposalForPdfTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L205) (8 connections)
+- [._render_text()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L229) (7 connections)
+- [ResolveQuoteProposalForTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L60) (7 connections)
+- [._base_quote()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L212) (5 connections)
+- [ResolveQuoteClientTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L39) (5 connections)
+- [test_quote_client_override.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L1) (5 connections)
+- [.test_cliente_mode_with_override_shows_override()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L253) (3 connections)
+- [.test_legacy_quote_without_proposal_fields_behaves_like_before()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L261) (3 connections)
+- [.test_personalizado_shows_custom_addressee_not_client()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L238) (3 connections)
+- [.test_vacio_hides_propuesta_para_block()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L246) (3 connections)
+- [._company()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L206) (2 connections)
+- [.test_falls_back_to_snapshot_when_no_override_and_no_project_client()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L50) (2 connections)
+- [.test_handles_missing_quote_and_project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L55) (2 connections)
+- [.test_override_wins_over_project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L40) (2 connections)
+- [.test_project_wins_when_no_override()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L45) (2 connections)
+- [.test_default_mode_missing_field_uses_client()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L61) (2 connections)
+- [.test_mode_cliente_explicit_uses_resolved_client()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L67) (2 connections)
+- [.test_mode_cliente_without_any_client_hides_line()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L89) (2 connections)
+- [.test_mode_personalizado_uses_custom_text()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L73) (2 connections)
+- [.test_mode_personalizado_without_text_hides_line()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L79) (2 connections)
+- [.test_mode_vacio_hides_line_even_with_client()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L84) (2 connections)
+- [Cliente a mostrar en PDF/Excel/vistas de una cotización.      Prioridad: 1) over](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L377) (1 connections)
+- [Etiqueta y valor de la línea "Propuesta para" de la portada.      proposal_for_m](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L398) (1 connections)
+- *... and 1 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class MobileAddItemTest {
-        +test_quotes_mobile.py()
-        +.test_add_item_creates_draft_and_redirects()
-        +.test_add_item_unknown_project_redirects_to_projects()
-        +.test_add_item_empty_item_id_no_save()
+    class QuoteProposalForPdfTest {
+        +test_quote_client_override.py()
+        +._company()
+        +._base_quote()
+        +._render_text()
+        +.test_personalizado_shows_custom_addressee_not_client()
+        +.test_vacio_hides_propuesta_para_block()
+        +.test_cliente_mode_with_override_shows_override()
+        +.test_legacy_quote_without_proposal_fields_behaves_like_before()
     }
-    class MobileGeneratePdfTest {
-        +test_quotes_mobile.py()
-        +.test_generate_pdf_returns_pdf_bytes()
-        +.test_generate_pdf_no_draft_redirects()
-        +.test_generate_pdf_unknown_project_redirects()
+    class ResolveQuoteClientTest {
+        +test_quote_client_override.py()
+        +.test_override_wins_over_project()
+        +.test_project_wins_when_no_override()
+        +.test_falls_back_to_snapshot_when_no_override_and_no_project_client()
+        +.test_handles_missing_quote_and_project()
     }
-    class MobileItemsTest {
-        +test_quotes_mobile.py()
-        +._fake_load()
-        +.test_items_page_200_no_draft()
-        +.test_unknown_project_redirects()
-        +.test_draft_banner_shown_when_draft_exists()
-        +.test_nueva_param_discards_draft_and_redirects()
-        +.test_discipline_filter_shows_only_matching_items()
+    class ResolveQuoteProposalForTest {
+        +test_quote_client_override.py()
+        +.test_default_mode_missing_field_uses_client()
+        +.test_mode_cliente_explicit_uses_resolved_client()
+        +.test_mode_personalizado_uses_custom_text()
+        +.test_mode_personalizado_without_text_hides_line()
+        +.test_mode_vacio_hides_line_even_with_client()
+        +.test_mode_cliente_without_any_client_hides_line()
     }
-    class MobileProjectsTest {
-        +test_quotes_mobile.py()
-        +._fake_load()
-        +.test_projects_page_200()
-        +.test_draft_badge_shown_when_draft_exists()
-        +.test_closed_projects_not_shown()
-    }
-    class MobileRemoveItemTest {
-        +test_quotes_mobile.py()
-        +.test_remove_item_updates_draft_and_redirects_to_review()
-    }
-    class MobileReviewTest {
-        +test_quotes_mobile.py()
-        +._fake_load()
-        +.test_review_page_200_with_draft()
-        +.test_review_shows_bundle_breakdown()
-        +.test_review_no_draft_redirects_to_items()
-        +.test_review_unknown_project_redirects()
-    }
-    class MobileRouteTestBase {
-        +test_quotes_mobile.py()
-    }
-    MobileRouteTestBase <|-- MobileAddItemTest
-    MobileRouteTestBase <|-- MobileGeneratePdfTest
-    MobileRouteTestBase <|-- MobileItemsTest
-    MobileRouteTestBase <|-- MobileProjectsTest
-    MobileRouteTestBase <|-- MobileRemoveItemTest
-    MobileRouteTestBase <|-- MobileReviewTest
-    MobileProjectsTest <|-- MobileRouteTestBase
-    MobileItemsTest <|-- MobileRouteTestBase
-    MobileAddItemTest <|-- MobileRouteTestBase
-    MobileRemoveItemTest <|-- MobileRouteTestBase
-    MobileReviewTest <|-- MobileRouteTestBase
-    MobileGeneratePdfTest <|-- MobileRouteTestBase
 ```
 
 ## Relationships
 
-- [[Community 14]] (1 shared connections)
+- [[Community 2]] (3 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py)
-- [/Users/macbook/ProjectTracker/tests/test_quotes_mobile.py](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_client_override.py](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py)
 
 ## Audit Trail
 
-- EXTRACTED: 74 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 69 (74%)
+- INFERRED: 24 (26%)
 - AMBIGUOUS: 0 (0%)
 
 ---

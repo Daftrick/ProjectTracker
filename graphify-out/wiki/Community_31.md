@@ -1,44 +1,48 @@
 # Community 31
 
-> 8 nodes · cohesion 0.39
+> 9 nodes · cohesion 0.22
 
 ## Key Concepts
 
-- [AdminFormsTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L6) (7 connections)
-- [.assert_invalid_form_preserved()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L13) (5 connections)
-- [.test_catalogo_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L20) (2 connections)
-- [.test_fichas_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L34) (2 connections)
-- [.test_proveedores_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L27) (2 connections)
-- [.test_team_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L41) (2 connections)
-- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L7) (1 connections)
-- [test_admin_forms.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L1) (1 connections)
+- [CatalogQuickAddTextareaTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L134) (5 connections)
+- [test_quote_desc_textarea.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L1) (4 connections)
+- [QuoteDescTemplateSourceTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L52) (3 connections)
+- [.test_autogrow_helper_handles_hidden_elements_gracefully()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L149) (1 connections)
+- [.test_form_uses_textarea_for_catalog_search_and_quick_add_fields()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L139) (1 connections)
+- [.test_form_has_autogrow_wiring()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L59) (1 connections)
+- [.test_form_uses_textarea_for_item_desc_not_input()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L53) (1 connections)
+- [item_desc[] (columna "Nombre / Descripción" de cada partida) es un <textarea> au](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L1) (1 connections)
+- [Buscador de catálogo (catalogSearch) y mini-formulario "Agregar nuevo     artícu](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L135) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AdminFormsTest {
-        +test_admin_forms.py()
-        +.setUp()
-        +.assert_invalid_form_preserved()
-        +.test_catalogo_invalid_form_preserves_capture()
-        +.test_proveedores_invalid_form_preserves_capture()
-        +.test_fichas_invalid_form_preserves_capture()
-        +.test_team_invalid_form_preserves_capture()
+    class CatalogQuickAddTextareaTest {
+        +test_quote_desc_textarea.py()
+        +.test_form_uses_textarea_for_catalog_search_and_quick_add_fields()
+        +.test_autogrow_helper_handles_hidden_elements_gracefully()
+        +.test_api_catalogo_add_accepts_multiline_nombre_and_descripcion()
+    }
+    class QuoteDescTemplateSourceTest {
+        +test_quote_desc_textarea.py()
+        +.test_form_uses_textarea_for_item_desc_not_input()
+        +.test_form_has_autogrow_wiring()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 28]] (2 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py)
 
 ## Audit Trail
 
-- EXTRACTED: 22 (100%)
+- EXTRACTED: 18 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

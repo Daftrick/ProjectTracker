@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Compara materiales esperados por bundles contra LDM real convertida.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_rules.py#L159) (0 connections)
+- [Convierte cantidades según una regla.      `to_expected=True` convierte la canti](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_rules.py#L86) (0 connections)
 
 ## Relationships
 

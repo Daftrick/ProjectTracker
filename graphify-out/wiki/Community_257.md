@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Scan multiple drive folders in parallel for better performance.      Args:](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py#L765) (0 connections)
+- [Decora archivos CSV COT con estado: importado/pendiente/desactualizado.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cdrive.py#L518) (0 connections)
 
 ## Relationships
 

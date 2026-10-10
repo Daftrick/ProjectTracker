@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Extraordinaria no puede ser cotización base aunque sea la única del proyecto.](file:///Users/macbook/Documents/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py#L105) (0 connections)
+- [Sin General, usa la Preliminar más reciente. Las Extraordinarias no son base.](file:///Users/macbook/Documents/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py#L89) (0 connections)
 
 ## Relationships
 

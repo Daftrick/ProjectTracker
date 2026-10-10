@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Quote Status Lifecycle (Borrador/Enviada/Aprobada/Rechazada)](file:///Users/macbook/Documents/ProjectTracker/templates/quotes.html) (0 connections)
+- [Drive Integration (Multiplataforma)](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/quotes.html](file:///Users/macbook/Documents/ProjectTracker/templates/quotes.html)
+- [VERSIONES.md](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md)
 
 ## Audit Trail
 

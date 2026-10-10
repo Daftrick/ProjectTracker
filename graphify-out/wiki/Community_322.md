@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Lee un CSV COT directamente desde la carpeta Drive del proyecto y muestra previe](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py#L651) (0 connections)
+- [Purge a deleted catalog item from the quote](file:///Users/macbook/Documents/ProjectTracker/tracker%5Croutes%5Cquotes.py#L580) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Migración idempotente: asigna approval_status a cotizaciones existentes.](file:///Users/macbook/Documents/ProjectTracker/tracker%5C__init__.py#L86) (0 connections)
+- [Remove an item by catalog_item_id from the mobile draft.      Returns (updated_q](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cservices.py#L102) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5C__init__.py)
+- [tracker\services.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cservices.py)
 
 ## Audit Trail
 

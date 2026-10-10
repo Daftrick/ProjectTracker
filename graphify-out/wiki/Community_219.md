@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Texto consolidado de un artículo para búsqueda por tokens.](file:///Users/macbook/Documents/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py#L38) (0 connections)
+- [Quita acentos y baja a minúsculas para comparar texto en español.](file:///Users/macbook/Documents/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py#L26) (0 connections)
 
 ## Relationships
 

@@ -1,28 +1,38 @@
 # Community 42
 
-> 4 nodes · cohesion 0.50
+> 5 nodes · cohesion 0.40
 
 ## Key Concepts
 
-- [AutoCAD/LISP to App Workflow](file:///Users/macbook/Documents/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (2 connections)
-- [CSV de Plano (AutoCAD Export) Entity](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt) (2 connections)
-- [CSV Import API Routes (Pending)](file:///Users/macbook/Documents/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (1 connections)
-- [CSV Plano Filename Convention](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (1 connections)
+- [test_audit_deleted_catalog_route.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L1) (3 connections)
+- [AuditDeletedCatalogRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L7) (2 connections)
+- [.test_audit_deleted_catalog_loads_materiales_for_ldms()](file:///Users/macbook/Documents/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L17) (1 connections)
+- [Tests for the deleted catalog audit route.](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L1) (1 connections)
+- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_audit_deleted_catalog_route.py#L9) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class AuditDeletedCatalogRouteTest {
+        +test_audit_deleted_catalog_route.py()
+        +.test_audit_deleted_catalog_loads_materiales_for_ldms()
+    }
+```
 
 ## Relationships
 
-- [[Community 45]] (6 shared connections)
+- [[Community 39]] (1 shared connections)
 
 ## Source Files
 
-- [REFERENCIA_ESTRUCTURAS_CSV.txt](file:///Users/macbook/Documents/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt)
-- [VERSIONES.md](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md)
-- [logica_cuantificaciones.txt](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_audit_deleted_catalog_route.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_audit_deleted_catalog_route.py)
+- [/Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py](file:///Users/macbook/ProjectTracker/tests/test_audit_deleted_catalog_route.py)
 
 ## Audit Trail
 
-- EXTRACTED: 4 (67%)
-- INFERRED: 2 (33%)
+- EXTRACTED: 8 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---
