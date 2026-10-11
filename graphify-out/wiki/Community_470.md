@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parse a LISP-exported material list CSV into LDM draft data.      Args:](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L67) (0 connections)
+- [Crea una estructura de bundle con versión 1 activa.      El ID final puede asign](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L106) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker/csv_import.py](file:///Users/macbook/ProjectTracker/tracker/csv_import.py)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

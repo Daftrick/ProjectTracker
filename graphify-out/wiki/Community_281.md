@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Texto consolidado de un artículo para búsqueda por tokens.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py#L38) (0 connections)
+- [Metadata #proveedor y #fecha post-header (formato real del LISP).](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py#L214) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\catalog_search.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tests\test_tube_fixtures.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py)
 
 ## Audit Trail
 

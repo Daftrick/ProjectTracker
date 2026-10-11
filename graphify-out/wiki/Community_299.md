@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Mark a deleted catalog item as preserved (keep historical reference)](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdeletions.py#L95) (0 connections)
+- [Activa una versión y archiva la versión activa anterior.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L146) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\deletions.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdeletions.py)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Genera el PDF de una Lista de Materiales con la estética del PDF de     cotizaci](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py#L889) (0 connections)
+- [Reconnect a deleted catalog item to a new catalog item](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdeletions.py#L77) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\pdfs.py](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\deletions.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cdeletions.py)
 
 ## Audit Trail
 

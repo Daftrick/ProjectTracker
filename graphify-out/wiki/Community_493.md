@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Catalog Inline AJAX Edit Pattern](file:///Users/macbook/ProjectTracker/templates/catalogo.html) (0 connections)
+- [Mark a deleted catalog item as preserved (keep historical reference)](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L515) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/catalogo.html](file:///Users/macbook/ProjectTracker/templates/catalogo.html)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

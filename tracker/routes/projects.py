@@ -3,7 +3,8 @@ from datetime import date
 from flask import Blueprint, abort, flash, redirect, render_template, request, send_file, url_for
 
 from ..auth import admin_required
-from ..access import can
+from ..access import can, check_document_access
+from ..catalog import catalog_maps, hydrate_quote, is_active_quote
 from ..deletions import delete_project_data
 from ..domain import STAGES, get_progress, project_semaphore, project_stage
 from ..project_view import build_project_detail_context
@@ -14,6 +15,11 @@ from ..templates_config import get_project_templates
 from ..validators import validate_project_form
 
 bp = Blueprint("projects_bp", __name__)
+
+
+@bp.before_request
+def _check_project():
+    return check_document_access(load)
 
 
 def _find_project(project_id):
@@ -38,10 +44,12 @@ def dashboard():
     projects = load("projects")
 
     quotes_by_project: dict = {}
+    catalog_by_id, catalog_by_name = catalog_maps()
     for q in (load("quotes") if can("view_quotes") else []):
         pid = q.get("project_id")
-        if pid and q.get("status") != "draft":
-            quotes_by_project.setdefault(pid, []).append(float(q.get("total", 0)))
+        if pid and is_active_quote(q):
+            total = hydrate_quote(q, catalog_by_id, catalog_by_name).get("total", 0)
+            quotes_by_project.setdefault(pid, []).append(total)
 
     for project in projects:
         project["total_cotizado"] = round(sum(quotes_by_project.get(project["id"], [])), 2)
@@ -223,12 +231,17 @@ def reopen_project(project_id):
 @bp.route("/projects/<project_id>/delete", methods=["POST"], endpoint="delete_project")
 @admin_required
 def delete_project(project_id):
+    quotes = load("quotes")
+    quote_ids = {q.get("id") for q in quotes if q.get("project_id") == project_id}
+    if any(p.get("project_id") == project_id or p.get("quote_id") in quote_ids for p in load("payments")):
+        flash("El proyecto tiene pagos registrados y no se puede eliminar. Consérvalo cerrado para mantener el historial financiero.", "warning")
+        return redirect(url_for("project_detail", project_id=project_id))
     result = delete_project_data(
         project_id,
         load("projects"),
         load("tasks"),
         load("deliveries"),
-        load("quotes"),
+        quotes,
         load("materiales"),
         load("fichas"),
     )

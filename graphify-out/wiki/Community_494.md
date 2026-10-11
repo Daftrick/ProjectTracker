@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Catalog Bulk Delete Pattern](file:///Users/macbook/ProjectTracker/templates/catalogo.html) (0 connections)
+- [Purge a deleted catalog item from the quote](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L543) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/catalogo.html](file:///Users/macbook/ProjectTracker/templates/catalogo.html)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

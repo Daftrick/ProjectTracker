@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Normaliza una regla de artículo ignorado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L23) (0 connections)
+- [Lazy loader for large files to avoid loading all file metadata at once](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L97) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
+- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

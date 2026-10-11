@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Pruebas de sincronizacion parcial LDM desde bundles.](file:///Users/macbook/ProjectTracker/tests%5Ctest_ldm_sync.py#L1) (0 connections)
+- [Calcula el siguiente número de versión para un bundle existente.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L98) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_ldm_sync.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 
 ## Audit Trail
 

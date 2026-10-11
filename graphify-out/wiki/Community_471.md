@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parse a LISP-exported client quote CSV into quote draft data.](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L111) (0 connections)
+- [Agrega una versión al bundle y devuelve una copia actualizada.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L129) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker/quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

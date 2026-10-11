@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Construye el workbook Excel de la cotización.      Devuelve (wb, filename) para](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L235) (0 connections)
+- [Elimina una versión si no es la única disponible.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L162) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

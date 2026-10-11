@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Roadmap Completed Features](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (0 connections)
+- [Construye resumen compacto para UI.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L74) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
+- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
 
 ## Audit Trail
 

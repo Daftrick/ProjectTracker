@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parsea una cotización exportada como Excel hacia datos de borrador.      Reconoc](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L278) (0 connections)
+- [Valida y limpia los campos de un pago (fecha, monto, concepto).](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L409) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

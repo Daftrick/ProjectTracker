@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Acceso rápido desde el panel lateral: todos los pagos de todas las     cotizacio](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1032) (0 connections)
+- [Audit all quotes and LDMs for deleted catalog items](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L1060) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

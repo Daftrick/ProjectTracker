@@ -84,14 +84,29 @@ def check_document_access(load):
     # exports, approval, item repair, and deletion.
     args = request.view_args or {}
     project_id = args.get("project_id")
+    project = next((item for item in load("projects") if item.get("id") == project_id), None) if project_id else None
     if project_id:
         for id_key, collection in (("quote_id", "quotes"), ("ldm_id", "materiales")):
             if id_key not in args:
                 continue
             belongs = any(item.get("id") == args[id_key] and item.get("project_id") == project_id
                           for item in load(collection))
-            project_exists = any(item.get("id") == project_id for item in load("projects"))
-            if not belongs or not project_exists:
+            if not belongs or not project:
                 label = "Cotización" if id_key == "quote_id" else "Lista"
                 flash(f"{label} no encontrada en este proyecto.", "danger")
                 return redirect(url_for("dashboard"))
+    if not project_id and "ldm_id" in args:
+        ldm = next((item for item in load("materiales") if item.get("id") == args["ldm_id"]), None)
+        if ldm:
+            project_id = ldm.get("project_id")
+            project = next((item for item in load("projects") if item.get("id") == project_id), None)
+    name = (request.endpoint or "").rsplit(".", 1)[-1]
+    # Payment follow-up remains available after delivery; document edits need
+    # reopening. The mobile 'nueva' GET also deletes a draft and must be guarded.
+    changes_data = request.method not in {"GET", "HEAD", "OPTIONS"} or (
+        name == "mobile_items" and request.args.get("nueva") == "1"
+    )
+    allowed_when_closed = {"reopen_project", "add_payment", "edit_payment", "delete_payment"}
+    if project and project.get("closed_at") and changes_data and name not in allowed_when_closed:
+        flash("El proyecto está cerrado. Reábrelo para modificar sus documentos.", "warning")
+        return redirect(url_for("project_detail", project_id=project_id))

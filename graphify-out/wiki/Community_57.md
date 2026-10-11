@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [precio_venta = costo × (1+%mo) × (1+%ind) / (1−%util). Utilidad sobre precio de](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L212) (0 connections)
+- [__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/__init__.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/routes/__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/__init__.py)
 
 ## Audit Trail
 

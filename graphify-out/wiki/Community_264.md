@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Normaliza un componente de bundle.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L63) (0 connections)
+- [Pruebas para tracker.catalog_search y la API /api/catalogo.](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
+- [tests\test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py)
 
 ## Audit Trail
 

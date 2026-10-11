@@ -14,8 +14,14 @@ from ..services import (
 )
 from ..storage import load, save
 from ..utils import finite_float
+from ..access import check_document_access
 
 bp = Blueprint("quotes_mobile_bp", __name__, url_prefix="/cotizar/mobile")
+
+
+@bp.before_request
+def _check_project():
+    return check_document_access(load)
 
 
 def _find_project(project_id):

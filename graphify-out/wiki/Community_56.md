@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/__init__.py#L1) (0 connections)
+- [extensions.py](file:///Users/macbook/Documents/ProjectTracker/tracker/extensions.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/routes/__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/__init__.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/extensions.py](file:///Users/macbook/Documents/ProjectTracker/tracker/extensions.py)
 
 ## Audit Trail
 

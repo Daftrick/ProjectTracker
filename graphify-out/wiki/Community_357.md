@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Muestra la vista de mapeo ítem-PDF → catálogo.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L680) (0 connections)
+- [PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos.](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py#L1352) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
+- [tracker\pdfs.py](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py)
 
 ## Audit Trail
 

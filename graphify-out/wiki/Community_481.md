@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [scan_drive_folder Function](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (0 connections)
+- [Devuelve reglas activas aplicables al scope solicitado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L37) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
+- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
 
 ## Audit Trail
 

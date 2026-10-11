@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convierte a float con reporte de errores en lista `errors`. Usado en validadores](file:///Users/macbook/ProjectTracker/tracker/utils.py#L11) (0 connections)
+- [Cliente a mostrar en PDF/Excel/vistas de una cotización.      Prioridad: 1) over](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L378) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/utils.py](file:///Users/macbook/ProjectTracker/tracker/utils.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Returns a User if credentials are valid and account is active, else None.](file:///Users/macbook/ProjectTracker/tracker%5Cauth.py#L118) (0 connections)
+- [Tests for the deleted catalog audit route.](file:///Users/macbook/ProjectTracker/tests%5Ctest_audit_deleted_catalog_route.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\auth.py](file:///Users/macbook/ProjectTracker/tracker%5Cauth.py)
+- [tests\test_audit_deleted_catalog_route.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_audit_deleted_catalog_route.py)
 
 ## Audit Trail
 

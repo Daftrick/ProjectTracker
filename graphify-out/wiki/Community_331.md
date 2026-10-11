@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Extrae número de cotización, fecha y proveedor del header de Procables.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdf_ldm_import.py#L153) (0 connections)
+- [Returns 'verde', 'amarillo', 'rojo', or 'gris' based on deadline and inactivity.](file:///Users/macbook/ProjectTracker/tracker%5Cdomain.py#L97) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\pdf_ldm_import.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdf_ldm_import.py)
+- [tracker\domain.py](file:///Users/macbook/ProjectTracker/tracker%5Cdomain.py)
 
 ## Audit Trail
 

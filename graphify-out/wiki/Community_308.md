@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Store result in cache](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L81) (0 connections)
+- [Quita acentos y baja a minúsculas para comparar texto en español.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py#L26) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\catalog_search.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1675) (0 connections)
+- [Parse #RRGGBB hex string to (r, g, b) int tuple.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L41) (0 connections)
 
 ## Relationships
 

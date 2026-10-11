@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos.](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py#L1892) (0 connections)
+- [Flip project['in_obra']. Manual, admin-only: mueve el proyecto entre     'Entreg](file:///Users/macbook/ProjectTracker/tracker/routes/projects.py#L103) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/projects.py](file:///Users/macbook/ProjectTracker/tracker/routes/projects.py)
 
 ## Audit Trail
 

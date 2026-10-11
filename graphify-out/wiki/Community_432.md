@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve (linked_by_id, unlinked_summary).      `linked_by_id` mapea catalog_ite](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L87) (0 connections)
+- [Recibe el PDF, extrae ítems y redirige a la vista de mapeo.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py#L569) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [tracker\routes\materials.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cmaterials.py)
 
 ## Audit Trail
 

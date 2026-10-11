@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Acceso rápido desde el panel lateral: todos los pagos de todas las     cotizacio](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1038) (0 connections)
+- [Descuento a nivel cotización, aplicado antes del IVA:     subtotal -> descuento](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L352) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Etiqueta y valor de la línea "Propuesta para" de la portada.      proposal_for_m](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L387) (0 connections)
+- [Return the company dict from company.json, or {} on any error.](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py#L129) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 

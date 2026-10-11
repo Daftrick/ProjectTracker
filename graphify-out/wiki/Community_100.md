@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return the company dict from company.json, or {} on any error.](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py#L129) (0 connections)
+- [Lee la primera hoja de un .xlsx como lista de filas (listas de texto).](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L241) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tracker/quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py)
 
 ## Audit Trail
 

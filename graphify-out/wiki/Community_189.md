@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parse #RRGGBB hex string to (r, g, b) int tuple.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L35) (0 connections)
+- [Valida y limpia los campos de un pago (fecha, monto, concepto).](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L398) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Portafolio Kanban: agrupa proyectos activos por etapa derivada     (Cotización →](file:///Users/macbook/ProjectTracker/tracker/routes/projects.py#L72) (0 connections)
+- [Etiqueta y valor de la línea "Propuesta para" de la portada.      proposal_for_m](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L398) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/projects.py](file:///Users/macbook/ProjectTracker/tracker/routes/projects.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

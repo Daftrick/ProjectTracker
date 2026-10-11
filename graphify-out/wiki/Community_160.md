@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Valida y limpia los campos de un pago (fecha, monto, concepto).](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L398) (0 connections)
+- [Convierte cualquier valor a str limpio, apto para fpdf2 con DejaVu (UTF-8).](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L52) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 

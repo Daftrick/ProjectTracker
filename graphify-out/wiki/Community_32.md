@@ -1,34 +1,51 @@
 # Community 32
 
-> 11 nodes · cohesion 0.20
+> 9 nodes · cohesion 0.22
 
 ## Key Concepts
 
-- [Roadmap de Mejoras (Backlog)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (7 connections)
-- [Historial de Cambios Recientes](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
-- [Version Actual v25.1](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
-- [Checklist de Cierre de Mejora](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (2 connections)
-- [Limpieza Residual de Templates (Media Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Funcionalidades Completadas](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Exportaciones y Reportes (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Filtros y Busqueda Adicionales (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Sincronizacion Parcial COT-Bundle-LDM (Diseno Pendiente)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Mejoras de UX General (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Convencion de Versionado](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [QuotePaymentsLinkRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L71) (6 connections)
+- [QuotePaymentsLinkTemplateSourceTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L50) (3 connections)
+- [test_quote_payments_link.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L1) (3 connections)
+- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L83) (2 connections)
+- [.test_project_detail_page_renders_payments_button_for_quote_row()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L87) (1 connections)
+- [.test_view_quote_page_has_payments_anchor()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L97) (1 connections)
+- [.test_project_detail_has_payments_button_linking_to_view_quote_anchor()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L51) (1 connections)
+- [.test_quote_project_detail_has_payments_card_anchor_id()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L59) (1 connections)
+- [Botón "Pagos" en la fila de cada cotización (lista de cotizaciones, project_deta](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L1) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class QuotePaymentsLinkRouteTest {
+        +test_quote_payments_link.py()
+        +.setUp()
+        +.tearDown()
+        +.test_project_detail_page_renders_payments_button_for_quote_row()
+        +.test_view_quote_page_has_payments_anchor()
+        +.test_payments_button_visible_even_for_closed_project()
+    }
+    class QuotePaymentsLinkTemplateSourceTest {
+        +test_quote_payments_link.py()
+        +.test_project_detail_has_payments_button_linking_to_view_quote_anchor()
+        +.test_quote_project_detail_has_payments_card_anchor_id()
+    }
+```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 43]] (1 shared connections)
 
 ## Source Files
 
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_payments_link.py](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py)
 
 ## Audit Trail
 
-- EXTRACTED: 20 (91%)
-- INFERRED: 2 (9%)
+- EXTRACTED: 18 (95%)
+- INFERRED: 1 (5%)
 - AMBIGUOUS: 0 (0%)
 
 ---

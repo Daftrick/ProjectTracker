@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Lista única de categorías existentes (para datalists/filtros).](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py#L292) (0 connections)
+- [Shutdown and clear the lazy loader thread pool.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L164) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\admin.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py)
+- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

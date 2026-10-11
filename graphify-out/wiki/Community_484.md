@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Drive Integration (Multiplataforma)](file:///Users/macbook/ProjectTracker/VERSIONES.md) (0 connections)
+- [Separa agregados linked en (incluidos, ignorados).](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L61) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
 
 ## Audit Trail
 

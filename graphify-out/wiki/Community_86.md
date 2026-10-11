@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Purge a deleted catalog item from the quote](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L805) (0 connections)
+- [precio_venta = costo × (1+%mo) × (1+%ind) / (1−%util). Utilidad sobre precio de](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L212) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

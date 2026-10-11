@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Descuento a nivel cotización, aplicado antes del IVA:     subtotal -> descuento](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L352) (0 connections)
+- [Marca la cotización target_id como active, o la regresa a obsolete si ya lo esta](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L138) (0 connections)
 
 ## Relationships
 

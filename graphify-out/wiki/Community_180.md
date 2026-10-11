@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return included component rows for one commercial quote item.      Renderers con](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L131) (0 connections)
+- [Muestra la vista de mapeo ítem-PDF → catálogo.](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L707) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
 
 ## Audit Trail
 

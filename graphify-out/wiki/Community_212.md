@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Cobertura de los bundles reales en data/bundles.json.](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L74) (0 connections)
+- [Crea una estructura de bundle con versión 1 activa.      El ID final puede asign](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L202) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [APP_VERSION Constant](file:///Users/macbook/ProjectTracker/VERSIONES.md) (0 connections)
+- [Mapa catalog_item_id → regla de ignorado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L56) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
 
 ## Audit Trail
 

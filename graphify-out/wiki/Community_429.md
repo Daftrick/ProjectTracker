@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Scan multiple drive folders in parallel for better performance.      Args:](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L652) (0 connections)
+- [Return {nombre.lower(): id} for O(1) lookup during CSV parsing.](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py#L62) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tracker\csv_import.py](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py)
 
 ## Audit Trail
 

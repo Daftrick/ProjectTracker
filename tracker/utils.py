@@ -2,6 +2,20 @@
 import datetime
 import re
 import math
+from urllib.parse import urlsplit
+
+
+def safe_redirect_path(value):
+    """Allow local return paths without ambiguous browser URL syntax."""
+    if not value or not value.startswith("/") or value.startswith("//"):
+        return None
+    if "\\" in value or any(ord(char) < 32 or ord(char) == 127 for char in value):
+        return None
+    try:
+        parsed = urlsplit(value)
+    except ValueError:
+        return None
+    return value if not parsed.scheme and not parsed.netloc else None
 
 
 def finite_float(value):

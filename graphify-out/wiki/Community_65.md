@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convierte a float silenciosamente. Usado donde no se necesita reporte de error.](file:///Users/macbook/ProjectTracker/tracker/utils.py#L27) (0 connections)
+- [Etiqueta y valor de la línea "Propuesta para" de la portada.      proposal_for_m](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L399) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/utils.py](file:///Users/macbook/ProjectTracker/tracker/utils.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

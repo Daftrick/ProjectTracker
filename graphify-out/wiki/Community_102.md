@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [PDF de avance de obra: etapas con estado/presupuesto + checklist de documentos.](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py#L1875) (0 connections)
+- [Parsea una cotización exportada como Excel hacia datos de borrador.      Reconoc](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L278) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tracker/quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py)
 
 ## Audit Trail
 

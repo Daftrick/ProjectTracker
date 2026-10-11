@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Lee un CSV COT directamente desde la carpeta Drive del proyecto y muestra previe](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L632) (0 connections)
+- [Lee un CSV COT directamente desde la carpeta Drive del proyecto y muestra previe](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L651) (0 connections)
 
 ## Relationships
 

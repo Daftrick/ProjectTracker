@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Marca la cotización target_id como active.      Si es General/Preliminar, pasa l](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L127) (0 connections)
+- [Regresión: smart_render_text/wrap_word_groups no restaban el margen         inte](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L515) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tests/test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py)
 
 ## Audit Trail
 

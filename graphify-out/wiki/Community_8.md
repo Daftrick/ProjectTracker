@@ -1,95 +1,94 @@
 # Community 8
 
-> 65 nodes · cohesion 0.07
+> 68 nodes · cohesion 0.05
 
 ## Key Concepts
 
-- [compute_consistency()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L408) (24 connections)
-- [consistency.py](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L1) (21 connections)
-- [_quote()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L19) (14 connections)
-- [pick_active_quote()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L52) (12 connections)
-- [is_base_quote_type()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L91) (11 connections)
-- [test_consistency.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L1) (11 connections)
-- [aggregate_quote_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L79) (10 connections)
-- [_q_item()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L35) (10 connections)
-- [compare_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L216) (9 connections)
-- [ComputeConsistencyTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L193) (9 connections)
-- [_round()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L37) (8 connections)
-- [.test_detects_all_issue_types()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L151) (8 connections)
-- [aggregate_ldm_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L120) (7 connections)
-- [_safe_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L30) (7 connections)
-- [.test_critical_when_ldm_exceeds_cot()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L231) (6 connections)
-- [.test_full_report_with_general_quote()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L194) (6 connections)
-- [.test_warning_threshold()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L222) (6 connections)
-- [_l_item()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L58) (6 connections)
-- [_ldm()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L46) (6 connections)
-- [PickActiveQuoteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L80) (6 connections)
-- [_quote_visual_row()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L316) (5 connections)
-- [classify_margin()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L41) (4 connections)
-- [_ldm_visual_row()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L331) (4 connections)
-- [.test_aggregates_across_multiple_ldms()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L137) (4 connections)
-- [.test_groups_by_catalog_id_and_handles_unlinked()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L115) (4 connections)
-- *... and 40 more nodes in this community*
+- [parse_ldm_csv()](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L79) (21 connections)
+- [LdmTubeFixturesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L139) (17 connections)
+- [CotTubeFixturesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L282) (16 connections)
+- [._run_ldm_case()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L141) (16 connections)
+- [._run_cot_case()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L284) (14 connections)
+- [csv_import.py](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L1) (11 connections)
+- [LdmCsvImportTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py#L8) (9 connections)
+- [_write_cot()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L67) (6 connections)
+- [_clean()](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L11) (5 connections)
+- [_write_ldm()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L52) (5 connections)
+- [test_tube_fixtures.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L1) (5 connections)
+- [_build_catalog_index()](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L64) (4 connections)
+- [_first_value()](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L19) (4 connections)
+- [_header_key()](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L15) (4 connections)
+- [_match_catalog()](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L74) (4 connections)
+- [_parse_float()](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L26) (4 connections)
+- [.test_cot_mixed_tubes_single_file()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L353) (4 connections)
+- [.test_cot_total_rounding_two_decimals()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L373) (4 connections)
+- [.test_cot_with_metadata_proyecto_clave_and_quote_type()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L337) (4 connections)
+- [.test_ldm_mixed_tubes_single_file()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L195) (4 connections)
+- [.test_ldm_with_metadata_proveedor_fecha()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L213) (4 connections)
+- [_detect_dialect()](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L54) (3 connections)
+- [.test_parse_ldm_csv_returns_error_on_ansi_encoding()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py#L111) (3 connections)
+- [_read_sample()](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L46) (2 connections)
+- [.test_parse_ldm_csv_accepts_spanish_headers_and_semicolon()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py#L30) (2 connections)
+- *... and 43 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AggregateLdmItemsTest {
-        +test_consistency.py()
-        +.test_aggregates_across_multiple_ldms()
+    class LdmCsvImportTest {
+        +test_csv_import.py()
+        +.test_parse_ldm_csv_reads_items_and_metadata()
+        +.test_parse_ldm_csv_accepts_spanish_headers_and_semicolon()
+        +.test_parse_ldm_csv_reports_missing_required_headers()
+        +.test_parse_ldm_csv_auto_links_catalog_item_id()
+        +.test_parse_ldm_csv_catalog_match_is_case_insensitive()
+        +.test_parse_ldm_csv_catalog_match_uses_catalog_name_key()
+        +.test_parse_ldm_csv_without_catalog_sets_empty_catalog_item_id()
+        +.test_parse_ldm_csv_returns_error_on_ansi_encoding()
     }
-    class AggregateQuoteItemsTest {
-        +test_consistency.py()
-        +.test_groups_by_catalog_id_and_handles_unlinked()
-        +.test_no_quote()
+    class CotTubeFixturesTest {
+        +test_tube_fixtures.py()
+        +._run_cot_case()
+        +.test_cot_galvanizado_pared_delgada_27mm_sin_precio()
+        +.test_cot_galvanizado_pared_delgada_63mm_con_precio()
+        +.test_cot_galvanizado_pared_gruesa_27mm_sin_precio()
+        +.test_cot_galvanizado_pared_gruesa_63mm_con_precio()
+        +.test_cot_pvc_sp_27mm_con_precio()
+        +.test_cot_pvc_sp_63mm_sin_precio()
+        +.test_cot_pad_flexible_corrugado_63mm_con_precio()
+        +.test_cot_metalico_flexible_35mm_con_precio()
     }
-    class ClassifyMarginTest {
-        +test_consistency.py()
-        +.test_thresholds()
-    }
-    class CompareItemsTest {
-        +test_consistency.py()
-        +.test_detects_all_issue_types()
-    }
-    class ComputeConsistencyTest {
-        +test_consistency.py()
-        +.test_full_report_with_general_quote()
-        +.test_warning_threshold()
-        +.test_critical_when_ldm_exceeds_cot()
-        +.test_no_data_when_empty()
-        +.test_no_general_quote_uses_fallback()
-        +.test_filters_by_project_id()
-        +.test_visual_warnings_include_missing_data_and_unlinked_rows()
-        +.test_active_extras_are_included_in_visual_total()
-    }
-    class PickActiveQuoteTest {
-        +test_consistency.py()
-        +.test_picks_most_recent_general()
-        +.test_falls_back_to_preliminar_when_no_general()
-        +.test_respects_approval_status_active()
-        +.test_extraordinaria_never_selected_as_base()
-        +.test_no_quotes()
+    class LdmTubeFixturesTest {
+        +test_tube_fixtures.py()
+        +._run_ldm_case()
+        +.test_ldm_galvanizado_pared_delgada_27mm()
+        +.test_ldm_galvanizado_pared_delgada_41mm()
+        +.test_ldm_galvanizado_pared_delgada_63mm()
+        +.test_ldm_galvanizado_pared_gruesa_27mm()
+        +.test_ldm_galvanizado_pared_gruesa_63mm()
+        +.test_ldm_pvc_sp_27mm()
+        +.test_ldm_pvc_sp_63mm()
+        +.test_ldm_pad_flexible_corrugado_35mm()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 10]] (7 shared connections)
+- [[Community 21]] (5 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_consistency.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/consistency.py](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py)
-- [/Users/macbook/ProjectTracker/tests/test_consistency.py](file:///Users/macbook/ProjectTracker/tests/test_consistency.py)
-- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
-- [/Users/macbook/ProjectTracker/tracker/consistency.py](file:///Users/macbook/ProjectTracker/tracker/consistency.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_import.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py)
+- [/Users/macbook/ProjectTracker/tests/test_csv_import.py](file:///Users/macbook/ProjectTracker/tests/test_csv_import.py)
+- [/Users/macbook/ProjectTracker/tests/test_tube_fixtures.py](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py)
+- [/Users/macbook/ProjectTracker/tracker/csv_import.py](file:///Users/macbook/ProjectTracker/tracker/csv_import.py)
 
 ## Audit Trail
 
-- EXTRACTED: 245 (81%)
-- INFERRED: 59 (19%)
+- EXTRACTED: 218 (88%)
+- INFERRED: 30 (12%)
 - AMBIGUOUS: 0 (0%)
 
 ---

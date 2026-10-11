@@ -98,7 +98,8 @@ def create_app():
         if endpoint in _LOGIN_EXEMPT or endpoint.startswith("static"):
             return
         if not current_user.is_authenticated:
-            return redirect(url_for("auth_bp.login", next=request.url))
+            next_path = request.full_path if request.query_string else request.path
+            return redirect(url_for("auth_bp.login", next=next_path))
 
     @app.before_request
     def _protect_data():

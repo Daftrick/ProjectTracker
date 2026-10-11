@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parse #RRGGBB hex string to (r, g, b) int tuple.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L41) (0 connections)
+- [Genera el PDF de una Lista de Materiales con la estética del PDF de     cotizaci](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py#L1389) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 

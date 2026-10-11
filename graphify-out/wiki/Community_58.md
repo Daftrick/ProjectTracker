@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Flattens sections and merges duplicate items (same catalog ID or description+uni](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L263) (0 connections)
+- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L100) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Etiqueta y valor de la línea "Propuesta para" de la portada.      proposal_for_m](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L398) (0 connections)
+- [precio_venta = costo × (1+%mo) × (1+%ind) / (1−%util). Utilidad sobre precio de](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L213) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Asegura que cada artículo tenga el campo `categoria` (default '').      Migració](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L7) (0 connections)
+- [Indexa bundles por el artículo comercial de catálogo usado en COT.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L86) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Regresión: smart_render_text/wrap_word_groups no restaban el margen         inte](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L515) (0 connections)
+- [Convierte a float silenciosamente. Usado donde no se necesita reporte de error.](file:///Users/macbook/ProjectTracker/tracker/utils.py#L27) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py)
+- [/Users/macbook/ProjectTracker/tracker/utils.py](file:///Users/macbook/ProjectTracker/tracker/utils.py)
 
 ## Audit Trail
 

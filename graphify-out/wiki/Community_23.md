@@ -1,74 +1,55 @@
 # Community 23
 
-> 22 nodes · cohesion 0.17
+> 17 nodes · cohesion 0.13
 
 ## Key Concepts
 
-- [project_stage()](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py#L74) (13 connections)
-- [ProjectStageTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L39) (11 connections)
-- [_task()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L23) (9 connections)
-- [KanbanRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L95) (8 connections)
-- [._get_project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L112) (3 connections)
-- [.test_all_aprobado_returns_entregado()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L71) (3 connections)
-- [.test_cot_aprobado_design_en_progreso_returns_diseno()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L63) (3 connections)
-- [.test_cot_aprobado_design_pending_returns_diseno()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L56) (3 connections)
-- [.test_cot_aprobado_only_returns_entregado()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L52) (3 connections)
-- [.test_cot_en_progreso_returns_cotizacion()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L48) (3 connections)
-- [.test_cot_pendiente_returns_cotizacion()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L44) (3 connections)
-- [.test_in_obra_true_overrides_derived_stage()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L79) (3 connections)
-- [.test_subtasks_not_counted()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L88) (3 connections)
-- [test_kanban.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L1) (3 connections)
-- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L109) (2 connections)
-- [.test_toggle_obra_moves_project_to_obra_and_back()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L122) (2 connections)
-- [.test_in_obra_true_even_with_no_tasks()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L84) (2 connections)
-- [.test_no_tasks_returns_cotizacion()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L41) (2 connections)
-- [Derive the portfolio stage from existing task data + the in_obra flag.      Stag](file:///Users/macbook/ProjectTracker/tracker/domain.py#L75) (1 connections)
-- [.test_kanban_page_loads_and_lists_project_in_cotizacion()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L115) (1 connections)
-- [.test_toggle_obra_unknown_project_does_not_crash()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L134) (1 connections)
-- [Cubre las rutas /kanban y toggle_obra restauradas (el template     kanban.html h](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L96) (1 connections)
+- [deletions.py](file:///Users/macbook/Documents/ProjectTracker/tracker/deletions.py#L1) (7 connections)
+- [delete_catalog_items_data()](file:///Users/macbook/Documents/ProjectTracker/tracker/deletions.py#L38) (6 connections)
+- [DeletionsTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_deletions.py#L7) (5 connections)
+- [audit_deleted_catalog()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1071) (4 connections)
+- [audit_deleted_catalog_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/deletions.py#L111) (3 connections)
+- [delete_project_data()](file:///Users/macbook/Documents/ProjectTracker/tracker/deletions.py#L4) (3 connections)
+- [preserve_deleted_catalog_item_in_record()](file:///Users/macbook/Documents/ProjectTracker/tracker/deletions.py#L94) (3 connections)
+- [restore_deleted_catalog_item_in_record()](file:///Users/macbook/Documents/ProjectTracker/tracker/deletions.py#L76) (3 connections)
+- [_mark_deleted_catalog_refs()](file:///Users/macbook/Documents/ProjectTracker/tracker/deletions.py#L165) (2 connections)
+- [.test_delete_catalog_items_marks_quote_and_ldm_refs_as_deleted_snapshots()](file:///Users/macbook/Documents/ProjectTracker/tests/test_deletions.py#L26) (2 connections)
+- [.test_delete_project_cascades_and_unlinks_fichas()](file:///Users/macbook/Documents/ProjectTracker/tests/test_deletions.py#L8) (2 connections)
+- [.test_purge_deleted_catalog_items_removes_only_marked_rows()](file:///Users/macbook/Documents/ProjectTracker/tests/test_deletions.py#L99) (2 connections)
+- [Audit records for deleted catalog items and return summary statistics.      Args](file:///Users/macbook/ProjectTracker/tracker/deletions.py#L112) (1 connections)
+- [Reconnect a deleted catalog item to a new catalog item](file:///Users/macbook/ProjectTracker/tracker/deletions.py#L77) (1 connections)
+- [Mark a deleted catalog item as preserved (keep historical reference)](file:///Users/macbook/ProjectTracker/tracker/deletions.py#L95) (1 connections)
+- [Audit all quotes and LDMs for deleted catalog items](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1072) (1 connections)
+- [test_deletions.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_deletions.py#L1) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class KanbanRoutesTest {
-        +test_kanban.py()
-        +.setUp()
-        +.tearDown()
-        +._get_project()
-        +.test_kanban_page_loads_and_lists_project_in_cotizacion()
-        +.test_toggle_obra_moves_project_to_obra_and_back()
-        +.test_toggle_obra_unknown_project_does_not_crash()
-    }
-    class ProjectStageTest {
-        +test_kanban.py()
-        +.test_no_tasks_returns_cotizacion()
-        +.test_cot_pendiente_returns_cotizacion()
-        +.test_cot_en_progreso_returns_cotizacion()
-        +.test_cot_aprobado_only_returns_entregado()
-        +.test_cot_aprobado_design_pending_returns_diseno()
-        +.test_cot_aprobado_design_en_progreso_returns_diseno()
-        +.test_all_aprobado_returns_entregado()
-        +.test_in_obra_true_overrides_derived_stage()
-        +.test_in_obra_true_even_with_no_tasks()
+    class DeletionsTest {
+        +test_deletions.py()
+        +.test_delete_project_cascades_and_unlinks_fichas()
+        +.test_delete_catalog_items_marks_quote_and_ldm_refs_as_deleted_snapshots()
+        +.test_hydrate_items_flags_deleted_catalog_snapshot_without_relinking()
+        +.test_purge_deleted_catalog_items_removes_only_marked_rows()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 0]] (3 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_kanban.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/domain.py](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py)
-- [/Users/macbook/ProjectTracker/tests/test_kanban.py](file:///Users/macbook/ProjectTracker/tests/test_kanban.py)
-- [/Users/macbook/ProjectTracker/tracker/domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_deletions.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_deletions.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/deletions.py](file:///Users/macbook/Documents/ProjectTracker/tracker/deletions.py)
+- [/Users/macbook/ProjectTracker/tracker/deletions.py](file:///Users/macbook/ProjectTracker/tracker/deletions.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 60 (72%)
-- INFERRED: 23 (28%)
+- EXTRACTED: 33 (70%)
+- INFERRED: 14 (30%)
 - AMBIGUOUS: 0 (0%)
 
 ---

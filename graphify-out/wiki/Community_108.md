@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Construye el workbook Excel de la cotización.      Devuelve (wb, filename) para](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L591) (0 connections)
+- [Valida y limpia los campos de un pago (fecha, monto, concepto).](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L403) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

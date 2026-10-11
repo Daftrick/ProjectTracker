@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Flip project['in_obra']. Manual, admin-only: mueve el proyecto entre     'Entreg](file:///Users/macbook/ProjectTracker/tracker/routes/projects.py#L103) (0 connections)
+- [Total cotizado vs. pagado y saldo pendiente para un conjunto de pagos.](file:///Users/macbook/ProjectTracker/tracker/payments.py#L67) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/projects.py](file:///Users/macbook/ProjectTracker/tracker/routes/projects.py)
+- [/Users/macbook/ProjectTracker/tracker/payments.py](file:///Users/macbook/ProjectTracker/tracker/payments.py)
 
 ## Audit Trail
 

@@ -716,6 +716,33 @@ def build_quote_pdf(project, quote, output_path=None):
     pdf.set_fill_color(255, 255, 255)
     pdf.rect(0, 0, 210, 297, style="F")
 
+    def cover_new_page(compact=False):
+        pdf.add_page()
+        if compact:
+            pdf.set_fill_color(*_portada_fill)
+            pdf.rect(0, 0, 210, 200, style="F")
+            pdf.set_xy(pdf.l_margin, 7)
+            pdf.set_text_color(*_banner_ink)
+            pdf.set_font("Lato", "B", 10)
+            pdf.cell(content_width, 4, "PROPUESTA ECONÓMICA (continuación)")
+        pdf.set_y(20)
+
+    def cover_multicell(width, line_h, text, color, compact=False):
+        """Wrap complete cover text while reserving space for its summary.
+
+        Explicit line placement keeps the requested font size and lets compact
+        continuation pages retain a readable background and text color.
+        """
+        x, size, style = pdf.get_x(), pdf.font_size_pt, pdf.font_style
+        lines = pdf.multi_cell(width, line_h, text, dry_run=True, output="LINES")
+        for line in lines:
+            if pdf.get_y() + line_h > (200 if compact else 207):
+                cover_new_page(compact)
+            pdf.set_font("Lato", style, size)
+            pdf.set_text_color(*color)
+            pdf.set_xy(x, pdf.get_y())
+            pdf.cell(width, line_h, line, ln=True)
+
     if _cover_mode == "normal":
         # ── Portada completa (página entera) ────────────────────────────────
         pdf.set_fill_color(*_portada_fill)
@@ -766,13 +793,13 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.set_text_color(*INK)
         if cover_title:
             pdf.set_font("Lato", "B", 24.0)
-            pdf.multi_cell(content_width, 9, _safe_text(cover_title), align="L")
+            cover_multicell(content_width, 9, _safe_text(cover_title), INK)
         if cover_basis_note:
             pdf.ln(1)
             pdf.set_x(pdf.l_margin)
             pdf.set_text_color(*NAVY_2)
             pdf.set_font("Lato", "", 15.0)
-            pdf.multi_cell(content_width, 5.3, _safe_text(cover_basis_note))
+            cover_multicell(content_width, 5.3, _safe_text(cover_basis_note), NAVY_2)
         if cover_subtitle:
             pdf.ln(1)
             pdf.set_x(pdf.l_margin)
@@ -782,6 +809,11 @@ def build_quote_pdf(project, quote, output_path=None):
         if proposal_for:
             proposal_label, proposal_value = proposal_for
             proposal_y = max(168, pdf.get_y() + 7)
+            pdf.set_font("Lato", "B", 20.0)
+            proposal_h = pdf.multi_cell(content_width, 7, _safe_text(proposal_value), dry_run=True, output="HEIGHT")
+            if proposal_y + 9 + proposal_h > 207:
+                cover_new_page()
+                proposal_y = 20
             pdf.set_xy(pdf.l_margin, proposal_y)
             pdf.set_text_color(*MUTED)
             pdf.set_font("Lato", "", 17.5)
@@ -789,7 +821,7 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.set_xy(pdf.l_margin, proposal_y + 9)
             pdf.set_text_color(*INK)
             pdf.set_font("Lato", "B", 20.0)
-            pdf.multi_cell(content_width, 7, _safe_text(proposal_value))
+            cover_multicell(content_width, 7, _safe_text(proposal_value), INK)
         summary_x = pdf.l_margin
         summary_y = 221
         summary_w = content_width
@@ -915,7 +947,7 @@ def build_quote_pdf(project, quote, output_path=None):
         if proposal_for:
             pdf.set_font("Lato", "B", 12.5)
             _proposal_h = 7 + pdf.multi_cell(_txt_w, 5.0, _safe_text(proposal_for[1]), dry_run=True, output="HEIGHT")
-        _banner_h = max(_banner_h, 14 + _title_h + _basis_h + _proposal_h + 7)
+        _banner_h = min(200, max(_banner_h, 14 + _title_h + _basis_h + _proposal_h + 7))
         pdf.set_fill_color(*_portada_fill)
         pdf.rect(0, 0, 210, _banner_h, style="F")
 
@@ -939,17 +971,22 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.set_text_color(*_banner_ink)
         if cover_title:
             pdf.set_font("Lato", "B", 18.0)
-            pdf.multi_cell(_txt_w, 6.7, _safe_text(cover_title), align="L")
+            cover_multicell(_txt_w, 6.7, _safe_text(cover_title), _banner_ink, compact=True)
 
         if cover_basis_note:
             pdf.set_x(_txt_x)
             pdf.set_text_color(*_banner_sub)
             pdf.set_font("Lato", "", 10.0)
-            pdf.multi_cell(_txt_w, 4.0, _safe_text(cover_basis_note))
+            cover_multicell(_txt_w, 4.0, _safe_text(cover_basis_note), _banner_sub, compact=True)
 
         if proposal_for:
             proposal_label, proposal_value = proposal_for
             _prop_y = pdf.get_y() + 2
+            pdf.set_font("Lato", "B", 12.5)
+            _client_h = pdf.multi_cell(_txt_w, 5, _safe_text(proposal_value), dry_run=True, output="HEIGHT")
+            if _prop_y + 5 + _client_h > 200:
+                cover_new_page(compact=True)
+                _prop_y = 20
             pdf.set_xy(_txt_x, _prop_y)
             pdf.set_text_color(*_banner_sub)
             pdf.set_font("Lato", "", 10.0)
@@ -957,7 +994,7 @@ def build_quote_pdf(project, quote, output_path=None):
             pdf.set_xy(_txt_x, _prop_y + 5)
             pdf.set_text_color(*_banner_ink)
             pdf.set_font("Lato", "B", 12.5)
-            pdf.multi_cell(_txt_w, 5.0, _safe_text(proposal_value))
+            cover_multicell(_txt_w, 5.0, _safe_text(proposal_value), _banner_ink, compact=True)
 
         # Franja de info debajo del banner + separador
         pdf.set_draw_color(*LINE)
@@ -973,6 +1010,9 @@ def build_quote_pdf(project, quote, output_path=None):
 
         _r_summary_h = max(50, totals_box_h + 4)
         _r_summary_y = _sep_y + 4
+        if _r_summary_y + _r_summary_h > pdf.h - 18:
+            cover_new_page()
+            _r_summary_y = 24
         pdf.set_fill_color(*SOFT)
         pdf.rect(pdf.l_margin, _r_summary_y, content_width, _r_summary_h, style="F")
 

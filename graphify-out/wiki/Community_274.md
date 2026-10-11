@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Adds 'disciplina' field (default 'instalaciones') to all catalog items missing i](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L26) (0 connections)
+- [Smoke tests for simplified project detail COT/LDM UI.](file:///Users/macbook/ProjectTracker/tests%5Ctest_project_detail_bundle_ui.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
+- [tests\test_project_detail_bundle_ui.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_project_detail_bundle_ui.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve (terms, template) para una cotización.      Orden de resolución:     1.](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L97) (0 connections)
+- [Detecta el tipo real del archivo por sus bytes iniciales (no por extensión).](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L374) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/terms_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py)
+- [/Users/macbook/ProjectTracker/tracker/quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py)
 
 ## Audit Trail
 

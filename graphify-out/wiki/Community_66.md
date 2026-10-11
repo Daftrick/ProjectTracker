@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Construye el snapshot de un artículo de catálogo eliminado desde listas de campo](file:///Users/macbook/ProjectTracker/tracker/utils.py#L61) (0 connections)
+- [Convierte a float con reporte de errores en lista `errors`. Usado en validadores](file:///Users/macbook/ProjectTracker/tracker/utils.py#L19) (0 connections)
 
 ## Relationships
 

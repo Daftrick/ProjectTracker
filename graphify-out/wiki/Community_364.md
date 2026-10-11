@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L64) (0 connections)
+- [Return catalog items filtered by disciplina. None / 'Todos' returns all.](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L10) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
+- [tracker\services.py](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py)
 
 ## Audit Trail
 

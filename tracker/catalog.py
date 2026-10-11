@@ -88,6 +88,11 @@ APPROVAL_ACTIVE   = "active"     # aprobada / en uso
 APPROVAL_OBSOLETE = "obsolete"   # reemplazada por otra versión
 
 
+def is_active_quote(quote):
+    """A technical mobile draft never contributes to approved revenue."""
+    return quote.get("status") != "draft" and quote.get("approval_status", APPROVAL_ACTIVE) == APPROVAL_ACTIVE
+
+
 def is_base_quote_type(qtype):
     """Tipos base compiten entre sí (una activa por proyecto); Extraordinarias son independientes."""
     return quote_type_key(qtype) in (

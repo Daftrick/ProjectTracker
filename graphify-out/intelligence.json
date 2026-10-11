@@ -7,30 +7,30 @@
     },
     {
       "label": "build_ldm_pdf()",
-      "risk": 0.454,
+      "risk": 0.444,
       "type": "FUNCTION"
     },
     {
       "label": "build_progress_pdf()",
-      "risk": 0.288,
+      "risk": 0.284,
       "type": "FUNCTION"
     },
     {
       "label": "pdfs.py",
-      "risk": 0.236,
+      "risk": 0.235,
       "type": "FUNCTION"
     },
     {
-      "label": "quote_logo_path()",
-      "risk": 0.225,
+      "label": "load()",
+      "risk": 0.231,
       "type": "FUNCTION"
     }
   ],
   "blast_radius": {
-    "load()": 162,
-    "save()": 120,
+    "load()": 167,
+    "save()": 125,
     "today()": 56,
-    "build_quote_pdf()": 37,
-    "catalog_maps()": 32
+    "build_quote_pdf()": 38,
+    "catalog_maps()": 33
   }
 }

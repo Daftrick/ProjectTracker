@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Genera la cotización como Excel y la sirve como descarga directa.](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L564) (0 connections)
+- [Acceso rápido desde el panel lateral: todos los pagos de todas las     cotizacio](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1042) (0 connections)
 
 ## Relationships
 

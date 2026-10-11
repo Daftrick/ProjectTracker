@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [fpdf2 Dependency](file:///Users/macbook/ProjectTracker/requirements.txt) (0 connections)
+- [Normaliza una regla de artículo ignorado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L23) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [requirements.txt](file:///Users/macbook/ProjectTracker/requirements.txt)
+- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
 
 ## Audit Trail
 

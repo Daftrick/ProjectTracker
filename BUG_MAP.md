@@ -2,12 +2,13 @@
 
 Fecha: 11 de octubre de 2026. Código investigado: `bcab0c5` en `main`.
 
-Estado: **7 prioritarios (BUG-01 a BUG-07) corregidos y verificados; 6 P2 pendientes**.
+Estado: **13 bugs corregidos y verificados (BUG-01 a BUG-13)**.
 Método: `investigate`, con navegación por Graphify, revisión de cambios,
 hipótesis, reproducciones aisladas y comprobaciones de navegador con `browse`.
 El diagnóstico inicial corresponde a `bcab0c5`. La corrección posterior modifica
-la aplicación y convierte las reproducciones de los P1 en comprobaciones del
-comportamiento correcto; conserva las reproducciones de los P2 pendientes.
+la aplicación y convierte las trece reproducciones en comprobaciones del
+comportamiento correcto. Las causas y evidencias iniciales se conservan abajo
+como registro del diagnóstico.
 
 ## Correcciones de los siete prioritarios
 
@@ -53,12 +54,53 @@ pruebas concurrentes entre peticiones y procesos, denegaciones sin mutación,
 operaciones autorizadas y validación financiera. Las regresiones nuevas fallan
 al ejecutarlas contra el código anterior (`2eb1b61`).
 
-Verificación final: **529 pruebas, OK, 2 omitidas** (las omisiones ya existían),
+Verificación de esta primera etapa: **529 pruebas, OK, 2 omitidas** (las omisiones ya existían),
 23 rutas principales con HTTP 200 y diagnóstico aislado con 7 P1 resueltos y
 6 P2 reproducidos. En navegador, con CSRF activo, funcionan agregar, aplicar
 plantilla, eliminar e incluir términos; los cambios guardados desde cada editor
 aparecen en el otro y en el PDF generado. El cotizador no puede borrar el
 proyecto. El nombre de portada conserva los 24 pt solicitados.
+
+## Correcciones de los seis restantes
+
+- **BUG-08:** se impide borrar una cotización o proyecto con pagos registrados.
+  Se conserva el historial financiero; una cotización puede marcarse obsoleta
+  y un proyecto cerrarse. El borrado sin pagos sigue disponible. No se eliminan
+  ni se reparan automáticamente pagos huérfanos que ya existieran.
+- **BUG-09:** una comprobación compartida exige reabrir el proyecto antes de
+  cambiar sus documentos, datos, avances o vínculos con fichas técnicas.
+  Cubre los editores principal/PDF/LDM, importaciones, API de costo y móvil,
+  incluido el reinicio de borrador mediante `nueva=1`. Consultar, exportar y
+  gestionar pagos sigue disponible después del cierre.
+- **BUG-10:** tablero y detalle comparten el criterio de cotización activa y
+  calculan sus totales con los mismos datos actualizados. Excluyen borradores,
+  obsoletas y borradores técnicos móviles; los registros antiguos sin estado
+  de aprobación mantienen su tratamiento como activos.
+- **BUG-11:** el texto de portada se distribuye en líneas y páginas antes del
+  resumen económico. El nombre completo mantiene 24 pt en portada normal y
+  18 pt en reducida. Los nombres muy largos pueden añadir páginas de
+  continuación; los cortos conservan la distribución anterior.
+- **BUG-12:** el tamaño de compra acepta coma decimal y exige un número finito
+  mayor a cero, o vacío cuando es opcional. Crear y editar muestran un error
+  sin modificar el catálogo. El formulario de alta conserva la selección
+  fraccionable y muestra el campo y su error para poder corregirlo.
+- **BUG-13:** `next` admite únicamente rutas locales sin sintaxis ambigua.
+  El inicio de sesión conserva la ruta y los parámetros originales. Los
+  formularios de pagos y de estado de cotización usan la misma validación.
+
+Verificación final: **541 pruebas, OK, 2 omitidas**; 12 regresiones nuevas en
+`tests/test_remaining_bugs.py`, con almacenamiento y usuarios temporales. Las
+regresiones de los seis bugs fallan contra `02d432f`, antes de estos cambios.
+El diagnóstico aislado verifica **13 resueltos y 0 pendientes**, además de
+23 rutas principales con HTTP 200. En navegador, con CSRF activo, se verificó
+el error visible del tamaño de compra y el guardado después de corregirlo,
+el bloqueo de borrado con pagos y el rechazo de cambios PDF/móviles tras cerrar
+el proyecto. Sin errores de consola durante estas comprobaciones.
+
+La comprobación PDF extrae el texto completo y sus coordenadas para nombres
+cortos, de 731 y de 2924 caracteres, en portada normal y reducida. También se
+renderizaron e inspeccionaron las portadas y páginas de continuación, sin
+superposición con el resumen económico.
 
 ## Resultado y prioridades
 
@@ -95,10 +137,9 @@ crear la aplicación. No modifica los datos reales ni llama a servicios externos
 Produce `findings.json`, `smoke.json` y `long-title.pdf` en el directorio temporal
 `projecttracker-investigate`. Se puede elegir otro destino con `--output-dir`.
 
-Las aserciones verifican las siete correcciones y reproducen los seis P2.
-El resultado esperado es «Verified P1 fixes: 7» y
-«Confirmed pending P2 findings: 6». Cada entrada de `findings.json` incluye
-su estado (`resolved` o `pending`).
+Las aserciones verifican las trece correcciones.
+El resultado esperado es «Verified fixes: 13» y «Pending findings: 0».
+Cada entrada de `findings.json` incluye el estado `resolved`.
 No se agrega este programa a la suite normal ni a CI.
 
 Para comprobar el navegador con datos temporales:

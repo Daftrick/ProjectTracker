@@ -4,37 +4,39 @@
 
 ## Key Concepts
 
-- [QuoteCsvImportRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_csv_import_route.py#L17) (4 connections)
-- [test_quote_csv_import_route.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_csv_import_route.py#L1) (2 connections)
-- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_csv_import_route.py#L27) (1 connections)
-- [.test_import_quote_csv_blocks_unit_mismatch()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_csv_import_route.py#L68) (1 connections)
-- [.test_import_quote_csv_renders_editable_preview()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_csv_import_route.py#L42) (1 connections)
-- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_csv_import_route.py#L19) (1 connections)
+- [QuoteClientSyncRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L82) (5 connections)
+- [test_quote_client_sync.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L1) (3 connections)
+- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L95) (2 connections)
+- [.test_quote_detail_page_shows_current_client()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L99) (1 connections)
+- [.test_quote_resumen_page_shows_current_client()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L109) (1 connections)
+- [El cliente (y el nombre de proyecto) se guardan como snapshot dentro de la cotiz](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py#L1) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class QuoteCsvImportRouteTest {
-        +test_quote_csv_import_route.py()
-        +._fake_load()
-        +.test_import_quote_csv_renders_editable_preview()
-        +.test_import_quote_csv_blocks_unit_mismatch()
+    class QuoteClientSyncRoutesTest {
+        +test_quote_client_sync.py()
+        +.setUp()
+        +.tearDown()
+        +.test_quote_detail_page_shows_current_client()
+        +.test_quote_resumen_page_shows_current_client()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 38]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_csv_import_route.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_csv_import_route.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_client_sync.py](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py)
 
 ## Audit Trail
 
-- EXTRACTED: 10 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 12 (92%)
+- INFERRED: 1 (8%)
 - AMBIGUOUS: 0 (0%)
 
 ---

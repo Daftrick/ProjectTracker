@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Resumen visual entre cotización (COT) y listas de materiales (LDM).  El detalle](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L1) (0 connections)
+- [Parse project Python files without writing bytecode.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctools%5Ccheck_syntax.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tools\check_syntax.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctools%5Ccheck_syntax.py)
 
 ## Audit Trail
 

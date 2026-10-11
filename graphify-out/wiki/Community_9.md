@@ -1,98 +1,95 @@
 # Community 9
 
-> 51 nodes · cohesion 0.07
+> 66 nodes · cohesion 0.07
 
 ## Key Concepts
 
-- [build_project_detail_context()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L153) (24 connections)
-- [project_view.py](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L1) (15 connections)
-- [ProjectViewTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_view.py#L13) (10 connections)
-- [build_quote_row_views()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L64) (9 connections)
-- [get_quote_status_labels()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L33) (9 connections)
-- [quote_status_view()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L56) (9 connections)
-- [QuoteStatusLabelsModelTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L47) (8 connections)
-- [build_consistency_view()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L124) (7 connections)
-- [save_quote_status_labels()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L48) (7 connections)
-- [QuoteRowNomenclatureUnificationTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L85) (7 connections)
-- [QuoteStatusLabelsRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L121) (6 connections)
-- [quote_status_labels_admin()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L978) (5 connections)
-- [build_ldm_row_views()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L49) (4 connections)
-- [build_task_row_views()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L104) (4 connections)
-- [all_quotes()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L997) (4 connections)
-- [quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L1) (4 connections)
-- [_deleted_catalog_items()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L33) (3 connections)
-- [.test_custom_label_reflected_in_row_views()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L113) (3 connections)
-- [.test_blank_values_fall_back_to_defaults()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L65) (3 connections)
-- [.test_quote_status_view_uses_saved_label()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L77) (3 connections)
-- [.test_save_and_get_roundtrip()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L58) (3 connections)
-- [test_quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L1) (3 connections)
-- [_coverage_color()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L145) (2 connections)
-- [_observation_view()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L93) (2 connections)
-- [_status_color()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L24) (2 connections)
-- *... and 26 more nodes in this community*
+- [compute_consistency()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L408) (24 connections)
+- [consistency.py](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L1) (21 connections)
+- [_quote()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L19) (14 connections)
+- [pick_active_quote()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L52) (12 connections)
+- [is_base_quote_type()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L96) (11 connections)
+- [test_consistency.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L1) (11 connections)
+- [aggregate_quote_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L79) (10 connections)
+- [_q_item()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L35) (10 connections)
+- [compare_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L216) (9 connections)
+- [ComputeConsistencyTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L193) (9 connections)
+- [_round()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L37) (8 connections)
+- [_bundle_suggestion_ldm()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L163) (8 connections)
+- [.test_detects_all_issue_types()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L151) (8 connections)
+- [aggregate_ldm_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L120) (7 connections)
+- [_safe_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L30) (7 connections)
+- [.test_critical_when_ldm_exceeds_cot()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L231) (6 connections)
+- [.test_full_report_with_general_quote()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L194) (6 connections)
+- [.test_warning_threshold()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L222) (6 connections)
+- [_l_item()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L58) (6 connections)
+- [_ldm()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L46) (6 connections)
+- [PickActiveQuoteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L80) (6 connections)
+- [_quote_visual_row()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L316) (5 connections)
+- [classify_margin()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L41) (4 connections)
+- [_ldm_visual_row()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L331) (4 connections)
+- [.test_aggregates_across_multiple_ldms()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L137) (4 connections)
+- *... and 41 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class ProjectViewTest {
-        +test_project_view.py()
-        +.test_build_project_detail_context_groups_and_calculates_totals()
-        +.test_build_project_detail_context_sums_all_active_base_quotes()
-        +.test_build_project_detail_context_computes_total_pagado_and_saldo()
-        +.test_build_project_detail_context_saldo_can_go_negative_when_overpaid()
-        +.test_build_task_row_views_precomputes_observation_values()
-        +.test_build_ldm_row_views_precomputes_materials_template_values()
-        +.test_build_quote_row_views_precomputes_deleted_catalog_values()
-        +.test_build_consistency_view_prepares_template_rows()
-        +.test_build_consistency_view_prepares_visual_review_helpers()
+    class AggregateLdmItemsTest {
+        +test_consistency.py()
+        +.test_aggregates_across_multiple_ldms()
     }
-    class QuoteRowNomenclatureUnificationTest {
-        +test_quote_status_labels.py()
-        +.setUp()
-        +.tearDown()
-        +.test_base_and_extra_quote_share_label_for_same_status()
-        +.test_base_and_extra_quote_share_label_for_obsolete()
-        +.test_custom_label_reflected_in_row_views()
+    class AggregateQuoteItemsTest {
+        +test_consistency.py()
+        +.test_groups_by_catalog_id_and_handles_unlinked()
+        +.test_no_quote()
     }
-    class QuoteStatusLabelsModelTest {
-        +test_quote_status_labels.py()
-        +.setUp()
-        +.tearDown()
-        +.test_defaults_when_nothing_saved()
-        +.test_save_and_get_roundtrip()
-        +.test_blank_values_fall_back_to_defaults()
-        +.test_quote_status_view_unknown_status_defaults_to_draft()
-        +.test_quote_status_view_uses_saved_label()
+    class ClassifyMarginTest {
+        +test_consistency.py()
+        +.test_thresholds()
     }
-    class QuoteStatusLabelsRouteTest {
-        +test_quote_status_labels.py()
-        +.setUp()
-        +.tearDown()
-        +.test_settings_page_loads_with_defaults()
-        +.test_post_saves_custom_labels()
-        +.test_quote_detail_page_reflects_custom_active_label()
+    class CompareItemsTest {
+        +test_consistency.py()
+        +.test_detects_all_issue_types()
+    }
+    class ComputeConsistencyTest {
+        +test_consistency.py()
+        +.test_full_report_with_general_quote()
+        +.test_warning_threshold()
+        +.test_critical_when_ldm_exceeds_cot()
+        +.test_no_data_when_empty()
+        +.test_no_general_quote_uses_fallback()
+        +.test_filters_by_project_id()
+        +.test_visual_warnings_include_missing_data_and_unlinked_rows()
+        +.test_active_extras_are_included_in_visual_total()
+    }
+    class PickActiveQuoteTest {
+        +test_consistency.py()
+        +.test_picks_most_recent_general()
+        +.test_falls_back_to_preliminar_when_no_general()
+        +.test_respects_approval_status_active()
+        +.test_extraordinaria_never_selected_as_base()
+        +.test_no_quotes()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 8]] (13 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_project_view.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_view.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py)
-- [/Users/macbook/ProjectTracker/tests/test_quote_status_labels.py](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py)
-- [/Users/macbook/ProjectTracker/tracker/project_view.py](file:///Users/macbook/ProjectTracker/tracker/project_view.py)
-- [/Users/macbook/ProjectTracker/tracker/quote_status_labels.py](file:///Users/macbook/ProjectTracker/tracker/quote_status_labels.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_consistency.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/consistency.py](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py)
+- [/Users/macbook/ProjectTracker/tests/test_consistency.py](file:///Users/macbook/ProjectTracker/tests/test_consistency.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tracker/consistency.py](file:///Users/macbook/ProjectTracker/tracker/consistency.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
 
 ## Audit Trail
 
-- EXTRACTED: 121 (60%)
-- INFERRED: 80 (40%)
+- EXTRACTED: 247 (79%)
+- INFERRED: 65 (21%)
 - AMBIGUOUS: 0 (0%)
 
 ---

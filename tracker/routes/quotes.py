@@ -43,6 +43,7 @@ from ..quote_status_labels import (
 )
 from ..storage import load, new_id, save, today
 from ..validators import validate_quote_form
+from ..utils import safe_redirect_path
 
 bp = Blueprint("quotes_bp", __name__)
 
@@ -435,7 +436,7 @@ def add_payment_route(project_id):
     else:
         add_payment(project_id, quote_id, date_value, amount, concept)
         flash("Pago registrado.", "success")
-    next_url = request.form.get("next") or (url_for("project_detail", project_id=project_id) + "#tab-pagos")
+    next_url = safe_redirect_path(request.form.get("next")) or (url_for("project_detail", project_id=project_id) + "#tab-pagos")
     return redirect(next_url)
 
 
@@ -452,7 +453,7 @@ def edit_payment_route(project_id, payment_id):
     else:
         update_payment(payment_id, date_value, amount, concept)
         flash("Pago actualizado.", "success")
-    next_url = request.form.get("next") or (url_for("project_detail", project_id=project_id) + "#tab-pagos")
+    next_url = safe_redirect_path(request.form.get("next")) or (url_for("project_detail", project_id=project_id) + "#tab-pagos")
     return redirect(next_url)
 
 
@@ -464,12 +465,15 @@ def delete_payment_route(project_id, payment_id):
     else:
         delete_payment(payment_id)
         flash("Pago eliminado.", "warning")
-    next_url = request.form.get("next") or (url_for("project_detail", project_id=project_id) + "#tab-pagos")
+    next_url = safe_redirect_path(request.form.get("next")) or (url_for("project_detail", project_id=project_id) + "#tab-pagos")
     return redirect(next_url)
 
 
 @bp.route("/projects/<project_id>/quote/<quote_id>/delete", methods=["POST"], endpoint="delete_quote")
 def delete_quote(project_id, quote_id):
+    if any(payment.get("quote_id") == quote_id for payment in load("payments")):
+        flash("La cotización tiene pagos registrados y no se puede eliminar. Puedes marcarla como obsoleta para conservar su historial.", "warning")
+        return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
     save("quotes", [item for item in load("quotes") if item["id"] != quote_id])
     flash("Cotización eliminada.", "warning")
     return redirect(url_for("project_detail", project_id=project_id) + "#tab-quote")
@@ -499,7 +503,7 @@ def set_quote_status_route(project_id, quote_id):
     elegido directamente en la columna Estado de la lista de cotizaciones —
     a diferencia de approve_quote (toggle binario active↔obsolete), aquí se
     puede ir a cualquiera de los 3 estados en cualquier momento."""
-    next_url = request.form.get("next") or (url_for("project_detail", project_id=project_id) + "#tab-quote")
+    next_url = safe_redirect_path(request.form.get("next")) or (url_for("project_detail", project_id=project_id) + "#tab-quote")
     status = (request.form.get("status") or "").strip()
     if status not in VALID_APPROVAL_STATUSES:
         flash("Estado no válido.", "danger")

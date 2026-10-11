@@ -21,6 +21,7 @@ from ..auth import (
 )
 from ..extensions import csrf
 from ..storage import today
+from ..utils import safe_redirect_path
 
 bp = Blueprint("auth_bp", __name__)
 
@@ -39,7 +40,7 @@ def login():
         if user:
             login_user(user)
             record_login(user.id)
-            next_url = request.args.get("next") or url_for("dashboard")
+            next_url = safe_redirect_path(request.args.get("next")) or url_for("dashboard")
             return redirect(next_url)
         error = "Credenciales incorrectas o cuenta desactivada."
     return render_template("login.html", error=error)

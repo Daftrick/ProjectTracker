@@ -1,51 +1,34 @@
 # Community 31
 
-> 11 nodes · cohesion 0.29
+> 11 nodes · cohesion 0.20
 
 ## Key Concepts
 
-- [main()](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L22) (6 connections)
-- [GraphifyTaskTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L10) (5 connections)
-- [Completed](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L6) (3 connections)
-- [.test_check_update_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L24) (3 connections)
-- [.test_update_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L12) (3 connections)
-- [check_syntax.py](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L1) (3 connections)
-- [iter_python_files()](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L12) (2 connections)
-- [.test_missing_graphify_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L36) (2 connections)
-- [.test_unknown_action_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L41) (2 connections)
-- [test_graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L1) (2 connections)
-- [Parse project Python files without writing bytecode.](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L1) (1 connections)
-
-## Class Diagram
-
-```mermaid
-classDiagram
-    class Completed {
-        +test_graphify_task.py()
-    }
-    class GraphifyTaskTest {
-        +test_graphify_task.py()
-        +.test_update_returns_success()
-        +.test_check_update_returns_success()
-        +.test_missing_graphify_returns_success()
-        +.test_unknown_action_returns_success()
-    }
-```
+- [Roadmap de Mejoras (Backlog)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (7 connections)
+- [Historial de Cambios Recientes](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
+- [Version Actual v25.1](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
+- [Checklist de Cierre de Mejora](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (2 connections)
+- [Limpieza Residual de Templates (Media Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Funcionalidades Completadas](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Exportaciones y Reportes (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Filtros y Busqueda Adicionales (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Sincronizacion Parcial COT-Bundle-LDM (Diseno Pendiente)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Mejoras de UX General (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [Convencion de Versionado](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 32]] (22 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py)
-- [/Users/macbook/Documents/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py)
-- [/Users/macbook/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/ProjectTracker/tools/check_syntax.py)
+- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
 
 ## Audit Trail
 
-- EXTRACTED: 24 (75%)
-- INFERRED: 8 (25%)
+- EXTRACTED: 20 (91%)
+- INFERRED: 2 (9%)
 - AMBIGUOUS: 0 (0%)
 
 ---

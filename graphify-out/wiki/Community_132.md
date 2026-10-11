@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Registra fuentes PDF bajo el nombre 'DejaVu'.     Prioriza Atkinson Hyperlegible](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L71) (0 connections)
+- [Devuelve (terms, template) para una cotización.      Orden de resolución:     1.](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L97) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tracker/terms_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py)
 
 ## Audit Trail
 

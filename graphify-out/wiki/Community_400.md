@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return {nombre.lower(): id} for O(1) lookup during CSV parsing.](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py#L62) (0 connections)
+- [Convierte cualquier valor a str limpio, apto para fpdf2 con DejaVu (UTF-8).](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdfs.py#L10) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\csv_import.py](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\pdfs.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdfs.py)
 
 ## Audit Trail
 

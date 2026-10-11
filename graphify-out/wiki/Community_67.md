@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return {catalog_name_key(nombre): id} for O(1) lookup during CSV parsing.](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L64) (0 connections)
+- [Convierte a float silenciosamente. Usado donde no se necesita reporte de error.](file:///Users/macbook/ProjectTracker/tracker/utils.py#L35) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/csv_import.py](file:///Users/macbook/ProjectTracker/tracker/csv_import.py)
+- [/Users/macbook/ProjectTracker/tracker/utils.py](file:///Users/macbook/ProjectTracker/tracker/utils.py)
 
 ## Audit Trail
 

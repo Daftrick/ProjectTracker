@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Severidad del renglón para colorear.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L183) (0 connections)
+- [Bundles versionados para comparar COT contra LDM técnica.  Un bundle permite que](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Cambia el estado de una cotización libremente a borrador/activa/obsoleta,     el](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L489) (0 connections)
+- [Retorna la fecha en formato dd-mm-aa (ej: 22-08-26). Usado en campos     compact](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L110) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 

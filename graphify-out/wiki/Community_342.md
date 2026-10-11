@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Returns a redirect Response if the current POST is not from an admin, else None.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py#L35) (0 connections)
+- [Clear the drive scan cache. Useful for testing or forcing fresh scans.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L158) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\admin.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py)
+- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

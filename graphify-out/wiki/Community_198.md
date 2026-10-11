@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Aprueba/activa una cotización.      - General/Preliminar: marca la seleccionada](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L344) (0 connections)
+- [Acceso rápido desde el panel lateral: todos los pagos de todas las     cotizacio](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1031) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Bundles versionados para comparar COT contra LDM técnica.  Un bundle permite que](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L1) (0 connections)
+- [Cobertura de los bundles reales en data/bundles.json.](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py#L74) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
+- [tests\test_bundles.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py)
 
 ## Audit Trail
 

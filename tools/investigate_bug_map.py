@@ -1,4 +1,4 @@
-"""Verify the seven P1 fixes and reproduce six pending P2 bugs using temporary data."""
+"""Verify all thirteen mapped bug fixes using synthetic records and temporary data."""
 import argparse
 import contextlib
 import copy
@@ -41,7 +41,7 @@ def main():
 
     def result(key, evidence):
         key = IDS[key]
-        findings.append({'id': key, 'status': 'resolved' if int(key[-2:]) <= 7 else 'pending', 'evidence': evidence})
+        findings.append({'id': key, 'status': 'resolved', 'evidence': evidence})
         print(key, json.dumps(evidence, ensure_ascii=False))
 
     def seed():
@@ -111,12 +111,11 @@ def main():
 
         seed()
         client.post('/projects/P1/quote/Q1/delete')
-        assert storage.load('payments') and not storage.load('quotes')
-        quote_orphans = len(storage.load('payments'))
+        assert storage.load('payments') == [PAYMENT] and storage.load('quotes') == [QUOTE]
         seed()
         admin_client.post('/projects/P1/delete')
-        assert storage.load('payments') and not any(p['id']=='P1' for p in storage.load('projects'))
-        result('B05', {'payments_after_quote_delete': quote_orphans, 'payments_after_project_delete': len(storage.load('payments'))})
+        assert storage.load('payments') == [PAYMENT] and any(p['id']=='P1' for p in storage.load('projects'))
+        result('B05', {'paid_quote_delete_blocked': True, 'paid_project_delete_blocked': True, 'financial_history_preserved': True})
 
         seed()
         payment = client.post('/projects/P1/payments/add', data={'quote_id': 'Q1', 'date': 'not-a-date', 'amount': 'NaN'})
@@ -131,9 +130,8 @@ def main():
         projects = storage.load('projects'); projects[0]['closed_at'] = '2026-10-11'; storage.save('projects', projects)
         client.post('/projects/P1/quote/Q1/pdf-editor', data={'cover_discipline': 'Cambia proyecto cerrado'})
         client.post('/cotizar/mobile/P1/items', data={'item_id': 'CAT1', 'qty': '1'})
-        assert storage.load('quotes')[0]['cover_discipline'] == 'Cambia proyecto cerrado'
-        assert any(q.get('status')=='draft' for q in storage.load('quotes'))
-        result('B07', {'closed_project_pdf_name_changed': True, 'closed_project_mobile_draft_created': True})
+        assert storage.load('quotes') == [QUOTE]
+        result('B07', {'closed_project_pdf_name_changed': False, 'closed_project_mobile_draft_created': False})
 
         # The full read/modify/write operation must hold the shared transaction.
         seed()
@@ -170,25 +168,22 @@ def main():
         dashboard = next(ctx for tpl,ctx in contexts if tpl == 'dashboard.html')
         detail = next(ctx for tpl,ctx in contexts if tpl == 'project_detail.html')
         dashboard_total = next(p for p in dashboard['active'] if p['id']=='P1')['total_cotizado']
-        assert dashboard_total == 600 and detail['total_cotizado'] == 100
+        assert dashboard_total == 100 and detail['total_cotizado'] == 100
         result('B09', {'dashboard_cotizado': dashboard_total, 'project_detail_cotizado': detail['total_cotizado']})
 
-        # Numeric package size bypasses validation and raises instead of a form error.
+        # Decimal commas are accepted and persisted as finite, positive numbers.
         seed()
-        try:
-            client.post('/catalogo', data={'nombre': 'Rollo', 'precio': '10', 'buy_unit_size': '2,5'})
-        except ValueError as exc:
-            result('B10', {'catalog_decimal_comma_exception': type(exc).__name__, 'input': '2,5'})
-        else:
-            raise AssertionError('Expected catalog form ValueError was not reproduced')
+        response = client.post('/catalogo', data={'nombre': 'Rollo', 'precio': '10', 'buy_unit_size': '2,5'})
+        assert response.status_code == 302 and storage.load('catalogo')[-1]['buy_unit_size'] == 2.5
+        result('B10', {'catalog_decimal_comma_http': response.status_code, 'buy_unit_size_saved': 2.5})
 
         target = 'https://example.invalid/audit'
         fresh = app.test_client()
         response = fresh.post('/login?next=' + target, data={'username': 'audit-user', 'password': 'Synthetic-User-Password-Only'})
-        assert response.headers['Location'] == target
-        result('B11', {'login_redirects_to_external_url': True, 'http': response.status_code})
+        assert response.headers['Location'] == '/'
+        result('B11', {'login_redirects_to_external_url': False, 'http': response.status_code})
 
-        # Normal cover: long description advances text into the fixed totals area.
+        # The full long name retains 24 pt and flows before the summary.
         seed()
         q = copy.deepcopy(QUOTE)
         q['cover_discipline'] = ('Diseño integral de instalaciones eléctricas, iluminación y coordinación del proyecto ejecutivo para vivienda residencial. ' * 6).strip()
@@ -197,12 +192,13 @@ def main():
             pdf_bytes = build_quote_pdf(PROJECT, q)
         (OUT/'long-title.pdf').write_bytes(pdf_bytes)
         with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
-            words = pdf.pages[0].extract_words(extra_attrs=['size'])
+            words = [word for page in pdf.pages for word in page.extract_words(extra_attrs=['size'])]
             title_words = [w for w in words if abs(w['size']-24)<0.01]
             lower = max(w['bottom'] for w in title_words)
             totals_top = 221 * 72 / 25.4
-            assert lower > totals_top
-            result('B12', {'name_characters':len(q['cover_discipline']), 'title_bottom_mm':round(lower*25.4/72,2), 'summary_top_mm':221, 'title_overlaps_summary':True})
+            assert lower < totals_top
+            assert ' '.join(w['text'] for w in title_words).split() == q['cover_discipline'].split()
+            result('B12', {'name_characters':len(q['cover_discipline']), 'title_bottom_mm':round(lower*25.4/72,2), 'summary_top_mm':221, 'title_overlaps_summary':False, 'complete_name_preserved': True, 'font_size': 24})
 
         # A new database gets a generated secret when the environment omits one.
         with mock.patch.dict(os.environ, {}, clear=True):
@@ -236,8 +232,8 @@ def main():
             app.run(host='127.0.0.1', port=5099, debug=False, use_reloader=False)
 
     (OUT/'findings.json').write_text(json.dumps(findings, ensure_ascii=False, indent=2))
-    print('Verified P1 fixes:', sum(f['status'] == 'resolved' for f in findings))
-    print('Confirmed pending P2 findings:', sum(f['status'] == 'pending' for f in findings))
+    print('Verified fixes:', sum(f['status'] == 'resolved' for f in findings))
+    print('Pending findings:', sum(f['status'] == 'pending' for f in findings))
 
 
 if __name__ == "__main__":

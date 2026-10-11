@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Pruebas para tracker.catalog_search y la API /api/catalogo.](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py#L1) (0 connections)
+- [Genera la cotización como Excel y la sirve como descarga directa.](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L390) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

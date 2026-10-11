@@ -1,81 +1,110 @@
 # Community 13
 
-> 40 nodes · cohesion 0.09
+> 32 nodes · cohesion 0.07
 
 ## Key Concepts
 
-- [quote_from_form()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L28) (18 connections)
-- [terms_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L1) (13 connections)
-- [resolve_quote_terms()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L94) (11 connections)
-- [QuoteTermsEditingTest](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L20) (10 connections)
-- [FormModelsTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_form_models.py#L8) (9 connections)
-- [form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L1) (9 connections)
-- [get_terms_templates()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L72) (7 connections)
-- [ldm_from_form()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L145) (6 connections)
-- [quote_terms_from_form()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L127) (6 connections)
-- [.form()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L27) (6 connections)
-- [_normalize()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L62) (5 connections)
-- [terms_templates()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1310) (4 connections)
-- [_normalize_template()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L46) (4 connections)
-- [_normalize_term()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L31) (4 connections)
-- [.test_large_table_amounts_stay_inside_their_columns()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L128) (4 connections)
-- [.test_pdf_uses_local_terms_and_embeds_lato_in_both_cover_modes()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L76) (4 connections)
-- [.test_saved_terms_survive_template_changes_and_deletion()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L48) (4 connections)
-- [.test_validation_and_error_rerender_keep_custom_terms()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L39) (4 connections)
-- [get_terms_template_by_id()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L86) (3 connections)
-- [_new_id()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L16) (3 connections)
-- [save_terms_templates()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L82) (3 connections)
-- [_seed_terms_template()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L20) (3 connections)
-- [.test_empty_terms_are_intentional_and_old_forms_keep_terms()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L70) (3 connections)
-- [.test_save_in_both_editors_preserves_quote_terms_and_template()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L105) (3 connections)
-- [_to_float()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L188) (2 connections)
-- *... and 15 more nodes in this community*
+- [test_quotes_mobile.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L1) (9 connections)
+- [MobileItemsTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L122) (8 connections)
+- [MobileReviewTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L305) (7 connections)
+- [MobileRouteTestBase](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L69) (7 connections)
+- [MobileProjectsTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L83) (6 connections)
+- [MobileAddItemTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L209) (5 connections)
+- [MobileGeneratePdfTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L376) (5 connections)
+- [MobileRemoveItemTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L274) (3 connections)
+- [.test_add_item_creates_draft_and_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L210) (1 connections)
+- [.test_add_item_empty_item_id_no_save()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L248) (1 connections)
+- [.test_add_item_unknown_project_redirects_to_projects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L239) (1 connections)
+- [.test_generate_pdf_no_draft_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L402) (1 connections)
+- [.test_generate_pdf_returns_pdf_bytes()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L377) (1 connections)
+- [.test_generate_pdf_unknown_project_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L415) (1 connections)
+- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L123) (1 connections)
+- [.test_discipline_filter_shows_only_matching_items()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L183) (1 connections)
+- [.test_draft_banner_shown_when_draft_exists()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L144) (1 connections)
+- [.test_items_page_200_no_draft()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L132) (1 connections)
+- [.test_nueva_param_discards_draft_and_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L159) (1 connections)
+- [.test_unknown_project_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L138) (1 connections)
+- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L84) (1 connections)
+- [.test_closed_projects_not_shown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L110) (1 connections)
+- [.test_draft_badge_shown_when_draft_exists()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L97) (1 connections)
+- [.test_projects_page_200()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L91) (1 connections)
+- [.test_remove_item_updates_draft_and_redirects_to_review()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L275) (1 connections)
+- *... and 7 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class FormModelsTest {
-        +test_form_models.py()
-        +.test_quote_from_form_preserves_sections_and_items()
-        +.test_quote_from_form_preserves_section_without_items()
-        +.test_quote_from_form_preserves_deleted_catalog_snapshot()
-        +.test_quote_from_form_parses_specs()
-        +.test_quote_from_form_parses_integrantes()
-        +.test_quote_from_form_specs_defaults_to_empty_strings()
-        +.test_ldm_from_form_preserves_fallback_and_items()
-        +.test_ldm_from_form_preserves_deleted_catalog_snapshot()
+    class MobileAddItemTest {
+        +test_quotes_mobile.py()
+        +.test_add_item_creates_draft_and_redirects()
+        +.test_add_item_unknown_project_redirects_to_projects()
+        +.test_add_item_empty_item_id_no_save()
     }
-    class QuoteTermsEditingTest {
-        +test_quote_terms_editing.py()
-        +.setUp()
-        +.form()
-        +.test_validation_and_error_rerender_keep_custom_terms()
-        +.test_saved_terms_survive_template_changes_and_deletion()
-        +.test_existing_overrides_and_legacy_keys_are_preserved()
-        +.test_empty_terms_are_intentional_and_old_forms_keep_terms()
-        +.test_pdf_uses_local_terms_and_embeds_lato_in_both_cover_modes()
-        +.test_save_in_both_editors_preserves_quote_terms_and_template()
-        +.test_large_table_amounts_stay_inside_their_columns()
+    class MobileGeneratePdfTest {
+        +test_quotes_mobile.py()
+        +.test_generate_pdf_returns_pdf_bytes()
+        +.test_generate_pdf_no_draft_redirects()
+        +.test_generate_pdf_unknown_project_redirects()
     }
+    class MobileItemsTest {
+        +test_quotes_mobile.py()
+        +._fake_load()
+        +.test_items_page_200_no_draft()
+        +.test_unknown_project_redirects()
+        +.test_draft_banner_shown_when_draft_exists()
+        +.test_nueva_param_discards_draft_and_redirects()
+        +.test_discipline_filter_shows_only_matching_items()
+    }
+    class MobileProjectsTest {
+        +test_quotes_mobile.py()
+        +._fake_load()
+        +.test_projects_page_200()
+        +.test_draft_badge_shown_when_draft_exists()
+        +.test_closed_projects_not_shown()
+    }
+    class MobileRemoveItemTest {
+        +test_quotes_mobile.py()
+        +.test_remove_item_updates_draft_and_redirects_to_review()
+    }
+    class MobileReviewTest {
+        +test_quotes_mobile.py()
+        +._fake_load()
+        +.test_review_page_200_with_draft()
+        +.test_review_shows_bundle_breakdown()
+        +.test_review_no_draft_redirects_to_items()
+        +.test_review_unknown_project_redirects()
+    }
+    class MobileRouteTestBase {
+        +test_quotes_mobile.py()
+    }
+    MobileRouteTestBase <|-- MobileAddItemTest
+    MobileRouteTestBase <|-- MobileGeneratePdfTest
+    MobileRouteTestBase <|-- MobileItemsTest
+    MobileRouteTestBase <|-- MobileProjectsTest
+    MobileRouteTestBase <|-- MobileRemoveItemTest
+    MobileRouteTestBase <|-- MobileReviewTest
+    MobileProjectsTest <|-- MobileRouteTestBase
+    MobileItemsTest <|-- MobileRouteTestBase
+    MobileAddItemTest <|-- MobileRouteTestBase
+    MobileRemoveItemTest <|-- MobileRouteTestBase
+    MobileReviewTest <|-- MobileRouteTestBase
+    MobileGeneratePdfTest <|-- MobileRouteTestBase
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 15]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_form_models.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_form_models.py)
-- [/Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py)
-- [/Users/macbook/ProjectTracker/tracker/form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
-- [/Users/macbook/ProjectTracker/tracker/terms_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py)
+- [/Users/macbook/ProjectTracker/tests/test_quotes_mobile.py](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py)
 
 ## Audit Trail
 
-- EXTRACTED: 115 (67%)
-- INFERRED: 57 (33%)
+- EXTRACTED: 74 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

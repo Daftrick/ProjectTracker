@@ -1,65 +1,65 @@
 # Community 24
 
-> 19 nodes · cohesion 0.22
+> 15 nodes · cohesion 0.13
 
 ## Key Concepts
 
-- [_q()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L16) (12 connections)
-- [approve_quote()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L137) (10 connections)
-- [migrate_quote_approval()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L99) (9 connections)
-- [ApproveQuoteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L23) (7 connections)
-- [MigrateQuoteApprovalTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L87) (5 connections)
-- [test_catalog_approval.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L1) (5 connections)
-- [.test_approve_does_not_touch_other_project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L77) (3 connections)
-- [.test_approving_active_base_quote_toggles_it_off()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L70) (3 connections)
-- [.test_approving_extraordinaria_toggles_only_itself()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L48) (3 connections)
-- [.test_approving_obra_does_not_affect_proyecto_or_other_obra()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L58) (3 connections)
-- [.test_approving_proyecto_does_not_affect_obra_or_servicio()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L24) (3 connections)
-- [.test_approving_proyecto_does_not_obsolete_other_proyecto()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L36) (3 connections)
-- [.test_already_has_status_not_touched()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L120) (3 connections)
-- [.test_each_type_migrates_independently()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L88) (3 connections)
-- [.test_extraordinaria_always_active()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L111) (3 connections)
-- [.test_two_proyecto_quotes_only_newest_active()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L101) (3 connections)
-- [.test_approving_does_not_affect_other_types()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L185) (3 connections)
-- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L100) (1 connections)
-- [Marca la cotización target_id como active, o la regresa a obsolete si ya lo esta](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L138) (1 connections)
+- [QuoteDescTextareaRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L64) (8 connections)
+- [CatalogQuickAddTextareaTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L134) (5 connections)
+- [test_quote_desc_textarea.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L1) (4 connections)
+- [QuoteDescTemplateSourceTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L52) (3 connections)
+- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L76) (2 connections)
+- [.test_multiline_description_round_trips_through_save()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L104) (2 connections)
+- [.test_autogrow_helper_handles_hidden_elements_gracefully()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L149) (1 connections)
+- [.test_form_uses_textarea_for_catalog_search_and_quick_add_fields()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L139) (1 connections)
+- [.test_form_has_autogrow_wiring()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L59) (1 connections)
+- [.test_form_uses_textarea_for_item_desc_not_input()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L53) (1 connections)
+- [.test_edit_form_renders_textarea_with_content()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L80) (1 connections)
+- [.test_new_quote_form_renders_empty_textarea()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L87) (1 connections)
+- [.test_quote_view_page_preserves_line_breaks_visually()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L128) (1 connections)
+- [item_desc[] (columna "Nombre / Descripción" de cada partida) es un <textarea> au](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L1) (1 connections)
+- [Buscador de catálogo (catalogSearch) y mini-formulario "Agregar nuevo     artícu](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L135) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class ApproveQuoteTest {
-        +test_catalog_approval.py()
-        +.test_approving_proyecto_does_not_affect_obra_or_servicio()
-        +.test_approving_proyecto_does_not_obsolete_other_proyecto()
-        +.test_approving_extraordinaria_toggles_only_itself()
-        +.test_approving_obra_does_not_affect_proyecto_or_other_obra()
-        +.test_approving_active_base_quote_toggles_it_off()
-        +.test_approve_does_not_touch_other_project()
+    class CatalogQuickAddTextareaTest {
+        +test_quote_desc_textarea.py()
+        +.test_form_uses_textarea_for_catalog_search_and_quick_add_fields()
+        +.test_autogrow_helper_handles_hidden_elements_gracefully()
+        +.test_api_catalogo_add_accepts_multiline_nombre_and_descripcion()
     }
-    class MigrateQuoteApprovalTest {
-        +test_catalog_approval.py()
-        +.test_each_type_migrates_independently()
-        +.test_two_proyecto_quotes_only_newest_active()
-        +.test_extraordinaria_always_active()
-        +.test_already_has_status_not_touched()
+    class QuoteDescTemplateSourceTest {
+        +test_quote_desc_textarea.py()
+        +.test_form_uses_textarea_for_item_desc_not_input()
+        +.test_form_has_autogrow_wiring()
+    }
+    class QuoteDescTextareaRouteTest {
+        +test_quote_desc_textarea.py()
+        +.setUp()
+        +.tearDown()
+        +.test_edit_form_renders_textarea_with_content()
+        +.test_new_quote_form_renders_empty_textarea()
+        +.test_description_with_special_chars_is_escaped_as_text_content()
+        +.test_multiline_description_round_trips_through_save()
+        +.test_quote_view_page_preserves_line_breaks_visually()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 33]] (2 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
-- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py)
 
 ## Audit Trail
 
-- EXTRACTED: 59 (71%)
-- INFERRED: 24 (29%)
+- EXTRACTED: 31 (94%)
+- INFERRED: 2 (6%)
 - AMBIGUOUS: 0 (0%)
 
 ---

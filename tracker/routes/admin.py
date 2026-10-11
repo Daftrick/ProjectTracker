@@ -9,6 +9,7 @@ from flask import Blueprint, current_app, flash, jsonify, redirect, render_templ
 from flask_login import current_user, logout_user
 
 from ..auth import admin_required, AUTH_DB, init_db
+from ..access import check_document_access
 
 from ..bundles import (
     activate_bundle_version,
@@ -35,6 +36,11 @@ DISCIPLINAS = ["instalaciones", "arquitectura", "estructura", "otros"]
 bp = Blueprint("admin_bp", __name__)
 
 
+@bp.before_request
+def _check_document():
+    return check_document_access(load)
+
+
 def _parse_price(value):
     raw = _clean(value) or "0"
     try:
@@ -56,9 +62,23 @@ def _catalog_form(form=None):
         "disciplina": _clean(form.get("disciplina")) or "instalaciones",
         "marca": _clean(form.get("marca")),
         "is_fractional": form.get("is_fractional") == "1",
-        "buy_unit_size": float(buy_size_raw) if buy_size_raw else None,
+        "buy_unit_size": buy_size_raw,
         "buy_unit_label": _clean(form.get("buy_unit_label")),
     }
+
+
+def _validate_buy_unit_size(form_state, field_errors):
+    raw = form_state.get("buy_unit_size")
+    if raw == "" or raw is None:
+        return None
+    try:
+        size = finite_float(raw)
+        if size <= 0:
+            raise ValueError("Tamaño no positivo")
+        return size
+    except ValueError:
+        field_errors["buy_unit_size"] = "La cantidad por unidad de compra debe ser un número finito mayor a 0."
+        return None
 
 
 def _proveedor_form(form=None):
@@ -169,6 +189,7 @@ def catalogo():
         # necesitan poder dar de alta artículos mientras arman una cotización.
         form_state = _catalog_form(request.form)
         field_errors = {}
+        buy_size = _validate_buy_unit_size(form_state, field_errors)
         if not form_state["nombre"]:
             field_errors["nombre"] = "El nombre es requerido."
         price = _parse_price(form_state["precio"])
@@ -189,7 +210,7 @@ def catalogo():
             "disciplina": form_state["disciplina"],
             "marca": form_state["marca"],
             "is_fractional": form_state["is_fractional"],
-            "buy_unit_size": form_state["buy_unit_size"],
+            "buy_unit_size": buy_size,
             "buy_unit_label": form_state["buy_unit_label"],
             "created_at": today(),
         })
@@ -210,11 +231,13 @@ def edit_catalogo(item_id):
     item = next((entry for entry in items if entry["id"] == item_id), None)
     if item:
         form_state = _catalog_form(request.form)
+        field_errors = {}
+        buy_size = _validate_buy_unit_size(form_state, field_errors)
         price = _parse_price(form_state["precio"])
-        if not form_state["nombre"] or price is None:
+        if not form_state["nombre"] or price is None or field_errors:
             if is_ajax:
-                return jsonify({"ok": False, "error": "Datos inválidos"}), 400
-            flash("Datos inválidos.", "warning")
+                return jsonify({"ok": False, "error": next(iter(field_errors.values()), "Datos inválidos")}), 400
+            flash(next(iter(field_errors.values()), "Datos inválidos."), "warning")
             return redirect(url_for("catalogo"))
         item["nombre"] = form_state["nombre"]
         item["descripcion"] = form_state["descripcion"]
@@ -224,7 +247,7 @@ def edit_catalogo(item_id):
         item["disciplina"] = form_state["disciplina"]
         item["marca"] = form_state["marca"]
         item["is_fractional"] = form_state["is_fractional"]
-        item["buy_unit_size"] = form_state["buy_unit_size"]
+        item["buy_unit_size"] = buy_size
         item["buy_unit_label"] = form_state["buy_unit_label"]
         save("catalogo", items)
         if is_ajax:

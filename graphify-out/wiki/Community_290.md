@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Etiquetas de problema para un artículo. La UI las traduce a colores.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L165) (0 connections)
+- [Returns a User if credentials are valid and account is active, else None.](file:///Users/macbook/ProjectTracker/tracker%5Cauth.py#L118) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [tracker\auth.py](file:///Users/macbook/ProjectTracker/tracker%5Cauth.py)
 
 ## Audit Trail
 

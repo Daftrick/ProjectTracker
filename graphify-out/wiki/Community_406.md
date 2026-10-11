@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Aprueba/activa una cotización.      - General/Preliminar: marca la seleccionada](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L246) (0 connections)
+- [Aprueba/activa una cotización.      - General/Preliminar: marca la seleccionada](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L265) (0 connections)
 
 ## Relationships
 

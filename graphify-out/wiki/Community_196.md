@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [One-time migration: split 'Marca | Nombre' items into separate marca + nombre fi](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L267) (0 connections)
+- [Purge a deleted catalog item from the quote](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L798) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

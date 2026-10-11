@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Comparison Ignored Item Entity](file:///Users/macbook/ProjectTracker/templates/comparison_rules.html) (0 connections)
+- [Asegura que cada artículo tenga el campo `categoria` (default '').      Migració](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L7) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/comparison_rules.html](file:///Users/macbook/ProjectTracker/templates/comparison_rules.html)
+- [tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

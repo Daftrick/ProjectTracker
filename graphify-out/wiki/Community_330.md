@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Extrae ítems de cotización Procables usando franjas de columna por coordenada x.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdf_ldm_import.py#L57) (0 connections)
+- [Derive the portfolio stage from existing task data + the in_obra flag.      Stag](file:///Users/macbook/ProjectTracker/tracker%5Cdomain.py#L36) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\pdf_ldm_import.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cpdf_ldm_import.py)
+- [tracker\domain.py](file:///Users/macbook/ProjectTracker/tracker%5Cdomain.py)
 
 ## Audit Trail
 

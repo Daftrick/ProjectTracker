@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Marca la cotización target_id como active.      Si es General/Preliminar, pasa l](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L98) (0 connections)
+- [Build a quote item dict from a catalog item + qty (int or str).](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L17) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
+- [tracker\services.py](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py)
 
 ## Audit Trail
 

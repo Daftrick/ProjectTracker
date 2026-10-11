@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return {nombre.lower(): id} for O(1) lookup during CSV parsing.](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L52) (0 connections)
+- [Calcula el siguiente número de versión para un bundle existente.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L97) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker/csv_import.py](file:///Users/macbook/ProjectTracker/tracker/csv_import.py)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

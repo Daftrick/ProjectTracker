@@ -1,7 +1,7 @@
 from datetime import date
 
 from .catalog import catalog_maps, hydrate_ldm, hydrate_quote
-from .catalog import APPROVAL_ACTIVE, is_base_quote_type
+from .catalog import APPROVAL_ACTIVE, is_active_quote, is_base_quote_type
 from .consistency import compute_consistency
 from .domain import check_blocked, get_progress
 from .payments import get_payments_for_project, payment_summary
@@ -206,13 +206,13 @@ def build_project_detail_context(project, include_quotes=True):
     _active_bases = [
         q for q in quotes
         if is_base_quote_type(q.get("quote_type"))
-        and q.get("approval_status", APPROVAL_ACTIVE) == APPROVAL_ACTIVE
+        and is_active_quote(q)
     ]
     _active_bases.sort(key=lambda q: (q.get("date") or "", q.get("created_at") or ""), reverse=True)
     _active_extras = [
         q for q in quotes
         if not is_base_quote_type(q.get("quote_type"))
-        and q.get("approval_status", APPROVAL_ACTIVE) == APPROVAL_ACTIVE
+        and is_active_quote(q)
     ]
     total_cotizado = round(
         sum(q.get("total", 0) for q in _active_bases) + sum(q.get("total", 0) for q in _active_extras), 2

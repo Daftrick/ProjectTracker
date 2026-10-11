@@ -1,46 +1,58 @@
 # Community 16
 
-> 29 nodes · cohesion 0.12
+> 26 nodes · cohesion 0.14
 
 ## Key Concepts
 
-- [quotes_mobile.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L1) (15 connections)
-- [utils.py](file:///Users/macbook/ProjectTracker/tracker/utils.py#L1) (13 connections)
-- [mobile_generate_pdf()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L170) (12 connections)
-- [finite_float()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L7) (12 connections)
-- [mobile_add_item()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L104) (8 connections)
-- **ValueError** (8 connections)
-- [_hydrate_quote_for_display()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L32) (7 connections)
-- [mobile_items()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L70) (7 connections)
-- [_find_project()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L21) (6 connections)
-- [parse_csv_plano_filename()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L45) (6 connections)
-- [parse_float()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L34) (6 connections)
-- [api_ldm_set_costo()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L417) (5 connections)
-- [mobile_review()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L150) (5 connections)
-- [ParseCsvPlanoFilenameTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L6) (5 connections)
-- [parse_form_float()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L18) (5 connections)
-- [_find_draft()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L25) (4 connections)
-- [clean()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L14) (4 connections)
-- [deleted_catalog_item_at()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L68) (4 connections)
-- [_discipline_list()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L38) (2 connections)
-- [mobile_projects()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L52) (2 connections)
-- [.test_case_insensitive()](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L22) (2 connections)
-- [.test_extracts_export_metadata()](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L7) (2 connections)
-- [.test_rejects_cot_csv()](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L16) (2 connections)
-- [.test_rejects_wrong_clave()](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L19) (2 connections)
-- [test_drive.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L1) (1 connections)
-- *... and 4 more nodes in this community*
+- [AdminRequiredTestCase](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L107) (17 connections)
+- [._login_as()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L136) (13 connections)
+- [get_company()](file:///Users/macbook/Documents/ProjectTracker/tracker/company_config.py#L15) (10 connections)
+- [._assert_no_admin_block()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L178) (6 connections)
+- [CompanyConfigTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py#L5) (5 connections)
+- [empresa()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L813) (4 connections)
+- [save_company()](file:///Users/macbook/Documents/ProjectTracker/tracker/company_config.py#L25) (4 connections)
+- [.test_cotizador_can_view_empresa_but_only_edit_address()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L258) (4 connections)
+- [.test_admin_can_edit_all_empresa_fields()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L281) (3 connections)
+- [.test_cotizador_can_access_system_pages_except_admin_only_ones()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L233) (3 connections)
+- [.test_cotizador_can_edit_and_delete_catalog_items()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L182) (3 connections)
+- [.test_cotizador_can_manage_proveedores_fichas_team()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L202) (3 connections)
+- [.test_cotizador_cannot_delete_project_but_can_approve_quote()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L225) (3 connections)
+- [_company_logo_version()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L788) (2 connections)
+- [empresa_logo_file()](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L800) (2 connections)
+- [.test_admin_can_access_empresa()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L147) (2 connections)
+- [.test_admin_can_access_export_and_reset_data()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L250) (2 connections)
+- [.test_admin_can_access_users()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L152) (2 connections)
+- [.test_cotizador_can_add_catalog_item_via_api()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L169) (2 connections)
+- [.test_cotizador_can_add_catalog_item_via_form()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L157) (2 connections)
+- [.test_cotizador_cannot_access_users()](file:///Users/macbook/ProjectTracker/tests/test_auth.py#L142) (2 connections)
+- [.test_merges_stored_values_over_defaults()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py#L18) (2 connections)
+- [.test_non_dict_storage_returns_defaults()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py#L28) (2 connections)
+- [.test_returns_defaults_when_no_file()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py#L7) (2 connections)
+- [.test_save_company_calls_storage()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py#L34) (2 connections)
+- *... and 1 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class ParseCsvPlanoFilenameTest {
-        +test_drive.py()
-        +.test_extracts_export_metadata()
-        +.test_rejects_cot_csv()
-        +.test_rejects_wrong_clave()
-        +.test_case_insensitive()
+    class AdminRequiredTestCase {
+        +test_auth.py()
+        +.setUp()
+        +.tearDown()
+        +._login_as()
+        +.test_cotizador_cannot_access_users()
+        +.test_admin_can_access_empresa()
+        +.test_admin_can_access_users()
+        +.test_cotizador_can_add_catalog_item_via_form()
+        +.test_cotizador_can_add_catalog_item_via_api()
+        +._assert_no_admin_block()
+    }
+    class CompanyConfigTest {
+        +test_company_templates.py()
+        +.test_returns_defaults_when_no_file()
+        +.test_merges_stored_values_over_defaults()
+        +.test_non_dict_storage_returns_defaults()
+        +.test_save_company_calls_storage()
     }
 ```
 
@@ -50,15 +62,15 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_drive.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py)
-- [/Users/macbook/ProjectTracker/tracker/utils.py](file:///Users/macbook/ProjectTracker/tracker/utils.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/company_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/company_config.py)
+- [/Users/macbook/ProjectTracker/tests/test_auth.py](file:///Users/macbook/ProjectTracker/tests/test_auth.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
 
 ## Audit Trail
 
-- EXTRACTED: 94 (63%)
-- INFERRED: 55 (37%)
+- EXTRACTED: 83 (80%)
+- INFERRED: 21 (20%)
 - AMBIGUOUS: 0 (0%)
 
 ---

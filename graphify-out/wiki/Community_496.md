@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Team Member Entity](file:///Users/macbook/ProjectTracker/templates/team.html) (0 connections)
+- [CSV escrito en cp1252 (fallback ANSI del LISP) debe retornar error         legib](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import.py#L75) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/team.html](file:///Users/macbook/ProjectTracker/templates/team.html)
+- [tests/test_quote_csv_import.py](file:///Users/macbook/ProjectTracker/tests/test_quote_csv_import.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Deleted Catalog Item Handling Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
+- [Crea la carpeta Drive del proyecto si aún no existe.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cprojects.py#L452) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
+- [tracker\routes\projects.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cprojects.py)
 
 ## Audit Trail
 

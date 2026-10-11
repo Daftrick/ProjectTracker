@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Cliente a mostrar en PDF/Excel/vistas de una cotización.      Prioridad: 1) over](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L377) (0 connections)
+- [Cambia el approval_status de una cotización a cualquiera de los 3     estados vá](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L159) (0 connections)
 
 ## Relationships
 

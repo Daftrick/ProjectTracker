@@ -1,70 +1,66 @@
 # Community 19
 
-> 25 nodes · cohesion 0.12
+> 23 nodes · cohesion 0.13
 
 ## Key Concepts
 
-- [missing_ldm_items_from_bundles()](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L52) (12 connections)
-- [ldm_sync.py](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L1) (9 connections)
-- [MaterialsSyncRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L80) (6 connections)
-- [_aggregate_ldm_qty_by_catalog()](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L25) (5 connections)
-- [selected_missing_bundle_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L95) (5 connections)
-- [append_missing_bundle_items_to_ldm()](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L107) (4 connections)
-- [_clean()](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L21) (4 connections)
-- [_safe_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L10) (4 connections)
-- [LdmSyncTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L50) (4 connections)
-- [test_ldm_sync.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L1) (4 connections)
-- [_round()](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py#L17) (3 connections)
-- [.test_filters_missing_materials_by_explicit_selection()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L62) (3 connections)
-- [.test_appends_missing_items_to_copy()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L72) (2 connections)
-- [.test_builds_only_missing_bundle_materials_without_overwriting()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L51) (2 connections)
-- [Sincronizacion parcial de LDM desde bundles de COT.](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L1) (1 connections)
-- [Anexa faltantes a una LDM y devuelve (copia_actualizada, agregados).](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L114) (1 connections)
-- [Devuelve filas LDM faltantes derivadas de la expansion tecnica.      No modifica](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L58) (1 connections)
-- [Filtra faltantes por seleccion explicita de catalog_item_id.](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py#L96) (1 connections)
-- [.test_new_ldm_can_prefill_bundle_suggestions()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L165) (1 connections)
-- [.test_new_ldm_preserves_bundle_suggestion_origin_on_create()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L185) (1 connections)
-- [.test_route_appends_selected_bundle_materials_to_existing_ldm()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L112) (1 connections)
-- [.test_route_does_not_append_unselected_bundle_materials()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L141) (1 connections)
-- [.test_route_previews_missing_bundle_materials_for_existing_ldm()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L90) (1 connections)
-- [Pruebas de sincronizacion parcial LDM desde bundles.](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py#L1) (1 connections)
-- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py#L82) (1 connections)
+- [admin_filters.py](file:///Users/macbook/Documents/ProjectTracker/tracker/admin_filters.py#L1) (8 connections)
+- [filter_fichas()](file:///Users/macbook/Documents/ProjectTracker/tracker/admin_filters.py#L54) (6 connections)
+- [filter_proveedores()](file:///Users/macbook/Documents/ProjectTracker/tracker/admin_filters.py#L41) (6 connections)
+- [_normalize()](file:///Users/macbook/Documents/ProjectTracker/tracker/admin_filters.py#L9) (6 connections)
+- [list_field_values()](file:///Users/macbook/Documents/ProjectTracker/tracker/admin_filters.py#L31) (5 connections)
+- [_matches_tokens()](file:///Users/macbook/Documents/ProjectTracker/tracker/admin_filters.py#L23) (5 connections)
+- [AdminFilterHelpersTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_filters.py#L9) (4 connections)
+- [AdminFilterRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_filters.py#L74) (4 connections)
+- [test_admin_filters.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_filters.py#L1) (4 connections)
+- [_indexed()](file:///Users/macbook/Documents/ProjectTracker/tracker/admin_filters.py#L19) (3 connections)
+- [_tokens()](file:///Users/macbook/Documents/ProjectTracker/tracker/admin_filters.py#L15) (3 connections)
+- [.test_filters_fichas_by_text_type_and_link_status()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_filters.py#L34) (2 connections)
+- [.test_filters_proveedores_by_tokens_and_category()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_filters.py#L10) (2 connections)
+- [.test_list_field_values_returns_unique_sorted_values()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_filters.py#L60) (2 connections)
+- [Filtros puros para vistas administrativas con listas largas.](file:///Users/macbook/ProjectTracker/tracker/admin_filters.py#L1) (1 connections)
+- [Valores únicos no vacíos de un campo, ordenados sin distinguir acentos.](file:///Users/macbook/ProjectTracker/tracker/admin_filters.py#L32) (1 connections)
+- [Filtra proveedores por búsqueda libre y categoría exacta.](file:///Users/macbook/ProjectTracker/tracker/admin_filters.py#L42) (1 connections)
+- [Filtra fichas por texto, tipo y estado de vinculación a proyectos.](file:///Users/macbook/ProjectTracker/tracker/admin_filters.py#L55) (1 connections)
+- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_filters.py#L84) (1 connections)
+- [.test_fichas_route_filters_by_text_and_unlinked_status()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_filters.py#L148) (1 connections)
+- [.test_proveedores_route_filters_by_category()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_filters.py#L139) (1 connections)
+- [Pruebas de filtros administrativos para proveedores y fichas.](file:///Users/macbook/ProjectTracker/tests/test_admin_filters.py#L1) (1 connections)
+- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_filters.py#L76) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class LdmSyncTest {
-        +test_ldm_sync.py()
-        +.test_builds_only_missing_bundle_materials_without_overwriting()
-        +.test_filters_missing_materials_by_explicit_selection()
-        +.test_appends_missing_items_to_copy()
+    class AdminFilterHelpersTest {
+        +test_admin_filters.py()
+        +.test_filters_proveedores_by_tokens_and_category()
+        +.test_filters_fichas_by_text_type_and_link_status()
+        +.test_list_field_values_returns_unique_sorted_values()
     }
-    class MaterialsSyncRouteTest {
-        +test_ldm_sync.py()
-        +.test_route_previews_missing_bundle_materials_for_existing_ldm()
-        +.test_route_appends_selected_bundle_materials_to_existing_ldm()
-        +.test_route_does_not_append_unselected_bundle_materials()
-        +.test_new_ldm_can_prefill_bundle_suggestions()
-        +.test_new_ldm_preserves_bundle_suggestion_origin_on_create()
+    class AdminFilterRouteTest {
+        +test_admin_filters.py()
+        +._fake_load()
+        +.test_proveedores_route_filters_by_category()
+        +.test_fichas_route_filters_by_text_and_unlinked_status()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 22]] (5 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_sync.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py](file:///Users/macbook/Documents/ProjectTracker/tracker/ldm_sync.py)
-- [/Users/macbook/ProjectTracker/tests/test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests/test_ldm_sync.py)
-- [/Users/macbook/ProjectTracker/tracker/ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker/ldm_sync.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_admin_filters.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_filters.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/admin_filters.py](file:///Users/macbook/Documents/ProjectTracker/tracker/admin_filters.py)
+- [/Users/macbook/ProjectTracker/tests/test_admin_filters.py](file:///Users/macbook/ProjectTracker/tests/test_admin_filters.py)
+- [/Users/macbook/ProjectTracker/tracker/admin_filters.py](file:///Users/macbook/ProjectTracker/tracker/admin_filters.py)
 
 ## Audit Trail
 
-- EXTRACTED: 65 (83%)
-- INFERRED: 13 (17%)
+- EXTRACTED: 60 (87%)
+- INFERRED: 9 (13%)
 - AMBIGUOUS: 0 (0%)
 
 ---

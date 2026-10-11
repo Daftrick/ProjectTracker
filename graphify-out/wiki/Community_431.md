@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [La cotización General más reciente; si no hay, la más reciente de cualquier tipo](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L77) (0 connections)
+- [Parse a LISP-exported material list CSV into LDM draft data.      Args:](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py#L77) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [tracker\csv_import.py](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return catalog id if description matches a catalog nombre after normalization.](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L74) (0 connections)
+- [Construye el snapshot de un artículo de catálogo eliminado desde listas de campo](file:///Users/macbook/ProjectTracker/tracker/utils.py#L69) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/csv_import.py](file:///Users/macbook/ProjectTracker/tracker/csv_import.py)
+- [/Users/macbook/ProjectTracker/tracker/utils.py](file:///Users/macbook/ProjectTracker/tracker/utils.py)
 
 ## Audit Trail
 

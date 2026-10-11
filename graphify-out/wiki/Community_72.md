@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Localiza la fila de encabezados buscando columnas reconocibles.](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L255) (0 connections)
+- [Lista única de categorías existentes (para datalists/filtros).](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L334) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
 
 ## Audit Trail
 

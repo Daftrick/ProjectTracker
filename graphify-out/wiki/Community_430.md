@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convierte un margen porcentual en un status discreto.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L66) (0 connections)
+- [Return catalog id if description matches a catalog nombre (case-insensitive).](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py#L72) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [tracker\csv_import.py](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py)
 
 ## Audit Trail
 

@@ -1,92 +1,81 @@
 # Community 12
 
-> 41 nodes · cohesion 0.08
+> 37 nodes · cohesion 0.10
 
 ## Key Concepts
 
-- [filter_catalog()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog_search.py#L63) (13 connections)
-- [match_item()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog_search.py#L47) (11 connections)
-- [tokenize()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog_search.py#L32) (8 connections)
-- [_normalize()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog_search.py#L25) (7 connections)
-- [FilterCatalogTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L57) (7 connections)
-- [MatchItemTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L23) (7 connections)
-- [test_catalog_search.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L1) (7 connections)
-- [catalog_search.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog_search.py#L1) (7 connections)
-- [ApiCatalogoTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L114) (5 connections)
-- [TokenizeTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L8) (5 connections)
-- [_indexable_text()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog_search.py#L37) (4 connections)
-- [.test_combined_tokens_and_category()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L88) (2 connections)
-- [.test_filter_by_category()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L81) (2 connections)
-- [.test_filters_by_token_and_returns_alphabetical()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L65) (2 connections)
-- [.test_multiple_tokens_must_all_match()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L70) (2 connections)
-- [.test_no_filters_returns_all_sorted()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L92) (2 connections)
-- [.test_tokens_match_across_fields_including_category()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L75) (2 connections)
-- [ListCategoriesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L99) (2 connections)
-- [.test_returns_unique_sorted_non_empty()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L100) (2 connections)
-- [.test_all_tokens_must_match()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L30) (2 connections)
-- [.test_categoria_filter_matches_normalized()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L42) (2 connections)
-- [.test_diacritics_and_case_ignored()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L35) (2 connections)
-- [.test_marca_field_is_searchable()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L51) (2 connections)
-- [.test_no_tokens_means_match()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L39) (2 connections)
-- [.test_tokens_can_match_across_fields()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py#L47) (2 connections)
-- *... and 16 more nodes in this community*
+- [quote_from_form()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L28) (18 connections)
+- [terms_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L1) (13 connections)
+- [resolve_quote_terms()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L94) (11 connections)
+- [QuoteTermsEditingTest](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L20) (10 connections)
+- [FormModelsTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_form_models.py#L8) (9 connections)
+- [get_terms_templates()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L72) (7 connections)
+- [quote_terms_from_form()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L127) (6 connections)
+- [.form()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L27) (6 connections)
+- [_normalize()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L62) (5 connections)
+- [terms_templates()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1314) (4 connections)
+- [_normalize_template()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L46) (4 connections)
+- [_normalize_term()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L31) (4 connections)
+- [.test_large_table_amounts_stay_inside_their_columns()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L128) (4 connections)
+- [.test_pdf_uses_local_terms_and_embeds_lato_in_both_cover_modes()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L76) (4 connections)
+- [.test_saved_terms_survive_template_changes_and_deletion()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L48) (4 connections)
+- [.test_validation_and_error_rerender_keep_custom_terms()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L39) (4 connections)
+- [get_terms_template_by_id()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L86) (3 connections)
+- [_new_id()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L16) (3 connections)
+- [save_terms_templates()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L82) (3 connections)
+- [_seed_terms_template()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L20) (3 connections)
+- [.test_empty_terms_are_intentional_and_old_forms_keep_terms()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L70) (3 connections)
+- [.test_save_in_both_editors_preserves_quote_terms_and_template()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L105) (3 connections)
+- [.test_ldm_from_form_preserves_deleted_catalog_snapshot()](file:///Users/macbook/Documents/ProjectTracker/tests/test_form_models.py#L169) (2 connections)
+- [.test_ldm_from_form_preserves_fallback_and_items()](file:///Users/macbook/Documents/ProjectTracker/tests/test_form_models.py#L149) (2 connections)
+- [.test_quote_from_form_parses_integrantes()](file:///Users/macbook/Documents/ProjectTracker/tests/test_form_models.py#L108) (2 connections)
+- *... and 12 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class ApiCatalogoTest {
-        +test_catalog_search.py()
-        +.test_api_returns_json_list()
-        +.test_api_accepts_query_parameters()
-        +.test_api_categorias_returns_sorted_list()
+    class FormModelsTest {
+        +test_form_models.py()
+        +.test_quote_from_form_preserves_sections_and_items()
+        +.test_quote_from_form_preserves_section_without_items()
+        +.test_quote_from_form_preserves_deleted_catalog_snapshot()
+        +.test_quote_from_form_parses_specs()
+        +.test_quote_from_form_parses_integrantes()
+        +.test_quote_from_form_specs_defaults_to_empty_strings()
+        +.test_ldm_from_form_preserves_fallback_and_items()
+        +.test_ldm_from_form_preserves_deleted_catalog_snapshot()
     }
-    class FilterCatalogTest {
-        +test_catalog_search.py()
-        +.test_filters_by_token_and_returns_alphabetical()
-        +.test_multiple_tokens_must_all_match()
-        +.test_tokens_match_across_fields_including_category()
-        +.test_filter_by_category()
-        +.test_combined_tokens_and_category()
-        +.test_no_filters_returns_all_sorted()
-    }
-    class ListCategoriesTest {
-        +test_catalog_search.py()
-        +.test_returns_unique_sorted_non_empty()
-    }
-    class MatchItemTest {
-        +test_catalog_search.py()
-        +.test_all_tokens_must_match()
-        +.test_diacritics_and_case_ignored()
-        +.test_no_tokens_means_match()
-        +.test_categoria_filter_matches_normalized()
-        +.test_tokens_can_match_across_fields()
-        +.test_marca_field_is_searchable()
-    }
-    class TokenizeTest {
-        +test_catalog_search.py()
-        +.test_splits_by_whitespace_and_normalizes()
-        +.test_strips_diacritics()
-        +.test_collapses_extra_whitespace()
-        +.test_empty_query_yields_empty_list()
+    class QuoteTermsEditingTest {
+        +test_quote_terms_editing.py()
+        +.setUp()
+        +.form()
+        +.test_validation_and_error_rerender_keep_custom_terms()
+        +.test_saved_terms_survive_template_changes_and_deletion()
+        +.test_existing_overrides_and_legacy_keys_are_preserved()
+        +.test_empty_terms_are_intentional_and_old_forms_keep_terms()
+        +.test_pdf_uses_local_terms_and_embeds_lato_in_both_cover_modes()
+        +.test_save_in_both_editors_preserves_quote_terms_and_template()
+        +.test_large_table_amounts_stay_inside_their_columns()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 13]] (3 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_search.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/catalog_search.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog_search.py)
-- [/Users/macbook/ProjectTracker/tests/test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests/test_catalog_search.py)
-- [/Users/macbook/ProjectTracker/tracker/catalog_search.py](file:///Users/macbook/ProjectTracker/tracker/catalog_search.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_form_models.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_form_models.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py)
+- [/Users/macbook/ProjectTracker/tracker/form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/terms_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py)
 
 ## Audit Trail
 
-- EXTRACTED: 94 (73%)
-- INFERRED: 35 (27%)
+- EXTRACTED: 103 (66%)
+- INFERRED: 52 (34%)
 - AMBIGUOUS: 0 (0%)
 
 ---

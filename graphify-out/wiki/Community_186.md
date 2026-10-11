@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Elimina una versión si no es la única disponible.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L258) (0 connections)
+- [Return the company dict from company.json, or {} on any error.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L126) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
+- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 

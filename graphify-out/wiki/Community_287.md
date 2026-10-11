@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve la cotización General/Preliminar activa del proyecto.      Orden de pre](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L53) (0 connections)
+- [Valores únicos no vacíos de un campo, ordenados sin distinguir acentos.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cadmin_filters.py#L32) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\admin_filters.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Cadmin_filters.py)
 
 ## Audit Trail
 

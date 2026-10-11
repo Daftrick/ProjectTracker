@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Total cotizado vs. pagado y saldo pendiente para un conjunto de pagos.](file:///Users/macbook/ProjectTracker/tracker/payments.py#L67) (0 connections)
+- [Flattens sections and merges duplicate items (same catalog ID or description+uni](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L264) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/payments.py](file:///Users/macbook/ProjectTracker/tracker/payments.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

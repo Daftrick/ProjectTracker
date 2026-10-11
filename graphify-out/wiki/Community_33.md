@@ -1,49 +1,47 @@
 # Community 33
 
-> 9 nodes · cohesion 0.22
+> 9 nodes · cohesion 0.31
 
 ## Key Concepts
 
-- [CatalogQuickAddTextareaTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L134) (5 connections)
-- [test_quote_desc_textarea.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L1) (4 connections)
-- [QuoteDescTemplateSourceTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L52) (3 connections)
-- [.test_autogrow_helper_handles_hidden_elements_gracefully()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L149) (1 connections)
-- [.test_form_uses_textarea_for_catalog_search_and_quick_add_fields()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L139) (1 connections)
-- [.test_form_has_autogrow_wiring()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L59) (1 connections)
-- [.test_form_uses_textarea_for_item_desc_not_input()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L53) (1 connections)
-- [item_desc[] (columna "Nombre / Descripción" de cada partida) es un <textarea> au](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L1) (1 connections)
-- [Buscador de catálogo (catalogSearch) y mini-formulario "Agregar nuevo     artícu](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L135) (1 connections)
+- [ProyectoEjecutivoQuoteRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_proyecto_ejecutivo_quote.py#L26) (8 connections)
+- [._quote_form()](file:///Users/macbook/Documents/ProjectTracker/tests/test_proyecto_ejecutivo_quote.py#L41) (4 connections)
+- [.test_creates_quote_with_j_sequence_and_qty_one()](file:///Users/macbook/Documents/ProjectTracker/tests/test_proyecto_ejecutivo_quote.py#L64) (3 connections)
+- [.test_second_quote_increments_j_sequence()](file:///Users/macbook/Documents/ProjectTracker/tests/test_proyecto_ejecutivo_quote.py#L99) (3 connections)
+- [.test_view_page_hides_unidad_and_cantidad_columns()](file:///Users/macbook/Documents/ProjectTracker/tests/test_proyecto_ejecutivo_quote.py#L80) (3 connections)
+- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_proyecto_ejecutivo_quote.py#L37) (2 connections)
+- [test_proyecto_ejecutivo_quote.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_proyecto_ejecutivo_quote.py#L1) (2 connections)
+- [.test_new_quote_form_offers_proyecto_ejecutivo_option()](file:///Users/macbook/Documents/ProjectTracker/tests/test_proyecto_ejecutivo_quote.py#L58) (1 connections)
+- [Tipo de cotización 'Proyecto Ejecutivo': sin cantidad ni unidad en los artículos](file:///Users/macbook/Documents/ProjectTracker/tests/test_proyecto_ejecutivo_quote.py#L1) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class CatalogQuickAddTextareaTest {
-        +test_quote_desc_textarea.py()
-        +.test_form_uses_textarea_for_catalog_search_and_quick_add_fields()
-        +.test_autogrow_helper_handles_hidden_elements_gracefully()
-        +.test_api_catalogo_add_accepts_multiline_nombre_and_descripcion()
-    }
-    class QuoteDescTemplateSourceTest {
-        +test_quote_desc_textarea.py()
-        +.test_form_uses_textarea_for_item_desc_not_input()
-        +.test_form_has_autogrow_wiring()
+    class ProyectoEjecutivoQuoteRoutesTest {
+        +test_proyecto_ejecutivo_quote.py()
+        +.setUp()
+        +.tearDown()
+        +._quote_form()
+        +.test_new_quote_form_offers_proyecto_ejecutivo_option()
+        +.test_creates_quote_with_j_sequence_and_qty_one()
+        +.test_view_page_hides_unidad_and_cantidad_columns()
+        +.test_second_quote_increments_j_sequence()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 0]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py)
-- [/Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_proyecto_ejecutivo_quote.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_proyecto_ejecutivo_quote.py)
 
 ## Audit Trail
 
-- EXTRACTED: 18 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 23 (85%)
+- INFERRED: 4 (15%)
 - AMBIGUOUS: 0 (0%)
 
 ---

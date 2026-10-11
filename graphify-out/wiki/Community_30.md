@@ -1,37 +1,51 @@
 # Community 30
 
-> 14 nodes · cohesion 0.27
+> 11 nodes · cohesion 0.29
 
 ## Key Concepts
 
-- [pdf_ldm_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L1) (10 connections)
-- [extract_items_from_pdf()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L291) (8 connections)
-- [_extract_from_tables()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L202) (5 connections)
-- [_clean()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L33) (4 connections)
-- [_extract_from_text()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L260) (4 connections)
-- [_extract_procables()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L56) (4 connections)
-- [_to_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L19) (4 connections)
-- [_extract_procables_meta()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L152) (3 connections)
-- [_header_map()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L185) (3 connections)
-- [_is_procables()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L47) (2 connections)
-- [Extracción de ítems desde PDFs de cotización de proveedores.  Estrategia en casc](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L1) (1 connections)
-- [Extrae número de cotización, fecha y proveedor del header de Procables.](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L153) (1 connections)
-- [Lee un PDF de cotización de proveedor y extrae los ítems.      Devuelve:](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L292) (1 connections)
-- [Extrae ítems de cotización Procables usando franjas de columna por coordenada x.](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L57) (1 connections)
+- [main()](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L22) (6 connections)
+- [GraphifyTaskTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L10) (5 connections)
+- [Completed](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L6) (3 connections)
+- [.test_check_update_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L24) (3 connections)
+- [.test_update_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L12) (3 connections)
+- [check_syntax.py](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L1) (3 connections)
+- [iter_python_files()](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L12) (2 connections)
+- [.test_missing_graphify_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L36) (2 connections)
+- [.test_unknown_action_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L41) (2 connections)
+- [test_graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L1) (2 connections)
+- [Parse project Python files without writing bytecode.](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L1) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class Completed {
+        +test_graphify_task.py()
+    }
+    class GraphifyTaskTest {
+        +test_graphify_task.py()
+        +.test_update_returns_success()
+        +.test_check_update_returns_success()
+        +.test_missing_graphify_returns_success()
+        +.test_unknown_action_returns_success()
+    }
+```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 31]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py)
-- [/Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py)
+- [/Users/macbook/Documents/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py)
+- [/Users/macbook/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/ProjectTracker/tools/check_syntax.py)
 
 ## Audit Trail
 
-- EXTRACTED: 50 (98%)
-- INFERRED: 1 (2%)
+- EXTRACTED: 24 (75%)
+- INFERRED: 8 (25%)
 - AMBIGUOUS: 0 (0%)
 
 ---

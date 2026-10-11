@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Lee la primera hoja de un .xlsx como lista de filas (listas de texto).](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L241) (0 connections)
+- [One-time migration: split 'Marca | Nombre' items into separate marca + nombre fi](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L254) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
 
 ## Audit Trail
 

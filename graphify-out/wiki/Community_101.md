@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Genera el PDF de una Lista de Materiales con la estética del PDF de     cotizaci](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py#L1389) (0 connections)
+- [Localiza la fila de encabezados buscando columnas reconocibles.](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L255) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tracker/quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py)
 
 ## Audit Trail
 

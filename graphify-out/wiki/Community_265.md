@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Obtiene la versión activa de un bundle.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L73) (0 connections)
+- [Smoke-test del endpoint JSON; no muta datos.](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py#L110) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
+- [tests\test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py)
 
 ## Audit Trail
 

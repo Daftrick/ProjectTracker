@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Nomenclatura de estados de cotización (borrador/activa/obsoleta),     editable p](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L975) (0 connections)
+- [Flattens sections and merges duplicate items (same catalog ID or description+uni](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L263) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

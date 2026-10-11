@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Genera la cotización como Excel y la guarda en la carpeta Drive del proyecto.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L300) (0 connections)
+- [Devuelve (linked_by_id, unlinked_summary).      `linked_by_id` mapea catalog_ite](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L87) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
+- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
 
 ## Audit Trail
 

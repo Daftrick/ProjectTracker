@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Asegura que cada artículo tenga el campo `categoria` (default '').      Migració](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L10) (0 connections)
+- [Tests for exporting an existing LDM as CSV.](file:///Users/macbook/ProjectTracker/tests%5Ctest_materials_csv_export.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
+- [tests\test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_materials_csv_export.py)
 
 ## Audit Trail
 

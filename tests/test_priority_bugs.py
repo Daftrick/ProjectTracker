@@ -33,7 +33,7 @@ LDM = {"id": "L1", "project_id": "P1", "ldm_number": "LDM-01", "proveedor": "Pro
        "fecha": "2026-10-11", "items": [], "subtotal_cot": 0}
 
 
-class IsolatedPriorityTests(unittest.TestCase):
+class IsolatedAppFixture(unittest.TestCase):
     def setUp(self):
         self.stack = contextlib.ExitStack()
         self.addCleanup(self.stack.close)
@@ -76,6 +76,9 @@ class IsolatedPriorityTests(unittest.TestCase):
 
     def snapshot(self):
         return {key: storage.load(key) for key in storage.FILES}
+
+
+class IsolatedPriorityTests(IsolatedAppFixture):
 
     def test_terms_script_and_both_editors_are_available(self):
         self.grant()
