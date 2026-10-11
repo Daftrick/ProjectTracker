@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Conjunto de catalog_item_id ignorados para un scope.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_ignored.py#L51) (0 connections)
+- [Agrega artículos a través de TODAS las LDMs del proyecto.      Devuelve (linked_](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L126) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_ignored.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccomparison_ignored.py)
+- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
 
 ## Audit Trail
 

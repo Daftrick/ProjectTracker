@@ -10,10 +10,10 @@ sequenceDiagram
     participant P1 as validate_quote_form()
     participant P2 as quote_type_key()
     participant P3 as compute_consistency()
-    participant P4 as _render_quote_form()
-    participant P5 as next_quote_number()
+    participant P4 as quote_from_form()
+    participant P5 as _render_quote_form()
     participant P6 as quote_pdf_editor()
-    participant P7 as quote_from_form()
+    participant P7 as next_quote_number()
     participant P8 as pick_active_quote()
     participant P9 as quote_cover_copy()
     participant P10 as is_base_quote_type()
@@ -26,46 +26,48 @@ sequenceDiagram
     participant P17 as edit_quote()
     participant P18 as _parse_float()
     participant P19 as _parse_quote_items()
-    participant P20 as normalize_contact_rows()
-    participant P21 as _validate_iso_date()
-    participant P22 as _validate_optional_iso_date()
-    participant P23 as .test_quote_ignores_default_empty_row_but_requires_real_items()
-    participant P24 as .test_quote_validates_numbers()
-    participant P25 as .test_quote_tax_rate_is_toggle_not_free_number()
-    participant P26 as .test_quote_discount_pct_parsed_and_range_validated()
-    participant P27 as .test_quote_client_unchanged_from_project_yields_no_override()
-    participant P28 as .test_quote_client_changed_yields_override()
-    participant P29 as .test_quote_client_override_without_project_context()
-    participant P30 as .test_quote_proposal_for_defaults_to_cliente_when_absent()
-    participant P31 as .test_quote_proposal_for_personalizado_requires_custom_text()
-    participant P32 as .test_quote_proposal_for_vacio_is_respected()
-    participant P33 as .test_quote_proposal_for_invalid_mode_falls_back_to_cliente()
-    participant P34 as .test_quote_accepts_valid_item_and_computes_subtotal()
-    participant P35 as .test_quote_parses_integrantes()
-    participant P36 as .test_quote_preserves_deleted_catalog_snapshot()
-    participant P37 as .test_quote_assigns_items_to_section_rows()
-    participant P38 as .test_quote_allows_section_without_items()
-    participant P39 as parse_quote_csv()
-    participant P40 as parse_quote_xlsx()
-    participant P41 as add_bundle_version_route()
-    participant P42 as validate_ldm_form()
-    participant P43 as bundles()
-    participant P44 as update_bundle_version()
-    participant P45 as _parse_ldm_items()
-    participant P46 as update_bundle()
-    participant P47 as _header_key()
-    participant P48 as _metadata_value()
-    participant P49 as _xlsx_metadata()
-    participant P50 as _catalog_form()
-    participant P51 as _proveedor_form()
-    participant P52 as _parse_components()
-    participant P53 as _row_value()
-    participant P54 as _find_header_row()
-    participant P55 as _is_blank()
-    participant P56 as validate_project_form()
-    participant P57 as _parse_price()
-    participant P58 as _ficha_form()
-    participant P59 as _team_form()
+    participant P20 as quote_terms_from_form()
+    participant P21 as normalize_contact_rows()
+    participant P22 as _validate_iso_date()
+    participant P23 as .test_validation_and_error_rerender_keep_custom_terms()
+    participant P24 as _validate_optional_iso_date()
+    participant P25 as .test_quote_ignores_default_empty_row_but_requires_real_items()
+    participant P26 as .test_quote_validates_numbers()
+    participant P27 as .test_quote_tax_rate_is_toggle_not_free_number()
+    participant P28 as .test_quote_discount_pct_parsed_and_range_validated()
+    participant P29 as .test_quote_client_unchanged_from_project_yields_no_override()
+    participant P30 as .test_quote_client_changed_yields_override()
+    participant P31 as .test_quote_client_override_without_project_context()
+    participant P32 as .test_quote_proposal_for_defaults_to_cliente_when_absent()
+    participant P33 as .test_quote_proposal_for_personalizado_requires_custom_text()
+    participant P34 as .test_quote_proposal_for_vacio_is_respected()
+    participant P35 as .test_quote_proposal_for_invalid_mode_falls_back_to_cliente()
+    participant P36 as .test_quote_accepts_valid_item_and_computes_subtotal()
+    participant P37 as .test_quote_parses_integrantes()
+    participant P38 as .test_quote_preserves_deleted_catalog_snapshot()
+    participant P39 as .test_quote_assigns_items_to_section_rows()
+    participant P40 as .test_quote_allows_section_without_items()
+    participant P41 as parse_quote_csv()
+    participant P42 as parse_quote_xlsx()
+    participant P43 as add_bundle_version_route()
+    participant P44 as validate_ldm_form()
+    participant P45 as bundles()
+    participant P46 as update_bundle_version()
+    participant P47 as _parse_ldm_items()
+    participant P48 as update_bundle()
+    participant P49 as _header_key()
+    participant P50 as _metadata_value()
+    participant P51 as _xlsx_metadata()
+    participant P52 as _catalog_form()
+    participant P53 as _proveedor_form()
+    participant P54 as _parse_components()
+    participant P55 as _row_value()
+    participant P56 as _find_header_row()
+    participant P57 as _is_blank()
+    participant P58 as validate_project_form()
+    participant P59 as _parse_price()
+    participant P60 as _ficha_form()
+    participant P61 as _team_form()
     P0->>+ P1: calls
     P1-->>- P0: return
     P1->>+ P0: calls
@@ -146,26 +148,26 @@ sequenceDiagram
     P37-->>- P1: return
     P1->>+ P38: calls
     P38-->>- P1: return
-    P0->>+ P39: calls
-    P39-->>- P0: return
-    P0->>+ P40: calls
-    P40-->>- P0: return
+    P1->>+ P39: calls
+    P39-->>- P1: return
+    P1->>+ P40: calls
+    P40-->>- P1: return
     P0->>+ P41: calls
     P41-->>- P0: return
     P0->>+ P42: calls
     P42-->>- P0: return
     P0->>+ P43: calls
     P43-->>- P0: return
-    P0->>+ P18: calls
-    P18-->>- P0: return
     P0->>+ P44: calls
     P44-->>- P0: return
-    P0->>+ P19: calls
-    P19-->>- P0: return
     P0->>+ P45: calls
     P45-->>- P0: return
+    P0->>+ P18: calls
+    P18-->>- P0: return
     P0->>+ P46: calls
     P46-->>- P0: return
+    P0->>+ P19: calls
+    P19-->>- P0: return
     P0->>+ P47: calls
     P47-->>- P0: return
     P0->>+ P48: calls
@@ -184,18 +186,22 @@ sequenceDiagram
     P54-->>- P0: return
     P0->>+ P55: calls
     P55-->>- P0: return
-    P0->>+ P21: calls
-    P21-->>- P0: return
     P0->>+ P56: calls
     P56-->>- P0: return
     P0->>+ P57: calls
     P57-->>- P0: return
+    P0->>+ P22: calls
+    P22-->>- P0: return
     P0->>+ P58: calls
     P58-->>- P0: return
     P0->>+ P59: calls
     P59-->>- P0: return
-    P0->>+ P22: calls
-    P22-->>- P0: return
+    P0->>+ P60: calls
+    P60-->>- P0: return
+    P0->>+ P61: calls
+    P61-->>- P0: return
+    P0->>+ P24: calls
+    P24-->>- P0: return
 ```
 
 ## Connections by Relation

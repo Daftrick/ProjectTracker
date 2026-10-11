@@ -89,6 +89,7 @@ def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None,
         selected_terms_template_id = _terms_tmpl.get("id", "")
     else:
         selected_terms_template_id = terms_templates[0]["id"] if terms_templates else ""
+        _terms, _terms_tmpl = resolve_quote_terms({})
     _qt = quote_type_key((quote or {}).get("quote_type", ""))
     _tmpl_contacts = get_template_for_type(_qt).get("contacts_default") or []
     integrantes_config = (
@@ -111,6 +112,7 @@ def _render_quote_form(project, quote, quotes, field_errors=None, quote_id=None,
         catalog_by_id=public_catalog_by_id,
         terms_templates=terms_templates,
         selected_terms_template_id=selected_terms_template_id,
+        terms_for_editor=_terms,
         integrantes_config=integrantes_config,
         **quote_default_numbers(project, quotes, quote_id=quote_id),
     )
@@ -366,6 +368,8 @@ def edit_quote(project_id, quote_id):
             # otro modo se borraban cada vez que se guardaba la cotización aquí.
             "specs": {**(quote.get("specs") or {}), **validation["specs"]},
         })
+        if "terms" in validation["specs"]:
+            quote["specs"].pop("term_body_overrides", None)
         save("quotes", quotes)
         flash("Cotización actualizada.", "success")
         return redirect(url_for("quotes_bp.edit_quote", project_id=project_id, quote_id=quote_id))
@@ -1087,12 +1091,12 @@ def quote_pdf_editor(project_id, quote_id):
     project = next((item for item in load("projects") if item["id"] == project_id), None)
     quotes = load("quotes")
     quote = next((item for item in quotes if item["id"] == quote_id), None)
-    if not project or not quote:
+    if not project or not quote or quote.get("project_id") != project_id:
         flash("Cotización no encontrada.", "danger")
         return redirect(url_for("dashboard"))
 
     if request.method == "POST":
-        from ..terms_templates_config import resolve_quote_terms as _rqt
+        from ..terms_templates_config import quote_terms_from_form, resolve_quote_terms as _rqt
         specs = dict(quote.get("specs") or {})
         specs["alcance_custom"] = request.form.get("alcance_custom", "").strip()
         specs["nota_precio"] = request.form.get("nota_precio", "").strip()
@@ -1100,16 +1104,22 @@ def quote_pdf_editor(project_id, quote_id):
         new_terms_id = request.form.get("terms_template_id", "").strip()
         if new_terms_id:
             specs["terms_template_id"] = new_terms_id
-        # Per-term body overrides (new model — each término editable individualmente)
-        raw_terms, _ = _rqt(quote)
-        term_overrides = {}
-        for t in raw_terms:
-            tid = t.get("id", "")
-            if tid:
-                val = request.form.get(f"term_body_{tid}", "").strip()
-                if val:
+        terms = quote_terms_from_form(request.form)
+        if terms is not None:
+            specs["terms"] = terms
+            specs.pop("term_body_overrides", None)
+        else:
+            # Compatibilidad con formularios del editor anterior.
+            raw_terms, _ = _rqt({**quote, "specs": specs})
+            term_overrides = dict(specs.get("term_body_overrides") or {})
+            for t in raw_terms:
+                tid = t.get("id", "")
+                if tid and f"term_body_{tid}" in request.form:
+                    val = request.form.get(f"term_body_{tid}", "").strip()
                     term_overrides[tid] = val
-        specs["term_body_overrides"] = term_overrides
+                    t["body"] = val
+            specs["term_body_overrides"] = term_overrides
+            specs["terms"] = raw_terms
         quote["specs"] = specs
         quote["notes"] = request.form.get("notes", "").strip()
         basis = request.form.get("project_basis_note", "").strip()
@@ -1131,19 +1141,8 @@ def quote_pdf_editor(project_id, quote_id):
     specs = quote.get("specs") or {}
     _resolved_terms, _terms_tmpl = resolve_quote_terms(quote)
     selected_terms_template_id = (_terms_tmpl or {}).get("id", "")
-    _term_overrides = specs.get("term_body_overrides") or {}
-    terms_for_editor = [
-        {
-            "id": t.get("id", ""),
-            "title": t.get("title", ""),
-            "body_default": t.get("body", ""),
-            "body_current": _term_overrides.get(t.get("id", ""), "") or t.get("body", ""),
-            "body_override": _term_overrides.get(t.get("id", ""), ""),
-        }
-        for t in _resolved_terms
-        if t.get("enabled", True) and str(t.get("body") or t.get("title") or "").strip()
-    ]
-    default_terms = [(t["title"], t["body_current"]) for t in terms_for_editor]
+    terms_for_editor = _resolved_terms
+    default_terms = [(t.get("title", ""), t.get("body", "")) for t in terms_for_editor if t.get("enabled", True)]
     terms_templates = get_terms_templates()
     if qt == "Extraordinaria":
         basis_note_edit = quote.get("project_basis_note") or ""

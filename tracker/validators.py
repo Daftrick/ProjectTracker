@@ -171,9 +171,11 @@ def validate_quote_form(form, project=None):
         field: _clean(form.get(f"specs_{field}")) or ""
         for field in ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto", "alcance_custom")
     }
-    # Los términos y condiciones ya no se editan por cotización: sólo se elige
-    # qué plantilla de T&C aplica (ver terms_templates_config.resolve_quote_terms).
     specs["terms_template_id"] = _clean(form.get("terms_template_id")) or ""
+    from .terms_templates_config import quote_terms_from_form
+    terms = quote_terms_from_form(form)
+    if terms is not None:
+        specs["terms"] = terms
     specs["integrantes"] = normalize_contact_rows([
         {
             "enabled": bool(form.get(f"integrante_{index}_enabled")),

@@ -1,93 +1,85 @@
 # Community 6
 
-> 77 nodes · cohesion 0.06
+> 68 nodes · cohesion 0.06
 
 ## Key Concepts
 
-- [bundles.py](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L1) (24 connections)
-- [create_bundle()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L267) (22 connections)
-- [expand_quote_bundles()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L339) (19 connections)
-- [bundle_by_catalog_item_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L96) (18 connections)
-- [quote_item_bundle_breakdown()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L148) (15 connections)
-- [capture_bundle_snapshot()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L211) (13 connections)
-- [normalize_bundle()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L46) (13 connections)
-- [normalize_component()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L72) (11 connections)
-- [add_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L290) (10 connections)
-- [_clean()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L42) (10 connections)
-- [get_active_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L82) (10 connections)
-- [delete_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L323) (9 connections)
-- [hydrate_quote_bundle_breakdowns()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L193) (9 connections)
-- [_safe_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L31) (9 connections)
-- [BundleEdgeCasesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L229) (9 connections)
-- [CaptureBundleSnapshotTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L330) (8 connections)
-- [test_bundles.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L1) (8 connections)
-- [activate_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L306) (7 connections)
-- [SeededBundlesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L176) (7 connections)
-- [_component_row()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L120) (6 connections)
-- [._make_bundle()](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L331) (6 connections)
-- [QuoteItemBundleBreakdownTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L84) (6 connections)
-- [.test_add_activate_and_delete_version()](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L25) (5 connections)
-- [_display_qty()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L113) (4 connections)
-- [next_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L258) (4 connections)
-- *... and 52 more nodes in this community*
+- [build_quote_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L251) (35 connections)
+- [pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1) (22 connections)
+- [build_ldm_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1423) (14 connections)
+- [quote_cover_copy()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L208) (12 connections)
+- [_safe_text()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L52) (11 connections)
+- [build_progress_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1907) (9 connections)
+- [quote_sequence_from_number()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L203) (9 connections)
+- [quote_project_basis_note()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L228) (8 connections)
+- [QuoteCoverCopyTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L13) (8 connections)
+- [QuotePdfSectionsTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L147) (8 connections)
+- [QuoteSequenceFromNumberTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L77) (8 connections)
+- [_load_company()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L136) (7 connections)
+- [QuoteProjectBasisNoteTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L52) (6 connections)
+- [test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L1) (6 connections)
+- [catalog_description_lookup()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L182) (5 connections)
+- [_fitted_cell()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L82) (5 connections)
+- [quote_logo_path()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L150) (5 connections)
+- [_register_pdf_fonts()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L71) (5 connections)
+- [format_date_long()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L94) (4 connections)
+- [format_date_short()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L108) (4 connections)
+- [_hex_to_rgb()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L41) (4 connections)
+- [money_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L120) (4 connections)
+- [note_lines()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L129) (4 connections)
+- [quote_catalog_description()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L244) (4 connections)
+- [_company_name()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L173) (3 connections)
+- *... and 43 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class BreakdownQtyRulesTest {
-        +test_bundles.py()
-        +.test_no_waste_pct_in_live_breakdown()
-        +.test_discrete_unit_ceil()
-        +.test_continuous_unit_not_ceiled()
+    class BundleBreakdownPdfRenderTest {
+        +test_pdfs.py()
+        +.test_pdf_with_bundle_item_renders_without_error()
     }
-    class BundleEdgeCasesTest {
-        +test_bundles.py()
-        +.test_component_with_zero_qty_goes_to_invalid()
-        +.test_component_with_empty_catalog_item_id_goes_to_invalid()
-        +.test_bundle_with_no_versions_goes_to_invalid()
-        +.test_activate_nonexistent_version_raises()
-        +.test_delete_nonexistent_version_raises()
-        +.test_waste_pct_applied_correctly()
-        +.test_section_markers_are_skipped()
+    class ProyectoEjecutivoPdfTest {
+        +test_pdfs.py()
+        +.test_no_unit_or_qty_columns_rendered()
     }
-    class BundleVersioningTest {
-        +test_bundles.py()
-        +.test_create_bundle_has_active_v1()
-        +.test_add_activate_and_delete_version()
-        +.test_cannot_delete_only_version()
+    class QuoteCoverCopyTest {
+        +test_pdfs.py()
+        +.test_proyecto()
+        +.test_obra()
+        +.test_servicio()
+        +.test_extraordinaria_with_sequence()
+        +.test_extraordinaria_no_sequence()
+        +.test_preliminar()
+        +.test_general_fallback()
     }
-    class CaptureBundleSnapshotTest {
-        +test_bundles.py()
-        +._make_bundle()
-        +.test_returns_none_when_no_bundle()
-        +.test_returns_none_when_no_catalog_item_id()
-        +.test_captures_description_and_unit_from_catalog()
-        +.test_snapshot_has_bundle_id_and_version()
-        +.test_skips_zero_qty_components()
-        +.test_returns_none_when_all_components_filtered()
+    class QuotePdfSectionsTest {
+        +test_pdfs.py()
+        +.test_bundle_breakdown_renders_quantities_without_component_prices()
+        +.test_specs_terms_and_notes_render_as_independent_sections()
+        +.test_discount_renders_before_tax_in_both_totals_boxes()
+        +.test_no_discount_omits_discount_row()
+        +.test_pdf_reflects_project_client_over_stale_quote_snapshot()
+        +.test_pdf_falls_back_to_quote_client_snapshot_when_project_has_none()
+        +.test_long_description_does_not_orphan_words_after_wrap()
     }
-    class ExpandQuoteBundlesTest {
-        +test_bundles.py()
-        +.test_expands_quote_bundle_components()
-        +.test_unmapped_quote_items_are_preserved()
-        +.test_seeded_circuit_bundles_expand_catalog_materials()
+    class QuoteProjectBasisNoteTest {
+        +test_pdfs.py()
+        +.test_proyecto_with_source()
+        +.test_proyecto_without_source()
+        +.test_obra_returns_empty()
+        +.test_servicio_returns_empty()
+        +.test_extraordinaria_uses_note_field()
     }
-    class QuoteItemBundleBreakdownTest {
-        +test_bundles.py()
-        +.test_breakdown_multiplies_component_quantities_without_prices()
-        +.test_breakdown_prefers_snapshot_when_present()
-        +.test_snapshot_qty_scales_by_quote_item_qty()
-        +.test_breakdown_missing_bundle_returns_empty_list()
-        +.test_hydrate_quote_bundle_breakdowns_keeps_totals_and_sections()
-    }
-    class SeededBundlesTest {
-        +test_bundles.py()
-        +._expand()
-        +.test_tubo_conduit_16mm_expands_all_components()
-        +.test_salida_luminaria_expands_all_components()
-        +.test_all_seeded_bundles_have_valid_active_version()
-        +.test_no_duplicate_catalog_item_ids_in_index()
+    class QuoteSequenceFromNumberTest {
+        +test_pdfs.py()
+        +.test_proyecto_code()
+        +.test_obra_code()
+        +.test_servicio_code()
+        +.test_extraordinaria_code()
+        +.test_general_code()
+        +.test_no_match()
+        +.test_empty()
     }
 ```
 
@@ -97,14 +89,15 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_bundles.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/bundles.py](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py)
-- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tests/test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py)
+- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 
-- EXTRACTED: 253 (65%)
-- INFERRED: 134 (35%)
+- EXTRACTED: 206 (71%)
+- INFERRED: 83 (29%)
 - AMBIGUOUS: 0 (0%)
 
 ---

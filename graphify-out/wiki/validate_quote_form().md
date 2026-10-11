@@ -1,6 +1,6 @@
 # validate_quote_form()
 
-> God node · 26 connections · [/Users/macbook/Documents/ProjectTracker/tracker/validators.py](file:///Users/macbook/Documents/ProjectTracker/tracker/validators.py#L87)
+> God node · 28 connections · [/Users/macbook/ProjectTracker/tracker/validators.py](file:///Users/macbook/ProjectTracker/tracker/validators.py#L87)
 
 ## Call Trace Diagram
 
@@ -52,23 +52,25 @@ sequenceDiagram
     participant P43 as quote_type_key()
     participant P44 as new_quote()
     participant P45 as edit_quote()
-    participant P46 as normalize_contact_rows()
-    participant P47 as .test_quote_ignores_default_empty_row_but_requires_real_items()
-    participant P48 as .test_quote_validates_numbers()
-    participant P49 as .test_quote_tax_rate_is_toggle_not_free_number()
-    participant P50 as .test_quote_discount_pct_parsed_and_range_validated()
-    participant P51 as .test_quote_client_unchanged_from_project_yields_no_override()
-    participant P52 as .test_quote_client_changed_yields_override()
-    participant P53 as .test_quote_client_override_without_project_context()
-    participant P54 as .test_quote_proposal_for_defaults_to_cliente_when_absent()
-    participant P55 as .test_quote_proposal_for_personalizado_requires_custom_text()
-    participant P56 as .test_quote_proposal_for_vacio_is_respected()
-    participant P57 as .test_quote_proposal_for_invalid_mode_falls_back_to_cliente()
-    participant P58 as .test_quote_accepts_valid_item_and_computes_subtotal()
-    participant P59 as .test_quote_parses_integrantes()
-    participant P60 as .test_quote_preserves_deleted_catalog_snapshot()
-    participant P61 as .test_quote_assigns_items_to_section_rows()
-    participant P62 as .test_quote_allows_section_without_items()
+    participant P46 as quote_terms_from_form()
+    participant P47 as normalize_contact_rows()
+    participant P48 as .test_validation_and_error_rerender_keep_custom_terms()
+    participant P49 as .test_quote_ignores_default_empty_row_but_requires_real_items()
+    participant P50 as .test_quote_validates_numbers()
+    participant P51 as .test_quote_tax_rate_is_toggle_not_free_number()
+    participant P52 as .test_quote_discount_pct_parsed_and_range_validated()
+    participant P53 as .test_quote_client_unchanged_from_project_yields_no_override()
+    participant P54 as .test_quote_client_changed_yields_override()
+    participant P55 as .test_quote_client_override_without_project_context()
+    participant P56 as .test_quote_proposal_for_defaults_to_cliente_when_absent()
+    participant P57 as .test_quote_proposal_for_personalizado_requires_custom_text()
+    participant P58 as .test_quote_proposal_for_vacio_is_respected()
+    participant P59 as .test_quote_proposal_for_invalid_mode_falls_back_to_cliente()
+    participant P60 as .test_quote_accepts_valid_item_and_computes_subtotal()
+    participant P61 as .test_quote_parses_integrantes()
+    participant P62 as .test_quote_preserves_deleted_catalog_snapshot()
+    participant P63 as .test_quote_assigns_items_to_section_rows()
+    participant P64 as .test_quote_allows_section_without_items()
     P0->>+ P1: calls
     P1-->>- P0: return
     P1->>+ P0: calls
@@ -179,14 +181,14 @@ sequenceDiagram
     P29-->>- P0: return
     P0->>+ P46: calls
     P46-->>- P0: return
-    P0->>+ P37: calls
-    P37-->>- P0: return
-    P0->>+ P42: calls
-    P42-->>- P0: return
     P0->>+ P47: calls
     P47-->>- P0: return
+    P0->>+ P37: calls
+    P37-->>- P0: return
     P0->>+ P48: calls
     P48-->>- P0: return
+    P0->>+ P42: calls
+    P42-->>- P0: return
     P0->>+ P49: calls
     P49-->>- P0: return
     P0->>+ P50: calls
@@ -215,6 +217,10 @@ sequenceDiagram
     P61-->>- P0: return
     P0->>+ P62: calls
     P62-->>- P0: return
+    P0->>+ P63: calls
+    P63-->>- P0: return
+    P0->>+ P64: calls
+    P64-->>- P0: return
 ```
 
 ## Connections by Relation
@@ -226,8 +232,10 @@ sequenceDiagram
 - [[edit_quote()]] `INFERRED`
 - [[_parse_float()]] `INFERRED`
 - [[_parse_quote_items()]] `EXTRACTED`
+- [[quote_terms_from_form()]] `INFERRED`
 - [[normalize_contact_rows()]] `INFERRED`
 - [[_validate_iso_date()]] `EXTRACTED`
+- [[.test_validation_and_error_rerender_keep_custom_terms()]] `INFERRED`
 - [[_validate_optional_iso_date()]] `EXTRACTED`
 - [[.test_quote_ignores_default_empty_row_but_requires_real_items()]] `INFERRED`
 - [[.test_quote_validates_numbers()]] `INFERRED`
@@ -238,8 +246,6 @@ sequenceDiagram
 - [[.test_quote_client_override_without_project_context()]] `INFERRED`
 - [[.test_quote_proposal_for_defaults_to_cliente_when_absent()]] `INFERRED`
 - [[.test_quote_proposal_for_personalizado_requires_custom_text()]] `INFERRED`
-- [[.test_quote_proposal_for_vacio_is_respected()]] `INFERRED`
-- [[.test_quote_proposal_for_invalid_mode_falls_back_to_cliente()]] `INFERRED`
 
 ### contains
 - [[validators.py]] `EXTRACTED`

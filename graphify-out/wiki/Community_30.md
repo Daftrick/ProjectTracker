@@ -1,45 +1,51 @@
 # Community 30
 
-> 9 nodes · cohesion 0.22
+> 11 nodes · cohesion 0.29
 
 ## Key Concepts
 
-- [QuotePdfEditorTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L62) (6 connections)
-- [test_quote_pdf_editor.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L1) (3 connections)
-- [_fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L58) (1 connections)
-- [.test_get_renders_editor()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L72) (1 connections)
-- [.test_get_shows_pdf_preview_elements()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L86) (1 connections)
-- [.test_get_unknown_quote_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L153) (1 connections)
-- [.test_post_extraordinaria_saves_project_basis_note()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L129) (1 connections)
-- [.test_post_saves_specs_and_notes()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L97) (1 connections)
-- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L64) (1 connections)
+- [main()](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L22) (6 connections)
+- [GraphifyTaskTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L10) (5 connections)
+- [Completed](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L6) (3 connections)
+- [.test_check_update_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L24) (3 connections)
+- [.test_update_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L12) (3 connections)
+- [check_syntax.py](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L1) (3 connections)
+- [iter_python_files()](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L12) (2 connections)
+- [.test_missing_graphify_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L36) (2 connections)
+- [.test_unknown_action_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L41) (2 connections)
+- [test_graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L1) (2 connections)
+- [Parse project Python files without writing bytecode.](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L1) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class QuotePdfEditorTest {
-        +test_quote_pdf_editor.py()
-        +.test_get_renders_editor()
-        +.test_get_shows_pdf_preview_elements()
-        +.test_post_saves_specs_and_notes()
-        +.test_post_extraordinaria_saves_project_basis_note()
-        +.test_get_unknown_quote_redirects()
+    class Completed {
+        +test_graphify_task.py()
+    }
+    class GraphifyTaskTest {
+        +test_graphify_task.py()
+        +.test_update_returns_success()
+        +.test_check_update_returns_success()
+        +.test_missing_graphify_returns_success()
+        +.test_unknown_action_returns_success()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 27]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py)
+- [/Users/macbook/Documents/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py)
+- [/Users/macbook/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/ProjectTracker/tools/check_syntax.py)
 
 ## Audit Trail
 
-- EXTRACTED: 16 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 24 (75%)
+- INFERRED: 8 (25%)
 - AMBIGUOUS: 0 (0%)
 
 ---

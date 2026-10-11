@@ -1,0 +1,40 @@
+<div class="quote-terms-editor">
+  <input type="hidden" name="terms_present" value="1">
+  <label class="form-label small fw-semibold" for="termsTemplateSelect">Plantilla base</label>
+  <select name="terms_template_id" id="termsTemplateSelect" class="form-select form-select-sm mb-2">
+    {% if not selected_terms_template_id %}<option value="">Términos de esta cotización</option>{% endif %}
+    {% for tmpl in terms_templates %}
+    <option value="{{ tmpl.id }}" data-terms="{{ tmpl.terms | tojson | e }}"
+            {% if tmpl.id == selected_terms_template_id %}selected{% endif %}>{{ tmpl.name }}</option>
+    {% endfor %}
+  </select>
+  <button type="button" class="btn btn-sm btn-outline-secondary mb-2 apply-terms-template">Aplicar plantilla</button>
+  <div class="form-text mb-3">
+    Edita los términos para esta cotización. Aplicar una plantilla reemplaza los términos de abajo.
+    Los cambios se guardan solo en esta cotización.
+    <a href="{{ url_for('quotes_bp.terms_templates') }}" target="_blank" rel="noopener">Gestionar plantillas</a>.
+  </div>
+  <div class="quote-terms-rows">
+    {% for t in terms_for_editor %}
+    <div class="quote-term-row mb-3 pb-3 border-bottom">
+      <input type="hidden" name="term_id[]" value="{{ t.id }}">
+      <input type="hidden" name="term_enabled[]" value="{{ '1' if t.get('enabled', True) else '0' }}">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <label class="form-check small mb-0">
+          <input class="form-check-input term-enabled" type="checkbox" {% if t.get('enabled', True) %}checked{% endif %}>
+          <span class="form-check-label">Incluir en PDF</span>
+        </label>
+        <button type="button" class="btn btn-sm btn-outline-danger remove-term" aria-label="Eliminar término">Eliminar</button>
+      </div>
+      <label class="form-label small d-block">Título
+        <input name="term_title[]" class="form-control form-control-sm term-title" value="{{ t.title }}">
+      </label>
+      <label class="form-label small d-block">Contenido
+        <textarea name="term_body[]" class="form-control form-control-sm term-body" rows="3">{{ t.body }}</textarea>
+      </label>
+    </div>
+    {% endfor %}
+  </div>
+  <button type="button" class="btn btn-sm btn-outline-primary add-term">Agregar término</button>
+</div>
+<script src="{{ url_for('static', filename='quote_terms_editor.js') }}" defer></script>

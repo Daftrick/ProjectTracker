@@ -1,26 +1,28 @@
 # Community 46
 
-> 3 nodes · cohesion 0.67
+> 4 nodes · cohesion 0.50
 
 ## Key Concepts
 
-- [_is_truthy()](file:///Users/macbook/Documents/ProjectTracker/app.py#L8) (2 connections)
-- [Reconoce '1', 'true', 'yes', 'on' (case-insensitive) como verdadero.](file:///Users/macbook/ProjectTracker/app.py#L9) (1 connections)
-- [app.py](file:///Users/macbook/Documents/ProjectTracker/app.py#L1) (1 connections)
+- [Bundles Versioned System](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Consistency COT vs LDM Module](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Catalog Hydration Logic](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [Pending: Bundle Technical Consistency Audit](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
 
 ## Relationships
 
-- [[Community 44]] (1 shared connections)
+- [[Community 41]] (6 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/app.py](file:///Users/macbook/Documents/ProjectTracker/app.py)
-- [/Users/macbook/ProjectTracker/app.py](file:///Users/macbook/ProjectTracker/app.py)
+- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 4 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 4 (67%)
+- INFERRED: 2 (33%)
 - AMBIGUOUS: 0 (0%)
 
 ---

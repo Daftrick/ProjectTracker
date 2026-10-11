@@ -1,37 +1,37 @@
 # Community 27
 
-> 13 nodes · cohesion 0.31
+> 15 nodes · cohesion 0.13
 
 ## Key Concepts
 
-- [terms_templates_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L1) (12 connections)
-- [resolve_quote_terms()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L96) (8 connections)
-- [get_terms_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L74) (7 connections)
-- [_normalize()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L64) (5 connections)
-- [terms_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L1305) (4 connections)
-- [_normalize_template()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L48) (4 connections)
-- [get_terms_template_by_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L88) (3 connections)
-- [_new_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L18) (3 connections)
-- [_normalize_term()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L33) (3 connections)
-- [save_terms_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L84) (3 connections)
-- [_seed_terms_template()](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py#L22) (3 connections)
-- [Plantillas de Términos y Condiciones — independientes de las plantillas de artíc](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L1) (1 connections)
-- [Devuelve (terms, template) para una cotización.      Orden de resolución:     1.](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L97) (1 connections)
+- [Entidades de Datos JSON](file:///Users/macbook/ProjectTracker/VERSIONES.md) (9 connections)
+- [Estructura de Archivos del Proyecto](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
+- [Entidad Proyecto](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Entidad Cotizacion](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Rutas HTTP Blueprints](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Alcances Disponibles](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Entidad Catalogo](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Entidad Entrega](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Entidad Ficha Tecnica](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Entidad LDM Lista de Materiales](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Entidad Proveedor](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Entidad Tarea](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Tabla de Funcionalidades Implementadas](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Tipos de Cotizacion P/G/E](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [Stack Tecnico Python 3.14 Flask 3+ fpdf2 openpyxl](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
 
 ## Relationships
 
-- [[Community 5]] (2 shared connections)
+- [[Community 25]] (28 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/terms_templates_config.py)
-- [/Users/macbook/ProjectTracker/tracker/terms_templates_config.py](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
 
 ## Audit Trail
 
-- EXTRACTED: 47 (82%)
-- INFERRED: 10 (18%)
+- EXTRACTED: 28 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -1,40 +1,44 @@
 # Community 35
 
-> 6 nodes · cohesion 0.33
+> 8 nodes · cohesion 0.25
 
 ## Key Concepts
 
-- [LdmPdfImportRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L14) (4 connections)
-- [.test_upload_stores_pdf_import_payload_outside_cookie_session()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L24) (3 connections)
-- [test_ldm_pdf_import_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L1) (2 connections)
-- [.test_create_pdf_import_is_blocked_when_project_is_closed()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L83) (1 connections)
-- [.test_upload_pdf_is_blocked_when_project_is_closed()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L68) (1 connections)
-- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L16) (1 connections)
+- [AdminBundlesRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L14) (5 connections)
+- [test_admin_bundles_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L1) (3 connections)
+- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L23) (1 connections)
+- [.test_bundles_page_loads()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L36) (1 connections)
+- [.test_comparison_rules_page_is_not_available()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L42) (1 connections)
+- [.test_create_bundle_persists_bundle()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L46) (1 connections)
+- [Smoke tests de UI Admin para bundles.](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L1) (1 connections)
+- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L16) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class LdmPdfImportRoutesTest {
-        +test_ldm_pdf_import_routes.py()
-        +.test_upload_stores_pdf_import_payload_outside_cookie_session()
-        +.test_upload_pdf_is_blocked_when_project_is_closed()
-        +.test_create_pdf_import_is_blocked_when_project_is_closed()
+    class AdminBundlesRoutesTest {
+        +test_admin_bundles_routes.py()
+        +._fake_load()
+        +.test_bundles_page_loads()
+        +.test_comparison_rules_page_is_not_available()
+        +.test_create_bundle_persists_bundle()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 31]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py)
+- [/Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 10 (83%)
-- INFERRED: 2 (17%)
+- EXTRACTED: 14 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

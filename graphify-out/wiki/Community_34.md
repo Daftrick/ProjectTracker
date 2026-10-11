@@ -1,33 +1,45 @@
 # Community 34
 
-> 7 nodes · cohesion 0.43
+> 8 nodes · cohesion 0.39
 
 ## Key Concepts
 
-- [Catálogo Data Structure](file:///Users/macbook/Documents/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (4 connections)
-- [Cotización al Cliente (COT) Data Structure](file:///Users/macbook/Documents/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (3 connections)
-- [Lista de Materiales (LDM) Data Structure](file:///Users/macbook/Documents/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (3 connections)
-- [JSON Data Files (data/)](file:///Users/macbook/Documents/ProjectTracker/data) (3 connections)
-- [Deleted Catalog Audit System](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (3 connections)
-- [CSV→LDM Import Diff Algorithm](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
-- [Pending: Destructive Action Confirmations](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [AdminFormsTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L6) (7 connections)
+- [.assert_invalid_form_preserved()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L13) (5 connections)
+- [.test_catalogo_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L20) (2 connections)
+- [.test_fichas_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L34) (2 connections)
+- [.test_proveedores_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L27) (2 connections)
+- [.test_team_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L41) (2 connections)
+- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L7) (1 connections)
+- [test_admin_forms.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L1) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class AdminFormsTest {
+        +test_admin_forms.py()
+        +.setUp()
+        +.assert_invalid_form_preserved()
+        +.test_catalogo_invalid_form_preserves_capture()
+        +.test_proveedores_invalid_form_preserves_capture()
+        +.test_fichas_invalid_form_preserves_capture()
+        +.test_team_invalid_form_preserves_capture()
+    }
+```
 
 ## Relationships
 
-- [[Community 33]] (18 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [REFERENCIA_ESTRUCTURAS_CSV.txt](file:///Users/macbook/Documents/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt)
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/Documents/ProjectTracker/ROADMAP_MEJORAS.md)
-- [VERSIONES.md](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md)
-- [data/](file:///Users/macbook/Documents/ProjectTracker/data)
-- [logica_cuantificaciones.txt](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py)
 
 ## Audit Trail
 
-- EXTRACTED: 12 (67%)
-- INFERRED: 6 (33%)
+- EXTRACTED: 22 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Drag-and-Drop Row Reorder Pattern](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html) (0 connections)
+- [Parse a LISP-exported material list CSV into LDM draft data.      Args:](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L67) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html)
+- [tracker/csv_import.py](file:///Users/macbook/ProjectTracker/tracker/csv_import.py)
 
 ## Audit Trail
 

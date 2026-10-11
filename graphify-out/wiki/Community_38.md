@@ -4,38 +4,39 @@
 
 ## Key Concepts
 
-- [ProjectDetailBundleUITest](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py#L7) (4 connections)
-- [test_project_detail_bundle_ui.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py#L1) (2 connections)
-- [.test_materials_tab_exposes_assisted_bundle_sync_review()](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py#L28) (1 connections)
-- [.test_materials_tab_exposes_csv_export_for_existing_ldms()](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py#L22) (1 connections)
-- [.test_template_contains_simple_cot_ldm_summary()](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py#L8) (1 connections)
-- [Smoke tests for simplified project detail COT/LDM UI.](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L1) (1 connections)
+- [QuoteClientSyncRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L82) (5 connections)
+- [test_quote_client_sync.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L1) (3 connections)
+- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L95) (2 connections)
+- [.test_quote_detail_page_shows_current_client()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L99) (1 connections)
+- [.test_quote_resumen_page_shows_current_client()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L109) (1 connections)
+- [El cliente (y el nombre de proyecto) se guardan como snapshot dentro de la cotiz](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py#L1) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class ProjectDetailBundleUITest {
-        +test_project_detail_bundle_ui.py()
-        +.test_template_contains_simple_cot_ldm_summary()
-        +.test_materials_tab_exposes_csv_export_for_existing_ldms()
-        +.test_materials_tab_exposes_assisted_bundle_sync_review()
+    class QuoteClientSyncRoutesTest {
+        +test_quote_client_sync.py()
+        +.setUp()
+        +.tearDown()
+        +.test_quote_detail_page_shows_current_client()
+        +.test_quote_resumen_page_shows_current_client()
     }
 ```
 
 ## Relationships
 
-- [[Community 35]] (1 shared connections)
+- [[Community 1]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py)
-- [/Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_client_sync.py](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py)
 
 ## Audit Trail
 
-- EXTRACTED: 10 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 12 (92%)
+- INFERRED: 1 (8%)
 - AMBIGUOUS: 0 (0%)
 
 ---

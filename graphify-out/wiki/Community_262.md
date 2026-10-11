@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Filtra faltantes por seleccion explicita de catalog_item_id.](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cldm_sync.py#L96) (0 connections)
+- [Returns 'verde', 'amarillo', 'rojo', or 'gris' based on deadline and inactivity.](file:///Users/macbook/ProjectTracker/tracker%5Cdomain.py#L97) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\ldm_sync.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Cldm_sync.py)
+- [tracker\domain.py](file:///Users/macbook/ProjectTracker/tracker%5Cdomain.py)
 
 ## Audit Trail
 

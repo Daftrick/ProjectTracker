@@ -1,42 +1,30 @@
 # Community 36
 
-> 6 nodes · cohesion 0.33
+> 8 nodes · cohesion 0.25
 
 ## Key Concepts
 
-- [QuoteClientSyncRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L82) (5 connections)
-- [test_quote_client_sync.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L1) (3 connections)
-- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L95) (2 connections)
-- [.test_quote_detail_page_shows_current_client()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L99) (1 connections)
-- [.test_quote_resumen_page_shows_current_client()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py#L109) (1 connections)
-- [El cliente (y el nombre de proyecto) se guardan como snapshot dentro de la cotiz](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py#L1) (1 connections)
-
-## Class Diagram
-
-```mermaid
-classDiagram
-    class QuoteClientSyncRoutesTest {
-        +test_quote_client_sync.py()
-        +.setUp()
-        +.tearDown()
-        +.test_quote_detail_page_shows_current_client()
-        +.test_quote_resumen_page_shows_current_client()
-    }
-```
+- [quote_terms_editor.js](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L1) (7 connections)
+- [addTerm()](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L14) (1 connections)
+- [button](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L55) (1 connections)
+- [option](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L47) (1 connections)
+- [publish()](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L5) (1 connections)
+- [rows](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L2) (1 connections)
+- [select](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L3) (1 connections)
+- [terms](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L49) (1 connections)
 
 ## Relationships
 
-- [[Community 5]] (1 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py)
-- [/Users/macbook/ProjectTracker/tests/test_quote_client_sync.py](file:///Users/macbook/ProjectTracker/tests/test_quote_client_sync.py)
+- [/Users/macbook/ProjectTracker/static/quote_terms_editor.js](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js)
 
 ## Audit Trail
 
-- EXTRACTED: 12 (92%)
-- INFERRED: 1 (8%)
+- EXTRACTED: 14 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Quote Sections Feature](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt) (0 connections)
+- [Construye el workbook Excel de la cotización.      Devuelve (wb, filename) para](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L344) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [logica_cuantificaciones.txt](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

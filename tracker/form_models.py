@@ -96,11 +96,16 @@ def quote_from_form(form, fallback_quote=None):
         items.append(parsed_item)
 
     base = dict(fallback_quote or {})
-    specs = {
+    specs = dict(base.get("specs") or {})
+    specs.update({
         field: (form.get(f"specs_{field}") or "").strip()
         for field in ("condiciones_pago", "exclusiones", "validez", "forma_entrega", "contacto")
-    }
+    })
     specs["terms_template_id"] = (form.get("terms_template_id") or "").strip()
+    from .terms_templates_config import quote_terms_from_form
+    terms = quote_terms_from_form(form)
+    if terms is not None:
+        specs["terms"] = terms
     specs["integrantes"] = normalize_contact_rows([
         {
             "enabled": bool(form.get(f"integrante_{index}_enabled")),

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Catalog Inline AJAX Edit Pattern](file:///Users/macbook/Documents/ProjectTracker/templates/catalogo.html) (0 connections)
+- [Construye el workbook Excel de la cotización.      Devuelve (wb, filename) para](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L235) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/catalogo.html](file:///Users/macbook/Documents/ProjectTracker/templates/catalogo.html)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

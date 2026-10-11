@@ -91,7 +91,7 @@
                       data-bs-toggle="collapse" data-bs-target="#colTerminos">
                 <i class="bi bi-file-earmark-text me-2 text-primary"></i>
                 <span class="fw-semibold small">Términos y Condiciones</span>
-                {% set _has_overrides = specs.get('term_body_overrides') and specs.get('term_body_overrides').values() | select | list %}
+                {% set _has_overrides = 'terms' in specs or specs.get('term_body_overrides') %}
                 {% if _has_overrides %}
                 <span class="badge bg-primary ms-2" style="font-size:9px;">personalizados</span>
                 {% endif %}
@@ -99,38 +99,7 @@
             </h2>
             <div id="colTerminos" class="accordion-collapse collapse">
               <div class="accordion-body pt-2">
-                <label class="form-label small fw-semibold mb-1">Plantilla base</label>
-                <select name="terms_template_id" id="edTermsTemplate" class="form-select form-select-sm mb-1">
-                  {% for tmpl in terms_templates %}
-                  <option value="{{ tmpl.id }}"
-                          data-terms="{{ tmpl.terms | tojson | e }}"
-                          {% if tmpl.id == selected_terms_template_id %}selected{% endif %}>
-                    {{ tmpl.name }}
-                  </option>
-                  {% endfor %}
-                </select>
-                <div class="form-text mb-3">
-                  <a href="{{ url_for('quotes_bp.terms_templates') }}" target="_blank">Gestionar plantillas</a>.
-                  Al cambiar plantilla guarda para recargar los términos.
-                </div>
-                {# Términos individuales editables #}
-                {% for t in terms_for_editor %}
-                <div class="mb-2 pb-2 border-bottom">
-                  <div class="d-flex align-items-center justify-content-between mb-1">
-                    <label class="form-label small fw-semibold mb-0">{{ t.title }}</label>
-                    {% if t.body_override %}
-                    <span class="badge bg-primary" style="font-size:8px;">editado</span>
-                    {% endif %}
-                  </div>
-                  <textarea name="term_body_{{ t.id }}"
-                            id="edTerm_{{ t.id }}"
-                            class="form-control form-control-sm term-body-override"
-                            data-term-id="{{ t.id }}"
-                            data-term-default="{{ t.body_default | e }}"
-                            rows="2"
-                            placeholder="{{ t.body_default | e }}">{{ t.body_override }}</textarea>
-                </div>
-                {% endfor %}
+                {% include "_quote_terms_editor.html" %}
               </div>
             </div>
           </div>
@@ -238,7 +207,7 @@
             <hr style="border-color:#d7dde6;margin:6px 16px;">
             <div style="padding:8px 16px;">
               <p style="color:#182746;font-weight:bold;font-size:10px;letter-spacing:1px;margin:0 0 4px;">PROPUESTA ECONÓMICA</p>
-              <h1 style="color:#25262c;font-size:24px;font-weight:bold;line-height:1.2;margin:0 0 8px;">{{ cover_title | replace('\n','<br>') | safe }}</h1>
+              <h1 style="color:#25262c;font-size:24px;font-weight:bold;line-height:1.2;margin:0 0 8px;">{{ cover_title.split('\n', 1)[0] }}{% if '\n' in cover_title %}<div style="font-size:16px;font-weight:400;line-height:1.4;margin-top:4px;">{{ cover_title.split('\n', 1)[1] }}</div>{% endif %}</h1>
               <p id="prevBasisNote" style="color:#2853a6;font-size:12px;margin:0 0 6px;{{ 'display:none' if not basis_note_edit }}">{{ basis_note_edit }}</p>
               {% if cover_subtitle %}<p style="color:#2853a6;font-weight:bold;font-size:12px;margin:0 0 6px;">{{ cover_subtitle }}</p>{% endif %}
             </div>
@@ -277,7 +246,7 @@
               </div>
               <div style="flex:1;padding:7px 10px;overflow:hidden;">
                 <div style="color:rgba(255,255,255,.8);font-size:7.5px;font-weight:bold;letter-spacing:1px;margin-bottom:3px;">PROPUESTA ECONÓMICA</div>
-                <div style="color:#fff;font-size:15px;font-weight:bold;line-height:1.2;margin-bottom:3px;">{{ cover_title | replace('\n','<br>') | safe }}</div>
+                <div style="color:#fff;font-size:15px;font-weight:bold;line-height:1.2;margin-bottom:3px;">{{ cover_title.split('\n', 1)[0] }}{% if '\n' in cover_title %}<div style="font-size:16px;font-weight:400;line-height:1.4;margin-top:4px;">{{ cover_title.split('\n', 1)[1] }}</div>{% endif %}</div>
                 {% if _pf %}<div style="color:rgba(200,220,245,.9);font-size:8px;">{{ _pf[0] }}</div><div style="color:#fff;font-size:11px;font-weight:bold;">{{ _pf[1] }}</div>{% endif %}
               </div>
             </div>
@@ -357,7 +326,7 @@
                 <tr style="background:{{ '#f5f7fa' if ns.idx % 2 else '#fff' }};border-bottom:1px solid #d7dde6;">
                   <td style="padding:6px 4px;text-align:center;font-weight:bold;font-size:10px;">{{ ns.idx }}</td>
                   <td style="padding:6px 8px;">
-                    <div style="font-weight:bold;font-size:11px;color:#25262c;">{{ item.description }}</div>
+                    <div style="font-weight:bold;font-size:10px;color:#25262c;">{{ item.description }}</div>
                     {% if item.catalog_description %}
                     <div style="font-size:8px;color:#2853a6;">{{ item.catalog_description }}</div>
                     {% endif %}
@@ -401,10 +370,10 @@
 
           {# preview por término individual #}
           <div id="prevTermsTemplate" style="font-size:10px;color:#25262c;line-height:1.5;">
-            {% for t in terms_for_editor %}
+            {% for t in terms_for_editor if t.get('enabled', True) %}
             <div id="prevTerm_{{ t.id }}">
               <p style="margin:0 0 2px;"><strong>{{ t.title }}:</strong></p>
-              <p id="prevTermBody_{{ t.id }}" style="margin:0 0 8px;color:#717e91;">{{ t.body_current }}</p>
+              <p id="prevTermBody_{{ t.id }}" style="margin:0 0 8px;color:#717e91;">{{ t.body }}</p>
             </div>
             {% endfor %}
           </div>
@@ -548,45 +517,21 @@
     }, 250));
   }
 
-  // ── Términos: override por término individual ──────────────────────
-  document.querySelectorAll(".term-body-override").forEach(function(ta) {
-    ta.addEventListener("input", debounce(function() {
-      var termId = this.getAttribute("data-term-id");
-      var val = this.value.trim();
-      var def = this.getAttribute("data-term-default");
-      var prevEl = document.getElementById("prevTermBody_" + termId);
-      if (prevEl) prevEl.textContent = val || def;
-    }, 200));
+  document.addEventListener("quote-terms-changed", function(event) {
+    var container = document.getElementById("prevTermsTemplate");
+    if (!container) return;
+    container.replaceChildren();
+    event.detail.filter(t => t.enabled).forEach(function(t) {
+      var block = document.createElement("div");
+      var title = document.createElement("strong");
+      title.textContent = t.title + ":";
+      var body = document.createElement("p");
+      body.textContent = t.body;
+      body.style.whiteSpace = "pre-wrap";
+      block.append(title, body);
+      container.append(block);
+    });
   });
-
-  // ── Cambio de plantilla: reconstruye preview en tiempo real ───────
-  (function() {
-    var sel = document.getElementById("edTermsTemplate");
-    if (!sel) return;
-    var TMPL_TERMS = {};
-    Array.prototype.forEach.call(sel.options, function(opt) {
-      try { TMPL_TERMS[opt.value] = JSON.parse(opt.getAttribute("data-terms") || "[]"); }
-      catch(e) { TMPL_TERMS[opt.value] = []; }
-    });
-
-    sel.addEventListener("change", function() {
-      var terms = (TMPL_TERMS[this.value] || []).filter(function(t) {
-        return t.enabled !== false && (t.body || "").trim();
-      });
-      var container = document.getElementById("prevTermsTemplate");
-      if (!container) return;
-      container.innerHTML = terms.map(function(t) {
-        return '<div id="prevTerm_' + esc(t.id || "") + '">' +
-          '<p style="margin:0 0 2px;"><strong>' + esc(t.title || "") + ':</strong></p>' +
-          '<p id="prevTermBody_' + esc(t.id || "") + '" style="margin:0 0 8px;color:#717e91;">' +
-          esc(t.body || "") + '</p></div>';
-      }).join("");
-      // Limpia los overrides en el sidebar (los IDs del template anterior ya no aplican)
-      document.querySelectorAll(".term-body-override").forEach(function(ta) {
-        ta.value = "";
-      });
-    });
-  })();
 
   // PDF siempre visible — visor HTML eliminado
 

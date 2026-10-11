@@ -1,30 +1,30 @@
 # Community 32
 
-> 8 nodes · cohesion 0.39
+> 9 nodes · cohesion 0.22
 
 ## Key Concepts
 
-- [AdminFormsTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L6) (7 connections)
-- [.assert_invalid_form_preserved()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L13) (5 connections)
-- [.test_catalogo_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L20) (2 connections)
-- [.test_fichas_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L34) (2 connections)
-- [.test_proveedores_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L27) (2 connections)
-- [.test_team_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L41) (2 connections)
-- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L7) (1 connections)
-- [test_admin_forms.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L1) (1 connections)
+- [QuotePdfEditorTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L62) (6 connections)
+- [test_quote_pdf_editor.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L1) (3 connections)
+- [_fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L58) (1 connections)
+- [.test_get_renders_editor()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L72) (1 connections)
+- [.test_get_shows_pdf_preview_elements()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L86) (1 connections)
+- [.test_get_unknown_quote_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L153) (1 connections)
+- [.test_post_extraordinaria_saves_project_basis_note()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L129) (1 connections)
+- [.test_post_saves_specs_and_notes()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L97) (1 connections)
+- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py#L64) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AdminFormsTest {
-        +test_admin_forms.py()
-        +.setUp()
-        +.assert_invalid_form_preserved()
-        +.test_catalogo_invalid_form_preserves_capture()
-        +.test_proveedores_invalid_form_preserves_capture()
-        +.test_fichas_invalid_form_preserves_capture()
-        +.test_team_invalid_form_preserves_capture()
+    class QuotePdfEditorTest {
+        +test_quote_pdf_editor.py()
+        +.test_get_renders_editor()
+        +.test_get_shows_pdf_preview_elements()
+        +.test_post_saves_specs_and_notes()
+        +.test_post_extraordinaria_saves_project_basis_note()
+        +.test_get_unknown_quote_redirects()
     }
 ```
 
@@ -34,11 +34,11 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_pdf_editor.py)
 
 ## Audit Trail
 
-- EXTRACTED: 22 (100%)
+- EXTRACTED: 16 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

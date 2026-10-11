@@ -2,27 +2,27 @@
   "hotspots": [
     {
       "label": "build_quote_pdf()",
-      "risk": 0.844,
+      "risk": 0.847,
       "type": "FUNCTION"
     },
     {
       "label": "build_ldm_pdf()",
-      "risk": 0.463,
+      "risk": 0.455,
       "type": "FUNCTION"
     },
     {
       "label": "build_progress_pdf()",
-      "risk": 0.291,
+      "risk": 0.288,
       "type": "FUNCTION"
     },
     {
       "label": "quote_cover_copy()",
-      "risk": 0.243,
+      "risk": 0.242,
       "type": "FUNCTION"
     },
     {
       "label": "pdfs.py",
-      "risk": 0.237,
+      "risk": 0.232,
       "type": "FUNCTION"
     }
   ],
@@ -30,7 +30,7 @@
     "load()": 150,
     "save()": 112,
     "today()": 56,
-    "build_quote_pdf()": 33,
+    "build_quote_pdf()": 35,
     "catalog_maps()": 32
   }
 }

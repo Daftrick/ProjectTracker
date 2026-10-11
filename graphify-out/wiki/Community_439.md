@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convenciones de Nomenclatura de Archivos](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (0 connections)
+- [Lista única de categorías existentes (para datalists/filtros).](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py#L257) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [VERSIONES.md](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md)
+- [tracker\routes\admin.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py)
 
 ## Audit Trail
 

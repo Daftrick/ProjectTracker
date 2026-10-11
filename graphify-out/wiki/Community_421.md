@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [scan_drive_folder Function](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt) (0 connections)
+- [Genera la cotización como Excel y la guarda en la carpeta Drive del proyecto.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L300) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [logica_cuantificaciones.txt](file:///Users/macbook/Documents/ProjectTracker/logica_cuantificaciones.txt)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

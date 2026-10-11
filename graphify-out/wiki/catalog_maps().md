@@ -31,9 +31,9 @@ sequenceDiagram
     participant P22 as .test_build_project_detail_context_computes_total_pagado_and_saldo()
     participant P23 as .test_build_project_detail_context_saldo_can_go_negative_when_overpaid()
     participant P24 as import_ldm_csv_upload()
-    participant P25 as ._get_project()
-    participant P26 as _hydrate_quote_for_display()
-    participant P27 as quote_pdf_editor()
+    participant P25 as quote_pdf_editor()
+    participant P26 as ._get_project()
+    participant P27 as _hydrate_quote_for_display()
     participant P28 as _find_project()
     participant P29 as new_quote()
     participant P30 as mobile_generate_pdf()
@@ -537,8 +537,8 @@ sequenceDiagram
     P170-->>- P0: return
     P0->>+ P171: calls
     P171-->>- P0: return
-    P0->>+ P26: calls
-    P26-->>- P0: return
+    P0->>+ P25: calls
+    P25-->>- P0: return
     P0->>+ P27: calls
     P27-->>- P0: return
     P0->>+ P30: calls
@@ -600,8 +600,8 @@ sequenceDiagram
 - [[build_project_detail_context()]] `INFERRED`
 - [[catalog_name_key()]] `EXTRACTED`
 - [[_render_quote_form()]] `INFERRED`
-- [[_hydrate_quote_for_display()]] `INFERRED`
 - [[quote_pdf_editor()]] `INFERRED`
+- [[_hydrate_quote_for_display()]] `INFERRED`
 - [[mobile_generate_pdf()]] `INFERRED`
 - [[_build_quote_workbook()]] `INFERRED`
 - [[sync_ldm_bundles()]] `INFERRED`

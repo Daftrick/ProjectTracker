@@ -1,114 +1,110 @@
 # Community 4
 
-> 79 nodes · cohesion 0.05
+> 77 nodes · cohesion 0.06
 
 ## Key Concepts
 
-- [services.py](file:///Users/macbook/Documents/ProjectTracker/tracker/services.py#L1) (20 connections)
-- [quotes_mobile.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes_mobile.py#L1) (16 connections)
-- [upsert_mobile_draft()](file:///Users/macbook/Documents/ProjectTracker/tracker/services.py#L49) (15 connections)
-- [mobile_generate_pdf()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes_mobile.py#L166) (12 connections)
-- [UpsertMobileDraftTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_services_mobile.py#L81) (12 connections)
-- [IdFactory](file:///Users/macbook/Documents/ProjectTracker/tests/test_services.py#L12) (10 connections)
-- [._upsert()](file:///Users/macbook/Documents/ProjectTracker/tests/test_services_mobile.py#L82) (10 connections)
-- [ProjectServicesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_services.py#L21) (10 connections)
-- [apply_task_status_change()](file:///Users/macbook/Documents/ProjectTracker/tracker/services.py#L263) (9 connections)
-- [filter_catalog_by_disciplina()](file:///Users/macbook/Documents/ProjectTracker/tracker/services.py#L9) (8 connections)
-- [finalize_mobile_draft()](file:///Users/macbook/Documents/ProjectTracker/tracker/services.py#L123) (8 connections)
-- [remove_item_from_draft()](file:///Users/macbook/Documents/ProjectTracker/tracker/services.py#L101) (8 connections)
-- [_hydrate_quote_for_display()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes_mobile.py#L31) (7 connections)
-- [mobile_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes_mobile.py#L69) (7 connections)
-- [_find_project()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes_mobile.py#L20) (6 connections)
-- [mobile_add_item()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes_mobile.py#L103) (6 connections)
-- [FilterCatalogTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_services_mobile.py#L59) (6 connections)
-- [RemoveItemFromDraftTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_services_mobile.py#L161) (6 connections)
-- [mobile_review()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes_mobile.py#L146) (5 connections)
-- [build_scope_task()](file:///Users/macbook/Documents/ProjectTracker/tracker/services.py#L166) (5 connections)
-- [create_project_with_tasks()](file:///Users/macbook/Documents/ProjectTracker/tracker/services.py#L184) (5 connections)
-- [test_services_mobile.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_services_mobile.py#L1) (5 connections)
-- [_find_draft()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes_mobile.py#L24) (4 connections)
-- [create_project()](file:///Users/macbook/Documents/ProjectTracker/tracker/services.py#L150) (4 connections)
-- [_recalculate_totals()](file:///Users/macbook/Documents/ProjectTracker/tracker/services.py#L40) (4 connections)
-- *... and 54 more nodes in this community*
+- [bundles.py](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L1) (23 connections)
+- [create_bundle()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L267) (22 connections)
+- [expand_quote_bundles()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L339) (19 connections)
+- [bundle_by_catalog_item_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L96) (18 connections)
+- [quote_item_bundle_breakdown()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L148) (15 connections)
+- [capture_bundle_snapshot()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L211) (13 connections)
+- [normalize_bundle()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L46) (13 connections)
+- [normalize_component()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L72) (11 connections)
+- [add_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L290) (10 connections)
+- [_clean()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L42) (10 connections)
+- [get_active_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L82) (10 connections)
+- [delete_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L323) (9 connections)
+- [hydrate_quote_bundle_breakdowns()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L193) (9 connections)
+- [_safe_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L31) (9 connections)
+- [BundleEdgeCasesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L229) (9 connections)
+- [CaptureBundleSnapshotTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L330) (8 connections)
+- [test_bundles.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L1) (8 connections)
+- [activate_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L306) (7 connections)
+- [SeededBundlesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L176) (7 connections)
+- [_component_row()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L120) (6 connections)
+- [._make_bundle()](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L331) (6 connections)
+- [QuoteItemBundleBreakdownTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L84) (6 connections)
+- [.test_add_activate_and_delete_version()](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py#L25) (5 connections)
+- [_display_qty()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L113) (4 connections)
+- [next_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py#L258) (4 connections)
+- *... and 52 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class IdFactory {
-        +test_services.py()
-        +.__init__()
-        +.__call__()
+    class BreakdownQtyRulesTest {
+        +test_bundles.py()
+        +.test_no_waste_pct_in_live_breakdown()
+        +.test_discrete_unit_ceil()
+        +.test_continuous_unit_not_ceiled()
     }
-    class FilterCatalogTest {
-        +test_services_mobile.py()
-        +.test_none_returns_all()
-        +.test_todos_returns_all()
-        +.test_filters_by_disciplina()
-        +.test_unknown_disciplina_returns_empty()
-        +.test_empty_catalog()
+    class BundleEdgeCasesTest {
+        +test_bundles.py()
+        +.test_component_with_zero_qty_goes_to_invalid()
+        +.test_component_with_empty_catalog_item_id_goes_to_invalid()
+        +.test_bundle_with_no_versions_goes_to_invalid()
+        +.test_activate_nonexistent_version_raises()
+        +.test_delete_nonexistent_version_raises()
+        +.test_waste_pct_applied_correctly()
+        +.test_section_markers_are_skipped()
     }
-    class FinalizeMobileDraftTest {
-        +test_services_mobile.py()
-        +.test_finalize_removes_status_field()
-        +.test_finalize_assigns_quote_number()
-        +.test_finalize_returns_none_for_unknown_id()
+    class BundleVersioningTest {
+        +test_bundles.py()
+        +.test_create_bundle_has_active_v1()
+        +.test_add_activate_and_delete_version()
+        +.test_cannot_delete_only_version()
     }
-    class IdFactory {
-        +test_services_mobile.py()
-        +.__init__()
-        +.__call__()
+    class CaptureBundleSnapshotTest {
+        +test_bundles.py()
+        +._make_bundle()
+        +.test_returns_none_when_no_bundle()
+        +.test_returns_none_when_no_catalog_item_id()
+        +.test_captures_description_and_unit_from_catalog()
+        +.test_snapshot_has_bundle_id_and_version()
+        +.test_skips_zero_qty_components()
+        +.test_returns_none_when_all_components_filtered()
     }
-    class RemoveItemFromDraftTest {
-        +test_services_mobile.py()
-        +._setup()
-        +.test_removes_item_and_recalculates()
-        +.test_no_op_when_item_not_in_draft()
-        +.test_returns_none_when_no_draft_exists()
-        +.test_empty_items_after_last_removal()
+    class ExpandQuoteBundlesTest {
+        +test_bundles.py()
+        +.test_expands_quote_bundle_components()
+        +.test_unmapped_quote_items_are_preserved()
+        +.test_seeded_circuit_bundles_expand_catalog_materials()
     }
-    class UpsertMobileDraftTest {
-        +test_services_mobile.py()
-        +._upsert()
-        +.test_creates_draft_when_none_exists()
-        +.test_item_fields_populated_from_catalog()
-        +.test_totals_calculated()
-        +.test_second_item_appended_to_existing_draft()
-        +.test_re_adding_same_item_updates_qty()
-        +.test_unknown_item_id_is_no_op()
-        +.test_draft_defaults()
-        +.test_original_quotes_list_not_mutated()
+    class QuoteItemBundleBreakdownTest {
+        +test_bundles.py()
+        +.test_breakdown_multiplies_component_quantities_without_prices()
+        +.test_breakdown_prefers_snapshot_when_present()
+        +.test_snapshot_qty_scales_by_quote_item_qty()
+        +.test_breakdown_missing_bundle_returns_empty_list()
+        +.test_hydrate_quote_bundle_breakdowns_keeps_totals_and_sections()
     }
-    class ProjectServicesTest {
-        +test_services.py()
-        +.test_create_project_assigns_next_folder_and_tasks()
-        +.test_sync_project_alcances_adds_and_removes_tasks_with_children()
-        +.test_apply_task_status_blocks_dependency()
-        +.test_apply_task_status_creates_observation_child()
-        +.test_apply_task_status_creates_observation_checklist()
-        +.test_apply_task_status_does_not_generate_checklist_from_note()
-        +.test_apply_task_status_creates_new_observation_when_already_in_observations()
-        +.test_update_observation_details_edits_note_and_checklist()
-        +.test_update_observation_checklist_item_updates_status()
+    class SeededBundlesTest {
+        +test_bundles.py()
+        +._expand()
+        +.test_tubo_conduit_16mm_expands_all_components()
+        +.test_salida_luminaria_expands_all_components()
+        +.test_all_seeded_bundles_have_valid_active_version()
+        +.test_no_duplicate_catalog_item_ids_in_index()
     }
 ```
 
 ## Relationships
 
-- [[Community 3]] (6 shared connections)
+- [[Community 5]] (16 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_services.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_services.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_services_mobile.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_services_mobile.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/routes/quotes_mobile.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes_mobile.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/services.py](file:///Users/macbook/Documents/ProjectTracker/tracker/services.py)
-- [/Users/macbook/ProjectTracker/tracker/services.py](file:///Users/macbook/ProjectTracker/tracker/services.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_bundles.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_bundles.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/bundles.py](file:///Users/macbook/Documents/ProjectTracker/tracker/bundles.py)
+- [/Users/macbook/ProjectTracker/tracker/bundles.py](file:///Users/macbook/ProjectTracker/tracker/bundles.py)
 
 ## Audit Trail
 
-- EXTRACTED: 233 (70%)
-- INFERRED: 98 (30%)
+- EXTRACTED: 252 (65%)
+- INFERRED: 134 (35%)
 - AMBIGUOUS: 0 (0%)
 
 ---

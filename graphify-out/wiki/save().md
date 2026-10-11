@@ -11,9 +11,9 @@ sequenceDiagram
     participant P2 as load()
     participant P3 as catalog_maps()
     participant P4 as build_project_detail_context()
-    participant P5 as ._get_project()
-    participant P6 as _hydrate_quote_for_display()
-    participant P7 as quote_pdf_editor()
+    participant P5 as quote_pdf_editor()
+    participant P6 as ._get_project()
+    participant P7 as _hydrate_quote_for_display()
     participant P8 as _find_project()
     participant P9 as new_quote()
     participant P10 as mobile_generate_pdf()
@@ -515,8 +515,8 @@ sequenceDiagram
     P158-->>- P1: return
     P1->>+ P159: calls
     P159-->>- P1: return
-    P0->>+ P7: calls
-    P7-->>- P0: return
+    P0->>+ P5: calls
+    P5-->>- P0: return
     P0->>+ P9: calls
     P9-->>- P0: return
     P0->>+ P10: calls

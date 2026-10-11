@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Tests for the deleted catalog audit route.](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_audit_deleted_catalog_route.py#L1) (0 connections)
+- [Cobertura de los bundles reales en data/bundles.json.](file:///Users/macbook/ProjectTracker/tests/test_bundles.py#L74) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_audit_deleted_catalog_route.py](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_audit_deleted_catalog_route.py)
+- [/Users/macbook/ProjectTracker/tests/test_bundles.py](file:///Users/macbook/ProjectTracker/tests/test_bundles.py)
 
 ## Audit Trail
 

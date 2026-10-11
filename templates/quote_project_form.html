@@ -552,23 +552,7 @@
           </div>
           <div class="col-12 collapse" id="termsSection">
             <div class="card border-0 bg-body-secondary rounded-3 p-3">
-              <div class="mb-3">
-                <label class="form-label fw-semibold">Plantilla de términos y condiciones</label>
-                <select name="terms_template_id" id="termsTemplateSelect" class="form-select"
-                        onchange="previewTermsTemplate()">
-                  {% for tmpl in terms_templates %}
-                  <option value="{{ tmpl.id }}" {% if tmpl.id == selected_terms_template_id %}selected{% endif %}>
-                    {{ tmpl.name }}
-                  </option>
-                  {% endfor %}
-                </select>
-                <div class="form-text">
-                  El contenido se edita en
-                  <a href="{{ url_for('quotes_bp.terms_templates') }}" target="_blank">Plantillas de Términos y Condiciones</a>
-                  — si corriges una plantilla, se actualiza en todas las cotizaciones que la usan.
-                </div>
-              </div>
-              <div id="termsPreview" class="small text-muted" style="font-size:.8rem"></div>
+              {% include "_quote_terms_editor.html" %}
             </div>
           </div>
           {# ── Integrantes ── #}
@@ -1612,8 +1596,6 @@
   {% endif %}
   const QUOTE_TEMPLATES_BY_ID = {{ templates_by_id | default({}) | tojson }};
   const CATALOG_BY_ID = {{ catalog_by_id | default({}) | tojson }};
-  const TERMS_TEMPLATES_BY_ID = {{ terms_templates | default([]) | tojson }}
-    .reduce((acc, t) => { acc[t.id] = t; return acc; }, {});
   const BASE_INTEGRANTES_DEFAULT = {{ integrantes_config | tojson }};
   const PROJECT_CLIENT = {{ project.client | default('') | tojson }};
 
@@ -1719,21 +1701,6 @@
     if (el) el.style.display = show ? "" : "none";
   }
 
-  function previewTermsTemplate() {
-    const select = document.getElementById("termsTemplateSelect");
-    const preview = document.getElementById("termsPreview");
-    if (!select || !preview) return;
-    const tmpl = TERMS_TEMPLATES_BY_ID[select.value];
-    const terms = (tmpl && tmpl.terms || []).filter(t => t.enabled !== false);
-    if (!terms.length) {
-      preview.innerHTML = "<em>Esta plantilla no tiene términos habilitados.</em>";
-      return;
-    }
-    preview.innerHTML = terms
-      .map(t => `<div class="mb-2"><strong>${escapeHtml(t.title)}</strong><br>${escapeHtml(t.body)}</div>`)
-      .join("");
-  }
-
   function escapeHtml(text) {
     const div = document.createElement("div");
     div.textContent = text || "";
@@ -1789,7 +1756,6 @@
     updateTotals();
     updateProjectBasisNoteVisibility();
     updateQtyUnitVisibility();
-    previewTermsTemplate();
     {% if not quote %}
     updateNum();
     {% endif %}

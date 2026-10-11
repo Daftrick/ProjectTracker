@@ -4,18 +4,18 @@
 
 ## Key Concepts
 
-- [Tech Stack Declaration](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md) (2 connections)
-- [Flask Dependency](file:///Users/macbook/Documents/ProjectTracker/requirements.txt) (1 connections)
-- [openpyxl Dependency](file:///Users/macbook/Documents/ProjectTracker/requirements.txt) (1 connections)
+- [_is_truthy()](file:///Users/macbook/Documents/ProjectTracker/app.py#L8) (2 connections)
+- [Reconoce '1', 'true', 'yes', 'on' (case-insensitive) como verdadero.](file:///Users/macbook/ProjectTracker/app.py#L9) (1 connections)
+- [app.py](file:///Users/macbook/Documents/ProjectTracker/app.py#L1) (1 connections)
 
 ## Relationships
 
-- [[Community 46]] (4 shared connections)
+- [[Community 43]] (1 shared connections)
 
 ## Source Files
 
-- [VERSIONES.md](file:///Users/macbook/Documents/ProjectTracker/VERSIONES.md)
-- [requirements.txt](file:///Users/macbook/Documents/ProjectTracker/requirements.txt)
+- [/Users/macbook/Documents/ProjectTracker/app.py](file:///Users/macbook/Documents/ProjectTracker/app.py)
+- [/Users/macbook/ProjectTracker/app.py](file:///Users/macbook/ProjectTracker/app.py)
 
 ## Audit Trail
 

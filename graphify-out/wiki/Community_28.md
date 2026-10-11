@@ -1,51 +1,58 @@
 # Community 28
 
-> 11 nodes · cohesion 0.29
+> 14 nodes · cohesion 0.16
 
 ## Key Concepts
 
-- [main()](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L22) (6 connections)
-- [GraphifyTaskTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L10) (5 connections)
-- [Completed](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L6) (3 connections)
-- [.test_check_update_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L24) (3 connections)
-- [.test_update_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L12) (3 connections)
-- [check_syntax.py](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L1) (3 connections)
-- [iter_python_files()](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py#L12) (2 connections)
-- [.test_missing_graphify_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L36) (2 connections)
-- [.test_unknown_action_returns_success()](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L41) (2 connections)
-- [test_graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py#L1) (2 connections)
-- [Parse project Python files without writing bytecode.](file:///Users/macbook/ProjectTracker/tools/check_syntax.py#L1) (1 connections)
+- [CompanyLogoUploadTests](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L8) (7 connections)
+- [_requires_configured_secret_key()](file:///Users/macbook/Documents/ProjectTracker/tracker/__init__.py#L49) (6 connections)
+- [AppConfigTests](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L8) (5 connections)
+- **TestCase** (3 connections)
+- [.test_custom_secret_is_allowed_in_production()](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L17) (2 connections)
+- [.test_default_secret_is_allowed_for_local_startup()](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L9) (2 connections)
+- [.test_default_secret_is_rejected_in_production()](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L13) (2 connections)
+- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L9) (1 connections)
+- [.test_empresa_preview_uses_serve_route_with_logo_version()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L33) (1 connections)
+- [.test_upload_accepts_real_png_and_saves_company_logo()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L17) (1 connections)
+- [.test_upload_rejects_extension_that_does_not_match_content()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L57) (1 connections)
+- [.test_upload_rejects_svg()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L42) (1 connections)
+- [test_app_config.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L1) (1 connections)
+- [test_company_logo_upload.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L1) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class Completed {
-        +test_graphify_task.py()
+    class AppConfigTests {
+        +test_app_config.py()
+        +.test_default_secret_is_allowed_for_local_startup()
+        +.test_default_secret_is_rejected_in_production()
+        +.test_custom_secret_is_allowed_in_production()
     }
-    class GraphifyTaskTest {
-        +test_graphify_task.py()
-        +.test_update_returns_success()
-        +.test_check_update_returns_success()
-        +.test_missing_graphify_returns_success()
-        +.test_unknown_action_returns_success()
+    class CompanyLogoUploadTests {
+        +test_company_logo_upload.py()
+        +.setUp()
+        +.test_upload_accepts_real_png_and_saves_company_logo()
+        +.test_empresa_preview_uses_serve_route_with_logo_version()
+        +.test_upload_rejects_svg()
+        +.test_upload_rejects_extension_that_does_not_match_content()
     }
 ```
 
 ## Relationships
 
-- [[Community 40]] (1 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_graphify_task.py)
-- [/Users/macbook/Documents/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/Documents/ProjectTracker/tools/check_syntax.py)
-- [/Users/macbook/ProjectTracker/tools/check_syntax.py](file:///Users/macbook/ProjectTracker/tools/check_syntax.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_app_config.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/__init__.py)
 
 ## Audit Trail
 
-- EXTRACTED: 24 (75%)
-- INFERRED: 8 (25%)
+- EXTRACTED: 28 (82%)
+- INFERRED: 6 (18%)
 - AMBIGUOUS: 0 (0%)
 
 ---

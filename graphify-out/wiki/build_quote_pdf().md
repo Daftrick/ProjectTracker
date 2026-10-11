@@ -1,6 +1,6 @@
 # build_quote_pdf()
 
-> God node · 33 connections · [/Users/macbook/Documents/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py#L243)
+> God node · 35 connections · [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L251)
 
 ## Call Trace Diagram
 
@@ -11,10 +11,10 @@ sequenceDiagram
     participant P2 as quote_type_key()
     participant P3 as validate_quote_form()
     participant P4 as compute_consistency()
-    participant P5 as _render_quote_form()
-    participant P6 as next_quote_number()
+    participant P5 as quote_from_form()
+    participant P6 as _render_quote_form()
     participant P7 as quote_pdf_editor()
-    participant P8 as quote_from_form()
+    participant P8 as next_quote_number()
     participant P9 as pick_active_quote()
     participant P10 as is_base_quote_type()
     participant P11 as migrate_quote_approval()
@@ -31,34 +31,36 @@ sequenceDiagram
     participant P22 as .test_preliminar()
     participant P23 as .test_general_fallback()
     participant P24 as mobile_generate_pdf()
-    participant P25 as resolve_quote_proposal_for()
-    participant P26 as _safe_text()
-    participant P27 as export_data()
-    participant P28 as quote_section_groups()
-    participant P29 as resolve_quote_terms()
+    participant P25 as _safe_text()
+    participant P26 as resolve_quote_proposal_for()
+    participant P27 as resolve_quote_terms()
+    participant P28 as export_data()
+    participant P29 as quote_section_groups()
     participant P30 as _load_company()
     participant P31 as ._render_text()
     participant P32 as quote_pdf()
     participant P33 as quote_logo_path()
-    participant P34 as _register_dejavu()
-    participant P35 as catalog_description_lookup()
-    participant P36 as format_date_long()
-    participant P37 as _hex_to_rgb()
-    participant P38 as money_pdf()
-    participant P39 as quote_catalog_description()
-    participant P40 as note_lines()
-    participant P41 as quote_resumen_pdf()
-    participant P42 as quote_terms()
-    participant P43 as quote_scope_paragraphs()
-    participant P44 as .test_pdf_reflects_project_client_over_stale_quote_snapshot()
-    participant P45 as .test_pdf_falls_back_to_quote_client_snapshot_when_project_has_none()
-    participant P46 as .test_long_description_does_not_orphan_words_after_wrap()
-    participant P47 as .test_pdf_with_bundle_item_renders_without_error()
-    participant P48 as .test_bundle_breakdown_renders_quantities_without_component_prices()
-    participant P49 as .test_specs_terms_and_notes_render_as_independent_sections()
-    participant P50 as .test_discount_renders_before_tax_in_both_totals_boxes()
-    participant P51 as .test_no_discount_omits_discount_row()
-    participant P52 as .test_no_unit_or_qty_columns_rendered()
+    participant P34 as _register_pdf_fonts()
+    participant P35 as _fitted_cell()
+    participant P36 as catalog_description_lookup()
+    participant P37 as format_date_long()
+    participant P38 as _hex_to_rgb()
+    participant P39 as money_pdf()
+    participant P40 as quote_catalog_description()
+    participant P41 as note_lines()
+    participant P42 as .test_pdf_uses_local_terms_and_embeds_lato_in_both_cover_modes()
+    participant P43 as .test_large_table_amounts_stay_inside_their_columns()
+    participant P44 as quote_resumen_pdf()
+    participant P45 as quote_scope_paragraphs()
+    participant P46 as .test_pdf_reflects_project_client_over_stale_quote_snapshot()
+    participant P47 as .test_pdf_falls_back_to_quote_client_snapshot_when_project_has_none()
+    participant P48 as .test_long_description_does_not_orphan_words_after_wrap()
+    participant P49 as .test_pdf_with_bundle_item_renders_without_error()
+    participant P50 as .test_bundle_breakdown_renders_quantities_without_component_prices()
+    participant P51 as .test_specs_terms_and_notes_render_as_independent_sections()
+    participant P52 as .test_discount_renders_before_tax_in_both_totals_boxes()
+    participant P53 as .test_no_discount_omits_discount_row()
+    participant P54 as .test_no_unit_or_qty_columns_rendered()
     P0->>+ P1: calls
     P1-->>- P0: return
     P1->>+ P0: calls
@@ -121,10 +123,10 @@ sequenceDiagram
     P27-->>- P0: return
     P0->>+ P28: calls
     P28-->>- P0: return
-    P0->>+ P12: calls
-    P12-->>- P0: return
     P0->>+ P29: calls
     P29-->>- P0: return
+    P0->>+ P12: calls
+    P12-->>- P0: return
     P0->>+ P30: calls
     P30-->>- P0: return
     P0->>+ P31: calls
@@ -147,14 +149,14 @@ sequenceDiagram
     P39-->>- P0: return
     P0->>+ P40: calls
     P40-->>- P0: return
-    P0->>+ P15: calls
-    P15-->>- P0: return
     P0->>+ P41: calls
     P41-->>- P0: return
     P0->>+ P42: calls
     P42-->>- P0: return
     P0->>+ P43: calls
     P43-->>- P0: return
+    P0->>+ P15: calls
+    P15-->>- P0: return
     P0->>+ P44: calls
     P44-->>- P0: return
     P0->>+ P45: calls
@@ -173,6 +175,10 @@ sequenceDiagram
     P51-->>- P0: return
     P0->>+ P52: calls
     P52-->>- P0: return
+    P0->>+ P53: calls
+    P53-->>- P0: return
+    P0->>+ P54: calls
+    P54-->>- P0: return
 ```
 
 ## Connections by Relation
@@ -180,24 +186,24 @@ sequenceDiagram
 ### calls
 - [[quote_cover_copy()]] `EXTRACTED`
 - [[mobile_generate_pdf()]] `INFERRED`
-- [[resolve_quote_proposal_for()]] `INFERRED`
 - [[_safe_text()]] `EXTRACTED`
+- [[resolve_quote_proposal_for()]] `INFERRED`
+- [[resolve_quote_terms()]] `INFERRED`
 - [[export_data()]] `INFERRED`
 - [[quote_section_groups()]] `INFERRED`
 - [[quote_project_basis_note()]] `EXTRACTED`
-- [[resolve_quote_terms()]] `INFERRED`
 - [[_load_company()]] `EXTRACTED`
 - [[._render_text()]] `INFERRED`
 - [[quote_pdf()]] `INFERRED`
 - [[quote_logo_path()]] `EXTRACTED`
-- [[_register_dejavu()]] `EXTRACTED`
+- [[_register_pdf_fonts()]] `EXTRACTED`
+- [[_fitted_cell()]] `EXTRACTED`
 - [[catalog_description_lookup()]] `INFERRED`
 - [[format_date_long()]] `EXTRACTED`
 - [[_hex_to_rgb()]] `EXTRACTED`
 - [[money_pdf()]] `EXTRACTED`
 - [[quote_catalog_description()]] `EXTRACTED`
 - [[note_lines()]] `EXTRACTED`
-- [[quote_type_has_quantities()]] `INFERRED`
 
 ### contains
 - [[pdfs.py]] `EXTRACTED`

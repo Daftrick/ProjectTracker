@@ -1,6 +1,6 @@
 # Community 0
 
-> 179 nodes · cohesion 0.03
+> 189 nodes · cohesion 0.03
 
 ## Key Concepts
 
@@ -8,11 +8,15 @@
 - [save()](file:///Users/macbook/Documents/ProjectTracker/tracker/storage.py#L49) (112 connections)
 - [admin.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L1) (66 connections)
 - [today()](file:///Users/macbook/Documents/ProjectTracker/tracker/storage.py#L66) (56 connections)
-- [projects.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/projects.py#L1) (29 connections)
-- [create_app()](file:///Users/macbook/Documents/ProjectTracker/tracker/__init__.py#L53) (21 connections)
+- [projects.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/projects.py#L1) (27 connections)
+- [create_app()](file:///Users/macbook/Documents/ProjectTracker/tracker/__init__.py#L53) (22 connections)
+- [storage.py](file:///Users/macbook/Documents/ProjectTracker/tracker/storage.py#L1) (21 connections)
 - [new_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/storage.py#L62) (20 connections)
-- [deletions.py](file:///Users/macbook/Documents/ProjectTracker/tracker/deletions.py#L1) (12 connections)
+- [__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/__init__.py#L1) (17 connections)
+- [quotes_mobile.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes_mobile.py#L1) (15 connections)
+- [mobile_generate_pdf()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes_mobile.py#L166) (12 connections)
 - [add_bundle_version_route()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L513) (11 connections)
+- [deletions.py](file:///Users/macbook/Documents/ProjectTracker/tracker/deletions.py#L1) (11 connections)
 - [bundles()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L428) (10 connections)
 - [update_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L491) (9 connections)
 - [QuoteClientOverrideRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L95) (9 connections)
@@ -20,16 +24,12 @@
 - [get_project_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/templates_config.py#L17) (8 connections)
 - [ProyectoEjecutivoQuoteRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_proyecto_ejecutivo_quote.py#L26) (8 connections)
 - [QuoteDescTextareaRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L64) (8 connections)
-- [catalog_search.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog_search.py#L1) (8 connections)
 - [fichas()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L628) (7 connections)
 - [proveedores()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L570) (7 connections)
 - [team()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L699) (7 connections)
 - [update_bundle()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L458) (7 connections)
-- [_normalize()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog_search.py#L25) (7 connections)
 - [kanban()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/projects.py#L71) (7 connections)
-- [new_project()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/projects.py#L117) (7 connections)
-- [activate_bundle_version_route()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L538) (6 connections)
-- *... and 154 more nodes in this community*
+- *... and 164 more nodes in this community*
 
 ## Class Diagram
 
@@ -86,9 +86,7 @@ classDiagram
 
 ## Relationships
 
-- [[Community 12]] (4 shared connections)
-- [[Community 5]] (2 shared connections)
-- [[Community 13]] (1 shared connections)
+- [[Community 12]] (1 shared connections)
 - [[Community 16]] (1 shared connections)
 
 ## Source Files
@@ -116,8 +114,8 @@ classDiagram
 
 ## Audit Trail
 
-- EXTRACTED: 443 (40%)
-- INFERRED: 656 (60%)
+- EXTRACTED: 508 (43%)
+- INFERRED: 682 (57%)
 - AMBIGUOUS: 0 (0%)
 
 ---

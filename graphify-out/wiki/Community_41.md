@@ -1,38 +1,39 @@
 # Community 41
 
-> 5 nodes · cohesion 0.40
+> 6 nodes · cohesion 0.33
 
 ## Key Concepts
 
-- [QuotePaymentsLinkTemplateSourceTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L50) (3 connections)
-- [test_quote_payments_link.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L1) (3 connections)
-- [.test_project_detail_has_payments_button_linking_to_view_quote_anchor()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L51) (1 connections)
-- [.test_quote_project_detail_has_payments_card_anchor_id()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L59) (1 connections)
-- [Botón "Pagos" en la fila de cada cotización (lista de cotizaciones, project_deta](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L1) (1 connections)
+- [MaterialsCsvExportTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py#L25) (3 connections)
+- [test_materials_csv_export.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py#L1) (3 connections)
+- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py#L35) (1 connections)
+- [.test_exports_existing_ldm_without_creating_a_new_list()](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py#L42) (1 connections)
+- [Tests for exporting an existing LDM as CSV.](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py#L1) (1 connections)
+- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py#L27) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class QuotePaymentsLinkTemplateSourceTest {
-        +test_quote_payments_link.py()
-        +.test_project_detail_has_payments_button_linking_to_view_quote_anchor()
-        +.test_quote_project_detail_has_payments_card_anchor_id()
+    class MaterialsCsvExportTest {
+        +test_materials_csv_export.py()
+        +._fake_load()
+        +.test_exports_existing_ldm_without_creating_a_new_list()
     }
 ```
 
 ## Relationships
 
-- [[Community 38]] (1 shared connections)
+- [[Community 36]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py)
-- [/Users/macbook/ProjectTracker/tests/test_quote_payments_link.py](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_materials_csv_export.py)
+- [/Users/macbook/ProjectTracker/tests/test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests/test_materials_csv_export.py)
 
 ## Audit Trail
 
-- EXTRACTED: 9 (100%)
+- EXTRACTED: 10 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

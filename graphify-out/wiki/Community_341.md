@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return catalog id if description matches a catalog nombre (case-insensitive).](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccsv_import.py#L72) (0 connections)
+- [Mark a deleted catalog item as preserved (keep historical reference)](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L552) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\csv_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker%5Ccsv_import.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

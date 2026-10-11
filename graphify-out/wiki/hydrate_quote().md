@@ -11,9 +11,9 @@ sequenceDiagram
     participant P2 as load()
     participant P3 as catalog_maps()
     participant P4 as import_ldm_csv_upload()
-    participant P5 as ._get_project()
-    participant P6 as _hydrate_quote_for_display()
-    participant P7 as quote_pdf_editor()
+    participant P5 as quote_pdf_editor()
+    participant P6 as ._get_project()
+    participant P7 as _hydrate_quote_for_display()
     participant P8 as _find_project()
     participant P9 as new_quote()
     participant P10 as mobile_generate_pdf()
@@ -535,10 +535,10 @@ sequenceDiagram
     P169-->>- P1: return
     P0->>+ P170: calls
     P170-->>- P0: return
+    P0->>+ P5: calls
+    P5-->>- P0: return
     P0->>+ P171: calls
     P171-->>- P0: return
-    P0->>+ P6: calls
-    P6-->>- P0: return
     P0->>+ P7: calls
     P7-->>- P0: return
     P0->>+ P172: calls
@@ -584,9 +584,9 @@ sequenceDiagram
 ### calls
 - [[build_project_detail_context()]] `INFERRED`
 - [[safe_float()]] `EXTRACTED`
+- [[quote_pdf_editor()]] `INFERRED`
 - [[compute_quote_totals()]] `EXTRACTED`
 - [[_hydrate_quote_for_display()]] `INFERRED`
-- [[quote_pdf_editor()]] `INFERRED`
 - [[_build_quote_workbook()]] `INFERRED`
 - [[mobile_generate_pdf()]] `INFERRED`
 - [[hydrate_quote_item()]] `EXTRACTED`

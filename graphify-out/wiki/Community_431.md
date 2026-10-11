@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Auto-generated Quote Number Pattern](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html) (0 connections)
+- [Parse a LISP-exported client quote CSV into quote draft data.](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L111) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html)
+- [tracker/quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py)
 
 ## Audit Trail
 

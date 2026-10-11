@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Quote Bulk Row Selection & Actions Pattern](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html) (0 connections)
+- [Asegura que cada artículo tenga el campo `categoria` (default '').      Migració](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L7) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/Documents/ProjectTracker/templates/quote_project_form.html)
+- [tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

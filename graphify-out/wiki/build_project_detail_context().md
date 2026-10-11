@@ -11,8 +11,8 @@ sequenceDiagram
     participant P2 as catalog_maps()
     participant P3 as catalog_name_key()
     participant P4 as _render_quote_form()
-    participant P5 as _hydrate_quote_for_display()
-    participant P6 as quote_pdf_editor()
+    participant P5 as quote_pdf_editor()
+    participant P6 as _hydrate_quote_for_display()
     participant P7 as mobile_generate_pdf()
     participant P8 as _build_quote_workbook()
     participant P9 as sync_ldm_bundles()
@@ -255,10 +255,10 @@ sequenceDiagram
     P0-->>- P1: return
     P1->>+ P32: calls
     P32-->>- P1: return
-    P1->>+ P33: calls
-    P33-->>- P1: return
     P1->>+ P5: calls
     P5-->>- P1: return
+    P1->>+ P33: calls
+    P33-->>- P1: return
     P1->>+ P6: calls
     P6-->>- P1: return
     P1->>+ P34: calls

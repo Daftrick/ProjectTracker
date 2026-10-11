@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Integration tests for the mobile quote blueprint (Fase 10).](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_quotes_mobile.py#L1) (0 connections)
+- [Mark a deleted catalog item as preserved (keep historical reference)](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L585) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_quotes_mobile.py](file:///Users/macbook/Documents/ProjectTracker/tests%5Ctest_quotes_mobile.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

@@ -307,10 +307,10 @@ class QuotePdfSectionsTest(unittest.TestCase):
         self.assertIn("Representante Autorizado", text)
         self.assertIn("Especificaciones técnicas", text)
         self.assertIn("Pago visible", text)
-        # condiciones_pago activa _has_specs → los términos de plantilla NO aparecen
-        self.assertNotIn("Términos y Condiciones", text)
-        self.assertNotIn("Vigencia", text)
-        self.assertNotIn("Termino visible", text)
+        # Los términos locales se imprimen junto a las especificaciones técnicas.
+        self.assertIn("Términos y Condiciones", text)
+        self.assertIn("Vigencia", text)
+        self.assertIn("Termino visible", text)
         self.assertNotIn("Termino oculto", text)
         self.assertIn("Notas", text)
         self.assertIn("Nota visible", text)

@@ -1,10 +1,8 @@
 """Plantillas de Términos y Condiciones — independientes de las plantillas
 de artículos (Proyecto/Obra/Servicio).
 
-Cada cotización se liga por referencia (terms_template_id) a una de estas
-plantillas: si se corrige el texto de una plantilla, el cambio se refleja
-en todas las cotizaciones que la usan. No hay edición de términos por
-cotización — sólo se elige cuál plantilla aplica.
+Las plantillas son una base. Al guardar desde el editor, cada cotización
+conserva su propia copia editable en specs.terms.
 """
 
 import uuid
@@ -94,33 +92,54 @@ def get_terms_template_by_id(template_id: str) -> dict:
 
 
 def resolve_quote_terms(quote: dict) -> tuple[list, dict]:
-    """Devuelve (terms, template) para una cotización.
+    """Resuelve copia local > plantilla > estándar, incluidos overrides antiguos.
 
-    Orden de resolución:
-    1. terms_template_id explícito → esa plantilla.
-    2. Cotizaciones legado con specs.terms guardado directamente (antes de
-       existir plantillas independientes) → se usan tal cual, sin plantilla.
-    3. Ninguno de los anteriores → la primera plantilla disponible (estándar).
+    Una lista local vacía significa que la cotización no incluye términos.
     """
     specs = (quote or {}).get("specs") or {}
     template_id = str(specs.get("terms_template_id") or "").strip()
-    if template_id:
-        template = get_terms_template_by_id(template_id)
-        if template:
-            return template.get("terms", []), template
-
-    legacy_terms = specs.get("terms")
-    if legacy_terms:
+    template = get_terms_template_by_id(template_id) if template_id else {}
+    if isinstance(specs.get("terms"), list):
         from .pdfs import QUOTE_TERM_TITLES
-        normalized_legacy = []
-        for term in legacy_terms:
+        terms = []
+        for index, term in enumerate(specs["terms"]):
             if not isinstance(term, dict):
                 continue
             key = term.get("key")
-            title = QUOTE_TERM_TITLES.get(key, term.get("title", "")) if key else term.get("title", "")
-            normalized_legacy.append({**term, "title": title})
-        return normalized_legacy, {}
+            terms.append({
+                **term,
+                "id": str(term.get("id") or key or f"legacy-{index}"),
+                "title": term.get("title") or QUOTE_TERM_TITLES.get(key, "Sin título"),
+            })
+        return terms, template
 
-    templates = get_terms_templates()
-    default_template = templates[0] if templates else _seed_terms_template()
-    return default_template.get("terms", []), default_template
+    if not template:
+        templates = get_terms_templates()
+        template = templates[0] if templates else _seed_terms_template()
+    overrides = specs.get("term_body_overrides") or {}
+    terms = [
+        {**term, "body": overrides.get(term.get("id")) or term.get("body", "")}
+        for term in template.get("terms", [])
+    ]
+    return terms, template
+
+
+def quote_terms_from_form(form):
+    """None = formulario antiguo; [] = términos eliminados explícitamente."""
+    if form.get("terms_present") != "1":
+        return None
+    ids = form.getlist("term_id[]")
+    titles = form.getlist("term_title[]")
+    bodies = form.getlist("term_body[]")
+    enabled = form.getlist("term_enabled[]")
+    terms = []
+    for index, title in enumerate(titles):
+        term = _normalize_term({
+            "id": ids[index] if index < len(ids) else "",
+            "title": title,
+            "body": bodies[index] if index < len(bodies) else "",
+            "enabled": index < len(enabled) and enabled[index] == "1",
+        })
+        if term is not None:
+            terms.append(term)
+    return terms

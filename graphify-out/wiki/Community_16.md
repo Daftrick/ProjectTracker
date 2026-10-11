@@ -1,58 +1,51 @@
 # Community 16
 
-> 26 nodes · cohesion 0.14
+> 27 nodes · cohesion 0.15
 
 ## Key Concepts
 
-- [AdminRequiredTestCase](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L107) (17 connections)
-- [._login_as()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L133) (13 connections)
-- [get_company()](file:///Users/macbook/Documents/ProjectTracker/tracker/company_config.py#L15) (10 connections)
-- [._assert_no_admin_block()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L175) (6 connections)
-- [CompanyConfigTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py#L5) (5 connections)
-- [empresa()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L787) (4 connections)
-- [save_company()](file:///Users/macbook/Documents/ProjectTracker/tracker/company_config.py#L25) (4 connections)
-- [.test_cotizador_can_view_empresa_but_only_edit_address()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L255) (4 connections)
-- [.test_admin_can_edit_all_empresa_fields()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L278) (3 connections)
-- [.test_cotizador_can_access_system_pages_except_admin_only_ones()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L230) (3 connections)
-- [.test_cotizador_can_delete_project_and_approve_quote()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L222) (3 connections)
-- [.test_cotizador_can_edit_and_delete_catalog_items()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L179) (3 connections)
-- [.test_cotizador_can_manage_proveedores_fichas_team()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L199) (3 connections)
-- [_company_logo_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L762) (2 connections)
-- [empresa_logo_file()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L774) (2 connections)
-- [.test_admin_can_access_empresa()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L144) (2 connections)
-- [.test_admin_can_access_export_and_reset_data()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L247) (2 connections)
-- [.test_admin_can_access_users()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L149) (2 connections)
-- [.test_cotizador_can_add_catalog_item_via_api()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L166) (2 connections)
-- [.test_cotizador_can_add_catalog_item_via_form()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L154) (2 connections)
-- [.test_cotizador_cannot_access_users()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L139) (2 connections)
-- [.test_merges_stored_values_over_defaults()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py#L18) (2 connections)
-- [.test_non_dict_storage_returns_defaults()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py#L28) (2 connections)
-- [.test_returns_defaults_when_no_file()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py#L7) (2 connections)
-- [.test_save_company_calls_storage()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py#L34) (2 connections)
-- *... and 1 more nodes in this community*
+- [quote_templates_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L1) (15 connections)
+- [get_quote_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L201) (13 connections)
+- [QuoteTemplatesConfigTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L5) (11 connections)
+- [_make_default_template()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L158) (6 connections)
+- [_normalize_template()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L171) (6 connections)
+- [get_template_for_type()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L215) (5 connections)
+- [_normalize()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L184) (5 connections)
+- [normalize_contact_rows()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L109) (5 connections)
+- [save_quote_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L211) (5 connections)
+- [_normalize_contacts()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L96) (4 connections)
+- [_normalize_sections()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L148) (4 connections)
+- [get_template_by_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L220) (3 connections)
+- [_new_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L92) (3 connections)
+- [_normalize_section()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L131) (3 connections)
+- [_normalize_template_item()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L113) (2 connections)
+- [.test_default_structure_has_required_fields()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L23) (2 connections)
+- [.test_get_template_by_id()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L141) (2 connections)
+- [.test_get_template_for_type_returns_first_template()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L125) (2 connections)
+- [.test_get_template_for_unknown_type_returns_empty()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L153) (2 connections)
+- [.test_migrates_legacy_dict_and_sections_to_named_list()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L46) (2 connections)
+- [.test_non_dict_storage_returns_defaults()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L110) (2 connections)
+- [.test_normalizes_template_items_without_prices()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L77) (2 connections)
+- [.test_proyecto_ejecutivo_starts_without_seeded_items()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L16) (2 connections)
+- [.test_returns_all_types_when_no_file()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L7) (2 connections)
+- [.test_save_normalizes_before_storage()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L117) (2 connections)
+- *... and 2 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AdminRequiredTestCase {
-        +test_auth.py()
-        +.setUp()
-        +.tearDown()
-        +._login_as()
-        +.test_cotizador_cannot_access_users()
-        +.test_admin_can_access_empresa()
-        +.test_admin_can_access_users()
-        +.test_cotizador_can_add_catalog_item_via_form()
-        +.test_cotizador_can_add_catalog_item_via_api()
-        +._assert_no_admin_block()
-    }
-    class CompanyConfigTest {
-        +test_company_templates.py()
-        +.test_returns_defaults_when_no_file()
-        +.test_merges_stored_values_over_defaults()
+    class QuoteTemplatesConfigTest {
+        +test_quote_templates.py()
+        +.test_returns_all_types_when_no_file()
+        +.test_proyecto_ejecutivo_starts_without_seeded_items()
+        +.test_default_structure_has_required_fields()
+        +.test_migrates_legacy_dict_and_sections_to_named_list()
+        +.test_normalizes_template_items_without_prices()
         +.test_non_dict_storage_returns_defaults()
-        +.test_save_company_calls_storage()
+        +.test_save_normalizes_before_storage()
+        +.test_get_template_for_type_returns_first_template()
+        +.test_get_template_by_id()
     }
 ```
 
@@ -62,15 +55,13 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_auth.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/company_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/company_config.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py)
 
 ## Audit Trail
 
-- EXTRACTED: 82 (80%)
-- INFERRED: 21 (20%)
+- EXTRACTED: 83 (74%)
+- INFERRED: 29 (26%)
 - AMBIGUOUS: 0 (0%)
 
 ---
