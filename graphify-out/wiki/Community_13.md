@@ -17,7 +17,7 @@
 - [terms_templates()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1304) (4 connections)
 - [_normalize_template()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L46) (4 connections)
 - [_normalize_term()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L31) (4 connections)
-- [.test_large_table_amounts_stay_inside_their_columns()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L126) (4 connections)
+- [.test_large_table_amounts_stay_inside_their_columns()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L128) (4 connections)
 - [.test_pdf_uses_local_terms_and_embeds_lato_in_both_cover_modes()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L76) (4 connections)
 - [.test_saved_terms_survive_template_changes_and_deletion()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L48) (4 connections)
 - [.test_validation_and_error_rerender_keep_custom_terms()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L39) (4 connections)
@@ -26,7 +26,7 @@
 - [save_terms_templates()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L82) (3 connections)
 - [_seed_terms_template()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L20) (3 connections)
 - [.test_empty_terms_are_intentional_and_old_forms_keep_terms()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L70) (3 connections)
-- [.test_save_in_both_editors_preserves_quote_terms_and_template()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L103) (3 connections)
+- [.test_save_in_both_editors_preserves_quote_terms_and_template()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L105) (3 connections)
 - [_to_float()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L188) (2 connections)
 - [.test_ldm_from_form_preserves_deleted_catalog_snapshot()](file:///Users/macbook/Documents/ProjectTracker/tests/test_form_models.py#L169) (2 connections)
 - *... and 14 more nodes in this community*
@@ -62,7 +62,7 @@ classDiagram
 
 ## Relationships
 
-- [[Community 14]] (3 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 

@@ -774,12 +774,12 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.cell(0, 5, "PROPUESTA ECONÓMICA")
         pdf.set_xy(pdf.l_margin, _sep_y + 20)
         pdf.set_text_color(*INK)
-        pdf.set_font("Lato", "B", 24.0)
-        pdf.multi_cell(content_width, 8, _safe_text(cover_title.split("\n", 1)[0]))
+        pdf.set_font("Lato", "B", 18.0 if "\n" in cover_title else 24.0)
+        pdf.multi_cell(content_width, 7, _safe_text(cover_title.split("\n", 1)[0]))
         if "\n" in cover_title:
             pdf.set_x(pdf.l_margin)
-            pdf.set_font("Lato", "", 16.0)
-            pdf.multi_cell(content_width, 6.5, _safe_text(cover_title.split("\n", 1)[1]))
+            pdf.set_font("Lato", "B", 26.0)
+            pdf.multi_cell(content_width, 9, _safe_text(cover_title.split("\n", 1)[1]), align="L")
         if cover_basis_note:
             pdf.ln(1)
             pdf.set_x(pdf.l_margin)
@@ -918,12 +918,12 @@ def build_quote_pdf(project, quote, output_path=None):
         _txt_x = pdf.l_margin + _logo_col_w + 5   # columna derecha: inicio X
         _txt_w = content_width - _logo_col_w - 5  # columna derecha: ancho
 
-        pdf.set_font("Lato", "B", 16.0)
+        pdf.set_font("Lato", "B", 12.0 if "\n" in cover_title else 16.0)
         _title_h = pdf.multi_cell(_txt_w, 6.0, _safe_text(cover_title.split("\n", 1)[0]), dry_run=True, output="HEIGHT")
         _desc_h = 0
         if "\n" in cover_title:
-            pdf.set_font("Lato", "", 11.5)
-            _desc_h = pdf.multi_cell(_txt_w, 4.8, _safe_text(cover_title.split("\n", 1)[1]), dry_run=True, output="HEIGHT")
+            pdf.set_font("Lato", "B", 18.0)
+            _desc_h = pdf.multi_cell(_txt_w, 6.7, _safe_text(cover_title.split("\n", 1)[1]), dry_run=True, output="HEIGHT")
         _basis_h = 0
         if cover_basis_note:
             pdf.set_font("Lato", "", 10.0)
@@ -954,12 +954,12 @@ def build_quote_pdf(project, quote, output_path=None):
 
         pdf.set_xy(_txt_x, 14)
         pdf.set_text_color(*_banner_ink)
-        pdf.set_font("Lato", "B", 16.0)
+        pdf.set_font("Lato", "B", 12.0 if "\n" in cover_title else 16.0)
         pdf.multi_cell(_txt_w, 6.0, _safe_text(cover_title.split("\n", 1)[0]))
         if "\n" in cover_title:
             pdf.set_x(_txt_x)
-            pdf.set_font("Lato", "", 11.5)
-            pdf.multi_cell(_txt_w, 4.8, _safe_text(cover_title.split("\n", 1)[1]))
+            pdf.set_font("Lato", "B", 18.0)
+            pdf.multi_cell(_txt_w, 6.7, _safe_text(cover_title.split("\n", 1)[1]), align="L")
 
         if cover_basis_note:
             pdf.set_x(_txt_x)

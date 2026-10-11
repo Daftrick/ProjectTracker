@@ -7,17 +7,17 @@
     },
     {
       "label": "build_ldm_pdf()",
-      "risk": 0.455,
+      "risk": 0.452,
       "type": "FUNCTION"
     },
     {
       "label": "build_progress_pdf()",
-      "risk": 0.288,
+      "risk": 0.287,
       "type": "FUNCTION"
     },
     {
       "label": "quote_cover_copy()",
-      "risk": 0.242,
+      "risk": 0.241,
       "type": "FUNCTION"
     },
     {

@@ -89,10 +89,12 @@ class QuoteTermsEditingTest(unittest.TestCase):
                     self.assertNotIn("No imprimir", text)
                     fonts = {char["fontname"] for page in pdf.pages for char in page.chars}
                     self.assertTrue(all("Lato" in font for font in fonts), fonts)
-                    expected_size = 16.0 if spacing == "40" else 11.5
+                    expected_size = 26.0 if spacing == "40" else 18.0
                     description_words = pdf.pages[0].extract_words(extra_attrs=["size"])
                     description_word = next(w for w in description_words if w["text"] == "Diseño")
                     self.assertAlmostEqual(description_word["size"], expected_size, places=2)
+                    heading_word = next(w for w in description_words if w["text"] == "Cotización")
+                    self.assertGreater(description_word["size"], heading_word["size"])
                 quote["specs"]["terms"] = []
                 with pdfplumber.open(io.BytesIO(build_quote_pdf({"name": "Proyecto"}, quote))) as pdf:
                     text = "\n".join(page.extract_text() or "" for page in pdf.pages)

@@ -1,7 +1,7 @@
 # Graph Report - /Users/macbook/ProjectTracker  (2026-10-10)
 
 ## Corpus Check
-- 90 files · ~412,369 words
+- 90 files · ~414,038 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
