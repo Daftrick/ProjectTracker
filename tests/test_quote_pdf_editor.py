@@ -1,5 +1,9 @@
+import copy
+import io
 import unittest
 from unittest.mock import patch
+
+import pdfplumber
 
 
 PROJECT = {
@@ -155,6 +159,43 @@ class QuotePdfEditorTest(unittest.TestCase):
             resp = self.client.get("/projects/PROJ1/quote/NOPE/pdf-editor")
         self.assertEqual(resp.status_code, 302)
         self.assertIn("/", resp.headers["Location"])
+
+    def test_cover_name_saved_in_pdf_editor_is_shared_with_quote_and_pdf(self):
+        from tracker.pdfs import build_quote_pdf
+
+        quote = copy.deepcopy(QUOTE)
+        quote["cover_discipline"] = "Nombre anterior"
+        records = {"projects": [PROJECT], "quotes": [quote], "catalogo": CATALOG}
+        name = "Diseño eléctrico e iluminación para vivienda residencial"
+
+        def save_record(key, data):
+            records[key] = copy.deepcopy(data)
+
+        with patch("tracker.routes.quotes.load", side_effect=lambda key: records.get(key, [])), \
+             patch("tracker.routes.quotes.save", side_effect=save_record), \
+             patch("tracker.company_config.get_company", return_value={"name": "Test Co"}):
+            response = self.client.post("/projects/PROJ1/quote/Q1/pdf-editor", data={"cover_discipline": f"  {name}  "})
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(records["quotes"][0]["cover_discipline"], name)
+            for editor in ("edit", "pdf-editor"):
+                response = self.client.get(f"/projects/PROJ1/quote/Q1/{editor}")
+                self.assertEqual(response.status_code, 200)
+                self.assertIn(name, response.get_data(as_text=True))
+
+            for spacing in ("40", "24"):
+                records["quotes"][0]["specs"]["portada_spacing"] = spacing
+                with patch("tracker.pdfs._load_company", return_value={"name": "Test Co"}), \
+                     patch("tracker.pdfs.quote_logo_path", return_value=None):
+                    with pdfplumber.open(io.BytesIO(build_quote_pdf(PROJECT, records["quotes"][0]))) as pdf:
+                        words = pdf.pages[0].extract_words(extra_attrs=["size"])
+                        self.assertIn(name, " ".join(pdf.pages[0].extract_text().split()))
+                        first_word = next(word for word in words if word["text"] == "Diseño")
+                        self.assertAlmostEqual(first_word["size"], 24.0 if spacing == "40" else 18.0, places=2)
+
+            self.client.post("/projects/PROJ1/quote/Q1/pdf-editor", data={"notes": "Guardar sin enviar nombre"})
+            self.assertEqual(records["quotes"][0]["cover_discipline"], name)
+            self.client.post("/projects/PROJ1/quote/Q1/pdf-editor", data={"cover_discipline": ""})
+            self.assertEqual(records["quotes"][0]["cover_discipline"], "")
 
 
 if __name__ == "__main__":

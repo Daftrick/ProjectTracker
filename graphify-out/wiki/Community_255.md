@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Etiquetas de problema para un artículo. La UI las traduce a colores.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L165) (0 connections)
+- [Construye una lista de filas comparadas, ordenada por severidad.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L221) (0 connections)
 
 ## Relationships
 

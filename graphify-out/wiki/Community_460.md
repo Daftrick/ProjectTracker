@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Task Entity](file:///Users/macbook/ProjectTracker/templates/tasks.html) (0 connections)
+- [Comparison Ignored Item Entity](file:///Users/macbook/ProjectTracker/templates/comparison_rules.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/tasks.html](file:///Users/macbook/ProjectTracker/templates/tasks.html)
+- [templates/comparison_rules.html](file:///Users/macbook/ProjectTracker/templates/comparison_rules.html)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Reglas de comparación entre COT y LDM.  Permiten relacionar artículos equivalent](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L1) (0 connections)
+- [Agrega LDM convirtiendo artículos LDM al ID/unidad esperada de COT.      Si un a](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L102) (0 connections)
 
 ## Relationships
 

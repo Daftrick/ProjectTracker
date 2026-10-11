@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Crea la carpeta de proyecto en Drive si no existe.      Retorna (created: bool,](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L584) (0 connections)
+- [Sincronizacion parcial de LDM desde bundles de COT.](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
+- [tracker\ldm_sync.py](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py)
 
 ## Audit Trail
 

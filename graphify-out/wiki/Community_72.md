@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Genera la cotización como Excel y la sirve como descarga directa.](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L560) (0 connections)
+- [Restore a deleted catalog item by reconnecting it to a new catalog item](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L740) (0 connections)
 
 ## Relationships
 

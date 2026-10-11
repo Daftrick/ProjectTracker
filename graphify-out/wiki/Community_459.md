@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Catalog Bulk Delete Pattern](file:///Users/macbook/ProjectTracker/templates/catalogo.html) (0 connections)
+- [Team Member Entity](file:///Users/macbook/ProjectTracker/templates/team.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/catalogo.html](file:///Users/macbook/ProjectTracker/templates/catalogo.html)
+- [templates/team.html](file:///Users/macbook/ProjectTracker/templates/team.html)
 
 ## Audit Trail
 

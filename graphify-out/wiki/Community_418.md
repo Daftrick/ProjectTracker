@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Conjunto de catalog_item_id ignorados para un scope.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L51) (0 connections)
+- [Separa agregados linked en (incluidos, ignorados).](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L61) (0 connections)
 
 ## Relationships
 

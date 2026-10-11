@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [LRU cache for drive folder scans with TTL and mtime-based invalidation](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L40) (0 connections)
+- [Create cache key from folder path and parameters](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L54) (0 connections)
 
 ## Relationships
 

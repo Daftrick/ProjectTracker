@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Tests for exporting an existing LDM as CSV.](file:///Users/macbook/ProjectTracker/tests%5Ctest_materials_csv_export.py#L1) (0 connections)
+- [Integration tests for the mobile quote blueprint (Fase 10).](file:///Users/macbook/ProjectTracker/tests%5Ctest_quotes_mobile.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_materials_csv_export.py)
+- [tests\test_quotes_mobile.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_quotes_mobile.py)
 
 ## Audit Trail
 

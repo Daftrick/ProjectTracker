@@ -1,56 +1,54 @@
 # Community 22
 
-> 22 nodes · cohesion 0.17
+> 22 nodes · cohesion 0.18
 
 ## Key Concepts
 
-- [project_stage()](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py#L74) (13 connections)
-- [ProjectStageTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L39) (11 connections)
-- [_task()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L23) (9 connections)
-- [KanbanRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L95) (8 connections)
-- [._get_project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L112) (3 connections)
-- [.test_all_aprobado_returns_entregado()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L71) (3 connections)
-- [.test_cot_aprobado_design_en_progreso_returns_diseno()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L63) (3 connections)
-- [.test_cot_aprobado_design_pending_returns_diseno()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L56) (3 connections)
-- [.test_cot_aprobado_only_returns_entregado()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L52) (3 connections)
-- [.test_cot_en_progreso_returns_cotizacion()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L48) (3 connections)
-- [.test_cot_pendiente_returns_cotizacion()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L44) (3 connections)
-- [.test_in_obra_true_overrides_derived_stage()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L79) (3 connections)
-- [.test_subtasks_not_counted()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L88) (3 connections)
-- [test_kanban.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L1) (3 connections)
-- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L109) (2 connections)
-- [.test_toggle_obra_moves_project_to_obra_and_back()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L122) (2 connections)
-- [.test_in_obra_true_even_with_no_tasks()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L84) (2 connections)
-- [.test_no_tasks_returns_cotizacion()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L41) (2 connections)
-- [Derive the portfolio stage from existing task data + the in_obra flag.      Stag](file:///Users/macbook/ProjectTracker/tracker/domain.py#L75) (1 connections)
-- [.test_kanban_page_loads_and_lists_project_in_cotizacion()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L115) (1 connections)
-- [.test_toggle_obra_unknown_project_does_not_crash()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L134) (1 connections)
-- [Cubre las rutas /kanban y toggle_obra restauradas (el template     kanban.html h](file:///Users/macbook/ProjectTracker/tests/test_kanban.py#L96) (1 connections)
+- [AdminRequiredTestCase](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L107) (17 connections)
+- [._login_as()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L133) (13 connections)
+- [get_company()](file:///Users/macbook/Documents/ProjectTracker/tracker/company_config.py#L15) (10 connections)
+- [._assert_no_admin_block()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L175) (6 connections)
+- [CompanyConfigTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py#L5) (5 connections)
+- [.test_cotizador_can_view_empresa_but_only_edit_address()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L255) (4 connections)
+- [.test_admin_can_edit_all_empresa_fields()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L278) (3 connections)
+- [.test_cotizador_can_access_system_pages_except_admin_only_ones()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L230) (3 connections)
+- [.test_cotizador_can_delete_project_and_approve_quote()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L222) (3 connections)
+- [.test_cotizador_can_edit_and_delete_catalog_items()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L179) (3 connections)
+- [.test_cotizador_can_manage_proveedores_fichas_team()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L199) (3 connections)
+- [empresa_logo_file()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L774) (2 connections)
+- [.test_admin_can_access_empresa()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L144) (2 connections)
+- [.test_admin_can_access_export_and_reset_data()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L247) (2 connections)
+- [.test_admin_can_access_users()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L149) (2 connections)
+- [.test_cotizador_can_add_catalog_item_via_api()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L166) (2 connections)
+- [.test_cotizador_can_add_catalog_item_via_form()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L154) (2 connections)
+- [.test_cotizador_cannot_access_users()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L139) (2 connections)
+- [.test_merges_stored_values_over_defaults()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py#L18) (2 connections)
+- [.test_non_dict_storage_returns_defaults()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py#L28) (2 connections)
+- [.test_returns_defaults_when_no_file()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py#L7) (2 connections)
+- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py#L127) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class KanbanRoutesTest {
-        +test_kanban.py()
+    class AdminRequiredTestCase {
+        +test_auth.py()
         +.setUp()
         +.tearDown()
-        +._get_project()
-        +.test_kanban_page_loads_and_lists_project_in_cotizacion()
-        +.test_toggle_obra_moves_project_to_obra_and_back()
-        +.test_toggle_obra_unknown_project_does_not_crash()
+        +._login_as()
+        +.test_cotizador_cannot_access_users()
+        +.test_admin_can_access_empresa()
+        +.test_admin_can_access_users()
+        +.test_cotizador_can_add_catalog_item_via_form()
+        +.test_cotizador_can_add_catalog_item_via_api()
+        +._assert_no_admin_block()
     }
-    class ProjectStageTest {
-        +test_kanban.py()
-        +.test_no_tasks_returns_cotizacion()
-        +.test_cot_pendiente_returns_cotizacion()
-        +.test_cot_en_progreso_returns_cotizacion()
-        +.test_cot_aprobado_only_returns_entregado()
-        +.test_cot_aprobado_design_pending_returns_diseno()
-        +.test_cot_aprobado_design_en_progreso_returns_diseno()
-        +.test_all_aprobado_returns_entregado()
-        +.test_in_obra_true_overrides_derived_stage()
-        +.test_in_obra_true_even_with_no_tasks()
+    class CompanyConfigTest {
+        +test_company_templates.py()
+        +.test_returns_defaults_when_no_file()
+        +.test_merges_stored_values_over_defaults()
+        +.test_non_dict_storage_returns_defaults()
+        +.test_save_company_calls_storage()
     }
 ```
 
@@ -60,15 +58,15 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_kanban.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/domain.py](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py)
-- [/Users/macbook/ProjectTracker/tests/test_kanban.py](file:///Users/macbook/ProjectTracker/tests/test_kanban.py)
-- [/Users/macbook/ProjectTracker/tracker/domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_auth.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_auth.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/company_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/company_config.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py)
 
 ## Audit Trail
 
-- EXTRACTED: 60 (72%)
-- INFERRED: 23 (28%)
+- EXTRACTED: 76 (84%)
+- INFERRED: 15 (16%)
 - AMBIGUOUS: 0 (0%)
 
 ---

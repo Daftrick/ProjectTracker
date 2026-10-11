@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parsea nombre de archivo CSV COT: {CLAVE}-v{VER}-i{CONSEC}-COT-{YYYYMMDD}.csv](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L473) (0 connections)
+- [Decora archivos CSV COT con estado: importado/pendiente/desactualizado.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L518) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Promote a draft quote to a real quote (status removed, quote_number assigned).](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L124) (0 connections)
+- [Returns a redirect Response if the current POST is not from an admin, else None.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py#L35) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\services.py](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py)
+- [tracker\routes\admin.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cadmin.py)
 
 ## Audit Trail
 

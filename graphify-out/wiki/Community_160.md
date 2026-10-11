@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Returns a redirect Response if the current POST is not from an admin, else None.](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L39) (0 connections)
+- [Lista única de categorías existentes (para datalists/filtros).](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L349) (0 connections)
 
 ## Relationships
 

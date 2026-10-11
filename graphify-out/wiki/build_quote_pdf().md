@@ -1,6 +1,6 @@
 # build_quote_pdf()
 
-> God node · 35 connections · [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L241)
+> God node · 36 connections · [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L241)
 
 ## Call Trace Diagram
 
@@ -55,12 +55,13 @@ sequenceDiagram
     participant P46 as .test_pdf_reflects_project_client_over_stale_quote_snapshot()
     participant P47 as .test_pdf_falls_back_to_quote_client_snapshot_when_project_has_none()
     participant P48 as .test_long_description_does_not_orphan_words_after_wrap()
-    participant P49 as .test_pdf_with_bundle_item_renders_without_error()
-    participant P50 as .test_bundle_breakdown_renders_quantities_without_component_prices()
-    participant P51 as .test_specs_terms_and_notes_render_as_independent_sections()
-    participant P52 as .test_discount_renders_before_tax_in_both_totals_boxes()
-    participant P53 as .test_no_discount_omits_discount_row()
-    participant P54 as .test_no_unit_or_qty_columns_rendered()
+    participant P49 as .test_cover_name_saved_in_pdf_editor_is_shared_with_quote_and_pdf()
+    participant P50 as .test_pdf_with_bundle_item_renders_without_error()
+    participant P51 as .test_bundle_breakdown_renders_quantities_without_component_prices()
+    participant P52 as .test_specs_terms_and_notes_render_as_independent_sections()
+    participant P53 as .test_discount_renders_before_tax_in_both_totals_boxes()
+    participant P54 as .test_no_discount_omits_discount_row()
+    participant P55 as .test_no_unit_or_qty_columns_rendered()
     P0->>+ P1: calls
     P1-->>- P0: return
     P1->>+ P0: calls
@@ -179,6 +180,8 @@ sequenceDiagram
     P53-->>- P0: return
     P0->>+ P54: calls
     P54-->>- P0: return
+    P0->>+ P55: calls
+    P55-->>- P0: return
 ```
 
 ## Connections by Relation

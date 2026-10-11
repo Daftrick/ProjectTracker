@@ -1,119 +1,113 @@
 # Community 5
 
-> 70 nodes · cohesion 0.05
+> 78 nodes · cohesion 0.05
 
 ## Key Concepts
 
-- [add_payment()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L76) (16 connections)
-- [PaymentsRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L109) (13 connections)
-- [payments.py](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L1) (13 connections)
-- [PaymentsModelTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L52) (12 connections)
-- [get_payments()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L33) (9 connections)
-- [get_payments_for_quote()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L48) (9 connections)
-- [get_payment_by_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L113) (8 connections)
-- [._add_payment()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L131) (8 connections)
-- [AllPaymentsRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments_summary.py#L55) (8 connections)
-- [DiscountFinancialCardRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py#L134) (7 connections)
-- [delete_payment()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L104) (6 connections)
-- [_normalize_payment()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L11) (6 connections)
-- [payment_summary()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L66) (6 connections)
-- [update_payment()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L92) (6 connections)
-- [get_payments_for_project()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L57) (5 connections)
-- [save_payments()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L43) (5 connections)
-- [FinancialCardRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py#L58) (5 connections)
-- [add_payment_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L421) (4 connections)
-- [all_payments()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1037) (4 connections)
-- [_clean_payment_form()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L402) (4 connections)
-- [edit_payment_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L439) (4 connections)
-- [.test_delete_payment()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L88) (4 connections)
-- [.test_update_payment()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L76) (4 connections)
-- [.test_delete_payment_via_route()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L182) (4 connections)
-- [.test_edit_payment_via_route()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L169) (4 connections)
-- *... and 45 more nodes in this community*
+- [build_quote_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L241) (36 connections)
+- [pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1) (22 connections)
+- [build_ldm_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1403) (14 connections)
+- [quote_cover_copy()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L208) (12 connections)
+- [_safe_text()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L52) (11 connections)
+- [build_progress_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1887) (9 connections)
+- [quote_sequence_from_number()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L203) (9 connections)
+- [quote_project_basis_note()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L218) (8 connections)
+- [QuoteCoverCopyTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L13) (8 connections)
+- [QuotePdfSectionsTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L149) (8 connections)
+- [QuoteSequenceFromNumberTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L79) (8 connections)
+- [_load_company()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L136) (7 connections)
+- [QuotePdfEditorTest](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py#L66) (7 connections)
+- [QuoteProjectBasisNoteTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L54) (6 connections)
+- [test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L1) (6 connections)
+- [catalog_description_lookup()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L182) (5 connections)
+- [_fitted_cell()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L82) (5 connections)
+- [quote_logo_path()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L150) (5 connections)
+- [_register_pdf_fonts()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L71) (5 connections)
+- [format_date_long()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L94) (4 connections)
+- [format_date_short()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L108) (4 connections)
+- [_hex_to_rgb()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L41) (4 connections)
+- [money_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L120) (4 connections)
+- [note_lines()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L129) (4 connections)
+- [quote_catalog_description()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L234) (4 connections)
+- *... and 53 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class PaymentsModelTest {
-        +test_payments.py()
-        +.setUp()
-        +.tearDown()
-        +.test_add_and_get_payments_for_quote()
-        +.test_get_payments_for_project_includes_all_quotes()
-        +.test_update_payment()
-        +.test_update_payment_unknown_id_returns_false()
-        +.test_delete_payment()
-        +.test_delete_payment_unknown_id_returns_false()
-        +.test_payment_summary_computes_balance()
+    class BundleBreakdownPdfRenderTest {
+        +test_pdfs.py()
+        +.test_pdf_with_bundle_item_renders_without_error()
     }
-    class PaymentsRoutesTest {
-        +test_payments.py()
-        +.setUp()
-        +.tearDown()
-        +._add_payment()
-        +.test_add_payment_via_project_route()
-        +.test_add_payment_rejects_invalid_amount()
-        +.test_add_payment_rejects_missing_date()
-        +.test_add_payment_rejects_unknown_quote()
-        +.test_edit_payment_via_route()
-        +.test_delete_payment_via_route()
+    class ProyectoEjecutivoPdfTest {
+        +test_pdfs.py()
+        +.test_no_unit_or_qty_columns_rendered()
     }
-    class AllPaymentsRouteTest {
-        +test_payments_summary.py()
-        +.setUp()
-        +.tearDown()
-        +.test_all_payments_page_loads_and_lists_registered_payment()
-        +.test_all_payments_page_links_to_quote_payments_card()
-        +.test_all_payments_page_shows_empty_state_without_payments()
-        +.test_all_payments_page_sums_total_pagado()
-        +.test_sidebar_renders_pagos_link_on_dashboard()
+    class QuoteCoverCopyTest {
+        +test_pdfs.py()
+        +.test_proyecto()
+        +.test_obra()
+        +.test_servicio()
+        +.test_extraordinaria_with_sequence()
+        +.test_extraordinaria_no_sequence()
+        +.test_preliminar()
+        +.test_general_fallback()
     }
-    class SidebarPaymentsLinkTemplateSourceTest {
-        +test_payments_summary.py()
-        +.test_base_template_has_sidebar_payments_link()
+    class QuotePdfSectionsTest {
+        +test_pdfs.py()
+        +.test_bundle_breakdown_renders_quantities_without_component_prices()
+        +.test_specs_terms_and_notes_render_as_independent_sections()
+        +.test_discount_renders_before_tax_in_both_totals_boxes()
+        +.test_no_discount_omits_discount_row()
+        +.test_pdf_reflects_project_client_over_stale_quote_snapshot()
+        +.test_pdf_falls_back_to_quote_client_snapshot_when_project_has_none()
+        +.test_long_description_does_not_orphan_words_after_wrap()
     }
-    class DiscountFinancialCardRouteTest {
-        +test_project_financial_card_payments.py()
-        +.setUp()
-        +.tearDown()
-        +.test_cotizado_cliente_reflects_discounted_total()
-        +.test_pagado_y_saldo_se_calculan_contra_el_total_con_descuento()
-        +.test_context_totals_match_discounted_quote()
+    class QuoteProjectBasisNoteTest {
+        +test_pdfs.py()
+        +.test_proyecto_with_source()
+        +.test_proyecto_without_source()
+        +.test_obra_returns_empty()
+        +.test_servicio_returns_empty()
+        +.test_extraordinaria_uses_note_field()
     }
-    class FinancialCardRouteTest {
-        +test_project_financial_card_payments.py()
-        +.setUp()
-        +.tearDown()
-        +.test_project_detail_page_shows_paid_amount_and_balance()
-        +.test_project_detail_page_shows_zero_paid_without_payments()
+    class QuoteSequenceFromNumberTest {
+        +test_pdfs.py()
+        +.test_proyecto_code()
+        +.test_obra_code()
+        +.test_servicio_code()
+        +.test_extraordinaria_code()
+        +.test_general_code()
+        +.test_no_match()
+        +.test_empty()
     }
-    class FinancialCardTemplateSourceTest {
-        +test_project_financial_card_payments.py()
-        +.test_project_detail_shows_pagado_and_saldo_rows()
+    class QuotePdfEditorTest {
+        +test_quote_pdf_editor.py()
+        +.test_get_renders_editor()
+        +.test_get_shows_pdf_preview_elements()
+        +.test_post_saves_specs_and_notes()
+        +.test_post_extraordinaria_saves_project_basis_note()
+        +.test_get_unknown_quote_redirects()
+        +.test_cover_name_saved_in_pdf_editor_is_shared_with_quote_and_pdf()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 6]] (11 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_payments.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_payments_summary.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments_summary.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/payments.py](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py)
-- [/Users/macbook/ProjectTracker/tests/test_payments.py](file:///Users/macbook/ProjectTracker/tests/test_payments.py)
-- [/Users/macbook/ProjectTracker/tests/test_payments_summary.py](file:///Users/macbook/ProjectTracker/tests/test_payments_summary.py)
-- [/Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py](file:///Users/macbook/ProjectTracker/tests/test_project_financial_card_payments.py)
-- [/Users/macbook/ProjectTracker/tracker/payments.py](file:///Users/macbook/ProjectTracker/tracker/payments.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tests/test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py](file:///Users/macbook/ProjectTracker/tests/test_quote_pdf_editor.py)
+- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
 
 ## Audit Trail
 
-- EXTRACTED: 176 (68%)
-- INFERRED: 82 (32%)
+- EXTRACTED: 224 (72%)
+- INFERRED: 85 (28%)
 - AMBIGUOUS: 0 (0%)
 
 ---

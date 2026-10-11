@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [El cliente se guarda como snapshot en la cotización al crearla; si el         cl](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L418) (0 connections)
+- [Regresión: smart_render_text/wrap_word_groups no restaban el margen         inte](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L515) (0 connections)
 
 ## Relationships
 

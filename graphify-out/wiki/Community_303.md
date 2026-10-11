@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Add or update an item in the mobile draft for the given project.      Finds the](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L50) (0 connections)
+- [Promote a draft quote to a real quote (status removed, quote_number assigned).](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L124) (0 connections)
 
 ## Relationships
 

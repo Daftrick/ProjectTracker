@@ -1,25 +1,26 @@
 # Community 49
 
-> 3 nodes · cohesion 1.00
+> 3 nodes · cohesion 0.67
 
 ## Key Concepts
 
-- [main()](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py#L26) (2 connections)
-- [_run_graphify()](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py#L12) (2 connections)
-- [graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py#L1) (2 connections)
+- [Project File Structure](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [CLAUDE.md Graphify Rules](file:///Users/macbook/ProjectTracker/CLAUDE.md) (1 connections)
+- [Flask Blueprints Architecture](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 51]] (4 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tools/graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py)
+- [CLAUDE.md](file:///Users/macbook/ProjectTracker/CLAUDE.md)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
 
 ## Audit Trail
 
-- EXTRACTED: 6 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 2 (50%)
+- INFERRED: 2 (50%)
 - AMBIGUOUS: 0 (0%)
 
 ---

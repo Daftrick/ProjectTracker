@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Divide la query en tokens normalizados, descartando vacíos.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py#L33) (0 connections)
+- [¿El artículo cumple con todos los tokens y la categoría exigida?      Los tokens](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py#L48) (0 connections)
 
 ## Relationships
 

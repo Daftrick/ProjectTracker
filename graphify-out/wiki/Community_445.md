@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [fpdf2 Dependency](file:///Users/macbook/ProjectTracker/requirements.txt) (0 connections)
+- [Quote Sections Feature](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [requirements.txt](file:///Users/macbook/ProjectTracker/requirements.txt)
+- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 

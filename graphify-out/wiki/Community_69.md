@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Valida y limpia los campos de un pago (fecha, monto, concepto).](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L399) (0 connections)
+- [Cambia el estado de una cotización libremente a borrador/activa/obsoleta,     el](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L490) (0 connections)
 
 ## Relationships
 

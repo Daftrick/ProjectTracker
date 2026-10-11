@@ -36,6 +36,11 @@
             </h2>
             <div id="colPortada" class="accordion-collapse collapse show">
               <div class="accordion-body pt-2">
+                <label for="edCoverName" class="form-label small fw-semibold mb-1">Nombre de la cotización</label>
+                <textarea class="form-control form-control-sm mb-1" name="cover_discipline"
+                          id="edCoverName" rows="3"
+                          placeholder="Descripción general del proyecto">{{ quote.cover_discipline or '' }}</textarea>
+                <div class="form-text mb-3">Aparece en la portada. Al guardar se actualiza también en la cotización.</div>
                 {% if quote_type in ('Extraordinaria', 'General', 'Proyecto') %}
                 <label class="form-label small fw-semibold mb-1">Nota base del proyecto</label>
                 <textarea class="form-control form-control-sm font-monospace"

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Mark a deleted catalog item as preserved (keep historical reference)](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L773) (0 connections)
+- [Nomenclatura de estados de cotización (borrador/activa/obsoleta),     editable p](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L971) (0 connections)
 
 ## Relationships
 

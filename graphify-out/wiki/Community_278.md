@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Clear the drive scan cache. Useful for testing or forcing fresh scans.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L158) (0 connections)
+- [Parsea nombre de archivo CSV COT: {CLAVE}-v{VER}-i{CONSEC}-COT-{YYYYMMDD}.csv](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L473) (0 connections)
 
 ## Relationships
 

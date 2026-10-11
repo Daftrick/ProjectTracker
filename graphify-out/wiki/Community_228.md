@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve una copia normalizada de un bundle.      La función tolera bundles inco](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L37) (0 connections)
+- [Obtiene la versión activa de un bundle.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L73) (0 connections)
 
 ## Relationships
 

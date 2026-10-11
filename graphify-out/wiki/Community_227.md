@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Bundles versionados para comparar COT contra LDM técnica.  Un bundle permite que](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L1) (0 connections)
+- [Normaliza un componente de bundle.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L63) (0 connections)
 
 ## Relationships
 

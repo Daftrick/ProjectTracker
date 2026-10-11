@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Shutdown and clear the lazy loader thread pool.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L164) (0 connections)
+- [Devuelve un dict de nombres de archivo CSV ya importados como cotización.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L504) (0 connections)
 
 ## Relationships
 

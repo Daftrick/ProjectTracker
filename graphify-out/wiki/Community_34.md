@@ -1,32 +1,17 @@
 # Community 34
 
-> 8 nodes · cohesion 0.39
+> 8 nodes · cohesion 0.25
 
 ## Key Concepts
 
-- [AdminFormsTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L6) (7 connections)
-- [.assert_invalid_form_preserved()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L13) (5 connections)
-- [.test_catalogo_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L20) (2 connections)
-- [.test_fichas_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L34) (2 connections)
-- [.test_proveedores_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L27) (2 connections)
-- [.test_team_invalid_form_preserves_capture()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L41) (2 connections)
-- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L7) (1 connections)
-- [test_admin_forms.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py#L1) (1 connections)
-
-## Class Diagram
-
-```mermaid
-classDiagram
-    class AdminFormsTest {
-        +test_admin_forms.py()
-        +.setUp()
-        +.assert_invalid_form_preserved()
-        +.test_catalogo_invalid_form_preserves_capture()
-        +.test_proveedores_invalid_form_preserves_capture()
-        +.test_fichas_invalid_form_preserves_capture()
-        +.test_team_invalid_form_preserves_capture()
-    }
-```
+- [quote_terms_editor.js](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L1) (7 connections)
+- [addTerm()](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L14) (1 connections)
+- [button](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L55) (1 connections)
+- [option](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L47) (1 connections)
+- [publish()](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L5) (1 connections)
+- [rows](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L2) (1 connections)
+- [select](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L3) (1 connections)
+- [terms](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L49) (1 connections)
 
 ## Relationships
 
@@ -34,11 +19,11 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_forms.py)
+- [/Users/macbook/ProjectTracker/static/quote_terms_editor.js](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js)
 
 ## Audit Trail
 
-- EXTRACTED: 22 (100%)
+- EXTRACTED: 14 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

@@ -1097,6 +1097,8 @@ def quote_pdf_editor(project_id, quote_id):
 
     if request.method == "POST":
         from ..terms_templates_config import quote_terms_from_form, resolve_quote_terms as _rqt
+        if "cover_discipline" in request.form:
+            quote["cover_discipline"] = request.form.get("cover_discipline", "").strip()
         specs = dict(quote.get("specs") or {})
         specs["alcance_custom"] = request.form.get("alcance_custom", "").strip()
         specs["nota_precio"] = request.form.get("nota_precio", "").strip()

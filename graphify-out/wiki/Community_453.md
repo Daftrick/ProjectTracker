@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Quote Bulk Row Selection & Actions Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
+- [Drag-and-Drop Row Reorder Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
 
 ## Relationships
 

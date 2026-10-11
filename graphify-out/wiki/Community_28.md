@@ -1,58 +1,53 @@
 # Community 28
 
-> 14 nodes · cohesion 0.16
+> 14 nodes · cohesion 0.24
 
 ## Key Concepts
 
-- [CompanyLogoUploadTests](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L8) (7 connections)
-- [_requires_configured_secret_key()](file:///Users/macbook/Documents/ProjectTracker/tracker/__init__.py#L49) (6 connections)
-- [AppConfigTests](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L8) (5 connections)
-- **TestCase** (3 connections)
-- [.test_custom_secret_is_allowed_in_production()](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L17) (2 connections)
-- [.test_default_secret_is_allowed_for_local_startup()](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L9) (2 connections)
-- [.test_default_secret_is_rejected_in_production()](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L13) (2 connections)
-- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L9) (1 connections)
-- [.test_empresa_preview_uses_serve_route_with_logo_version()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L33) (1 connections)
-- [.test_upload_accepts_real_png_and_saves_company_logo()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L17) (1 connections)
-- [.test_upload_rejects_extension_that_does_not_match_content()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L57) (1 connections)
-- [.test_upload_rejects_svg()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L42) (1 connections)
-- [test_app_config.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L1) (1 connections)
-- [test_company_logo_upload.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L1) (1 connections)
+- [validate_csv_catalog_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_catalog_validation.py#L21) (14 connections)
+- [CsvCatalogValidationTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_catalog_validation.py#L30) (7 connections)
+- [csv_catalog_validation.py](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_catalog_validation.py#L1) (6 connections)
+- [_catalog_index()](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_catalog_validation.py#L12) (3 connections)
+- [_clean()](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_catalog_validation.py#L4) (3 connections)
+- [_unit_key()](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_catalog_validation.py#L8) (3 connections)
+- [.test_accepts_normalized_name_and_matching_unit()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_catalog_validation.py#L31) (2 connections)
+- [.test_accepts_unit_case_insensitive()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_catalog_validation.py#L60) (2 connections)
+- [.test_blocks_catalog_item_without_unit()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_catalog_validation.py#L77) (2 connections)
+- [.test_blocks_missing_catalog_name()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_catalog_validation.py#L41) (2 connections)
+- [.test_blocks_unit_mismatch()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_catalog_validation.py#L51) (2 connections)
+- [.test_rejects_m_and_ml_as_different_units()](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_catalog_validation.py#L68) (2 connections)
+- [Validate parsed CSV rows against catalog name and unit.      Matching intentiona](file:///Users/macbook/ProjectTracker/tracker/csv_catalog_validation.py#L22) (1 connections)
+- [test_csv_catalog_validation.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_catalog_validation.py#L1) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AppConfigTests {
-        +test_app_config.py()
-        +.test_default_secret_is_allowed_for_local_startup()
-        +.test_default_secret_is_rejected_in_production()
-        +.test_custom_secret_is_allowed_in_production()
-    }
-    class CompanyLogoUploadTests {
-        +test_company_logo_upload.py()
-        +.setUp()
-        +.test_upload_accepts_real_png_and_saves_company_logo()
-        +.test_empresa_preview_uses_serve_route_with_logo_version()
-        +.test_upload_rejects_svg()
-        +.test_upload_rejects_extension_that_does_not_match_content()
+    class CsvCatalogValidationTest {
+        +test_csv_catalog_validation.py()
+        +.test_accepts_normalized_name_and_matching_unit()
+        +.test_blocks_missing_catalog_name()
+        +.test_blocks_unit_mismatch()
+        +.test_accepts_unit_case_insensitive()
+        +.test_rejects_m_and_ml_as_different_units()
+        +.test_blocks_catalog_item_without_unit()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 29]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_app_config.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/__init__.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_csv_catalog_validation.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_csv_catalog_validation.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/csv_catalog_validation.py](file:///Users/macbook/Documents/ProjectTracker/tracker/csv_catalog_validation.py)
+- [/Users/macbook/ProjectTracker/tracker/csv_catalog_validation.py](file:///Users/macbook/ProjectTracker/tracker/csv_catalog_validation.py)
 
 ## Audit Trail
 
-- EXTRACTED: 28 (82%)
-- INFERRED: 6 (18%)
+- EXTRACTED: 34 (68%)
+- INFERRED: 16 (32%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Asegura que cada artículo tenga el campo `categoria` (default '').      Migració](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L10) (0 connections)
+- [Generales y Preliminares compiten entre sí; Extraordinarias son independientes.](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L74) (0 connections)
 
 ## Relationships
 

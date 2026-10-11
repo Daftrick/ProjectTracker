@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Múltiples tipos de tubería en un mismo archivo LDM.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py#L196) (0 connections)
+- [Metadata #proyecto_clave y #quote_type del archivo COT LISP.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_tube_fixtures.py#L338) (0 connections)
 
 ## Relationships
 

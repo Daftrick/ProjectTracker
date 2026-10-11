@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Generales y Preliminares compiten entre sí; Extraordinarias son independientes.](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L74) (0 connections)
+- [Marca la cotización target_id como active.      Si es General/Preliminar, pasa l](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L113) (0 connections)
 
 ## Relationships
 

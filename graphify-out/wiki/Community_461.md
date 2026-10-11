@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Team Member Entity](file:///Users/macbook/ProjectTracker/templates/team.html) (0 connections)
+- [Google Drive Integration Settings](file:///Users/macbook/ProjectTracker/templates/settings.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/team.html](file:///Users/macbook/ProjectTracker/templates/team.html)
+- [templates/settings.html](file:///Users/macbook/ProjectTracker/templates/settings.html)
 
 ## Audit Trail
 

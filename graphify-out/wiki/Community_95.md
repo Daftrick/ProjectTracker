@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Parse #RRGGBB hex string to (r, g, b) int tuple.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L41) (0 connections)
+- [Registra fuentes PDF bajo el nombre 'DejaVu'.     Prioriza Atkinson Hyperlegible](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L71) (0 connections)
 
 ## Relationships
 

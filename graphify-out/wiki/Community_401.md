@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Construye una lista de filas comparadas, ordenada por severidad.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L226) (0 connections)
+- [Obtiene la versión activa de un bundle.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L72) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

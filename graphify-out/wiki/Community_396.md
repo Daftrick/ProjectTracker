@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [La cotización General más reciente; si no hay, la más reciente de cualquier tipo](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L77) (0 connections)
+- [Agrega artículos a través de TODAS las LDMs del proyecto.      Devuelve (linked_](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L126) (0 connections)
 
 ## Relationships
 

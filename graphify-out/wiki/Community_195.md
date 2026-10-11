@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Smoke tests de UI Admin para bundles.](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_bundles_routes.py#L1) (0 connections)
+- [Tests for the deleted catalog audit route.](file:///Users/macbook/ProjectTracker/tests%5Ctest_audit_deleted_catalog_route.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_bundles_routes.py)
+- [tests\test_audit_deleted_catalog_route.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_audit_deleted_catalog_route.py)
 
 ## Audit Trail
 

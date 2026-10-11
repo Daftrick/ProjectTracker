@@ -1,11 +1,10 @@
 # Community 55
 
-> 2 nodes · cohesion 1.00
+> 1 nodes · cohesion 1.00
 
 ## Key Concepts
 
-- [Inline Catalog Autocomplete Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
-- [Client-side Partida Filter Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
+- [El cliente se guarda como snapshot en la cotización al crearla; si el         cl](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L418) (0 connections)
 
 ## Relationships
 
@@ -13,12 +12,12 @@
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
+- [/Users/macbook/ProjectTracker/tests/test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py)
 
 ## Audit Trail
 
 - EXTRACTED: 0 (0%)
-- INFERRED: 2 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

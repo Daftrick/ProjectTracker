@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Normaliza un componente de bundle.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L63) (0 connections)
+- [Return included component rows for one commercial quote item.      Renderers con](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L131) (0 connections)
 
 ## Relationships
 

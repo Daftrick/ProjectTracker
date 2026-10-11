@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Restore a deleted catalog item by reconnecting it to a new catalog item](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L740) (0 connections)
+- [Purge a deleted catalog item from the quote](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L801) (0 connections)
 
 ## Relationships
 

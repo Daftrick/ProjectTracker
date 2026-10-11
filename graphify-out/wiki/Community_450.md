@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Roadmap Completed Features](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (0 connections)
+- [Quote Sectioned Line Items Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
+- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
 
 ## Audit Trail
 

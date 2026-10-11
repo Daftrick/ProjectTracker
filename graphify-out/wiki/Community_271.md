@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Check if cached result is still valid](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L58) (0 connections)
+- [Store result in cache](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L81) (0 connections)
 
 ## Relationships
 

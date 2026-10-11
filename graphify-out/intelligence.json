@@ -2,7 +2,7 @@
   "hotspots": [
     {
       "label": "build_quote_pdf()",
-      "risk": 0.847,
+      "risk": 0.848,
       "type": "FUNCTION"
     },
     {
@@ -30,7 +30,7 @@
     "load()": 150,
     "save()": 112,
     "today()": 56,
-    "build_quote_pdf()": 35,
+    "build_quote_pdf()": 36,
     "catalog_maps()": 32
   }
 }

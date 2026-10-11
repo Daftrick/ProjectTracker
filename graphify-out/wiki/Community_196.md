@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Pruebas de filtros administrativos para proveedores y fichas.](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_filters.py#L1) (0 connections)
+- [Cobertura de los bundles reales en data/bundles.json.](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py#L74) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_admin_filters.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_filters.py)
+- [tests\test_bundles.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py)
 
 ## Audit Trail
 

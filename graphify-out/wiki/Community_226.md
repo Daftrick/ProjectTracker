@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Returns a User if credentials are valid and account is active, else None.](file:///Users/macbook/ProjectTracker/tracker%5Cauth.py#L118) (0 connections)
+- [Devuelve una copia normalizada de un bundle.      La función tolera bundles inco](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L37) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\auth.py](file:///Users/macbook/ProjectTracker/tracker%5Cauth.py)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

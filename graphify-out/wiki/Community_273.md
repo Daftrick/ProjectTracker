@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Store result in cache](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L81) (0 connections)
+- [Get file information for a single file](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L105) (0 connections)
 
 ## Relationships
 

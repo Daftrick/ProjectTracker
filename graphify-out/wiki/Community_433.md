@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Asegura que cada artículo tenga el campo `categoria` (default '').      Migració](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L7) (0 connections)
+- [Parse a LISP-exported material list CSV into LDM draft data.      Args:](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L67) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [tracker/csv_import.py](file:///Users/macbook/ProjectTracker/tracker/csv_import.py)
 
 ## Audit Trail
 

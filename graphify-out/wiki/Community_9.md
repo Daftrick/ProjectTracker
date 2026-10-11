@@ -1,6 +1,6 @@
 # Community 9
 
-> 59 nodes · cohesion 0.07
+> 56 nodes · cohesion 0.07
 
 ## Key Concepts
 
@@ -11,16 +11,13 @@
 - [import_ldm_pdf_create()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L778) (11 connections)
 - [sync_ldm_bundles()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L444) (11 connections)
 - [pdf_ldm_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L1) (11 connections)
-- [new_ldm()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L219) (10 connections)
 - [edit_ldm()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L380) (9 connections)
 - [import_ldm_pdf_map()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L750) (9 connections)
-- [_bundle_suggestion_ldm()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L157) (8 connections)
 - [extract_items_from_pdf()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L291) (8 connections)
 - [_clear_pdf_import()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L655) (7 connections)
 - [import_ldm_pdf_upload()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L693) (7 connections)
 - [ldm_pdf_editor()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L588) (7 connections)
 - [_load_pdf_import()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L672) (7 connections)
-- [ldm_from_form()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L145) (6 connections)
 - [_bundle_sync_suggestions()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L194) (6 connections)
 - [_ldm_csv_response()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L122) (6 connections)
 - [ldm_pdf()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L561) (6 connections)
@@ -29,7 +26,10 @@
 - [_clean_form_text()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L27) (5 connections)
 - [_store_pdf_import()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L663) (5 connections)
 - [_extract_from_tables()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L202) (5 connections)
-- *... and 34 more nodes in this community*
+- [_csv_already_imported()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L59) (4 connections)
+- [delete_ldm()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L511) (4 connections)
+- [_hydrate_import_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L70) (4 connections)
+- *... and 31 more nodes in this community*
 
 ## Class Diagram
 
@@ -53,14 +53,13 @@ classDiagram
 - [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
 - [/Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py)
 - [/Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py)
-- [/Users/macbook/ProjectTracker/tracker/form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py)
 - [/Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py)
 - [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
 
 ## Audit Trail
 
-- EXTRACTED: 237 (72%)
-- INFERRED: 93 (28%)
+- EXTRACTED: 230 (75%)
+- INFERRED: 76 (25%)
 - AMBIGUOUS: 0 (0%)
 
 ---

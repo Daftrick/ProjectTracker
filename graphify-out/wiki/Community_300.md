@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return catalog items filtered by disciplina. None / 'Todos' returns all.](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L10) (0 connections)
+- [Recompute subtotal/tax/total from draft items in-place.](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L41) (0 connections)
 
 ## Relationships
 

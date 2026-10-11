@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Severidad del renglón para colorear.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L183) (0 connections)
+- [Resumen financiero simple para inyectar en plantillas.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L405) (0 connections)
 
 ## Relationships
 
