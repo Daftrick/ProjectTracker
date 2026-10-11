@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Aplica búsqueda por tokens y filtro de categoría, ordenado alfabéticamente.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py#L68) (0 connections)
+- [Búsqueda y filtrado del catálogo.  Funciones puras (sin I/O) para reutilizar ent](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py#L1) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Retorna la fecha en formato dd-mm-aa (ej: 22-08-26). Usado en campos     compact](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py#L101) (0 connections)
+- [Regresión: smart_render_text/wrap_word_groups no restaban el margen         inte](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L515) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tests/test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py)
 
 ## Audit Trail
 

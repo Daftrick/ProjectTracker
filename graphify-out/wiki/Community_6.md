@@ -4,19 +4,19 @@
 
 ## Key Concepts
 
-- [build_quote_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L251) (35 connections)
+- [build_quote_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L241) (35 connections)
 - [pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1) (22 connections)
-- [build_ldm_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1423) (14 connections)
+- [build_ldm_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1403) (14 connections)
 - [quote_cover_copy()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L208) (12 connections)
 - [_safe_text()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L52) (11 connections)
-- [build_progress_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1907) (9 connections)
+- [build_progress_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L1887) (9 connections)
 - [quote_sequence_from_number()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L203) (9 connections)
-- [quote_project_basis_note()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L228) (8 connections)
+- [quote_project_basis_note()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L218) (8 connections)
 - [QuoteCoverCopyTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L13) (8 connections)
-- [QuotePdfSectionsTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L147) (8 connections)
-- [QuoteSequenceFromNumberTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L77) (8 connections)
+- [QuotePdfSectionsTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L149) (8 connections)
+- [QuoteSequenceFromNumberTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L79) (8 connections)
 - [_load_company()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L136) (7 connections)
-- [QuoteProjectBasisNoteTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L52) (6 connections)
+- [QuoteProjectBasisNoteTest](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L54) (6 connections)
 - [test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L1) (6 connections)
 - [catalog_description_lookup()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L182) (5 connections)
 - [_fitted_cell()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L82) (5 connections)
@@ -27,7 +27,7 @@
 - [_hex_to_rgb()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L41) (4 connections)
 - [money_pdf()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L120) (4 connections)
 - [note_lines()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L129) (4 connections)
-- [quote_catalog_description()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L244) (4 connections)
+- [quote_catalog_description()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L234) (4 connections)
 - [_company_name()](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L173) (3 connections)
 - *... and 43 more nodes in this community*
 

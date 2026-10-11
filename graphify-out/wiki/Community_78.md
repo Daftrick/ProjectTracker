@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return the company dict from company.json, or {} on any error.](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py#L147) (0 connections)
+- [Acceso rápido desde el panel lateral: todos los pagos de todas las     cotizacio](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L1034) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 

@@ -93,8 +93,8 @@ class QuoteTermsEditingTest(unittest.TestCase):
                     description_words = pdf.pages[0].extract_words(extra_attrs=["size"])
                     description_word = next(w for w in description_words if w["text"] == "Diseño")
                     self.assertAlmostEqual(description_word["size"], expected_size, places=2)
-                    heading_word = next(w for w in description_words if w["text"] == "Cotización")
-                    self.assertGreater(description_word["size"], heading_word["size"])
+                    self.assertIn("PROPUESTA ECONÓMICA", pdf.pages[0].extract_text())
+                    self.assertNotIn("Cotización", {w["text"] for w in description_words})
                 quote["specs"]["terms"] = []
                 with pdfplumber.open(io.BytesIO(build_quote_pdf({"name": "Proyecto"}, quote))) as pdf:
                     text = "\n".join(page.extract_text() or "" for page in pdf.pages)

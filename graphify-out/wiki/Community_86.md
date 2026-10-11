@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Flattens sections and merges duplicate items (same catalog ID or description+uni](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L252) (0 connections)
+- [Tipos base compiten entre sí (una activa por proyecto); Extraordinarias son inde](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L81) (0 connections)
 
 ## Relationships
 

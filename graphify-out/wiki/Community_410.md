@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Artículos ignorados en comparación COT/LDM.  Los artículos ignorados siguen form](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L1) (0 connections)
+- [Expande las partidas COT con bundle a materiales esperados.      Retorna un dicc](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L178) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Scan multiple drive folders in parallel for better performance.      Args:](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L652) (0 connections)
+- [Load file information in parallel for better performance](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L117) (0 connections)
 
 ## Relationships
 

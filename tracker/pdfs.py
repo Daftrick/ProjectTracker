@@ -207,22 +207,12 @@ def quote_sequence_from_number(quote_number):
 
 def quote_cover_copy(quote):
     discipline = str(quote.get("cover_discipline") or "").strip()
-    _d = f"\n{discipline}" if discipline else ""
-    _de_d = f" de\n{discipline}" if discipline else ""
     quote_type = quote_type_key(quote.get("quote_type"))
-    if quote_type == "Proyecto":
-        return f"Cotización de Proyecto{_d}", None
-    if quote_type == "Obra":
-        return f"Cotización de Obra{_d}", None
-    if quote_type == "Servicio":
-        return f"Cotización de Servicio{_d}", None
-    if quote_type == "Preliminar":
-        return f"Cotización Preliminar{_de_d}", None
     if quote_type == "Extraordinaria":
         sequence = quote_sequence_from_number(quote.get("quote_number"))
         subtitle = f"Número secuencial de cotización {sequence}" if sequence else "Número secuencial de cotización"
-        return f"Cotización Extraordinaria{_de_d}", subtitle
-    return f"Cotización{_d}", None
+        return discipline, subtitle
+    return discipline, None
 
 
 def quote_project_basis_note(quote):
@@ -774,12 +764,9 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.cell(0, 5, "PROPUESTA ECONÓMICA")
         pdf.set_xy(pdf.l_margin, _sep_y + 20)
         pdf.set_text_color(*INK)
-        pdf.set_font("Lato", "B", 18.0 if "\n" in cover_title else 24.0)
-        pdf.multi_cell(content_width, 7, _safe_text(cover_title.split("\n", 1)[0]))
-        if "\n" in cover_title:
-            pdf.set_x(pdf.l_margin)
+        if cover_title:
             pdf.set_font("Lato", "B", 24.0)
-            pdf.multi_cell(content_width, 9, _safe_text(cover_title.split("\n", 1)[1]), align="L")
+            pdf.multi_cell(content_width, 9, _safe_text(cover_title), align="L")
         if cover_basis_note:
             pdf.ln(1)
             pdf.set_x(pdf.l_margin)
@@ -918,12 +905,8 @@ def build_quote_pdf(project, quote, output_path=None):
         _txt_x = pdf.l_margin + _logo_col_w + 5   # columna derecha: inicio X
         _txt_w = content_width - _logo_col_w - 5  # columna derecha: ancho
 
-        pdf.set_font("Lato", "B", 12.0 if "\n" in cover_title else 16.0)
-        _title_h = pdf.multi_cell(_txt_w, 6.0, _safe_text(cover_title.split("\n", 1)[0]), dry_run=True, output="HEIGHT")
-        _desc_h = 0
-        if "\n" in cover_title:
-            pdf.set_font("Lato", "B", 18.0)
-            _desc_h = pdf.multi_cell(_txt_w, 6.7, _safe_text(cover_title.split("\n", 1)[1]), dry_run=True, output="HEIGHT")
+        pdf.set_font("Lato", "B", 18.0)
+        _title_h = pdf.multi_cell(_txt_w, 6.7, _safe_text(cover_title), dry_run=True, output="HEIGHT") if cover_title else 0
         _basis_h = 0
         if cover_basis_note:
             pdf.set_font("Lato", "", 10.0)
@@ -932,7 +915,7 @@ def build_quote_pdf(project, quote, output_path=None):
         if proposal_for:
             pdf.set_font("Lato", "B", 12.5)
             _proposal_h = 7 + pdf.multi_cell(_txt_w, 5.0, _safe_text(proposal_for[1]), dry_run=True, output="HEIGHT")
-        _banner_h = max(_banner_h, 14 + _title_h + _desc_h + _basis_h + _proposal_h + 7)
+        _banner_h = max(_banner_h, 14 + _title_h + _basis_h + _proposal_h + 7)
         pdf.set_fill_color(*_portada_fill)
         pdf.rect(0, 0, 210, _banner_h, style="F")
 
@@ -954,12 +937,9 @@ def build_quote_pdf(project, quote, output_path=None):
 
         pdf.set_xy(_txt_x, 14)
         pdf.set_text_color(*_banner_ink)
-        pdf.set_font("Lato", "B", 12.0 if "\n" in cover_title else 16.0)
-        pdf.multi_cell(_txt_w, 6.0, _safe_text(cover_title.split("\n", 1)[0]))
-        if "\n" in cover_title:
-            pdf.set_x(_txt_x)
+        if cover_title:
             pdf.set_font("Lato", "B", 18.0)
-            pdf.multi_cell(_txt_w, 6.7, _safe_text(cover_title.split("\n", 1)[1]), align="L")
+            pdf.multi_cell(_txt_w, 6.7, _safe_text(cover_title), align="L")
 
         if cover_basis_note:
             pdf.set_x(_txt_x)

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Construye resumen compacto para UI.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L74) (0 connections)
+- [Normaliza una regla de artículo ignorado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L23) (0 connections)
 
 ## Relationships
 

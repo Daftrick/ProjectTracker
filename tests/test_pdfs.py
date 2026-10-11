@@ -12,41 +12,43 @@ from tracker.pdfs import (
 
 class QuoteCoverCopyTest(unittest.TestCase):
     def test_proyecto(self):
-        title, subtitle = quote_cover_copy({"quote_type": "Proyecto"})
-        self.assertIn("Proyecto", title)
+        title, subtitle = quote_cover_copy({"quote_type": "Proyecto", "cover_discipline": "Diseño eléctrico"})
+        self.assertEqual(title, "Diseño eléctrico")
         self.assertIsNone(subtitle)
 
     def test_obra(self):
-        title, subtitle = quote_cover_copy({"quote_type": "Obra"})
-        self.assertIn("Obra", title)
+        title, subtitle = quote_cover_copy({"quote_type": "Obra", "cover_discipline": "Instalación eléctrica"})
+        self.assertEqual(title, "Instalación eléctrica")
         self.assertIsNone(subtitle)
 
     def test_servicio(self):
-        title, subtitle = quote_cover_copy({"quote_type": "Servicio"})
-        self.assertIn("Servicio", title)
+        title, subtitle = quote_cover_copy({"quote_type": "Servicio", "cover_discipline": "Mantenimiento"})
+        self.assertEqual(title, "Mantenimiento")
         self.assertIsNone(subtitle)
 
     def test_extraordinaria_with_sequence(self):
         title, subtitle = quote_cover_copy({
             "quote_type": "Extraordinaria",
             "quote_number": "COT-OM001-E03-20260618",
+            "cover_discipline": "Trabajos adicionales",
         })
-        self.assertIn("Extraordinaria", title)
+        self.assertEqual(title, "Trabajos adicionales")
         self.assertIn("03", subtitle)
 
     def test_extraordinaria_no_sequence(self):
         title, subtitle = quote_cover_copy({"quote_type": "Extraordinaria", "quote_number": ""})
-        self.assertIn("Extraordinaria", title)
+        self.assertEqual(title, "")
         self.assertIsNotNone(subtitle)
 
     def test_preliminar(self):
-        title, subtitle = quote_cover_copy({"quote_type": "Preliminar"})
-        self.assertIn("Preliminar", title)
+        title, subtitle = quote_cover_copy({"quote_type": "Preliminar", "cover_discipline": "Estimación de instalaciones"})
+        self.assertEqual(title, "Estimación de instalaciones")
         self.assertIsNone(subtitle)
 
     def test_general_fallback(self):
         title, subtitle = quote_cover_copy({"quote_type": "General"})
-        self.assertIn("Cotización", title)
+        self.assertEqual(title, "")
+        self.assertIsNone(subtitle)
 
 
 class QuoteProjectBasisNoteTest(unittest.TestCase):

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Pruebas para tracker.catalog_search y la API /api/catalogo.](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py#L1) (0 connections)
+- [Smoke tests de UI Admin para bundles.](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_bundles_routes.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py)
+- [tests\test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_admin_bundles_routes.py)
 
 ## Audit Trail
 

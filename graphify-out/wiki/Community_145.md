@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Activa una versión y archiva la versión activa anterior.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L241) (0 connections)
+- [Return included component rows for one commercial quote item.      Renderers con](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L131) (0 connections)
 
 ## Relationships
 

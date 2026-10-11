@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Severidad del renglón para colorear.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L188) (0 connections)
+- [Convierte un margen porcentual en un status discreto.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L66) (0 connections)
 
 ## Relationships
 

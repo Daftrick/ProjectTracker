@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Decora archivos CSV COT con estado: importado/pendiente/desactualizado.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L518) (0 connections)
+- [Shutdown the thread pool](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L147) (0 connections)
 
 ## Relationships
 

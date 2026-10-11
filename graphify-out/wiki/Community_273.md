@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Clear the drive scan cache. Useful for testing or forcing fresh scans.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L158) (0 connections)
+- [Store result in cache](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L81) (0 connections)
 
 ## Relationships
 

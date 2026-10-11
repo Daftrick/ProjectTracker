@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Descuento a nivel cotización, aplicado antes del IVA:     subtotal -> descuento](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L341) (0 connections)
+- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L89) (0 connections)
 
 ## Relationships
 

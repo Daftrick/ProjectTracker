@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Shutdown the thread pool](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L146) (0 connections)
+- [Get cached result if valid](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L73) (0 connections)
 
 ## Relationships
 

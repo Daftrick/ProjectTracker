@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Etiqueta y valor de la línea "Propuesta para" de la portada.      proposal_for_m](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L387) (0 connections)
+- [Cambia el approval_status de una cotización a cualquiera de los 3     estados vá](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L148) (0 connections)
 
 ## Relationships
 

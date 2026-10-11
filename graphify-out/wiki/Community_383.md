@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Get file information for a single file](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L104) (0 connections)
+- [Create cache key from folder path and parameters](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L53) (0 connections)
 
 ## Relationships
 

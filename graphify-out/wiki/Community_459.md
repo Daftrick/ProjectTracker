@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convenciones de Nomenclatura de Archivos](file:///Users/macbook/ProjectTracker/VERSIONES.md) (0 connections)
+- [Catalog Bulk Delete Pattern](file:///Users/macbook/ProjectTracker/templates/catalogo.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [templates/catalogo.html](file:///Users/macbook/ProjectTracker/templates/catalogo.html)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve un dict de nombres de archivo CSV ya importados como cotización.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L504) (0 connections)
+- [Load file information in parallel for better performance](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L118) (0 connections)
 
 ## Relationships
 

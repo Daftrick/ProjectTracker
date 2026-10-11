@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Team Member Entity](file:///Users/macbook/ProjectTracker/templates/team.html) (0 connections)
+- [Auto-generated Quote Number Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/team.html](file:///Users/macbook/ProjectTracker/templates/team.html)
+- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
 
 ## Audit Trail
 
