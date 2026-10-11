@@ -4,12 +4,12 @@
 
 ## Key Concepts
 
-- [Fixed Bottom Summary Bar Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
-- [Sticky Table Header with Dynamic Offset Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
+- [Inline Catalog Autocomplete Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
+- [Client-side Partida Filter Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
 
 ## Relationships
 
-- [[Community 54]] (2 shared connections)
+- [[Community 53]] (2 shared connections)
 
 ## Source Files
 

@@ -1,33 +1,40 @@
 # Community 35
 
-> 7 nodes · cohesion 0.43
+> 6 nodes · cohesion 0.33
 
 ## Key Concepts
 
-- [Catálogo Data Structure](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (4 connections)
-- [Cotización al Cliente (COT) Data Structure](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (3 connections)
-- [Lista de Materiales (LDM) Data Structure](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (3 connections)
-- [JSON Data Files (data/)](file:///Users/macbook/ProjectTracker/data) (3 connections)
-- [Deleted Catalog Audit System](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
-- [CSV→LDM Import Diff Algorithm](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
-- [Pending: Destructive Action Confirmations](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [LdmPdfImportRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L14) (4 connections)
+- [.test_upload_stores_pdf_import_payload_outside_cookie_session()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L24) (3 connections)
+- [test_ldm_pdf_import_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L1) (2 connections)
+- [.test_create_pdf_import_is_blocked_when_project_is_closed()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L83) (1 connections)
+- [.test_upload_pdf_is_blocked_when_project_is_closed()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L68) (1 connections)
+- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py#L16) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class LdmPdfImportRoutesTest {
+        +test_ldm_pdf_import_routes.py()
+        +.test_upload_stores_pdf_import_payload_outside_cookie_session()
+        +.test_upload_pdf_is_blocked_when_project_is_closed()
+        +.test_create_pdf_import_is_blocked_when_project_is_closed()
+    }
+```
 
 ## Relationships
 
-- [[Community 37]] (18 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [REFERENCIA_ESTRUCTURAS_CSV.txt](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt)
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
-- [data/](file:///Users/macbook/ProjectTracker/data)
-- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 12 (67%)
-- INFERRED: 6 (33%)
+- EXTRACTED: 10 (83%)
+- INFERRED: 2 (17%)
 - AMBIGUOUS: 0 (0%)
 
 ---

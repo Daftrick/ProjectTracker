@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return included component rows for one commercial quote item.      Renderers con](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L131) (0 connections)
+- [Attach non-priced bundle inclusions to hydrated quote items.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L175) (0 connections)
 
 ## Relationships
 

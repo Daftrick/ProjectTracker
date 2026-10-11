@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Comparison Ignored Item Entity](file:///Users/macbook/ProjectTracker/templates/comparison_rules.html) (0 connections)
+- [Google Drive Integration Settings](file:///Users/macbook/ProjectTracker/templates/settings.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/comparison_rules.html](file:///Users/macbook/ProjectTracker/templates/comparison_rules.html)
+- [templates/settings.html](file:///Users/macbook/ProjectTracker/templates/settings.html)
 
 ## Audit Trail
 

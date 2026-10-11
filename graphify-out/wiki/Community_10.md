@@ -1,6 +1,6 @@
 # Community 10
 
-> 51 nodes · cohesion 0.07
+> 54 nodes · cohesion 0.06
 
 ## Key Concepts
 
@@ -20,16 +20,16 @@
 - [build_ldm_row_views()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L49) (4 connections)
 - [build_task_row_views()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L104) (4 connections)
 - [all_quotes()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L993) (4 connections)
+- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L122) (4 connections)
 - [_deleted_catalog_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L33) (3 connections)
+- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L90) (3 connections)
 - [.test_custom_label_reflected_in_row_views()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L113) (3 connections)
+- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L48) (3 connections)
 - [.test_blank_values_fall_back_to_defaults()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L65) (3 connections)
 - [.test_quote_status_view_uses_saved_label()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L77) (3 connections)
 - [.test_save_and_get_roundtrip()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L58) (3 connections)
 - [test_quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L1) (3 connections)
-- [_coverage_color()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L145) (2 connections)
-- [_observation_view()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L93) (2 connections)
-- [_status_color()](file:///Users/macbook/Documents/ProjectTracker/tracker/project_view.py#L24) (2 connections)
-- *... and 26 more nodes in this community*
+- *... and 29 more nodes in this community*
 
 ## Class Diagram
 
@@ -91,8 +91,8 @@ classDiagram
 
 ## Audit Trail
 
-- EXTRACTED: 126 (61%)
-- INFERRED: 80 (39%)
+- EXTRACTED: 129 (60%)
+- INFERRED: 87 (40%)
 - AMBIGUOUS: 0 (0%)
 
 ---

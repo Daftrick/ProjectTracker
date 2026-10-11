@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Create cache key from folder path and parameters](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L54) (0 connections)
+- [Check if cached result is still valid](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L58) (0 connections)
 
 ## Relationships
 

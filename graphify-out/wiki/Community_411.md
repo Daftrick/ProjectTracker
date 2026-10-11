@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Agrega LDM convirtiendo artículos LDM al ID/unidad esperada de COT.      Si un a](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L102) (0 connections)
+- [Compara materiales esperados por bundles contra LDM real convertida.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L159) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Get folder modification time for invalidation](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L46) (0 connections)
+- [Create cache key from folder path and parameters](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L53) (0 connections)
 
 ## Relationships
 

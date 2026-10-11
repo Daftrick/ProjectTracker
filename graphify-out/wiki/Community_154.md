@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Registra fuentes PDF bajo el nombre 'DejaVu'.     Prioriza Atkinson Hyperlegible](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L65) (0 connections)
+- [Return the company dict from company.json, or {} on any error.](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L120) (0 connections)
 
 ## Relationships
 

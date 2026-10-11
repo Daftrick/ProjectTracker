@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [LDM CSV Import Preview Mode](file:///Users/macbook/ProjectTracker/templates/ldm_form.html) (0 connections)
+- [Catalog Inline AJAX Edit Pattern](file:///Users/macbook/ProjectTracker/templates/catalogo.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/ldm_form.html](file:///Users/macbook/ProjectTracker/templates/ldm_form.html)
+- [templates/catalogo.html](file:///Users/macbook/ProjectTracker/templates/catalogo.html)
 
 ## Audit Trail
 

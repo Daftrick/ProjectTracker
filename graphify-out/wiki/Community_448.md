@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Roadmap Completed Features](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (0 connections)
+- [Quote Status Lifecycle (Borrador/Enviada/Aprobada/Rechazada)](file:///Users/macbook/ProjectTracker/templates/quotes.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
+- [templates/quotes.html](file:///Users/macbook/ProjectTracker/templates/quotes.html)
 
 ## Audit Trail
 

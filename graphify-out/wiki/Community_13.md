@@ -1,6 +1,6 @@
 # Community 13
 
-> 40 nodes · cohesion 0.09
+> 39 nodes · cohesion 0.09
 
 ## Key Concepts
 
@@ -10,7 +10,6 @@
 - [QuoteTermsEditingTest](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L20) (10 connections)
 - [FormModelsTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_form_models.py#L8) (9 connections)
 - [get_terms_templates()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L72) (7 connections)
-- [ldm_from_form()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L145) (6 connections)
 - [quote_terms_from_form()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L127) (6 connections)
 - [.form()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L27) (6 connections)
 - [_normalize()](file:///Users/macbook/ProjectTracker/tracker/terms_templates_config.py#L62) (5 connections)
@@ -29,7 +28,8 @@
 - [.test_empty_terms_are_intentional_and_old_forms_keep_terms()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L70) (3 connections)
 - [.test_save_in_both_editors_preserves_quote_terms_and_template()](file:///Users/macbook/ProjectTracker/tests/test_quote_terms_editing.py#L105) (3 connections)
 - [_to_float()](file:///Users/macbook/ProjectTracker/tracker/form_models.py#L188) (2 connections)
-- *... and 15 more nodes in this community*
+- [.test_ldm_from_form_preserves_deleted_catalog_snapshot()](file:///Users/macbook/Documents/ProjectTracker/tests/test_form_models.py#L169) (2 connections)
+- *... and 14 more nodes in this community*
 
 ## Class Diagram
 
@@ -74,8 +74,8 @@ classDiagram
 
 ## Audit Trail
 
-- EXTRACTED: 110 (66%)
-- INFERRED: 57 (34%)
+- EXTRACTED: 109 (68%)
+- INFERRED: 52 (32%)
 - AMBIGUOUS: 0 (0%)
 
 ---

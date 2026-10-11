@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Filtra faltantes por seleccion explicita de catalog_item_id.](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py#L96) (0 connections)
+- [Anexa faltantes a una LDM y devuelve (copia_actualizada, agregados).](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py#L114) (0 connections)
 
 ## Relationships
 

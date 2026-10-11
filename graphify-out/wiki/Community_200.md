@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Pruebas para tracker.consistency.  Cubre:     - clasificación de margen (umbrale](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py#L1) (0 connections)
+- [Sin General, usa la Preliminar más reciente. Las Extraordinarias no son base.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py#L89) (0 connections)
 
 ## Relationships
 

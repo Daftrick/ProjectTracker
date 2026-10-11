@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Returns a redirect Response if the current POST is not from an admin, else None.](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L39) (0 connections)
+- [One-time migration: split 'Marca | Nombre' items into separate marca + nombre fi](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L267) (0 connections)
 
 ## Relationships
 

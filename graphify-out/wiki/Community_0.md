@@ -4,31 +4,31 @@
 
 ## Key Concepts
 
-- [load()](file:///Users/macbook/Documents/ProjectTracker/tracker/storage.py#L40) (150 connections)
-- [save()](file:///Users/macbook/Documents/ProjectTracker/tracker/storage.py#L49) (112 connections)
+- [load()](file:///Users/macbook/Documents/ProjectTracker/tracker/storage.py#L40) (151 connections)
+- [save()](file:///Users/macbook/Documents/ProjectTracker/tracker/storage.py#L49) (113 connections)
 - [admin.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L1) (66 connections)
 - [today()](file:///Users/macbook/Documents/ProjectTracker/tracker/storage.py#L66) (56 connections)
+- [materials.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L1) (45 connections)
 - [projects.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/projects.py#L1) (27 connections)
-- [create_app()](file:///Users/macbook/Documents/ProjectTracker/tracker/__init__.py#L53) (22 connections)
 - [storage.py](file:///Users/macbook/Documents/ProjectTracker/tracker/storage.py#L1) (21 connections)
 - [new_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/storage.py#L62) (20 connections)
-- [__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/__init__.py#L1) (17 connections)
+- [import_ldm_csv_upload()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L267) (15 connections)
+- [hydrate_ldm()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L481) (12 connections)
+- [_find_project()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L31) (12 connections)
 - [add_bundle_version_route()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L513) (11 connections)
+- [import_ldm_pdf_create()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L778) (11 connections)
+- [sync_ldm_bundles()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L444) (11 connections)
 - [deletions.py](file:///Users/macbook/Documents/ProjectTracker/tracker/deletions.py#L1) (11 connections)
 - [bundles()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L428) (10 connections)
 - [new_ldm()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L219) (10 connections)
 - [update_bundle_version()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L491) (9 connections)
+- [edit_ldm()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L380) (9 connections)
+- [import_ldm_pdf_map()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L750) (9 connections)
 - [QuoteClientOverrideRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L95) (9 connections)
 - [catalogo()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L165) (8 connections)
 - [_bundle_suggestion_ldm()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L157) (8 connections)
 - [get_project_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/templates_config.py#L17) (8 connections)
 - [ProyectoEjecutivoQuoteRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_proyecto_ejecutivo_quote.py#L26) (8 connections)
-- [QuoteDescTextareaRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L64) (8 connections)
-- [fichas()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L628) (7 connections)
-- [proveedores()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L570) (7 connections)
-- [team()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L699) (7 connections)
-- [update_bundle()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L458) (7 connections)
-- [kanban()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/projects.py#L71) (7 connections)
 - *... and 161 more nodes in this community*
 
 ## Class Diagram
@@ -86,35 +86,35 @@ classDiagram
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 9]] (3 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py)
 - [/Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_templates.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_kanban.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_payments.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_payments_summary.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments_summary.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_financial_card_payments.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_deletions.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_deletions.py)
 - [/Users/macbook/Documents/ProjectTracker/tests/test_proyecto_ejecutivo_quote.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_proyecto_ejecutivo_quote.py)
 - [/Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_sync.py)
 - [/Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py)
 - [/Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/__init__.py)
 - [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/catalog_search.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog_search.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/company_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/company_config.py)
 - [/Users/macbook/Documents/ProjectTracker/tracker/deletions.py](file:///Users/macbook/Documents/ProjectTracker/tracker/deletions.py)
 - [/Users/macbook/Documents/ProjectTracker/tracker/domain.py](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py)
 - [/Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/routes/projects.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/projects.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/storage.py](file:///Users/macbook/Documents/ProjectTracker/tracker/storage.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/templates_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/templates_config.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tracker/deletions.py](file:///Users/macbook/ProjectTracker/tracker/deletions.py)
+- [/Users/macbook/ProjectTracker/tracker/form_models.py](file:///Users/macbook/ProjectTracker/tracker/form_models.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/projects.py](file:///Users/macbook/ProjectTracker/tracker/routes/projects.py)
 
 ## Audit Trail
 
-- EXTRACTED: 480 (41%)
-- INFERRED: 678 (59%)
+- EXTRACTED: 577 (46%)
+- INFERRED: 672 (54%)
 - AMBIGUOUS: 0 (0%)
 
 ---

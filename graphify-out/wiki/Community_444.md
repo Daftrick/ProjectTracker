@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [scan_drive_folder Function](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (0 connections)
+- [Quote Sections Feature](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (0 connections)
 
 ## Relationships
 

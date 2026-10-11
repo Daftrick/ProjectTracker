@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Indexa bundles por el artículo comercial de catálogo usado en COT.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L87) (0 connections)
+- [Return included component rows for one commercial quote item.      Renderers con](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L131) (0 connections)
 
 ## Relationships
 

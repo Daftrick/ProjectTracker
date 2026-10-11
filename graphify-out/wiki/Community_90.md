@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Descuento a nivel cotización, aplicado antes del IVA:     subtotal -> descuento](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L341) (0 connections)
+- [Cliente a mostrar en PDF/Excel/vistas de una cotización.      Prioridad: 1) over](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L366) (0 connections)
 
 ## Relationships
 

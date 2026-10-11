@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Remove an item by catalog_item_id from the mobile draft.      Returns (updated_q](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L102) (0 connections)
+- [Promote a draft quote to a real quote (status removed, quote_number assigned).](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L124) (0 connections)
 
 ## Relationships
 

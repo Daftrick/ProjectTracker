@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Retorna la fecha en formato dd-mm-aa (ej: 22-08-26). Usado en campos     compact](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py#L101) (0 connections)
+- [Return the company dict from company.json, or {} on any error.](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py#L129) (0 connections)
 
 ## Relationships
 

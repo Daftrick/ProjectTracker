@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return catalog items filtered by disciplina. None / 'Todos' returns all.](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L10) (0 connections)
+- [Build a quote item dict from a catalog item + qty (int or str).](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L17) (0 connections)
 
 ## Relationships
 

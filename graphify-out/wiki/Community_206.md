@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Pruebas de sincronizacion parcial LDM desde bundles.](file:///Users/macbook/ProjectTracker/tests%5Ctest_ldm_sync.py#L1) (0 connections)
+- [Tests for exporting an existing LDM as CSV.](file:///Users/macbook/ProjectTracker/tests%5Ctest_materials_csv_export.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_ldm_sync.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_ldm_sync.py)
+- [tests\test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_materials_csv_export.py)
 
 ## Audit Trail
 

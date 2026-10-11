@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Artículos ignorados en comparación COT/LDM.  Los artículos ignorados siguen form](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L1) (0 connections)
+- [Normaliza una regla de artículo ignorado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L23) (0 connections)
 
 ## Relationships
 

@@ -1,67 +1,82 @@
 # Community 15
 
-> 27 nodes · cohesion 0.15
+> 29 nodes · cohesion 0.10
 
 ## Key Concepts
 
-- [quote_templates_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L1) (15 connections)
-- [get_quote_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L201) (13 connections)
-- [QuoteTemplatesConfigTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L5) (11 connections)
-- [_make_default_template()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L158) (6 connections)
-- [_normalize_template()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L171) (6 connections)
-- [get_template_for_type()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L215) (5 connections)
-- [_normalize()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L184) (5 connections)
-- [normalize_contact_rows()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L109) (5 connections)
-- [save_quote_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L211) (5 connections)
-- [_normalize_contacts()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L96) (4 connections)
-- [_normalize_sections()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L148) (4 connections)
-- [get_template_by_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L220) (3 connections)
-- [_new_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L92) (3 connections)
-- [_normalize_section()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L131) (3 connections)
-- [_normalize_template_item()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L113) (2 connections)
-- [.test_default_structure_has_required_fields()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L23) (2 connections)
-- [.test_get_template_by_id()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L141) (2 connections)
-- [.test_get_template_for_type_returns_first_template()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L125) (2 connections)
-- [.test_get_template_for_unknown_type_returns_empty()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L153) (2 connections)
-- [.test_migrates_legacy_dict_and_sections_to_named_list()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L46) (2 connections)
-- [.test_non_dict_storage_returns_defaults()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L110) (2 connections)
-- [.test_normalizes_template_items_without_prices()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L77) (2 connections)
-- [.test_proyecto_ejecutivo_starts_without_seeded_items()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L16) (2 connections)
-- [.test_returns_all_types_when_no_file()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L7) (2 connections)
-- [.test_save_normalizes_before_storage()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L117) (2 connections)
-- *... and 2 more nodes in this community*
+- [SetQuoteStatusRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L108) (13 connections)
+- [set_quote_status()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L158) (11 connections)
+- [SetQuoteStatusModelTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L57) (10 connections)
+- [._status()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L124) (6 connections)
+- [set_quote_status_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L493) (5 connections)
+- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L109) (4 connections)
+- [.test_closed_project_shows_readonly_badge_not_select()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L190) (3 connections)
+- [test_quote_status_select.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L1) (3 connections)
+- [.test_active_to_draft_directly()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L66) (2 connections)
+- [.test_active_to_obsolete()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L72) (2 connections)
+- [.test_does_not_affect_other_quotes()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L96) (2 connections)
+- [.test_draft_to_active()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L61) (2 connections)
+- [.test_invalid_status_rejected()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L87) (2 connections)
+- [.test_obsolete_to_draft_directly()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L77) (2 connections)
+- [.test_same_status_is_a_noop()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L82) (2 connections)
+- [.test_unknown_quote_id_returns_false()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L92) (2 connections)
+- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L120) (2 connections)
+- [.test_invalid_status_flashes_error_and_does_not_change()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L151) (2 connections)
+- [.test_set_status_back_to_draft_from_active()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L136) (2 connections)
+- [.test_set_status_to_active()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L127) (2 connections)
+- [.test_set_status_to_obsolete_directly_from_draft()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L142) (2 connections)
+- [Cambia el approval_status de una cotización a cualquiera de los 3     estados vá](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L159) (1 connections)
+- [Cambia el estado de una cotización libremente a borrador/activa/obsoleta,     el](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L494) (1 connections)
+- [Selector libre de estado de cotización en la columna Estado.  Antes sólo existía](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L1) (1 connections)
+- [.test_valid_statuses_constant()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L58) (1 connections)
+- *... and 4 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class QuoteTemplatesConfigTest {
-        +test_quote_templates.py()
-        +.test_returns_all_types_when_no_file()
-        +.test_proyecto_ejecutivo_starts_without_seeded_items()
-        +.test_default_structure_has_required_fields()
-        +.test_migrates_legacy_dict_and_sections_to_named_list()
-        +.test_normalizes_template_items_without_prices()
-        +.test_non_dict_storage_returns_defaults()
-        +.test_save_normalizes_before_storage()
-        +.test_get_template_for_type_returns_first_template()
-        +.test_get_template_by_id()
+    class SetQuoteStatusModelTest {
+        +test_quote_status_select.py()
+        +.test_valid_statuses_constant()
+        +.test_draft_to_active()
+        +.test_active_to_draft_directly()
+        +.test_active_to_obsolete()
+        +.test_obsolete_to_draft_directly()
+        +.test_same_status_is_a_noop()
+        +.test_invalid_status_rejected()
+        +.test_unknown_quote_id_returns_false()
+        +.test_does_not_affect_other_quotes()
+    }
+    class SetQuoteStatusRouteTest {
+        +test_quote_status_select.py()
+        +.setUp()
+        +.tearDown()
+        +._status()
+        +.test_set_status_to_active()
+        +.test_set_status_back_to_draft_from_active()
+        +.test_set_status_to_obsolete_directly_from_draft()
+        +.test_invalid_status_flashes_error_and_does_not_change()
+        +.test_unknown_quote_flashes_not_found()
+        +.test_redirects_to_next_url_when_provided()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 18]] (2 shared connections)
+- [[Community 0]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_status_select.py](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 83 (74%)
-- INFERRED: 29 (26%)
+- EXTRACTED: 62 (70%)
+- INFERRED: 27 (30%)
 - AMBIGUOUS: 0 (0%)
 
 ---

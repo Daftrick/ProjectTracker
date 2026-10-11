@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Auto-generated Quote Number Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (0 connections)
+- [LDM CSV Import Preview Mode](file:///Users/macbook/ProjectTracker/templates/ldm_form.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
+- [templates/ldm_form.html](file:///Users/macbook/ProjectTracker/templates/ldm_form.html)
 
 ## Audit Trail
 

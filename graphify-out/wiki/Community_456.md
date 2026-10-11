@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Catalog Inline AJAX Edit Pattern](file:///Users/macbook/ProjectTracker/templates/catalogo.html) (0 connections)
+- [Catalog Bulk Delete Pattern](file:///Users/macbook/ProjectTracker/templates/catalogo.html) (0 connections)
 
 ## Relationships
 

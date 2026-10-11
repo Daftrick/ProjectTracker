@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Build a quote item dict from a catalog item + qty (int or str).](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L17) (0 connections)
+- [Recompute subtotal/tax/total from draft items in-place.](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L41) (0 connections)
 
 ## Relationships
 

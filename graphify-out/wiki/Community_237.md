@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Adds 'disciplina' field (default 'instalaciones') to all catalog items missing i](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L26) (0 connections)
+- [Generales y Preliminares compiten entre sí; Extraordinarias son independientes.](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L74) (0 connections)
 
 ## Relationships
 

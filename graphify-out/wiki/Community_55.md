@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [El cliente se guarda como snapshot en la cotización al crearla; si el         cl](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L418) (0 connections)
+- [Si el proyecto no tiene cliente asignado (dato incompleto/legacy),         se co](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L468) (0 connections)
 
 ## Relationships
 

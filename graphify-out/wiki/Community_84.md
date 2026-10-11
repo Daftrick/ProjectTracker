@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Tipos base compiten entre sí (una activa por proyecto); Extraordinarias son inde](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L81) (0 connections)
+- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L89) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Construye una lista de filas comparadas, ordenada por severidad.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L221) (0 connections)
+- [Resumen financiero simple para inyectar en plantillas.](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L405) (0 connections)
 
 ## Relationships
 

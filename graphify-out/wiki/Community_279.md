@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Devuelve un dict de nombres de archivo CSV ya importados como cotización.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L504) (0 connections)
+- [Decora archivos CSV COT con estado: importado/pendiente/desactualizado.](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L518) (0 connections)
 
 ## Relationships
 

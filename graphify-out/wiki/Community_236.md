@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Asegura que cada artículo tenga el campo `categoria` (default '').      Migració](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L10) (0 connections)
+- [Adds 'disciplina' field (default 'instalaciones') to all catalog items missing i](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L26) (0 connections)
 
 ## Relationships
 

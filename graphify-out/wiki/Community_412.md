@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Compara materiales esperados por bundles contra LDM real convertida.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L159) (0 connections)
+- [Artículos ignorados en comparación COT/LDM.  Los artículos ignorados siguen form](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_rules.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py)
+- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
 
 ## Audit Trail
 

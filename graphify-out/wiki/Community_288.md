@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Registra las fuentes DejaVu guardadas en .codex_tmp/fonts/ del proyecto.     Dev](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py#L54) (0 connections)
+- [Return the company dict from company.json, or {} on any error.](file:///Users/macbook/ProjectTracker/tracker%5Cpdfs.py#L101) (0 connections)
 
 ## Relationships
 

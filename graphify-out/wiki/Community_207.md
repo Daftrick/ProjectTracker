@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Tests for exporting an existing LDM as CSV.](file:///Users/macbook/ProjectTracker/tests%5Ctest_materials_csv_export.py#L1) (0 connections)
+- [Smoke tests for simplified project detail COT/LDM UI.](file:///Users/macbook/ProjectTracker/tests%5Ctest_project_detail_bundle_ui.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_materials_csv_export.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_materials_csv_export.py)
+- [tests\test_project_detail_bundle_ui.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_project_detail_bundle_ui.py)
 
 ## Audit Trail
 

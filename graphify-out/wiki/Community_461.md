@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Google Drive Integration Settings](file:///Users/macbook/ProjectTracker/templates/settings.html) (0 connections)
+- [Convenciones de Nomenclatura de Archivos](file:///Users/macbook/ProjectTracker/VERSIONES.md) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/settings.html](file:///Users/macbook/ProjectTracker/templates/settings.html)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
 
 ## Audit Trail
 

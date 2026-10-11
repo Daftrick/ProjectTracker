@@ -1,24 +1,23 @@
 # Community 53
 
-> 2 nodes · cohesion 1.00
+> 1 nodes · cohesion 1.00
 
 ## Key Concepts
 
-- [Inline Catalog Autocomplete Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
-- [Client-side Partida Filter Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
+- [__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/__init__.py#L1) (0 connections)
 
 ## Relationships
 
-- [[Community 55]] (2 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
+- [/Users/macbook/Documents/ProjectTracker/tracker/routes/__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/__init__.py)
 
 ## Audit Trail
 
 - EXTRACTED: 0 (0%)
-- INFERRED: 2 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

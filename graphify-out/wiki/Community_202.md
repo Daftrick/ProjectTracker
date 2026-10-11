@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Con approval_status explícito, elige la marcada como active aunque no sea la más](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py#L96) (0 connections)
+- [Extraordinaria no puede ser cotización base aunque sea la única del proyecto.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctests%5Ctest_consistency.py#L105) (0 connections)
 
 ## Relationships
 

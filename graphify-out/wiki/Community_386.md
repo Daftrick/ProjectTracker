@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Get file information for a single file](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L104) (0 connections)
+- [Load file information in parallel for better performance](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L117) (0 connections)
 
 ## Relationships
 

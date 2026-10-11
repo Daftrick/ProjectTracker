@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Store result in cache](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L80) (0 connections)
+- [Lazy loader for large files to avoid loading all file metadata at once](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L97) (0 connections)
 
 ## Relationships
 

@@ -1,64 +1,70 @@
 # Community 19
 
-> 23 nodes · cohesion 0.15
+> 26 nodes · cohesion 0.12
 
 ## Key Concepts
 
-- [CotTubeFixturesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L282) (16 connections)
-- [._run_cot_case()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L284) (14 connections)
-- [_write_cot()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L67) (6 connections)
-- [test_tube_fixtures.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L1) (5 connections)
-- [.test_cot_mixed_tubes_single_file()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L353) (4 connections)
-- [.test_cot_total_rounding_two_decimals()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L373) (4 connections)
-- [.test_cot_with_metadata_proyecto_clave_and_quote_type()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L337) (4 connections)
-- [.test_cot_flexible_licuatite_35mm_con_precio()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L331) (2 connections)
-- [.test_cot_flexible_licuatite_63mm_con_precio()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L334) (2 connections)
-- [.test_cot_galvanizado_pared_delgada_27mm_sin_precio()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L304) (2 connections)
-- [.test_cot_galvanizado_pared_delgada_63mm_con_precio()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L307) (2 connections)
-- [.test_cot_galvanizado_pared_gruesa_27mm_sin_precio()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L310) (2 connections)
-- [.test_cot_galvanizado_pared_gruesa_63mm_con_precio()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L313) (2 connections)
-- [.test_cot_metalico_flexible_35mm_con_precio()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L325) (2 connections)
-- [.test_cot_metalico_flexible_63mm_sin_precio()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L328) (2 connections)
-- [.test_cot_pad_flexible_corrugado_63mm_con_precio()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L322) (2 connections)
-- [.test_cot_pvc_sp_27mm_con_precio()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L316) (2 connections)
-- [.test_cot_pvc_sp_63mm_sin_precio()](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py#L319) (2 connections)
-- [Tests parametrizados para importación CSV de tubería conduit.  Cubre los 6 tipos](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L1) (1 connections)
-- [Metadata #proyecto_clave y #quote_type del archivo COT LISP.](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L338) (1 connections)
-- [Múltiples tipos y diámetros en un solo archivo COT.](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L354) (1 connections)
-- [total = round(qty * price, 2) — sin acumulación de error flotante.](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L374) (1 connections)
-- [Escribe un CSV COT con header estándar y filas dadas (price vacío = LISP sin cot](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py#L68) (1 connections)
+- [domain.py](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py#L1) (18 connections)
+- [project_semaphore()](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py#L145) (14 connections)
+- [SemaphoreTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_semaphore.py#L8) (12 connections)
+- [get_alcances()](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py#L24) (5 connections)
+- [check_blocked()](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py#L66) (4 connections)
+- [get_alcances_by_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py#L31) (4 connections)
+- [alcances_admin()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py#L1046) (2 connections)
+- [fdate_short()](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py#L124) (2 connections)
+- [get_info_ext_excluded()](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py#L35) (2 connections)
+- [today_short()](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py#L141) (2 connections)
+- [.test_active_with_future_deadline_returns_verde()](file:///Users/macbook/Documents/ProjectTracker/tests/test_semaphore.py#L33) (2 connections)
+- [.test_deadline_exactly_3_days_returns_rojo()](file:///Users/macbook/Documents/ProjectTracker/tests/test_semaphore.py#L17) (2 connections)
+- [.test_deadline_in_2_days_returns_rojo()](file:///Users/macbook/Documents/ProjectTracker/tests/test_semaphore.py#L13) (2 connections)
+- [.test_deadline_in_5_days_returns_amarillo()](file:///Users/macbook/Documents/ProjectTracker/tests/test_semaphore.py#L21) (2 connections)
+- [.test_inactive_3_days_returns_amarillo()](file:///Users/macbook/Documents/ProjectTracker/tests/test_semaphore.py#L29) (2 connections)
+- [.test_inactive_7_days_returns_rojo()](file:///Users/macbook/Documents/ProjectTracker/tests/test_semaphore.py#L25) (2 connections)
+- [.test_inactive_overrides_far_deadline()](file:///Users/macbook/Documents/ProjectTracker/tests/test_semaphore.py#L37) (2 connections)
+- [.test_invalid_deadline_falls_back_to_inactivity()](file:///Users/macbook/Documents/ProjectTracker/tests/test_semaphore.py#L46) (2 connections)
+- [.test_invalid_today_str_returns_gris()](file:///Users/macbook/Documents/ProjectTracker/tests/test_semaphore.py#L42) (2 connections)
+- [.test_no_fields_returns_gris()](file:///Users/macbook/Documents/ProjectTracker/tests/test_semaphore.py#L10) (2 connections)
+- [.test_only_updated_at_no_deadline_active_returns_gris()](file:///Users/macbook/Documents/ProjectTracker/tests/test_semaphore.py#L50) (2 connections)
+- [currency()](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py#L134) (1 connections)
+- [fdate()](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py#L115) (1 connections)
+- [dd-mm-aa — para campos compactos (ej: 22-08-26).](file:///Users/macbook/ProjectTracker/tracker/domain.py#L125) (1 connections)
+- [Returns 'verde', 'amarillo', 'rojo', or 'gris' based on deadline and inactivity.](file:///Users/macbook/ProjectTracker/tracker/domain.py#L146) (1 connections)
+- *... and 1 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class CotTubeFixturesTest {
-        +test_tube_fixtures.py()
-        +._run_cot_case()
-        +.test_cot_galvanizado_pared_delgada_27mm_sin_precio()
-        +.test_cot_galvanizado_pared_delgada_63mm_con_precio()
-        +.test_cot_galvanizado_pared_gruesa_27mm_sin_precio()
-        +.test_cot_galvanizado_pared_gruesa_63mm_con_precio()
-        +.test_cot_pvc_sp_27mm_con_precio()
-        +.test_cot_pvc_sp_63mm_sin_precio()
-        +.test_cot_pad_flexible_corrugado_63mm_con_precio()
-        +.test_cot_metalico_flexible_35mm_con_precio()
+    class SemaphoreTest {
+        +test_semaphore.py()
+        +.test_no_fields_returns_gris()
+        +.test_deadline_in_2_days_returns_rojo()
+        +.test_deadline_exactly_3_days_returns_rojo()
+        +.test_deadline_in_5_days_returns_amarillo()
+        +.test_inactive_7_days_returns_rojo()
+        +.test_inactive_3_days_returns_amarillo()
+        +.test_active_with_future_deadline_returns_verde()
+        +.test_inactive_overrides_far_deadline()
+        +.test_invalid_today_str_returns_gris()
     }
 ```
 
 ## Relationships
 
-- [[Community 20]] (5 shared connections)
+- [[Community 2]] (1 shared connections)
+- [[Community 26]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_tube_fixtures.py)
-- [/Users/macbook/ProjectTracker/tests/test_tube_fixtures.py](file:///Users/macbook/ProjectTracker/tests/test_tube_fixtures.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_semaphore.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_semaphore.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/domain.py](file:///Users/macbook/Documents/ProjectTracker/tracker/domain.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/admin.py)
+- [/Users/macbook/ProjectTracker/tracker/domain.py](file:///Users/macbook/ProjectTracker/tracker/domain.py)
 
 ## Audit Trail
 
-- EXTRACTED: 76 (95%)
-- INFERRED: 4 (5%)
+- EXTRACTED: 62 (67%)
+- INFERRED: 30 (33%)
 - AMBIGUOUS: 0 (0%)
 
 ---

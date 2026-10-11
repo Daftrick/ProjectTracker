@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Task Entity](file:///Users/macbook/ProjectTracker/templates/tasks.html) (0 connections)
+- [Team Member Entity](file:///Users/macbook/ProjectTracker/templates/team.html) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/tasks.html](file:///Users/macbook/ProjectTracker/templates/tasks.html)
+- [templates/team.html](file:///Users/macbook/ProjectTracker/templates/team.html)
 
 ## Audit Trail
 

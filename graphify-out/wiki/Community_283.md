@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Sincronizacion parcial de LDM desde bundles de COT.](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py#L1) (0 connections)
+- [Devuelve filas LDM faltantes derivadas de la expansion tecnica.      No modifica](file:///Users/macbook/ProjectTracker/tracker%5Cldm_sync.py#L58) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [LRU cache for drive folder scans with TTL and mtime-based invalidation](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L39) (0 connections)
+- [Get folder modification time for invalidation](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L46) (0 connections)
 
 ## Relationships
 

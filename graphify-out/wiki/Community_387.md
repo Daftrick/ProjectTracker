@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Load file information in parallel for better performance](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L117) (0 connections)
+- [Shutdown the thread pool](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L146) (0 connections)
 
 ## Relationships
 

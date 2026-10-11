@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Smoke tests for simplified project detail COT/LDM UI.](file:///Users/macbook/ProjectTracker/tests%5Ctest_project_detail_bundle_ui.py#L1) (0 connections)
+- [Integration tests for the mobile quote blueprint (Fase 10).](file:///Users/macbook/ProjectTracker/tests%5Ctest_quotes_mobile.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_project_detail_bundle_ui.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_project_detail_bundle_ui.py)
+- [tests\test_quotes_mobile.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_quotes_mobile.py)
 
 ## Audit Trail
 

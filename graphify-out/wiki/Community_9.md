@@ -1,65 +1,98 @@
 # Community 9
 
-> 56 nodes · cohesion 0.07
+> 57 nodes · cohesion 0.06
 
 ## Key Concepts
 
-- [materials.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L1) (45 connections)
-- [import_ldm_csv_upload()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L267) (15 connections)
-- [hydrate_ldm()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L481) (12 connections)
-- [_find_project()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L31) (12 connections)
-- [import_ldm_pdf_create()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L778) (11 connections)
-- [sync_ldm_bundles()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L444) (11 connections)
-- [pdf_ldm_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L1) (11 connections)
-- [edit_ldm()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L380) (9 connections)
-- [import_ldm_pdf_map()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L750) (9 connections)
-- [extract_items_from_pdf()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L291) (8 connections)
-- [_clear_pdf_import()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L655) (7 connections)
-- [import_ldm_pdf_upload()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L693) (7 connections)
-- [ldm_pdf_editor()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L588) (7 connections)
-- [_load_pdf_import()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L672) (7 connections)
-- [_bundle_sync_suggestions()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L194) (6 connections)
-- [_ldm_csv_response()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L122) (6 connections)
-- [ldm_pdf()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L561) (6 connections)
-- [_pdf_import_path()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L648) (6 connections)
-- [_render_ldm_form()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L146) (6 connections)
-- [_clean_form_text()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L27) (5 connections)
-- [_store_pdf_import()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L663) (5 connections)
-- [_extract_from_tables()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L202) (5 connections)
-- [_csv_already_imported()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L59) (4 connections)
-- [delete_ldm()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L511) (4 connections)
-- [_hydrate_import_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py#L70) (4 connections)
-- *... and 31 more nodes in this community*
+- [add_payment()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L76) (16 connections)
+- [PaymentsRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L109) (13 connections)
+- [payments.py](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L1) (13 connections)
+- [PaymentsModelTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L52) (12 connections)
+- [get_payments()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L33) (9 connections)
+- [get_payments_for_quote()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L48) (9 connections)
+- [get_payment_by_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L113) (8 connections)
+- [._add_payment()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L131) (8 connections)
+- [AllPaymentsRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments_summary.py#L55) (8 connections)
+- [delete_payment()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L104) (6 connections)
+- [_normalize_payment()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L11) (6 connections)
+- [payment_summary()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L66) (6 connections)
+- [update_payment()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L92) (6 connections)
+- [get_payments_for_project()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L57) (5 connections)
+- [save_payments()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L43) (5 connections)
+- [add_payment_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L421) (4 connections)
+- [all_payments()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1037) (4 connections)
+- [_clean_payment_form()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L402) (4 connections)
+- [edit_payment_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L439) (4 connections)
+- [.test_delete_payment()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L88) (4 connections)
+- [.test_update_payment()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L76) (4 connections)
+- [.test_delete_payment_via_route()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L182) (4 connections)
+- [.test_edit_payment_via_route()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L169) (4 connections)
+- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments_summary.py#L56) (4 connections)
+- [delete_payment_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L456) (3 connections)
+- *... and 32 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class LdmPdfImportRoutesTest {
-        +test_ldm_pdf_import_routes.py()
-        +.test_upload_stores_pdf_import_payload_outside_cookie_session()
-        +.test_upload_pdf_is_blocked_when_project_is_closed()
-        +.test_create_pdf_import_is_blocked_when_project_is_closed()
+    class PaymentsModelTest {
+        +test_payments.py()
+        +.setUp()
+        +.tearDown()
+        +.test_add_and_get_payments_for_quote()
+        +.test_get_payments_for_project_includes_all_quotes()
+        +.test_update_payment()
+        +.test_update_payment_unknown_id_returns_false()
+        +.test_delete_payment()
+        +.test_delete_payment_unknown_id_returns_false()
+        +.test_payment_summary_computes_balance()
+    }
+    class PaymentsRoutesTest {
+        +test_payments.py()
+        +.setUp()
+        +.tearDown()
+        +._add_payment()
+        +.test_add_payment_via_project_route()
+        +.test_add_payment_rejects_invalid_amount()
+        +.test_add_payment_rejects_missing_date()
+        +.test_add_payment_rejects_unknown_quote()
+        +.test_edit_payment_via_route()
+        +.test_delete_payment_via_route()
+    }
+    class AllPaymentsRouteTest {
+        +test_payments_summary.py()
+        +.setUp()
+        +.tearDown()
+        +.test_all_payments_page_loads_and_lists_registered_payment()
+        +.test_all_payments_page_links_to_quote_payments_card()
+        +.test_all_payments_page_shows_empty_state_without_payments()
+        +.test_all_payments_page_sums_total_pagado()
+        +.test_sidebar_renders_pagos_link_on_dashboard()
+    }
+    class SidebarPaymentsLinkTemplateSourceTest {
+        +test_payments_summary.py()
+        +.test_base_template_has_sidebar_payments_link()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 7]] (7 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_ldm_pdf_import_routes.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/materials.py)
-- [/Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_payments.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_payments_summary.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments_summary.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/payments.py](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py)
+- [/Users/macbook/ProjectTracker/tests/test_payments.py](file:///Users/macbook/ProjectTracker/tests/test_payments.py)
+- [/Users/macbook/ProjectTracker/tests/test_payments_summary.py](file:///Users/macbook/ProjectTracker/tests/test_payments_summary.py)
+- [/Users/macbook/ProjectTracker/tracker/payments.py](file:///Users/macbook/ProjectTracker/tracker/payments.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 230 (75%)
-- INFERRED: 76 (25%)
+- EXTRACTED: 148 (64%)
+- INFERRED: 82 (36%)
 - AMBIGUOUS: 0 (0%)
 
 ---

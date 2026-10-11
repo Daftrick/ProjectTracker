@@ -4,12 +4,12 @@
 > This is a token-optimized summary. For deep logic, see GRAPH_REPORT.md.
 
 ## Core Abstractions (God Nodes)
-1. `load()` (150 edges)
-2. `save()` (112 edges)
+1. `load()` (151 edges)
+2. `save()` (113 edges)
 3. `today()` (56 edges)
-4. `build_quote_pdf()` (36 edges)
+4. `build_quote_pdf()` (37 edges)
 5. `catalog_maps()` (32 edges)
-6. `validate_quote_form()` (28 edges)
+6. `validate_quote_form()` (29 edges)
 7. `_clean()` (27 edges)
 8. `hydrate_quote()` (24 edges)
 9. `build_project_detail_context()` (24 edges)

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [¿El artículo cumple con todos los tokens y la categoría exigida?      Los tokens](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py#L48) (0 connections)
+- [Aplica búsqueda por tokens y filtro de categoría, ordenado alfabéticamente.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py#L68) (0 connections)
 
 ## Relationships
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Attach non-priced bundle inclusions to hydrated quote items.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L175) (0 connections)
+- [Calcula el siguiente número de versión para un bundle existente.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L193) (0 connections)
 
 ## Relationships
 

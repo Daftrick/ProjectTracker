@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Add or update an item in the mobile draft for the given project.      Finds the](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L50) (0 connections)
+- [Remove an item by catalog_item_id from the mobile draft.      Returns (updated_q](file:///Users/macbook/ProjectTracker/tracker%5Cservices.py#L102) (0 connections)
 
 ## Relationships
 

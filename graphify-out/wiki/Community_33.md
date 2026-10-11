@@ -4,36 +4,22 @@
 
 ## Key Concepts
 
-- [AdminBundlesRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L14) (5 connections)
-- [test_admin_bundles_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L1) (3 connections)
-- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L23) (1 connections)
-- [.test_bundles_page_loads()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L36) (1 connections)
-- [.test_comparison_rules_page_is_not_available()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L42) (1 connections)
-- [.test_create_bundle_persists_bundle()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L46) (1 connections)
-- [Smoke tests de UI Admin para bundles.](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py#L1) (1 connections)
-- [setUpClass()](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py#L16) (1 connections)
-
-## Class Diagram
-
-```mermaid
-classDiagram
-    class AdminBundlesRoutesTest {
-        +test_admin_bundles_routes.py()
-        +._fake_load()
-        +.test_bundles_page_loads()
-        +.test_comparison_rules_page_is_not_available()
-        +.test_create_bundle_persists_bundle()
-    }
-```
+- [quote_terms_editor.js](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L1) (7 connections)
+- [addTerm()](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L14) (1 connections)
+- [button](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L55) (1 connections)
+- [option](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L47) (1 connections)
+- [publish()](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L5) (1 connections)
+- [rows](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L2) (1 connections)
+- [select](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L3) (1 connections)
+- [terms](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L49) (1 connections)
 
 ## Relationships
 
-- [[Community 35]] (1 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_admin_bundles_routes.py)
-- [/Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py](file:///Users/macbook/ProjectTracker/tests/test_admin_bundles_routes.py)
+- [/Users/macbook/ProjectTracker/static/quote_terms_editor.js](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js)
 
 ## Audit Trail
 

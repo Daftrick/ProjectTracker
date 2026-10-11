@@ -112,7 +112,7 @@ classDiagram
 ## Audit Trail
 
 - EXTRACTED: 320 (57%)
-- INFERRED: 240 (43%)
+- INFERRED: 241 (43%)
 - AMBIGUOUS: 0 (0%)
 
 ---

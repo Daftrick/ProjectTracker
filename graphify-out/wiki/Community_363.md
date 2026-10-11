@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return {nombre.lower(): id} for O(1) lookup during CSV parsing.](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py#L62) (0 connections)
+- [Return catalog id if description matches a catalog nombre (case-insensitive).](file:///Users/macbook/ProjectTracker/tracker%5Ccsv_import.py#L72) (0 connections)
 
 ## Relationships
 

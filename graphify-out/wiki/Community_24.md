@@ -1,59 +1,68 @@
 # Community 24
 
-> 19 nodes · cohesion 0.17
+> 21 nodes · cohesion 0.19
 
 ## Key Concepts
 
-- [AvanceRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L25) (19 connections)
-- [._get_project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L41) (13 connections)
-- [.test_update_stage_budget_skips_without_template()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L180) (4 connections)
-- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L38) (2 connections)
-- [.test_add_doc_checklist_appends_item()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L83) (2 connections)
-- [.test_add_doc_checklist_ignores_empty_name()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L95) (2 connections)
-- [.test_add_multiple_docs_independent()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L137) (2 connections)
-- [.test_delete_doc_checklist_removes_item()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L125) (2 connections)
-- [.test_toggle_doc_checklist_flips_done()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L104) (2 connections)
-- [.test_update_stage_budget_handles_missing_values_as_zero()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L168) (2 connections)
-- [.test_update_stage_budget_persists_values()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L147) (2 connections)
-- [.test_update_stage_status_empty_date_stored_as_none()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L56) (2 connections)
-- [.test_update_stage_status_ignores_empty_stage()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L65) (2 connections)
-- [.test_update_stage_status_sets_stage()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L46) (2 connections)
-- [.test_progress_pdf_returns_pdf_content()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L201) (1 connections)
-- [.test_progress_pdf_unknown_project_404()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L207) (1 connections)
-- [.test_update_stage_budget_unknown_project_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L195) (1 connections)
-- [.test_update_stage_status_unknown_project_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L74) (1 connections)
-- [test_avance_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py#L1) (1 connections)
+- [_q()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L16) (12 connections)
+- [approve_quote()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L137) (10 connections)
+- [migrate_quote_approval()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L99) (9 connections)
+- [ApproveQuoteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L23) (7 connections)
+- [approve_quote_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L475) (5 connections)
+- [MigrateQuoteApprovalTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L87) (5 connections)
+- [test_catalog_approval.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L1) (5 connections)
+- [.test_approve_does_not_touch_other_project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L77) (3 connections)
+- [.test_approving_active_base_quote_toggles_it_off()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L70) (3 connections)
+- [.test_approving_extraordinaria_toggles_only_itself()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L48) (3 connections)
+- [.test_approving_obra_does_not_affect_proyecto_or_other_obra()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L58) (3 connections)
+- [.test_approving_proyecto_does_not_affect_obra_or_servicio()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L24) (3 connections)
+- [.test_approving_proyecto_does_not_obsolete_other_proyecto()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L36) (3 connections)
+- [.test_already_has_status_not_touched()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L120) (3 connections)
+- [.test_each_type_migrates_independently()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L88) (3 connections)
+- [.test_extraordinaria_always_active()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L111) (3 connections)
+- [.test_two_proyecto_quotes_only_newest_active()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L101) (3 connections)
+- [.test_approving_does_not_affect_other_types()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L185) (3 connections)
+- [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L100) (1 connections)
+- [Marca la cotización target_id como active, o la regresa a obsolete si ya lo esta](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L138) (1 connections)
+- [Aprueba/activa o desactiva una cotización.      Toggle libre e independiente par](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L476) (1 connections)
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class AvanceRoutesTest {
-        +test_avance_routes.py()
-        +.setUp()
-        +.tearDown()
-        +._get_project()
-        +.test_update_stage_status_sets_stage()
-        +.test_update_stage_status_empty_date_stored_as_none()
-        +.test_update_stage_status_ignores_empty_stage()
-        +.test_update_stage_status_unknown_project_redirects()
-        +.test_add_doc_checklist_appends_item()
-        +.test_add_doc_checklist_ignores_empty_name()
+    class ApproveQuoteTest {
+        +test_catalog_approval.py()
+        +.test_approving_proyecto_does_not_affect_obra_or_servicio()
+        +.test_approving_proyecto_does_not_obsolete_other_proyecto()
+        +.test_approving_extraordinaria_toggles_only_itself()
+        +.test_approving_obra_does_not_affect_proyecto_or_other_obra()
+        +.test_approving_active_base_quote_toggles_it_off()
+        +.test_approve_does_not_touch_other_project()
+    }
+    class MigrateQuoteApprovalTest {
+        +test_catalog_approval.py()
+        +.test_each_type_migrates_independently()
+        +.test_two_proyecto_quotes_only_newest_active()
+        +.test_extraordinaria_always_active()
+        +.test_already_has_status_not_touched()
     }
 ```
 
 ## Relationships
 
-- No strong cross-community connections detected
+- [[Community 23]] (2 shared connections)
+- [[Community 0]] (1 shared connections)
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_avance_routes.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 59 (94%)
-- INFERRED: 4 (6%)
+- EXTRACTED: 62 (70%)
+- INFERRED: 27 (30%)
 - AMBIGUOUS: 0 (0%)
 
 ---
