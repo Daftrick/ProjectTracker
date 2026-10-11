@@ -28670,7 +28670,7 @@
       "norm_label": "quote sectioned line items pattern",
       "level": 3,
       "granularity": "low",
-      "heat": 0.069,
+      "heat": 0.092,
       "owner": "unowned",
       "id": "quote_sections_pattern"
     },
@@ -28688,7 +28688,7 @@
       "norm_label": "quote bulk row selection & actions pattern",
       "level": 3,
       "granularity": "low",
-      "heat": 0.069,
+      "heat": 0.092,
       "owner": "unowned",
       "id": "quote_bulk_actions_pattern"
     },
@@ -28706,7 +28706,7 @@
       "norm_label": "inline catalog autocomplete pattern",
       "level": 3,
       "granularity": "low",
-      "heat": 0.071,
+      "heat": 0.093,
       "owner": "unowned",
       "id": "inline_autocomplete_catalog_pattern"
     },
@@ -28724,7 +28724,7 @@
       "norm_label": "deleted catalog item handling pattern",
       "level": 3,
       "granularity": "low",
-      "heat": 0.069,
+      "heat": 0.092,
       "owner": "unowned",
       "id": "deleted_catalog_item_pattern"
     },
@@ -28742,7 +28742,7 @@
       "norm_label": "drag-and-drop row reorder pattern",
       "level": 3,
       "granularity": "low",
-      "heat": 0.069,
+      "heat": 0.092,
       "owner": "unowned",
       "id": "drag_reorder_rows_pattern"
     },
@@ -28760,7 +28760,7 @@
       "norm_label": "fixed bottom summary bar pattern",
       "level": 3,
       "granularity": "low",
-      "heat": 0.071,
+      "heat": 0.093,
       "owner": "unowned",
       "id": "fixed_bottom_bar_pattern"
     },
@@ -28778,7 +28778,7 @@
       "norm_label": "sticky table header with dynamic offset pattern",
       "level": 3,
       "granularity": "low",
-      "heat": 0.071,
+      "heat": 0.093,
       "owner": "unowned",
       "id": "sticky_table_header_pattern"
     },
@@ -28796,7 +28796,7 @@
       "norm_label": "client-side partida filter pattern",
       "level": 3,
       "granularity": "low",
-      "heat": 0.071,
+      "heat": 0.093,
       "owner": "unowned",
       "id": "partida_filter_pattern"
     },
@@ -28814,7 +28814,7 @@
       "norm_label": "auto-generated quote number pattern",
       "level": 3,
       "granularity": "low",
-      "heat": 0.069,
+      "heat": 0.092,
       "owner": "unowned",
       "id": "quote_number_autogen_pattern"
     },
