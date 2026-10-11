@@ -778,7 +778,7 @@ def build_quote_pdf(project, quote, output_path=None):
         pdf.multi_cell(content_width, 7, _safe_text(cover_title.split("\n", 1)[0]))
         if "\n" in cover_title:
             pdf.set_x(pdf.l_margin)
-            pdf.set_font("Lato", "B", 26.0)
+            pdf.set_font("Lato", "B", 24.0)
             pdf.multi_cell(content_width, 9, _safe_text(cover_title.split("\n", 1)[1]), align="L")
         if cover_basis_note:
             pdf.ln(1)

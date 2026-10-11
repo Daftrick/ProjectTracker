@@ -89,7 +89,7 @@ class QuoteTermsEditingTest(unittest.TestCase):
                     self.assertNotIn("No imprimir", text)
                     fonts = {char["fontname"] for page in pdf.pages for char in page.chars}
                     self.assertTrue(all("Lato" in font for font in fonts), fonts)
-                    expected_size = 26.0 if spacing == "40" else 18.0
+                    expected_size = 24.0 if spacing == "40" else 18.0
                     description_words = pdf.pages[0].extract_words(extra_attrs=["size"])
                     description_word = next(w for w in description_words if w["text"] == "Diseño")
                     self.assertAlmostEqual(description_word["size"], expected_size, places=2)
