@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return {nombre.lower(): id} for O(1) lookup during CSV parsing.](file:///Users/macbook/ProjectTracker/tracker/csv_import.py#L52) (0 connections)
+- [La cotización General más reciente; si no hay, la más reciente de cualquier tipo](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py#L77) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker/csv_import.py](file:///Users/macbook/ProjectTracker/tracker/csv_import.py)
+- [tracker\consistency.py](file:///Users/macbook/ProjectTracker/tracker%5Cconsistency.py)
 
 ## Audit Trail
 

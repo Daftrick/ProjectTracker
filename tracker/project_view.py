@@ -150,7 +150,7 @@ def _coverage_color(value):
     return "success"
 
 
-def build_project_detail_context(project):
+def build_project_detail_context(project, include_quotes=True):
     project_id = project["id"]
     all_tasks = load("tasks")
     project_tasks = [task for task in all_tasks if task["project_id"] == project_id]
@@ -173,7 +173,7 @@ def build_project_detail_context(project):
     quotes = sorted(
         [
             hydrate_quote(quote, catalog_by_id, catalog_by_name)
-            for quote in load("quotes")
+            for quote in (load("quotes") if include_quotes else [])
             if quote["project_id"] == project_id
         ],
         key=lambda item: item.get("created_at", ""),
@@ -182,7 +182,7 @@ def build_project_detail_context(project):
     ldms = sorted(
         [
             hydrate_ldm(ldm, catalog_by_id, catalog_by_name)
-            for ldm in load("materiales")
+            for ldm in (load("materiales") if include_quotes else [])
             if ldm["project_id"] == project_id
         ],
         key=lambda item: item.get("seq", 0),
@@ -232,7 +232,7 @@ def build_project_detail_context(project):
     # Pagos ligados a cotizaciones. Se consideran todas las cotizaciones del
     # proyecto (no sólo las activas) — el pago le da seguimiento al cobro,
     # independientemente del estado de aprobación de la cotización.
-    project_payments = get_payments_for_project(project_id)
+    project_payments = get_payments_for_project(project_id) if include_quotes else []
 
     # Pagado/saldo pendiente para la caja financiera del header — se calculan
     # contra total_cotizado (sólo cotizaciones activas, lo que ya se muestra

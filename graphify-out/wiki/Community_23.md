@@ -1,6 +1,6 @@
 # Community 23
 
-> 23 nodes · cohesion 0.16
+> 22 nodes · cohesion 0.17
 
 ## Key Concepts
 
@@ -8,7 +8,6 @@
 - [ProjectStageTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L39) (11 connections)
 - [_task()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L23) (9 connections)
 - [KanbanRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L95) (8 connections)
-- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L99) (4 connections)
 - [._get_project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L112) (3 connections)
 - [.test_all_aprobado_returns_entregado()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L71) (3 connections)
 - [.test_cot_aprobado_design_en_progreso_returns_diseno()](file:///Users/macbook/Documents/ProjectTracker/tests/test_kanban.py#L63) (3 connections)
@@ -57,7 +56,7 @@ classDiagram
 
 ## Relationships
 
-- [[Community 21]] (2 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
@@ -68,8 +67,8 @@ classDiagram
 
 ## Audit Trail
 
-- EXTRACTED: 61 (70%)
-- INFERRED: 26 (30%)
+- EXTRACTED: 60 (72%)
+- INFERRED: 23 (28%)
 - AMBIGUOUS: 0 (0%)
 
 ---

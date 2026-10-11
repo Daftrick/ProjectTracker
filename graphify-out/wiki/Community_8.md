@@ -5,10 +5,10 @@
 ## Key Concepts
 
 - [compute_consistency()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L408) (24 connections)
-- [consistency.py](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L1) (24 connections)
+- [consistency.py](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L1) (21 connections)
 - [_quote()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L19) (14 connections)
 - [pick_active_quote()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L52) (12 connections)
-- [is_base_quote_type()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L91) (11 connections)
+- [is_base_quote_type()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L91) (11 connections)
 - [test_consistency.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L1) (11 connections)
 - [aggregate_quote_items()](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py#L79) (10 connections)
 - [_q_item()](file:///Users/macbook/Documents/ProjectTracker/tests/test_consistency.py#L35) (10 connections)
@@ -83,11 +83,12 @@ classDiagram
 - [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
 - [/Users/macbook/Documents/ProjectTracker/tracker/consistency.py](file:///Users/macbook/Documents/ProjectTracker/tracker/consistency.py)
 - [/Users/macbook/ProjectTracker/tests/test_consistency.py](file:///Users/macbook/ProjectTracker/tests/test_consistency.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 - [/Users/macbook/ProjectTracker/tracker/consistency.py](file:///Users/macbook/ProjectTracker/tracker/consistency.py)
 
 ## Audit Trail
 
-- EXTRACTED: 248 (81%)
+- EXTRACTED: 245 (81%)
 - INFERRED: 59 (19%)
 - AMBIGUOUS: 0 (0%)
 

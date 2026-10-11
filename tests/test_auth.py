@@ -117,6 +117,9 @@ class AdminRequiredTestCase(unittest.TestCase):
 
         create_user("cotizador_user", "pass123", "cotizador")
         create_user("admin_user", "pass123", "admin")
+        # Existing availability tests exercise a cotizador with explicit grants.
+        _auth_mod.set_user_permissions(_auth_mod.get_user_by_username("cotizador_user")["id"],
+                                      {key: True for key in _auth_mod.KNOWN_PERMISSIONS})
 
         app.config["TESTING"] = True
         app.config["WTF_CSRF_ENABLED"] = False
@@ -219,10 +222,10 @@ class AdminRequiredTestCase(unittest.TestCase):
         response = self.client.post("/team/nonexistent/delete", follow_redirects=True)
         self._assert_no_admin_block(response)
 
-    def test_cotizador_can_delete_project_and_approve_quote(self):
+    def test_cotizador_cannot_delete_project_but_can_approve_quote(self):
         self._login_as("cotizador_user")
         response = self.client.post("/projects/nonexistent/delete", follow_redirects=True)
-        self._assert_no_admin_block(response)
+        self.assertIn("Acceso restringido a administradores", response.get_data(as_text=True))
         response = self.client.post("/projects/nonexistent/quote/nonexistent/approve", follow_redirects=True)
         self._assert_no_admin_block(response)
         self.assertIn("Cotización no encontrada", response.get_data(as_text=True))

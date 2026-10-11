@@ -1,10 +1,11 @@
 # Community 55
 
-> 1 nodes · cohesion 1.00
+> 2 nodes · cohesion 1.00
 
 ## Key Concepts
 
-- [Si el proyecto no tiene cliente asignado (dato incompleto/legacy),         se co](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L468) (0 connections)
+- [Fixed Bottom Summary Bar Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
+- [Sticky Table Header with Dynamic Offset Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
 
 ## Relationships
 
@@ -12,12 +13,12 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py)
+- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
 
 ## Audit Trail
 
 - EXTRACTED: 0 (0%)
-- INFERRED: 0 (0%)
+- INFERRED: 2 (100%)
 - AMBIGUOUS: 0 (0%)
 
 ---

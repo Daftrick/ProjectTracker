@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Retorna la fecha en formato dd-mm-aa (ej: 22-08-26). Usado en campos     compact](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py#L101) (0 connections)
+- [Etiqueta y valor de la línea "Propuesta para" de la portada.      proposal_for_m](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L398) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

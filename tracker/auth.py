@@ -55,7 +55,7 @@ def _is_truthy(value):
 
 def _default_admin_config():
     username = os.environ.get("PROJECT_TRACKER_ADMIN_USERNAME", _DEFAULT_ADMIN_USERNAME).strip()
-    password = os.environ.get("PROJECT_TRACKER_ADMIN_PASSWORD", "Resdosco1356!#")
+    password = os.environ.get("PROJECT_TRACKER_ADMIN_PASSWORD", "")
     reset_password = _is_truthy(os.environ.get("PROJECT_TRACKER_ADMIN_RESET"))
     return username or _DEFAULT_ADMIN_USERNAME, password, reset_password
 
@@ -64,7 +64,7 @@ def _ensure_default_admin(conn):
     username, configured_password, should_reset = _default_admin_config()
     row = conn.execute("SELECT id FROM users WHERE username=?", (username,)).fetchone()
     if not row:
-        password = configured_password or secrets.token_urlsafe(12)
+        password = configured_password or secrets.token_urlsafe(24)
         conn.execute(
             "INSERT INTO users (username, password_hash, role) VALUES (?, ?, 'admin')",
             (username, generate_password_hash(password)),

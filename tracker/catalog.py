@@ -202,8 +202,9 @@ def catalog_maps():
 
 
 def safe_float(value, default=0.0):
+    from .utils import finite_float
     try:
-        return float(value)
+        return finite_float(value)
     except (TypeError, ValueError):
         return default
 

@@ -4,23 +4,23 @@
 
 ## Key Concepts
 
-- [Project File Structure](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
-- [CLAUDE.md Graphify Rules](file:///Users/macbook/ProjectTracker/CLAUDE.md) (1 connections)
-- [Flask Blueprints Architecture](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [_is_truthy()](file:///Users/macbook/Documents/ProjectTracker/app.py#L8) (2 connections)
+- [Reconoce '1', 'true', 'yes', 'on' (case-insensitive) como verdadero.](file:///Users/macbook/ProjectTracker/app.py#L9) (1 connections)
+- [app.py](file:///Users/macbook/Documents/ProjectTracker/app.py#L1) (1 connections)
 
 ## Relationships
 
-- [[Community 49]] (4 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [CLAUDE.md](file:///Users/macbook/ProjectTracker/CLAUDE.md)
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [/Users/macbook/Documents/ProjectTracker/app.py](file:///Users/macbook/Documents/ProjectTracker/app.py)
+- [/Users/macbook/ProjectTracker/app.py](file:///Users/macbook/ProjectTracker/app.py)
 
 ## Audit Trail
 
-- EXTRACTED: 2 (50%)
-- INFERRED: 2 (50%)
+- EXTRACTED: 4 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

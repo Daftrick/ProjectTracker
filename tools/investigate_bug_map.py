@@ -1,4 +1,4 @@
-"""Reproduce bugs with synthetic records and a temporary database only."""
+"""Verify the seven P1 fixes and reproduce six pending P2 bugs using temporary data."""
 import argparse
 import contextlib
 import copy
@@ -9,6 +9,8 @@ import os
 from pathlib import Path
 import sys
 import tempfile
+import threading
+import time
 import unittest.mock as mock
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,7 +41,7 @@ def main():
 
     def result(key, evidence):
         key = IDS[key]
-        findings.append({'id': key, 'evidence': evidence})
+        findings.append({'id': key, 'status': 'resolved' if int(key[-2:]) <= 7 else 'pending', 'evidence': evidence})
         print(key, json.dumps(evidence, ensure_ascii=False))
 
     def seed():
@@ -68,12 +70,16 @@ def main():
         assert client.post('/login', data={'username': 'audit-user', 'password': 'Synthetic-User-Password-Only'}).status_code == 302
         assert client.get('/usuarios').status_code == 302  # admin-only control works
 
-        # Permissions disabled in the user record still allow reading and writing.
+        admin_client = app.test_client()
+        admin_client.post('/login', data={'username': 'audit-admin', 'password': 'Synthetic-Audit-Password-Only'})
+
+        # An unchecked permission must deny the operation, including direct URLs.
         assert auth.get_user_by_username('audit-user')['permissions'] == '{}'
         read = client.get('/cotizaciones')
         write = client.post('/projects/P1/quote/Q1/pdf-editor', data={'cover_discipline': 'Cambio sin permiso'})
-        assert read.status_code == 200 and storage.load('quotes')[0]['cover_discipline'] == 'Cambio sin permiso'
-        result('B01', {'permissions': {}, 'quotes_read_http': read.status_code, 'pdf_editor_post_http': write.status_code, 'name_changed': True})
+        assert read.status_code == 403 and write.status_code == 403 and storage.load('quotes')[0]['cover_discipline'] == QUOTE['cover_discipline']
+        result('B01', {'permissions': {}, 'quotes_read_http': read.status_code, 'pdf_editor_post_http': write.status_code, 'name_changed': False})
+        auth.set_user_permissions(uid, {key: True for key in auth.KNOWN_PERMISSIONS})
 
         # Removing active access does not terminate an already authenticated session.
         auth.set_user_active(uid, False)
@@ -87,39 +93,39 @@ def main():
 
         seed()
         deletion = client.post('/projects/P1/delete')
-        assert all(p['id'] != 'P1' for p in storage.load('projects'))
-        result('B03', {'role': 'cotizador', 'delete_project_http': deletion.status_code, 'project_deleted': True})
+        assert any(p['id'] == 'P1' for p in storage.load('projects'))
+        result('B03', {'role': 'cotizador', 'delete_project_http': deletion.status_code, 'project_deleted': False})
 
         # Scope mismatch: contrast with guarded PDF editor.
         seed()
         guarded = client.get('/projects/P2/quote/Q1/pdf-editor')
         unguarded = client.get('/projects/P2/quote/Q1/edit')
         deleted = client.post('/projects/P2/quote/Q1/delete')
-        assert guarded.status_code == 302 and unguarded.status_code == 200 and not storage.load('quotes')
+        assert guarded.status_code == 302 and unguarded.status_code == 302 and storage.load('quotes') == [QUOTE]
         seed()
         ldm_write = client.post('/projects/P2/ldm/L1/editor', data={'project_name_override': 'Beta aplicado a Alfa'})
-        assert storage.load('materiales')[0]['project_name_override'] == 'Beta aplicado a Alfa'
+        assert storage.load('materiales') == [LDM]
         ldm_delete = client.post('/projects/P2/ldm/L1/delete')
-        assert not storage.load('materiales')
-        result('B04', {'guarded_quote_pdf_editor_http': guarded.status_code, 'mismatched_quote_edit_http': unguarded.status_code, 'mismatched_quote_delete_http': deleted.status_code, 'quote_deleted': True, 'mismatched_ldm_write_http': ldm_write.status_code, 'mismatched_ldm_delete_http': ldm_delete.status_code, 'ldm_changed_and_deleted': True})
+        assert storage.load('materiales') == [LDM]
+        result('B04', {'guarded_quote_pdf_editor_http': guarded.status_code, 'mismatched_quote_edit_http': unguarded.status_code, 'mismatched_quote_delete_http': deleted.status_code, 'quote_deleted': False, 'mismatched_ldm_write_http': ldm_write.status_code, 'mismatched_ldm_delete_http': ldm_delete.status_code, 'ldm_changed_and_deleted': False})
 
         seed()
         client.post('/projects/P1/quote/Q1/delete')
         assert storage.load('payments') and not storage.load('quotes')
         quote_orphans = len(storage.load('payments'))
         seed()
-        client.post('/projects/P1/delete')
+        admin_client.post('/projects/P1/delete')
         assert storage.load('payments') and not any(p['id']=='P1' for p in storage.load('projects'))
         result('B05', {'payments_after_quote_delete': quote_orphans, 'payments_after_project_delete': len(storage.load('payments'))})
 
         seed()
         payment = client.post('/projects/P1/payments/add', data={'quote_id': 'Q1', 'date': 'not-a-date', 'amount': 'NaN'})
         values = storage.load('payments')
-        assert math.isnan(values[-1]['amount']) and values[-1]['date'] == 'not-a-date'
+        assert values == [PAYMENT]
         form = MultiDict({'quote_type': 'Proyecto', 'date': '2026-10-11', 'currency': 'MXN', 'item_desc[]': 'Artículo de prueba', 'item_unit[]': 'pza', 'item_qty[]': 'NaN', 'item_precio_costo[]': '10'})
         validation = validate_quote_form(form, PROJECT)
-        assert validation['ok'] and math.isnan(validation['subtotal'])
-        result('B06', {'payment_post_http': payment.status_code, 'nan_payment_persisted': True, 'invalid_payment_date_persisted': True, 'quote_validation_ok': validation['ok'], 'quote_subtotal_nan': True})
+        assert not validation['ok'] and math.isfinite(validation['subtotal'])
+        result('B06', {'payment_post_http': payment.status_code, 'nan_payment_persisted': False, 'invalid_payment_date_persisted': False, 'quote_validation_ok': validation['ok'], 'quote_subtotal_nan': False})
 
         seed()
         projects = storage.load('projects'); projects[0]['closed_at'] = '2026-10-11'; storage.save('projects', projects)
@@ -129,14 +135,26 @@ def main():
         assert any(q.get('status')=='draft' for q in storage.load('quotes'))
         result('B07', {'closed_project_pdf_name_changed': True, 'closed_project_mobile_draft_created': True})
 
-        # Load and save each lock separately: reproduce a deterministic lost update.
+        # The full read/modify/write operation must hold the shared transaction.
         seed()
-        first = storage.load('quotes'); second = storage.load('quotes')
-        first[0]['cover_discipline'] = 'Nombre del editor A'; storage.save('quotes', first)
-        second[0]['notes'] = 'Nota del editor B'; storage.save('quotes', second)
+        start = threading.Barrier(2)
+        def update(field, value):
+            start.wait(timeout=5)
+            with storage.transaction():
+                records = storage.load('quotes')
+                time.sleep(.02)
+                records[0][field] = value
+                storage.save('quotes', records)
+        workers = [threading.Thread(target=update, args=(field, value)) for field, value in
+                   [('cover_discipline', 'Nombre del editor A'), ('notes', 'Nota del editor B')]]
+        for worker in workers:
+            worker.start()
+        for worker in workers:
+            worker.join(timeout=5)
+            assert not worker.is_alive()
         persisted = storage.load('quotes')[0]
-        assert persisted['cover_discipline'] == QUOTE['cover_discipline']
-        result('B08', {'first_editor_name_lost': True, 'second_editor_note_saved': persisted['notes'] == 'Nota del editor B'})
+        assert persisted['cover_discipline'] == 'Nombre del editor A' and persisted['notes'] == 'Nota del editor B'
+        result('B08', {'first_editor_name_lost': False, 'second_editor_note_saved': True})
 
         seed()
         contexts = []
@@ -186,18 +204,20 @@ def main():
             assert lower > totals_top
             result('B12', {'name_characters':len(q['cover_discipline']), 'title_bottom_mm':round(lower*25.4/72,2), 'summary_top_mm':221, 'title_overlaps_summary':True})
 
-        # Known default admin password persists unless explicitly configured.
+        # A new database gets a generated secret when the environment omits one.
         with mock.patch.dict(os.environ, {}, clear=True):
             username, password, reset = auth._default_admin_config()
-            with mock.patch.object(auth, 'AUTH_DB', str(Path(root) / 'default-auth.db')), contextlib.redirect_stdout(io.StringIO()):
+            with mock.patch.object(auth, 'AUTH_DB', str(Path(root) / 'default-auth.db')), mock.patch.object(auth.secrets, 'token_urlsafe', return_value='Synthetic-Generated-Password-Only') as generated, contextlib.redirect_stdout(io.StringIO()):
                 auth.init_db()
-                default_user = auth.verify_credentials(username, password)
-            assert default_user is not None and default_user.role == 'admin'
-            result('B13', {'password_is_nonempty_without_environment_configuration':True, 'new_database_accepts_fixed_default_password':True, 'reset_requested':reset})
+                default_user = auth.verify_credentials(username, 'Synthetic-Generated-Password-Only')
+                assert auth.verify_credentials(username, password) is None
+                generated.assert_called_once_with(24)
+            assert password == '' and default_user is not None and default_user.role == 'admin'
+            result('B13', {'new_database_uses_generated_password': True, 'new_database_accepts_fixed_default_password': False, 'reset_requested':reset})
 
         assert (Path(storage.BASE_DIR)/'static'/'quote_terms_editor.js').is_file()
         static_response = client.get('/static/quote_terms_editor.js')
-        assert static_response.status_code == 404
+        assert static_response.status_code == 200
         result('B14', {'terms_javascript_http':static_response.status_code, 'file_exists_in_root_static':True, 'flask_static_folder_is_tracker_static':app.static_folder == str(Path(storage.BASE_DIR)/'tracker'/'static')})
 
         # Synthetic GET smoke checks for primary modules, still authenticated.
@@ -216,7 +236,8 @@ def main():
             app.run(host='127.0.0.1', port=5099, debug=False, use_reloader=False)
 
     (OUT/'findings.json').write_text(json.dumps(findings, ensure_ascii=False, indent=2))
-    print('Confirmed findings:', len(findings))
+    print('Verified P1 fixes:', sum(f['status'] == 'resolved' for f in findings))
+    print('Confirmed pending P2 findings:', sum(f['status'] == 'pending' for f in findings))
 
 
 if __name__ == "__main__":

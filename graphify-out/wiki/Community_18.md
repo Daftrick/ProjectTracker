@@ -4,8 +4,8 @@
 
 ## Key Concepts
 
-- [resolve_quote_proposal_for()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L397) (11 connections)
-- [resolve_quote_client()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L376) (8 connections)
+- [resolve_quote_proposal_for()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L398) (11 connections)
+- [resolve_quote_client()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L377) (8 connections)
 - [QuoteProposalForPdfTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L205) (8 connections)
 - [._render_text()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L229) (7 connections)
 - [ResolveQuoteProposalForTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L60) (7 connections)
@@ -27,8 +27,8 @@
 - [.test_mode_personalizado_uses_custom_text()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L73) (2 connections)
 - [.test_mode_personalizado_without_text_hides_line()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L79) (2 connections)
 - [.test_mode_vacio_hides_line_even_with_client()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py#L84) (2 connections)
-- [Cliente a mostrar en PDF/Excel/vistas de una cotización.      Prioridad: 1) over](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L377) (1 connections)
-- [Etiqueta y valor de la línea "Propuesta para" de la portada.      proposal_for_m](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L398) (1 connections)
+- [Cliente a mostrar en PDF/Excel/vistas de una cotización.      Prioridad: 1) over](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L378) (1 connections)
+- [Etiqueta y valor de la línea "Propuesta para" de la portada.      proposal_for_m](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L399) (1 connections)
 - *... and 1 more nodes in this community*
 
 ## Class Diagram
@@ -65,13 +65,13 @@ classDiagram
 
 ## Relationships
 
-- [[Community 16]] (3 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
 - [/Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_client_override.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
 - [/Users/macbook/ProjectTracker/tests/test_quote_client_override.py](file:///Users/macbook/ProjectTracker/tests/test_quote_client_override.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 

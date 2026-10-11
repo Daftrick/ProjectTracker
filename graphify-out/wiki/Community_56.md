@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Regresión: smart_render_text/wrap_word_groups no restaban el margen         inte](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L515) (0 connections)
+- [__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/__init__.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tests/test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/routes/__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/__init__.py)
 
 ## Audit Trail
 

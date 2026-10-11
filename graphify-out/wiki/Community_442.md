@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [fpdf2 Dependency](file:///Users/macbook/ProjectTracker/requirements.txt) (0 connections)
+- [Agrega una versión al bundle y devuelve una copia actualizada.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L129) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [requirements.txt](file:///Users/macbook/ProjectTracker/requirements.txt)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

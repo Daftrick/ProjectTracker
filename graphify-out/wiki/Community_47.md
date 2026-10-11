@@ -1,26 +1,28 @@
 # Community 47
 
-> 3 nodes · cohesion 0.67
+> 4 nodes · cohesion 0.50
 
 ## Key Concepts
 
-- [Tech Stack Declaration](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
-- [Flask Dependency](file:///Users/macbook/ProjectTracker/requirements.txt) (1 connections)
-- [openpyxl Dependency](file:///Users/macbook/ProjectTracker/requirements.txt) (1 connections)
+- [Bundles Versioned System](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Consistency COT vs LDM Module](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [Catalog Hydration Logic](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [Pending: Bundle Technical Consistency Audit](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
 
 ## Relationships
 
-- [[Community 48]] (4 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
+- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
 - [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
-- [requirements.txt](file:///Users/macbook/ProjectTracker/requirements.txt)
+- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 4 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 4 (67%)
+- INFERRED: 2 (33%)
 - AMBIGUOUS: 0 (0%)
 
 ---

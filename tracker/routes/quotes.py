@@ -5,6 +5,7 @@ import os
 from io import BytesIO
 
 from flask import Blueprint, Response, flash, redirect, render_template, request, send_file, url_for
+from ..access import check_document_access
 
 from ..bundles import bundle_by_catalog_item_id, capture_bundle_snapshot, hydrate_quote_bundle_breakdowns
 from ..catalog import (
@@ -44,6 +45,11 @@ from ..storage import load, new_id, save, today
 from ..validators import validate_quote_form
 
 bp = Blueprint("quotes_bp", __name__)
+
+
+@bp.before_request
+def _check_document():
+    return check_document_access(load)
 
 
 def _hydrate_quote_for_display(quote):
@@ -402,17 +408,15 @@ def view_quote(project_id, quote_id):
 def _clean_payment_form(form):
     """Valida y limpia los campos de un pago (fecha, monto, concepto)."""
     errors = []
-    date_value = (form.get("date") or "").strip()
-    if not date_value:
-        errors.append("La fecha del pago es requerida.")
+    from ..validators import _validate_iso_date
+    from ..utils import parse_form_float
+    date_value = _validate_iso_date(form.get("date"), "La fecha del pago", errors)
     concept = (form.get("concept") or "").strip()
     amount_raw = (form.get("amount") or "").strip()
-    try:
-        amount = round(float(amount_raw.replace(",", ".")), 2)
-    except ValueError:
-        amount = None
-        errors.append("El monto debe ser un número válido.")
-    if amount is not None and amount <= 0:
+    amount = parse_form_float(amount_raw, "El monto", errors, default=None)
+    if amount is not None:
+        amount = round(amount, 2)
+    if amount is None or amount <= 0:
         errors.append("El monto debe ser mayor a 0.")
     return date_value, amount, concept, errors
 

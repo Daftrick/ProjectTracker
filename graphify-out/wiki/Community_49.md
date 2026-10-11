@@ -1,23 +1,24 @@
 # Community 49
 
-> 2 nodes · cohesion 1.00
+> 3 nodes · cohesion 1.00
 
 ## Key Concepts
 
-- [Data Integrity Rules (R1-R7)](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
-- [ProjectTracker System Rationale](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [main()](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py#L26) (2 connections)
+- [_run_graphify()](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py#L12) (2 connections)
+- [graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py#L1) (2 connections)
 
 ## Relationships
 
-- [[Community 50]] (2 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
+- [/Users/macbook/Documents/ProjectTracker/tools/graphify_task.py](file:///Users/macbook/Documents/ProjectTracker/tools/graphify_task.py)
 
 ## Audit Trail
 
-- EXTRACTED: 2 (100%)
+- EXTRACTED: 6 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

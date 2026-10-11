@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Expande las partidas COT con bundle a materiales esperados.      Retorna un dicc](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L179) (0 connections)
+- [Attach non-priced bundle inclusions to hydrated quote items.](file:///Users/macbook/ProjectTracker/tracker/bundles.py#L175) (0 connections)
 
 ## Relationships
 

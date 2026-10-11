@@ -1,28 +1,39 @@
 # Community 43
 
-> 4 nodes · cohesion 0.50
+> 5 nodes · cohesion 0.40
 
 ## Key Concepts
 
-- [Bundles Versioned System](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
-- [Consistency COT vs LDM Module](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
-- [Catalog Hydration Logic](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
-- [Pending: Bundle Technical Consistency Audit](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
+- [QuotePaymentsLinkTemplateSourceTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L50) (3 connections)
+- [test_quote_payments_link.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L1) (3 connections)
+- [.test_project_detail_has_payments_button_linking_to_view_quote_anchor()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L51) (1 connections)
+- [.test_quote_project_detail_has_payments_card_anchor_id()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py#L59) (1 connections)
+- [Botón "Pagos" en la fila de cada cotización (lista de cotizaciones, project_deta](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py#L1) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class QuotePaymentsLinkTemplateSourceTest {
+        +test_quote_payments_link.py()
+        +.test_project_detail_has_payments_button_linking_to_view_quote_anchor()
+        +.test_quote_project_detail_has_payments_card_anchor_id()
+    }
+```
 
 ## Relationships
 
-- [[Community 44]] (6 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
-- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_payments_link.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_payments_link.py](file:///Users/macbook/ProjectTracker/tests/test_quote_payments_link.py)
 
 ## Audit Trail
 
-- EXTRACTED: 4 (67%)
-- INFERRED: 2 (33%)
+- EXTRACTED: 9 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

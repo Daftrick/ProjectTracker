@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Lista única de categorías presentes en el catálogo, en orden alfabético.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py#L76) (0 connections)
+- [Integration tests for the mobile quote blueprint (Fase 10).](file:///Users/macbook/ProjectTracker/tests%5Ctest_quotes_mobile.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\catalog_search.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py)
+- [tests\test_quotes_mobile.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_quotes_mobile.py)
 
 ## Audit Trail
 

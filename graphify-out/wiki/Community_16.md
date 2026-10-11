@@ -1,51 +1,46 @@
 # Community 16
 
-> 28 nodes · cohesion 0.14
+> 29 nodes · cohesion 0.12
 
 ## Key Concepts
 
-- [quote_templates_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L1) (15 connections)
-- [get_quote_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L201) (13 connections)
-- [QuoteTemplatesConfigTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L5) (11 connections)
-- [_make_default_template()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L158) (6 connections)
-- [_normalize_template()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L171) (6 connections)
-- [get_template_for_type()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L215) (5 connections)
-- [_normalize()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L184) (5 connections)
-- [normalize_contact_rows()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L109) (5 connections)
-- [save_quote_templates()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L211) (5 connections)
-- [quote_templates()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1195) (5 connections)
-- [_normalize_contacts()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L96) (4 connections)
-- [_normalize_sections()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L148) (4 connections)
-- [get_template_by_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L220) (3 connections)
-- [_new_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L92) (3 connections)
-- [_normalize_section()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L131) (3 connections)
-- [_normalize_template_item()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py#L113) (2 connections)
-- [.test_default_structure_has_required_fields()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L23) (2 connections)
-- [.test_get_template_by_id()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L141) (2 connections)
-- [.test_get_template_for_type_returns_first_template()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L125) (2 connections)
-- [.test_get_template_for_unknown_type_returns_empty()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L153) (2 connections)
-- [.test_migrates_legacy_dict_and_sections_to_named_list()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L46) (2 connections)
-- [.test_non_dict_storage_returns_defaults()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L110) (2 connections)
-- [.test_normalizes_template_items_without_prices()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L77) (2 connections)
-- [.test_proyecto_ejecutivo_starts_without_seeded_items()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L16) (2 connections)
-- [.test_returns_all_types_when_no_file()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py#L7) (2 connections)
-- *... and 3 more nodes in this community*
+- [quotes_mobile.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L1) (15 connections)
+- [utils.py](file:///Users/macbook/ProjectTracker/tracker/utils.py#L1) (13 connections)
+- [mobile_generate_pdf()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L170) (12 connections)
+- [finite_float()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L7) (12 connections)
+- [mobile_add_item()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L104) (8 connections)
+- **ValueError** (8 connections)
+- [_hydrate_quote_for_display()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L32) (7 connections)
+- [mobile_items()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L70) (7 connections)
+- [_find_project()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L21) (6 connections)
+- [parse_csv_plano_filename()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L45) (6 connections)
+- [parse_float()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L34) (6 connections)
+- [api_ldm_set_costo()](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py#L417) (5 connections)
+- [mobile_review()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L150) (5 connections)
+- [ParseCsvPlanoFilenameTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L6) (5 connections)
+- [parse_form_float()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L18) (5 connections)
+- [_find_draft()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L25) (4 connections)
+- [clean()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L14) (4 connections)
+- [deleted_catalog_item_at()](file:///Users/macbook/ProjectTracker/tracker/utils.py#L68) (4 connections)
+- [_discipline_list()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L38) (2 connections)
+- [mobile_projects()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py#L52) (2 connections)
+- [.test_case_insensitive()](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L22) (2 connections)
+- [.test_extracts_export_metadata()](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L7) (2 connections)
+- [.test_rejects_cot_csv()](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L16) (2 connections)
+- [.test_rejects_wrong_clave()](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L19) (2 connections)
+- [test_drive.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py#L1) (1 connections)
+- *... and 4 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class QuoteTemplatesConfigTest {
-        +test_quote_templates.py()
-        +.test_returns_all_types_when_no_file()
-        +.test_proyecto_ejecutivo_starts_without_seeded_items()
-        +.test_default_structure_has_required_fields()
-        +.test_migrates_legacy_dict_and_sections_to_named_list()
-        +.test_normalizes_template_items_without_prices()
-        +.test_non_dict_storage_returns_defaults()
-        +.test_save_normalizes_before_storage()
-        +.test_get_template_for_type_returns_first_template()
-        +.test_get_template_by_id()
+    class ParseCsvPlanoFilenameTest {
+        +test_drive.py()
+        +.test_extracts_export_metadata()
+        +.test_rejects_cot_csv()
+        +.test_rejects_wrong_clave()
+        +.test_case_insensitive()
     }
 ```
 
@@ -55,14 +50,15 @@ classDiagram
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_templates.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_templates_config.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_drive.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_drive.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/materials.py](file:///Users/macbook/ProjectTracker/tracker/routes/materials.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes_mobile.py)
+- [/Users/macbook/ProjectTracker/tracker/utils.py](file:///Users/macbook/ProjectTracker/tracker/utils.py)
 
 ## Audit Trail
 
-- EXTRACTED: 84 (72%)
-- INFERRED: 33 (28%)
+- EXTRACTED: 94 (63%)
+- INFERRED: 55 (37%)
 - AMBIGUOUS: 0 (0%)
 
 ---

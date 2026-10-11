@@ -49,3 +49,4 @@ data/*.bak
 
 # FUSE temp artifacts from mounted filesystems
 .fuse_hidden*
+data/.storage.lock

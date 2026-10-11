@@ -1,82 +1,110 @@
 # Community 15
 
-> 29 nodes · cohesion 0.10
+> 32 nodes · cohesion 0.07
 
 ## Key Concepts
 
-- [SetQuoteStatusRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L108) (13 connections)
-- [set_quote_status()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L158) (11 connections)
-- [SetQuoteStatusModelTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L57) (10 connections)
-- [._status()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L124) (6 connections)
-- [set_quote_status_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L493) (5 connections)
-- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L109) (4 connections)
-- [.test_closed_project_shows_readonly_badge_not_select()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L190) (3 connections)
-- [test_quote_status_select.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L1) (3 connections)
-- [.test_active_to_draft_directly()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L66) (2 connections)
-- [.test_active_to_obsolete()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L72) (2 connections)
-- [.test_does_not_affect_other_quotes()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L96) (2 connections)
-- [.test_draft_to_active()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L61) (2 connections)
-- [.test_invalid_status_rejected()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L87) (2 connections)
-- [.test_obsolete_to_draft_directly()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L77) (2 connections)
-- [.test_same_status_is_a_noop()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L82) (2 connections)
-- [.test_unknown_quote_id_returns_false()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L92) (2 connections)
-- [.tearDown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L120) (2 connections)
-- [.test_invalid_status_flashes_error_and_does_not_change()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L151) (2 connections)
-- [.test_set_status_back_to_draft_from_active()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L136) (2 connections)
-- [.test_set_status_to_active()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L127) (2 connections)
-- [.test_set_status_to_obsolete_directly_from_draft()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L142) (2 connections)
-- [Cambia el approval_status de una cotización a cualquiera de los 3     estados vá](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L159) (1 connections)
-- [Cambia el estado de una cotización libremente a borrador/activa/obsoleta,     el](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L494) (1 connections)
-- [Selector libre de estado de cotización en la columna Estado.  Antes sólo existía](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py#L1) (1 connections)
-- [.test_valid_statuses_constant()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py#L58) (1 connections)
-- *... and 4 more nodes in this community*
+- [test_quotes_mobile.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L1) (9 connections)
+- [MobileItemsTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L122) (8 connections)
+- [MobileReviewTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L305) (7 connections)
+- [MobileRouteTestBase](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L69) (7 connections)
+- [MobileProjectsTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L83) (6 connections)
+- [MobileAddItemTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L209) (5 connections)
+- [MobileGeneratePdfTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L376) (5 connections)
+- [MobileRemoveItemTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L274) (3 connections)
+- [.test_add_item_creates_draft_and_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L210) (1 connections)
+- [.test_add_item_empty_item_id_no_save()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L248) (1 connections)
+- [.test_add_item_unknown_project_redirects_to_projects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L239) (1 connections)
+- [.test_generate_pdf_no_draft_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L402) (1 connections)
+- [.test_generate_pdf_returns_pdf_bytes()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L377) (1 connections)
+- [.test_generate_pdf_unknown_project_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L415) (1 connections)
+- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L123) (1 connections)
+- [.test_discipline_filter_shows_only_matching_items()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L183) (1 connections)
+- [.test_draft_banner_shown_when_draft_exists()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L144) (1 connections)
+- [.test_items_page_200_no_draft()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L132) (1 connections)
+- [.test_nueva_param_discards_draft_and_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L159) (1 connections)
+- [.test_unknown_project_redirects()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L138) (1 connections)
+- [._fake_load()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L84) (1 connections)
+- [.test_closed_projects_not_shown()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L110) (1 connections)
+- [.test_draft_badge_shown_when_draft_exists()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L97) (1 connections)
+- [.test_projects_page_200()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L91) (1 connections)
+- [.test_remove_item_updates_draft_and_redirects_to_review()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py#L275) (1 connections)
+- *... and 7 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class SetQuoteStatusModelTest {
-        +test_quote_status_select.py()
-        +.test_valid_statuses_constant()
-        +.test_draft_to_active()
-        +.test_active_to_draft_directly()
-        +.test_active_to_obsolete()
-        +.test_obsolete_to_draft_directly()
-        +.test_same_status_is_a_noop()
-        +.test_invalid_status_rejected()
-        +.test_unknown_quote_id_returns_false()
-        +.test_does_not_affect_other_quotes()
+    class MobileAddItemTest {
+        +test_quotes_mobile.py()
+        +.test_add_item_creates_draft_and_redirects()
+        +.test_add_item_unknown_project_redirects_to_projects()
+        +.test_add_item_empty_item_id_no_save()
     }
-    class SetQuoteStatusRouteTest {
-        +test_quote_status_select.py()
-        +.setUp()
-        +.tearDown()
-        +._status()
-        +.test_set_status_to_active()
-        +.test_set_status_back_to_draft_from_active()
-        +.test_set_status_to_obsolete_directly_from_draft()
-        +.test_invalid_status_flashes_error_and_does_not_change()
-        +.test_unknown_quote_flashes_not_found()
-        +.test_redirects_to_next_url_when_provided()
+    class MobileGeneratePdfTest {
+        +test_quotes_mobile.py()
+        +.test_generate_pdf_returns_pdf_bytes()
+        +.test_generate_pdf_no_draft_redirects()
+        +.test_generate_pdf_unknown_project_redirects()
     }
+    class MobileItemsTest {
+        +test_quotes_mobile.py()
+        +._fake_load()
+        +.test_items_page_200_no_draft()
+        +.test_unknown_project_redirects()
+        +.test_draft_banner_shown_when_draft_exists()
+        +.test_nueva_param_discards_draft_and_redirects()
+        +.test_discipline_filter_shows_only_matching_items()
+    }
+    class MobileProjectsTest {
+        +test_quotes_mobile.py()
+        +._fake_load()
+        +.test_projects_page_200()
+        +.test_draft_badge_shown_when_draft_exists()
+        +.test_closed_projects_not_shown()
+    }
+    class MobileRemoveItemTest {
+        +test_quotes_mobile.py()
+        +.test_remove_item_updates_draft_and_redirects_to_review()
+    }
+    class MobileReviewTest {
+        +test_quotes_mobile.py()
+        +._fake_load()
+        +.test_review_page_200_with_draft()
+        +.test_review_shows_bundle_breakdown()
+        +.test_review_no_draft_redirects_to_items()
+        +.test_review_unknown_project_redirects()
+    }
+    class MobileRouteTestBase {
+        +test_quotes_mobile.py()
+    }
+    MobileRouteTestBase <|-- MobileAddItemTest
+    MobileRouteTestBase <|-- MobileGeneratePdfTest
+    MobileRouteTestBase <|-- MobileItemsTest
+    MobileRouteTestBase <|-- MobileProjectsTest
+    MobileRouteTestBase <|-- MobileRemoveItemTest
+    MobileRouteTestBase <|-- MobileReviewTest
+    MobileProjectsTest <|-- MobileRouteTestBase
+    MobileItemsTest <|-- MobileRouteTestBase
+    MobileAddItemTest <|-- MobileRouteTestBase
+    MobileRemoveItemTest <|-- MobileRouteTestBase
+    MobileReviewTest <|-- MobileRouteTestBase
+    MobileGeneratePdfTest <|-- MobileRouteTestBase
 ```
 
 ## Relationships
 
-- [[Community 18]] (2 shared connections)
-- [[Community 0]] (1 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_select.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
-- [/Users/macbook/ProjectTracker/tests/test_quote_status_select.py](file:///Users/macbook/ProjectTracker/tests/test_quote_status_select.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quotes_mobile.py)
+- [/Users/macbook/ProjectTracker/tests/test_quotes_mobile.py](file:///Users/macbook/ProjectTracker/tests/test_quotes_mobile.py)
 
 ## Audit Trail
 
-- EXTRACTED: 62 (70%)
-- INFERRED: 27 (30%)
+- EXTRACTED: 74 (100%)
+- INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 
 ---

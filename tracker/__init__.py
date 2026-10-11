@@ -1,8 +1,9 @@
 import os
 
-from flask import Flask, current_app, redirect, request, url_for
+from flask import Flask, current_app, g, redirect, request, url_for
 from flask_login import current_user
 from .auth import init_auth
+from .access import can, check_access
 from .catalog import (
     migrate_catalog_disciplina,
     migrate_catalog_fields,
@@ -19,7 +20,7 @@ from .routes.projects import bp as projects_bp
 from .routes.quotes import bp as quotes_bp
 from .routes.quotes_mobile import bp as quotes_mobile_bp
 from .extensions import csrf
-from .storage import BASE_DIR, DATA_DIR, load, save
+from .storage import BASE_DIR, DATA_DIR, InvalidNumericData, load, save, transaction
 
 _LOGIN_EXEMPT = {"auth_bp.login", "auth_bp.logout", "static"}
 _DEFAULT_SECRET_KEY = "project-tracker-v2-2026"
@@ -51,7 +52,8 @@ def _requires_configured_secret_key(secret_key):
 
 
 def create_app():
-    app = Flask(__name__, template_folder=os.path.join(BASE_DIR, "templates"))
+    app = Flask(__name__, template_folder=os.path.join(BASE_DIR, "templates"),
+                static_folder=os.path.join(BASE_DIR, "static"))
 
     import sys
     secret_key = os.environ.get("FLASK_SECRET_KEY") or os.environ.get("SECRET_KEY", _DEFAULT_SECRET_KEY)
@@ -66,9 +68,10 @@ def create_app():
     init_auth(app)
 
     os.makedirs(DATA_DIR, exist_ok=True)
-    migrate_catalog_fields()
-    migrate_catalog_disciplina()
-    _migrate_quote_approval()
+    with transaction():
+        migrate_catalog_fields()
+        migrate_catalog_disciplina()
+        _migrate_quote_approval()
 
     app.add_template_filter(fdate, "fdate")
     app.add_template_filter(fdate_short, "fdate_short")
@@ -84,6 +87,7 @@ def create_app():
             "app_version": APP_VERSION,
             "tipos_ficha": TIPOS_FICHA,
             "company": get_company(),
+            "can": can,
         }
 
     @app.before_request
@@ -95,6 +99,32 @@ def create_app():
             return
         if not current_user.is_authenticated:
             return redirect(url_for("auth_bp.login", next=request.url))
+
+    @app.before_request
+    def _protect_data():
+        if request.endpoint in _LOGIN_EXEMPT or request.endpoint is None:
+            return
+        # Hold the same lock across every read/modify/write in the request.
+        g.storage_transaction = transaction()
+        g.storage_transaction.__enter__()
+        return check_access()
+
+    @app.teardown_request
+    def _release_data(error):
+        txn = g.pop("storage_transaction", None)
+        if txn is not None:
+            if error is None and g.pop("storage_discard", False):
+                error = ValueError("Request rejected; discard pending writes")
+            txn.__exit__(type(error) if error else None, error, None)
+
+    @app.after_request
+    def _discard_failed_writes(response):
+        g.storage_discard = response.status_code >= 400
+        return response
+
+    @app.errorhandler(InvalidNumericData)
+    def _invalid_numeric_data(error):
+        return "Los importes y cantidades deben ser números finitos válidos.", 400
 
     app.register_blueprint(projects_bp)
     app.register_blueprint(quotes_bp)

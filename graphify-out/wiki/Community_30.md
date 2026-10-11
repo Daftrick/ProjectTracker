@@ -1,20 +1,23 @@
 # Community 30
 
-> 11 nodes · cohesion 0.20
+> 14 nodes · cohesion 0.27
 
 ## Key Concepts
 
-- [Roadmap de Mejoras (Backlog)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (7 connections)
-- [Historial de Cambios Recientes](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
-- [Version Actual v25.1](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
-- [Checklist de Cierre de Mejora](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (2 connections)
-- [Limpieza Residual de Templates (Media Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Funcionalidades Completadas](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Exportaciones y Reportes (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Filtros y Busqueda Adicionales (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Sincronizacion Parcial COT-Bundle-LDM (Diseno Pendiente)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Mejoras de UX General (Baja Prioridad)](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
-- [Convencion de Versionado](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
+- [pdf_ldm_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L1) (10 connections)
+- [extract_items_from_pdf()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L291) (8 connections)
+- [_extract_from_tables()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L202) (5 connections)
+- [_clean()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L33) (4 connections)
+- [_extract_from_text()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L260) (4 connections)
+- [_extract_procables()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L56) (4 connections)
+- [_to_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L19) (4 connections)
+- [_extract_procables_meta()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L152) (3 connections)
+- [_header_map()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L185) (3 connections)
+- [_is_procables()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L47) (2 connections)
+- [Extracción de ítems desde PDFs de cotización de proveedores.  Estrategia en casc](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L1) (1 connections)
+- [Extrae número de cotización, fecha y proveedor del header de Procables.](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L153) (1 connections)
+- [Lee un PDF de cotización de proveedor y extrae los ítems.      Devuelve:](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L292) (1 connections)
+- [Extrae ítems de cotización Procables usando franjas de columna por coordenada x.](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L57) (1 connections)
 
 ## Relationships
 
@@ -22,13 +25,13 @@
 
 ## Source Files
 
-- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
-- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [/Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py)
+- [/Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py)
 
 ## Audit Trail
 
-- EXTRACTED: 20 (91%)
-- INFERRED: 2 (9%)
+- EXTRACTED: 50 (98%)
+- INFERRED: 1 (2%)
 - AMBIGUOUS: 0 (0%)
 
 ---

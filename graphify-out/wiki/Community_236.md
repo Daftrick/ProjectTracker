@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Adds 'disciplina' field (default 'instalaciones') to all catalog items missing i](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py#L26) (0 connections)
+- [Smoke-test del endpoint JSON; no muta datos.](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py#L110) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\catalog.py](file:///Users/macbook/ProjectTracker/tracker%5Ccatalog.py)
+- [tests\test_catalog_search.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_catalog_search.py)
 
 ## Audit Trail
 

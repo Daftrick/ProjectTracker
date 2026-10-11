@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Artículos ignorados en comparación COT/LDM.  Los artículos ignorados siguen form](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L1) (0 connections)
+- [Audit all quotes and LDMs for deleted catalog items](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py#L606) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
+- [tracker\routes\quotes.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cquotes.py)
 
 ## Audit Trail
 

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Convierte cualquier valor a str limpio, apto para fpdf2 con DejaVu (UTF-8).](file:///Users/macbook/ProjectTracker/tracker/pdfs.py#L52) (0 connections)
+- [Si el proyecto no tiene cliente asignado (dato incompleto/legacy),         se co](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py#L468) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tests/test_pdfs.py](file:///Users/macbook/ProjectTracker/tests/test_pdfs.py)
 
 ## Audit Trail
 

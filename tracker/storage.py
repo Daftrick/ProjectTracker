@@ -4,14 +4,74 @@ import tempfile
 import threading
 import uuid
 from datetime import date
+from contextlib import contextmanager
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 
-# TOCTOU note: acquired per-call, not per read-modify-write cycle —
-# two threads can interleave load→modify→save (last write wins).
-# Acceptable at 2-3 users; full SQLite migration resolves this (v1.5+).
-_LOCK = threading.Lock()
+# Reentrant for nested load/save calls inside one read/modify/write cycle.
+_LOCK = threading.RLock()
+_LOCAL = threading.local()
+
+
+class InvalidNumericData(ValueError):
+    """JSON must never persist NaN or infinity as financial values."""
+
+
+@contextmanager
+def transaction():
+    """Serialize an entire data operation, across threads AND server processes.
+
+    HTTP requests and startup migrations use this automatically. Scripts that
+    read, modify and save must enclose the complete cycle in this context.
+    The lock file is stable: never unlink it while another process may use it.
+    """
+    with _LOCK:
+        if getattr(_LOCAL, "depth", 0):
+            _LOCAL.depth += 1
+            try:
+                yield
+            finally:
+                _LOCAL.depth -= 1
+            return
+        directory = os.path.dirname(FILES["projects"])
+        os.makedirs(directory, exist_ok=True)
+        with open(os.path.join(directory, ".storage.lock"), "a+b") as lock_file:
+            if os.name == "nt":
+                import errno
+                import msvcrt
+                import time
+                if os.fstat(lock_file.fileno()).st_size == 0:
+                    lock_file.write(b"\0")
+                    lock_file.flush()
+                lock_file.seek(0)
+                # LK_LOCK gives up after ten seconds; a legitimate long PDF
+                # must not cause another request to fail while waiting.
+                while True:
+                    try:
+                        msvcrt.locking(lock_file.fileno(), msvcrt.LK_NBLCK, 1)
+                        break
+                    except OSError as error:
+                        if error.errno not in {errno.EACCES, errno.EAGAIN, errno.EDEADLK}:
+                            raise
+                        time.sleep(.05)
+            else:
+                import fcntl
+                fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
+            _LOCAL.depth = 1
+            _LOCAL.pending = {}
+            try:
+                yield
+                for path, encoded in _LOCAL.pending.items():
+                    _write_atomic(path, encoded)
+            finally:
+                _LOCAL.depth = 0
+                _LOCAL.pending = {}
+                if os.name == "nt":
+                    lock_file.seek(0)
+                    msvcrt.locking(lock_file.fileno(), msvcrt.LK_UNLCK, 1)
+                else:
+                    fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
 
 FILES = {
     "projects": os.path.join(DATA_DIR, "projects.json"),
@@ -38,7 +98,10 @@ FILES = {
 
 
 def load(key):
-    with _LOCK:
+    with transaction():
+        pending = _LOCAL.pending.get(FILES[key])
+        if pending is not None:
+            return json.loads(pending)
         try:
             with open(FILES[key], "r", encoding="utf-8") as handle:
                 return json.load(handle)
@@ -50,13 +113,27 @@ def save(key, data):
     path = FILES[key]
     dir_name = os.path.dirname(path)
     os.makedirs(dir_name, exist_ok=True)
-    with _LOCK:
+    with transaction():
+        # Validate before touching the existing file or allocating a temp file.
+        try:
+            encoded = json.dumps(data, ensure_ascii=False, indent=2, allow_nan=False)
+        except ValueError as error:
+            raise InvalidNumericData(str(error)) from error
+        _LOCAL.pending[path] = encoded
+
+
+def _write_atomic(path, encoded):
+    tmp_path = None
+    try:
         with tempfile.NamedTemporaryFile(
-            mode="w", encoding="utf-8", dir=dir_name, delete=False, suffix=".tmp"
+            mode="w", encoding="utf-8", dir=os.path.dirname(path), delete=False, suffix=".tmp"
         ) as tmp:
-            json.dump(data, tmp, ensure_ascii=False, indent=2)
             tmp_path = tmp.name
+            tmp.write(encoded)
         os.replace(tmp_path, path)
+    finally:
+        if tmp_path and os.path.exists(tmp_path):
+            os.unlink(tmp_path)
 
 
 def new_id():

@@ -262,6 +262,7 @@
        data-label="Portafolio">
       <i class="bi bi-kanban"></i><span class="nav-label"> Portafolio</span>
     </a>
+    {% if can('view_quotes') %}
     <a href="{{ url_for('quotes_bp.all_quotes') }}" class="nav-link {% if request.endpoint=='quotes_bp.all_quotes' %}active{% endif %}"
        data-label="Cotizaciones">
       <i class="bi bi-receipt"></i><span class="nav-label"> Cotizaciones</span>
@@ -270,6 +271,7 @@
        data-label="Pagos">
       <i class="bi bi-cash-stack"></i><span class="nav-label"> Pagos</span>
     </a>
+    {% if can('edit_quotes') %}
     <a href="{{ url_for('quotes_bp.quote_templates') }}" class="nav-link {% if request.endpoint=='quotes_bp.quote_templates' %}active{% endif %}"
        data-label="Plantillas">
       <i class="bi bi-file-earmark-text"></i><span class="nav-label"> Plantillas</span>
@@ -279,6 +281,8 @@
       <i class="bi bi-file-text"></i><span class="nav-label"> Términos y Condiciones</span>
     </a>
 
+    {% endif %}
+    {% endif %}
     <div class="nav-section mt-2">Recursos</div>
     <a href="{{ url_for('fichas') }}" class="nav-link {% if request.endpoint=='fichas' %}active{% endif %}"
        data-label="Fichas Técnicas">

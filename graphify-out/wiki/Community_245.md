@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Aplica búsqueda por tokens y filtro de categoría, ordenado alfabéticamente.](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py#L68) (0 connections)
+- [Smoke tests for simplified project detail COT/LDM UI.](file:///Users/macbook/ProjectTracker/tests%5Ctest_project_detail_bundle_ui.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [H:\My Drive\Omniious\Claude Code\ProjectTracker\tracker\catalog_search.py](file:///Users/macbook/ProjectTracker/H%3A%5CMy%20Drive%5COmniious%5CClaude%20Code%5CProjectTracker%5Ctracker%5Ccatalog_search.py)
+- [tests\test_project_detail_bundle_ui.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_project_detail_bundle_ui.py)
 
 ## Audit Trail
 

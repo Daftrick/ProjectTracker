@@ -1,14 +1,13 @@
 # Community 24
 
-> 21 nodes · cohesion 0.19
+> 19 nodes · cohesion 0.22
 
 ## Key Concepts
 
 - [_q()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L16) (12 connections)
-- [approve_quote()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L137) (10 connections)
-- [migrate_quote_approval()](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L99) (9 connections)
+- [approve_quote()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L137) (10 connections)
+- [migrate_quote_approval()](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L99) (9 connections)
 - [ApproveQuoteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L23) (7 connections)
-- [approve_quote_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L475) (5 connections)
 - [MigrateQuoteApprovalTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L87) (5 connections)
 - [test_catalog_approval.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L1) (5 connections)
 - [.test_approve_does_not_touch_other_project()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L77) (3 connections)
@@ -24,7 +23,6 @@
 - [.test_approving_does_not_affect_other_types()](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py#L185) (3 connections)
 - [Migración idempotente: asigna approval_status a cotizaciones que no lo tienen.](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L100) (1 connections)
 - [Marca la cotización target_id como active, o la regresa a obsolete si ya lo esta](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py#L138) (1 connections)
-- [Aprueba/activa o desactiva una cotización.      Toggle libre e independiente par](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L476) (1 connections)
 
 ## Class Diagram
 
@@ -50,19 +48,18 @@ classDiagram
 
 ## Relationships
 
-- [[Community 23]] (2 shared connections)
-- [[Community 0]] (1 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
 - [/Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_catalog_approval.py)
 - [/Users/macbook/Documents/ProjectTracker/tracker/catalog.py](file:///Users/macbook/Documents/ProjectTracker/tracker/catalog.py)
-- [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
 
 ## Audit Trail
 
-- EXTRACTED: 62 (70%)
-- INFERRED: 27 (30%)
+- EXTRACTED: 59 (71%)
+- INFERRED: 24 (29%)
 - AMBIGUOUS: 0 (0%)
 
 ---

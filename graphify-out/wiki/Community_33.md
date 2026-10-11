@@ -1,17 +1,35 @@
 # Community 33
 
-> 8 nodes · cohesion 0.25
+> 9 nodes · cohesion 0.22
 
 ## Key Concepts
 
-- [quote_terms_editor.js](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L1) (7 connections)
-- [addTerm()](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L14) (1 connections)
-- [button](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L55) (1 connections)
-- [option](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L47) (1 connections)
-- [publish()](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L5) (1 connections)
-- [rows](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L2) (1 connections)
-- [select](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L3) (1 connections)
-- [terms](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js#L49) (1 connections)
+- [CatalogQuickAddTextareaTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L134) (5 connections)
+- [test_quote_desc_textarea.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L1) (4 connections)
+- [QuoteDescTemplateSourceTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L52) (3 connections)
+- [.test_autogrow_helper_handles_hidden_elements_gracefully()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L149) (1 connections)
+- [.test_form_uses_textarea_for_catalog_search_and_quick_add_fields()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L139) (1 connections)
+- [.test_form_has_autogrow_wiring()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L59) (1 connections)
+- [.test_form_uses_textarea_for_item_desc_not_input()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py#L53) (1 connections)
+- [item_desc[] (columna "Nombre / Descripción" de cada partida) es un <textarea> au](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L1) (1 connections)
+- [Buscador de catálogo (catalogSearch) y mini-formulario "Agregar nuevo     artícu](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py#L135) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class CatalogQuickAddTextareaTest {
+        +test_quote_desc_textarea.py()
+        +.test_form_uses_textarea_for_catalog_search_and_quick_add_fields()
+        +.test_autogrow_helper_handles_hidden_elements_gracefully()
+        +.test_api_catalogo_add_accepts_multiline_nombre_and_descripcion()
+    }
+    class QuoteDescTemplateSourceTest {
+        +test_quote_desc_textarea.py()
+        +.test_form_uses_textarea_for_item_desc_not_input()
+        +.test_form_has_autogrow_wiring()
+    }
+```
 
 ## Relationships
 
@@ -19,11 +37,12 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/static/quote_terms_editor.js](file:///Users/macbook/ProjectTracker/static/quote_terms_editor.js)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_desc_textarea.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py](file:///Users/macbook/ProjectTracker/tests/test_quote_desc_textarea.py)
 
 ## Audit Trail
 
-- EXTRACTED: 14 (100%)
+- EXTRACTED: 18 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

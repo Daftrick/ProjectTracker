@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Nomenclatura de estados de cotización (borrador/activa/obsoleta),     editable p](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L971) (0 connections)
+- [Detecta el tipo real del archivo por sus bytes iniciales (no por extensión).](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L374) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py)
 
 ## Audit Trail
 

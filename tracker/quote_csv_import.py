@@ -73,13 +73,14 @@ def _detect_dialect(path):
 
 
 def _parse_float(value, row_number, field_label, errors, required=False, default=0.0):
+    from .utils import finite_float
     raw = _clean(value).replace(",", ".")
     if not raw:
         if required:
             errors.append(f"Fila {row_number}: {field_label} es requerida.")
         return default
     try:
-        return float(raw)
+        return finite_float(raw)
     except ValueError:
         errors.append(f"Fila {row_number}: {field_label} debe ser un numero valido.")
         return default

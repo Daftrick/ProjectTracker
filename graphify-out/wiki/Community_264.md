@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Returns 'verde', 'amarillo', 'rojo', or 'gris' based on deadline and inactivity.](file:///Users/macbook/ProjectTracker/tracker%5Cdomain.py#L97) (0 connections)
+- [Normaliza un componente de bundle.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L63) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\domain.py](file:///Users/macbook/ProjectTracker/tracker%5Cdomain.py)
+- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
 
 ## Audit Trail
 

@@ -13,6 +13,7 @@ from ..services import (
     upsert_mobile_draft,
 )
 from ..storage import load, save
+from ..utils import finite_float
 
 bp = Blueprint("quotes_mobile_bp", __name__, url_prefix="/cotizar/mobile")
 
@@ -107,9 +108,12 @@ def mobile_add_item(project_id):
 
     item_id = request.form.get("item_id", "").strip()
     try:
-        qty = float(request.form.get("qty", "1") or "1")
+        qty = finite_float(request.form.get("qty", "1") or "1")
+        if qty <= 0:
+            raise ValueError("Cantidad no positiva")
     except ValueError:
-        qty = 1.0
+        flash("La cantidad debe ser un número finito mayor a 0.", "warning")
+        return redirect(url_for("quotes_mobile_bp.mobile_items", project_id=project_id))
 
     if item_id:
         catalog_by_id, _ = catalog_maps()

@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Activa una versión y archiva la versión activa anterior.](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py#L146) (0 connections)
+- [Tests for the deleted catalog audit route.](file:///Users/macbook/ProjectTracker/tests%5Ctest_audit_deleted_catalog_route.py#L1) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\bundles.py](file:///Users/macbook/ProjectTracker/tracker%5Cbundles.py)
+- [tests\test_audit_deleted_catalog_route.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_audit_deleted_catalog_route.py)
 
 ## Audit Trail
 

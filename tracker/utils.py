@@ -1,6 +1,14 @@
 """Helpers compartidos entre validators, form_models, admin y rutas."""
 import datetime
 import re
+import math
+
+
+def finite_float(value):
+    number = float(str(value).strip().replace(",", "."))
+    if not math.isfinite(number):
+        raise ValueError("El número debe ser finito.")
+    return number
 
 
 def clean(value):
@@ -13,7 +21,7 @@ def parse_form_float(value, field_label, errors, row=None, default=0.0, field_er
     if raw == "":
         return default
     try:
-        return float(raw.replace(",", "."))
+        return finite_float(raw)
     except ValueError:
         prefix = f"Fila {row}: " if row else ""
         message = f"{prefix}{field_label} debe ser un número válido."
@@ -29,7 +37,7 @@ def parse_float(value, default=0.0):
     if not raw:
         return default
     try:
-        return float(raw)
+        return finite_float(raw)
     except ValueError:
         return default
 

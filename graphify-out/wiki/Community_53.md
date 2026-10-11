@@ -1,10 +1,11 @@
 # Community 53
 
-> 1 nodes · cohesion 1.00
+> 2 nodes · cohesion 1.00
 
 ## Key Concepts
 
-- [__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/__init__.py#L1) (0 connections)
+- [Proyecto Entity](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [Drive Project Folder Naming](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
 
 ## Relationships
 
@@ -12,11 +13,12 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/routes/__init__.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/__init__.py)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 0 (0%)
+- EXTRACTED: 2 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

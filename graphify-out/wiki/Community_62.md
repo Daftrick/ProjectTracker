@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Return the company dict from company.json, or {} on any error.](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py#L129) (0 connections)
+- [Total cotizado vs. pagado y saldo pendiente para un conjunto de pagos.](file:///Users/macbook/ProjectTracker/tracker/payments.py#L67) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/pdfs.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdfs.py)
+- [/Users/macbook/ProjectTracker/tracker/payments.py](file:///Users/macbook/ProjectTracker/tracker/payments.py)
 
 ## Audit Trail
 

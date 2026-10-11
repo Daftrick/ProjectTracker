@@ -3,6 +3,7 @@ from datetime import date
 from flask import Blueprint, abort, flash, redirect, render_template, request, send_file, url_for
 
 from ..auth import admin_required
+from ..access import can
 from ..deletions import delete_project_data
 from ..domain import STAGES, get_progress, project_semaphore, project_stage
 from ..project_view import build_project_detail_context
@@ -37,7 +38,7 @@ def dashboard():
     projects = load("projects")
 
     quotes_by_project: dict = {}
-    for q in load("quotes"):
+    for q in (load("quotes") if can("view_quotes") else []):
         pid = q.get("project_id")
         if pid and q.get("status") != "draft":
             quotes_by_project.setdefault(pid, []).append(float(q.get("total", 0)))
@@ -156,7 +157,7 @@ def project_detail(project_id):
             stage_budget_totals["actual"] += float(bd.get("actual") or 0)
     return render_template(
         "project_detail.html",
-        **build_project_detail_context(project),
+        **build_project_detail_context(project, include_quotes=can("view_quotes")),
         templates_map=templates_map,
         stage_budget_totals=stage_budget_totals,
     )
@@ -220,6 +221,7 @@ def reopen_project(project_id):
 
 
 @bp.route("/projects/<project_id>/delete", methods=["POST"], endpoint="delete_project")
+@admin_required
 def delete_project(project_id):
     result = delete_project_data(
         project_id,

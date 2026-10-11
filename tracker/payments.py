@@ -6,6 +6,7 @@ Disponible para todos los usuarios autenticados (ver rutas en routes/quotes.py).
 """
 
 from .storage import load as _load, new_id, save as _save, today
+from .utils import finite_float, parse_float
 
 
 def _normalize_payment(payment):
@@ -16,7 +17,7 @@ def _normalize_payment(payment):
     if not project_id or not quote_id:
         return None
     try:
-        amount = round(float(payment.get("amount", 0) or 0), 2)
+        amount = round(finite_float(payment.get("amount", 0) or 0), 2)
     except (TypeError, ValueError):
         amount = 0.0
     return {
@@ -66,10 +67,10 @@ def get_payments_for_project(project_id: str) -> list:
 def payment_summary(total, payments) -> dict:
     """Total cotizado vs. pagado y saldo pendiente para un conjunto de pagos."""
     try:
-        total = round(float(total or 0), 2)
+        total = round(finite_float(total or 0), 2)
     except (TypeError, ValueError):
         total = 0.0
-    paid = round(sum(p.get("amount", 0) for p in payments), 2)
+    paid = round(sum(parse_float(p.get("amount", 0)) for p in payments), 2)
     return {"total": total, "paid": paid, "balance": round(total - paid, 2)}
 
 

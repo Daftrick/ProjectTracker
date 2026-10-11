@@ -1,37 +1,58 @@
 # Community 28
 
-> 14 nodes · cohesion 0.27
+> 14 nodes · cohesion 0.16
 
 ## Key Concepts
 
-- [pdf_ldm_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L1) (11 connections)
-- [extract_items_from_pdf()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L291) (8 connections)
-- [_extract_from_tables()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L202) (5 connections)
-- [_clean()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L33) (4 connections)
-- [_extract_from_text()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L260) (4 connections)
-- [_extract_procables()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L56) (4 connections)
-- [_to_float()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L19) (4 connections)
-- [_extract_procables_meta()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L152) (3 connections)
-- [_header_map()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L185) (3 connections)
-- [_is_procables()](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py#L47) (2 connections)
-- [Extracción de ítems desde PDFs de cotización de proveedores.  Estrategia en casc](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L1) (1 connections)
-- [Extrae número de cotización, fecha y proveedor del header de Procables.](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L153) (1 connections)
-- [Lee un PDF de cotización de proveedor y extrae los ítems.      Devuelve:](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L292) (1 connections)
-- [Extrae ítems de cotización Procables usando franjas de columna por coordenada x.](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py#L57) (1 connections)
+- [CompanyLogoUploadTests](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L8) (7 connections)
+- [_requires_configured_secret_key()](file:///Users/macbook/ProjectTracker/tracker/__init__.py#L50) (6 connections)
+- [AppConfigTests](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L8) (5 connections)
+- **TestCase** (3 connections)
+- [.test_custom_secret_is_allowed_in_production()](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L17) (2 connections)
+- [.test_default_secret_is_allowed_for_local_startup()](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L9) (2 connections)
+- [.test_default_secret_is_rejected_in_production()](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L13) (2 connections)
+- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L9) (1 connections)
+- [.test_empresa_preview_uses_serve_route_with_logo_version()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L33) (1 connections)
+- [.test_upload_accepts_real_png_and_saves_company_logo()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L17) (1 connections)
+- [.test_upload_rejects_extension_that_does_not_match_content()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L57) (1 connections)
+- [.test_upload_rejects_svg()](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L42) (1 connections)
+- [test_app_config.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py#L1) (1 connections)
+- [test_company_logo_upload.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py#L1) (1 connections)
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class AppConfigTests {
+        +test_app_config.py()
+        +.test_default_secret_is_allowed_for_local_startup()
+        +.test_default_secret_is_rejected_in_production()
+        +.test_custom_secret_is_allowed_in_production()
+    }
+    class CompanyLogoUploadTests {
+        +test_company_logo_upload.py()
+        +.setUp()
+        +.test_upload_accepts_real_png_and_saves_company_logo()
+        +.test_empresa_preview_uses_serve_route_with_logo_version()
+        +.test_upload_rejects_svg()
+        +.test_upload_rejects_extension_that_does_not_match_content()
+    }
+```
 
 ## Relationships
 
-- [[Community 9]] (4 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py](file:///Users/macbook/Documents/ProjectTracker/tracker/pdf_ldm_import.py)
-- [/Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py](file:///Users/macbook/ProjectTracker/tracker/pdf_ldm_import.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_app_config.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_app_config.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_company_logo_upload.py)
+- [/Users/macbook/ProjectTracker/tracker/__init__.py](file:///Users/macbook/ProjectTracker/tracker/__init__.py)
 
 ## Audit Trail
 
-- EXTRACTED: 51 (98%)
-- INFERRED: 1 (2%)
+- EXTRACTED: 28 (82%)
+- INFERRED: 6 (18%)
 - AMBIGUOUS: 0 (0%)
 
 ---

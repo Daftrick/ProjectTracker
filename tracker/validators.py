@@ -34,6 +34,8 @@ def _validate_iso_date(value, field_label, errors, field_errors=None, field_key=
             field_errors.setdefault(field_key, message)
         return ""
     try:
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", cleaned):
+            raise ValueError("Formato de fecha inválido")
         datetime.strptime(cleaned, "%Y-%m-%d")
     except ValueError:
         message = f"{field_label} debe tener formato AAAA-MM-DD."

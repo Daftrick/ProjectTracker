@@ -24,12 +24,13 @@ def _first_value(row, aliases):
 
 
 def _parse_float(value, row_number, errors):
+    from .utils import finite_float
     raw = _clean(value).replace(",", ".")
     if not raw:
         errors.append(f"Fila {row_number}: cantidad es requerida.")
         return 0.0
     try:
-        return float(raw)
+        return finite_float(raw)
     except ValueError:
         errors.append(f"Fila {row_number}: cantidad debe ser un número válido.")
         return 0.0

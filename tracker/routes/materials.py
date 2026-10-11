@@ -10,11 +10,12 @@ from io import BytesIO
 from flask import Blueprint, Response, flash, jsonify, redirect, render_template, request, send_file, session, url_for
 
 from ..catalog import catalog_maps, catalog_name_key, hydrate_ldm, hydrate_ldm_item, safe_float
+from ..access import check_document_access
 from ..consistency import pick_active_quote
 from ..csv_catalog_validation import validate_csv_catalog_items
 from ..csv_import import parse_ldm_csv
 from ..deletions import purge_deleted_catalog_items_from_record
-from ..utils import parse_csv_plano_filename
+from ..utils import finite_float, parse_csv_plano_filename
 from ..form_models import ldm_from_form
 from ..ldm_sync import missing_ldm_items_from_bundles, selected_missing_bundle_items
 from ..pdfs import build_ldm_pdf
@@ -22,6 +23,11 @@ from ..storage import load, new_id, save, today
 from ..validators import validate_ldm_form
 
 bp = Blueprint("materials_bp", __name__)
+
+
+@bp.before_request
+def _check_document():
+    return check_document_access(load)
 
 
 def _clean_form_text(value):
@@ -411,7 +417,9 @@ def edit_ldm(project_id, ldm_id):
 def api_ldm_set_costo(ldm_id):
     data = request.get_json(force=True) or {}
     try:
-        subtotal = round(float(data.get("subtotal_cot", 0)), 2)
+        subtotal = round(finite_float(data.get("subtotal_cot", 0)), 2)
+        if subtotal < 0:
+            raise ValueError("Costo negativo")
     except (TypeError, ValueError):
         return jsonify({"error": "Valor inválido"}), 400
     all_ldms = load("materiales")

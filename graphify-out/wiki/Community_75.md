@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Acceso rápido desde el panel lateral: todos los pagos de todas las     cotizacio](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py#L1034) (0 connections)
+- [Parsea una cotización desde CSV o Excel, según el contenido real del archivo.](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py#L388) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/Documents/ProjectTracker/tracker/routes/quotes.py)
+- [/Users/macbook/ProjectTracker/tracker/quote_csv_import.py](file:///Users/macbook/ProjectTracker/tracker/quote_csv_import.py)
 
 ## Audit Trail
 

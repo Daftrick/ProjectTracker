@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Casos borde de expand_quote_bundles y versionado.](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py#L126) (0 connections)
+- [One-time migration: split 'Marca | Nombre' items into separate marca + nombre fi](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py#L267) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tests\test_bundles.py](file:///Users/macbook/ProjectTracker/tests%5Ctest_bundles.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/admin.py](file:///Users/macbook/ProjectTracker/tracker/routes/admin.py)
 
 ## Audit Trail
 

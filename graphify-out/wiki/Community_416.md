@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Mapa catalog_item_id → regla de ignorado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L56) (0 connections)
+- [LRU cache for drive folder scans with TTL and mtime-based invalidation](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L39) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
+- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

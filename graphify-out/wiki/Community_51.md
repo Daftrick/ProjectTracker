@@ -1,24 +1,26 @@
 # Community 51
 
-> 2 nodes · cohesion 1.00
+> 3 nodes · cohesion 0.67
 
 ## Key Concepts
 
-- [Fixed Bottom Summary Bar Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
-- [Sticky Table Header with Dynamic Offset Pattern](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html) (1 connections)
+- [Project File Structure](file:///Users/macbook/ProjectTracker/VERSIONES.md) (2 connections)
+- [CLAUDE.md Graphify Rules](file:///Users/macbook/ProjectTracker/CLAUDE.md) (1 connections)
+- [Flask Blueprints Architecture](file:///Users/macbook/ProjectTracker/VERSIONES.md) (1 connections)
 
 ## Relationships
 
-- [[Community 52]] (2 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [templates/quote_project_form.html](file:///Users/macbook/ProjectTracker/templates/quote_project_form.html)
+- [CLAUDE.md](file:///Users/macbook/ProjectTracker/CLAUDE.md)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
 
 ## Audit Trail
 
-- EXTRACTED: 0 (0%)
-- INFERRED: 2 (100%)
+- EXTRACTED: 2 (50%)
+- INFERRED: 2 (50%)
 - AMBIGUOUS: 0 (0%)
 
 ---

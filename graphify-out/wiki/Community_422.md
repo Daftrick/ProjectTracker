@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Crea la carpeta Drive del proyecto si aún no existe.](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cprojects.py#L452) (0 connections)
+- [Lazy loader for large files to avoid loading all file metadata at once](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py#L97) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [tracker\routes\projects.py](file:///Users/macbook/ProjectTracker/tracker%5Croutes%5Cprojects.py)
+- [tracker\drive.py](file:///Users/macbook/ProjectTracker/tracker%5Cdrive.py)
 
 ## Audit Trail
 

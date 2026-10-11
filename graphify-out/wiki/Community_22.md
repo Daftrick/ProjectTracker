@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [admin_filters.py](file:///Users/macbook/Documents/ProjectTracker/tracker/admin_filters.py#L1) (9 connections)
+- [admin_filters.py](file:///Users/macbook/Documents/ProjectTracker/tracker/admin_filters.py#L1) (8 connections)
 - [filter_fichas()](file:///Users/macbook/Documents/ProjectTracker/tracker/admin_filters.py#L54) (6 connections)
 - [filter_proveedores()](file:///Users/macbook/Documents/ProjectTracker/tracker/admin_filters.py#L41) (6 connections)
 - [_normalize()](file:///Users/macbook/Documents/ProjectTracker/tracker/admin_filters.py#L9) (6 connections)
@@ -48,7 +48,7 @@ classDiagram
 
 ## Relationships
 
-- [[Community 20]] (5 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
@@ -59,7 +59,7 @@ classDiagram
 
 ## Audit Trail
 
-- EXTRACTED: 61 (87%)
+- EXTRACTED: 60 (87%)
 - INFERRED: 9 (13%)
 - AMBIGUOUS: 0 (0%)
 

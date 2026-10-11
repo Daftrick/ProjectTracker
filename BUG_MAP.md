@@ -2,11 +2,63 @@
 
 Fecha: 11 de octubre de 2026. Código investigado: `bcab0c5` en `main`.
 
-Estado: **diagnóstico completado; 13 hallazgos confirmados y pendientes de corrección**.
+Estado: **7 prioritarios (BUG-01 a BUG-07) corregidos y verificados; 6 P2 pendientes**.
 Método: `investigate`, con navegación por Graphify, revisión de cambios,
 hipótesis, reproducciones aisladas y comprobaciones de navegador con `browse`.
-Esta entrega agrega el informe y un programa de reproducción; no modifica el
-comportamiento de la aplicación.
+El diagnóstico inicial corresponde a `bcab0c5`. La corrección posterior modifica
+la aplicación y convierte las reproducciones de los P1 en comprobaciones del
+comportamiento correcto; conserva las reproducciones de los P2 pendientes.
+
+## Correcciones de los siete prioritarios
+
+- **BUG-01:** Flask sirve `static/` de la raíz. El JavaScript devuelve HTTP 200
+  y los dos editores cargan los controles de términos.
+- **BUG-02:** eliminar un proyecto exige administrador, aunque el cotizador
+  tenga todos los permisos individuales habilitados.
+- **BUG-03:** los seis permisos se comprueban en el servidor. Leer cotizaciones
+  exige `view_quotes`; editarlas (incluidos PDF, móvil y LDM), además,
+  `edit_quotes`. Exportar exige `download_files`; importar, `upload_files`.
+  Editar proyectos y gestionar avances/checklists usan sus respectivos permisos.
+  Los resúmenes de proyectos tampoco exponen cotizaciones o pagos cuando falta
+  el permiso de lectura. Los administradores conservan acceso completo.
+- **BUG-04:** todas las rutas de documentos con proyecto y cotización/LDM en la
+  URL comprueban esa relación antes de consultar, exportar o modificar datos.
+- **BUG-05:** cada petición mantiene un bloqueo reentrante durante el ciclo
+  completo de lectura/modificación/guardado, compartido entre hilos y procesos.
+  Los guardados se preparan y se descartan si la petición falla; se publican al
+  terminar correctamente. Las migraciones también usan este contexto.
+  Los scripts que modifican datos deben usar `with storage.transaction():`
+  alrededor de todo el ciclo; `load()` y `save()` aislados no forman una
+  transacción conjunta. No resuelve formularios antiguos que envían el mismo
+  campo completo con valores distintos ni sustituye un historial de versiones.
+  El bloqueo serializa peticiones con datos: una generación PDF larga puede
+  hacer esperar a otra petición. Los cambios entre varios archivos no son una
+  transacción duradera frente a una caída del sistema durante la publicación.
+- **BUG-06:** sin contraseña configurada se genera un secreto aleatorio de
+  24 bytes. Las cuentas existentes conservan su contraseña; quien todavía use
+  la inicial anterior debe cambiarla en Usuarios. El restablecimiento por
+  variables de entorno sigue requiriendo `PROJECT_TRACKER_ADMIN_RESET=1`.
+- **BUG-07:** formularios y CSV rechazan números no finitos; pagos validan fecha
+  real con formato AAAA-MM-DD; las API de precios/costos y cantidades móviles
+  rechazan entradas inválidas. La capa JSON impide guardar NaN o infinito y
+  conserva los archivos previos ante un error.
+
+Los cotizadores con permisos sin marcar ahora tienen ese acceso deshabilitado.
+Revisar sus casillas en **Usuarios** antes de distribuir esta actualización.
+El bloqueo entre procesos se verificó en macOS; incluye una implementación para
+Windows, cuya ejecución no se probó en esta máquina.
+
+Verificación automatizada: `tests/test_priority_bugs.py`, con bases temporales,
+pruebas concurrentes entre peticiones y procesos, denegaciones sin mutación,
+operaciones autorizadas y validación financiera. Las regresiones nuevas fallan
+al ejecutarlas contra el código anterior (`2eb1b61`).
+
+Verificación final: **529 pruebas, OK, 2 omitidas** (las omisiones ya existían),
+23 rutas principales con HTTP 200 y diagnóstico aislado con 7 P1 resueltos y
+6 P2 reproducidos. En navegador, con CSRF activo, funcionan agregar, aplicar
+plantilla, eliminar e incluir términos; los cambios guardados desde cada editor
+aparecen en el otro y en el PDF generado. El cotizador no puede borrar el
+proyecto. El nombre de portada conserva los 24 pt solicitados.
 
 ## Resultado y prioridades
 
@@ -43,10 +95,10 @@ crear la aplicación. No modifica los datos reales ni llama a servicios externos
 Produce `findings.json`, `smoke.json` y `long-title.pdf` en el directorio temporal
 `projecttracker-investigate`. Se puede elegir otro destino con `--output-dir`.
 
-Las aserciones comprueban que los fallos documentados se reproducen en esta
-versión. El resultado «Confirmed findings: 13» significa que los reprodujo,
-no que la aplicación esté libre de bugs. Al corregirlos habrá que convertir esas
-comprobaciones en pruebas de regresión que esperen el comportamiento correcto.
+Las aserciones verifican las siete correcciones y reproducen los seis P2.
+El resultado esperado es «Verified P1 fixes: 7» y
+«Confirmed pending P2 findings: 6». Cada entrada de `findings.json` incluye
+su estado (`resolved` o `pending`).
 No se agrega este programa a la suite normal ni a CI.
 
 Para comprobar el navegador con datos temporales:
@@ -60,7 +112,7 @@ y la contraseña sintética `Synthetic-User-Password-Only`. El modo navegador ac
 CSRF. Al detener el programa se descartan los datos temporales. Estos usuarios y
 contraseñas pertenecen exclusivamente a la instancia sintética.
 
-## Evidencia y causas
+## Evidencia y causas del diagnóstico inicial
 
 ### BUG-01: JavaScript de términos inaccesible
 
@@ -220,7 +272,7 @@ contraseñas pertenecen exclusivamente a la instancia sintética.
 - Corrección propuesta: aceptar rutas locales o destinos del mismo origen y usar
   el tablero como alternativa.
 
-## Controles comprobados y límites
+## Controles comprobados y límites del diagnóstico inicial
 
 - Suite existente: **514 pruebas, OK, 2 omitidas**, antes del mapeo. Las dos
   omisiones corresponden a datos locales de bundles ausentes.
@@ -242,14 +294,10 @@ contraseñas pertenecen exclusivamente a la instancia sintética.
 - El alcance es toda la aplicación, por lo que no se activó un bloqueo de edición
   a un único módulo. No se aplicaron correcciones de producto en esta pasada.
 
-## Orden propuesto de corrección
+## Correcciones pendientes
 
-1. Recuperar la carga del editor de términos (BUG-01).
-2. Hacer cumplir roles, permisos y relación proyecto-documento (BUG-02 a BUG-04).
-3. Atender pérdida de cambios, credenciales iniciales y validación financiera
-   (BUG-05 a BUG-07).
-4. Acordar política de pagos e inmovilización de proyectos cerrados (BUG-08/09).
-5. Unificar totales, resolver el límite de portada y completar validaciones
+1. Acordar política de pagos e inmovilización de proyectos cerrados (BUG-08/09).
+2. Unificar totales, resolver el límite de portada y completar validaciones
    (BUG-10 a BUG-13).
 
 Cada corrección necesita una prueba que falle en la versión investigada, pase con

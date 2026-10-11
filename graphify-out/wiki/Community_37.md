@@ -1,41 +1,33 @@
 # Community 37
 
-> 6 nodes · cohesion 0.33
+> 7 nodes · cohesion 0.43
 
 ## Key Concepts
 
-- [ProjectDetailBundleUITest](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py#L7) (4 connections)
-- [test_project_detail_bundle_ui.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py#L1) (2 connections)
-- [.test_materials_tab_exposes_assisted_bundle_sync_review()](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py#L28) (1 connections)
-- [.test_materials_tab_exposes_csv_export_for_existing_ldms()](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py#L22) (1 connections)
-- [.test_template_contains_simple_cot_ldm_summary()](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py#L8) (1 connections)
-- [Smoke tests for simplified project detail COT/LDM UI.](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py#L1) (1 connections)
-
-## Class Diagram
-
-```mermaid
-classDiagram
-    class ProjectDetailBundleUITest {
-        +test_project_detail_bundle_ui.py()
-        +.test_template_contains_simple_cot_ldm_summary()
-        +.test_materials_tab_exposes_csv_export_for_existing_ldms()
-        +.test_materials_tab_exposes_assisted_bundle_sync_review()
-    }
-```
+- [Catálogo Data Structure](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (4 connections)
+- [Cotización al Cliente (COT) Data Structure](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (3 connections)
+- [Lista de Materiales (LDM) Data Structure](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt) (3 connections)
+- [JSON Data Files (data/)](file:///Users/macbook/ProjectTracker/data) (3 connections)
+- [Deleted Catalog Audit System](file:///Users/macbook/ProjectTracker/VERSIONES.md) (3 connections)
+- [CSV→LDM Import Diff Algorithm](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt) (1 connections)
+- [Pending: Destructive Action Confirmations](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md) (1 connections)
 
 ## Relationships
 
-- [[Community 38]] (1 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_detail_bundle_ui.py)
-- [/Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py](file:///Users/macbook/ProjectTracker/tests/test_project_detail_bundle_ui.py)
+- [REFERENCIA_ESTRUCTURAS_CSV.txt](file:///Users/macbook/ProjectTracker/REFERENCIA_ESTRUCTURAS_CSV.txt)
+- [ROADMAP_MEJORAS.md](file:///Users/macbook/ProjectTracker/ROADMAP_MEJORAS.md)
+- [VERSIONES.md](file:///Users/macbook/ProjectTracker/VERSIONES.md)
+- [data/](file:///Users/macbook/ProjectTracker/data)
+- [logica_cuantificaciones.txt](file:///Users/macbook/ProjectTracker/logica_cuantificaciones.txt)
 
 ## Audit Trail
 
-- EXTRACTED: 10 (100%)
-- INFERRED: 0 (0%)
+- EXTRACTED: 12 (67%)
+- INFERRED: 6 (33%)
 - AMBIGUOUS: 0 (0%)
 
 ---

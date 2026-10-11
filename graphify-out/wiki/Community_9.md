@@ -1,98 +1,98 @@
 # Community 9
 
-> 57 nodes · cohesion 0.06
+> 51 nodes · cohesion 0.07
 
 ## Key Concepts
 
-- [add_payment()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L76) (16 connections)
-- [PaymentsRoutesTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L109) (13 connections)
-- [payments.py](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L1) (13 connections)
-- [PaymentsModelTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L52) (12 connections)
-- [get_payments()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L33) (9 connections)
-- [get_payments_for_quote()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L48) (9 connections)
-- [get_payment_by_id()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L113) (8 connections)
-- [._add_payment()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L131) (8 connections)
-- [AllPaymentsRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments_summary.py#L55) (8 connections)
-- [delete_payment()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L104) (6 connections)
-- [_normalize_payment()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L11) (6 connections)
-- [payment_summary()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L66) (6 connections)
-- [update_payment()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L92) (6 connections)
-- [get_payments_for_project()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L57) (5 connections)
-- [save_payments()](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py#L43) (5 connections)
-- [add_payment_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L421) (4 connections)
-- [all_payments()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L1037) (4 connections)
-- [_clean_payment_form()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L402) (4 connections)
-- [edit_payment_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L439) (4 connections)
-- [.test_delete_payment()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L88) (4 connections)
-- [.test_update_payment()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L76) (4 connections)
-- [.test_delete_payment_via_route()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L182) (4 connections)
-- [.test_edit_payment_via_route()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py#L169) (4 connections)
-- [.setUp()](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments_summary.py#L56) (4 connections)
-- [delete_payment_route()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L456) (3 connections)
-- *... and 32 more nodes in this community*
+- [build_project_detail_context()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L153) (24 connections)
+- [project_view.py](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L1) (15 connections)
+- [ProjectViewTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_view.py#L13) (10 connections)
+- [build_quote_row_views()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L64) (9 connections)
+- [get_quote_status_labels()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L33) (9 connections)
+- [quote_status_view()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L56) (9 connections)
+- [QuoteStatusLabelsModelTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L47) (8 connections)
+- [build_consistency_view()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L124) (7 connections)
+- [save_quote_status_labels()](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L48) (7 connections)
+- [QuoteRowNomenclatureUnificationTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L85) (7 connections)
+- [QuoteStatusLabelsRouteTest](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L121) (6 connections)
+- [quote_status_labels_admin()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L978) (5 connections)
+- [build_ldm_row_views()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L49) (4 connections)
+- [build_task_row_views()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L104) (4 connections)
+- [all_quotes()](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py#L997) (4 connections)
+- [quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py#L1) (4 connections)
+- [_deleted_catalog_items()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L33) (3 connections)
+- [.test_custom_label_reflected_in_row_views()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L113) (3 connections)
+- [.test_blank_values_fall_back_to_defaults()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L65) (3 connections)
+- [.test_quote_status_view_uses_saved_label()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L77) (3 connections)
+- [.test_save_and_get_roundtrip()](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L58) (3 connections)
+- [test_quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py#L1) (3 connections)
+- [_coverage_color()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L145) (2 connections)
+- [_observation_view()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L93) (2 connections)
+- [_status_color()](file:///Users/macbook/ProjectTracker/tracker/project_view.py#L24) (2 connections)
+- *... and 26 more nodes in this community*
 
 ## Class Diagram
 
 ```mermaid
 classDiagram
-    class PaymentsModelTest {
-        +test_payments.py()
+    class ProjectViewTest {
+        +test_project_view.py()
+        +.test_build_project_detail_context_groups_and_calculates_totals()
+        +.test_build_project_detail_context_sums_all_active_base_quotes()
+        +.test_build_project_detail_context_computes_total_pagado_and_saldo()
+        +.test_build_project_detail_context_saldo_can_go_negative_when_overpaid()
+        +.test_build_task_row_views_precomputes_observation_values()
+        +.test_build_ldm_row_views_precomputes_materials_template_values()
+        +.test_build_quote_row_views_precomputes_deleted_catalog_values()
+        +.test_build_consistency_view_prepares_template_rows()
+        +.test_build_consistency_view_prepares_visual_review_helpers()
+    }
+    class QuoteRowNomenclatureUnificationTest {
+        +test_quote_status_labels.py()
         +.setUp()
         +.tearDown()
-        +.test_add_and_get_payments_for_quote()
-        +.test_get_payments_for_project_includes_all_quotes()
-        +.test_update_payment()
-        +.test_update_payment_unknown_id_returns_false()
-        +.test_delete_payment()
-        +.test_delete_payment_unknown_id_returns_false()
-        +.test_payment_summary_computes_balance()
+        +.test_base_and_extra_quote_share_label_for_same_status()
+        +.test_base_and_extra_quote_share_label_for_obsolete()
+        +.test_custom_label_reflected_in_row_views()
     }
-    class PaymentsRoutesTest {
-        +test_payments.py()
+    class QuoteStatusLabelsModelTest {
+        +test_quote_status_labels.py()
         +.setUp()
         +.tearDown()
-        +._add_payment()
-        +.test_add_payment_via_project_route()
-        +.test_add_payment_rejects_invalid_amount()
-        +.test_add_payment_rejects_missing_date()
-        +.test_add_payment_rejects_unknown_quote()
-        +.test_edit_payment_via_route()
-        +.test_delete_payment_via_route()
+        +.test_defaults_when_nothing_saved()
+        +.test_save_and_get_roundtrip()
+        +.test_blank_values_fall_back_to_defaults()
+        +.test_quote_status_view_unknown_status_defaults_to_draft()
+        +.test_quote_status_view_uses_saved_label()
     }
-    class AllPaymentsRouteTest {
-        +test_payments_summary.py()
+    class QuoteStatusLabelsRouteTest {
+        +test_quote_status_labels.py()
         +.setUp()
         +.tearDown()
-        +.test_all_payments_page_loads_and_lists_registered_payment()
-        +.test_all_payments_page_links_to_quote_payments_card()
-        +.test_all_payments_page_shows_empty_state_without_payments()
-        +.test_all_payments_page_sums_total_pagado()
-        +.test_sidebar_renders_pagos_link_on_dashboard()
-    }
-    class SidebarPaymentsLinkTemplateSourceTest {
-        +test_payments_summary.py()
-        +.test_base_template_has_sidebar_payments_link()
+        +.test_settings_page_loads_with_defaults()
+        +.test_post_saves_custom_labels()
+        +.test_quote_detail_page_reflects_custom_active_label()
     }
 ```
 
 ## Relationships
 
-- [[Community 7]] (7 shared connections)
+- No strong cross-community connections detected
 
 ## Source Files
 
-- [/Users/macbook/Documents/ProjectTracker/tests/test_payments.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments.py)
-- [/Users/macbook/Documents/ProjectTracker/tests/test_payments_summary.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_payments_summary.py)
-- [/Users/macbook/Documents/ProjectTracker/tracker/payments.py](file:///Users/macbook/Documents/ProjectTracker/tracker/payments.py)
-- [/Users/macbook/ProjectTracker/tests/test_payments.py](file:///Users/macbook/ProjectTracker/tests/test_payments.py)
-- [/Users/macbook/ProjectTracker/tests/test_payments_summary.py](file:///Users/macbook/ProjectTracker/tests/test_payments_summary.py)
-- [/Users/macbook/ProjectTracker/tracker/payments.py](file:///Users/macbook/ProjectTracker/tracker/payments.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_project_view.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_project_view.py)
+- [/Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tests/test_quote_status_labels.py)
+- [/Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py](file:///Users/macbook/Documents/ProjectTracker/tracker/quote_status_labels.py)
+- [/Users/macbook/ProjectTracker/tests/test_quote_status_labels.py](file:///Users/macbook/ProjectTracker/tests/test_quote_status_labels.py)
+- [/Users/macbook/ProjectTracker/tracker/project_view.py](file:///Users/macbook/ProjectTracker/tracker/project_view.py)
+- [/Users/macbook/ProjectTracker/tracker/quote_status_labels.py](file:///Users/macbook/ProjectTracker/tracker/quote_status_labels.py)
 - [/Users/macbook/ProjectTracker/tracker/routes/quotes.py](file:///Users/macbook/ProjectTracker/tracker/routes/quotes.py)
 
 ## Audit Trail
 
-- EXTRACTED: 148 (64%)
-- INFERRED: 82 (36%)
+- EXTRACTED: 121 (60%)
+- INFERRED: 80 (40%)
 - AMBIGUOUS: 0 (0%)
 
 ---

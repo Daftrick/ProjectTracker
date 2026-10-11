@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Etiqueta y valor de la línea "Propuesta para" de la portada.      proposal_for_m](file:///Users/macbook/ProjectTracker/tracker/catalog.py#L387) (0 connections)
+- [Flip project['in_obra']. Manual, admin-only: mueve el proyecto entre     'Entreg](file:///Users/macbook/ProjectTracker/tracker/routes/projects.py#L103) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [/Users/macbook/ProjectTracker/tracker/catalog.py](file:///Users/macbook/ProjectTracker/tracker/catalog.py)
+- [/Users/macbook/ProjectTracker/tracker/routes/projects.py](file:///Users/macbook/ProjectTracker/tracker/routes/projects.py)
 
 ## Audit Trail
 

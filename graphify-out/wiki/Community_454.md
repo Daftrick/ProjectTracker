@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [LDM CSV Import Preview Mode](file:///Users/macbook/ProjectTracker/templates/ldm_form.html) (0 connections)
+- [Mapa catalog_item_id → regla de ignorado.](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py#L56) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/ldm_form.html](file:///Users/macbook/ProjectTracker/templates/ldm_form.html)
+- [tracker\comparison_ignored.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_ignored.py)
 
 ## Audit Trail
 

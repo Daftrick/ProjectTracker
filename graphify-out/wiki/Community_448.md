@@ -4,7 +4,7 @@
 
 ## Key Concepts
 
-- [Quote Status Lifecycle (Borrador/Enviada/Aprobada/Rechazada)](file:///Users/macbook/ProjectTracker/templates/quotes.html) (0 connections)
+- [Agrega LDM convirtiendo artículos LDM al ID/unidad esperada de COT.      Si un a](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py#L102) (0 connections)
 
 ## Relationships
 
@@ -12,7 +12,7 @@
 
 ## Source Files
 
-- [templates/quotes.html](file:///Users/macbook/ProjectTracker/templates/quotes.html)
+- [tracker\comparison_rules.py](file:///Users/macbook/ProjectTracker/tracker%5Ccomparison_rules.py)
 
 ## Audit Trail
 

@@ -23,7 +23,7 @@ from ..catalog_search import filter_catalog, list_categories
 from ..deletions import delete_catalog_items_data
 from ..domain import TIPOS_FICHA
 from ..storage import DATA_DIR, FILES, load, new_id, save, today
-from ..utils import clean as _clean, parse_float as _parse_float
+from ..utils import clean as _clean, finite_float, parse_float as _parse_float
 
 # Tope de resultados para autocompletado inline en COT y LDM. Se mantiene
 # moderado para no devolver listas larguísimas; si se queda corto se puede
@@ -38,7 +38,7 @@ bp = Blueprint("admin_bp", __name__)
 def _parse_price(value):
     raw = _clean(value) or "0"
     try:
-        price = float(raw.replace(",", "."))
+        price = finite_float(raw)
     except ValueError:
         return None
     return price if price >= 0 else None
@@ -343,13 +343,16 @@ def api_catalogo_add():
     nombre = (data.get("nombre", "") or "").strip()
     if not nombre:
         return jsonify({"error": "Nombre requerido"}), 400
+    price = _parse_price(data.get("precio", 0))
+    if price is None:
+        return jsonify({"error": "Precio debe ser un número finito mayor o igual a 0."}), 400
     items = load("catalogo")
     new_item = {
         "id": new_id(),
         "nombre": nombre,
         "descripcion": (data.get("descripcion", "") or "").strip(),
         "unidad": ((data.get("unidad", "") or "pza")).strip(),
-        "precio": float(data.get("precio", 0) or 0),
+        "precio": price,
         "categoria": (data.get("categoria", "") or "").strip(),
         "disciplina": (data.get("disciplina", "") or "instalaciones").strip(),
         "marca": (data.get("marca", "") or "").strip(),
@@ -930,6 +933,7 @@ def import_json():
                 continue
             try:
                 data = json.loads(file.read().decode("utf-8-sig"))
+                json.dumps(data, allow_nan=False)
             except Exception as exc:
                 errors.append(f"{label}: JSON inválido — {exc}")
                 continue
